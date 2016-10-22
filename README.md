@@ -1,4 +1,4 @@
-![alt text](https://s4.postimg.org/49ei12khp/KONGA_HEADER.jpg "Logo Title Text 1")
+[![konga-logo.jpg](https://s22.postimg.org/4y4mpfz8x/konga_logo.jpg)](https://postimg.org/image/xb04fwkz1/)
 
 GUI to [KONG API Gateway](http://getkong.org).
 
