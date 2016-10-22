@@ -66,7 +66,7 @@ Just copy this to <code>/frontend/config/config.json</code> and make necessary c
 If you're changing your backend API url to another than <code>http://localhost:1337</code> you need to make
 <code>frontend/config/config.json</code> with proper content on it. Use that example file as start.
 
-## Running Konnga
+## Running Konga
 #### Backend
 <pre>
 cd backend
@@ -126,10 +126,12 @@ Below is small list of possible failures that can occur while trying this POC.
 
 #### Admin
 login    : admin
+
 password : adminadminadmin
 
 #### User
 login    : demo
+
 password : demodemodemo
 
 ## Author
