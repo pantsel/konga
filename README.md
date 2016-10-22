@@ -27,20 +27,21 @@ $ npm install bower gulp sails -g
 
 #### Backend and frontend installation
 
+Clone this repository
+<pre>$ git clone https://github.com/pantsel/konga.git</pre>
+Navigate to /backend and /frontend directories and run <code>npm install</code>
 <pre>
-$ cd path/to/cloned/conga/repo/frontend
+$ cd path/to/cloned/konga/repo/backend
 $ npm install
 </pre>
-
 <pre>
-$ cd path/to/cloned/conga/repo/backend
+$ cd path/to/cloned/konga/repo/backend
 $ npm install
 </pre>
 
 ### Configuration
 You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
-settings. Basically by default you don't need to make any configurations at all. With default configuration backend will
-be run on http://localhost:1337 and frontend on http://localhost:3001 (development) http://localhost:3000 (production).
+settings. Basically by default you don't need to make any configurations at all. With default configuration backend will be run on http://localhost:1337 and frontend on http://localhost:3001 (development) http://localhost:3000 (production).
 
 ##### Backend
 There is an example of backend configuration file on following path.
@@ -69,8 +70,8 @@ If you're changing your backend API url to another than <code>http://localhost:1
 ## Running Konga
 #### Backend
 <pre>
-cd backend
-sails lift
+$ cd backend
+$ sails lift
 </pre>
 
 This will start sails.js server on defined port. By default this is accessible from http://localhost:1337 url. If you
@@ -81,18 +82,17 @@ everything is ok.
 
 ##### Development #####
 <pre>
-cd frontend
-gulp serve
+$ cd frontend
+$ gulp serve
 </pre>
 
-This will start simple web server that you can use within developing frontend side. By default this is accessible from
-http://localhost:3001 url. You should be see login page if you try that url with your browser.
+This will start simple web server that you can use within developing frontend side. By default this is accessible from http://localhost:3001 url. You should be see login page if you try that url with your browser.
 
 ##### Deployment #####
 As in production
 <pre>
-cd frontend
-gulp dist
+$ cd frontend
+$ gulp dist
 </pre>
 
 This will create a deployment code to ```frontend/dist``` folder. After that you can serve those static HTML, CSS,
