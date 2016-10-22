@@ -12,6 +12,8 @@ var _ = require('lodash');
 module.exports = function dynamicNode(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.dynamicNode() called]');
 
+  sails.config.kong_admin_url = '';
+
   sails.models.kongnode.findOne({
     active:true
   }).exec(function afterwards(err, node){

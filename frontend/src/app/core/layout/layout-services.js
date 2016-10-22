@@ -15,6 +15,7 @@
           {
             state: 'admin.info',
             title: 'Node',
+            active : false,
             access: AccessLevels.user
           },
           {

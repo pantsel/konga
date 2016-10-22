@@ -13,9 +13,9 @@
                             <p class="help-block">
                                 View generic details about a node
                             </p>
-                            <a data-ui-sref="admin.info" class="btn btn-primary btn-link">
+                            <button  data-ng-disabled="!node" data-ng-click="go('admin.info')" class="btn btn-primary btn-link">
                                 View node info
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                             <p class="help-block">
                                 Manage Apis
                             </p>
-                            <a data-ui-sref="admin.apis" class="btn btn-warning btn-link">api management</a>
+                            <button data-ng-disabled="!node" data-ng-click="go('admin.apis')" class="btn btn-warning btn-link">api management</button>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                             <p class="help-block">
                                 Manage Consumers
                             </p>
-                            <a data-ui-sref="admin.consumers" class="btn btn-success btn-link">consumer management</a>
+                            <button data-ng-disabled="!node" data-ng-click="go('admin.consumers')" class="btn btn-success btn-link">consumer management</button>
                         </div>
                     </div>
                 </div>

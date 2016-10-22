@@ -15,6 +15,8 @@
           $scope.node = _nodes[0];
           $log.debug($scope.node)
 
+          $scope.go = $state.go.bind($state);
+
           function init() {
 
               if(!$scope.node) {

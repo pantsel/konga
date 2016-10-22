@@ -54,7 +54,7 @@
 
           return !!(
             (item.state === $state.current.name) ||
-            (item.state === bits[0] && $state.current.name !== 'examples.about')
+            (item.state === bits[0])
           );
         };
 

@@ -10,6 +10,7 @@ var unirest = require('unirest');
  */
 var KongInfoController = {
     info : function(req,res) {
+        console.log("sails.config.kong_admin_url",sails.config.kong_admin_url)
         unirest.get(sails.config.kong_admin_url)
             .end(function(response){
                 if(response.error) return res.negotiate(response.error)
