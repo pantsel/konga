@@ -6,6 +6,13 @@
 ## Screenshots
 https://postimg.org/gallery/podmfn4g/
 
+## Features
+* Manage APIs and plugins
+* Manage consumers, groups and credentials
+* Multiple nodes management
+* GUI level authentication
+
+
 ## Prerequisites
 - Nodejs
 - Npm
