@@ -66,6 +66,8 @@
     }
   },
   "resolutions": {
-    "bootbox": "4.4.0"
+    "bootbox": "4.4.0",
+    "lodash": "~4.16.4",
+    "angular": "v1.5.*"
   }
 }
