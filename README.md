@@ -125,14 +125,10 @@ Below is small list of possible failures that can occur while trying this POC.
 ## Login to GUI
 
 #### Admin
-login    : admin
+login: admin | password: adminadminadmin
 
-password : adminadminadmin
-
-#### User
-login    : demo
-
-password : demodemodemo
+#### Demo user
+login: demo | password: demodemodemo
 
 ## Author
 Panagis Tselentis
