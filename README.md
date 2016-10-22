@@ -1,8 +1,9 @@
-## Just another GUI to [KONG API Gateway](http://getkong.org).
+## Just another GUI to [KONG API Gateway](http://getkong.org)
+
 
 [![konga-logo.png](https://s21.postimg.org/lh9qb1fev/konga_logo.png)](https://postimg.org/image/569meq2wz/)
 
-
+ [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 ## Screenshots
 https://postimg.org/gallery/podmfn4g/
 
