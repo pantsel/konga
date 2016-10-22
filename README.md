@@ -1,2 +1,1 @@
-# Konga
-## An admin client to Kong API Gateway
+![alt text](https://s12.postimg.org/mnwpaukr1/konga_header.png "Logo Title Text 1")
