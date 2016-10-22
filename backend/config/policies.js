@@ -21,7 +21,6 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   '*': ['authenticated'],
 
-  // Author controller
   AuthController: {
     '*':              ['passport'],
     'checkPassword':  ['authenticated']

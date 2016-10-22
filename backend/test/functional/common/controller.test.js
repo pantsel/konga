@@ -9,58 +9,6 @@ var async = require('async');
 describe('Generic controller test', function controllerTest() {
     [
         {
-            controller: 'AuthorController',
-            url: '/author/',
-            identifier: 2,
-            count: 5,
-            data: {
-                identifier: {
-                    name: "Leo Tolstoy",
-                    description: "Count Lev Nikolayevich Tolstoy (Russian: Лев Никола́евич Толсто́й, pronounced [lʲef nʲɪkɐˈlaɪvʲɪt͡ɕ tɐlˈstoj] ( listen); 9 September [O.S. 28 August] 1828 – 20 November [O.S. 7 November] 1910), also known as Leo Tolstoy, was a Russian writer and philosopher who primarily wrote novels and short stories. Tolstoy was a master of realistic fiction and is widely considered one of the world's greatest novelists. He is best known for two long novels, War and Peace (1869) and Anna Karenina (1877). Tolstoy first achieved literary acclaim in his 20s with his semi-autobiographical trilogy of novels, Childhood, Boyhood, and Youth (1852-1856) and Sevastopol Sketches (1855), based on his experiences in the Crimean War. His fiction output also includes two additional novels, dozens of short stories, and several famous novellas, including The Death of Ivan Ilych, Family Happiness, and Hadji Murad. Later in life, he also wrote plays and essays. Tolstoy is equally known for his complicated and paradoxical persona and for his extreme moralistic and ascetic views, which he adopted after a moral crisis and spiritual awakening in the 1870s, after which he also became noted as a moral thinker and social reformer."
-                },
-                newRecord: {
-                    name: "Frank Herbert",
-                    description: "Franklin Patrick Herbert, Jr. was an American science fiction writer best known for the novel Dune and its five sequels."
-                }
-            }
-        },
-        {
-            controller: 'BookController',
-            url: '/book/',
-            identifier: 2,
-            count: 48,
-            data: {
-                identifier: {
-                    releaseDate: new Date("1937-01-01T00:00:00.000Z"),
-                    title: "The Hobbit",
-                    description: "The Hobbit, or There and Back Again, is a fantasy novel and children's book by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.\r\nSet in a time \"Between the Dawn of Færie and the Dominion of Men\", The Hobbit follows the quest of home-loving hobbit Bilbo Baggins to win a share of the treasure guarded by the dragon, Smaug. Bilbo's journey takes him from light-hearted, rural surroundings into more sinister territory. The story is told in the form of an episodic quest, and most chapters introduce a specific creature, or type of creature, of Tolkien's Wilderland. By accepting the disreputable, romantic, fey and adventurous side of his nature and applying his wits and common sense, Bilbo gains a new level of maturity, competence and wisdom. The story reaches its climax in the Battle of Five Armies, where many of the characters and creatures from earlier chapters re-emerge to engage in conflict.\r\nPersonal growth and forms of heroism are central themes of the story. Along with motifs of warfare, these themes have led critics to view Tolkien's own experiences during World War I as instrumental in shaping the story. The author's scholarly knowledge of Germanic philology and interest in fairy tales are often noted as influences.\r\nEncouraged by the book's critical and financial success, the publisher requested a sequel. As Tolkien's work on the successor The Lord of the Rings progressed, he made retrospective accommodations for it in The Hobbit. These few but significant changes were integrated into the second edition. Further editions followed with minor emendations, including those reflecting Tolkien's changing concept of the world into which Bilbo stumbled. The work has never been out of print. Its ongoing legacy encompasses many adaptations for stage, screen, radio, board games and video games. Several of these adaptations have received critical recognition on their own merits.",
-                    author: 1
-                },
-                newRecord: {
-                    releaseDate: new Date("1885-01-01T00:00:00.000Z"),
-                    title: "How Much Land Does a Man Need?",
-                    description: "In his quest to obtain more land, Pakhom travels all the way to the land of the Bashkirs, where he may acquire as much land as he can walk around in one day.",
-                    author: 2
-                }
-            }
-        },
-        {
-            controller: 'MessageController',
-            url: '/message/',
-            identifier: 1,
-            count: 1,
-            data: {
-                identifier: {
-                    nick: "da_wunder",
-                    message: "Hello World!"
-                },
-                newRecord: {
-                    nick: "awesome nick",
-                    message: "Hello to you too!"
-                }
-            }
-        },
-        {
             controller: 'UserController',
             url: '/user/',
             identifier: 1,

@@ -15,8 +15,10 @@ function alphanum(value){
   return true;
 }
 
-module.exports = function addDataCreate(request, response, next) {
+module.exports = function createUser(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.createUser() called]');
+
+  if(!request.body.passports) return next()
 
   var password = request.body.passports.password
   var confirmation = request.body.password_confirmation
