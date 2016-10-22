@@ -138,6 +138,11 @@ login: admin | password: adminadminadmin
 #### Demo user
 login: demo | password: demodemodemo
 
+## ToDo
+* Complete tests
+* Include Logging & dynamic SSL plugins
+* Write a detailed Wiki
+
 ## Author
 Panagis Tselentis
 
