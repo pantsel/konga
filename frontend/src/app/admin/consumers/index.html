@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12 actions" ng-if="consumers && consumers.data.length">
+        <div class="form-group col-md-4 no-padding-left">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="material-icons">&#xE8B6;</i>
+                </div>
+                <input type="text" data-ng-model="search.value" class="form-control" placeholder="search consumers...">
+            </div>
+        </div>
+        <a href="#" class="btn btn-success btn-raised" ng-click="openCreateConsumerModal()">
+            <i class="material-icons">&#xE145;</i>
+            Create Consumer
+        </a>&nbsp;&nbsp;
+        <a href="#" class="btn btn-warning btn-raised" ng-click="openManageGroupsModal()">
+            <i class="material-icons">&#xE7FC;</i>
+            Manage groups
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <div  class="text-center" ng-if="consumers && !consumers.data.length">
+            <br>
+            <i class="material-icons large">info_outline</i><br>
+            <p>You have not created any consumers yet.</p>
+            <button  ng-click="openCreateConsumerModal()" class="btn success btn-link">create a consumer</button>
+        </div>
+
+        <div
+                ng-if="consumers && consumers.data.length"
+                class="table-responsive"
+                data-ng-include="'/admin/consumers/partials/consumers-table.html'">
+        </div>
+    </div>
+</div>
+

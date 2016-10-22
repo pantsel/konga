@@ -1,0 +1,74 @@
+<div class="row home">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <!--<h1>Welcome to Konga</h1>-->
+            <!--<p>An Admin Client to Kong API Gateway</p>-->
+            <!--<br>-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center">
+                            <i class="material-icons text-primary">&#xE88F;</i>
+                            <h4>Node Info</h4>
+                            <p class="help-block">
+                                View generic details about a node
+                            </p>
+                            <a data-ui-sref="admin.info" class="btn btn-primary btn-link">
+                                View node info
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center">
+                            <i class="material-icons text-warning">cloud_queue</i>
+                            <h4>Apis</h4>
+                            <p class="help-block">
+                                Manage Apis
+                            </p>
+                            <a data-ui-sref="admin.apis" class="btn btn-warning btn-link">api management</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center">
+                            <i class="material-icons text-success">perm_identity</i>
+                            <h4>Consumers</h4>
+                            <p class="help-block">
+                                Manage Consumers
+                            </p>
+                            <a data-ui-sref="admin.consumers" class="btn btn-success btn-link">consumer management</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div class="row" data-ng-if="!info">
+                    <div class="col-md-12 text-center">
+                        <h6>
+                            <fading-circle-spinner class="spinner pull-left" ng-if="busy"></fading-circle-spinner>
+                            <span data-ng-bind-html="connectionMsg"></span>
+                        </h6>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="info">
+                    <div class="col-md-4 text-center text-success">
+                        <i class="material-icons">done</i><br>
+                        <strong>Connected</strong>
+
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="material-icons">&#xE335;</i><br>
+                        <strong>Admin Listen :</strong> {{info.configuration.admin_listen}}
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="material-icons">&#xE2C2;</i><br>
+                        <strong>Proxy Listen :</strong> {{info.configuration.proxy_listen}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

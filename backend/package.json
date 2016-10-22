@@ -1,0 +1,64 @@
+{
+  "name": "backend-server",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Backend server for angular-sailsjs-boilerplate a Sails application that serves just a JSON API for frontend application",
+  "keywords": [
+    "sails.js",
+    "backend",
+    "REST",
+    "API",
+    "JWT",
+    "JSON Web Token",
+    "Passport.js"
+  ],
+  "dependencies": {
+    "async": "1.5.0",
+    "barrels": "1.6.0",
+    "bcryptjs": "2.3.0",
+    "bluebird": "3.0.5",
+    "boom": "^4.1.0",
+    "include-all": "0.1.6",
+    "jsonwebtoken": "5.4.1",
+    "lodash": "3.10.1",
+    "moment-timezone": "0.4.1",
+    "passport": "0.3.0",
+    "passport-facebook": "2.0.0",
+    "passport-github": "1.0.0",
+    "passport-google": "0.3.0",
+    "passport-local": "1.0.0",
+    "passport-twitter": "1.0.3",
+    "rc": "1.1.5",
+    "sails": "0.11.2",
+    "sails-disk": "0.10.8",
+    "sails-hook-apianalytics": "git://github.com/mikermcneil/sails-hook-apianalytics",
+    "sails-mysql": "0.11.0",
+    "ua-parser": "0.3.5",
+    "unirest": "^0.5.1",
+    "validator": "4.2.1"
+  },
+  "devDependencies": {
+    "chai": "3.4.0",
+    "mocha": "2.3.3",
+    "should": "7.1.1",
+    "supertest": "1.1.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node debug app.js",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tarlepp/angular-sailsjs-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tarlepp/angular-sailsjs-boilerplate/issues"
+  },
+  "author": "Tarmo Leppänen",
+  "license": "MIT"
+}

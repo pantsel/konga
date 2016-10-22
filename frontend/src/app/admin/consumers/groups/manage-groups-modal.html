@@ -1,0 +1,62 @@
+<div class="modal-header success">
+    <h4 class="modal-title" id="modal-title">
+        Manage Groups
+        <a href="#" class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons ">clear</i>
+        </a>
+    </h4>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <p class="text-muted no-margin">Manage consumer groups to use with <code>ACL</code> plugin</p>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="actions clearfix" ng-if="groups && groups.length">
+        <div class="form-group col-md-6 no-padding-left">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="material-icons">&#xE8B6;</i>
+                </div>
+                <input type="text" data-ng-model="search.value" class="form-control" placeholder="search groups...">
+            </div>
+        </div>
+
+        <button class="btn btn-primary pull-right" data-ng-click="openCreateGroupModal()">
+            <i class="material-icons">&#xE145;</i>
+            Create group
+        </button>
+    </div>
+    <div  class="text-center" ng-if="groups && !groups.length">
+        <br>
+        <i class="material-icons large">info_outline</i><br>
+        <p>You have not created any ACL Groups yet.</p>
+        <a data-ng-click="openCreateGroupModal()" class="btn warning btn-link">
+            Create a group
+        </a>
+        <br>
+        <br>
+    </div>
+    <div class="table-responsive" ng-if="groups && groups.length">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th width="1">#</th>
+                <th>Name</th>
+                <th width="1">Created</th>
+                <th width="1"></th>
+            </tr>
+            <tr data-ng-repeat="group in groups | orderBy:'createdAt':true | filter: search.value">
+                <td>{{$index + 1}}.</td>
+                <td>
+                    <a href="#" editable-text="group.name" onbeforesave="updateGroup(group)">{{ group.name || "empty" }}</a>
+
+                </td>
+                <td class="no-wrap">{{group.createdAt | date : format : timezone}}</td>
+                <td>
+                    <button class="btn btn-danger btn-link" data-ng-click="deleteGroup(group)">
+                        <i class="material-icons">&#xE872;</i>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

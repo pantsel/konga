@@ -1,0 +1,39 @@
+
+<div class="row">
+    <div class="col-md-12 actions">
+        <a data-ui-sref="admin.users.create" class="btn btn-primary pull-left">
+            <i class="material-icons">&#xE145;</i>
+            Create User
+        </a>
+
+
+
+        <!--<ul uib-pagination-->
+            <!--class="pull-right"-->
+            <!--data-total-items="itemCount"-->
+            <!--data-ng-model="paging.currentPage"-->
+            <!--data-ng-change="pageChanged()"-->
+            <!--data-items-per-page="itemsPerPage"-->
+            <!--data-max-size="10"-->
+            <!--data-boundary-links="true"-->
+            <!--data-rotate="false"-->
+        <!--&gt;</ul>-->
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div
+                class="table-responsive"
+                data-ng-include="'/admin/users/partials/users-table.html'">
+        </div>
+    </div>
+
+</div>
+

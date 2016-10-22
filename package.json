@@ -1,0 +1,32 @@
+{
+    "name": "konga",
+    "version": "1.0.0",
+    "description": "Kong admin panel.",
+    "keywords": [
+        "sails.js",
+        "kong",
+        "admin",
+        "API",
+        "JWT",
+        "JSON Web Token",
+        "Passport.js",
+        "frontend",
+        "angular",
+        "slush",
+        "slush-angular"
+    ],
+    "main": "",
+    "dependencies": {},
+    "devDependencies": {},
+    "scripts": {
+        "install": "cd backend && npm install && cd ../frontend && npm install",
+        "start": "(cd backend && sails lift) & (cd frontend && gulp serve)",
+        "test": "cd backend && mocha"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/tarlepp/angular-sailsjs-boilerplate.git"
+    },
+    "author": "Tselentis Panagis",
+    "license": "MIT"
+}

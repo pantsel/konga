@@ -1,0 +1,29 @@
+<table class="table table-hover table-striped">
+    <tr>
+        <th width="1"></th>
+        <th>username</th>
+        <th>custom_id</th>
+        <th>created</th>
+        <th width="1"></th>
+        <th width="1"></th>
+    </tr>
+    <tr data-ng-repeat="consumer in consumers.data | orderBy:'created_at':true | filter: search.value">
+        <td>{{$index + 1}}.</td>
+        <td>{{consumer.username || "-"}}</td>
+        <td>{{consumer.custom_id || "-"}}</td>
+        <td>{{consumer.created_at | date : format : timezone}}</td>
+        <td>
+            <a data-ui-sref="admin.consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">
+                <i class="material-icons">settings</i>
+                Configuration
+            </a>
+        </td>
+        <td>
+
+            <button type="button" ng-click="deleteConsumer(consumer)" class="btn btn-danger btn-link">
+                <i class="material-icons">&#xE872;</i>
+                Delete
+            </button>
+        </td>
+    </tr>
+</table>

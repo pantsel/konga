@@ -1,0 +1,52 @@
+.list-search {
+  padding: 0;
+  text-align: right;
+
+  .fa.fa-plus-circle {
+    position: relative;
+    top: -6px;
+  }
+
+  .list-search-filters {
+    max-width: 300px;
+
+    form {
+      margin: 0 0 -2px;
+      padding: 0;
+      position: relative;
+      top: -9px;
+    }
+
+    .input-group-addon {
+      cursor: pointer;
+      padding: 0 8px;
+
+      i {
+        position: relative;
+        top: 1px;
+      }
+    }
+
+    ul {
+      .title {
+        font-size: 12px;
+        padding: 3px 10px 0;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+    }
+
+    .dropdown-menu > li > a {
+      padding-left: 10px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .list-search-filters,
+  .pagination {
+    display: inline-block;
+  }
+}

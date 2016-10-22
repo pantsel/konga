@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Groups
+            <div class="pull-right">
+                <button
+                        data-ng-click="addGroup()"
+                        class="btn btn-primary btn-link pull-right"
+                        style="margin-top: -5px">
+                    <i class="material-icons">&#xE145;</i>
+                    new group
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4" data-ng-repeat="group in acls">
+                <div
+                        data-ng-click="toggleGroup(group)"
+                        data-ng-class="{'panel-active' : group.added}"
+                        class="panel panel-default panel-flat clickable">
+                    <div class="panel-body elipsize">
+                        <span class=" no-wrap ">
+                            <i class="material-icons" data-ng-class="{'text-primary' : group.added}">
+                                {{group.added ? 'check_box' : 'check_box_outline_blank'}}
+                            </i>
+                            {{group.name}}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

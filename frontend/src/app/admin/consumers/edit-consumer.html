@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Manage
+                </div>
+            </div>
+            <div class="list-group">
+                <a href="#"
+                   class="list-group-item"
+                   ng-class="{'active' : section.active}"
+                   data-ng-click="selectSection($index)"
+                   data-ng-repeat="section in sections">
+                    <i class="material-icons" data-ng-bind-html="section.icon"></i>
+                    {{section.name}}
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div data-ng-repeat="section in sections"
+             ng-show="section.active"
+             data-ng-include="section.partial"></div>
+    </div>
+</div>
+

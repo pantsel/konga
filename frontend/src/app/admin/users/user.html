@@ -1,0 +1,166 @@
+<div data-ng-show="!user">
+    <h3>Requested user not found</h3>
+</div>
+
+<div data-ng-show="user">
+
+    <form role="form"
+          data-editable-form
+          name="editableForm"
+          data-onaftersave="saveUser()"
+    >
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="panel-title">
+                    {{user.firstName}} {{user.lastName}}
+                    <div data-ng-show="editableForm.$visible" class="pull-right">
+                        <button type="submit" class="btn btn-default btn-sm btn-link text-white"
+                                data-ng-disabled="editableForm.$waiting"
+                        >
+                            <i class="material-icons">done</i>
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm btn-link text-white"
+                                data-ng-disabled="editableForm.$waiting"
+                                data-ng-click="cancelEditing()"
+                        >
+                            <i class="material-icons">clear</i>
+                            Cancel
+                        </button>
+
+                    </div>
+                    <div class="pull-right" data-ng-show="!editableForm.$visible && authUser.admin">
+                        <a href="#"
+                           data-ng-click="editableForm.$show()"
+                           data-uib-tooltip="Toggle edit mode"
+                           class="btn btn-default btn-sm btn-link text-white">
+                            <i class="material-icons">&#xE254;</i>
+                            Edit
+                        </a>
+                        <button type="button" class="btn btn-default btn-sm btn-link text-white"
+                            data-ng-bootbox-title="Delete {{user.username}}"
+                            data-ng-bootbox-custom-dialog="Really want to delete the user?"
+
+                            data-ng-bootbox-buttons="confirmButtonsDelete">
+                            <i class="material-icons">delete</i>
+                            Delete
+                        </button>
+
+                    </div>
+
+
+                </span>
+
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 " align="center"> <img ng-src="/assets/img/user-profile.png" class="img-circle img-responsive" style="height: 180px"> </div>
+
+                    <div class=" col-md-9 col-lg-9 ">
+                        <table class="table">
+                            <tbody>
+                            <tr data-ng-show="editableForm.$visible">
+                                <th colspan="2" class="bg-light-grey">
+                                    <i class="material-icons">&#xE88F;</i>
+                                    Info
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Username</th>
+                                <td>
+                                    <span
+                                          data-editable-text="user.username"
+                                          data-e-name="user.username"
+                                          data-e-required>
+                                        {{user.username}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>First Name</th>
+                                <td>
+                                    <span
+                                            data-editable-text="user.firstName"
+                                            data-e-name="user.firstName"
+                                            data-e-required>
+                                        {{user.firstName}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>
+                                    <span
+                                            data-editable-text="user.lastName"
+                                            data-e-name="user.lastName"
+                                            data-e-required>
+                                        {{user.lastName}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>
+                                    <span
+                                            data-editable-text="user.email"
+                                            data-e-name="user.email"
+                                            data-e-required>
+                                        <span data-ng-show="!user.email">-</span>
+                                        <a data-ng-show="user.email" href="mailto:{{user.email}}">{{user.email}}</a>
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <tr data-ng-show="editableForm.$visible">
+                                <th colspan="2" class="bg-light-grey">
+                                    <i class="material-icons">&#xE32A;</i>
+                                    Securuty
+                                </th>
+                            </tr>
+                            <tr data-ng-show="editableForm.$visible">
+                                <th>Password</th>
+                                <td>
+                                    <span
+                                            data-editable-text="user.passports.password"
+                                            data-e-type="password"
+                                            data-e-name="user.passports.password">
+
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <tr data-ng-show="editableForm.$visible" ng-class="{'danger' : errors.password_confirmation}">
+                                <th>Password Confirmation</th>
+                                <td>
+                                    <span
+                                            data-editable-text="user.password_confirmation"
+                                            data-e-type="password"
+                                            data-e-name="user.password_confirmation">
+
+                                    </span>
+                                    <p class="text-danger" ng-if="errors.password_confirmation" data-ng-bind="errors.password_confirmation"></p>
+
+                                </td>
+                            </tr>
+                            <tr data-ng-show="!editableForm.$visible">
+                                <th>Created at</th>
+                                <td>{{user.createdAt | date : "MMM d, y"}}</td>
+                            </tr>
+                            <tr data-ng-show="!editableForm.$visible">
+                                <th>Last update</th>
+                                <td>{{user.updatedAt | date : "MMM d, y"}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>

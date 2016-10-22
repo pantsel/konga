@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html data-ng-app="frontend">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Konga</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+        <!-- inject:vendor:css -->
+        <!-- endinject -->
+
+
+        <!-- inject:css -->
+        <!-- endinject -->
+    </head>
+    <body data-ng-cloak class="ng-cloak">
+        <div data-ui-view="header"></div>
+        <div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head container-fluid">
+            <div class="container">
+                <h3 class="page-title">
+                    <span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>
+                    <span ng-bind-html="$state.data.pageName"></span>&nbsp;
+                    <div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>
+                </h3>
+                <ui-breadcrumbs displayname-property="data.displayName" template-url="/core/plugins/uiBreadcrumbs.tpl.html">
+                </ui-breadcrumbs>
+            </div>
+        </div>
+        <div class="container main-container">
+            <!--<div class="col-md-3 sidebar" ng-if="isAuthenticated()">-->
+                <!--<div data-ui-view="sidebarNavigation"></div>-->
+            <!--</div>-->
+            <!--<div class="content" ng-class="{'col-md-9' : isAuthenticated(), 'col-md-12' : !isAuthenticated()}">-->
+
+                <!--<div data-ui-view="pageNavigation"></div>-->
+                <!--<div class="container">-->
+                    <!--<div data-ui-view="content"></div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <div data-ui-view="pageNavigation"></div>
+
+
+            <div data-ui-view="content"></div>
+
+        </div>
+
+        <!--<div data-ui-view="footer"></div>-->
+
+        <script>
+            (function onLoad() {
+                var io;
+
+                Object.defineProperty(window, 'io', {
+                    get: function get() {
+                        return io;
+                    },
+                    set: function set(value) {
+                        var sails;
+
+                        io = value;
+
+                        Object.defineProperty(io, 'sails', {
+                            get: function get() {
+                                return sails;
+                            },
+                            set: function set(value) {
+                                sails = value;
+
+                                sails.url = '@@backendUrl';
+                            }
+                        });
+                    }
+                });
+
+            })();
+
+
+        </script>
+
+
+        <!-- inject:vendor:js -->
+        <!-- endinject -->
+
+        <!-- inject:js -->
+        <!-- endinject -->
+    </body>
+</html>
