@@ -1,5 +1,5 @@
-[![konga-logo.jpg](https://s22.postimg.org/4y4mpfz8x/konga_logo.jpg)](https://postimg.org/image/xb04fwkz1/)
-===
+[![konga-logo.png](https://s21.postimg.org/lh9qb1fev/konga_logo.png)](https://postimg.org/image/569meq2wz/)
+
 GUI to [KONG API Gateway](http://getkong.org).
 
 ## Screenshots

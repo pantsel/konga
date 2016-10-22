@@ -1,7 +1,7 @@
 {
     "name": "konga",
     "version": "1.0.0",
-    "description": "Kong admin panel.",
+    "description": "Kong admin GUI.",
     "keywords": [
         "sails.js",
         "kong",
