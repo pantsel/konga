@@ -4,6 +4,14 @@
 
 [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 
+## Summary
+
+- [**Screenshots**](#screenshots)
+- [**Feaatures**](#features)
+- [**Compatibility**](#compatibility)
+- [**Prerequisites**](#prerequisites)
+- [**Used libraries**](#used-libraries)
+
 ## Screenshots
 
 ##### Admin Home
@@ -16,6 +24,7 @@
 ##### Consumers Management
 <kbd>[![Consumers](screenshots/thumbs/consumers.jpg)](screenshots/consumers.png?raw=true)</kbd>  <kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-info.jpg)](screenshots/consumers-cfg-info.png?raw=true)</kbd>  
 <kbd>[![Consumers](screenshots/thumbs/consumers-cfg-groups.jpg)](screenshots/consumers-cfg-groups.png?raw=true)</kbd>  <kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-creds.jpg)](screenshots/consumers-cfg-creds.png?raw=true)</kbd>
+
 ## Features
 * Manage APIs and plugins
 * Manage consumers, groups and credentials
@@ -34,26 +43,53 @@ Feedback on older versions compatibility is welcome.
 - Gulp
 - Bower
 
-## Used libraries.
+## Used libraries
 * angular-sailsjs-boilerplate (awesome): https://github.com/tarlepp/angular-sailsjs-boilerplate
 * Sails.js, http://sailsjs.org/
 * AngularJS, https://angularjs.org/
 * Bootstrap, http://getbootstrap.com/
 
 ## Installation
+
 Install <code>npm</code> and <code>node.js</code>. Instructions can be found [here](http://sailsjs.org/#/getStarted?q=what-os-do-i-need).
 
 Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.
 <pre>
 $ npm install bower gulp sails -g
-</pre>
-
-#### Backend and frontend installation
-
-Clone this repository
-<pre>
 $ git clone https://github.com/pantsel/konga.git
+$ cd konga
 </pre>
+
+
+#### Build Konga using the CLI
+<code>$ npm run konga help</code> to see available commands
+
+<pre>
+$ npm run konga build
+</pre>
+This will install all frontend and backend dependencies
+
+
+##### Development
+<pre>
+$ npm run konga play
+</pre>
+You can now use Konga at http://localhost:3001
+
+##### Production
+<pre>
+$ npm run konga dist
+</pre>
+This will create production-ready code to frontend/dist ready to be served by any web server
+<pre>
+$ npm run konga play -env production
+</pre>
+You can now use Konga at http://localhost:3000
+
+---
+
+#### Separate Backend and frontend installation
+
 
 Install from the root directory
 
