@@ -43,8 +43,19 @@ $ npm install bower gulp sails -g
 #### Backend and frontend installation
 
 Clone this repository
-<pre>$ git clone https://github.com/pantsel/konga.git</pre>
-Navigate to /backend and /frontend directories and run <code>npm install</code>
+<pre>
+$ git clone https://github.com/pantsel/konga.git
+</pre>
+
+Install from the root directory
+
+<pre>
+$ cd path/to/cloned/konga/repo
+$ npm install
+</pre>
+
+or navigate to /backend and /frontend directories and run <code>npm install</code> separately
+
 <pre>
 $ cd path/to/cloned/konga/repo/backend
 $ npm install
