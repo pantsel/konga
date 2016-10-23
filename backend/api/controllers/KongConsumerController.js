@@ -2,65 +2,11 @@
 
 var unirest = require('unirest');
 var KongGroup = require("../models/KongGroup")
+var _ = require('lodash');
 
-
-var KongConsumerController = {
-    create : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers')
-            .send({
-                username : req.body.username,
-                custom_id : req.body.custom_id
-            })
-            .end(function(response){
-                if(response.error) return res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-    retrieve : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id)
-            .end(function(response){
-                if(response.error) return  res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-
-    list : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers')
-            .send(req.query)
-            .end(function(response){
-                if(response.error) return  res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-
-    update : function(req,res) {
-        unirest.patch(sails.config.kong_admin_url + '/consumers'/  + req.params.id)
-            .send(req.body)
-            .end(function(response){
-                if(response.error) return res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-
-    updateOrCreate : function(req,res) {
-        unirest.put(sails.config.kong_admin_url + '/consumers')
-            .send(req.body)
-            .end(function(response){
-                if(response.error) return  res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-
-    delete : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id)
-            .end(function(response){
-                if(response.error) return  res.kongError(response)
-                return res.json(response.body)
-            })
-    },
-
+var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongController')), {
     retrieveJWT : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/jwt")
+        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/jwt")
             .end(function(response){
                 if(response.error) return  res.kongError(response)
                 return res.json(response.body)
@@ -68,7 +14,7 @@ var KongConsumerController = {
     },
 
     createJWT : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/jwt")
+        unirest.post(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/jwt")
             .send(req.body)
             .end(function(response){
                 if(response.error) return  res.kongError(response)
@@ -77,7 +23,7 @@ var KongConsumerController = {
     },
 
     deleteJWT : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/jwt/" + req.params.jwtId)
+        unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/jwt/" + req.params.jwtId)
             .end(function(response){
                 if(response.error) return  res.kongError(response)
                 return res.json(response.body)
@@ -86,7 +32,7 @@ var KongConsumerController = {
 
 
     retrieveKeys : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/key-auth")
+        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/key-auth")
             .end(function(response){
                 if(response.error) return  res.kongError(response)
                 return res.json(response.body)
@@ -94,7 +40,7 @@ var KongConsumerController = {
     },
 
     createKey : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/key-auth")
+        unirest.post(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/key-auth")
             .send({
                 key : req.body.key
             })
@@ -105,7 +51,7 @@ var KongConsumerController = {
     },
 
     deleteKey : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/key-auth/" + req.params.keyId)
+        unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/key-auth/" + req.params.keyId)
             .end(function(response){
                 if(response.error) return  res.kongError(response)
                 return res.json(response.body)
@@ -115,7 +61,7 @@ var KongConsumerController = {
 
 
     retrieveBasicAuthCredentials : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/basic-auth")
+        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/basic-auth")
             .end(function(response){
                 if(response.error) return res.kongError(response)
                 return res.json(response.body)
@@ -123,7 +69,7 @@ var KongConsumerController = {
     },
 
     createBasicAuthCredentials : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/basic-auth")
+        unirest.post(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/basic-auth")
             .send(req.body)
             .end(function(response){
                 if(response.error) return res.kongError(response)
@@ -132,7 +78,7 @@ var KongConsumerController = {
     },
 
     deleteBasicAuthCredentials : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/basic-auth/" + req.params.credentialId)
+        unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/basic-auth/" + req.params.credentialId)
             .end(function(response){
                 if(response.error) return res.kongError(response)
                 return res.json(response.body)
@@ -147,7 +93,7 @@ var KongConsumerController = {
      */
 
     retrieveHMACAuthCredentials : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/hmac-auth")
+        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/hmac-auth")
             .end(function(response){
                 if(response.error) return res.kongError(response);
                 return res.json(response.body)
@@ -155,7 +101,7 @@ var KongConsumerController = {
     },
 
     createHMACAuthCredentials : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/hmac-auth")
+        unirest.post(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/hmac-auth")
             .send(req.body)
             .end(function(response){
                 if(response.error) return res.kongError(response);
@@ -164,7 +110,7 @@ var KongConsumerController = {
     },
 
     deleteHMACAuthCredentials : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/hmac-auth/" + req.params.credentialId)
+        unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/hmac-auth/" + req.params.credentialId)
             .end(function(response){
                 if(response.error) return res.kongError(response);
                 return res.json(response.body)
@@ -173,7 +119,7 @@ var KongConsumerController = {
 
 
     addAcl : function(req,res) {
-        unirest.post(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/acls")
+        unirest.post(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/acls")
             .send({
                 group : req.body.group
             })
@@ -184,7 +130,7 @@ var KongConsumerController = {
     },
 
     retrieveAcls : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/acls")
+        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/acls")
             .end(function(response){
                 if(response.error) return res.kongError(response);
                 sails.models.konggroup.find()
@@ -209,12 +155,11 @@ var KongConsumerController = {
     },
 
     deleteAcl : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/consumers'/  + req.params.id + "/acls/" + req.params.aclId)
+        unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/acls/" + req.params.aclId)
             .end(function(response){
                 if(response.error) return res.kongError(response);
                 return res.json(response.body)
             })
     }
-};
-
+})
 module.exports = KongConsumerController;

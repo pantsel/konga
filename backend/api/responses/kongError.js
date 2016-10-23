@@ -30,11 +30,11 @@ module.exports = function kongError(data, options) {
   options = (typeof options === 'string') ? {view: options} : options || {};
 
   // Log error to console
-  if (data !== undefined) {
-    sails.log.error('Sending 500 ("Server Error") response: \n', data);
-  } else {
-    sails.log.error('Sending empty 500 ("Server Error") response');
-  }
+  //if (data !== undefined) {
+  //  sails.log.error('Sending 500 ("Server Error") response: \n', data);
+  //} else {
+  //  sails.log.error('Sending empty 500 ("Server Error") response');
+  //}
 
   // Backend will always response JSON
   if(data.error && data.error.code && data.error.code === 'ETIMEDOUT') {

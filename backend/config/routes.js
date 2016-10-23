@@ -88,7 +88,7 @@ module.exports.routes = {
 
 
   // Plugin routes
-  'POST /kong/apis/:api/plugins'        : 'KongPluginController.add',
+  'POST /kong/apis/:api/plugins'        : 'KongPluginController.create',
   'GET /kong/plugins/:id'               : 'KongPluginController.retrieve',
   'GET /kong/plugins/enabled'           : 'KongPluginController.retrieveEnabled',
   'GET /kong/plugins/scghema/:plugin'   : 'KongPluginController.retrieveSchema',
