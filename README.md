@@ -4,6 +4,7 @@
 [![konga-logo.png](https://s21.postimg.org/lh9qb1fev/konga_logo.png)](https://postimg.org/image/569meq2wz/)
 
  [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
+
 ## Screenshots
 https://postimg.org/gallery/podmfn4g/
 
@@ -13,6 +14,9 @@ https://postimg.org/gallery/podmfn4g/
 * Multiple nodes management
 * GUI level authentication
 
+## Compatibility
+Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
+Feedback on older versions is welcome.
 
 ## Prerequisites
 - Nodejs
