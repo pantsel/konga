@@ -13,6 +13,7 @@ https://postimg.org/gallery/podmfn4g/
 * Manage consumers, groups and credentials
 * Multiple nodes management
 * GUI level authentication
+* Multiple users (Only admin and user roles for now)
 
 ## Compatibility
 Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
