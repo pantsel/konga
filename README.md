@@ -3,10 +3,13 @@
 
 [![konga-logo.png](https://s21.postimg.org/lh9qb1fev/konga_logo.png)](https://postimg.org/image/569meq2wz/)
 
- [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
+[![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 
 ## Screenshots
-https://postimg.org/gallery/podmfn4g/
+
+
+| [![admin.png](https://s11.postimg.org/4z2koy8zn/admin.png)](https://postimg.org/image/tsc4plrzz/)  | [![admin.png](https://s11.postimg.org/4z2koy8zn/admin.png)](https://postimg.org/image/tsc4plrzz/) |
+
 
 ## Features
 * Manage APIs and plugins
