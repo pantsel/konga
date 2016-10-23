@@ -20,6 +20,7 @@ Konga is built and tested on Kong 0.9.x but it probably works with older version
 Feedback on older versions is welcome.
 
 ## Prerequisites
+- A running [Kong installation](https://getkong.org/) 
 - Nodejs
 - Npm
 - Gulp
