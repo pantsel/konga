@@ -104,13 +104,13 @@ If you're changing your backend API url to another than <code>http://localhost:1
 ## Running Konga
 
 
-##### Development
+#### Development
 <pre>
 $ npm run konga play
 </pre>
 You can now use Konga at http://localhost:3001
 
-##### Production
+#### Production
 <pre>
 $ npm run konga dist
 </pre>
@@ -121,7 +121,7 @@ $ npm run konga play -env production
 </pre>
 You can now use Konga at http://localhost:3000
 
-##### Login
+#### Login
 *Admin*
 login: admin | password: adminadminadmin
 
