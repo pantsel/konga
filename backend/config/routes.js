@@ -52,7 +52,7 @@ module.exports.routes = {
   'DELETE /kong/info/cluster'           : 'KongInfoController.deleteCluster',
 
   // Api routes
-  'POST /kong/apis'                     : 'KongApiController.add',
+  'POST /kong/apis'                     : 'KongApiController.create',
   'GET /kong/apis/:id'                  : 'KongApiController.retrieve',
   'GET /kong/apis'                      : 'KongApiController.list',
   'PATCH /kong/apis/:id'                : 'KongApiController.update',

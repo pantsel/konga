@@ -1,10 +1,11 @@
 'use strict';
 
 var unirest = require("unirest")
+var KongService = require('../services/KongService')
 
 var KongApiController = {
-    add : function(req,res) {
-        console.log(req.body)
+    create : function(req,res) {
+
         unirest.post(sails.config.kong_admin_url + '/apis')
             .send(req.body)
             .end(function(response){

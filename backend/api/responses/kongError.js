@@ -29,8 +29,6 @@ module.exports = function kongError(data, options) {
    */
   options = (typeof options === 'string') ? {view: options} : options || {};
 
-
-
   // Log error to console
   if (data !== undefined) {
     sails.log.error('Sending 500 ("Server Error") response: \n', data);
@@ -43,5 +41,7 @@ module.exports = function kongError(data, options) {
     return res.json(500, {message: 'Request timed out'});
   }
 
-  return res.json(data.statusCode, {message: data.body,customMessage:data.body});
+
+
+  return res.json(data.statusCode, {customMessage:data.body});
 };
