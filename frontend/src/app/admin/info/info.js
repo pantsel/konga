@@ -17,17 +17,19 @@
                             displayName : "node info",
                             prefix : '<i class="material-icons text-primary">&#xE88F;</i>'
                         },
+
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/admin/info/index.html',
                                 controller: 'AdminInfoController',
                                 resolve : {
-                                    _info : function(InfoService) {
+                                    _info : ['InfoService',function(InfoService) {
                                         return InfoService.getInfo()
-                                    }
+                                    }],
                                 }
                             }
-                        }
+                        },
+
                     })
                 ;
             }

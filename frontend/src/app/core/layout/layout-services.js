@@ -14,13 +14,12 @@
         return [
           {
             state: 'admin.info',
-            title: 'Node',
-            active : false,
-            access: AccessLevels.user
+            title: 'Node info',
+            access: AccessLevels.admin
           },
           {
             state: 'admin.apis',
-            title: 'Apis',
+            title: 'APIs',
             access: AccessLevels.admin
           },
           {

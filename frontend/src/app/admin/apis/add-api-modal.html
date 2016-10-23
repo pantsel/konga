@@ -50,11 +50,20 @@
             <label class="col-sm-4 control-label">Strip Request Path
                 <br><em><small class="help-block">optional</small></em></label>
             <div class="col-sm-7">
-                <select ng-model="api.strip_request_path"
-                        ng-change="updateApi(api)"
-                        class="form-control"
-                        ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">
-                </select>
+                <input
+
+                        bs-switch
+                        ng-model="api.strip_request_path"
+                        switch-size="small"
+                        type="checkbox"
+                        switch-on-text="YES"
+                        switch-off-text="NO"
+                >
+                <!--<select ng-model="api.strip_request_path"-->
+                        <!--ng-change="updateApi(api)"-->
+                        <!--class="form-control"-->
+                        <!--ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">-->
+                <!--</select>-->
                 <p class="help-block">
                     Strip the request_path value before proxying the request to the final API. For example a request made to <code>/someservice/hello</code> will be resolved to <code>upstream_url/hello</code>. By default is false.
                 </p>
@@ -64,11 +73,20 @@
             <label class="col-sm-4 control-label">Preserve Host
                 <br><em><small class="help-block">optional</small></em></label>
             <div class="col-sm-7">
-                <select ng-model="api.preserve_host"
-                        ng-change="updateApi(api)"
-                        class="form-control"
-                        ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">
-                </select>
+                <input
+
+                        bs-switch
+                        ng-model="api.preserve_host"
+                        switch-size="small"
+                        type="checkbox"
+                        switch-on-text="YES"
+                        switch-off-text="NO"
+                >
+                <!--<select ng-model="api.preserve_host"-->
+                        <!--ng-change="updateApi(api)"-->
+                        <!--class="form-control"-->
+                        <!--ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">-->
+                <!--</select>-->
                 <p class="help-block">
                     Preserves the original <code>Host</code> header sent by the client, instead of replacing it with the <code>hostname</code> of the <code>upstream_url</code>. By default is false.
                 </p>

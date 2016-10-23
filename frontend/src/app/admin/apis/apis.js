@@ -22,7 +22,12 @@
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/admin/apis/index.html',
-                                controller: 'AdminApisController'
+                                controller: 'AdminApisController',
+                                resolve : {
+                                    _info : ['InfoService',function(InfoService) {
+                                        return InfoService.getInfo()
+                                    }],
+                                }
                             }
                         }
                     })

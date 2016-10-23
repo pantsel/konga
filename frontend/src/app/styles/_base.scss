@@ -58,6 +58,26 @@ h5 {
 
 }
 
+#toast-container > div,#toast-container > :hover{
+  box-shadow: none;
+}
+
+#toast-container > div{
+  padding: 15px;
+}
+
+.toast-error{
+  background-color: $brand-danger;
+}
+
+.toast-success{
+  background-color: $brand-success;
+}
+
+.toast-warning{
+  background-color: $brand-warning;
+}
+
 .konga-nav-icon{
   height: 25px;
   float: left;
@@ -309,8 +329,15 @@ tr.danger{
   //color: $brand-success;
 }
 
+.home {
+  .jumbotron{
+    padding: 0 !important;
+    margin-top: 40px;
+  }
+}
 
 .jumbotron {
+
 
   .panel {
 

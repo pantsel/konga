@@ -1,17 +1,21 @@
 <div class="row home">
     <div class="col-md-12">
+
         <div class="jumbotron">
-            <!--<h1>Welcome to Konga</h1>-->
-            <!--<p>An Admin Client to Kong API Gateway</p>-->
-            <!--<br>-->
+            <div ng-show="alert"
+                 uib-alert
+                 ng-class="'alert-' + (alert.type || 'warning')"
+                 close="closeAlert()">
+                <span data-ng-bind-html="alert.msg"></span>
+            </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
                             <i class="material-icons text-primary">&#xE88F;</i>
                             <h4>Node Info</h4>
                             <p class="help-block">
-                                View generic details about a node
+                                View generic node details
                             </p>
                             <button  data-ng-disabled="!node" data-ng-click="go('admin.info')" class="btn btn-primary btn-link">
                                 View node info
@@ -19,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
                             <i class="material-icons text-warning">cloud_queue</i>
@@ -31,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
                             <i class="material-icons text-success">perm_identity</i>
@@ -40,6 +44,18 @@
                                 Manage Consumers
                             </p>
                             <button data-ng-disabled="!node" data-ng-click="go('admin.consumers')" class="btn btn-success btn-link">consumer management</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center">
+                            <i class="material-icons">settings</i>
+                            <h4>Settings</h4>
+                            <p class="help-block">
+                                Configure Konga
+                            </p>
+                            <button data-ng-click="go('admin.settings')" class="btn btn-default btn-link">Configuration</button>
                         </div>
                     </div>
                 </div>

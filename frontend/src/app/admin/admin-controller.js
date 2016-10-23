@@ -13,14 +13,24 @@
 
 
           $scope.node = _nodes[0];
-          $log.debug($scope.node)
+
+          if(!$scope.node) {
+              $scope.alert = {
+                  msg : 'You have to setup and activate a node in order to connect to Kong\'s admin API. You can do that in <a href="/admin/settings"><strong>settings</strong></a>',
+                  type : 'warning'
+              }
+          }
+
+          $scope.closeAlert = function() {
+              if($scope.alert) delete $scope.alert
+          }
 
           $scope.go = $state.go.bind($state);
 
           function init() {
 
               if(!$scope.node) {
-                  $scope.connectionMsg = 'It looks like you haven\'t set up or activated a Kong node yet. You can do that in <a href="/admin/settings"><strong>settings</strong></a>'
+                  $scope.connectionMsg = 'No node is set up or activated.'
               }else{
                   fetchInfo()
               }

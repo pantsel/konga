@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gulp watch",
     "test": "gulp test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "bower install"
   },
   "keywords": [
     "slush, angular, slush-angular"

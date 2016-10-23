@@ -182,23 +182,23 @@
         }
 
         // Check for state change errors.
-        $rootScope.$on('$stateChangeError', function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
-          event.preventDefault();
-
-          $injector.get('MessageService')
-            .error('Error loading the page');
-
-          $state.get('error').error = {
-            event: event,
-            toState: toState,
-            toParams: toParams,
-            fromState: fromState,
-            fromParams: fromParams,
-            error: error
-          };
-
-          return $state.go('error');
-        });
+        //$rootScope.$on('$stateChangeError', function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
+        //  event.preventDefault();
+        //
+        //  $injector.get('MessageService')
+        //    .error('Error loading the page');
+        //
+        //  $state.get('error').error = {
+        //    event: event,
+        //    toState: toState,
+        //    toParams: toParams,
+        //    fromState: fromState,
+        //    fromParams: fromParams,
+        //    error: error
+        //  };
+        //
+        //  return $state.go('error');
+        //});
       }
     ])
   ;
