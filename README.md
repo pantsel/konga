@@ -1,13 +1,20 @@
 ## Just another GUI to [KONG API Gateway](http://getkong.org)
 
-
-[![konga-logo.png](https://s21.postimg.org/lh9qb1fev/konga_logo.png)](https://postimg.org/image/569meq2wz/)
+[![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
 
 [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 
 ## Screenshots
-https://postimg.org/gallery/podmfn4g/
 
+##### Admin Home
+[![Admin Home](screenshots/thumbs/admin.jpg)](screenshots/admin.png?raw=true)
+
+##### APIs Managements
+[![APIs](screenshots/thumbs/apis.jpg)](screenshots/apis.png?raw=true)  [![APIs plugins](screenshots/thumbs/apis-plugins.jpg)](screenshots/apis-plugins.png?raw=true)  [![APIs plugins management](screenshots/thumbs/manage-api-plugins.jpg)](screenshots/manage-api-pugins.png?raw=true)
+
+##### Consumers Management
+[![Consumers](screenshots/thumbs/consumers.jpg)](screenshots/consumers.png?raw=true)  [![APIs plugins management](screenshots/thumbs/consumers-cfg-info.jpg)](screenshots/consumers-cfg-info.png?raw=true) [![Consumers](screenshots/thumbs/consumers-cfg-groups.jpg)](screenshots/consumers-cfg-groups.png?raw=true) 
+[![APIs plugins management](screenshots/thumbs/consumers-cfg-creds.jpg)](screenshots/consumers-cfg-creds.png?raw=true)
 ## Features
 * Manage APIs and plugins
 * Manage consumers, groups and credentials
