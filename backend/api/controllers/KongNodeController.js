@@ -23,10 +23,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
                     },{active:false}).exec(function afterwards(err, upd){
                         if (err) return res.negotiate(err);
-                        return  res.json(upd)
+                        return  res.json(resp[0])
                     })
                 }else{
-                    return  res.json(resp)
+                    return  res.json(resp[0])
                 }
             });
         });

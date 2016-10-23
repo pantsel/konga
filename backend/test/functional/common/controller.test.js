@@ -37,6 +37,30 @@ describe('Generic controller test', function controllerTest() {
                 }
 
             }
+        },
+        {
+            controller: 'KongNodeController',
+            url: '/kongnode/',
+            identifier: 1,
+            count: 2,
+            data: {
+                identifier: {
+                    kong_admin_ip: "127.0.0.1",
+                    kong_admin_port: "8001",
+                    active: true,
+                },
+                newRecord: {
+                    kong_admin_ip: "192.168.1.116",
+                    kong_admin_port: "1234",
+                    active: false,
+                },
+                updateRecord: {
+                    kong_admin_ip: "192.168.1.118",
+                    kong_admin_port: "8183",
+                    active: false,
+                }
+
+            }
         }
     ].forEach(function testCase(testCase) {
         describe('for \'' + testCase.controller + '\' API endpoints', function controllerTest() {
