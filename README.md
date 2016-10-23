@@ -6,10 +6,7 @@
 [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 
 ## Screenshots
-
-
-| [![admin.png](https://s11.postimg.org/4z2koy8zn/admin.png)](https://postimg.org/image/tsc4plrzz/)  | [![admin.png](https://s11.postimg.org/4z2koy8zn/admin.png)](https://postimg.org/image/tsc4plrzz/) |
-
+https://postimg.org/gallery/podmfn4g/
 
 ## Features
 * Manage APIs and plugins
