@@ -7,14 +7,14 @@
 ## Screenshots
 
 ##### Admin Home
-[![Admin Home](screenshots/thumbs/admin.jpg)](screenshots/admin.png?raw=true)
+<kbd>[![Admin Home](screenshots/thumbs/admin.jpg)](screenshots/admin.png?raw=true)</kbd>
 
 ##### APIs Managements
-[![APIs](screenshots/thumbs/apis.jpg)](screenshots/apis.png?raw=true)  [![APIs plugins](screenshots/thumbs/apis-plugins.jpg)](screenshots/apis-plugins.png?raw=true)  [![APIs plugins management](screenshots/thumbs/manage-api-plugins.jpg)](screenshots/manage-api-pugins.png?raw=true)
+<kbd>[![APIs](screenshots/thumbs/apis.jpg)](screenshots/apis.png?raw=true)</kbd>   <kbd>[![APIs plugins](screenshots/thumbs/apis-plugins.jpg)](screenshots/apis-plugins.png?raw=true)</kbd>   <kbd>[![APIs plugins management](screenshots/thumbs/manage-api-plugins.jpg)](screenshots/manage-api-pugins.png?raw=true)</kbd>
 
 ##### Consumers Management
-[![Consumers](screenshots/thumbs/consumers.jpg)](screenshots/consumers.png?raw=true)  [![APIs plugins management](screenshots/thumbs/consumers-cfg-info.jpg)](screenshots/consumers-cfg-info.png?raw=true) [![Consumers](screenshots/thumbs/consumers-cfg-groups.jpg)](screenshots/consumers-cfg-groups.png?raw=true) 
-[![APIs plugins management](screenshots/thumbs/consumers-cfg-creds.jpg)](screenshots/consumers-cfg-creds.png?raw=true)
+<kbd>[![Consumers](screenshots/thumbs/consumers.jpg)](screenshots/consumers.png?raw=true)</kbd>  <kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-info.jpg)](screenshots/consumers-cfg-info.png?raw=true)</kbd>  <kbd>[![Consumers](screenshots/thumbs/consumers-cfg-groups.jpg)](screenshots/consumers-cfg-groups.png?raw=true)</kbd>  
+<kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-creds.jpg)](screenshots/consumers-cfg-creds.png?raw=true)</kbd>
 ## Features
 * Manage APIs and plugins
 * Manage consumers, groups and credentials
