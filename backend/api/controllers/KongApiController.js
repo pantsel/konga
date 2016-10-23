@@ -2,23 +2,18 @@
 
 var unirest = require("unirest")
 
-function handleError() {
-    return res.json(response.statusCode, {message: response.body});
-}
 var KongApiController = {
     add : function(req,res) {
         console.log(req.body)
         unirest.post(sails.config.kong_admin_url + '/apis')
             .send(req.body)
             .end(function(response){
-                if(response.error) {
-                    return  res.kongError(response)
-                }
+                if(response.error) return  res.kongError(response)
                 return res.json(response.body)
             })
     },
     retrieve : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/apis' + "/" + req.params.id)
+        unirest.get(sails.config.kong_admin_url + '/apis/'  + req.params.id)
             .end(function(response){
                 if(response.error)  res.kongError(response)
                 return res.json(response.body)
@@ -34,8 +29,7 @@ var KongApiController = {
     },
 
     update : function(req,res) {
-        console.log(req.body)
-        unirest.patch(sails.config.kong_admin_url + '/apis' + "/" + req.params.id)
+        unirest.patch(sails.config.kong_admin_url + '/apis/'  + req.params.id)
             .send(req.body)
             .end(function(response){
                 if(response.error) return res.kongError(response)
@@ -53,7 +47,7 @@ var KongApiController = {
     },
 
     delete : function(req,res) {
-        unirest.delete(sails.config.kong_admin_url + '/apis' + "/" + req.params.id)
+        unirest.delete(sails.config.kong_admin_url + '/apis/'  + req.params.id)
             .end(function(response){
                 if(response.error) return  res.kongError(response)
                 return res.json(response.body)
