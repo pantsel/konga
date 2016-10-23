@@ -62,7 +62,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/apis/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: '/frontend/admin/apis/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditApiModalController',
                   resolve: {

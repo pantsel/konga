@@ -59,6 +59,7 @@
         // Add interceptors for $httpProvider and $sailsSocketProvider
         $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.interceptors.push('ErrorInterceptor');
+          $httpProvider.interceptors.push('TemplateCacheInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {

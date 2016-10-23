@@ -46,7 +46,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/edit-consumer-modal.html',
+                  templateUrl: '/frontend/admin/consumers/edit-consumer-modal.html',
                   controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerService,_consumer){
 
                       $scope.consumer = _consumer
@@ -94,7 +94,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/create-consumer-modal.html',
+                  templateUrl: '/frontend/admin/consumers/create-consumer-modal.html',
                   controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerService){
 
                       $scope.consumer = {
@@ -137,7 +137,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/groups/manage-groups-modal.html',
+                  templateUrl: '/frontend/admin/consumers/groups/manage-groups-modal.html',
                   controller: 'ManageKongGroupController',
                   controllerAs: '$ctrl',
                   resolve : {

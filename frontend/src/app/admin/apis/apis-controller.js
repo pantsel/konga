@@ -56,7 +56,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/apis/add-api-modal.html',
+                  templateUrl: '/frontend/admin/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
                   size: 'lg',

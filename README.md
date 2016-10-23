@@ -25,7 +25,7 @@
 
 ## Compatibility
 Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
-Feedback on older versions is welcome.
+Feedback on older versions compatibility is welcome.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 

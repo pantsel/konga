@@ -146,7 +146,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/credentials/create-api-key-modal.html',
+                  templateUrl: '/frontend/admin/consumers/credentials/create-api-key-modal.html',
                   controller: 'CreateKeyAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -163,7 +163,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/credentials/create-basic-auth-modal.html',
+                  templateUrl: '/frontend/admin/consumers/credentials/create-basic-auth-modal.html',
                   controller: 'CreateBasicAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -180,7 +180,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/credentials/create-hmac-auth-modal.html',
+                  templateUrl: '/frontend/admin/consumers/credentials/create-hmac-auth-modal.html',
                   controller: 'CreateHMACAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -196,7 +196,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/credentials/create-jwt-modal.html',
+                  templateUrl: '/frontend/admin/consumers/credentials/create-jwt-modal.html',
                   controller: 'CreateJWTController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -212,7 +212,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/consumers/groups/create-group-modal.html',
+                  templateUrl: '/frontend/admin/consumers/groups/create-group-modal.html',
                   controller: ['$scope','$rootScope','$uibModalInstance','KongGroupModel',
                       function($scope,$rootScope, $uibModalInstance,KongGroupModel){
 

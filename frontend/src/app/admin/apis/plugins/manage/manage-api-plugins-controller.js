@@ -61,7 +61,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/apis/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: '/frontend/admin/apis/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditApiModalController',
                   resolve: {
@@ -88,7 +88,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/admin/apis/plugins/modals/add-plugin-modal.html',
+                  templateUrl: '/frontend/admin/apis/plugins/modals/add-plugin-modal.html',
                   size : 'lg',
                   controller: 'AddApiPluginController',
                   resolve: {
