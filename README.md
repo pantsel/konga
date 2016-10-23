@@ -83,7 +83,16 @@ If you're changing your backend API url to another than <code>http://localhost:1
 <code>frontend/config/config.json</code> with proper content on it. Use that example file as start.
 
 ## Running Konga
-#### Backend
+You can start frontend and backend separately or concurrently
+#### Starting backend and frontend concurrently
+From the root directory of the cloned Konga repo run
+<pre>
+$ npm start
+</pre>
+
+This will start the sails.js server and a simple web server that you can use within developing frontend side.
+
+#### Starting backend
 <pre>
 $ cd backend
 $ sails lift
@@ -93,7 +102,7 @@ This will start sails.js server on defined port. By default this is accessible f
 try that with your browser you should only see page that contains <code>Not Found</code> message on it. This means that
 everything is ok.
 
-#### Frontend
+#### Starting frontend
 
 ##### Development #####
 <pre>
