@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Konga by pantsel</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Konga</h1>
+        <h2>Just another GUI to Kong API Gateway</h2>
+        <a href="https://github.com/pantsel/konga" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<p><a href="https://postimg.org/gallery/podmfn4g/">https://postimg.org/gallery/podmfn4g/</a></p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Manage APIs and plugins</li>
+<li>Manage consumers, groups and credentials</li>
+<li>Multiple nodes management</li>
+<li>GUI level authentication</li>
+</ul>
+
+<h2>
+<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compatibility</h2>
+
+<p>Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
+Feedback on older versions is welcome.</p>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<ul>
+<li>Nodejs</li>
+<li>Npm</li>
+<li>Gulp</li>
+<li>Bower</li>
+</ul>
+
+<h2>
+<a id="used-libraries" class="anchor" href="#used-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Used libraries.</h2>
+
+<ul>
+<li>angular-sailsjs-boilerplate (awesome): <a href="https://github.com/tarlepp/angular-sailsjs-boilerplate">https://github.com/tarlepp/angular-sailsjs-boilerplate</a>
+</li>
+<li>Sails.js, <a href="http://sailsjs.org/">http://sailsjs.org/</a>
+</li>
+<li>AngularJS, <a href="https://angularjs.org/">https://angularjs.org/</a>
+</li>
+<li>Bootstrap, <a href="http://getbootstrap.com/">http://getbootstrap.com/</a>
+</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Install <code>npm</code> and <code>node.js</code>. Instructions can be found <a href="http://sailsjs.org/#/getStarted?q=what-os-do-i-need">here</a>.</p>
+
+<p>Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.</p>
+
+<pre>
+$ npm install bower gulp sails -g
+</pre>
+
+<h4>
+<a id="backend-and-frontend-installation" class="anchor" href="#backend-and-frontend-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend and frontend installation</h4>
+
+<p>Clone this repository</p>
+
+<pre>$ git clone https://github.com/pantsel/konga.git</pre>
+
+<p>Navigate to /backend and /frontend directories and run <code>npm install</code></p>
+
+<pre>
+$ cd path/to/cloned/konga/repo/backend
+$ npm install
+</pre>
+
+<pre>
+$ cd path/to/cloned/konga/repo/backend
+$ npm install
+</pre>
+
+<h3>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h3>
+
+<p>You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
+settings. Basically by default you don't need to make any configurations at all. With default configuration backend will be run on http://localhost:1337 and frontend on http://localhost:3001 (development) http://localhost:3000 (production).</p>
+
+<h5>
+<a id="backend" class="anchor" href="#backend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend</h5>
+
+<p>There is an example of backend configuration file on following path.</p>
+
+<pre>
+/backend/config/local_example.js
+</pre>
+
+<p>Just copy this to <code>/backend/config/local.js</code> and make necessary changes to it. Note that this
+<code>local.js</code> file is in .gitignore so it won't go to VCS at any point.</p>
+
+<h5>
+<a id="frontend" class="anchor" href="#frontend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frontend</h5>
+
+<p>There is an example of front configuration file on following path.</p>
+
+<pre>
+/frontend/config/config_example.json
+</pre>
+
+<p>Just copy this to <code>/frontend/config/config.json</code> and make necessary changes to it. Note that this
+<code>config.json</code> file is in .gitignore so it won't go to VCS at any point.</p>
+
+<h5>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notes</h5>
+
+<p>If you're changing your backend API url to another than <code>http://localhost:1337</code> you need to make
+<code>frontend/config/config.json</code> with proper content on it. Use that example file as start.</p>
+
+<h2>
+<a id="running-konga" class="anchor" href="#running-konga" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running Konga</h2>
+
+<h4>
+<a id="backend-1" class="anchor" href="#backend-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend</h4>
+
+<pre>
+$ cd backend
+$ sails lift
+</pre>
+
+<p>This will start sails.js server on defined port. By default this is accessible from http://localhost:1337 url. If you
+try that with your browser you should only see page that contains <code>Not Found</code> message on it. This means that
+everything is ok.</p>
+
+<h4>
+<a id="frontend-1" class="anchor" href="#frontend-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frontend</h4>
+
+<h5>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h5>
+
+<pre>
+$ cd frontend
+$ gulp serve
+</pre>
+
+<p>This will start simple web server that you can use within developing frontend side. By default this is accessible from http://localhost:3001 url. You should be see login page if you try that url with your browser.</p>
+
+<h5>
+<a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment</h5>
+
+<p>As in production</p>
+
+<pre>
+$ cd frontend
+$ gulp dist
+</pre>
+
+<p>This will create a deployment code to <code>frontend/dist</code> folder. After that you can serve those static HTML, CSS,
+Javascript and asset files by any web server you like (Apache, nginx, IIS, etc.). For testing this production ready code
+you can also use <code>gulp production</code> command which will serve those dist files. By default this is accessible from
+http://localhost:3000 url.</p>
+
+<h3>
+<a id="possible-failures" class="anchor" href="#possible-failures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Possible failures</h3>
+
+<p>Below is small list of possible failures that can occur while trying this POC.</p>
+
+<ol>
+    <li>Sails won't lift and you get error message like: <code>Fatal error: watch ENOSPC</code>
+        <ul>
+            <li>http://stackoverflow.com/questions/16748737/grunt-watch-error-waiting-fatal-error-watch-enospc</li>
+            <li>tl;dr just run <code>npm dedupe</code>
+        </li>
+</ul>
+    </li>
+    <li>Frontend side is missing some 3rd party libraries. eg. browser console is full of some errors.
+        <ul>
+            <li>Try to install bower packages manually by command <code>bower install</code> in <code>frontend</code> directory.
+        </li>
+</ul>        
+    </li>
+    <li>When running gulp serve from the frontend directory an error of 'scss-lint' is not recognized.
+        <ul>
+            <li>Try running gem install scss-lint from the frontend directory.
+        </li>
+</ul>        
+    </li>
+</ol>
+
+<h2>
+<a id="login-to-gui" class="anchor" href="#login-to-gui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Login to GUI</h2>
+
+<h4>
+<a id="admin" class="anchor" href="#admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin</h4>
+
+<p>login: admin | password: adminadminadmin</p>
+
+<h4>
+<a id="demo-user" class="anchor" href="#demo-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo user</h4>
+
+<p>login: demo | password: demodemodemo</p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ToDo</h2>
+
+<ul>
+<li>Complete tests</li>
+<li>Include Logging &amp; dynamic SSL plugins</li>
+<li>Write a detailed Wiki</li>
+</ul>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author</h2>
+
+<p>Panagis Tselentis</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT)</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/pantsel/konga/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/pantsel/konga/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/pantsel/konga"></a> is maintained by <a href="https://github.com/pantsel">pantsel</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
