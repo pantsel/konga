@@ -102,7 +102,7 @@ If you're changing your backend API url to another than <code>http://localhost:1
 
 #### Development
 <pre>
-$ npm run konga play
+$ npm start
 </pre>
 Konga GUI is available at http://localhost:3001
 
@@ -118,12 +118,13 @@ $ sails lift
 
 #### Production
 <pre>
-$ npm run konga dist
+$ cd frontend
+$ gulp dist
 </pre>
-This will create production-ready code to frontend/dist ready to be served by any web server
+This will create production-ready static code to frontend/dist ready to be served by any web server
 
 <pre>
-$ npm run konga play -env production
+$ npm run production
 </pre>
 Konga GUI is available at http://localhost:3000
 
@@ -134,7 +135,7 @@ $ gulp production
 </pre>
 <pre>
 $ cd backend
-$ sails lift
+$ sails lift --prod
 </pre>
 
 #### Login

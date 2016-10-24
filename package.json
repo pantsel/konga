@@ -23,9 +23,9 @@
     "concurrently": "^3.1.0"
   },
   "scripts": {
-    "konga": "node ./bin/konga.js",
     "install": " cd frontend && npm install && cd ../backend && npm install",
     "start": "concurrently \"(cd backend && sails lift)\" \"(cd frontend && gulp serve)\"",
+    "production": "concurrently \"(cd backend && sails lift --prod)\" \"(cd frontend && gulp production)\"",
     "test": "cd backend && mocha"
   },
   "bin": {

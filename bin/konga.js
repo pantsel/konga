@@ -30,7 +30,6 @@ else if (argv._[0] === 'build')
 }
 else if (argv._[0] === 'play')
 {
-    console.log(argv)
     var env   = argv._[1] || 'development'
 
     if(env !== 'production' && env !== 'development') {
@@ -41,10 +40,17 @@ else if (argv._[0] === 'play')
 
     var fport = argv.frontend || front_settings.frontend.ports[env]
     var bport = argv.backend || back_settings.port
-    //
-    console.log("Playing Konga in " + env + " environment, using ports:")
-    console.log("frontend : " + fport)
-    console.log("backend  : " + bport)
+
+    console.log("------------------------------------------------------")
+    console.log("Playing Konga!")
+    console.log("")
+    console.log("Environment : " + env)
+    console.log("")
+    console.log("Ports")
+    console.log("frontend    : " + fport)
+    console.log("backend     : " + bport)
+    console.log("------------------------------------------------------")
+    console.log("")
 
     // Lift backend
     var cmdBack = spawn('sails' + ( isWin ? '.cmd' : '' ),
