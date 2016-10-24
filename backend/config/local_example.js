@@ -40,7 +40,7 @@ module.exports = {
     }
   },
   models: {
-    connection: 'mysql' // Change this to be one of your connections key
+    connection: 'localDiskDb' // Change this to be one of your connections key
   },
   session: {
     secret: '' // Add your own SECRET string here
