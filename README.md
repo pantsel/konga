@@ -64,11 +64,6 @@ Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.
 $ npm install bower gulp sails -g
 $ git clone https://github.com/pantsel/konga.git
 $ cd konga
-</pre>
-
-<code>$ npm run konga help</code> to see available commands
-
-<pre>
 $ npm install
 </pre>
 This will install all frontend and backend dependencies
