@@ -32,6 +32,14 @@ try {
   settings = JSON.parse(fs.readFileSync('./config/config_example.json', 'utf8'));
 }
 
+// Overwrite port if explicitly set in command
+var argv = require('minimist')(process.argv.slice(2));
+if(argv.p) {
+    settings.frontend.ports.production = argv.p
+    settings.frontend.ports.development = argv.p
+}
+
+
 /**
  * JS Hint
  */
@@ -194,16 +202,18 @@ gulp.task('statics', g.serve({
 /**
  * Production file server, note remember to run 'gulp dist' first!
  */
-gulp.task('production', g.serve({
-  port: settings.frontend.ports.production,
-  root: ['./dist'],
-  middleware: historyApiFallback({})
+gulp.task('production',g.serve({
+    port: settings.frontend.ports.production,
+    root: ['./dist'],
+    middleware: historyApiFallback({})
 }));
+
 
 /**
  * Watch
  */
 gulp.task('serve', ['watch']);
+
 
 gulp.task('watch', ['statics', 'default'], function() {
   isWatching = true;
