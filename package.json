@@ -24,7 +24,7 @@
   },
   "scripts": {
     "konga": "cd ./bin && node konga",
-    "install": "cd backend && npm install && cd ../frontend && npm install",
+    "install": " cd frontend && npm install && cd ../backend && npm install",
     "start": "concurrently \"(cd backend && sails lift)\" \"(cd frontend && gulp serve)\"",
     "test": "cd backend && mocha"
   },

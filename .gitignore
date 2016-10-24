@@ -43,3 +43,4 @@ node_modules/
 /npm-debug.log
 /frontend/npm-debug.log
 /_README.md
+/frontend/config/config.json
