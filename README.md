@@ -66,7 +66,8 @@ $ git clone https://github.com/pantsel/konga.git
 $ cd konga
 $ npm install
 </pre>
-This will install all frontend and backend dependencies
+This will install all frontend and backend dependencies. If for some reason this fails, 
+try running <code>$ npm install</code> in /backend and /frontend separately
 
 ## Configuration
 You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
