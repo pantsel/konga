@@ -8,8 +8,8 @@
 
   angular.module('frontend.admin.consumers')
     .controller('ConsumersController', [
-      '_','$scope', '$log', '$state','ConsumerService','$uibModal','DialogService','KongGroupModel','_consumers',
-      function controller(_,$scope, $log, $state, ConsumerService, $uibModal,DialogService, KongGroupModel,_consumers ) {
+      '_','$scope', '$log', '$state','ConsumerService','$uibModal','DialogService','_consumers',
+      function controller(_,$scope, $log, $state, ConsumerService, $uibModal,DialogService,_consumers ) {
 
           $scope.consumers = _consumers.data
           $log.debug("consumers",$scope.consumers)
@@ -21,7 +21,6 @@
           $scope.openCreateConsumerModal = openCreateConsumerModal
           $scope.openEditConsumerModal = openEditConsumerModal
           $scope.deleteConsumer = deleteConsumer
-          $scope.openManageGroupsModal = openManageGroupsModal
 
 
           function deleteConsumer(consumer) {
@@ -132,21 +131,6 @@
           }
 
 
-          function openManageGroupsModal() {
-              $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/groups/manage-groups-modal.html',
-                  controller: 'ManageKongGroupController',
-                  controllerAs: '$ctrl',
-                  resolve : {
-                      _groups : function() {
-                          return KongGroupModel.load()
-                      }
-                  }
-              });
-          }
 
 
           function queryConsumers(){
