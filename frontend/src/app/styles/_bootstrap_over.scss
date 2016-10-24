@@ -136,11 +136,20 @@ input.form-control, select.form-control{
 }
 
 .panel {
+  transition: all .2s;
+  &.panel-dashed.panel-flat{
+    &:hover{
+      border: 2px dashed #666;
+    }
+    box-shadow: none;
+    border: 2px dashed #ccc;
+    text-align: center;
+  }
   &.panel-default.panel-flat{
     box-shadow: none;
-    border: 1px solid #e3e3e3;
+    border: 2px solid #e3e3e3;
     border-radius: 3px;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
 
     &.panel-active{
       //border-color: $brand-primary;

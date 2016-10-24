@@ -1,21 +1,21 @@
 <div class="modal-header success">
     <h4 class="modal-title" id="modal-title">
-        Create Group
+        Add Group
         <a href="#" class="modal-close pull-right" ng-click="close()">
             <i class="material-icons ">clear</i>
         </a>
     </h4>
 </div>
 <div class="col-md-12 bg-light-grey padding">
-    <p class="text-muted no-margin">Create new consumer group</p>
+    <p class="text-muted no-margin">Add a group to this consumer</p>
 </div>
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal">
-        <div class="form-group" ng-class="{'has-error' : errors.name}">
+        <div class="form-group" ng-class="{'has-error' : errors.group}">
             <label class="col-sm-4 control-label">Group name <br><em><small class="help-block">required</small></em></label>
             <div class="col-sm-7">
-                <input ng-model="group.name" class="form-control">
-                <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+                <input ng-model="acl.group" class="form-control">
+                <div class="text-danger" ng-if="errors.group" data-ng-bind="errors.group"></div>
                 <p class="help-block">The name of the ACL group</p>
             </div>
         </div>

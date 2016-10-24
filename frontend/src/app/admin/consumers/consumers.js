@@ -53,12 +53,6 @@
                                             return ConsumerService.findById($stateParams.id)
                                         }
                                     ],
-                                    _groups : [
-                                        'KongGroupModel',
-                                        function(KongGroupModel){
-                                            return KongGroupModel.fetch()
-                                        }
-                                    ],
                                     _acls : [
                                         'ConsumerService',
                                         '$stateParams',

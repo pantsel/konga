@@ -228,6 +228,18 @@ footer {
   margin-right:15px;
 }
 
+.acl-clear{
+  transition: all .2s ease-in-out;
+  position: absolute;
+  right: 20px;
+  top:18px;
+  font-size: 1.5em;
+  &:hover{
+    color: $brand-danger;
+    transform: scale(1.3);
+  }
+}
+
 .inline {
   display: inline-block !important;
 }

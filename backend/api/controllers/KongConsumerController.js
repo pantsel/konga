@@ -1,7 +1,6 @@
 'use strict';
 
 var unirest = require('unirest');
-var KongGroup = require("../models/KongGroup")
 var _ = require('lodash');
 
 var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongController')), {
@@ -133,24 +132,25 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
         unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/acls")
             .end(function(response){
                 if(response.error) return res.kongError(response);
-                sails.models.konggroup.find()
-                    .exec(function(err,groups){
-                        if(err) return res.json(500, {customMessage: err.message});
-
-                        groups.forEach(function(group){
-                            response.body.data.forEach(function(acl){
-
-                                if(group.name == acl.group) {
-                                    console.log("group.name",group.name)
-                                    console.log("acl.group",acl.group)
-                                    group['added'] = true
-                                    group['kong_group_id'] = acl.id
-                                }
-                            })
-                        })
-
-                        return res.json(groups)
-                    })
+                return res.json(response.body)
+                //sails.models.konggroup.find()
+                //    .exec(function(err,groups){
+                //        if(err) return res.json(500, {customMessage: err.message});
+                //
+                //        groups.forEach(function(group){
+                //            response.body.data.forEach(function(acl){
+                //
+                //                if(group.name == acl.group) {
+                //                    console.log("group.name",group.name)
+                //                    console.log("acl.group",acl.group)
+                //                    group['added'] = true
+                //                    group['kong_group_id'] = acl.id
+                //                }
+                //            })
+                //        })
+                //
+                //        return res.json(groups)
+                //    })
             })
     },
 
