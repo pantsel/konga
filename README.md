@@ -69,7 +69,7 @@ $ cd konga
 <code>$ npm run konga help</code> to see available commands
 
 <pre>
-$ npm run konga build
+$ npm install
 </pre>
 This will install all frontend and backend dependencies
 
