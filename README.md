@@ -104,7 +104,17 @@ If you're changing your backend API url to another than <code>http://localhost:1
 <pre>
 $ npm run konga play
 </pre>
-You can now use Konga at http://localhost:3001
+Konga GUI is available at http://localhost:3001
+
+You can also start frontend and backend separately
+<pre>
+$ cd frontend
+$ gulp serve
+</pre>
+<pre>
+$ cd backend
+$ sails lift
+</pre>
 
 #### Production
 <pre>
@@ -115,7 +125,17 @@ This will create production-ready code to frontend/dist ready to be served by an
 <pre>
 $ npm run konga play -env production
 </pre>
-You can now use Konga at http://localhost:3000
+Konga GUI is available at http://localhost:3000
+
+You can also start frontend and backend separately
+<pre>
+$ cd frontend
+$ gulp production
+</pre>
+<pre>
+$ cd backend
+$ sails lift
+</pre>
 
 #### Login
 *Admin*
