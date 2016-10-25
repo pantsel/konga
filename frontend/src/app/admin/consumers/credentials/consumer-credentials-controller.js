@@ -7,31 +7,23 @@
   'use strict';
 
   angular.module('frontend.admin.consumers')
-    .controller('EditConsumerController', [
-      '_','$scope', '$log', '$state','ConsumerService',
-        'MessageService','$uibModal','DialogService',
-        '_consumer','_acls','_keys','_jwts','_basic_auth_credentials','_hmac_auth_credentials',
+    .controller('ConsumerCredentialsController', [
+      '_','$scope', '$log', '$state',
+        'ConsumerService','MessageService','$uibModal',
+        'DialogService',
+        '_keys','_jwts','_basic_auth_credentials','_hmac_auth_credentials',
       function controller(_,$scope, $log, $state,
                           ConsumerService, MessageService,$uibModal,
-                          DialogService,_consumer,
-                          _acls, _keys, _jwts, _basic_auth_credentials, _hmac_auth_credentials ) {
+                          DialogService,
+                          _keys, _jwts, _basic_auth_credentials, _hmac_auth_credentials ) {
 
-          $state.current.data.pageName = "Edit Consumer <small>( " + (_consumer.data.username || _consumer.data.custom_id) + " )</small>"
-          $scope.consumer = _consumer.data
-          $scope.acls = _acls.data.data
+
           $scope.keys = _keys.data
           $scope.jwts = _jwts.data
           $scope.basic_auth_credentials = _basic_auth_credentials.data
           $scope.hmac_auth_credentials = _hmac_auth_credentials.data
 
-          $log.debug("Keys",$scope.keys)
-          $log.debug("Groups",$scope.acls)
-          $log.debug("JWTs",$scope.jwts)
-          $log.debug("basic_auth_credentials",$scope.basic_auth_credentials)
-          $log.debug("hmac_auth_credentials",$scope.hmac_auth_credentials)
 
-          $scope.addGroup = addGroup
-          $scope.deleteGroup = deleteConsumerGroup
           $scope.updateConsumerDetails = updateConsumerDetails
           $scope.createApiKey = createApiKey
           $scope.createJWT = createJWT
@@ -41,37 +33,7 @@
           $scope.deleteJWT = deleteJWT
           $scope.deleteBasicAuthCredentials = deleteBasicAuthCredentials
           $scope.deleteHMACAuthCredentials = deleteHMACAuthCredentials
-          $scope.toggleGroup = toggleGroup
-          $scope.sections = [
-              {
-                  name : 'Details',
-                  icon : '&#xE88F;',
-                  partial : '/admin/consumers/partials/consumer-details.html',
-                  active: true
-              },
-              {
-                  name : 'ACL Groups',
-                  icon : '&#xE7FC',
-                  partial : '/admin/consumers/partials/consumer-groups.html',
-                  active: false
-              },
-              {
-                  name : 'Credentials',
-                  icon : '&#xE899;',
-                  partial : '/admin/consumers/partials/consumer-credentials.html',
-                  active: false
-              },
-          ]
 
-          $scope.selectSection = function(index) {
-              $scope.sections.forEach(function(section,i){
-                  if(i === index) {
-                      section.active = true
-                  }else{
-                      section.active = false
-                  }
-              })
-          }
 
           function deleteHMACAuthCredentials($index,credentials) {
               DialogService.prompt(
@@ -207,79 +169,6 @@
               });
           }
 
-          function addGroup(consumer) {
-              $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/groups/create-group-modal.html',
-                  controller: ['$scope','$rootScope','$uibModalInstance','ConsumerService','_consumer',
-                      function($scope,$rootScope, $uibModalInstance,ConsumerService,_consumer){
-
-                          $scope.close = close
-                          $scope.createGroup = createGroup
-                          $scope.acl = {
-                              group : '',
-                          }
-
-                          function createGroup() {
-                              ConsumerService.addAcl(_consumer.id,$scope.acl).then(function(data){
-                                  fetcAcls()
-                                  close()
-                              }).catch(function(err){
-                                  console.error(err)
-                                  $scope.errors = {
-                                      group : err.data.customMessage.group
-                                  }
-                              })
-
-                          }
-
-                          function close() {
-                              $uibModalInstance.dismiss()
-                          }
-                      }],
-                  controllerAs: '$ctrl',
-                  resolve : {
-                      _consumer : function() {
-                          return consumer
-                      }
-                  }
-              });
-          }
-
-
-          function toggleGroup(group) {
-              if(group.added) {
-                  deleteConsumerGroup(group)
-              }else{
-                  addConsumerGroup(group)
-              }
-          }
-
-          function deleteConsumerGroup(group) {
-              DialogService.prompt(
-                  "Delete Group","Really want to remove the group from the consumer?",
-                  ['No','Remove it!'],
-                  function accept(){
-                      ConsumerService.deleteAcl($scope.consumer.id,group.id)
-                          .then(function(data){
-                              fetcAcls()
-                          })
-
-                  },function decline(){})
-
-          }
-
-          function addConsumerGroup(group) {
-              ConsumerService.addAcl($scope.consumer.id,{
-                  group : group.name
-              }).then(function(data){
-                      fetcAcls()
-              }).catch(function(err){
-                  console.error(err)
-              })
-          }
 
 
           function updateConsumerDetails() {
@@ -295,15 +184,6 @@
                   $log.error("Failed to update consumer", err)
                   $scope.errors = err.data.customMessage || {}
               })
-          }
-
-
-          function fetcAcls() {
-              ConsumerService.fetchAcls($scope.consumer.id)
-                  .then(function(res){
-                      console.log("asdddddddddddd",res.data)
-                      $scope.acls = res.data.data;
-                  })
           }
 
 
@@ -345,10 +225,6 @@
            * ----------------------------------------------------------
            */
 
-
-          $scope.$on('kong.group.created',function(ev,group){
-              fetcAcls()
-          })
 
           $scope.$on('consumer.key.created',function(ev,group){
               fetchKeys()

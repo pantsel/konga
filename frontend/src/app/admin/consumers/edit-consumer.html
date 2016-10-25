@@ -7,10 +7,10 @@
                 </div>
             </div>
             <div class="list-group">
-                <a href="#"
-                   class="list-group-item"
-                   ng-class="{'active' : section.active}"
-                   data-ng-click="selectSection($index)"
+                <a
+                   class="list-group-item clickable"
+                   ng-class="{'active' : sections[activeSection].name == section.name }"
+                   data-ng-click="showSection($index)"
                    data-ng-repeat="section in sections">
                     <i class="material-icons" data-ng-bind-html="section.icon"></i>
                     {{section.name}}
@@ -20,9 +20,9 @@
 
     </div>
     <div class="col-md-9">
-        <div data-ng-repeat="section in sections"
-             ng-show="section.active"
-             data-ng-include="section.partial"></div>
+        <div data-ui-view="details" ng-show="activeSection == 0"></div>
+        <div data-ui-view="groups" ng-show="activeSection == 1"></div>
+        <div data-ui-view="credentials" ng-show="activeSection == 2"></div>
     </div>
 </div>
 

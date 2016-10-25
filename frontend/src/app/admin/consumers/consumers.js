@@ -4,7 +4,6 @@
 
     angular.module('frontend.admin.consumers', [
         'angular.chips',
-        'frontend.admin.consumers.groups'
     ]);
 
     // Module configuration
@@ -20,6 +19,7 @@
                             displayName : "consumers",
                             prefix : '<i class="material-icons text-success">perm_identity</i>'
                         },
+
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/admin/consumers/index.html',
@@ -35,24 +35,26 @@
                         }
                     })
                     .state('admin.consumers.edit', {
-                        url: '/:id/edit',
+                        url: '/:id',
                         data : {
                             pageName : "Edit Consumer",
-                            displayName : "edit",
+                            displayName : "edit consumer",
                             prefix : '<i class="material-icons text-success">perm_identity</i>'
                         },
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/admin/consumers/edit-consumer.html',
-                                controller: 'EditConsumerController',
+                                controller: 'ConsumerController',
+
+                            },
+                            'details@admin.consumers.edit': {
+                                templateUrl: '/frontend/admin/consumers/details/consumer-details.html',
+                                controller: 'ConsumerDetailsController',
+                            },
+                            'groups@admin.consumers.edit': {
+                                templateUrl: '/frontend/admin/consumers/groups/consumer-groups.html',
+                                controller: 'ConsumerGroupsController',
                                 resolve : {
-                                    _consumer : [
-                                        'ConsumerService',
-                                        '$stateParams',
-                                        function(ConsumerService,$stateParams){
-                                            return ConsumerService.findById($stateParams.id)
-                                        }
-                                    ],
                                     _acls : [
                                         'ConsumerService',
                                         '$stateParams',
@@ -60,6 +62,12 @@
                                             return ConsumerService.fetchAcls($stateParams.id)
                                         }
                                     ],
+                                }
+                            },
+                            'credentials@admin.consumers.edit': {
+                                templateUrl: '/frontend/admin/consumers/credentials/consumer-credentials.html',
+                                controller: 'ConsumerCredentialsController',
+                                resolve : {
                                     _keys : [
                                         'ConsumerService',
                                         '$stateParams',
@@ -90,8 +98,18 @@
                                     ]
                                 }
                             }
-                        }
+                        },
+                        resolve : {
+                            _consumer : [
+                                'ConsumerService',
+                                '$stateParams',
+                                function(ConsumerService,$stateParams){
+                                    return ConsumerService.findById($stateParams.id)
+                                }
+                            ]
+                        },
                     })
+
             }
         ])
     ;
