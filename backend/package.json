@@ -1,8 +1,8 @@
 {
   "name": "backend-server",
   "private": true,
-  "version": "0.1.0",
-  "description": "Backend server for angular-sailsjs-boilerplate a Sails application that serves just a JSON API for frontend application",
+  "version": "0.1.1",
+  "description": "Backend server for Konga",
   "keywords": [
     "sails.js",
     "backend",
@@ -51,14 +51,5 @@
     "debug": "node debug app.js",
     "test": "./node_modules/mocha/bin/mocha"
   },
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tarlepp/angular-sailsjs-boilerplate.git"
-  },
-  "bugs": {
-    "url": "https://github.com/tarlepp/angular-sailsjs-boilerplate/issues"
-  },
-  "author": "Tarmo Leppänen",
-  "license": "MIT"
+  "main": "app.js"
 }

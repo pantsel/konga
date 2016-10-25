@@ -1,7 +1,7 @@
 {
   "name": "konga",
   "version": "0.1.1",
-  "description": "Kong admin GUIcd b.",
+  "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
     "kong",
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tarlepp/angular-sailsjs-boilerplate.git"
+    "url": "https://github.com/pantsel/konga.git"
   },
   "author": "Tselentis Panagis",
   "license": "MIT"
