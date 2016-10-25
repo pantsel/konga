@@ -1,4 +1,4 @@
-## Just another GUI to [KONG API Gateway](http://getkong.org)
+## Just another GUI to [KONG Admin API](http://getkong.org)
 
 [![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
 
