@@ -1,4 +1,10 @@
 language: node_js
+deploy:
+  api_key: df85fbb2-f468-4c37-b380-c795d6c44bd5
+  email: tselentispanagis@gmail.com
+  provider: npm
+  on:
+    tags: true
 
 node_js:
   - "0.10"
