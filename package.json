@@ -1,6 +1,6 @@
 {
-  "name": "konga",
-  "version": "0.1.1",
+  "name": "@pantsel/konga",
+  "version": "0.1.2",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
