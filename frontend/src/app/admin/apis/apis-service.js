@@ -45,7 +45,14 @@
                   for(var key in plugin) {
                       if(!plugin[key] || plugin[key] == '') delete plugin[key]
                   }
-                  return $http.post(BackendConfig.url + '/kong/apis/' + apiId + '/plugins',plugin)
+
+                  if(plugin.name === 'ssl') {
+
+                  }else{
+                      return $http.post(BackendConfig.url + '/kong/apis/' + apiId + '/plugins',plugin)
+                  }
+
+
               },
 
               updatePlugin : function(apiId,pluginId,data) {

@@ -3,7 +3,8 @@
     'use strict';
 
     angular.module('frontend.admin.apis', [
-        'angular.chips'
+        'angular.chips',
+        'ngFileUpload'
     ]);
 
     // Module configuration

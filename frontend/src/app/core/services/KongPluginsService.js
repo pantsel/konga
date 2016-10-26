@@ -163,6 +163,26 @@
            */
           KongPluginsService.prototype.pluginOptions = function(plugin){
           var data = {
+            "ssl" : {
+                "config.cert" : {
+                    type : "file",
+                    help : "Upload the data of the certificate to use. Note that is the the actual data of the key (not the path), so it should be sent in multipart/form-data upload request."
+                },
+                "config.key" : {
+                    type : "file",
+                    help : "Upload the data of the certificate key to use. Note that is the the actual data of the key (not the path), so it should be sent in multipart/form-data upload request."
+                },
+                "config.only_https" : {
+                    type : "boolean",
+                    value : false,
+                    help : "Specify if the service should only be available through an https protocol."
+                },
+                "config.accept_http_if_already_terminated" : {
+                    type : "boolean",
+                    value : false,
+                    help : "If config.only_https is true, accepts HTTPs requests that have already been terminated by a proxy or load balancer and the x-forwarded-proto: https header has been added to the request. Only enable this option if the Kong server cannot be publicly accessed and the only entry-point is such proxy or load balancer."
+                },
+            },
             "request-size-limiting" : {
             'consumer_id' : {
               type: 'text',

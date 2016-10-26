@@ -2,8 +2,14 @@
 
 var unirest = require("unirest")
 var _ = require('lodash');
+var KongService = require('../services/KongService')
 
 var KongPluginController  = _.merge(_.cloneDeep(require('../base/KongController')), {
+
+    create : function(req,res) {
+        return KongService.create(req,res)
+
+    },
 
     retrieveEnabled : function(req,res) {
         unirest.get(sails.config.kong_admin_url + '/plugins/enabled/')

@@ -9,10 +9,10 @@
   angular.module('frontend.admin.apis')
     .controller('AddApiPluginController', [
         '_','$scope','$rootScope',
-        '$log','MessageService','KongPluginsService',
+        '$log','MessageService','KongPluginsService','Upload','BackendConfig',
         '$uibModalInstance','ApiService','_api','_plugin',
       function controller(_,$scope,$rootScope,
-                          $log,MessageService,KongPluginsService,
+                          $log,MessageService,KongPluginsService,Upload,BackendConfig,
                           $uibModalInstance,ApiService,_api,_plugin) {
 
           $scope.plugin = {
@@ -28,7 +28,7 @@
 
           $scope.addPlugin = function() {
 
-              $scope.busy = true;
+              //$scope.busy = true;
               var data = {
                   name : $scope.plugin.name
               }
@@ -46,18 +46,46 @@
                   }
               }
 
-              ApiService.addPlugin(_api.id,data)
-                  .then(function(res){
-                      $log.debug("addPlugin",res)
-                      $scope.busy = false;
-                      $rootScope.$broadcast('plugin.added')
-                      MessageService.success('"' + $scope.plugin.name + '" plugin added successfully!')
-                      $uibModalInstance.dismiss()
-                  }).catch(function(err){
-                  $log.error("addPlugin:", err)
-                  $scope.busy = false;
-                  $scope.errors = err.data.customMessage || {}
-              })
+              if(data.name === 'ssl') {
+                  console.log(data)
+                  var files = [];
+                  files.push(data['config.cert'])
+                  files.push(data['config.key'])
+
+                  console.log(files)
+
+                  Upload.upload({
+                      url: BackendConfig.url + '/kong/apis/' + _api.id + '/plugins',
+                      arrayKey: '',
+                      data: {
+                          file: files,
+                          'name' : data.name,
+                          'config.only_https': data['config.only_https'],
+                          'config.accept_http_if_already_terminated': data['config.accept_http_if_already_terminated']
+                      }
+                  }).then(function (resp) {
+                      console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+                  }, function (resp) {
+                      console.error('Error', resp);
+                      $scope.errors = resp.data.customMessage || {}
+                  }, function (evt) {
+                      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                  });
+              }
+
+              //ApiService.addPlugin(_api.id,data)
+              //    .then(function(res){
+              //        $log.debug("addPlugin",res)
+              //        $scope.busy = false;
+              //        $rootScope.$broadcast('plugin.added')
+              //        MessageService.success('"' + $scope.plugin.name + '" plugin added successfully!')
+              //        $uibModalInstance.dismiss()
+              //    }).catch(function(err){
+              //    $log.error("addPlugin:", err)
+              //    $scope.busy = false;
+              //    $scope.errors = err.data.customMessage || {}
+              //})
 
 
           }

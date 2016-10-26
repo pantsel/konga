@@ -55,6 +55,12 @@
                         >
 
                     </div>
+                    <div ng-switch-when="file">
+                        <input type="file"
+                             ngf-select ng-model="value.value" name="value.value"
+                        />
+
+                    </div>
                     <div ng-switch-default>
                         <input type="{{value.type}}" ng-model="value.value" class="form-control">
 
