@@ -166,11 +166,11 @@
             "ssl" : {
                 "config.cert" : {
                     type : "file",
-                    help : "Upload the data of the certificate to use. Note that is the the actual data of the key (not the path), so it should be sent in multipart/form-data upload request."
+                    help : "Upload the data of the certificate to use."
                 },
                 "config.key" : {
                     type : "file",
-                    help : "Upload the data of the certificate key to use. Note that is the the actual data of the key (not the path), so it should be sent in multipart/form-data upload request."
+                    help : "Upload the data of the certificate key to use."
                 },
                 "config.only_https" : {
                     type : "boolean",

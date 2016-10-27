@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.info')
+  angular.module('frontend.admin.apis')
     .service('ApiService', [
         '$log', '$state','$http','BackendConfig',
       function( $log, $state, $http,BackendConfig) {
@@ -46,11 +46,7 @@
                       if(!plugin[key] || plugin[key] == '') delete plugin[key]
                   }
 
-                  if(plugin.name === 'ssl') {
-
-                  }else{
-                      return $http.post(BackendConfig.url + '/kong/apis/' + apiId + '/plugins',plugin)
-                  }
+                  return $http.post(BackendConfig.url + '/kong/apis/' + apiId + '/plugins',plugin)
 
 
               },
