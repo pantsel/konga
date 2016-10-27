@@ -1,6 +1,8 @@
 <div class="modal-header warning">
     <h5 class="modal-title" id="modal-title">
-        Add Plugin to {{api.name}} api
+       <span class="capitalize">
+            {{plugin.name.split("-").join(" ")}}
+        </span><small>plugin</small>
         <a href="#" class="modal-close pull-right" ng-click="close()">
             <i class="material-icons">clear</i>
         </a>
@@ -8,12 +10,7 @@
     </h5>
 </div>
 <div class="col-md-12 bg-light-grey padding">
-    <h4 class="">
-        <span class="capitalize">
-            {{plugin.name.split("-").join(" ")}}
-        </span><small>plugin</small>
-    </h4>
-    <p class="text-muted">Configure the Plugin according to your specifications and add it to the API</p>
+    <p class="help-block" data-ng-bind-html="description"></p>
 </div>
 <div class="modal-body">
     <div class="alert alert-danger" ng-if="errors.config">
@@ -22,7 +19,7 @@
     </div>
 
     <form class="form-horizontal">
-        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in plugin.options">
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in filterMeta(plugin.options)">
             <label class="col-sm-4 control-label">{{key}}</label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">

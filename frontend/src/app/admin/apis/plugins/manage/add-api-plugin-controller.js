@@ -20,12 +20,33 @@
           $scope.plugin = {
               name : _plugin,
               options : new KongPluginsService().pluginOptions(_plugin)
+
           }
+
+          $scope.description = $scope.plugin.options.meta ? $scope.plugin.options.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
 
 
           $scope.api = _api
           $scope.close = function() {
               $uibModalInstance.dismiss()
+          }
+
+          $scope.filterMeta = function(items) {
+              var result = {};
+
+              angular.forEach(items, function(value, key) {
+                  if (key !== 'meta') {
+                      result[key] = value;
+                  }
+              });
+
+              return result;
+          }
+
+          $scope.filterOutMeta = function(item) {
+              //return Object.keys(item).indexOf('meta') < 0
+              console.log(item)
+              return true
           }
 
           $scope.addPlugin = function() {

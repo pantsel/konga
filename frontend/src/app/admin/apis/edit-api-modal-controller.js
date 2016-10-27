@@ -15,9 +15,24 @@
           var options = pluginOptions[_plugin.name]
 
           $scope.plugin = _plugin
+          $log.debug("Plugin",$scope.plugin)
           $scope.api = _api
           $scope.close = close
 
+          $scope.description = options.meta ? options.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
+
+
+          $scope.filterMeta = function(items) {
+              var result = {};
+
+              angular.forEach(items, function(value, key) {
+                  if (key !== 'meta') {
+                      result[key] = value;
+                  }
+              });
+
+              return result;
+          }
 
           // Populate resolved config values
           Object.keys(options).forEach(function(item){

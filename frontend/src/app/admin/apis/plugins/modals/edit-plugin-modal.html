@@ -1,6 +1,8 @@
 <div class="modal-header warning">
     <h5 class="modal-title" id="modal-title">
-        Plugin Configuration
+        Edit <span class="capitalize">
+            {{plugin.name.split("-").join(" ")}}
+        </span>
         <a href="#" class="modal-close pull-right" ng-click="close()">
             <i class="material-icons">clear</i>
         </a>
@@ -8,25 +10,20 @@
     </h5>
 </div>
 <div class="col-md-12 bg-light-grey padding">
-    <h4 class="">
-        <span class="capitalize">
-            {{plugin.name.split("-").join(" ")}}
-        </span>
-        <small>plugin</small>
-        <div class="form-group pull-right no-margin">
-            <input
 
-                    bs-switch
-                    ng-model="plugin.enabled"
-                    switch-size="small"
-                    type="checkbox"
-                    switch-on-text="ENABLED"
-                    switch-off-text="DISABLED"
-                    ng-change="updateApi(api)"
-            >
-        </div>
+    <div class="form-group pull-right no-margin">
+        <input
 
-    </h4>
+                bs-switch
+                ng-model="plugin.enabled"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="ENABLED"
+                switch-off-text="DISABLED"
+                ng-change="updateApi(api)"
+        >
+    </div>
+    <p class="help-block" data-ng-bind-html="description"></p>
 
 </div>
 <div class="modal-body">
@@ -36,7 +33,7 @@
     </div>
 
     <form class="form-horizontal">
-        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in plugin.options">
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in filterMeta(plugin.options)">
             <label class="col-sm-4 control-label">{{key}}</label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
@@ -67,6 +64,16 @@
                                 ng-change="updateApi(api)"
                         >
 
+                    </div>
+                    <div ng-switch-when="file">
+                        <!--<input type="file"-->
+                               <!--ngf-select ng-model="value.value" name="value.value"-->
+                        <!--/>-->
+                        <!--<br>-->
+                        <p class="text-primary">
+                            To change the certificates you must remove the plugin and add it again
+                        </p>
+                        <pre>{{value.value}}</pre>
                     </div>
                     <div ng-switch-default>
                         <input type="{{value.type}}" ng-model="value.value" class="form-control">

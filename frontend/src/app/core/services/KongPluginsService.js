@@ -164,6 +164,9 @@
           KongPluginsService.prototype.pluginOptions = function(plugin){
           var data = {
             "ssl" : {
+                "meta" : {
+                    description : 'Dynamically binds a specific SSL certificate to the <code>request_host</code> value of a service. In case you want to setup a global SSL certificate for every API, take a look at the <a href="https://getkong.org/docs/0.9.x/configuration/#ssl_cert_path" target="_blank">Kong SSL configuration options.</a>'
+                },
                 "config.cert" : {
                     type : "file",
                     help : "Upload the data of the certificate to use."
@@ -184,6 +187,9 @@
                 },
             },
             "request-size-limiting" : {
+                meta : {
+                    description : 'Block incoming requests whose body is greater than a specific size in megabytes.'
+                },
             'consumer_id' : {
               type: 'text',
                   value: null,
@@ -196,6 +202,9 @@
             },
           },
             "bot-detection" : {
+                'meta' : {
+                    description: 'Protects your API from most common bots and has the capability of whitelisting and blacklisting custom clients.'
+                },
             'config.whitelist' : {
               type: 'text',
                   value: null,
@@ -208,6 +217,9 @@
             },
           },
             "ip-restriction" : {
+                meta : {
+                    description : 'Restrict access to an API by either whitelisting or blacklisting IP addresses. Single IPs, multiple IPs or ranges in <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">CIDR notation</a> like <code>10.10.10.0/24</code> can be used.'
+                },
             'consumer_id' : {
               type: 'text',
                   value: null,
@@ -225,6 +237,9 @@
             },
           },
             "cors" : {
+                meta : {
+                    description : 'Easily add <strong>Cross-origin resource sharing (CORS)</strong> to your API by enabling this plugin.'
+                },
             'config.origin' : {
               type: 'text',
                   value: '',
@@ -256,6 +271,9 @@
             }
           },
             "acl" : {
+                meta : {
+                    description : 'Restrict access to an API by whitelisting or blacklisting consumers using arbitrary ACL group names. This plugin requires an <strong>authentication plugin</strong> to have been already enabled on the API.'
+                },
             'config.whitelist' : {
               type: 'text',
                   value: '',
@@ -268,6 +286,9 @@
             }
           },
             "ldap-auth" : {
+                meta : {
+                  description : 'Add LDAP Bind Authentication to your APIs, with username and password protection. The plugin will check for valid credentials in the <code>Proxy-Authorization</code> and <code>Authorization</code> header (in this order).'
+                },
             'config.hide_credentials': {
               type: 'boolean',
                   value: false,
@@ -320,6 +341,9 @@
             },
           },
             "hmac-auth" : {
+                meta : {
+                  description : 'Add HMAC Signature Authentication to your APIs to establish the identity of the consumer. The plugin will check for valid signature in the <code>Proxy-Authorization</code> and <code>Authorization</code> header (in this order). This plugin implementation follows the <a href="https://tools.ietf.org/html/draft-cavage-http-signatures-00">draft-cavage-http-signatures-00</a> draft with slightly changed signature scheme.'
+                },
             'config.hide_credentials': {
               type: 'boolean',
                   value: false,
@@ -332,6 +356,9 @@
             }
           },
             "basic-auth" : {
+                meta : {
+                    description : 'Add Basic Authentication to your APIs, with username and password protection. The plugin will check for valid credentials in the <code>Proxy-Authorization</code> and <code>Authorization</code> header (in this order).',
+                },
             'config.hide_credentials': {
               type: 'boolean',
                   value: false,
@@ -339,6 +366,9 @@
             }
           },
             "key-auth" : {
+                meta : {
+                    description : 'Add Key Authentication (also referred to as an API key) to your APIs. Consumers then add their key either in a querystring parameter or a header to authenticate their requests.'
+                },
             'config.key_names': {
               type: 'text',
                   value: 'apikey',
@@ -351,6 +381,9 @@
             }
           },
             "oauth2" : {
+                meta : {
+                    description : 'Add an OAuth 2.0 authentication layer with the <a href="https://tools.ietf.org/html/rfc6749#section-4.1" target="_blank">Authorization Code Grant</a>, <a href="https://tools.ietf.org/html/rfc6749#section-4.4" target="_blank">Client Credentials</a>, <a href="https://tools.ietf.org/html/rfc6749#section-4.2" target="_blank">Implicit Grant</a> or <a href="https://tools.ietf.org/html/rfc6749#section-4.3" target="_blank">Resource Owner Password Credentials Grant</a> flow. This plugin requires the <a href="https://getkong.org/plugins/dynamic-ssl/" target="_blank">SSL Plugin</a> with the <code>only_https</code> parameter set to <code>true</code> to be already installed on the API, failing to do so will result in a security weakness.'
+                },
             'config.scopes': {
               type: 'text',
                   value: '',
@@ -399,6 +432,9 @@
             },
           },
             jwt : {
+                meta : {
+                  description : 'Verify requests containing HS256 or RS256 signed JSON Web Tokens (as specified in RFC 7519). Each of your Consumers will have JWT credentials (public and secret keys) which must be used to sign their JWTs. A token can then be passed through the Authorization header or in the request\'s URI and Kong will either proxy the request to your upstream services if the token\'s signature is verified, or discard the request if not. Kong can also perform verifications on some of the registered claims of <a href="https://tools.ietf.org/html/rfc7519">RFC 7519</a> (exp and nbf).'
+                },
               'config.uri_param_names' : {
                 type : 'text',
                     value : 'jwt',
@@ -421,6 +457,9 @@
                 }
             },
               "correlation-id" : {
+                  meta : {
+                      description : 'Correlate requests and responses using a unique ID transmitted over an HTTP header.'
+                  },
                   'config.header_name' : {
                       type : 'text',
                       value : 'Kong-Request-ID',
@@ -439,6 +478,9 @@
                   }
               },
               "datadog" : {
+                  meta : {
+                      description : 'Log API metrics like request count, request size, response status and latency to the local <a href="http://docs.datadoghq.com/guides/basic_agent_usage/">Datadog agent</a>.'
+                  },
                   'config.consumer_id' : {
                       type : 'text',
                       value : null,
@@ -477,6 +519,9 @@
                   },
               },
               "runscope" : {
+                  meta : {
+                      description : 'Logs request and response data to <a href="https://www.runscope.com/">Runscope</a>.'
+                  },
                   "config.access_token" : {
                       type : "text",
                       value : "",
@@ -509,6 +554,9 @@
                   }
               },
               "galileo" : {
+                  meta : {
+                      description : 'Logs request and response data to <a href="https://getgalileo.io/">Galileo</a>, the analytics platform for monitoring, visualizing and inspecting API & microservice traffic.'
+                  },
                   "config.consumer_id" : {
                       type : "text",
                       value : "",
@@ -568,6 +616,9 @@
 
               },
               "rate-limiting" : {
+                  meta : {
+                      description : 'Rate limit how many HTTP requests a developer can make in a given period of seconds, minutes, hours, days, months or years. If the API has no authentication layer, the <strong>Client IP</strong> address will be used, otherwise the Consumer will be used if an authentication plugin has been configured.'
+                  },
                   "config.consumer_id" : {
                       type : "text",
                       value : "",
@@ -638,6 +689,9 @@
                   }
               },
               "request-transformer" : {
+                  meta : {
+                      description : 'Transform the request sent by a client on the fly on Kong, before hitting the upstream server.'
+                  },
                   "consumer_id" : {
                       type : "text",
                       value : "",
@@ -712,6 +766,9 @@
               },
 
               "response-transformer" : {
+                  meta : {
+                      description: 'Transform the response sent by the upstream server on the fly on Kong, before returning the response to the client.'
+                  },
                   "consumer_id" : {
                       type : "text",
                       value : "",
