@@ -147,7 +147,8 @@ login: demo | password: demodemodemo
 
 ## ToDo
 * Complete tests
-* Include Logging & dynamic SSL plugins
+* ~~Implement dynamic SSL plugin~~
+* Implement Logging plugins
 * Write a detailed Wiki
 
 ## Author
