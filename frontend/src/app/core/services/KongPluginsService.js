@@ -167,7 +167,7 @@
                 "meta" : {
                     description : 'Dynamically binds a specific SSL certificate to the <code>request_host</code> value of a service. ' +
                     'In case you want to setup a global SSL certificate for every API, take a look at the <a href="https://getkong.org/docs/0.9.x/configuration/#ssl_cert_path" target="_blank">Kong SSL configuration options.</a>' +
-                    '<br><span>If no <code>.cert</code> and <code>.key</code> files are provided, Konga will create self-signed certificates and send them to Kong. <a href="https://www.openssl.org/">openssl library</a> must be available on your machine.</span>'
+                    '<br><span>If no <code>.cert</code> and <code>.key</code> files are provided, Konga will create self-signed certificates and send them to Kong ( <a href="https://www.openssl.org/">openssl library</a> must be available on your machine ).</span>'
                 },
                 "config.cert" : {
                     type : "file",
