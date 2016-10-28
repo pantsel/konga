@@ -7,10 +7,20 @@
     'use strict';
 
     angular.module('frontend.admin.apis')
-        .service('AddPluginHandler', [
+        .service('AddPluginHelper', [
             '$log','BackendConfig','Upload','ApiService','KongPluginsService',
             function( $log,BackendConfig,Upload,ApiService,KongPluginsService) {
 
+                function parseFields(schema,path,output) {
+                    angular.forEach(schema.fields, function(value, key) {
+                        var _path = path ? path + "." + key : "config." + key;
+                        if(value.schema) {
+                            parseFields(value.schema,_path,output)
+                        }else{
+                            output[_path] = value
+                        }
+                    });
+                }
 
                 var handlers  = {
                     common : function(apiId,data,success,error) {
@@ -76,6 +86,14 @@
                         }
 
                         return data;
+                    },
+
+                    createFields : function(schema,path) {
+                        var output = {}
+
+                        parseFields(schema,path,output)
+
+                        return output
                     }
 
                 }

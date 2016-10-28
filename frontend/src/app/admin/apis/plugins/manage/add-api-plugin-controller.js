@@ -10,12 +10,16 @@
     .controller('AddApiPluginController', [
         '_','$scope','$rootScope',
         '$log','MessageService','KongPluginsService',
-        'AddPluginHandler',
+        'AddPluginHelper',
         '$uibModalInstance','_api','_plugin','_schema',
       function controller(_,$scope,$rootScope,
                           $log,MessageService,KongPluginsService,
-                          AddPluginHandler,
+                          AddPluginHelper,
                           $uibModalInstance,_api,_plugin,_schema) {
+
+          //var fields = AddPluginHelper.createFields(_schema.data)
+          //$log.debug("fields",fields)
+
 
           $scope.plugin = {
               name : _plugin,
@@ -55,9 +59,9 @@
 
               $scope.busy = true;
 
-              var data = AddPluginHandler.makeData($scope.plugin);
+              var data = AddPluginHelper.makeData($scope.plugin);
 
-              AddPluginHandler.add(
+              AddPluginHelper.add(
                   _api.id,data,
                   function success(resp){
                       $scope.busy = false;
