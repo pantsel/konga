@@ -367,6 +367,22 @@ tr.danger{
   }
 }
 
+::-webkit-input-placeholder {
+  font-size: 0.9em;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  font-size: 0.9em;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  font-size: 0.9em;
+}
+
+:-ms-input-placeholder {
+  font-size: 0.9em;
+}
+
 pre {
   padding: 2px 4px;
   font-size: 90%;

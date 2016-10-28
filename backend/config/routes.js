@@ -77,6 +77,7 @@ module.exports.routes = {
   'DELETE /kong/consumers/:id/jwt/:jwtId'  : 'KongConsumerController.deleteJWT',
 
 
+
   'GET /kong/consumers/:id/basic-auth'    : 'KongConsumerController.retrieveBasicAuthCredentials',
   'POST /kong/consumers/:id/basic-auth'   : 'KongConsumerController.createBasicAuthCredentials',
   'DELETE /kong/consumers/:id/basic-auth/:credentialId'  : 'KongConsumerController.deleteBasicAuthCredentials',
@@ -98,6 +99,9 @@ module.exports.routes = {
   'PUT /kong/apis/:api/plugins'         : 'KongPluginController.updateOrCreate',
   'DELETE /kong/apis/:api/plugins/:id'  : 'KongPluginController.delete',
 
+  // Remote Storage routes
+  'GET /remote/consumers'                : 'RemoteStorageController.loadConsumers',
+  'GET /remote/connection/test'          : 'RemoteStorageController.testConnection',
 
 
 };

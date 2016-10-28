@@ -38,6 +38,10 @@ module.exports.policies = {
     '*':              ['authenticated','dynamicNode'],
   },
 
+  RemoteStorageController : {
+    '*':              true,
+  },
+
   KongPluginController : {
     '*':              ['authenticated','dynamicNode'],
   },

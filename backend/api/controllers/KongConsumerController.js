@@ -3,7 +3,12 @@
 var unirest = require('unirest');
 var _ = require('lodash');
 
+var mysql = require('../../node_modules/sails-mysql/node_modules/mysql')
+
 var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongController')), {
+
+
+
     retrieveJWT : function(req,res) {
         unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/jwt")
             .end(function(response){

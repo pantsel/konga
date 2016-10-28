@@ -6,7 +6,6 @@ var fs = require('fs')
 var path = require('path')
 
 
-
 var KongService = {
 
     makeSelfSignedCerts : function makeSelfSignedCerts(cb) {
