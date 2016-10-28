@@ -91,10 +91,10 @@ module.exports.routes = {
   'POST /kong/apis/:api/plugins'        : 'KongPluginController.create',
   'GET /kong/plugins/:id'               : 'KongPluginController.retrieve',
   'GET /kong/plugins/enabled'           : 'KongPluginController.retrieveEnabled',
-  'GET /kong/plugins/scghema/:plugin'   : 'KongPluginController.retrieveSchema',
+  'GET /kong/plugins/schema/:plugin'    : 'KongPluginController.retrieveSchema',
   'GET /kong/plugins'                   : 'KongPluginController.list',
   'GET /kong/apis/:api/plugins'         : 'KongPluginController.listApi',
-  'PATCH /kong/apis/:api/plugins/:id'    : 'KongPluginController.update',
+  'PATCH /kong/apis/:api/plugins/:id'   : 'KongPluginController.update',
   'PUT /kong/apis/:api/plugins'         : 'KongPluginController.updateOrCreate',
   'DELETE /kong/apis/:api/plugins/:id'  : 'KongPluginController.delete',
 

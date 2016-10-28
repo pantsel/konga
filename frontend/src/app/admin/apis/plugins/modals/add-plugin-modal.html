@@ -54,8 +54,12 @@
                     </div>
                     <div ng-switch-when="file">
                         <input type="file"
-                             ngf-select ng-model="value.value" name="value.value"
+                               ngf-select ng-model="value.value" name="value.value"
                         />
+
+                    </div>
+                    <div ng-switch-when="string">
+                        <input type="text" ng-model="value.value" class="form-control">
 
                     </div>
                     <div ng-switch-default>

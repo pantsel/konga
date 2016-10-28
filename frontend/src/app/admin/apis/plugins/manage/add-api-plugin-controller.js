@@ -11,11 +11,11 @@
         '_','$scope','$rootScope',
         '$log','MessageService','KongPluginsService',
         'AddPluginHandler',
-        '$uibModalInstance','_api','_plugin',
+        '$uibModalInstance','_api','_plugin','_schema',
       function controller(_,$scope,$rootScope,
                           $log,MessageService,KongPluginsService,
                           AddPluginHandler,
-                          $uibModalInstance,_api,_plugin) {
+                          $uibModalInstance,_api,_plugin,_schema) {
 
           $scope.plugin = {
               name : _plugin,
@@ -24,7 +24,6 @@
           }
 
           $scope.description = $scope.plugin.options.meta ? $scope.plugin.options.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
-
 
           $scope.api = _api
           $scope.close = function() {
@@ -51,6 +50,9 @@
 
           $scope.addPlugin = function() {
 
+              $log.debug($scope.plugin.config)
+
+
               $scope.busy = true;
 
               var data = AddPluginHandler.makeData($scope.plugin);
@@ -63,6 +65,7 @@
                       MessageService.success('"' + $scope.plugin.name + '" plugin added successfully!')
                       $uibModalInstance.dismiss()
                   },function(err){
+                      $log.error(err)
                       $scope.busy = false;
                       $scope.errors = err.data.customMessage || {}
                   },function evt(evt){

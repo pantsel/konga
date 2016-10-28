@@ -8,8 +8,14 @@
 
   angular.module('frontend.admin.apis')
     .controller('ManageApiPluginsController', [
-      '_','$scope', '$rootScope','$log', '$state','ApiService','MessageService','DialogService','KongPluginsService','$uibModal','_api','_plugins','_info',
-      function controller(_,$scope,$rootScope, $log, $state, ApiService, MessageService, DialogService,KongPluginsService, $uibModal,_api,_plugins,_info ) {
+      '_','$scope', '$rootScope','$log',
+        '$state','ApiService','MessageService','DialogService',
+        'KongPluginsService','PluginsService','$uibModal','_api',
+        '_plugins','_info',
+      function controller(_,$scope,$rootScope, $log,
+                          $state, ApiService, MessageService, DialogService,
+                          KongPluginsService,PluginsService, $uibModal,_api,
+                          _plugins,_info ) {
 
 
           var info = _info.data
@@ -97,6 +103,9 @@
                       },
                       _plugin: function () {
                           return plugin
+                      },
+                      _schema : function() {
+                          return PluginsService.schema(plugin)
                       }
                   }
               });

@@ -5,7 +5,8 @@
         <th>Id</th>
         <th>Created</th>
         <th width="1"></th>
-        <th></th>
+        <th width="1"></th>
+        <th width="1"></th>
     </tr>
     <tr data-ng-repeat="plugin in plugins | orderBy:'created_at':true | filter: search">
         <td>{{$index + 1}}.</td>
@@ -18,7 +19,6 @@
                     ng-model="plugin.enabled"
                     switch-size="small"
                     type="checkbox"
-
                     ng-change="updatePlugin(plugin)"
             >
         </td>
@@ -27,6 +27,8 @@
                 <i class="material-icons">&#xE254;</i>
                 Edit
             </button>
+        </td>
+        <td>
             <button type="button" ng-click="deletePlugin(plugin)" class="btn btn-danger btn-link">
                 <i class="material-icons">&#xE872;</i>
                 Delete

@@ -20,7 +20,7 @@ var KongPluginController  = _.merge(_.cloneDeep(require('../base/KongController'
     },
 
     retrieveSchema : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/plugins/shema/' + req.params.plugin)
+        unirest.get(sails.config.kong_admin_url + '/plugins/schema/' + req.params.plugin)
             .end(function(response){
                 if(response.error) return res.kongError(response)
                 return res.json(response.body)

@@ -57,6 +57,7 @@
                     },
 
                     makeData : function(plugin) {
+
                         var data = {
                             name : plugin.name
                         }

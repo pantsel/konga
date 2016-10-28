@@ -37,9 +37,6 @@
                   return $http.get(BackendConfig.url + '/kong/apis/' + apiId + '/plugins')
               },
 
-              getPlugin : function(pluginId) {
-                  return $http.get(BackendConfig.url + '/kong/plugins/' + pluginId)
-              },
 
               addPlugin : function(apiId,plugin) {
                   for(var key in plugin) {
