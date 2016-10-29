@@ -19,6 +19,14 @@
             '$log', '$state','$http','BackendConfig',
             function factory($log, $state, $http,BackendConfig) {
                 return {
+
+                    loadAdapters : function() {
+                        return $http({
+                            url : BackendConfig.url + '/remote/adapters/',
+                            method: "GET"
+                        })
+                    },
+
                     testConnection : function(query) {
                         return $http({
                             url : BackendConfig.url + '/remote/connection/test',

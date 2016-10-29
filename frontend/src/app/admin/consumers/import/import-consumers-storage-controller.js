@@ -8,75 +8,17 @@
 
     angular.module('frontend.admin.consumers')
         .controller('ImportConsumersStorageController', [
-            '_','$scope', '$log', '$state','ConsumerService','$uibModal','$uibModalInstance',
-            function controller(_,$scope, $log, $state, ConsumerService, $uibModal, $uibModalInstance) {
+            '_','$scope', '$log', '$state',
+            'ConsumerService','RemoteStorageService',
+            '$uibModal','$uibModalInstance','_adapters',
+            function controller(_,$scope, $log, $state,
+                                ConsumerService, RemoteStorageService,
+                                $uibModal, $uibModalInstance,_adapters) {
+
+                $scope.adapters = _adapters.data
 
                 $scope.close = function() {
                     $uibModalInstance.dismiss()
-                }
-                $scope.adapters = {
-                    'mysql' : {
-                        name : 'MySQL',
-                        value : 'mysql',
-                        description : 'Import Consumers from a MySQL database table',
-                        form_fields : {
-                            connection : {
-                                host : {
-                                    name : 'host',
-                                    type : 'text',
-                                    description : 'The database host. Defaults to localhost'
-                                },
-                                user : {
-                                    name : 'user',
-                                    type : 'text',
-                                    description : 'The database user. Defaults to root'
-                                },
-                                password : {
-                                    name : 'password',
-                                    type : 'text',
-                                    description : 'The database user\'s password.'
-                                },
-                                database : {
-                                    name : 'database',
-                                    type : 'text',
-                                    required : true,
-                                    description : 'The database to connect to.'
-                                },
-                            },
-                            consumer : {
-                                table : {
-                                    name : 'table',
-                                    type : 'text',
-                                    required : true,
-                                    description : 'The table containing the consumers that will be imported to Kong.'
-                                },
-                                username : {
-                                    name : 'username field',
-                                    type : 'text',
-                                    required : true,
-                                    description : 'The table field that will be used as the consumers <code>username</code>.'
-                                },
-                                custom_id : {
-                                    name : 'custom_id field',
-                                    type : 'text',
-                                    required : true,
-                                    description : 'The table field that will be used as the consumers <code>custom_id</code>.'
-                                }
-                            }
-
-
-                        }
-                    },
-                    "sql" : {
-                        name : 'SQL',
-                        value : 'sql',
-                        description : 'Import Consumers from an SQL database table'
-                    },
-                    "mongodb" : {
-                        name : 'MongoDB',
-                        value : 'mongodb',
-                        description : 'Import Consumers from a MongoDB collection'
-                    }
                 }
 
                 $scope.onStorageSelected = function(adapter) {

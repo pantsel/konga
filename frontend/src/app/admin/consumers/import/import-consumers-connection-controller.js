@@ -19,7 +19,9 @@
                     $uibModalInstance.dismiss()
                 }
 
-                $scope.connOptions = {}
+                $scope.connOptions = {
+                    adapter : $scope.adapter.value
+                }
 
                 $scope.loadConsumers = function() {
                     $scope.busy = true

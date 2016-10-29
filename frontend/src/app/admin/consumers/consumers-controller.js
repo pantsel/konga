@@ -8,8 +8,10 @@
 
   angular.module('frontend.admin.consumers')
     .controller('ConsumersController', [
-      '_','$scope', '$log', '$state','ConsumerService','$uibModal','DialogService','_consumers',
-      function controller(_,$scope, $log, $state, ConsumerService, $uibModal,DialogService,_consumers ) {
+      '_','$scope', '$log', '$state','ConsumerService','RemoteStorageService',
+        '$uibModal','DialogService','_consumers',
+      function controller(_,$scope, $log, $state, ConsumerService,RemoteStorageService,
+                          $uibModal,DialogService,_consumers ) {
 
           $scope.consumers = _consumers.data
           $log.debug("consumers",$scope.consumers)
@@ -141,6 +143,11 @@
                   templateUrl: '/frontend/admin/consumers/import/modal-select-storage.html',
                   controller: 'ImportConsumersStorageController',
                   controllerAs: '$ctrl',
+                  resolve : {
+                      _adapters : function() {
+                          return RemoteStorageService.loadAdapters();
+                      }
+                  }
               });
           }
 

@@ -100,6 +100,7 @@ module.exports.routes = {
   'DELETE /kong/apis/:api/plugins/:id'  : 'KongPluginController.delete',
 
   // Remote Storage routes
+  'GET /remote/adapters'                 : 'RemoteStorageController.loadAdapters',
   'GET /remote/consumers'                : 'RemoteStorageController.loadConsumers',
   'GET /remote/connection/test'          : 'RemoteStorageController.testConnection',
 

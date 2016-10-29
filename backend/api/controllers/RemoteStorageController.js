@@ -1,7 +1,8 @@
 'use strict';
 
 var unirest = require('unirest');
-var mysql = require('../../node_modules/sails-mysql/node_modules/mysql')
+var RemoteStorageService = require('../services/remote/RemoteStorageService')
+var adapters = require('../services/remote/adapters')
 
 /**
  * Authentication Controller
@@ -10,9 +11,14 @@ var mysql = require('../../node_modules/sails-mysql/node_modules/mysql')
  * includes the minimum amount of functionality for the basics of Passport.js to work.
  */
 var RemoteStorageController = {
+
+    loadAdapters : function(req,res) {
+        return adapters.getSchemas(req,res)
+    },
+
     testConnection : function(req,res) {
 
-        console.log(req.query)
+        return new RemoteStorageService(req.adapter).loadConsumers(req,res)
         var connection = mysql.createConnection({
             host : req.query.host || '',
             user : req.query.user || 'root',
@@ -29,21 +35,7 @@ var RemoteStorageController = {
     },
 
     loadConsumers : function(req,res) {
-        console.log(req.query)
-
-        var connection = mysql.createConnection({
-            host : req.query.host || '',
-            user : req.query.user || 'root',
-            password : req.query.password || '',
-            database : req.query.database || ''
-        });
-        connection.connect(function(err) {
-            if (err) return res.negotiate(err);
-            connection.query('SELECT ' + req.query.username + ' as username,' + req.query.custom_id + ' as custom_id FROM ' + req.query.table, function(err, rows, fields) {
-                if (err) return res.negotiate(err);
-                return res.json(rows);
-            });
-        });
+        return new RemoteStorageService(req.query.adapter).loadConsumers(req,res)
     },
 };
 
