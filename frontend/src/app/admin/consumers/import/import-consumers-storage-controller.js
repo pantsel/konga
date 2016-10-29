@@ -49,6 +49,18 @@
                                     type : 'text',
                                     required : true,
                                     description : 'The table containing the consumers that will be imported to Kong.'
+                                },
+                                username : {
+                                    name : 'username field',
+                                    type : 'text',
+                                    required : true,
+                                    description : 'The table field that will be used as the consumers <code>username</code>.'
+                                },
+                                custom_id : {
+                                    name : 'custom_id field',
+                                    type : 'text',
+                                    required : true,
+                                    description : 'The table field that will be used as the consumers <code>custom_id</code>.'
                                 }
                             }
 
@@ -68,13 +80,13 @@
                 }
 
                 $scope.onStorageSelected = function(adapter) {
+                    $uibModalInstance.dismiss()
                     $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         templateUrl: '/frontend/admin/consumers/import/modal-connection-options.html',
                         controller: 'ImportConsumersConnectionController',
-                        size: 'lg',
                         controllerAs: '$ctrl',
                         resolve : {
                             _adapter : function() {
@@ -82,6 +94,7 @@
                             }
                         }
                     });
+
                 }
 
             }

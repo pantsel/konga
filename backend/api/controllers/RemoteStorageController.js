@@ -31,8 +31,6 @@ var RemoteStorageController = {
     loadConsumers : function(req,res) {
         console.log(req.query)
 
-        req.query.fields = JSON.parse(req.query.fields)
-
         var connection = mysql.createConnection({
             host : req.query.host || '',
             user : req.query.user || 'root',
@@ -41,7 +39,7 @@ var RemoteStorageController = {
         });
         connection.connect(function(err) {
             if (err) return res.negotiate(err);
-            connection.query('SELECT ' + req.query.fields.username + ' as username,' + req.query.fields.custom_id + ' as custom_id FROM ' + req.query.table, function(err, rows, fields) {
+            connection.query('SELECT ' + req.query.username + ' as username,' + req.query.custom_id + ' as custom_id FROM ' + req.query.table, function(err, rows, fields) {
                 if (err) return res.negotiate(err);
                 return res.json(rows);
             });

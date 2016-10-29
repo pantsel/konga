@@ -1,7 +1,7 @@
 <div class="modal-header success">
     <h4 class="modal-title" id="modal-title">
         Import Consumers
-        <a href="#" class="modal-close pull-right" ng-click="close()">
+        <a href="#" class="modal-close pull-right" ng-click="closeModal()">
             <i class="material-icons ">clear</i>
         </a>
     </h4>
@@ -16,25 +16,21 @@
             <div class="col-md-6">
                 <h5>Database Connection</h5>
                 <div class="form-group"
-                     data-ng-repeat="field in adapter.form_fields.connection">
-                    <label class="control-label capitalize">
-                        {{field.name}}
-                        <span class="text-muted text-danger" data-ng-show="field.required">*</span>
-                    </label>
-                    <input ng-required='field.required' class="form-control" ng-model="connOptions[field.name]"/>
+                     data-ng-repeat="(key,field) in adapter.form_fields.connection">
+                    <input ng-required='field.required'
+                           placeholder="{{field.name}} ({{field.required ? 'required' : 'optional'}})"
+                           class="form-control" ng-model="connOptions[key]"/>
                     <p class="help-block" data-ng-bind-html="field.description"></p>
 
                 </div>
             </div>
             <div class="col-md-6">
-                <h5>Consumer hook</h5>
+                <h5>Consumer Hook</h5>
                 <div class="form-group"
-                     data-ng-repeat="field in adapter.form_fields.consumer">
-                    <label class="control-label capitalize">
-                        {{field.name}}
-                        <span class="text-muted text-danger" data-ng-show="field.required">*</span>
-                    </label>
-                    <input ng-required='field.required' class="form-control" ng-model="connOptions[field.name]"/>
+                     data-ng-repeat="(key,field) in adapter.form_fields.consumer">
+                    <input ng-required='field.required'
+                           placeholder="{{field.name}} ({{field.required ? 'required' : 'optional'}})"
+                           class="form-control" ng-model="connOptions[key]"/>
                     <p class="help-block" data-ng-bind-html="field.description"></p>
 
                 </div>
@@ -42,6 +38,15 @@
         </div>
 
     </form>
-
-    <pre>{{connOptions | json}}</pre>
+</div>
+<div class="modal-footer padding">
+    <button type="button" data-ng-click="closeModal()" data-ng-disabled="busy" class="btn btn-warning">
+        <i class="material-icons">close</i>
+        cancel
+    </button>
+    <button type="button" data-ng-disabled="busy" class="btn btn-primary" data-ng-click="loadConsumers()">
+        <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+        <i class="material-icons" ng-if="!busy">storage</i>
+        load consumers
+    </button>
 </div>

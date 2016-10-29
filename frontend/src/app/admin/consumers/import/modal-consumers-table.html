@@ -1,0 +1,60 @@
+<div class="modal-header bg-light-grey">
+    <div class="pull-left">
+        <h4 class="no-margin">Remote consumers</h4>
+        <p class="help-block">
+            Loaded {{consumers.length}} consumers form the remote storage.<br>
+            Select the ones you want to import.
+        </p>
+    </div>
+
+    <a href="#" class="modal-close pull-right" style="margin-top: 10px" ng-click="closeModal()">
+        <i class="material-icons ">clear</i>
+    </a>
+</div>
+<div class="modal-body">
+
+    <div class="actions no-margin">
+        <button type="submit" data-ng-disabled="busy" class="btn btn-warning" data-ng-click="importChecked()">
+            <i class="material-icons">file_download</i>
+            import selected
+        </button>
+        <button type="submit" data-ng-disabled="busy" class="btn btn-primary" data-ng-click="importAll()">
+            <i class="material-icons">file_download</i>
+            import all
+        </button>
+    </div>
+</div>
+<table class="import-consumers-table table table-hover table-striped">
+    <tr>
+        <th width="1">
+            <input type="checkbox" ng-model="item.checked"/></th>
+        <th>username</th>
+        <th>custom_id</th>
+    </tr>
+    <tr data-ng-repeat="item in consumers">
+        <td>
+            <input class="padding-left" type="checkbox" ng-model="item.checked"/>
+        </td>
+        <td>{{item.username}}</td>
+        <td>{{item.custom_id}}</td>
+    </tr>
+</table>
+<div class="modal-body">
+
+    <div class="actions no-margin">
+        <button type="submit"
+                data-ng-disabled="busy"
+                data-ng-click="importChecked()"
+                class="btn btn-warning">
+            <i class="material-icons">file_download</i>
+            import selected
+        </button>
+        <button type="submit"
+                data-ng-disabled="busy"
+                data-ng-click="importAll()"
+                class="btn btn-primary">
+            <i class="material-icons">file_download</i>
+            import all
+        </button>
+    </div>
+</div>

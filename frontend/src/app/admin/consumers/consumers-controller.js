@@ -26,17 +26,24 @@
 
           function deleteConsumer(consumer) {
 
-              DialogService.prompt(
-                  "Delete Consumer","Really want to delete the selected consumer?",
-                  ['No don\'t','Yes! delete it'],
-                  function accept(){
-                      ConsumerService.delete(consumer)
-                          .then(function(res){
-                              $scope.consumers.data.splice($scope.consumers.data.indexOf(consumer),1);
-                          }).catch(function(err){
+              ConsumerService.delete(consumer)
+                  .then(function(res){
+                      $scope.consumers.data.splice($scope.consumers.data.indexOf(consumer),1);
+                  }).catch(function(err){
 
-                      })
-                  },function decline(){})
+              })
+
+              //DialogService.prompt(
+              //    "Delete Consumer","Really want to delete the selected consumer?",
+              //    ['No don\'t','Yes! delete it'],
+              //    function accept(){
+              //        ConsumerService.delete(consumer)
+              //            .then(function(res){
+              //                $scope.consumers.data.splice($scope.consumers.data.indexOf(consumer),1);
+              //            }).catch(function(err){
+              //
+              //        })
+              //    },function decline(){})
 
           }
 
@@ -136,175 +143,6 @@
                   controllerAs: '$ctrl',
               });
           }
-
-          function importConsumersold() {
-              $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/import-consumer-modal.html',
-                  controller: function($scope,$rootScope,$log,$uibModalInstance,
-                                       MessageService,ConsumerService,RemoteStorageService){
-
-                      $scope.close = close
-                      $scope.back = back
-                      $scope.adapters = {
-                          'mysql' : {
-                              name : 'MySQL',
-                              value : 'mysql',
-                              description : 'Import Consumers from a MySQL database table',
-                              form_fields : {
-                                  host : {
-                                      name : 'host',
-                                      type : 'text',
-                                      description : 'The database host. Defaults to localhost'
-                                  },
-                                  user : {
-                                      name : 'user',
-                                      type : 'text',
-                                      description : 'The database user. Defaults to root'
-                                  },
-                                  password : {
-                                      name : 'password',
-                                      type : 'text',
-                                      description : 'The database user\'s password.'
-                                  },
-                                  database : {
-                                      name : 'database',
-                                      type : 'text',
-                                      required : true,
-                                      description : 'The database to connect to.'
-                                  },
-                                  table : {
-                                      name : 'table',
-                                      type : 'text',
-                                      required : true,
-                                      description : 'The table containing the consumers that will be imported to Kong.'
-                                  }
-                              }
-                          },
-                          "sql" : {
-                              name : 'SQL',
-                              value : 'sql',
-                              description : 'Import Consumers from an SQL database table'
-                          },
-                          "mongodb" : {
-                              name : 'MongoDB',
-                              value : 'mongodb',
-                              description : 'Import Consumers from an MongoDB collection'
-                          }
-                      }
-                      $scope.activeStep = 0
-
-                      $scope.steps = [
-                          {
-                              heading : 'Select Storage',
-                              description : 'Select a storage from which to import the consumers',
-                              active : true,
-                          },
-                          {
-                              heading : 'Connection options',
-                              description : 'Define connection options to the remote storage.',
-                              active : false,
-                          },
-                          {
-                              heading : 'Define Consumer fields',
-                              description : 'Define Consumers <code>username</code> and <code>custom_id</code> fields.',
-                              active : false,
-                          },
-                          {
-                              heading : 'Import consumers',
-                              description : 'Select the consumers to import.',
-                              active : false,
-                          }
-                      ]
-
-                      $scope.configuration = {
-                          adapter : '',
-                          consumer_fields : {
-                              username : '',
-                              custom_id : ''
-                          }
-                      }
-
-
-
-                      function next() {
-                          $scope.activeStep = $scope.steps.length > $scope.activeStep ? $scope.activeStep + 1 : $scope.activeStep
-                      }
-
-                      function back() {
-                          $scope.activeStep = $scope.activeStep > 0 ? $scope.activeStep - 1 : 0
-                      }
-
-                      $scope.selectAdapter = function(adapter) {
-                          $scope.configuration.adapter = adapter
-                          $log.debug("Adapter selected: ",$scope.configuration.adapter )
-                          next()
-                      }
-
-                      $scope.testConnection = function() {
-
-                          var connOptions = {}
-                          $scope.busy = true;
-                          angular
-                              .forEach($scope.adapters[$scope.configuration.adapter].form_fields,
-                                  function(value,key){
-                                      connOptions[key] = value.value
-                              })
-
-                          RemoteStorageService
-                              .testConnection(connOptions)
-                              .then(function(resp){
-                                  $log.debug("Test connection", resp)
-                                  $scope.busy = false;
-                                  next()
-                              }).catch(function(err){
-                                $log.error("Test connection", err)
-                                $scope.busy = false;
-                                MessageService.error("Could not connect to the remote storage with the provided configuration")
-                          })
-                      }
-
-
-                      $scope.fetchConsumers = function() {
-
-                          var connOptions = {}
-                          $scope.busy = true;
-                          angular
-                              .forEach($scope.adapters[$scope.configuration.adapter].form_fields,
-                                  function(value,key){
-                                      connOptions[key] = value.value
-                                  })
-
-                          connOptions.fields = $scope.configuration.consumer_fields
-                              //$scope.configuration.consumer_fields.username + ',' + $scope.configuration.consumer_fields.custom_id
-
-                          console.log("connOptions",connOptions)
-                          RemoteStorageService
-                              .fetchConsumers(connOptions)
-                              .then(function(resp){
-                                  $log.debug("Fetch Consumers", resp)
-                                  $scope.busy = false;
-                                  $scope.remote_consumers = resp.data
-                                  next()
-                              }).catch(function(err){
-                              $log.error("Fetch Consumers", err)
-                              $scope.busy = false;
-                              MessageService.error("Could not retrieve consumers from the remote storage")
-                          })
-                      }
-
-
-                      function close() {
-                          $uibModalInstance.dismiss()
-                      }
-                  },
-                  controllerAs: '$ctrl',
-              });
-          }
-
-
 
 
           function queryConsumers(){

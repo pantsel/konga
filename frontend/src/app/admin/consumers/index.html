@@ -24,8 +24,18 @@
         <div  class="text-center" ng-if="consumers && !consumers.data.length">
             <br>
             <i class="material-icons large">info_outline</i><br>
+            <br>
             <p>You have not created any consumers yet.</p>
-            <button  ng-click="openCreateConsumerModal()" class="btn success btn-link">create a consumer</button>
+            <button  ng-click="openCreateConsumerModal()" class="btn btn-success btn-link">
+                create your first consumer
+            </button>
+            <br>
+            - or -
+            <br>
+            <button  ng-click="importConsumers()" class="btn btn-warning btn-link">
+                import consumers from a remote storage
+            </button>
+
         </div>
 
         <div
