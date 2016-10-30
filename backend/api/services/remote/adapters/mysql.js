@@ -1,5 +1,4 @@
-var mysql = require('../../../../node_modules/sails-mysql/node_modules/mysql')
-var mongodb = require('../../../../node_modules/sails-mongo/lib/connection')
+var mysql = require('mysql')
 
 module.exports = {
     schema : {
