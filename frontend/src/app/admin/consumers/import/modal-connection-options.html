@@ -11,7 +11,7 @@
     <p class="help-block">Define options to the consumer storage.</p>
 </div>
 <div class="modal-body">
-    <form name="connOptionsForm" ng-submit="loadConsumers()" novalidate>
+    <form name="connOptionsForm" ng-submit="loadConsumers()">
         <div class="row">
             <div class="col-md-12">
                 <h5>Adapter Options</h5>
@@ -20,6 +20,7 @@
                     <div ng-switch on="field.type">
                         <div ng-switch-when="file">
                             <input type="file"
+                                   ng-required="field.required"
                                    ngf-select ng-model="connOptions[key]" name="field.name"
                             />
                         </div>
@@ -36,24 +37,31 @@
                         </div>
                         <div ng-switch-default>
                             <input  type="{{field.type}}"
-                                    required
+                                    name="{{field.name}}"
+                                    ng-required="field.required"
                                     placeholder="{{field.name}} ({{field.required ? 'required' : 'optional'}})"
                                     class="form-control" ng-model="connOptions[key]"/>
-                            <p class="help-block" ng-show="connOptionsForm[field.name].$invalid">Valid Email Address Required</p>
                         </div>
                     </div>
-
+                    <div
+                            ng-show="connOptionsForm[field.name].$touched"
+                            ng-messages="connOptionsForm[field.name].$error">
+                        <p class="help-block no-margin" ng-message="required">
+                            <span class="text-danger">{{field.name}} is required.</span>
+                        </p>
+                    </div>
                     <p class="help-block" data-ng-bind-html="field.description"></p>
 
                 </div>
             </div>
             <div class="col-md-12">
-                <h5>Consumer Hook</h5>
+                <h5>Consumer Fields</h5>
                 <div class="form-group"
                      data-ng-repeat="(key,field) in adapter.form_fields.consumer">
                     <div ng-switch on="field.type">
                         <div ng-switch-when="file">
                             <input type="file"
+                                   ng-required="field.required"
                                    ngf-select
                                    ng-model="connOptions[key]" name="field.name"
                             />
@@ -70,11 +78,19 @@
                         </div>
                         <div ng-switch-default>
                             <input  type="{{field.type}}"
-                                    required
+                                    name="{{field.name}}"
+                                    ng-required="field.required"
                                     placeholder="{{field.name}} ({{field.required ? 'required' : 'optional'}})"
                                     class="form-control" ng-model="connOptions[key]"/>
 
                         </div>
+                    </div>
+                    <div
+                            ng-show="connOptionsForm[field.name].$touched"
+                            ng-messages="connOptionsForm[field.name].$error">
+                        <p class="help-block no-margin" ng-message="required">
+                            <span class="text-danger">{{field.name}} is required.</span>
+                        </p>
                     </div>
                     <p class="help-block" data-ng-bind-html="field.description"></p>
 

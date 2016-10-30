@@ -4,6 +4,7 @@
 
     angular.module('frontend.admin.consumers', [
         'angular.chips',
+        'ngMessages'
     ]);
 
     // Module configuration
@@ -25,11 +26,29 @@
                                 templateUrl: '/frontend/admin/consumers/index.html',
                                 controller: 'ConsumersController',
                                 resolve : {
-                                    _consumers : [
-                                        'ConsumerService',function(ConsumerService){
-                                            return ConsumerService.query()
+                                    _items: [
+                                        'ListConfig',
+                                        'ConsumerModel',
+                                        function resolve(
+                                            ListConfig,
+                                            ConsumerModel
+                                        ) {
+                                            var config = ListConfig.getConfig();
+
+                                            var parameters = {
+                                                limit: config.itemsPerPage,
+                                                sort: 'createdAt DESC'
+                                            };
+
+                                            return ConsumerModel.load(parameters);
                                         }
-                                    ]
+                                    ],
+                                    _count: [
+                                        'ConsumerModel',
+                                        function resolve(ConsumerModel) {
+                                            return ConsumerModel.count();
+                                        }
+                                    ],
                                 }
                             }
                         }

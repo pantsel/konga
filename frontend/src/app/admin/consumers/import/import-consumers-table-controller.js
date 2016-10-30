@@ -8,8 +8,10 @@
 
     angular.module('frontend.admin.consumers')
         .controller('ImportConsumersTableController', [
-            '_','$scope', '$log', '$state','ConsumerService','$uibModal','$uibModalInstance','_consumers',
-            function controller(_,$scope, $log, $state, ConsumerService, $uibModal, $uibModalInstance,_consumers) {
+            '_','$scope', '$log', '$state','ConsumerService','MessageService',
+            '$uibModal','$uibModalInstance','_consumers',
+            function controller(_,$scope, $log, $state, ConsumerService, MessageService,
+                                $uibModal, $uibModalInstance,_consumers) {
 
                 $scope.consumers = _consumers;
 
@@ -22,6 +24,10 @@
                         return consumer.checked ? consumer : undefined
                     }).filter(function(n){ return n != undefined })
 
+                    if(!_consumers.length){
+                        MessageService.error("You have not selected any consumers to import")
+                        return false
+                    }
                     doImport(_consumers)
                 }
 

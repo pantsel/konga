@@ -2,12 +2,12 @@
 
 var unirest = require("unirest")
 var _ = require('lodash');
-var KongService = require('../services/KongService')
+var KongPluginService = require('../services/KongPluginService')
 
 var KongPluginController  = _.merge(_.cloneDeep(require('../base/KongController')), {
 
     create : function(req,res) {
-        return KongService.create(req,res)
+        return KongPluginService.create(req,res)
 
     },
 

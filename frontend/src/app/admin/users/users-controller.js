@@ -8,8 +8,12 @@
 
   angular.module('frontend.admin.users')
     .controller('UsersController', [
-      '_','$scope', '$q','$log', 'SocketHelperService','UserService','$state','ApiService','$uibModal','DialogService','UserModel','ListConfig','_items','_count',
-      function controller(_,$scope, $q,$log,SocketHelperService, UserService,$state, ApiService, $uibModal,DialogService,UserModel,ListConfig, _items, _count ) {
+      '_','$scope', '$q','$log', 'SocketHelperService',
+        'UserService','$state','ApiService','$uibModal',
+        'DialogService','UserModel','ListConfig','_items','_count',
+      function controller(_,$scope, $q,$log,SocketHelperService, UserService,
+                          $state, ApiService, $uibModal,
+                          DialogService,UserModel,ListConfig, _items, _count ) {
 
 
           UserModel.setScope($scope, false, 'items', 'itemCount');
@@ -67,15 +71,7 @@
               $log.log('Page changed to: ' + $scope.paging.currentPage);
               _fetchData();
           }
-          ///**
-          // * Simple watcher for 'currentPage' scope variable. If this is changed we need to fetch author data
-          // * from server.
-          // */
-          //$scope.$watch('currentPage', function watcher(valueNew, valueOld) {
-          //    if (valueNew !== valueOld) {
-          //        _fetchData();
-          //    }
-          //});
+
 
           /**
            * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch author data

@@ -1,45 +1,44 @@
+
 <div class="row">
-    <div class="col-md-12 actions" ng-if="consumers && consumers.data.length">
-        <div class="form-group col-md-4 no-padding-left">
-            <div class="input-group">
-                <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
-                </div>
-                <input type="text" data-ng-model="search.value" class="form-control" placeholder="search consumers...">
-            </div>
-        </div>
-        <a href="#" class="btn btn-success btn-raised" ng-click="openCreateConsumerModal()">
+    <div class="col-md-12 actions">
+        <a href="#" class="btn btn-success" ng-click="openCreateConsumerModal()">
             <i class="material-icons">&#xE145;</i>
-            Create Consumer
-        </a>&nbsp;&nbsp;
+            Create consumer
+        </a>
+        <a href="#" class="btn btn-danger" ng-click="deleteChecked()">
+            <i class="material-icons">delete</i>
+            delete selected
+        </a>
         <a href="#" class="btn btn-warning" ng-click="importConsumers()">
             <i class="material-icons"><i class="material-icons">&#xE2C6;</i></i>
             Import
         </a>
     </div>
+
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <ul uib-pagination
+        class="pagination pull-right"
+        data-total-items="itemCount"
+        data-ng-model="paging.currentPage"
+        data-ng-change="pageChanged()"
+        data-items-per-page="itemsPerPage"
+        data-max-size="10"
+        data-boundary-links="true"
+        data-rotate="false"
+    ></ul>
+    <list-search
+            class="pull-left margin-right"
+            data-filters="filters"
+            data-options="itemsPerPageOptions"
+            data-items="itemsPerPage"
+    ></list-search>
 </div>
 <div class="row">
+
+
     <div class="col-md-12">
-
-        <div  class="text-center" ng-if="consumers && !consumers.data.length">
-            <br>
-            <i class="material-icons large">info_outline</i><br>
-            <br>
-            <p>You have not created any consumers yet.</p>
-            <button  ng-click="openCreateConsumerModal()" class="btn btn-success btn-link">
-                create your first consumer
-            </button>
-            <br>
-            - or -
-            <br>
-            <button  ng-click="importConsumers()" class="btn btn-warning btn-link">
-                import consumers from a remote storage
-            </button>
-
-        </div>
-
         <div
-                ng-if="consumers && consumers.data.length"
                 class="table-responsive"
                 data-ng-include="'/frontend/admin/consumers/partials/consumers-table.html'">
         </div>

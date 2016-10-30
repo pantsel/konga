@@ -14,11 +14,14 @@
 <div class="modal-body">
 
     <div class="actions no-margin">
-        <button type="submit" data-ng-disabled="busy" class="btn btn-warning" data-ng-click="importChecked()">
+        <div class="form-group col-md-6 no-padding-left">
+            <input type="text" data-ng-model="searchText" class="form-control" placeholder="search consumers...">
+        </div>
+        <button type="submit" data-ng-disabled="busy" class="btn btn-sm btn-warning btn-link" data-ng-click="importChecked()">
             <i class="material-icons">file_download</i>
             import selected
         </button>
-        <button type="submit" data-ng-disabled="busy" class="btn btn-primary" data-ng-click="importAll()">
+        <button type="submit" data-ng-disabled="busy" class="btn btn-sm btn-primary  btn-link" data-ng-click="importAll()">
             <i class="material-icons">file_download</i>
             import all
         </button>
@@ -31,7 +34,7 @@
         <th>username</th>
         <th>custom_id</th>
     </tr>
-    <tr data-ng-repeat="item in consumers">
+    <tr data-ng-repeat="item in consumers | filter : searchText">
         <td>
             <input class="padding-left" type="checkbox" ng-model="item.checked"/>
         </td>

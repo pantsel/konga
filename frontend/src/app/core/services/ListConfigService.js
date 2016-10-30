@@ -66,6 +66,47 @@
               width : 1
             },
           ],
+          consumer: [
+            {
+              checkbox : true,
+              width : 1
+            },
+            {
+              title: '#',
+              width : 1
+            },
+            {
+              title: 'username',
+              column: 'username',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'custom_id',
+              column: 'custom_id',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'created',
+              column: 'createdAt',
+              sortable: true,
+            },
+            {
+              title: '',
+              column: '',
+              width : 1
+            },
+            {
+              title: '',
+              column: '',
+              width : 1
+            },
+          ],
           user: [
             {
               title: '#',
@@ -233,7 +274,7 @@
             return {
               itemCount: 0,
               items: [],
-              itemsPerPage: 10,
+              itemsPerPage: 25,
               itemsPerPageOptions: [10, 25, 50, 100],
               currentPage: 1,
               where: {},

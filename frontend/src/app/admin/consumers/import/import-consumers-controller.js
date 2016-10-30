@@ -49,14 +49,11 @@
                         $scope.result.failed.count++
                         $scope.result.failed.consumers.push(consumer)
                         $scope.percent = ($scope.count * 100) / $scope.consumers.length;
-                        MessageService.error("Failed to import consumer " + consumer.username)
                         return { error:error };
                     })
                         .finally(
                             function onSuccess() {
                                 $scope.count ++;
-                                $scope.result.imported.count++
-                                $scope.result.imported.consumers.push(consumer)
                                 $scope.percent = ($scope.count * 100) / $scope.consumers.length;
 
                             })
@@ -70,6 +67,12 @@
                     .then(function(results) {
 
                         console.log("res",results)
+                        results.forEach(function(result){
+                            if(!result.error) {
+                                $scope.result.imported.count++
+                                $scope.result.imported.consumers.push(result.data)
+                            }
+                        })
                         $scope.importing = false;
                         $rootScope.$broadcast('consumer.created')
                     })

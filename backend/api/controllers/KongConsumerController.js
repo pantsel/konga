@@ -4,10 +4,52 @@ var unirest = require('unirest');
 var _ = require('lodash');
 
 var mysql = require('../../node_modules/sails-mysql/node_modules/mysql')
+var KongService = require('../services/KongService')
 
 var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongController')), {
 
+    create : function(req,res) {
+        KongService.createCb(req,res,function(error,consumer){
+            if(error) return res.kongError(error)
+            // Insert created consumer to Konga
+            sails.models.consumer.create(consumer).exec(function (err, record) {
+                if(err) return res.kongError(err)
+                return res.json(record)
+            });
+        })
+    },
 
+    update : function(req,res) {
+        KongService.updateCb(req,res,function(error,consumer){
+            if(error) return res.kongError(error)
+
+            // Update consumer Konga consumer
+            sails.models.consumer
+                .update({id:req.params.id
+                },{
+                    username: consumer.username,
+                    custom_id : consumer.custom_id
+                }).exec(function afterwards(err, updated){
+
+                if(err) return res.kongError(err)
+                return res.json(consumer);
+            });
+        })
+    },
+
+    delete : function(req,res) {
+        KongService.deleteCb(req,res,function(error,deleted){
+            if(error && error.statusCode !== 404) return res.kongError(error)
+            // Delete consumer from Konga
+            sails.models.consumer.destroy({
+                id: req.params.id
+            }).exec(function (err){
+                if(err) return res.kongError(err)
+                console.log("Destroyed consumer with id " + req.params.id)
+                return res.ok();
+            });
+        })
+    },
 
     retrieveJWT : function(req,res) {
         unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/jwt")
