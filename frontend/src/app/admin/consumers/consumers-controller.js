@@ -113,6 +113,7 @@
 
               if(!consumers.length) {
                   MessageService.error('You have not selected any consumers to delete')
+                  return false
               }
 
               DialogService.prompt(
