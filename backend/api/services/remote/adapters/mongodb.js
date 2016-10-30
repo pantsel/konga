@@ -63,7 +63,7 @@ module.exports = {
             var port     = req.body.port || 27017
             var user     =  req.body.user
             var password = req.body.password
-            var database = req.body.database
+            var database = req.body.database || 'sails'
 
             // Build connection string
             var m = 'mongodb://'
@@ -73,7 +73,7 @@ module.exports = {
 
             MongoClient.connect(url, function(err, db) {
                 if (err) return res.negotiate(err);
-                var collection = db.collection(req.body.collection);
+                var collection = db.collection(req.body.collection || '');
                 collection
                     .aggregate([
                         { "$group": {

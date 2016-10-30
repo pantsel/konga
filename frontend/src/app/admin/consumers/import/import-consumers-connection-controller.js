@@ -27,7 +27,6 @@
 
                 $scope.loadConsumers = function() {
                     $scope.busy = true
-                    console.log($scope.connOptions)
                     if($scope.adapter.hasFiles) {
 
                         Upload.upload({
