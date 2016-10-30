@@ -56,15 +56,15 @@ module.exports = {
         loadConsumers : function(req,res) {
 
             var connection = mysql.createConnection({
-                host : req.query.host || 'localhost',
-                user : req.query.user || 'root',
-                password : req.query.password || '',
-                database : req.query.database || ''
+                host : req.body.host || 'localhost',
+                user : req.body.user || 'root',
+                password : req.body.password || '',
+                database : req.body.database || ''
             });
 
             connection.connect(function(err) {
                 if (err) return res.negotiate(err);
-                connection.query('SELECT ' + req.query.username + ' as username,' + req.query.custom_id + ' as custom_id FROM ' + req.query.table, function(err, rows, fields) {
+                connection.query('SELECT ' + req.body.username + ' as username,' + req.body.custom_id + ' as custom_id FROM ' + req.body.table, function(err, rows, fields) {
                     if (err) return res.negotiate(err);
                     return res.json(rows);
                 });

@@ -101,7 +101,7 @@ module.exports.routes = {
 
   // Remote Storage routes
   'GET /remote/adapters'                 : 'RemoteStorageController.loadAdapters',
-  'GET /remote/consumers'                : 'RemoteStorageController.loadConsumers',
+  'POST /remote/consumers'                : 'RemoteStorageController.loadConsumers',
   'GET /remote/connection/test'          : 'RemoteStorageController.testConnection',
 
 

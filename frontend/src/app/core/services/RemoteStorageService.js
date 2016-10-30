@@ -35,12 +35,8 @@
                         })
                     },
 
-                    fetchConsumers : function(query) {
-                        return $http({
-                            url : BackendConfig.url + '/remote/consumers',
-                            method: "GET",
-                            params : query
-                        })
+                    fetchConsumers : function(data) {
+                        return $http.post(BackendConfig.url + '/remote/consumers',data)
                     },
                 }
             }

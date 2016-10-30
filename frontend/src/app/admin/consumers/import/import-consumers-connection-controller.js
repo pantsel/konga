@@ -8,10 +8,12 @@
 
     angular.module('frontend.admin.consumers')
         .controller('ImportConsumersConnectionController', [
-            '_','$scope', '$log', '$state','RemoteStorageService','MessageService',
+            '_','$scope', '$log', '$state','RemoteStorageService',
+            'MessageService','Upload','BackendConfig',
             'ConsumerService','$uibModal','$uibModalInstance',
             '_adapter',
-            function controller(_,$scope, $log, $state, RemoteStorageService, MessageService,
+            function controller(_,$scope, $log, $state, RemoteStorageService,
+                                MessageService, Upload, BackendConfig,
                                 ConsumerService, $uibModal, $uibModalInstance,_adapter) {
 
                 $scope.adapter = _adapter
@@ -25,20 +27,45 @@
 
                 $scope.loadConsumers = function() {
                     $scope.busy = true
-                    RemoteStorageService
-                        .fetchConsumers($scope.connOptions)
-                        .then(function(resp){
-                            $log.debug("Fetch Consumers", resp)
-                            $scope.busy = false;
+                    console.log($scope.connOptions)
+                    if($scope.adapter.hasFiles) {
+
+                        Upload.upload({
+                            url: BackendConfig.url + '/remote/consumers',
+                            arrayKey: '',
+                            data: $scope.connOptions
+                        }).then(function (resp) {
+                            $log.debug("Upload ended",resp)
+                            $scope.busy = false
                             onConsumersLoaded(resp.data)
                             $uibModalInstance.dismiss()
-                        }).catch(function(err){
-                        $log.error("Fetch Consumers", err)
-                        $scope.busy = false;
-                        MessageService.error("Could not retrieve consumers from " +
-                            "the remote storage. Make sure your connection options " +
-                            "are correct.")
-                    })
+                        }, function (err) {
+                            $log.debug("Upload error",err)
+                            MessageService.error("Could not retrieve consumers from " +
+                                "the remote storage. Make sure your connection options " +
+                                "are correct.")
+                            $scope.busy = false
+                        }, function (evt) {
+                            $log.debug("Upload evt",evt)
+                        });
+
+                    }else{
+                        RemoteStorageService
+                            .fetchConsumers($scope.connOptions)
+                            .then(function(resp){
+                                $log.debug("Fetch Consumers", resp)
+                                $scope.busy = false;
+                                onConsumersLoaded(resp.data)
+                                $uibModalInstance.dismiss()
+                            }).catch(function(err){
+                            $log.error("Fetch Consumers", err)
+                            $scope.busy = false;
+                            MessageService.error("Could not retrieve consumers from " +
+                                "the remote storage. Make sure your connection options " +
+                                "are correct.")
+                        })
+                    }
+
                 }
 
                 function onConsumersLoaded(consumers) {

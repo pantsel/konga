@@ -59,11 +59,11 @@ module.exports = {
     methods : {
         loadConsumers : function(req,res) {
 
-            var host     = req.query.host || 'localhost'
-            var port     = req.query.port || 27017
-            var user     =  req.query.user
-            var password = req.query.password
-            var database = req.query.database
+            var host     = req.body.host || 'localhost'
+            var port     = req.body.port || 27017
+            var user     =  req.body.user
+            var password = req.body.password
+            var database = req.body.database
 
             // Build connection string
             var m = 'mongodb://'
@@ -73,13 +73,13 @@ module.exports = {
 
             MongoClient.connect(url, function(err, db) {
                 if (err) return res.negotiate(err);
-                var collection = db.collection(req.query.collection);
+                var collection = db.collection(req.body.collection);
                 collection
                     .aggregate([
                         { "$group": {
                             "_id": "$_id",
-                            "custom_id": { "$first": "$" + req.query.custom_id },
-                            "username": { "$first": "$" + req.query.username },
+                            "custom_id": { "$first": "$" + req.body.custom_id },
+                            "username": { "$first": "$" + req.body.username },
                         }}
 
                     ]).toArray(function(err, docs) {
