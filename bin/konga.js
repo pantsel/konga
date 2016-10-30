@@ -20,8 +20,7 @@ if (argv._[0] === 'help') {
 else if (argv._[0] === 'build')
 {
 
-    var cmd = isWin ? 'npm.cmd' : 'npm'
-    var cmd = spawn('npm' + + ( isWin ? '.cmd' : '' ),
+    var cmd = spawn('npm' + ( isWin ? '.cmd' : '' ),
         ["install"],
         {cwd: '../' ,stdio: "inherit"});
     cmd.on('exit', function(code){
