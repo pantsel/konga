@@ -9,11 +9,22 @@
     angular.module('frontend.admin.consumers')
         .controller('ImportConsumersTableController', [
             '_','$scope', '$log', '$state','ConsumerService','MessageService',
-            '$uibModal','$uibModalInstance','_consumers',
+            '$uibModal','$uibModalInstance','_consumers','_existingConsumers',
             function controller(_,$scope, $log, $state, ConsumerService, MessageService,
-                                $uibModal, $uibModalInstance,_consumers) {
+                                $uibModal, $uibModalInstance,_consumers,_existingConsumers) {
 
                 $scope.consumers = _consumers;
+                $scope.existingConsumers = _existingConsumers
+                $log.debug("existingConsumers",_existingConsumers)
+
+                $scope.consumers.forEach(function(consumer){
+                    for(var i=0;i<_existingConsumers.length;i++) {
+                        if(consumer.username === _existingConsumers[i].username){
+                            consumer.exists = true
+                            return;
+                        }
+                    }
+                })
 
                 $scope.closeModal = function() {
                     $uibModalInstance.dismiss()
@@ -52,7 +63,9 @@
                         controllerAs: '$ctrl',
                         resolve : {
                             _consumers : function() {
-                                return consumers
+                                return _.remove(consumers, function (consumer) {
+                                    return !consumer.exists
+                                });
                             }
                         }
                     });

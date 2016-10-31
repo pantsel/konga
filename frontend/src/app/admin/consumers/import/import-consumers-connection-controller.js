@@ -9,11 +9,11 @@
     angular.module('frontend.admin.consumers')
         .controller('ImportConsumersConnectionController', [
             '_','$scope', '$log', '$state','RemoteStorageService',
-            'MessageService','Upload','BackendConfig',
+            'MessageService','Upload','BackendConfig','ConsumerModel',
             'ConsumerService','$uibModal','$uibModalInstance',
             '_adapter',
             function controller(_,$scope, $log, $state, RemoteStorageService,
-                                MessageService, Upload, BackendConfig,
+                                MessageService, Upload, BackendConfig,ConsumerModel,
                                 ConsumerService, $uibModal, $uibModalInstance,_adapter) {
 
                 $scope.adapter = _adapter
@@ -78,6 +78,11 @@
                         resolve : {
                             _consumers : function() {
                                 return consumers
+                            },
+                            _existingConsumers : function() {
+                                return ConsumerModel
+                                    .load()
+                                ;
                             }
                         }
                     });

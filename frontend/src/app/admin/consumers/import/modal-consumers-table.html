@@ -26,17 +26,24 @@
             import all
         </button>
     </div>
+    <div class="clearfix"></div>
+    <div class="padding-top">
+        <i class="material-icons text-success">fiber_manual_record</i> Eligible for import
+        &nbsp;&nbsp;
+        <i class="material-icons text-warning">fiber_manual_record</i> Already exists and won't be imported
+    </div>
 </div>
 <table class="import-consumers-table table table-hover table-striped">
     <tr>
-        <th width="1">
-            <input type="checkbox" ng-model="item.checked"/></th>
+        <th width="1"></th>
         <th>username</th>
         <th>custom_id</th>
     </tr>
-    <tr data-ng-repeat="item in consumers | filter : searchText">
+    <tr
+            ng-class="{'warning' : item.exists,'success' : !item.exists}"
+            data-ng-repeat="item in consumers | filter : searchText">
         <td>
-            <input class="padding-left" type="checkbox" ng-model="item.checked"/>
+            <input class="padding-left" ng-disabled="item.exists" type="checkbox" ng-model="item.checked"/>
         </td>
         <td>{{item.username}}</td>
         <td>{{item.custom_id}}</td>

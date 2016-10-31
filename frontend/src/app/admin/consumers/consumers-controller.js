@@ -144,26 +144,17 @@
 
 
           function deleteConsumer(consumer) {
+              DialogService.prompt(
+                  "Delete Consumer","Really want to delete the selected consumer?",
+                  ['No don\'t','Yes!'],
+                  function accept(){
+                      ConsumerService.delete(consumer)
+                          .then(function(res){
+                              $scope.items.splice($scope.items.indexOf(consumer),1);
+                          }).catch(function(err){
 
-              ConsumerService.delete(consumer)
-                  .then(function(res){
-                      $scope.items.splice($scope.items.indexOf(consumer),1);
-                  }).catch(function(err){
-
-              })
-
-              //DialogService.prompt(
-              //    "Delete Consumer","Really want to delete the selected consumer?",
-              //    ['No don\'t','Yes! delete it'],
-              //    function accept(){
-              //        ConsumerService.delete(consumer)
-              //            .then(function(res){
-              //                $scope.consumers.data.splice($scope.consumers.data.indexOf(consumer),1);
-              //            }).catch(function(err){
-              //
-              //        })
-              //    },function decline(){})
-
+                      })
+                  },function decline(){})
           }
 
 
