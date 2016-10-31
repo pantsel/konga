@@ -4,7 +4,8 @@
 
     angular.module('frontend.admin.consumers', [
         'angular.chips',
-        'ngMessages'
+        'ngMessages',
+        'angularUtils.directives.dirPagination'
     ]);
 
     // Module configuration

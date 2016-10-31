@@ -19,7 +19,7 @@ module.exports = {
 // Export the actual adapters
 var files = fs.readdirSync(__dirname)
 files.forEach(function(file) {
-    if(file.indexOf('index') < 0) {
+    if(file.indexOf('index') < 0 && file.indexOf('credentials') < 0) {
         module.exports[file.replace(".js","")] = require('./' + file)
     }
 })

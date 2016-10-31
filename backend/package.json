@@ -19,6 +19,8 @@
     "bluebird": "3.0.5",
     "boom": "^4.1.0",
     "csv-parser": "^1.11.0",
+    "google-auth-library": "^0.9.9",
+    "googleapis": "^14.1.0",
     "include-all": "0.1.6",
     "jsonwebtoken": "5.4.1",
     "lodash": "3.10.1",

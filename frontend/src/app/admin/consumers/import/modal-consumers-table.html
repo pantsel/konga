@@ -27,13 +27,19 @@
         </button>
     </div>
     <div class="clearfix"></div>
+    <div class="actions no-margin padding-top">
+        <dir-pagination-controls></dir-pagination-controls>
+    </div>
+    <div class="clearfix"></div>
     <div class="padding-top">
         <i class="material-icons text-success">fiber_manual_record</i> Eligible for import
         &nbsp;&nbsp;
         <i class="material-icons text-warning">fiber_manual_record</i> Already exists and won't be imported
     </div>
+
+
 </div>
-<table class="import-consumers-table table table-hover table-striped">
+<table class="import-consumers-table table table-hover table-striped no-margin">
     <tr>
         <th width="1"></th>
         <th>username</th>
@@ -41,7 +47,7 @@
     </tr>
     <tr
             ng-class="{'warning' : item.exists,'success' : !item.exists}"
-            data-ng-repeat="item in consumers | filter : searchText">
+            dir-paginate="item in consumers | itemsPerPage: 50 | filter : searchText">
         <td>
             <input class="padding-left" ng-disabled="item.exists" type="checkbox" ng-model="item.checked"/>
         </td>
@@ -52,6 +58,11 @@
 <div class="modal-body">
 
     <div class="actions no-margin">
+        <dir-pagination-controls></dir-pagination-controls>
+    </div>
+
+
+    <div class="actions no-margin padding-top">
         <button type="submit"
                 data-ng-disabled="busy"
                 data-ng-click="importChecked()"
