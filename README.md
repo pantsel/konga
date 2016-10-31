@@ -34,7 +34,12 @@
 ## Features
 * Manage APIs and plugins
 * Manage consumers, groups and credentials
-* Mass import consumers from a medium (.csv document,MySQL,MongoDB adapters implemented for now, more underway...)
+* Mass import consumers from :
+    * CSV document
+    * Google Spreadsheets
+    * MySQL
+    * MongoDB
+    * more underway...
 * Multiple nodes management
 * GUI level authentication
 * Multiple users (Only admin and user roles for now)
