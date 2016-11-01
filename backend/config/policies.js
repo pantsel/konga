@@ -39,7 +39,7 @@ module.exports.policies = {
   },
 
   RemoteStorageController : {
-    '*':              true,
+    '*':              ['authenticated'],
   },
 
   KongPluginController : {
