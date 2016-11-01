@@ -24,6 +24,7 @@
     "include-all": "0.1.6",
     "jsonwebtoken": "5.4.1",
     "lodash": "3.10.1",
+    "mkdirp": "^0.5.1",
     "moment-timezone": "0.4.1",
     "mongodb": "^2.2.11",
     "mysql": "^2.11.1",

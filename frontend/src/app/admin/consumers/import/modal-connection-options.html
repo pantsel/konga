@@ -8,9 +8,11 @@
 </div>
 <div class="col-md-12 bg-light-grey padding">
     <h5 class="no-margin capitalize">{{adapter.name}}</h5>
-    <p class="help-block">Define options to the consumer storage.</p>
+    <p data-ng-show="!adapter.info" class="help-block">Define options to the consumer storage.</p>
+    <p data-ng-show="adapter.info" class="help-block" data-ng-bind-html="adapter.info"></p>
 </div>
 <div class="modal-body">
+
     <form name="connOptionsForm" ng-submit="loadConsumers()">
         <div class="row">
             <div class="col-md-12">
@@ -19,12 +21,14 @@
                      data-ng-repeat="(key,field) in adapter.form_fields.connection">
                     <div ng-switch on="field.type">
                         <div ng-switch-when="file">
+                            <label>{{field.name}}</label>
                             <input type="file"
                                    ng-required="field.required"
                                    ngf-select ng-model="connOptions[key]" name="field.name"
                             />
                         </div>
                         <div ng-switch-when="boolean">
+                            <label>{{field.name}}</label><br>
                             <input
                                     bs-switch
                                     ng-model="connOptions[key]"
