@@ -154,14 +154,7 @@ login: demo | password: demodemodemo
 ## ToDo
 * Complete tests
 * ~~Implement dynamic SSL plugin~~
-* Add mass consumer import adapters
-    * Excel
-    * ~~CSV~~
-    * ~~MySQL~~
-    * SQL Server
-    * PostgreSQL
-    * ~~MongoDB~~
-    * Other storage or medium...
+* Add more consumer import adapters (?)
 * Implement Logging plugins
 * Write a detailed Wiki
 
