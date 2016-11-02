@@ -23,6 +23,7 @@ module.exports = function dynamicNode(request, response, next) {
       error.status = 500;
       return  next(error)
     }
+    req.node_id = node.id
     sails.config.kong_admin_url = 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
     return  next()
   })
