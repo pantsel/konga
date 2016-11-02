@@ -28,6 +28,7 @@
           $scope.openCreateConsumerModal = openCreateConsumerModal
           $scope.deleteConsumer = deleteConsumer
           $scope.deleteChecked = deleteChecked
+          $scope.syncConsumers = syncConsumers
           $scope.globalCheck = {
               isAllChecked : false
           };
@@ -125,6 +126,21 @@
 
           }
 
+          function syncConsumers() {
+              DialogService.prompt(
+                  "Sync Consumers","This action will sync Kong's consumers with Konga.<br>" +
+                  "Kong consumers that don't exists in Konga's database will be imported" +
+                  " while Konga's consumers that don't exist in Kong's database will be removed." +
+                  "<br><br>Continue?",
+                  ['No don\'t','Yes, do it!'],
+                  function accept(){
+                      ConsumerService.sync()
+                          .then(function(res){
+                              _triggerFetchData()
+                          })
+                  },function decline(){})
+          }
+
           function deleteConsumers(consumers) {
 
               var promises = []
@@ -146,7 +162,7 @@
           function deleteConsumer(consumer) {
               DialogService.prompt(
                   "Delete Consumer","Really want to delete the selected consumer?",
-                  ['No don\'t','Yes!'],
+                  ['No don\'t','Yes! delete it'],
                   function accept(){
                       ConsumerService.delete(consumer)
                           .then(function(res){

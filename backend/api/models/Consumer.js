@@ -20,6 +20,9 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
     },
     custom_id: {
       type: 'string'
+    },
+    import_id: {
+      type: 'string'
     }
   },
   autoPK: false

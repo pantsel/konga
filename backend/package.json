@@ -28,6 +28,7 @@
     "moment-timezone": "0.4.1",
     "mongodb": "^2.2.11",
     "mysql": "^2.11.1",
+    "node-uuid": "^1.4.7",
     "passport": "0.3.0",
     "passport-facebook": "2.0.0",
     "passport-github": "1.0.0",

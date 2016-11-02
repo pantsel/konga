@@ -28,6 +28,10 @@
                   })
               },
 
+              sync : function() {
+                  return $http.post(BackendConfig.url + '/consumers/sync')
+              },
+
               create : function(consumer) {
                   return $http.post(BackendConfig.url + '/kong/consumers',consumer)
               },

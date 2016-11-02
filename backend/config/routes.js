@@ -45,6 +45,8 @@ module.exports.routes = {
    * ------------------------------------------------------------------------
    */
 
+ 'POST /consumers/sync'                 : 'ConsumerController.sync',
+
   // Informational routes
   'GET /kong/info'                      : 'KongInfoController.info',
   'GET /kong/info/status'               : 'KongInfoController.status',

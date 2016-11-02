@@ -27,6 +27,7 @@
         <td>{{$index + 1}}.</td>
         <td>{{consumer.username || "-"}}</td>
         <td>{{consumer.custom_id || "-"}}</td>
+        <td>{{consumer.import_id || "-"}}</td>
         <td>{{consumer.createdAt | date : format : timezone}}</td>
         <td>
             <a data-ui-sref="admin.consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">

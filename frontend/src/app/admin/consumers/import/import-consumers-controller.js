@@ -28,6 +28,8 @@
                     },
                 }
 
+                $scope.uuid = new Date().getTime()
+
 
                 $scope.closeModal = function() {
                     $uibModalInstance.dismiss()
@@ -41,7 +43,8 @@
                     var _import = ConsumerService.
                         create({
                         username : consumer.username,
-                        custom_id : consumer.custom_id
+                        custom_id : consumer.custom_id,
+                        import_id : $scope.uuid,
                     })
 
                     .catch(function(error) {

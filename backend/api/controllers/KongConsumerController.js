@@ -9,9 +9,17 @@ var KongService = require('../services/KongService')
 var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongController')), {
 
     create : function(req,res) {
+
+        var import_id;
+        if(req.body.import_id) {
+            import_id = req.body.import_id
+            delete req.body.import_id
+        }
         KongService.createCb(req,res,function(error,consumer){
             if(error) return res.kongError(error)
+
             // Insert created consumer to Konga
+            consumer.import_id = import_id || ''
             sails.models.consumer.create(consumer).exec(function (err, record) {
                 if(err) return res.kongError(err)
                 return res.json(record)
@@ -39,7 +47,7 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
 
     delete : function(req,res) {
         KongService.deleteCb(req,res,function(error,deleted){
-            if(error && error.statusCode !== 404) return res.kongError(error)
+            if(error) return res.kongError(error)
             // Delete consumer from Konga
             sails.models.consumer.destroy({
                 id: req.params.id

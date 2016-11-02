@@ -39,7 +39,9 @@
                         MessageService.error("You have not selected any consumers to import")
                         return false
                     }
-                    doImport(_consumers)
+
+                    console.log(_consumers)
+                    //doImport(_consumers)
                 }
 
 

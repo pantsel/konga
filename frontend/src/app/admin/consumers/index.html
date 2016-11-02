@@ -5,9 +5,16 @@
             <i class="material-icons">&#xE145;</i>
             Create consumer
         </a>
-        <a href="#" class="btn btn-warning" ng-click="importConsumers()">
+        <a href="#"
+           class="btn btn-warning" ng-click="importConsumers()">
             <i class="material-icons"><i class="material-icons">&#xE2C6;</i></i>
             Import
+        </a>
+        <a href="#"
+           data-uib-tooltip="Sync Kong consumers to Konga"
+           class="btn btn-primary" ng-click="syncConsumers()">
+            <i class="material-icons"><i class="material-icons">sync</i></i>
+            sync
         </a>
         <a href="#" class="btn btn-danger" ng-click="deleteChecked()">
             <i class="material-icons">delete</i>

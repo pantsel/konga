@@ -60,7 +60,7 @@ module.exports.policies = {
     'remove':   ['authenticated', 'isAdmin']
   },
 
-  ConsumersController: {
+  ConsumerController: {
     '*':        ['authenticated'],
     'count':    ['authenticated'],
     'find':     ['authenticated'],
@@ -69,7 +69,8 @@ module.exports.policies = {
     'update':   ['authenticated', 'isAdmin', 'addDataUpdate'],
     'destroy':  ['authenticated', 'isAdmin'],
     'add':      ['authenticated', 'isAdmin'],
-    'remove':   ['authenticated', 'isAdmin']
+    'remove':   ['authenticated', 'isAdmin'],
+    'sync'  :   ['authenticated', 'isAdmin','dynamicNode'],
   },
 
   KongNodeController: {
