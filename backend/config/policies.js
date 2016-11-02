@@ -62,9 +62,9 @@ module.exports.policies = {
 
   ConsumerController: {
     '*':        ['authenticated'],
-    'count':    ['authenticated'],
-    'find':     ['authenticated'],
-    'findOne':  ['authenticated'],
+    'count':    ['authenticated','activeNodeData'],
+    'find':     ['authenticated','activeNodeData'],
+    'findOne':  ['authenticated','activeNodeData'],
     'create':   ['authenticated', 'isAdmin', 'addDataCreate'],
     'update':   ['authenticated', 'isAdmin', 'addDataUpdate'],
     'destroy':  ['authenticated', 'isAdmin'],

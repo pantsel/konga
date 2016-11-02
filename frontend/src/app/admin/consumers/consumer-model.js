@@ -10,7 +10,55 @@
             function(DataModel,DataService,$q,$log) {
 
                 var model = new DataModel('consumer');
-                console.log("DataModelDataModelDataModel",model)
+
+
+                model.load = function load(parameters, fromCache) {
+                    var self = this;
+
+                    // Normalize parameters
+                    parameters = parameters || {};
+                    fromCache = fromCache || false;
+
+                    if (fromCache) {
+                        parameters = self.cache.load.parameters;
+                    } else {
+                        // Store used parameters
+                        self.cache.load = {
+                            parameters: parameters
+                        };
+                    }
+
+                    // Add node id to load
+                    //if(parameters.hasOwnProperty('where')){
+                    //    parameters.where.and = [{
+                    //        node_id : '2'
+                    //    }]
+                    //}else{
+                    //    parameters.where = {
+                    //        and : [{
+                    //            node_id : '2'
+                    //        }]
+                    //    }
+                    //}
+
+                    return DataService
+                        .collection(self.endpoint, parameters)
+                        .then(
+                            function onSuccess(response) {
+                                self.objects = response.data;
+
+                                if (fromCache && self.scope && self.itemNames.objects) {
+                                    self.scope[self.itemNames.objects] = self.objects;
+                                }
+
+                                return self.objects;
+                            },
+                            function onError(error) {
+                                $log.error('DataModel.load() failed.', error, self.endpoint, parameters);
+                            }
+                        )
+                        ;
+                };
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}

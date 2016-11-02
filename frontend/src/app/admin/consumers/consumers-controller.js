@@ -128,8 +128,8 @@
 
           function syncConsumers() {
               DialogService.prompt(
-                  "Sync Consumers","This action will sync Kong's consumers with Konga.<br>" +
-                  "Kong consumers that don't exists in Konga's database will be imported" +
+                  "Sync Consumers","<strong>This action will sync Kong's consumers with Konga.</strong><br>" +
+                  "Kong's consumers that don't exists in Konga's database will be imported" +
                   " while Konga's consumers that don't exist in Kong's database will be removed." +
                   "<br><br>Continue?",
                   ['No don\'t','Yes, do it!'],
@@ -278,7 +278,7 @@
                   )
                   ;
 
-              console.log("parameters",parameters)
+              $log.debug("parameters",parameters)
 
               // Fetch actual data
               var load = ConsumerModel
