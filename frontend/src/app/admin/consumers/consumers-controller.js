@@ -136,6 +136,7 @@
                   function accept(){
                       ConsumerService.sync()
                           .then(function(res){
+                              MessageService.success("Consumers synced successfully!")
                               _triggerFetchData()
                           })
                   },function decline(){})

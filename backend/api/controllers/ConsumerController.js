@@ -13,6 +13,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     sync : function(req,res) {
 
+        // ToDo using async
         console.log("sails.config.kong_admin_url",sails.config.kong_admin_url)
         unirest.get(sails.config.kong_admin_url + '/consumers')
             .end(function (response) {
