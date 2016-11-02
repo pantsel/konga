@@ -20,6 +20,7 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
 
             // Insert created consumer to Konga
             consumer.import_id = import_id || ''
+            consumer.node_id = req.node_id
             sails.models.consumer.create(consumer).exec(function (err, record) {
                 if(err) return res.kongError(err)
                 return res.json(record)
