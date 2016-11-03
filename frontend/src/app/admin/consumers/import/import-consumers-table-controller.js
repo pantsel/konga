@@ -40,8 +40,7 @@
                         return false
                     }
 
-                    console.log(_consumers)
-                    //doImport(_consumers)
+                    doImport(_consumers)
                 }
 
 
