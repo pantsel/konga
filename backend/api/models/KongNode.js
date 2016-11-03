@@ -12,7 +12,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
   attributes: {
     name: {
       type: 'string',
-      unique : true,
       required : true
     },
     kong_admin_ip: {
