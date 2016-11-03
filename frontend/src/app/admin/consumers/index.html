@@ -12,12 +12,15 @@
         </a>
         <a href="#"
            data-uib-tooltip="Sync Kong consumers to Konga"
+           data-ng-disabled="syncing"
            class="btn btn-primary" ng-click="syncConsumers()">
-            <i class="material-icons"><i class="material-icons">sync</i></i>
+            <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="syncing"></fading-circle-spinner>
+            <i class="material-icons" data-ng-show="!syncing">sync</i>
             sync
         </a>
-        <a href="#" class="btn btn-danger" ng-click="deleteChecked()">
-            <i class="material-icons">delete</i>
+        <a href="#" class="btn btn-danger" data-ng-disabled="deleting" ng-click="deleteChecked()">
+            <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="deleting"></fading-circle-spinner>
+            <i class="material-icons" data-ng-show="!deleting">delete</i>
             delete selected
         </a>
     </div>

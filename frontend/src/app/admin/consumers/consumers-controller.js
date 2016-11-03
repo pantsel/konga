@@ -134,16 +134,21 @@
                   "<br><br>Continue?",
                   ['No don\'t','Yes, do it!'],
                   function accept(){
+                      $scope.syncing = true
                       ConsumerService.sync()
                           .then(function(res){
+                              $scope.syncing = false
                               MessageService.success("Consumers synced successfully!")
                               _triggerFetchData()
-                          })
+                          }).catch(function(err){
+                          $scope.syncing = false
+                      })
                   },function decline(){})
           }
 
           function deleteConsumers(consumers) {
 
+              $scope.deleting = true;
               var promises = []
               consumers.forEach(function(consumer){
                   promises.push(ConsumerService.delete(consumer))
@@ -153,6 +158,7 @@
                   .all(promises)
                   .finally(
                       function onFinally() {
+                          $scope.deleting = false;
                           _triggerFetchData()
                       }
                   )
