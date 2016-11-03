@@ -70,7 +70,7 @@ module.exports.policies = {
     'destroy':  ['authenticated', 'isAdmin'],
     'add':      ['authenticated', 'isAdmin'],
     'remove':   ['authenticated', 'isAdmin'],
-    'sync'  :   ['authenticated', 'isAdmin','dynamicNode'],
+    'sync'  :   ['authenticated', 'isAdmin','dynamicNode','activeNodeData'],
   },
 
   KongNodeController: {
