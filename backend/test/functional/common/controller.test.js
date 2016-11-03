@@ -45,16 +45,19 @@ describe('Generic controller test', function controllerTest() {
             count: 2,
             data: {
                 identifier: {
+                    name : "node1",
                     kong_admin_ip: "127.0.0.1",
                     kong_admin_port: "8001",
                     active: true,
                 },
                 newRecord: {
+                    name : "node2",
                     kong_admin_ip: "192.168.1.116",
                     kong_admin_port: "1234",
                     active: false,
                 },
                 updateRecord: {
+                    name : "newname",
                     kong_admin_ip: "192.168.1.118",
                     kong_admin_port: "8183",
                     active: false,
