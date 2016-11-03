@@ -127,8 +127,6 @@
                   .then(
                       function onSuccess(result) {
                           _triggerFetchData()
-                          if(!node.active)
-                            showTestNodeModal(node)
                       },function(err){
                           $scope.busy = false
                           NodeModel.handleError($scope,err)
@@ -159,6 +157,7 @@
 
                       InfoService.getInfo()
                           .then(function(res){
+                              console.log(res)
                               $scope.connecting = false;
                               $scope.connectionSucceeded = true;
                           })
@@ -182,8 +181,7 @@
                   .then(
                       function onSuccess(result) {
                           _triggerFetchData()
-                          if(!node.active)
-                            showTestNodeModal(node)
+                          if(!node.active) showTestNodeModal(node)
                       },function(err){
                           $scope.busy = false
                           NodeModel.handleError($scope,err)

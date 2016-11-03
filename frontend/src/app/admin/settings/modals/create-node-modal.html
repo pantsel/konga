@@ -16,7 +16,14 @@
 <div class="modal-body">
 
     <form class="form-horizontal">
-
+        <div class="form-group" ng-class="{'has-error' : errors.name}">
+            <label class="col-sm-4 control-label">Name <br><em><small class="help-block">required</small></em></label>
+            <div class="col-sm-7">
+                <input ng-model="node.name" class="form-control">
+                <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+                <p class="help-block">A unique node name.</p>
+            </div>
+        </div>
         <div class="form-group" ng-class="{'has-error' : errors.kong_admin_ip}">
             <label class="col-sm-4 control-label">Kong Admin IP <br><em><small class="help-block">required</small></em></label>
             <div class="col-sm-7">

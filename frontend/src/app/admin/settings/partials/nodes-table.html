@@ -22,6 +22,7 @@
     </tr>
     <tr data-ng-repeat="node in nodes">
         <td>{{node.id}}.</td>
+
         <td>
             <button class="btn btn-link"
                     uib-tooltip="toggle selected node"
@@ -31,6 +32,7 @@
             </button>
 
         </td>
+        <td><a href="#" editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
         <td>
             <a href="#" editable-text="node.kong_admin_ip" onbeforesave="updateNode(node)">{{node.kong_admin_ip}}</a>
         </td>

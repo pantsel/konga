@@ -35,6 +35,14 @@
               sortable: true
             },
             {
+              title: 'name',
+              column: 'name',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'kong admin ip',
               column: 'kong_admin_ip',
               searchable: true,
