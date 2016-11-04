@@ -1,3 +1,4 @@
+
 <div class="modal-header warning">
     <h5 class="modal-title" id="modal-title">
        <span class="capitalize">
@@ -19,10 +20,23 @@
     </div>
 
     <form class="form-horizontal">
+
         <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in filterMeta(plugin.options)">
-            <label class="col-sm-4 control-label">{{key}}</label>
+            <label class="col-sm-4 control-label">{{value.displayName || key}}</label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
+                    <div ng-switch-when="search">
+                        <input
+                                type="text"
+                                ng-model="plugin.consumer"
+                                placeholder="search consumer..."
+                                uib-typeahead="item as item.id for item in getConsumer($viewValue)"
+                                typeahead-template-url="/frontend/admin/apis/plugins/modals/custom-template.html"
+                                class="form-control"
+                                typeahead-wait-ms="200"
+                                typeahead-show-hint="true"
+                                typeahead-min-length="0">
+                    </div>
                     <div ng-switch-when="chips">
                         <chips ng-model="value.value">
                             <chip-tmpl>

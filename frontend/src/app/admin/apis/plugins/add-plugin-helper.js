@@ -8,8 +8,8 @@
 
     angular.module('frontend.admin.apis')
         .service('AddPluginHelper', [
-            '$log','BackendConfig','Upload','ApiService','KongPluginsService',
-            function( $log,BackendConfig,Upload,ApiService,KongPluginsService) {
+            '$log','BackendConfig','Upload','PluginService','KongPluginsService',
+            function( $log,BackendConfig,Upload,PluginService,KongPluginsService) {
 
                 function parseFields(schema,path,output) {
                     angular.forEach(schema.fields, function(value, key) {
@@ -24,7 +24,8 @@
 
                 var handlers  = {
                     common : function(apiId,data,success,error) {
-                        ApiService.addPlugin(apiId,data)
+
+                        PluginService.addPlugin(apiId,data)
                             .then(function(resp){
                                 success(resp)
                             }).catch(function(err){
@@ -71,6 +72,7 @@
                         var data = {
                             name : plugin.name
                         }
+
                         for(var key in plugin.options) {
                             if(plugin.name == 'datadog' && key == 'config.metrics') { // fix for datadog's metrics
 
@@ -83,6 +85,11 @@
                             }else{
                                 data[key] = plugin.options[key].value
                             }
+                        }
+
+                        // Add consumer if defined
+                        if(plugin.consumer) {
+                            data.consumer_id = plugin.consumer.id
                         }
 
                         return data;

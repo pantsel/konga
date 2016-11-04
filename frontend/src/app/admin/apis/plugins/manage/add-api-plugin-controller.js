@@ -10,11 +10,11 @@
     .controller('AddApiPluginController', [
         '_','$scope','$rootScope',
         '$log','MessageService','KongPluginsService',
-        'AddPluginHelper',
+        'AddPluginHelper','ConsumerModel','SocketHelperService',
         '$uibModalInstance','_api','_plugin','_schema',
       function controller(_,$scope,$rootScope,
                           $log,MessageService,KongPluginsService,
-                          AddPluginHelper,
+                          AddPluginHelper,ConsumerModel,SocketHelperService,
                           $uibModalInstance,_api,_plugin,_schema) {
 
           //var fields = AddPluginHelper.createFields(_schema.data)
@@ -26,6 +26,28 @@
               options : new KongPluginsService().pluginOptions(_plugin)
 
           }
+
+          // Add the consumers to the plugin options
+          $scope.getConsumer = function(val) {
+
+              // Initialize filters
+              $scope.filters = {
+                  searchWord: val || '',
+                  columns: ['username','custom_id']
+              };
+
+              var commonParameters = {
+                  where: SocketHelperService.getWhere($scope.filters)
+              };
+
+              return ConsumerModel
+                  .load(_.merge({}, commonParameters, {}))
+                  .then(function(response){
+                  return response.map(function(item){
+                      return item;
+                  });
+              });
+          };
 
           $scope.description = $scope.plugin.options.meta ? $scope.plugin.options.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
 
@@ -53,9 +75,6 @@
           }
 
           $scope.addPlugin = function() {
-
-              $log.debug($scope.plugin.config)
-
 
               $scope.busy = true;
 

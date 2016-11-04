@@ -193,9 +193,13 @@
                     description : 'Block incoming requests whose body is greater than a specific size in megabytes.'
                 },
             'consumer_id' : {
-              type: 'text',
+                displayName : "Apply to",
+                type: 'search',
                   value: null,
-                  help: 'The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request.'
+                  help: 'The CONSUMER ID that this plugin configuration will target. ' +
+                  'This value can only be used if authentication has been enabled ' +
+                  'so that the system can identify the user making the request.' +
+                  ' If left blank, the plugin will be applied to all consumers.'
             },
             'config.allowed_payload_size' : {
               type: 'number',
@@ -223,9 +227,13 @@
                     description : 'Restrict access to an API by either whitelisting or blacklisting IP addresses. Single IPs, multiple IPs or ranges in <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">CIDR notation</a> like <code>10.10.10.0/24</code> can be used.'
                 },
             'consumer_id' : {
-              type: 'text',
+                    displayName : "Apply to",
+                  type: 'search',
                   value: null,
-                  help: 'The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request.'
+                  help: 'The CONSUMER ID that this plugin configuration will target. ' +
+                  'This value can only be used if authentication has been enabled ' +
+                  'so that the system can identify the user making the request.' +
+                  ' If left blank, the plugin will be applied to all consumers.'
             },
             'config.whitelist' : {
               type: 'text',
@@ -488,10 +496,14 @@
                   meta : {
                       description : 'Log API metrics like request count, request size, response status and latency to the local <a href="http://docs.datadoghq.com/guides/basic_agent_usage/">Datadog agent</a>.'
                   },
-                  'config.consumer_id' : {
-                      type : 'text',
+                  'consumer_id' : {
+                      displayName : "Apply to",
+                      type: 'search',
                       value : null,
-                      help : 'The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request.'
+                      help : 'The CONSUMER ID that this plugin configuration will target. ' +
+                      'This value can only be used if authentication has been enabled ' +
+                      'so that the system can identify the user making the request.' +
+                      ' If left blank, the plugin will be applied to all consumers.'
                   },
                   'config.host' : {
                       type : 'text',
@@ -564,10 +576,14 @@
                   meta : {
                       description : 'Logs request and response data to <a href="https://getgalileo.io/">Galileo</a>, the analytics platform for monitoring, visualizing and inspecting API & microservice traffic.'
                   },
-                  "config.consumer_id" : {
-                      type : "text",
+                  "consumer_id" : {
+                      displayName : "Apply to",
+                      type: 'search',
                       value : "",
-                      help : "The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request.",
+                      help : "The CONSUMER ID that this plugin configuration will target. " +
+                      "This value can only be used if authentication has been enabled " +
+                      "so that the system can identify the user making the request." +
+                      " If left blank, the plugin will be applied to all consumers.",
 
                   },
                   "config.service_token" : {
@@ -626,10 +642,14 @@
                   meta : {
                       description : 'Rate limit how many HTTP requests a developer can make in a given period of seconds, minutes, hours, days, months or years. If the API has no authentication layer, the <strong>Client IP</strong> address will be used, otherwise the Consumer will be used if an authentication plugin has been configured.'
                   },
-                  "config.consumer_id" : {
-                      type : "text",
+                  "consumer_id" : {
+                      displayName : "Apply to",
+                      type: 'search',
                       value : "",
-                      help : "The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request."
+                      help : "The CONSUMER ID that this plugin configuration will target. " +
+                      "This value can only be used if authentication has been enabled " +
+                      "so that the system can identify the user making the request." +
+                      " If left blank, the plugin will target all consumers."
                   },
                   "config.second" : {
                       type : "number",
@@ -700,9 +720,13 @@
                       description : 'Transform the request sent by a client on the fly on Kong, before hitting the upstream server.'
                   },
                   "consumer_id" : {
-                      type : "text",
+                      displayName : "Apply to",
+                      type: 'search',
                       value : "",
-                      help : "The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request."
+                      help : "The CONSUMER ID that this plugin configuration will target. " +
+                      "This value can only be used if authentication has been enabled " +
+                      "so that the system can identify the user making the request." +
+                      " If left blank, the plugin will target all consumers."
                   },
                   "config.http_method" : {
                       type : "text",
@@ -777,9 +801,13 @@
                       description: 'Transform the response sent by the upstream server on the fly on Kong, before returning the response to the client.'
                   },
                   "consumer_id" : {
-                      type : "text",
+                      displayName : "Apply to",
+                      type: 'search',
                       value : "",
-                      help : "The CONSUMER ID that this plugin configuration will target. This value can only be used if authentication has been enabled so that the system can identify the user making the request."
+                      help : "The CONSUMER ID that this plugin configuration will target. " +
+                      "This value can only be used if authentication has been enabled " +
+                      "so that the system can identify the user making the request." +
+                      " If left blank, the plugin willbe applied to all consumers."
                   },
                   "config.remove.headers" : {
                       type : "text",

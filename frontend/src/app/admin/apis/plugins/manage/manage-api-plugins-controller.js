@@ -22,7 +22,7 @@
           var plugins_available = info.plugins.available_on_server
           var pluginOptions = new KongPluginsService().pluginOptions()
 
-          $state.current.data.pageName = "Manage Plugins <small>( API : " + ( _api.data.name || _api.data.id )+ " )</small>"
+          $state.current.data.pageName = "Manage API Plugins <small>( API : " + ( _api.data.name || _api.data.id )+ " )</small>"
 
           $scope.pluginOptions = pluginOptions
           $scope.pluginGroups = new KongPluginsService().pluginGroups()

@@ -8,8 +8,10 @@
 
   angular.module('frontend.admin.apis')
     .controller('EditApiModalController', [
-        '_','$scope','$rootScope','$log','MessageService','KongPluginsService','$uibModalInstance','ApiService','_api','_plugin',
-      function controller(_,$scope,$rootScope,$log,MessageService,KongPluginsService,$uibModalInstance,ApiService,_api,_plugin ) {
+        '_','$scope','$rootScope','$log','MessageService','ConsumerModel','SocketHelperService',
+        'KongPluginsService','$uibModalInstance','ApiService','_api','_plugin',
+      function controller(_,$scope,$rootScope,$log,MessageService,ConsumerModel,SocketHelperService,
+                          KongPluginsService,$uibModalInstance,ApiService,_api,_plugin ) {
 
           var pluginOptions = new KongPluginsService().pluginOptions()
           var options = pluginOptions[_plugin.name]
@@ -51,6 +53,28 @@
           })
 
           $scope.plugin.options = options
+
+          // Add the consumers to the plugin options
+          $scope.getConsumer = function(val) {
+
+              // Initialize filters
+              $scope.filters = {
+                  searchWord: val || '',
+                  columns: ['username','custom_id']
+              };
+
+              var commonParameters = {
+                  where: SocketHelperService.getWhere($scope.filters)
+              };
+
+              return ConsumerModel
+                  .load(_.merge({}, commonParameters, {}))
+                  .then(function(response){
+                      return response.map(function(item){
+                          return item;
+                      });
+                  });
+          };
 
           $scope.updatePlugin = function() {
 
