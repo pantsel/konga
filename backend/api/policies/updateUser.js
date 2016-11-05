@@ -33,6 +33,7 @@ module.exports = function addDataCreate(request, response, next) {
       next();
     }
   }else{
+    if(!password) delete request.body.passports; // We don't need passports for update if password is not set
     next();
   }
 
