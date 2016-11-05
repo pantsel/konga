@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.settings')
+  angular.module('frontend.settings')
     .controller('SettingsController', [
       '_','$scope', '$rootScope','$q','$log','$ngBootbox',
         'SocketHelperService','UserService','MessageService',

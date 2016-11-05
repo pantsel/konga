@@ -16,7 +16,6 @@
     'frontend.admin.apis',
     'frontend.admin.consumers',
     'frontend.admin.users',
-    'frontend.admin.settings',
     'ui.bootstrap.modal',
     'ui.bootstrap.pagination',
   ]);

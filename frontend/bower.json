@@ -37,8 +37,6 @@
     "sails.io.js": "0.11.5",
     "angularSails": "master",
     "ngstorage": "~0.3.0",
-    "highcharts": "~4.1.3",
-    "highcharts-ng": "~0.0.8",
     "bootswatch-dist": "paper",
     "angular-bootstrap": "~2.1.4",
     "angular-json-human": "~1.2.1",

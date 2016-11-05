@@ -2,17 +2,18 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.settings', [
+    angular.module('frontend.settings', [
     ]);
 
     // Module configuration
-    angular.module('frontend.admin.settings')
+    angular.module('frontend.settings')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('admin.settings', {
+                    .state('settings', {
                         url: '/settings',
+                        parent : 'frontend',
                         data : {
                             pageName : "Konga Settings",
                             displayName : "settings",
@@ -20,7 +21,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/settings/index.html',
+                                templateUrl: '/frontend/settings/index.html',
                                 controller: 'SettingsController',
                                 resolve: {
                                     _nodes: [

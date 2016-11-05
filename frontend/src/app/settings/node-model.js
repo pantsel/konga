@@ -4,7 +4,7 @@
     /**
      * Model for Author API, this is used to wrap all Author objects specified actions and data change actions.
      */
-    angular.module('frontend.admin.settings')
+    angular.module('frontend.settings')
         .service('NodeModel', [
             'DataModel',
             function(DataModel) {

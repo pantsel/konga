@@ -8,16 +8,12 @@
 
   // Create frontend module and specify dependencies for that
   angular.module('frontend', [
-      'angularUtils.directives.uiBreadcrumbs',
-      'ngSanitize',
-      'yaru22.jsonHuman',
-      'cfp.loadingBar',
-      'frapontillo.bootstrap-switch',
       'angular-spinkit',
       'frontend-templates',
       'frontend.core',
       'frontend.admin',
       'frontend.dashboard',
+      'frontend.settings',
 
 
   ]);
@@ -111,6 +107,9 @@
         $stateProvider
           .state('frontend', {
             abstract: true,
+              data: {
+                access : 1
+              },
             views: {
               header: {
                 templateUrl: '/frontend/core/layout/partials/header.html',

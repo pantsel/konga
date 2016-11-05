@@ -22,6 +22,9 @@
     'toastr',
     'xeditable',
     'sails.io',
-    'highcharts-ng'
+    'angularUtils.directives.uiBreadcrumbs',
+    'yaru22.jsonHuman',
+    'cfp.loadingBar',
+    'frapontillo.bootstrap-switch',
   ]);
 }());

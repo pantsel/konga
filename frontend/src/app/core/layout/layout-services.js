@@ -13,6 +13,14 @@
       function factory(AccessLevels,AuthService) {
         return [
           {
+            state: 'dashboard',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
+            title: 'Dashboard',
+            access: AccessLevels.anon
+          },
+          {
             state: 'admin.info',
             show : function() {
               return AuthService.isAuthenticated()
@@ -42,14 +50,6 @@
               return AuthService.isAuthenticated()
             },
             title: 'Plugins',
-            access: AccessLevels.anon
-          },
-          {
-            state: 'admin.cluster',
-            show : function() {
-              return AuthService.isAuthenticated()
-            },
-            title: 'Cluster',
             access: AccessLevels.anon
           }
         ];
