@@ -72,24 +72,17 @@
                   enabled : $scope.plugin.enabled
               }
 
-              for(var key in $scope.plugin.options) {
+              for(var key in $scope.data.fields) {
 
-                  if($scope.plugin.name == 'datadog' && key == 'config.metrics') { // fix for datadog's metrics
-
-                      try{
-                          data[key] = $scope.plugin.options[key].value.join(",")
-                      }catch(err){
-                          data[key] = null
-                      }
-
-
+                  if($scope.data.fields[key].value instanceof Array) {
+                      // Transform to comma separated string
+                      data['config.' + key] = $scope.data.fields[key].value.join(",")
                   }else{
-                      data[key] = $scope.plugin.options[key].value
+                      data['config.' + key] = $scope.data.fields[key].value
                   }
-
               }
 
-
+              console.log("dataaaaaaaaaaaaa",data)
 
               PluginsService.update(_plugin.id,data)
                   .then(function(res){
