@@ -36,7 +36,7 @@
             .login($scope.credentials)
             .then(
               function successCallback() {
-                $state.go('admin');
+                $state.go('dashboard');
               },
               function errorCallback() {
                 _reset();

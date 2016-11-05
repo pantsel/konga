@@ -23,7 +23,7 @@
             abstract: true,
             parent: 'frontend',
             data: {
-              access: 1
+              access: 0
             }
           })
         ;

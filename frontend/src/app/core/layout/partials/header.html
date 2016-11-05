@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav">
                 <li class="{{item.class}}"
                     data-ng-repeat="item in navigationItems"
-                    data-ng-show="auth.authorize(item.access)"
+                    data-ng-show="auth.authorize(item.access) && item.show()"
                     data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
                     data-ui-sref-active="active"
                 >

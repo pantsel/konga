@@ -28,6 +28,13 @@
                                     _info : ['InfoService',function(InfoService) {
                                         return InfoService.getInfo()
                                     }],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
                                 }
                             }
                         }
@@ -57,7 +64,14 @@
                                         ) {
                                             return ApiService.findById($stateParams.apiId)
                                         }
-                                    ]
+                                    ],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
                                 }
                             }
                         },
@@ -111,7 +125,14 @@
                                         ) {
                                             return InfoService.getInfo()
                                         }
-                                    ]
+                                    ],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
                                 }
                             }
                         },

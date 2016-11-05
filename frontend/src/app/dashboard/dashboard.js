@@ -3,7 +3,8 @@
     'use strict';
 
     angular.module('frontend.dashboard', [
-        'chart.js'
+        'chart.js',
+        'angular-matchheight'
     ]);
 
     // Module configuration
@@ -27,14 +28,16 @@
                                 templateUrl: '/frontend/dashboard/dashboard.html',
                                 controller: 'DashboardController',
                                 resolve : {
-                                    _status : ['InfoService',function(InfoService) {
-                                        return InfoService.nodeStatus()
-                                    }],
-                                    _info : ['InfoService',function(InfoService) {
-                                        return InfoService.getInfo()
-                                    }],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
                                 }
-                            }
+                            },
+
                         },
 
                     })

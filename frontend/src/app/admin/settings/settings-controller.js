@@ -8,11 +8,11 @@
 
   angular.module('frontend.admin.settings')
     .controller('SettingsController', [
-      '_','$scope', '$q','$log','$ngBootbox',
+      '_','$scope', '$rootScope','$q','$log','$ngBootbox',
         'SocketHelperService','UserService','MessageService',
         '$state','$uibModal','DialogService','NodeModel',
         'ListConfig','_nodes','_countNodes',
-      function controller(_,$scope, $q,$log,$ngBootbox,
+      function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,
                           SocketHelperService, UserService, MessageService,
                           $state, $uibModal,DialogService,NodeModel,
                           ListConfig, _nodes, _countNodes ) {
@@ -43,13 +43,13 @@
 
           $scope.sort = {
               column: 'createdAt',
-              direction: false
+              direction: false,
           };
 
           // Initialize filters
           $scope.filters = {
               searchWord: '',
-              columns: $scope.nodeTitleItems
+              columns: $scope.nodeTitleItems,
           };
 
           // Function to change sort column / direction on list
@@ -126,7 +126,7 @@
                   .update(node.id,{active:!node.active})
                   .then(
                       function onSuccess(result) {
-                          _triggerFetchData()
+                          $rootScope.$broadcast('kong.node.updated',result.data)
                       },function(err){
                           $scope.busy = false
                           NodeModel.handleError($scope,err)
@@ -180,7 +180,7 @@
                   .update(node.id,node)
                   .then(
                       function onSuccess(result) {
-                          _triggerFetchData()
+                          $rootScope.$broadcast('kong.node.updated',result.data)
                           if(!node.active) showTestNodeModal(node)
                       },function(err){
                           $scope.busy = false
@@ -257,7 +257,6 @@
           function _fetchData() {
               $scope.loading = true;
 
-              console.log($scope.filters)
               // Common parameters for count and data query
               var commonParameters = {
                   where: SocketHelperService.getWhere($scope.filters)
@@ -301,7 +300,9 @@
                   )
               ;
           }
-
+          $scope.$on('kong.node.updated',function(ev,node){
+              _triggerFetchData()
+          })
 
           $scope.$on('kong.node.created',function(ev,node){
               _triggerFetchData()

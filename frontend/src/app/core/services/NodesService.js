@@ -16,22 +16,25 @@
 
     angular.module('frontend.core.services')
         .factory('NodesService', [
-            'NodeModel', '$q',
-            function factory(NodeModel, $q) {
+            'NodeModel', '$q','$state',
+            function factory(NodeModel, $q, $state) {
                 return {
-                    hasActiveNode : function() {
+                    isActiveNodeSet : function() {
                         var defer = $q.defer()
 
                         NodeModel.load(_.merge({}, {
                             active:true
                         })).then(function(resp){
-                            if(resp.data && resp.data.length) {
-                                defer.resolve(resp.data[0])
+                            if(resp.length) {
+                                defer.resolve(resp[0])
+
                             }else{
                                 defer.reject("No active nodes found")
+                                $state.go('admin.settings')
                             }
                         }).catch(function(err){
                             defer.reject(err)
+                            $state.go('admin.settings')
                         })
 
                         return defer.promise

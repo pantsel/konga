@@ -9,31 +9,46 @@
   // Generic service to return all available menu items for main level navigation.
   angular.module('frontend.core.layout')
     .factory('HeaderNavigationItems', [
-      'AccessLevels',
-      function factory(AccessLevels) {
+      'AccessLevels','AuthService',
+      function factory(AccessLevels,AuthService) {
         return [
           {
             state: 'admin.info',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
             title: 'Node info',
             access: AccessLevels.anon
           },
           {
             state: 'admin.apis',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
             title: 'APIs',
             access: AccessLevels.anon
           },
           {
             state: 'admin.consumers',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
             title: 'Consumers',
             access: AccessLevels.anon
           },
           {
             state: 'admin.plugins',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
             title: 'Plugins',
             access: AccessLevels.anon
           },
           {
             state: 'admin.cluster',
+            show : function() {
+              return AuthService.isAuthenticated()
+            },
             title: 'Cluster',
             access: AccessLevels.anon
           }

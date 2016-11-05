@@ -74,9 +74,47 @@
    *  2) Version info parsing (back- and frontend)
    */
   angular.module('frontend.core.layout')
-    .controller('FooterController', [
-      function controller() {
-        // TODO: add version info parsing
+    .controller('FooterController', ['_','$scope','$state','AuthService',
+        '$rootScope','NodeModel','SocketHelperService',
+      function controller(_,$scope,$state,AuthService,
+                          $rootScope,NodeModel,SocketHelperService) {
+
+          var commonParameters = {
+              where: SocketHelperService.getWhere({
+                  searchWord: ''
+              },{
+                  active:true
+              })
+          };
+
+          function _triggerFetchData() {
+              NodeModel.load(_.merge({}, commonParameters, {}))
+                  .then(function(resp){
+                      setNode(resp[0])
+                  }).catch(function(err){
+                  $scope.adminUrl = 'no node defined'
+              })
+          }
+
+          function setNode(node) {
+              $rootScope.node = node
+              if(node) {
+                  $scope.adminUrl = $rootScope.node.kong_admin_ip + ":" + $rootScope.node.kong_admin_port
+              }else{
+                  $scope.adminUrl = 'no node defined'
+              }
+
+          }
+
+          $scope.$on('kong.node.updated',function(ev,node){
+              if(node.active) {
+                  setNode(node)
+              }else{
+                  _triggerFetchData()
+              }
+          })
+
+          if(AuthService.isAuthenticated()) _triggerFetchData();
       }
     ])
   ;

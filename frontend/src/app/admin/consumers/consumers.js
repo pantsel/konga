@@ -27,6 +27,13 @@
                                 templateUrl: '/frontend/admin/consumers/index.html',
                                 controller: 'ConsumersController',
                                 resolve : {
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
                                     _items: [
                                         'ListConfig',
                                         'ConsumerModel',
@@ -126,7 +133,13 @@
                                 function(ConsumerService,$stateParams){
                                     return ConsumerService.findById($stateParams.id)
                                 }
-                            ]
+                            ],
+                            _activeNode: [
+                                'NodesService',
+                                function resolve(NodesService) {
+                                    return NodesService.isActiveNodeSet()
+                                }
+                            ],
                         },
                     })
 

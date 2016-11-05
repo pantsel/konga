@@ -24,20 +24,27 @@
                                 controller: 'SettingsController',
                                 resolve: {
                                     _nodes: [
-                                        'ListConfig',
+                                        '_',
+                                        'ListConfig','SocketHelperService',
                                         'NodeModel',
                                         function resolve(
-                                            ListConfig,
+                                            _,
+                                            ListConfig,SocketHelperService,
                                             NodeModel
                                         ) {
                                             var config = ListConfig.getConfig();
+                                            var commonParameters = {
+                                                where: SocketHelperService.getWhere({
+                                                    searchWord: ''
+                                                })
+                                            };
 
                                             var parameters = {
                                                 limit: config.itemsPerPage,
                                                 sort: 'createdAt DESC'
                                             };
 
-                                            return NodeModel.load(parameters);
+                                            return NodeModel.load(_.merge({}, commonParameters, parameters));
                                         }
                                     ],
                                     _countNodes: [

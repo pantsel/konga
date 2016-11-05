@@ -1,43 +1,40 @@
-<uib-tabset active="active">
-    <uib-tab index="0" heading="KONG NODES">
-        <div class="padding-top padding-bottom">
-            <h4>
-                <i class="material-icons">&#xE335;</i>
-                Kong Nodes
-            </h4>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-primary">Select the node to connect to by clicking on the corresponding star icon</p>
-                </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <h4>
+            <i class="material-icons">&#xE335;</i>
+            Kong Nodes
+        </h4>
+        <div class="row margin-bottom">
+            <div class="col-md-12">
+                <p>
+                    <i class="material-icons">add</i> Create one or more nodes.<br>
+                    <i class="material-icons">add</i> Select the node to connect to by clicking on the corresponding star icon.
+                </p>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12 actions">
-                    <button class="btn btn-primary pull-left" ng-click="createNode()">
-                        <i class="material-icons">&#xE145;</i>
-                        new node
-                    </button>
-                    <list-search
-                            class="pull-right margin-right"
-                            data-filters="filters"
-                            data-options="itemsPerPageOptions"
-                            data-items="itemsPerPage"
-                    ></list-search>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div
-                            class="table-responsive"
-                            data-ng-include="'/frontend/admin/settings/partials/nodes-table.html'">
-                    </div>
-                </div>
-
+        </div>
+        <div class="row">
+            <div class="col-md-12 actions">
+                <button class="btn btn-primary pull-left" ng-click="createNode()">
+                    <i class="material-icons">&#xE145;</i>
+                    new node
+                </button>
+                <list-search
+                        class="pull-right margin-right"
+                        data-filters="filters"
+                        data-options="itemsPerPageOptions"
+                        data-items="itemsPerPage"
+                ></list-search>
             </div>
         </div>
 
-    </uib-tab>
+        <div class="row">
+            <div class="col-md-12">
+                <div
+                        class="table-responsive"
+                        data-ng-include="'/frontend/admin/settings/partials/nodes-table.html'">
+                </div>
+            </div>
 
-</uib-tabset>
+        </div>
+    </div>
+</div>

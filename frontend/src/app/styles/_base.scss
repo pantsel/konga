@@ -6,6 +6,7 @@
 @import 'components';
 @import 'bootstrap_over';
 @import 'angular';
+@import "animloader";
 
 
 $color-footer-text: #999;
@@ -20,6 +21,7 @@ body {
   overflow-y: auto;
   font-size: 1.4em;
   background-color: #f9f9f9;
+  padding-bottom: 30px;
 
 }
 
@@ -85,7 +87,7 @@ h5 {
 
 }
 
-.navbar:before{
+.navbar.default:before{
   content: "";
   position: absolute;
   top:0;
@@ -94,6 +96,8 @@ h5 {
   height: 2px;
   background-color: $brand-success;
 }
+
+
 
 header .navbar-nav {
 
@@ -136,9 +140,11 @@ header .navbar-nav {
 
 footer {
   .navbar {
-    max-height: 25px;
-    min-height: 25px;
-    text-align: center;
+    background-color: $gray-lighter;
+    border-top: 1px solid #ddd;
+    max-height: 30px;
+    min-height: 30px;
+    //text-align: right;
 
     .navbar-nav {
       float: none;
@@ -148,12 +154,18 @@ footer {
         float: none;
 
         > a {
-          font-size: 11px;
-          line-height: 25px;
+          font-size: 0.9em;
+          line-height: 1;
           padding: 0 10px;
 
+          .material-icons {
+            font-size: 1.3em;
+            vertical-align: text-bottom;
+            display: inline-block;
+          }
+
           .fa {
-            color: $color-footer-text;
+
             font-size: 14px;
             margin-right: 3px;
             position: relative;
@@ -238,6 +250,10 @@ footer {
 
 .margin-bottom{
   margin-bottom:15px;
+}
+
+.margin{
+  margin:15px;
 }
 
 .acl-clear{
