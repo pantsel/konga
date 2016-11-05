@@ -2,15 +2,16 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.info', []);
+    angular.module('frontend.info', []);
 
     // Module configuration
-    angular.module('frontend.admin.info')
+    angular.module('frontend.info')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('admin.info', {
+                    .state('info', {
+                        parent: 'frontend',
                         url: '/info',
                         data : {
                             pageName : "Node Info",
@@ -20,8 +21,8 @@
 
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/info/index.html',
-                                controller: 'AdminInfoController',
+                                templateUrl: '/frontend/info/index.html',
+                                controller: 'InfoController',
                                 resolve : {
                                     _info : ['InfoService',function(InfoService) {
                                         return InfoService.getInfo()

@@ -18,15 +18,15 @@
               return AuthService.isAuthenticated()
             },
             title: 'Dashboard',
-            access: AccessLevels.anon
+            access: AccessLevels.user
           },
           {
-            state: 'admin.info',
+            state: 'info',
             show : function() {
               return AuthService.isAuthenticated()
             },
             title: 'Node info',
-            access: AccessLevels.anon
+            access: AccessLevels.user
           },
           {
             state: 'admin.apis',
@@ -34,7 +34,7 @@
               return AuthService.isAuthenticated()
             },
             title: 'APIs',
-            access: AccessLevels.anon
+            access: AccessLevels.user
           },
           {
             state: 'admin.consumers',
@@ -42,7 +42,7 @@
               return AuthService.isAuthenticated()
             },
             title: 'Consumers',
-            access: AccessLevels.anon
+            access: AccessLevels.user
           },
           {
             state: 'admin.plugins',

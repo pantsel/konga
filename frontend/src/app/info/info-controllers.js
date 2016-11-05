@@ -6,8 +6,8 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.info')
-    .controller('AdminInfoController', [
+  angular.module('frontend.info')
+    .controller('InfoController', [
       '$scope', '$log', '$state','_info',
       function controller($scope, $log, $state,_info) {
 

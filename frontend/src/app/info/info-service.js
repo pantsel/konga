@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.info')
+  angular.module('frontend.info')
     .service('InfoService', [
         '$log', '$state','$http','BackendConfig',
       function( $log, $state, $http, BackendConfig) {

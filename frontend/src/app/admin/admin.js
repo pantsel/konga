@@ -12,7 +12,6 @@
   // Define frontend.admin module
   angular.module('frontend.admin', [
     'frontend.admin',
-    'frontend.admin.info',
     'frontend.admin.apis',
     'frontend.admin.consumers',
     'frontend.admin.users',

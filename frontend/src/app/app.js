@@ -14,6 +14,7 @@
       'frontend.admin',
       'frontend.dashboard',
       'frontend.settings',
+      'frontend.info',
 
 
   ]);
