@@ -49,9 +49,9 @@ module.exports.routes = {
 
   // Informational routes
   'GET /kong/info'                      : 'KongInfoController.info',
-  'GET /kong/info/status'               : 'KongInfoController.status',
-  'GET /kong/info/cluster'              : 'KongInfoController.cluster',
-  'DELETE /kong/info/cluster'           : 'KongInfoController.deleteCluster',
+  'GET /kong/status'                    : 'KongInfoController.status',
+  'GET /kong/cluster'                   : 'KongInfoController.cluster',
+  'DELETE /kong/cluster'                : 'KongInfoController.deleteCluster',
 
   // Api routes
   'POST /kong/apis'                     : 'KongApiController.create',

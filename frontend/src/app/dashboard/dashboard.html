@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Gateway</div>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>HostName</th>
+                    <td>{{info.hostname}}</td>
+                </tr>
+                <tr>
+                    <th>Tag Line</th>
+                    <td>{{info.tagline}}</td>
+                </tr>
+                <tr>
+                    <th>Version</th>
+                    <td>{{info.version}}</td>
+                </tr>
+                <tr>
+                    <th>LUA Version</th>
+                    <td>{{info.lua_version}}</td>
+                </tr>
+                <tr>
+                    <th>LUA Version</th>
+                    <td>{{info.lua_version}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Connections</div>
+            </div>
+            <div class="panel-body">
+                <canvas id="server"
+                        height="75"
+                        class="chart chart-bar"
+                        chart-data="data.server.data"
+                        chart-labels="data.server.labels"
+                        chart-options="data.server.options"
+                        chart-series="data.server.series">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Database</div>
+            </div>
+            <div class="panel-body">
+                <canvas id="database"
+                        height="190"
+                        class="chart-horizontal-bar"
+                        chart-data="data.database.data"
+                        chart-labels="data.database.labels"
+                        chart-options="data.database.options"
+                        chart-series="data.database.series">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Timers</div>
+            </div>
+            <div class="panel-body">
+                <canvas id="timers"
+                        height="189"
+                        class="chart-horizontal-bar"
+                        chart-data="data.timers.data"
+                        chart-labels="data.timers.labels"
+                        chart-options="data.timers.options"
+                        chart-series="data.timers.series">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+
+</div>
+

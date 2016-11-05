@@ -15,7 +15,14 @@
 
               getInfo : function() {
                   return $http.get(BackendConfig.url + '/kong/info')
-              }
+              },
+              nodeStatus : function() {
+                  return $http.get(BackendConfig.url + '/kong/status')
+              },
+
+              clusterStatus : function() {
+                  return $http.get(BackendConfig.url + '/kong/cluster')
+              },
           }
       }
     ])

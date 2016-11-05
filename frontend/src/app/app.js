@@ -17,6 +17,7 @@
       'frontend-templates',
       'frontend.core',
       'frontend.admin',
+      'frontend.dashboard',
 
 
   ]);
@@ -123,8 +124,8 @@
           })
         ;
 
-        // For any unmatched url, redirect to /admin
-        $urlRouterProvider.otherwise('/admin');
+        // For any unmatched url, redirect to /dashboard
+        $urlRouterProvider.otherwise('/dashboard');
       }
     ])
   ;

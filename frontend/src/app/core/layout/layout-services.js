@@ -15,17 +15,27 @@
           {
             state: 'admin.info',
             title: 'Node info',
-            access: AccessLevels.admin
+            access: AccessLevels.anon
           },
           {
             state: 'admin.apis',
             title: 'APIs',
-            access: AccessLevels.admin
+            access: AccessLevels.anon
           },
           {
             state: 'admin.consumers',
             title: 'Consumers',
-            access: AccessLevels.admin
+            access: AccessLevels.anon
+          },
+          {
+            state: 'admin.plugins',
+            title: 'Plugins',
+            access: AccessLevels.anon
+          },
+          {
+            state: 'admin.cluster',
+            title: 'Cluster',
+            access: AccessLevels.anon
           }
         ];
       }
