@@ -38,9 +38,6 @@
                     templateUrl: '/frontend/admin/index.html',
                     controller: 'AdminController',
                     resolve: {
-                        //_info : ['InfoService',function(InfoService) {
-                        //    return  InfoService.getInfo()
-                        //}]
                         _nodes: [
                             'ListConfig',
                             'NodeModel',

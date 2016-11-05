@@ -30,11 +30,11 @@
 
                             }else{
                                 defer.reject("No active nodes found")
-                                $state.go('admin.settings')
+                                $state.go('settings')
                             }
                         }).catch(function(err){
                             defer.reject(err)
-                            $state.go('admin.settings')
+                            $state.go('settings')
                         })
 
                         return defer.promise
