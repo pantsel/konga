@@ -157,6 +157,7 @@ footer {
           font-size: 0.9em;
           line-height: 1;
           padding: 0 10px;
+          color : $gray;
 
           .material-icons {
             font-size: 1.3em;
@@ -183,6 +184,10 @@ footer {
       }
     }
   }
+}
+
+.label{
+  font-size: 0.9em;
 }
 
 .no-margin {
@@ -373,6 +378,23 @@ tr.danger{
   .jumbotron{
     padding: 0 !important;
     margin-top: 40px;
+  }
+}
+
+
+.panel {
+
+  &.panel-default {
+    .panel-heading{
+      .material-icons {
+        font-size: 1.4em;
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .help-block {
+    font-size: 1em;
   }
 }
 

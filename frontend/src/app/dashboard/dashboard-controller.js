@@ -27,18 +27,6 @@
           }
 
 
-
-          var status = InfoService
-              .nodeStatus()
-              .then(function(resp){
-                  $scope.status = resp.data
-              })
-          var info = InfoService
-              .getInfo()
-              .then(function(resp){
-                  $scope.info = resp.data
-              })
-
           function drawCharts() {
               $scope.data = {
                   server : {
@@ -121,6 +109,29 @@
               }
           }
 
+          var status = InfoService
+              .nodeStatus()
+              .then(function(resp){
+                  $scope.status = resp.data
+              })
+          var info = InfoService
+              .getInfo()
+              .then(function(resp){
+                  $scope.info = resp.data
+              })
+          var info = InfoService
+              .getInfo()
+              .then(function(resp){
+                  $scope.info = resp.data
+              })
+          var clusters = InfoService
+              .clusterStatus()
+              .then(function(resp){
+                  $scope.clusters = resp.data
+              })
+
+
+
           function fetchData() {
               $scope.loading = true
               $q
@@ -130,6 +141,7 @@
 
                           $log.debug("status",$scope.status)
                           $log.debug("info",$scope.info)
+                          $log.debug("clusters",$scope.clusters)
                           $scope.loading = false
 
                           if($scope.status && $scope.info) {
