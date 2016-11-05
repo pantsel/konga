@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-12 padding">
+        <ul class="nav nav-pills">
+            <li
+                    role="presentation"
+                    data-ng-click="setActiveGroup(group.name)"
+                    ng-class="{'active' : activeGroup == group.name}"
+                    data-ng-repeat="group in pluginGroups">
+                <a href="#">{{group.name}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<div class="row add-plugin"  data-ng-repeat="group in pluginGroups | filter : filterGroup">
+<div class="col-md-12">
+    <br>
+    <h4><i class="material-icons pull-left">{{group.icon}}</i>&nbsp;{{group.name}}</h4>
+    <p class="help-block">{{group.description}}</p>
+    <hr>
+</div>
+
+<div class="col-md-4" data-ng-repeat="(key,value) in group.plugins">
+    <div class="panel" iln-match-height
+         ng-class="{'panel-default': !value.isAdded,'panel-primary': value.isAdded,'panel-disabled': value.isAdded && !value.enabled}">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <span class="capitalize">{{key.split('-').join(" ")}}</span>
+                <small class="pull-right" ng-if="!pluginOptions[key]"><em  class="text-muted">(dev)</em></small>
+                <div class="pull-right">
+                    <button class="btn btn-primary btn-link btn-sm" angular-ripple ng-if="!value.isAdded && pluginOptions[key]" uib-tooltip="Add" data-ng-click="onAddPlugin(key)">
+                        <i  class="material-icons">add</i> add
+                    </button>
+                    <button style="margin-right: 8px" class="btn btn-primary btn-icon" ng-if="value.isAdded" ng-click="onEditPlugin(value)" uib-tooltip="Configuration">
+                        <i class="material-icons text-white">settings</i>
+                    </button>
+
+                    <button class="btn btn-primary btn-icon" ng-if="value.isAdded" uib-tooltip="Remove" ng-click="removePlugin(value)">
+                        <i class="material-icons text-white">clear</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <p class="help-block">
+                {{value.description}}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>

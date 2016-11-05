@@ -5074,9 +5074,9 @@ a.thumbnail.active {
   color: #3d8b40;
 }
 .alert-info {
-  background-color: #e1bee7;
-  border-color: #cba4dd;
-  color: $brand-info;
+  background-color: $alert-info-bg;
+  border-color: $alert-info-border;
+  color: $alert-info-text;
 }
 .alert-info hr {
   border-top-color: #c191d6;
@@ -7408,22 +7408,8 @@ input[type="checkbox"]:disabled:checked:after,
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
-.alert {
-  border: none;
-  color: #fff;
-}
-.alert-success {
-  background-color: $brand-success;
-}
-.alert-info {
-  background-color: $brand-info;
-}
-.alert-warning {
-  background-color: $brand-warning;
-}
-.alert-danger {
-  background-color: $brand-danger;
-}
+
+
 .alert a:not(.close):not(.btn),
 .alert .alert-link {
   color: #fff;

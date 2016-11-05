@@ -23,6 +23,7 @@
     'xeditable',
     'sails.io',
     'angularUtils.directives.uiBreadcrumbs',
+    'angularUtils.directives.dirPagination',
     'yaru22.jsonHuman',
     'cfp.loadingBar',
     'frapontillo.bootstrap-switch',

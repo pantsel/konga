@@ -45,7 +45,7 @@
             access: AccessLevels.user
           },
           {
-            state: 'admin.plugins',
+            state: 'plugins',
             show : function() {
               return AuthService.isAuthenticated()
             },

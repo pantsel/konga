@@ -16,7 +16,7 @@ $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
 $brand-primary:         #29B6F6;
 $brand-success:         #66BB6A;
-$brand-info:            #9C27B0;
+$brand-info:            rgba(70,191,189,1);
 $brand-warning:         rgba(253,180,92,1);
 $brand-danger:          rgba(247,70,74,1);
 
@@ -486,19 +486,19 @@ $jumbotron-font-size:            ceil(($font-size-base * 1.5));
 //## Define colors for form feedback states and, by default, alerts.
 
 $state-success-text:             $brand-success;
-$state-success-bg:               #dff0d8;
+$state-success-bg:               lighten($brand-success,24%);
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
 
-$state-info-text:                $brand-info;
-$state-info-bg:                  #e1bee7;
+$state-info-text:                darken($brand-info,15%);
+$state-info-bg:                  lighten($brand-info,37%);
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
 
 $state-warning-text:             $brand-warning;
-$state-warning-bg:               #ffe0b2;
+$state-warning-bg:               lighten($brand-warning,24%);
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%);
 
 $state-danger-text:              $brand-danger;
-$state-danger-bg:                #f9bdbb;
+$state-danger-bg:                lighten($brand-danger,24%);
 $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%);
 
 

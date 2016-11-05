@@ -92,6 +92,8 @@ module.exports.routes = {
 
   // Plugin routes
   'POST /kong/plugins'                  : 'KongPluginController.create',
+  'DELETE /kong/plugins/:id'            : 'KongPluginController.delete',
+  'PATCH /kong/plugins/:id'             : 'KongPluginController.update',
 
 
   'POST /kong/apis/:api/plugins'        : 'KongPluginController.create',
