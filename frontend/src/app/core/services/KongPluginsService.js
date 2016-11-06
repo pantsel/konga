@@ -719,150 +719,106 @@
                       meta : {
                           description : 'Transform the request sent by a client on the fly on Kong, before hitting the upstream server.'
                       },
-                      "consumer_id" : {
-                          displayName : "Apply to",
-                          type: 'search',
-                          value : "",
-                          help : "The CONSUMER ID that this plugin configuration will target. " +
-                          "This value can only be used if authentication has been enabled " +
-                          "so that the system can identify the user making the request." +
-                          " If left blank, the plugin will target all consumers."
-                      },
                       "http_method" : {
-                          type : "text",
-                          value : "",
                           help : "Changes the HTTP method for the upstream request."
                       },
-                      "remove.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of header names. Unset the headers with the given name."
+                      "remove" : {
+                          "headers" : {
+                              help : "List of header names. Unset the headers with the given name."
+                          },
+                          "querystring" : {
+                              help : "List of querystring names. Remove the querystring if it is present."
+                          },
+                          "body" : {
+                              help : "List of parameter names. Remove the parameter if and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and parameter is present."
+                          },
                       },
-                      "remove.querystring" : {
-                          type : "text",
-                          value : "",
-                          help : "List of querystring names. Remove the querystring if it is present."
+                      "replace" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
+                          },
+                          "querystring" : {
+                              help : "List of queryname:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
+                          },
+                          "body" : {
+                              help : "List of paramname:value pairs. If and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and the parameter is already present, replace its old value with the new one. Ignored if the parameter is not already present."
+                          },
                       },
-                      "remove.body" : {
-                          type : "text",
-                          value : "",
-                          help : "List of parameter names. Remove the parameter if and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and parameter is present."
+                      "add" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If and only if the header is not already set, set a new header with the given value. Ignored if the header is already set."
+                          },
+                          "querystring" : {
+                              help : "List of queryname:value pairs. If and only if the querystring is not already set, set a new querystring with the given value. Ignored if the header is already set."
+                          },
+                          "body" : {
+                              help : "List of pramname:value pairs. If and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and the parameter is not present, add a new parameter with the given value to form-encoded body. Ignored if the parameter is already present."
+                          },
                       },
-                      "replace.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
+                      "append" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If the header is not set, set it with the given value. If it is already set, a new header with the same name and the new value will be set."
+                          },
+                          "querystring" : {
+                              help : "List of queryname:value pairs. If the querystring is not set, set it with the given value. If it is already set, a new querystring with the same name and the new value will be set."
+                          },
+                          "body" : {
+                              help : "List of paramname:value pairs. If the content-type is one the following [application/json, application/x-www-form-urlencoded], add a new parameter with the given value if the parameter is not present, otherwise if it is already present, the two values (old and new) will be aggregated in an array."
+                          }
                       },
-                      "replace.querystring" : {
-                          type : "text",
-                          value : "",
-                          help : "List of queryname:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
-                      },
-                      "replace.body" : {
-                          type : "text",
-                          value : "",
-                          help : "List of paramname:value pairs. If and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and the parameter is already present, replace its old value with the new one. Ignored if the parameter is not already present."
-                      },
-                      "add.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If and only if the header is not already set, set a new header with the given value. Ignored if the header is already set."
-                      },
-                      "add.querystring" : {
-                          type : "text",
-                          value : "",
-                          help : "List of queryname:value pairs. If and only if the querystring is not already set, set a new querystring with the given value. Ignored if the header is already set."
-                      },
-                      "add.body" : {
-                          type : "text",
-                          value : "",
-                          help : "List of pramname:value pairs. If and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and the parameter is not present, add a new parameter with the given value to form-encoded body. Ignored if the parameter is already present."
-                      },
-                      "append.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If the header is not set, set it with the given value. If it is already set, a new header with the same name and the new value will be set."
-                      },
-                      "append.querystring" : {
-                          type : "text",
-                          value : "",
-                          help : "List of queryname:value pairs. If the querystring is not set, set it with the given value. If it is already set, a new querystring with the same name and the new value will be set."
-                      },
-                      "append.body" : {
-                          type : "text",
-                          value : "",
-                          help : "List of paramname:value pairs. If the content-type is one the following [application/json, application/x-www-form-urlencoded], add a new parameter with the given value if the parameter is not present, otherwise if it is already present, the two values (old and new) will be aggregated in an array."
-                      }
-
                   },
 
                   "response-transformer" : {
                       meta : {
                           description: 'Transform the response sent by the upstream server on the fly on Kong, before returning the response to the client.'
                       },
-                      "consumer_id" : {
-                          displayName : "Apply to",
-                          type: 'search',
-                          value : "",
-                          help : "The CONSUMER ID that this plugin configuration will target. " +
-                          "This value can only be used if authentication has been enabled " +
-                          "so that the system can identify the user making the request." +
-                          " If left blank, the plugin willbe applied to all consumers."
+                      "remove" : {
+                          "headers" : {
+                              help : "List of header names. Unset the header(s) with the given name."
+                          },
+                          "json" : {
+                              help : "List of property names. Remove the property from the JSON body if it is present."
+                          },
                       },
-                      "remove.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of header names. Unset the header(s) with the given name."
+                      "replace" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
+                          },
+                          "json" : {
+                              help : "List of property:value pairs. If and only if the parameter is already present, replace its old value with the new one. Ignored if the parameter is not already present."
+                          },
                       },
-                      "remove.json" : {
-                          type : "text",
-                          value : "",
-                          help : "List of property names. Remove the property from the JSON body if it is present."
+                      "add" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If and only if the header is not already set, set a new header with the given value. Ignored if the header is already set."
+                          },
+                          "json" : {
+                              help : "List of property:value pairs. If and only if the property is not present, add a new property with the given value to the JSON body. Ignored if the property is already present."
+                          },
                       },
-                      "replace.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If and only if the header is already set, replace its old value with the new one. Ignored if the header is not already set."
+                      "append" : {
+                          "headers" : {
+                              help : "List of headername:value pairs. If the header is not set, set it with the given value. If it is already set, a new header with the same name and the new value will be set."
+                          },
+                          "json" : {
+                              help : "List of property:value pairs. If the property is not present in the JSON body, add it with the given value. If it is already present, the two values (old and new) will be aggregated in an array."
+                          },
                       },
-                      "replace.json" : {
-                          type : "text",
-                          value : "",
-                          help : "List of property:value pairs. If and only if the parameter is already present, replace its old value with the new one. Ignored if the parameter is not already present."
-                      },
-                      "add.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If and only if the header is not already set, set a new header with the given value. Ignored if the header is already set."
-                      },
-                      "add.json" : {
-                          type : "text",
-                          value : "",
-                          help : "List of property:value pairs. If and only if the property is not present, add a new property with the given value to the JSON body. Ignored if the property is already present."
-                      },
-                      "append.headers" : {
-                          type : "text",
-                          value : "",
-                          help : "List of headername:value pairs. If the header is not set, set it with the given value. If it is already set, a new header with the same name and the new value will be set."
-                      },
-                      "append.json" : {
-                          type : "text",
-                          value : "",
-                          help : "List of property:value pairs. If the property is not present in the JSON body, add it with the given value. If it is already present, the two values (old and new) will be aggregated in an array."
-                      },
+
                   }
               }
 
               // Monkey patch to help with transition
               // of using plugin schema directly from kong
               var resp = plugin ? data[plugin] : data
-              if(plugin) {
+              if(plugin && resp) {
                   resp.fields = {
-                      meta : data[plugin].meta
+                      meta : data[plugin] ? data[plugin].meta : {}
                   }
               }
 
 
-              return resp
+              return resp || {}
         }
 
 

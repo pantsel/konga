@@ -115,21 +115,7 @@ input.form-control, select.form-control{
   border-radius: 0;
 }
 
-.btn-icon:hover,.btn-icon:active,.btn-icon:focus{
-  background-color: transparent;
-}
-.btn-icon{
-  padding: 3px;
-  background-color: transparent !important;
-  box-shadow: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  i{
-    float: none !important;
-    padding: 0;
-  }
-}
+
 
 .panel-disabled{
   opacity: 0.6;

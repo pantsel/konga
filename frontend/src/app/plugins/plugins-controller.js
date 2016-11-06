@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.apis')
+  angular.module('frontend.plugins')
     .controller('PluginsController', [
         '_','$scope', '$log', '$state','ApiService','PluginsService',
         '$uibModal','DialogService','InfoService','_plugins',

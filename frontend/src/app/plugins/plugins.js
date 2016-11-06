@@ -34,6 +34,55 @@
                             }
                         }
                     })
+                    .state('plugins.add', {
+                        url: '/add',
+                        params : {
+                            api : {}
+                        },
+                        data : {
+                            pageName : "Add Plugins",
+                            displayName : "add"
+                        },
+                        views: {
+                            'content@': {
+                                templateUrl: '/frontend/plugins/manage/manage-api-plugins.html',
+                                controller: 'AddPluginsController',
+                                resolve : {
+                                    _plugins: [
+                                        '$stateParams',
+                                        'PluginsService',
+                                        '$log',
+                                        function resolve(
+                                            $stateParams,
+                                            PluginsService,
+                                            $log
+                                        ) {
+                                            return PluginsService.load()
+                                        }
+                                    ],
+                                    _info: [
+                                        '$stateParams',
+                                        'InfoService',
+                                        '$log',
+                                        function resolve(
+                                            $stateParams,
+                                            InfoService,
+                                            $log
+                                        ) {
+                                            return InfoService.getInfo()
+                                        }
+                                    ],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
+                                }
+                            }
+                        },
+                    })
             }
         ])
     ;

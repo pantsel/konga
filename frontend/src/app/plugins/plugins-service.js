@@ -17,6 +17,10 @@
                 return $http.get(BackendConfig.url + '/kong/plugins')
             },
 
+            add : function(data) {
+                return $http.post(BackendConfig.url + '/kong/plugins',data)
+            },
+
             update : function(id,data) {
               return $http.patch(BackendConfig.url + '/kong/plugins/' + id,data)
             },
@@ -27,6 +31,10 @@
 
             schema : function(name) {
                  return $http.get(BackendConfig.url + '/kong/plugins/schema/' + name)
+            },
+
+            enabled : function() {
+                return $http.get(BackendConfig.url + '/kong/plugins/enabled');
             },
 
             delete : function(id) {

@@ -1,5 +1,15 @@
 <div class="row">
-    <div class="col-md-12 padding">
+    <div class="col-md-12">
+        <div ng-show="alert"
+             class="alert-info"
+             uib-alert
+             close="closeAlert()">
+            <span data-ng-bind-html="alert.msg"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <ul class="nav nav-pills">
             <li
                     role="presentation"
@@ -28,17 +38,11 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <span class="capitalize">{{key.split('-').join(" ")}}</span>
-                <small class="pull-right" ng-if="!pluginOptions[key]"><em  class="text-muted">(dev)</em></small>
                 <div class="pull-right">
-                    <button class="btn btn-primary btn-link btn-sm" angular-ripple ng-if="!value.isAdded && pluginOptions[key]" uib-tooltip="Add" data-ng-click="onAddPlugin(key)">
-                        <i  class="material-icons">add</i> add
-                    </button>
-                    <button style="margin-right: 8px" class="btn btn-primary btn-icon" ng-if="value.isAdded" ng-click="onEditPlugin(value)" uib-tooltip="Configuration">
-                        <i class="material-icons text-white">settings</i>
-                    </button>
-
-                    <button class="btn btn-primary btn-icon" ng-if="value.isAdded" uib-tooltip="Remove" ng-click="removePlugin(value)">
-                        <i class="material-icons text-white">clear</i>
+                    <button
+                            class="btn btn-primary btn-link btn-icon"
+                            angular-ripple data-ng-click="onAddPlugin(key)">
+                        <i class="material-icons" data-ng-class="{'text-white':value.isAdded}">add</i>
                     </button>
                 </div>
             </div>

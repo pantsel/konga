@@ -386,8 +386,30 @@ tr.danger{
   }
 }
 
+.btn-icon:hover,.btn-icon:active,.btn-icon:focus{
+  background-color: transparent;
+}
+.btn-icon{
+  padding : 3px 3px 3px 3px;
+  background-color: transparent !important;
+  box-shadow: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+}
 
 .panel {
+
+  .panel-heading{
+    .btn-icon {
+      margin-top: -5px;
+      i{
+        font-size: 2em !important;
+        vertical-align: top !important;
+      }
+    }
+  }
 
   &.panel-default {
     .panel-heading{
@@ -521,3 +543,17 @@ pre {
 }
 
 
+.plugin-field-table {
+  background-color: $gray-lighter !important;
+  padding: 15px;
+  border-radius: 5px;
+
+  input {
+    background-color: transparent;
+  }
+}
+
+.default-chip{
+  padding-left: 15px;
+  padding-right: 2px;
+}

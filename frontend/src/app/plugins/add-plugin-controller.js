@@ -7,33 +7,33 @@
   'use strict';
 
   angular.module('frontend.plugins')
-    .controller('EditPluginController', [
-        '_','$scope','$rootScope','$log','MessageService','ConsumerModel','SocketHelperService',
-        'KongPluginsService','$uibModalInstance','PluginsService','_plugin','_schema',
-      function controller(_,$scope,$rootScope,$log,MessageService,ConsumerModel,SocketHelperService,
-                          KongPluginsService,$uibModalInstance,PluginsService,_plugin,_schema ) {
+    .controller('AddPluginController', [
+        '_','$scope','$rootScope','$log','$state',
+        'MessageService','ConsumerModel','SocketHelperService',
+        'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema',
+      function controller(_,$scope,$rootScope,$log,$state,
+                          MessageService,ConsumerModel,SocketHelperService,
+                          KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema ) {
 
           //var pluginOptions = new KongPluginsService().pluginOptions()
-          var options = new KongPluginsService().pluginOptions(_plugin.name)
+          var options = new KongPluginsService().pluginOptions(_pluginName)
 
-          $scope.plugin = _plugin
           $scope.schema = _schema.data
-          $log.debug("Plugin",$scope.plugin)
+          $scope.pluginName = _pluginName
           $log.debug("Schema",$scope.schema)
           //$log.debug("Options", options)
           $scope.close = close
-
 
           $scope.humanizeLabel = function(key) {
               return key.split("_").join(" ")
           }
 
 
+
+
           // Monkey patch to help with transition
           // of using plugin schema directly from kong
-          $scope.data = _.merge(options.fields,$scope.schema,{
-              consumer_id : $scope.plugin.consumer_id
-          })
+          $scope.data = _.merge(options.fields,$scope.schema)
           $scope.description = $scope.data.meta ? $scope.data.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
 
           function assignValues(fields,prefix) {
@@ -43,14 +43,14 @@
                       assignValues(fields[item].schema.fields,item)
                   }else{
                       var path = prefix ? prefix + "." + item : item;
-                      var value = _.get(_plugin.config, path)
-
+                      var value = fields[item].default
                       if (fields[item].type === 'array'
                           && value !== null && typeof value === 'object' && !Object.keys(value).length) {
                           value = []
                       }
                       fields[item].value = value
-                      fields[item].help = _.get(options,path) ? _.get(options,path).help : ''
+                      var field_meta = _.get(options,path)
+                      fields[item].help = field_meta ? field_meta.help : ''
                   }
               })
           }
@@ -58,19 +58,17 @@
           assignValues($scope.data.fields);
 
 
-          $scope.updatePlugin = function() {
+          $scope.addPlugin = function(back) {
 
               $scope.busy = true;
 
-
               var data = {
-                  enabled : $scope.plugin.enabled,
+                  name : _pluginName
               }
 
-              if($scope.data.consumer_id instanceof Object) {
-                  data.consumer_id = $scope.data.consumer_id.id
+              if($scope.data.consumer instanceof Object) {
+                  data.consumer_id = $scope.data.consumer.id
               }
-
 
               function createConfig(fields,prefix) {
 
@@ -86,27 +84,31 @@
                               data['config.' + path] = fields[key].value
                           }
                       }
-
-
                   })
-
               }
 
               createConfig($scope.data.fields);
 
-              console.log("adsasdasdasdasd",data)
+              $log.debug("POST DATA =>",data)
 
-              PluginsService.update(_plugin.id,data)
+              PluginsService.add(data)
                   .then(function(res){
-                      $log.debug("updatePlugin",res)
+                      $log.debug("create plugin",res)
                       $scope.busy = false;
-                      $rootScope.$broadcast('plugin.updated',res.data)
-                      MessageService.success('"' + _plugin.name + '" plugin updated successfully!')
+                      $rootScope.$broadcast('plugin.added',res.data)
+                      MessageService.success('Plugin added successfully!')
                       $uibModalInstance.dismiss()
+                      if(back) {
+                          $state.go('plugins')
+                      }
                   }).catch(function(err){
                   $scope.busy = false;
-                  $log.error("updatePlugin",err)
-                  $scope.errors = err.data.customMessage || {}
+                  $log.error("create plugin",err)
+                  var errors = {}
+                  Object.keys(err.data.customMessage).forEach(function(key){
+                      errors[key.replace('config.','')] = err.data.customMessage[key]
+                  })
+                  $scope.errors = errors
               })
           }
 
@@ -138,6 +140,5 @@
               $uibModalInstance.dismiss()
           }
       }
-    ])
-  ;
+    ]);
 }());

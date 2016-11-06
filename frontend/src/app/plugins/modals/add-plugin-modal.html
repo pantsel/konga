@@ -1,9 +1,8 @@
-
 <div class="modal-header warning">
     <h5 class="modal-title" id="modal-title">
-       <span class="capitalize">
-            {{plugin.name.split("-").join(" ")}}
-        </span><small>plugin</small>
+        Add <span class="capitalize">
+            {{pluginName.split("-").join(" ")}}
+        </span>
         <a href="#" class="modal-close pull-right" ng-click="close()">
             <i class="material-icons">clear</i>
         </a>
@@ -21,23 +20,57 @@
 
     <form class="form-horizontal">
 
-        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in filterMeta(plugin.options)">
-            <label class="col-sm-4 control-label">{{value.displayName || key}}</label>
+        <div data-ng-if="!data.no_consumer" class="form-group">
+            <label class="col-sm-4 control-label"><strong>consumer</strong></label>
+            <div class="col-sm-7">
+                <input
+                        type="text"
+                        ng-model="data.consumer"
+                        ng-disabled="data.consumer"
+                        placeholder="search consumer..."
+                        uib-typeahead="item as item.username for item in getConsumer($viewValue)"
+                        typeahead-template-url="/frontend/admin/apis/plugins/modals/custom-template.html"
+                        class="form-control"
+                        typeahead-wait-ms="200"
+                        typeahead-show-hint="true"
+                        typeahead-min-length="0">
+                <p class="help-block">
+                    The CONSUMER ID that this plugin configuration will target.
+                    This value can only be used if authentication has been enabled
+                    so that the system can identify the user making the request.
+                    If left blank, the plugin will be applied to all consumers.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in data.fields">
+            <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
-                    <div ng-switch-when="search">
-                        <input
-                                type="text"
-                                ng-model="plugin.consumer"
-                                placeholder="search consumer..."
-                                uib-typeahead="item as item.id for item in getConsumer($viewValue)"
-                                typeahead-template-url="/frontend/admin/apis/plugins/modals/custom-template.html"
-                                class="form-control"
-                                typeahead-wait-ms="200"
-                                typeahead-show-hint="true"
-                                typeahead-min-length="0">
+                    <div ng-switch-when="table" class="plugin-field-table">
+                        <div data-ng-repeat="(key,data) in value.schema.fields">
+                            <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
+                            <div ng-switch on="data.type">
+                                <div ng-switch-when="array">
+                                    <chips ng-model="data.value">
+                                        <chip-tmpl>
+                                            <div class="default-chip">
+                                                {{chip}}
+                                                <i class="material-icons" remove-chip>clear</i>
+                                            </div>
+                                        </chip-tmpl>
+                                        <input chip-control/>
+                                    </chips>
+                                </div>
+                                <div ng-switch-default>
+                                    <input type="{{data.type}}" ng-model="data.value" class="form-control">
+                                </div>
+                                <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                                <p class="help-block">{{data.help}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div ng-switch-when="chips">
+                    <div ng-switch-when="array">
                         <chips ng-model="value.value">
                             <chip-tmpl>
                                 <div class="default-chip">
@@ -45,36 +78,35 @@
                                     <i class="material-icons" remove-chip>clear</i>
                                 </div>
                             </chip-tmpl>
-                            <input ng-model-control ng-model="typeaheadmodel" uib-typeahead="item for item in value.options | filter: value.filters.removeSelected(value.value)"/>
+                            <input chip-control/>
                         </chips>
                     </div>
-
                     <div ng-switch-when="select">
                         <select class="form-control"  ng-model="value.value">
-                            <option  ng-repeat="item in value.options" ng-value="item">{{item}}</option>
+                            <option  ng-repeat="item in units" ng-value="item">{{item}}</option>
                         </select>
                     </div>
                     <div ng-switch-when="boolean">
                         <input
-
                                 bs-switch
                                 ng-model="value.value"
                                 switch-size="small"
                                 type="checkbox"
                                 switch-on-text="YES"
                                 switch-off-text="NO"
+                                ng-change="updateApi(api)"
                         >
 
                     </div>
                     <div ng-switch-when="file">
-                        <input type="file"
-                               ngf-select ng-model="value.value" name="value.value"
-                        />
-
-                    </div>
-                    <div ng-switch-when="string">
-                        <input type="text" ng-model="value.value" class="form-control">
-
+                        <!--<input type="file"-->
+                        <!--ngf-select ng-model="value.value" name="value.value"-->
+                        <!--/>-->
+                        <!--<br>-->
+                        <p class="text-primary">
+                            To change the certificates you must remove the plugin and add it again
+                        </p>
+                        <pre>{{value.value}}</pre>
                     </div>
                     <div ng-switch-default>
                         <input type="{{value.type}}" ng-model="value.value" class="form-control">
@@ -87,10 +119,15 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-7">
-                <button type="submit" data-ng-disabled="busy" class="btn btn-primary" ng-click="addPlugin()">
+                <button type="button" data-ng-disabled="busy" class="btn btn-warning" ng-click="addPlugin(true)">
+                    <i class="material-icons" ng-if="!busy">keyboard_return</i>
+                    <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                    add and return
+                </button>
+                <button type="button" data-ng-disabled="busy" class="btn btn-primary" ng-click="addPlugin()">
                     <i class="material-icons" ng-if="!busy">&#xE876;</i>
                     <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
-                    add plugin
+                    add and continue
                 </button>
             </div>
         </div>

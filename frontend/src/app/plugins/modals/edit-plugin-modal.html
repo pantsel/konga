@@ -35,7 +35,7 @@
     <form class="form-horizontal">
 
         <div data-ng-if="!data.no_consumer" class="form-group">
-            <label class="col-sm-4 control-label">consumer</label>
+            <label class="col-sm-4 control-label"><strong>consumer</strong></label>
             <div class="col-sm-7">
                 <input
                         type="text"
@@ -58,9 +58,32 @@
         </div>
 
         <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in data.fields">
-            <label class="col-sm-4 control-label">{{key}}</label>
+            <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
+                    <div ng-switch-when="table" class="plugin-field-table">
+                        <div data-ng-repeat="(key,data) in value.schema.fields">
+                            <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
+                            <div ng-switch on="data.type">
+                                <div ng-switch-when="array">
+                                    <chips ng-model="data.value">
+                                        <chip-tmpl>
+                                            <div class="default-chip">
+                                                {{chip}}
+                                                <i class="material-icons" remove-chip>clear</i>
+                                            </div>
+                                        </chip-tmpl>
+                                        <input chip-control/>
+                                    </chips>
+                                </div>
+                                <div ng-switch-default>
+                                    <input type="{{data.type}}" ng-model="data.value" class="form-control">
+                                </div>
+                                <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                                <p class="help-block">{{data.help}}</p>
+                            </div>
+                        </div>
+                    </div>
                     <div ng-switch-when="array">
                         <chips ng-model="value.value">
                             <chip-tmpl>
