@@ -8,8 +8,8 @@
 
     angular.module('frontend.plugins')
         .service('PluginHelperService', [
-            '$log','BackendConfig','Upload','PluginsService',
-            function( $log,BackendConfig,Upload,PluginsService) {
+            '_','$log','BackendConfig','Upload','PluginsService',
+            function( _,$log,BackendConfig,Upload,PluginsService) {
 
                 function assignExtraProperties(options,fields,prefix) {
                     Object.keys(fields).forEach(function (item) {
@@ -18,6 +18,7 @@
                         }else{
                             var path = prefix ? prefix + "." + item : item;
                             var value = fields[item].default
+
                             if (fields[item].type === 'array'
                                 && (typeof value === 'object' || typeof value === 'string')
                             ) {

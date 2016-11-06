@@ -84,14 +84,12 @@
               }
 
 
-              assignValues($scope.data.fields);
+
 
               // Customize data fields according to plugin
               PluginHelperService.customizeDataFieldsForPlugin(_plugin.name,$scope.data.fields)
 
-              // Assign extra properties from options to data fields
-              PluginHelperService.assignExtraProperties(options,$scope.data.fields)
-              $log.debug("Extra properties added to fields =>",$scope.data.fields)
+              assignValues($scope.data.fields);
           }
 
 
@@ -100,11 +98,12 @@
 
               Object.keys(fields).forEach(function (item) {
                   if(fields[item].schema) {
-                      assignValues(fields[item].schema.fields,item)
+                      assignValues(fields[item].schema.fields,prefix ? prefix + "." + item : item)
                   }else{
 
                       var path = prefix ? prefix + "." + item : item;
                       var value = _.get(_plugin.config, path)
+
 
                       if (fields[item].type === 'array'
                           && value !== null && typeof value === 'object' && !Object.keys(value).length) {
@@ -147,8 +146,6 @@
                               data['config.' + path] = fields[key].value
                           }
                       }
-
-
                   })
 
               }
@@ -166,8 +163,13 @@
                       $uibModalInstance.dismiss()
                   }).catch(function(err){
                   $scope.busy = false;
-                  $log.error("updatePlugin",err)
-                  $scope.errors = err.data.customMessage || {}
+                  $log.error("update plugin",err)
+                  var errors = {}
+                  Object.keys(err.data.customMessage).forEach(function(key){
+                      errors[key.replace('config.','')] = err.data.customMessage[key]
+                      MessageService.error(key + " : " + err.data.customMessage[key])
+                  })
+                  $scope.errors = errors
               })
           }
 
