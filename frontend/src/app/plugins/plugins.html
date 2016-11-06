@@ -2,7 +2,7 @@
     <div class="col-md-12 actions">
         <a data-ui-sref="plugins.add" class="btn btn-primary">
             <i class="material-icons">add</i>
-            Add plugins
+            Add global plugins
         </a>
         <!--<a href="#" class="btn btn-danger" ng-click="deleteSelected()">-->
             <!--<i class="material-icons">delete</i>-->
@@ -11,13 +11,13 @@
     </div>
 </div>
 <div class="col-md-12 bg-light-grey padding">
-    <div class="input-group col-sm-4">
+    <div class="input-group col-sm-4 pull-left">
         <div class="input-group-addon">
             <i class="material-icons">&#xE8B6;</i>
         </div>
         <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
     </div>
-    <dir-pagination-controls></dir-pagination-controls>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
 </div>
 
 <div class="row">
@@ -34,26 +34,26 @@
                 <th width="1"></th>
             </tr>
             <tr
-                    dir-paginate="plugin in plugins.data | orderBy:'created_at':true | itemsPerPage: 50 | filter : search">
+                    dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
                 <td>
                     <input
                             ng-change="updatePlugin(plugin)"
                             ng-model="plugin.enabled"
                             type="checkbox"/>
                 </td>
-                <th>{{plugin.name}}</th>
-                <td>{{plugin.api_id || 'All APIs'}}</td>
-                <td>{{plugin.consumer_id || 'All consumers'}}</td>
-                <td>{{plugin.created_at | date : format : timezone}}</td>
+                <th>{{item.name}}</th>
+                <td>{{item.api_id || 'All APIs'}}</td>
+                <td>{{item.consumer_id || 'All consumers'}}</td>
+                <td>{{item.created_at | date : format : timezone}}</td>
 
                 <td>
-                    <button type="button" ng-click="onEditPlugin(plugin)" class="btn btn-warning btn-link">
+                    <button type="button" ng-click="onEditPlugin(item)" class="btn btn-warning btn-link">
                         <i class="material-icons">&#xE254;</i>
                         Edit
                     </button>
                 </td>
                 <td>
-                    <button type="button" ng-click="deletePlugin(plugin)" class="btn btn-danger btn-link">
+                    <button type="button" ng-click="deletePlugin(item)" class="btn btn-danger btn-link">
                         <i class="material-icons">&#xE872;</i>
                         Delete
                     </button>
@@ -65,8 +65,9 @@
                 </td>
             </tr>
         </table>
+        <dir-pagination-controls></dir-pagination-controls>
     </div>
-    <dir-pagination-controls></dir-pagination-controls>
+
 
 </div>
 

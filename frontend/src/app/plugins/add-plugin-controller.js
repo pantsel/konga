@@ -9,10 +9,10 @@
   angular.module('frontend.plugins')
     .controller('AddPluginController', [
         '_','$scope','$rootScope','$log','$state',
-        'MessageService','ConsumerModel','SocketHelperService',
+        'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
         'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema',
       function controller(_,$scope,$rootScope,$log,$state,
-                          MessageService,ConsumerModel,SocketHelperService,
+                          MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
                           KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema ) {
 
           //var pluginOptions = new KongPluginsService().pluginOptions()
@@ -30,86 +30,90 @@
 
 
 
+          function initialize() {
+              // Initialize plugin fields data
+              $scope.data = _.merge(options.fields,$scope.schema)
 
-          // Monkey patch to help with transition
-          // of using plugin schema directly from kong
-          $scope.data = _.merge(options.fields,$scope.schema)
-          $scope.description = $scope.data.meta ? $scope.data.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
+              // Define general modal window content
+              $scope.description = $scope.data.meta ? $scope.data.meta.description
+                  : 'Configure the Plugin.'
 
-          function assignValues(fields,prefix) {
-              Object.keys(fields).forEach(function (item) {
-
-                  if(fields[item].schema) {
-                      assignValues(fields[item].schema.fields,item)
-                  }else{
-                      var path = prefix ? prefix + "." + item : item;
-                      var value = fields[item].default
-                      if (fields[item].type === 'array'
-                          && value !== null && typeof value === 'object' && !Object.keys(value).length) {
-                          value = []
-                      }
-                      fields[item].value = value
-                      var field_meta = _.get(options,path)
-                      fields[item].help = field_meta ? field_meta.help : ''
-                  }
+              // Remove unwanted data fields that start with "_"
+              Object.keys($scope.data.fields).forEach(function(key){
+                  if(key.startsWith("_")) delete $scope.data.fields[key]
               })
+
+              // Customize data fields according to plugin
+              PluginHelperService.customizeDataFieldsForPlugin(_pluginName,$scope.data.fields)
+
+              // Assign extra properties from options to data fields
+              PluginHelperService.assignExtraProperties(options,$scope.data.fields)
+              $log.debug("Extra properties added to fields =>",$scope.data.fields)
           }
 
-          assignValues($scope.data.fields);
 
+
+          $scope.addCustomField = function(obj) {
+              if(!obj.custom_field) return;
+              if(!obj.custom_fields) {
+                  obj.custom_fields = {}
+              }
+
+              obj.custom_fields[obj.custom_field] = _.cloneDeep(obj.schema.fields)
+              obj.custom_field = ""
+          }
+
+          $scope.removeCustomField = function(object,key) {
+              delete object.custom_fields[key]
+          }
 
           $scope.addPlugin = function(back) {
 
               $scope.busy = true;
 
-              var data = {
-                  name : _pluginName
+              // Initialize request data
+              var request_data = {
+                  name : _pluginName,
               }
 
+              // If a consumer is defined, add consumer_id to request data
               if($scope.data.consumer instanceof Object) {
-                  data.consumer_id = $scope.data.consumer.id
+                  request_data.consumer_id = $scope.data.consumer.id
               }
 
-              function createConfig(fields,prefix) {
+              // Apply monkey patches to request data if needed
+              PluginHelperService.applyMonkeyPatches(request_data,$scope.data.fields)
 
-                  Object.keys(fields).forEach(function (key) {
-                      if(fields[key].schema) {
-                          createConfig(fields[key].schema.fields,key)
-                      }else{
-                          var path = prefix ? prefix + "." + key : key;
-                          if (fields[key].value instanceof Array) {
-                              // Transform to comma separated string
-                              data['config.' + path] = fields[key].value.join(",")
-                          } else {
-                              data['config.' + path] = fields[key].value
-                          }
-                      }
-                  })
-              }
+              // Create request data "config." properties
+              var config = PluginHelperService.createConfigProperties($scope.data.fields)
+              request_data = _.merge(request_data,config)
 
-              createConfig($scope.data.fields);
 
-              $log.debug("POST DATA =>",data)
+              $log.debug("REQUEST DATA =>",request_data)
 
-              PluginsService.add(data)
-                  .then(function(res){
+              PluginHelperService.addPlugin(
+                  request_data,
+                  function success(res){
                       $log.debug("create plugin",res)
                       $scope.busy = false;
                       $rootScope.$broadcast('plugin.added',res.data)
                       MessageService.success('Plugin added successfully!')
                       $uibModalInstance.dismiss()
-                      if(back) {
-                          $state.go('plugins')
-                      }
-                  }).catch(function(err){
-                  $scope.busy = false;
-                  $log.error("create plugin",err)
-                  var errors = {}
-                  Object.keys(err.data.customMessage).forEach(function(key){
-                      errors[key.replace('config.','')] = err.data.customMessage[key]
+                      if(back) $state.go('plugins') // return to plugins page if specified
+                  },function(err){
+                      $scope.busy = false;
+                      $log.error("create plugin",err)
+                      var errors = {}
+                      Object.keys(err.data.customMessage).forEach(function(key){
+                          errors[key.replace('config.','')] = err.data.customMessage[key]
+                          MessageService.error(key + " : " + err.data.customMessage[key])
+                      })
+                      $scope.errors = errors
+                  },function evt(evt){
+                      // Only used for ssl plugin certs upload
+                      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                      $log.debug('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                   })
-                  $scope.errors = errors
-              })
           }
 
 
@@ -139,6 +143,9 @@
           function close() {
               $uibModalInstance.dismiss()
           }
+
+
+          initialize();
       }
     ]);
 }());

@@ -31,7 +31,7 @@
 
           $scope.alert = {
               msg : 'Plugins added in this section will be applied to <strong>all APIs</strong>.' +
-              '<br>If you need to add plugins to a specific API, you can to it' +
+              '<br>If you need to add plugins to a specific API, you can do it' +
               ' in the <a href="/admin/apis">APIs section</a>.'
           }
 

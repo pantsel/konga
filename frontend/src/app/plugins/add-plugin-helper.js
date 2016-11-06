@@ -22,6 +22,24 @@
                     });
                 }
 
+
+                function createConfigProperties(fields,prefix) {
+
+                    Object.keys(fields).forEach(function (key) {
+                        if(fields[key].schema) {
+                            createConfigProperties(fields[key].schema.fields,key)
+                        }else{
+                            var path = prefix ? prefix + "." + key : key;
+                            if (fields[key].value instanceof Array) {
+                                // Transform to comma separated string
+                                data['config.' + path] = fields[key].value.join(",")
+                            } else {
+                                data['config.' + path] = fields[key].value
+                            }
+                        }
+                    })
+                }
+
                 var handlers  = {
                     common : function(apiId,data,success,error) {
 
@@ -99,6 +117,14 @@
                         var output = {}
 
                         parseFields(schema,path,output)
+
+                        return output
+                    },
+
+                    createConfigProperties : function(fields,prefix) {
+                        var output = {}
+
+                        parseFields(fields,prefix)
 
                         return output
                     }

@@ -27,5 +27,6 @@
     'yaru22.jsonHuman',
     'cfp.loadingBar',
     'frapontillo.bootstrap-switch',
+    'ngFileUpload'
   ]);
 }());

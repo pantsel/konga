@@ -2,8 +2,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.plugins', [
-    ]);
+    angular.module('frontend.plugins', []);
 
     // Module configuration
     angular.module('frontend.plugins')
@@ -40,7 +39,7 @@
                             api : {}
                         },
                         data : {
-                            pageName : "Add Plugins",
+                            pageName : "Add Global Plugins",
                             displayName : "add"
                         },
                         views: {

@@ -15,12 +15,14 @@
 
           //$scope.api = _api.data
           //$state.current.data.pageName = "Plugins <small>( API : " + ( $scope.api.name || $scope.api.id )+ " )</small>"
-          $log.debug("Plugins",_plugins)
+
           $scope.plugins = _plugins.data
           $scope.onEditPlugin = onEditPlugin
           $scope.deletePlugin = deletePlugin
           $scope.updatePlugin = updatePlugin
           $scope.search = ''
+
+          $log.debug("Plugins",$scope.plugins.data)
 
           /**
            * ----------------------------------------------------------------------
@@ -57,7 +59,7 @@
                   },function decline(){})
           }
 
-          function onEditPlugin(plugin) {
+          function onEditPlugin(item) {
               $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
@@ -67,10 +69,10 @@
                   controller: 'EditPluginController',
                   resolve: {
                       _plugin: function () {
-                          return _.cloneDeep(plugin)
+                          return _.cloneDeep(item)
                       },
                       _schema: function () {
-                          return PluginsService.schema(plugin.name)
+                          return PluginsService.schema(item.name)
                       }
                   }
               });

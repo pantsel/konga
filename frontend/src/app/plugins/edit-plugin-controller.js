@@ -8,18 +8,22 @@
 
   angular.module('frontend.plugins')
     .controller('EditPluginController', [
-        '_','$scope','$rootScope','$log','MessageService','ConsumerModel','SocketHelperService',
+        '_','$scope','$rootScope','$log',
+        'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
         'KongPluginsService','$uibModalInstance','PluginsService','_plugin','_schema',
-      function controller(_,$scope,$rootScope,$log,MessageService,ConsumerModel,SocketHelperService,
+      function controller(_,$scope,$rootScope,$log,
+                          MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
                           KongPluginsService,$uibModalInstance,PluginsService,_plugin,_schema ) {
-
-          //var pluginOptions = new KongPluginsService().pluginOptions()
-          var options = new KongPluginsService().pluginOptions(_plugin.name)
 
           $scope.plugin = _plugin
           $scope.schema = _schema.data
           $log.debug("Plugin",$scope.plugin)
           $log.debug("Schema",$scope.schema)
+
+          //var pluginOptions = new KongPluginsService().pluginOptions()
+          var options = new KongPluginsService().pluginOptions(_plugin.name)
+
+
           //$log.debug("Options", options)
           $scope.close = close
 
@@ -28,20 +32,77 @@
               return key.split("_").join(" ")
           }
 
+          function initialize() {
+              // Initialize plugin fields data
+              $scope.data = _.merge(options.fields,$scope.schema,{
+                  consumer_id : $scope.plugin.consumer_id
+              })
 
-          // Monkey patch to help with transition
-          // of using plugin schema directly from kong
-          $scope.data = _.merge(options.fields,$scope.schema,{
-              consumer_id : $scope.plugin.consumer_id
-          })
-          $scope.description = $scope.data.meta ? $scope.data.meta.description : 'Configure the Plugin according to your specifications and add it to the API'
+              // Define general modal window content
+              $scope.description = $scope.data.meta ? $scope.data.meta.description
+                  : 'Configure the Plugin.'
+
+              // Remove unwanted data fields that start with "_"
+              Object.keys($scope.data.fields).forEach(function(key){
+                  if(key.startsWith("_")) delete $scope.data.fields[key]
+              })
+
+              // Monkey patch for response-ratelimiting plugin
+              if(_plugin.name === 'response-ratelimiting') {
+                  console.log("response-ratelimiting:limits =>",_plugin.config.limits)
+
+                  // Delete initial schema fields
+                  delete $scope.data.fields.limits.schema.fields.day
+                  delete $scope.data.fields.limits.schema.fields.hour
+                  delete $scope.data.fields.limits.schema.fields.minute
+                  delete $scope.data.fields.limits.schema.fields.month
+                  delete $scope.data.fields.limits.schema.fields.second
+                  delete $scope.data.fields.limits.schema.fields.year
+
+
+                  Object.keys(_plugin.config.limits).forEach(function(key){
+
+                      //console.log("_plugin.config.limits[key]",_plugin.config.limits[key])
+
+                      var inner_fields = {}
+                      Object.keys(_plugin.config.limits[key]).forEach(function(k){
+                          inner_fields[k] = {
+                              type : 'number',
+                              default : _plugin.config.limits[key][k]
+                          }
+                      })
+
+                      $scope.data.fields.limits.schema.fields[key] = {
+
+                          schema : {
+                              fields : inner_fields
+                          }
+                      }
+                  })
+
+                  console.log("$scope.data =>",$scope.data)
+              }
+
+
+              assignValues($scope.data.fields);
+
+              // Customize data fields according to plugin
+              PluginHelperService.customizeDataFieldsForPlugin(_plugin.name,$scope.data.fields)
+
+              // Assign extra properties from options to data fields
+              PluginHelperService.assignExtraProperties(options,$scope.data.fields)
+              $log.debug("Extra properties added to fields =>",$scope.data.fields)
+          }
+
+
 
           function assignValues(fields,prefix) {
-              Object.keys(fields).forEach(function (item) {
 
+              Object.keys(fields).forEach(function (item) {
                   if(fields[item].schema) {
                       assignValues(fields[item].schema.fields,item)
                   }else{
+
                       var path = prefix ? prefix + "." + item : item;
                       var value = _.get(_plugin.config, path)
 
@@ -55,7 +116,7 @@
               })
           }
 
-          assignValues($scope.data.fields);
+
 
 
           $scope.updatePlugin = function() {
@@ -76,7 +137,7 @@
 
                   Object.keys(fields).forEach(function (key) {
                       if(fields[key].schema) {
-                          createConfig(fields[key].schema.fields,key)
+                          createConfig(fields[key].schema.fields,prefix ? prefix + "." + key : key)
                       }else{
                           var path = prefix ? prefix + "." + key : key;
                           if (fields[key].value instanceof Array) {
@@ -94,7 +155,7 @@
 
               createConfig($scope.data.fields);
 
-              console.log("adsasdasdasdasd",data)
+              $log.debug("REQUEST DATA =>",data)
 
               PluginsService.update(_plugin.id,data)
                   .then(function(res){
@@ -137,6 +198,8 @@
           function close() {
               $uibModalInstance.dismiss()
           }
+
+          initialize();
       }
     ])
   ;

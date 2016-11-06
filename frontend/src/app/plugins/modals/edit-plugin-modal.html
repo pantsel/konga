@@ -61,27 +61,50 @@
             <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
-                    <div ng-switch-when="table" class="plugin-field-table">
-                        <div data-ng-repeat="(key,data) in value.schema.fields">
-                            <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
-                            <div ng-switch on="data.type">
-                                <div ng-switch-when="array">
-                                    <chips ng-model="data.value">
-                                        <chip-tmpl>
-                                            <div class="default-chip">
-                                                {{chip}}
-                                                <i class="material-icons" remove-chip>clear</i>
-                                            </div>
-                                        </chip-tmpl>
-                                        <input chip-control/>
-                                    </chips>
+                    <div ng-switch-when="table">
+                        <div data-ng-repeat="(key,data) in value.schema.fields" class="plugin-field-table margin-bottom">
+                            <label>{{humanizeLabel(key)}}</label>
+
+                            <div data-ng-if="value.schema.flexible">
+                                <div class="row">
+
+                                    <div class="col-md-4" data-ng-repeat="(k,v) in data.schema.fields">
+                                        <input type="{{v.type}}" ng-model="v.value" class="form-control">
+                                        <p class="help-block">{{k}}</p>
+                                    </div>
                                 </div>
-                                <div ng-switch-default>
-                                    <input type="{{data.type}}" ng-model="data.value" class="form-control">
-                                </div>
-                                <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
-                                <p class="help-block">{{data.help}}</p>
+
                             </div>
+                            <div data-ng-if="!value.schema.flexible">
+                                <div ng-switch on="data.type">
+                                    <div ng-switch-when="array">
+                                        <chips ng-model="data.value">
+                                            <chip-tmpl>
+                                                <div class="default-chip">
+                                                    {{chip}}
+                                                    <i class="material-icons" remove-chip>clear</i>
+                                                </div>
+                                            </chip-tmpl>
+                                            <input chip-control/>
+                                        </chips>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <input type="{{data.type}}" ng-model="data.value" class="form-control">
+                                    </div>
+                                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                                    <p class="help-block">{{data.help}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="string">
+                        <div data-ng-if="value.enum">
+                            <select class="form-control" ng-model="value.value" ng-options="x for x in value.enum">
+                            </select>
+                        </div>
+                        <div data-ng-if="!value.enum">
+                            <input type="text" ng-model="value.value" class="form-control">
                         </div>
                     </div>
                     <div ng-switch-when="array">
