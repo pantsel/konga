@@ -8,10 +8,10 @@
 
   angular.module('frontend.plugins')
     .controller('EditPluginController', [
-        '_','$scope','$rootScope','$log',
+        '_','$scope','$rootScope','$log','ListConfig',
         'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
         'KongPluginsService','$uibModalInstance','PluginsService','_plugin','_schema',
-      function controller(_,$scope,$rootScope,$log,
+      function controller(_,$scope,$rootScope,$log,ListConfig,
                           MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
                           KongPluginsService,$uibModalInstance,PluginsService,_plugin,_schema ) {
 
@@ -210,21 +210,25 @@
 
 
 
+          // Initialize used title items
+          $scope.titleItems = ListConfig.getTitleItems(ConsumerModel.endpoint);
+
           // Add the consumers to the plugin options
           $scope.getConsumer = function(val) {
 
-              // Initialize filters
-              $scope.filters = {
-                  searchWord: val || '',
-                  columns: ['username','custom_id']
-              };
+              if(!val) return;
 
               var commonParameters = {
-                  where: SocketHelperService.getWhere($scope.filters)
+                  where: SocketHelperService.getWhere({
+                      searchWord: val,
+                      columns:  $scope.titleItems
+                  })
               };
 
               return ConsumerModel
-                  .load(_.merge({}, commonParameters, {}))
+                  .load(_.merge({}, commonParameters, {
+                      limit : 5
+                  }))
                   .then(function(response){
                       return response.map(function(item){
                           return item;

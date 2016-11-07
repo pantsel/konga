@@ -24,7 +24,6 @@
                 <input
                         type="text"
                         ng-model="data.consumer"
-                        ng-disabled="data.consumer"
                         placeholder="search consumer..."
                         uib-typeahead="item as item.username for item in getConsumer($viewValue)"
                         typeahead-template-url="/frontend/admin/apis/plugins/modals/custom-template.html"

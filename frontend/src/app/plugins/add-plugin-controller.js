@@ -8,12 +8,13 @@
 
   angular.module('frontend.plugins')
     .controller('AddPluginController', [
-        '_','$scope','$rootScope','$log','$state',
+        '_','$scope','$rootScope','$log','$state','ListConfig',
         'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
         'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema',
-      function controller(_,$scope,$rootScope,$log,$state,
+      function controller(_,$scope,$rootScope,$log,$state,ListConfig,
                           MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
                           KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema ) {
+
 
           //var pluginOptions = new KongPluginsService().pluginOptions()
           var options = new KongPluginsService().pluginOptions(_pluginName)
@@ -118,21 +119,25 @@
 
 
 
+          // Initialize used title items
+          $scope.titleItems = ListConfig.getTitleItems(ConsumerModel.endpoint);
+
           // Add the consumers to the plugin options
           $scope.getConsumer = function(val) {
 
-              // Initialize filters
-              $scope.filters = {
-                  searchWord: val || '',
-                  columns: ['username','custom_id']
-              };
+              if(!val) return;
 
               var commonParameters = {
-                  where: SocketHelperService.getWhere($scope.filters)
+                  where: SocketHelperService.getWhere({
+                      searchWord: val,
+                      columns:  $scope.titleItems
+                  })
               };
 
               return ConsumerModel
-                  .load(_.merge({}, commonParameters, {}))
+                  .load(_.merge({}, commonParameters, {
+                      limit : 5
+                  }))
                   .then(function(response){
                       return response.map(function(item){
                           return item;
