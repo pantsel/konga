@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .service('ConsumerService', [
         '$log', '$state','$http','BackendConfig',
       function( $log, $state, $http,BackendConfig) {

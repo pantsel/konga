@@ -2,19 +2,20 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.consumers', [
+    angular.module('frontend.consumers', [
         'angular.chips',
         'ngMessages',
         'angularUtils.directives.dirPagination'
     ]);
 
     // Module configuration
-    angular.module('frontend.admin.consumers')
+    angular.module('frontend.consumers')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('admin.consumers', {
+                    .state('consumers', {
+                        parent : 'frontend',
                         url: '/consumers',
                         data : {
                             pageName : "Consumers",
@@ -24,7 +25,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/consumers/index.html',
+                                templateUrl: '/frontend/consumers/index.html',
                                 controller: 'ConsumersController',
                                 resolve : {
                                     _activeNode: [
@@ -61,7 +62,7 @@
                             }
                         }
                     })
-                    .state('admin.consumers.edit', {
+                    .state('consumers.edit', {
                         url: '/:id',
                         data : {
                             pageName : "Edit Consumer",
@@ -70,16 +71,16 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/consumers/edit-consumer.html',
+                                templateUrl: '/frontend/consumers/edit-consumer.html',
                                 controller: 'ConsumerController',
 
                             },
-                            'details@admin.consumers.edit': {
-                                templateUrl: '/frontend/admin/consumers/details/consumer-details.html',
+                            'details@consumers.edit': {
+                                templateUrl: '/frontend/consumers/details/consumer-details.html',
                                 controller: 'ConsumerDetailsController',
                             },
-                            'groups@admin.consumers.edit': {
-                                templateUrl: '/frontend/admin/consumers/groups/consumer-groups.html',
+                            'groups@consumers.edit': {
+                                templateUrl: '/frontend/consumers/groups/consumer-groups.html',
                                 controller: 'ConsumerGroupsController',
                                 resolve : {
                                     _acls : [
@@ -91,8 +92,8 @@
                                     ],
                                 }
                             },
-                            'credentials@admin.consumers.edit': {
-                                templateUrl: '/frontend/admin/consumers/credentials/consumer-credentials.html',
+                            'credentials@consumers.edit': {
+                                templateUrl: '/frontend/consumers/credentials/consumer-credentials.html',
                                 controller: 'ConsumerCredentialsController',
                                 resolve : {
                                     _keys : [

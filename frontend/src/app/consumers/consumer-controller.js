@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .controller('ConsumerController', [
       '_','$scope', '$log', '$state','_consumer',
       function controller(_,$scope, $log, $state,_consumer) {

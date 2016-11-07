@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .controller('ConsumersController', [
       '_','$scope', '$log', '$state','ConsumerService','$q','MessageService',
         'RemoteStorageService','UserService','SocketHelperService',
@@ -187,7 +187,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/import/modal-select-storage.html',
+                  templateUrl: '/frontend/consumers/import/modal-select-storage.html',
                   controller: 'ImportConsumersStorageController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -203,7 +203,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/create-consumer-modal.html',
+                  templateUrl: '/frontend/consumers/create-consumer-modal.html',
                   controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerService){
 
                       $scope.consumer = {

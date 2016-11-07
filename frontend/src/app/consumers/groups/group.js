@@ -11,6 +11,6 @@
   'use strict';
 
   // Define frontend.examples.author angular module
-  angular.module('frontend.admin.consumers.groups', []);
+  angular.module('frontend.consumers.groups', []);
 
 }());

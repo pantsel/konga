@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .controller('ConsumerCredentialsController', [
       '_','$scope', '$log', '$state',
         'ConsumerService','MessageService','$uibModal',
@@ -108,7 +108,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/credentials/create-api-key-modal.html',
+                  templateUrl: '/frontend/consumers/credentials/create-api-key-modal.html',
                   controller: 'CreateKeyAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -125,7 +125,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/credentials/create-basic-auth-modal.html',
+                  templateUrl: '/frontend/consumers/credentials/create-basic-auth-modal.html',
                   controller: 'CreateBasicAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -142,7 +142,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/credentials/create-hmac-auth-modal.html',
+                  templateUrl: '/frontend/consumers/credentials/create-hmac-auth-modal.html',
                   controller: 'CreateHMACAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -158,7 +158,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/credentials/create-jwt-modal.html',
+                  templateUrl: '/frontend/consumers/credentials/create-jwt-modal.html',
                   controller: 'CreateJWTController',
                   controllerAs: '$ctrl',
                   resolve : {

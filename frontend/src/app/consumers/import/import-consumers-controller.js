@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.consumers')
+    angular.module('frontend.consumers')
         .controller('ImportConsumersController', [
             '_','$scope', '$rootScope','$log', '$state','ConsumerService','$q','MessageService',
             '$uibModal','$uibModalInstance','_consumers',

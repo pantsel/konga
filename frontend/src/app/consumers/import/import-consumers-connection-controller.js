@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.consumers')
+    angular.module('frontend.consumers')
         .controller('ImportConsumersConnectionController', [
             '_','$scope', '$log', '$state','RemoteStorageService',
             'MessageService','Upload','BackendConfig','ConsumerModel',
@@ -72,7 +72,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: '/frontend/admin/consumers/import/modal-consumers-table.html',
+                        templateUrl: '/frontend/consumers/import/modal-consumers-table.html',
                         controller: 'ImportConsumersTableController',
                         controllerAs: '$ctrl',
                         resolve : {

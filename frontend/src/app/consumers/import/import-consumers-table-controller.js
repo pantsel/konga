@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.consumers')
+    angular.module('frontend.consumers')
         .controller('ImportConsumersTableController', [
             '_','$scope', '$log', '$state','ConsumerService','MessageService',
             '$uibModal','$uibModalInstance','_consumers','_existingConsumers',
@@ -59,7 +59,7 @@
                         keyboard  : false,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: '/frontend/admin/consumers/import/modal-import.html',
+                        templateUrl: '/frontend/consumers/import/modal-import.html',
                         controller: 'ImportConsumersController',
                         controllerAs: '$ctrl',
                         resolve : {

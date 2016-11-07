@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .controller('ConsumerGroupsController', [
       '_','$scope', '$log', '$state','ConsumerService',
         'MessageService','DialogService','$uibModal','_acls',
@@ -22,7 +22,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/groups/create-group-modal.html',
+                  templateUrl: '/frontend/consumers/groups/create-group-modal.html',
                   controller: ['$scope','$rootScope','$uibModalInstance','ConsumerService','_consumer',
                       function($scope,$rootScope, $uibModalInstance,ConsumerService,_consumer){
 

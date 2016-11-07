@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.consumers')
+  angular.module('frontend.consumers')
     .controller('CreateKeyAuthController', [
       '$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','_consumer',
       function controller($scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,_consumer ) {

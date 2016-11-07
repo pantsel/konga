@@ -7,7 +7,7 @@
   'use strict';
 
   // Controller for new author creation.
-  angular.module('frontend.admin.consumers.groups')
+  angular.module('frontend.consumers.groups')
     .controller('ManageKongGroupController', [
       '$scope', '$rootScope', '$log','$state','$uibModal','KongGroupModel','DialogService',
       'MessageService','$uibModalInstance','_groups',
@@ -30,7 +30,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/consumers/groups/create-group-modal.html',
+                  templateUrl: '/frontend/consumers/groups/create-group-modal.html',
                   controller: ['$scope','$rootScope','$uibModalInstance','KongGroupModel',
                       function($scope,$rootScope, $uibModalInstance,KongGroupModel){
 

@@ -30,7 +30,7 @@
         <td>{{consumer.import_id || "-"}}</td>
         <td>{{consumer.createdAt | date : format : timezone}}</td>
         <td>
-            <a data-ui-sref="admin.consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">
+            <a data-ui-sref="consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">
             <i class="material-icons">settings</i>
             Configuration
             </a>
@@ -77,7 +77,7 @@
         <!--<td>{{consumer.custom_id || "-"}}</td>-->
         <!--<td>{{consumer.createdAt | date : format : timezone}}</td>-->
         <!--<td>-->
-            <!--<a data-ui-sref="admin.consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">-->
+            <!--<a data-ui-sref="consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">-->
                 <!--<i class="material-icons">settings</i>-->
                 <!--Configuration-->
             <!--</a>-->
