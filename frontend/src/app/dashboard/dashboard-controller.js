@@ -21,9 +21,9 @@
                 if(name === $scope.info.plugins.enabled_in_cluster[key]) {
                     return true
                 }
-
-                return false
             }
+
+            return false
           }
 
 
