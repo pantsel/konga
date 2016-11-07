@@ -32,6 +32,41 @@
               return key.split("_").join(" ")
           }
 
+          $scope.addFlexField = function(fields,v) {
+              if(!v.flex_field) return;
+
+              fields[v.flex_field] = {
+                  "schema": {
+                      "fields": {
+                          "day": {
+                              "type": "number",
+                          },
+                          "minute": {
+                              "type": "number",
+                          },
+                          "second": {
+                              "type": "number",
+                          },
+                          "year": {
+                              "type": "number",
+                          },
+                          "month": {
+                              "type": "number",
+                          },
+                          "hour": {
+                              "type": "number",
+                          }
+                      }
+                  }
+              }
+
+              v.flex_field = ""
+          }
+
+          $scope.removeField = function(object,key) {
+              delete object[key]
+          }
+
           function initialize() {
               // Initialize plugin fields data
               $scope.data = _.merge(options.fields,$scope.schema,{

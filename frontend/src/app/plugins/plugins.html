@@ -37,8 +37,8 @@
                     dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
                 <td>
                     <input
-                            ng-change="updatePlugin(plugin)"
-                            ng-model="plugin.enabled"
+                            ng-change="updatePlugin(item)"
+                            ng-model="item.enabled"
                             type="checkbox"/>
                 </td>
                 <th>{{item.name}}</th>

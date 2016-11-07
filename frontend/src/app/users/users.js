@@ -2,17 +2,18 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.users', [
+    angular.module('frontend.users', [
     ]);
 
     // Module configuration
-    angular.module('frontend.admin.users')
+    angular.module('frontend.users')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('admin.users', {
+                    .state('users', {
                         url: '/users',
+                        parent : 'frontend',
                         cache : false,
                         data : {
                             pageName : "Konga Users",
@@ -21,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/users/index.html',
+                                templateUrl: '/frontend/users/index.html',
                                 controller: 'UsersController',
                                 resolve: {
                                     _items: [
@@ -51,7 +52,7 @@
                             }
                         }
                     })
-                    .state('admin.users.create', {
+                    .state('users.create', {
                         url: '/create',
                         data : {
                             pageName : "Create Konga user",
@@ -60,12 +61,12 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/users/user-create.html',
+                                templateUrl: '/frontend/users/user-create.html',
                                 controller: 'UserCreateController'
                             }
                         }
                     })
-                    .state('admin.users.show', {
+                    .state('users.show', {
                         url: '/:id',
                         data : {
                             pageName : "User profile",
@@ -74,7 +75,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/users/user.html',
+                                templateUrl: '/frontend/users/user.html',
                                 controller: 'UserController',
                                 resolve: {
                                     _user: [

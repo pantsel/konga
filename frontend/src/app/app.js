@@ -16,6 +16,7 @@
       'frontend.settings',
       'frontend.info',
       'frontend.plugins',
+      'frontend.users',
 
 
   ]);

@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.users')
+  angular.module('frontend.users')
     .controller('UsersController', [
       '_','$scope', '$q','$log', 'SocketHelperService',
         'UserService','$state','ApiService','$uibModal',
@@ -96,12 +96,12 @@
 
           function deleteUser($index,user) {
               DialogService.prompt(
-                  "Delete User","Really want to delete the selected user?",
+                  "Delete User","Really want to delete the user?",
                   ['No don\'t','Yes! delete it'],
                   function accept(){
                       UserModel.delete(user.id)
                           .then(function(resp){
-                              $scope.users.splice($scope.users.indexOf(user),1);
+                              $scope.items.splice($scope.items.indexOf(user),1);
                           })
                   },function decline(){})
           }

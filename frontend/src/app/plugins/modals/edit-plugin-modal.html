@@ -63,18 +63,24 @@
                 <div ng-switch on="value.type">
                     <div ng-switch-when="table">
                         <div data-ng-repeat="(key,data) in value.schema.fields" class="plugin-field-table margin-bottom">
-                            <label>{{humanizeLabel(key)}}</label>
+
+                            <label>{{key}}</label>
                             <div data-ng-if="value.schema.flexible">
-                                <div class="row">
+                                <button data-ng-click="removeField(value.schema.fields,key)" class="btn btn-sm btn-flat btn-danger" style="position: absolute;top: 0px;right: 15px">
+                                    <i class="material-icons no-margin">clear</i>
+                                </button>
+                                <div class="row margin-top">
 
                                     <div class="col-md-4" data-ng-repeat="(k,v) in data.schema.fields">
                                         <input type="{{v.type}}" ng-model="v.value" class="form-control">
                                         <p class="help-block">{{k}}</p>
                                     </div>
                                 </div>
-
                             </div>
+
+
                             <div data-ng-if="!value.schema.flexible">
+
                                 <div ng-switch on="data.type">
                                     <div ng-switch-when="array">
                                         <chips ng-model="data.value">
@@ -96,6 +102,21 @@
                             </div>
 
                         </div>
+                        <!-- Start Monkey patch for response-ratelimiting plugin -->
+                        <div data-ng-if="plugin.name === 'response-ratelimiting'">
+                            <div class="input-group">
+                                <input type="text"
+                                       on-key-enter="addFlexField(value.schema.fields,value)"
+                                       data-ng-model="value.flex_field"
+                                       class="form-control"
+                                       my-enter="doSomething()"
+                                       placeholder="add an object to limit...">
+                                <span class="input-group-btn">
+                                    <button data-ng-click="addFlexField(value.schema.fields,value)" class="btn btn-primary" type="button">add</button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End Monkey patch for response-ratelimiting plugin -->
                     </div>
                     <div ng-switch-when="string">
                         <div data-ng-if="value.enum">

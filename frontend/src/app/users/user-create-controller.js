@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.users')
+  angular.module('frontend.users')
     .controller('UserCreateController', [
       '_','$scope','$q','$log','UserService','MessageService','$state','DialogService','UserModel',
       function controller(_,$scope,$q,$log, UserService, MessageService,$state,DialogService,UserModel ) {
@@ -37,7 +37,7 @@
                       function onSuccess(result) {
                           MessageService.success('New user created successfully');
                           $scope.busy = false;
-                          $state.go('admin.users.show', {id: result.data.id});
+                          $state.go('users.show', {id: result.data.id});
                       },function(err){
                           $scope.busy = false
                           UserModel.handleError($scope,err)

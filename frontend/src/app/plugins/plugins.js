@@ -44,7 +44,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/plugins/manage/manage-api-plugins.html',
+                                templateUrl: '/frontend/plugins/add-plugins.html',
                                 controller: 'AddPluginsController',
                                 resolve : {
                                     _plugins: [

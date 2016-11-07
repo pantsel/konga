@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.users')
+  angular.module('frontend.users')
     .controller('UserController', [
       '_','$scope','$q','$log','UserService','MessageService','$state','DialogService','UserModel','_user',
       function controller(_,$scope,$q,$log, UserService, MessageService,$state,DialogService,UserModel,_user ) {
@@ -65,7 +65,7 @@
                   .then(
                       function onSuccess() {
                           MessageService.success('User "' + $scope.user.username + '" deleted successfully');
-                          $state.go('admin.users');
+                          $state.go('users');
                       }
                   )
               ;
