@@ -13,7 +13,6 @@
   angular.module('frontend.admin', [
     'frontend.admin',
     'frontend.admin.apis',
-    'frontend.admin.consumers',
     'ui.bootstrap.modal',
     'ui.bootstrap.pagination',
   ]);

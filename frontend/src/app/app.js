@@ -17,6 +17,7 @@
       'frontend.info',
       'frontend.plugins',
       'frontend.users',
+      'frontend.consumers',
 
 
   ]);

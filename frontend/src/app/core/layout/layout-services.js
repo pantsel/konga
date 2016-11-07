@@ -37,7 +37,7 @@
             access: AccessLevels.user
           },
           {
-            state: 'admin.consumers',
+            state: 'consumers',
             show : function() {
               return AuthService.isAuthenticated()
             },

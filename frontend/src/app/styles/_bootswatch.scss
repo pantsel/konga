@@ -3185,19 +3185,19 @@ fieldset[disabled] .btn-primary.focus {
 .btn-success:focus,
 .btn-success.focus {
   color: #ffffff;
-  background-color: #3d8b40;
+  background-color: darken($brand-success,30%);
   border-color: rgba(0, 0, 0, 0);
 }
 .btn-success:hover {
   color: #ffffff;
-  background-color: #3d8b40;
+  background-color: darken($brand-success,30%);
   border-color: rgba(0, 0, 0, 0);
 }
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
   color: #ffffff;
-  background-color: #3d8b40;
+  background-color: darken($brand-success,30%);
   border-color: rgba(0, 0, 0, 0);
 }
 .btn-success:active:hover,
@@ -3210,7 +3210,7 @@ fieldset[disabled] .btn-primary.focus {
 .btn-success.active.focus,
 .open > .dropdown-toggle.btn-success.focus {
   color: #ffffff;
-  background-color: #327334;
+  background-color: darken($brand-success,30%);
   border-color: rgba(0, 0, 0, 0);
 }
 .btn-success:active,
