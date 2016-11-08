@@ -8,12 +8,10 @@
 
   angular.module('frontend.apis')
     .controller('EditApiController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','_api','_plugins',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,_api,_plugins ) {
+      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','_api',
+      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,_api ) {
 
           $scope.api = _api.data
-          $scope.plugins = _plugins.data
-
 
           $scope.activeSection = 0;
           $scope.sections = [

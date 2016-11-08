@@ -60,17 +60,6 @@
                                             return ApiService.findById($stateParams.api_id)
                                         }
                                     ],
-                                    _plugins: [
-                                        '$stateParams',
-                                        'ApiService',
-                                        '$log',
-                                        function resolve(
-                                            $stateParams,
-                                            ApiService
-                                        ) {
-                                            return ApiService.plugins($stateParams.api_id)
-                                        }
-                                    ],
                                     _activeNode: [
                                         'NodesService',
                                         function resolve(NodesService) {
@@ -78,6 +67,15 @@
                                         }
                                     ],
                                 }
+
+                            },
+                            'details@apis.edit': {
+                                templateUrl: '/frontend/apis/api-details.html',
+                                //controller: 'ConsumerDetailsController',
+                            },
+                            'plugins@apis.edit': {
+                                templateUrl: '/frontend/apis/api-plugins.html',
+                                //controller: 'ConsumerGroupsController',
                             }
                         }
                     })
