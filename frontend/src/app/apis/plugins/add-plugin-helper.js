@@ -1,12 +1,12 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.login-history' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.login-history' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.apis')
+    angular.module('frontend.apis')
         .service('AddPluginHelper', [
             '$log','BackendConfig','Upload','PluginService','KongPluginsService',
             function( $log,BackendConfig,Upload,PluginService,KongPluginsService) {

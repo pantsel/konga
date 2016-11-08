@@ -1,0 +1,90 @@
+
+
+<!--<div class="well">-->
+    <!--<p class="help-block">-->
+        <!--The API object describes an API that's being exposed by Kong. Kong needs to know how to retrieve the API when a consumer is calling it from the Proxy port. Each API object must specify a request host, a request path or both. Kong will proxy all requests to the API to the specified upstream URL.-->
+    <!--</p>-->
+<!--</div>-->
+
+<div class="row">
+    <div class="col-md-12 actions">
+        <a href="#" class="btn btn-success btn-raised" ng-click="openAddApiModal(api)">
+            <i class="material-icons">&#xE145;</i>
+            Add New Api
+        </a>
+    </div>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <div class="input-group col-sm-4 pull-left">
+        <div class="input-group-addon">
+            <i class="material-icons">&#xE8B6;</i>
+        </div>
+        <input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">
+    </div>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive" >
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Request Host</th>
+                    <th>Request Path</th>
+                    <th>Strip request path</th>
+                    <th>Preserve Host</th>
+                    <th>Upstream URL</th>
+                    <th>Created</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr
+                        dir-paginate="api in apis.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                    <td>
+                        <a href="#" editable-text="api.name" onbeforesave="updateApi(api)">{{ api.name || "empty" }}</a>
+                    </td>
+                    <td><a href="#" editable-text="api.request_host" onbeforesave="updateApi(api)">{{ api.request_host || "empty" }}</a></td>
+                    <td><a href="#" editable-text="api.request_path" onbeforesave="updateApi(api)">{{ api.request_path || "empty" }}</a></td>
+                    <td>
+                        <input
+                                bs-switch
+                                ng-model="api.strip_request_path"
+                                switch-size="small"
+                                type="checkbox"
+                                switch-on-text="YES"
+                                switch-off-text="NO"
+                                ng-change="updateApi(api)"
+                        >
+                    </td>
+                    <td>
+                        <input
+                                bs-switch
+                                ng-model="api.preserve_host"
+                                switch-size="small"
+                                type="checkbox"
+                                switch-on-text="YES"
+                                switch-off-text="NO"
+                                ng-change="updateApi(api)"
+                        >
+                    </td>
+                    <td><a href="#" editable-text="api.upstream_url" onbeforesave="updateApi(api)">{{ api.upstream_url || "empty" }}</a></td>
+                    <td>{{api.created_at | date : format : timezone}}</td>
+                    <td>
+                        <a ui-sref="apis.plugins({ api_id: api.id, api:api })" class="btn btn-warning btn-link">
+                            <i class="material-icons">&#xE226;</i>
+                            Plugins
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="deleteApi($index,api)" class="btn btn-danger btn-link">
+                            <i class="material-icons">&#xE872;</i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+

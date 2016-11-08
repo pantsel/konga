@@ -29,7 +29,7 @@
             access: AccessLevels.user
           },
           {
-            state: 'admin.apis',
+            state: 'apis',
             show : function() {
               return AuthService.isAuthenticated()
             },

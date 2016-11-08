@@ -1,0 +1,94 @@
+
+
+<!--<div class="well">-->
+    <!--<p class="help-block">-->
+        <!--The API object describes an API that's being exposed by Kong. Kong needs to know how to retrieve the API when a consumer is calling it from the Proxy port. Each API object must specify a request host, a request path or both. Kong will proxy all requests to the API to the specified upstream URL.-->
+    <!--</p>-->
+<!--</div>-->
+
+<div class="row">
+    <div class="col-md-12 actions">
+        <a href="#" class="btn btn-primary" ng-click="openAddApiModal(api)">
+            <i class="material-icons">&#xE145;</i>
+            Add New Api
+        </a>
+    </div>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <div class="input-group col-sm-4 pull-left">
+        <div class="input-group-addon">
+            <i class="material-icons">&#xE8B6;</i>
+        </div>
+        <input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">
+    </div>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive" >
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1"></th>
+                    <th width="1"></th>
+                    <th>Name</th>
+                    <th>Request Host</th>
+                    <th>Request Path</th>
+
+                    <th>Upstream URL</th>
+                    <th>Created</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr
+                        dir-paginate="api in apis.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                    <td>
+
+                        <i
+                                uib-tooltip="Strip Request Path"
+                                ng-click="api.strip_request_path=!api.strip_request_path;updateApi(api)"
+                                data-ng-class="{'text-primary' : api.strip_request_path,'text-muted' : !api.strip_request_path}"
+                                class="material-icons clickable">
+                            font_download
+                        </i>
+
+
+                    </td>
+                    <td>
+                        <i
+                                uib-tooltip="Preserve Host"
+                                ng-click="api.preserve_host=!api.preserve_host;updateApi(api)"
+                                data-ng-class="{'text-primary' : api.preserve_host,'text-muted' : !api.preserve_host}"
+                                class="material-icons clickable">
+                            {{api.preserve_host ? 'cloud_done' : 'cloud_off'}}
+                        </i>
+
+                    </td>
+                    <td>
+                        <strong>
+                            <a class="clickable" data-ui-sref="apis.edit({api_id:api.ud})">{{ api.name || "-" }}</a>
+                        </strong>
+                    </td>
+                    <td>{{ api.request_host || "-" }}</td>
+                    <td>{{ api.request_path || "-" }}</td>
+
+                    <td>{{ api.upstream_url || "-" }}</td>
+                    <td>{{api.created_at | date : format : timezone}}</td>
+                    <td>
+                        <a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-warning btn-link">
+                            <i class="material-icons">edit</i>
+                            edit
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="deleteApi($index,api)" class="btn btn-danger btn-link">
+                            <i class="material-icons">&#xE872;</i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+

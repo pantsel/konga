@@ -1,13 +1,9 @@
 <div class="row">
     <div class="col-md-12 actions">
-        <a data-ui-sref="plugins.add" class="btn btn-primary">
+        <a data-ui-sref=".manage({api_id : api.id})" class="btn btn-primary">
             <i class="material-icons">add</i>
-            Add global plugins
+            ADD API plugins
         </a>
-        <!--<a href="#" class="btn btn-danger" ng-click="deleteSelected()">-->
-            <!--<i class="material-icons">delete</i>-->
-            <!--delete selected-->
-        <!--</a>-->
     </div>
 </div>
 <div class="col-md-12 bg-light-grey padding">
@@ -25,7 +21,7 @@
     <div class="table-responsive col-md-12">
         <table class="table table-hover table-striped">
             <tr>
-                <th width="1"></th>
+                <th width="1">Enabled</th>
                 <th>Name</th>
                 <th>API</th>
                 <th>Consumer</th>
@@ -37,14 +33,12 @@
                     dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
                 <td>
                     <input
-                            uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"
                             ng-change="updatePlugin(item)"
                             ng-model="item.enabled"
                             type="checkbox"/>
                 </td>
                 <th>{{item.name}}</th>
-                <td>
-                    {{item.api_id || 'All APIs'}}</td>
+                <td>{{item.api_id || 'All APIs'}}</td>
                 <td>
                     <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
                     <span data-ng-if="!item.consumer_id" >All consumers</span>

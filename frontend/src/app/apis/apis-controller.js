@@ -1,29 +1,23 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.login-history' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.login-history' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.apis')
-    .controller('AdminApisController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService ) {
+  angular.module('frontend.apis')
+    .controller('ApisController', [
+      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','_apis',
+      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,_apis ) {
 
-
+          $scope.apis = _apis.data
 
           function getApis(){
-              $scope.loading= true;
+              $scope.loading = true;
               ApiService.all()
                   .then(function(res){
-                      $log.debug("Apis",res.data)
-                      if(!$scope.apis) {
-                          $scope.apis = res.data
-                      }else{
-                          $scope.apis.data = res.data.data
-                      }
-
+                      $scope.apis = res.data
                       $scope.loading= false;
                   }).catch(function(err){
                   $scope.loading= false;
@@ -52,11 +46,11 @@
           }
 
           $scope.openAddApiModal = function(api) {
-              var modalInstance = $uibModal.open({
+              $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/apis/add-api-modal.html',
+                  templateUrl: '/frontend/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
                   size: 'lg',
@@ -66,17 +60,8 @@
                       }
                   }
               });
-
-              modalInstance.result.then(function (selectedItem) {
-
-              }, function () {
-
-              });
           }
 
-          $scope.addApi = function() {
-
-          }
 
           $scope.updateApi = function(api) {
 
@@ -93,8 +78,6 @@
 
           }
 
-
-          getApis()
       }
     ])
   ;

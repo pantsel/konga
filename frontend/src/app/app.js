@@ -11,13 +11,13 @@
       'angular-spinkit',
       'frontend-templates',
       'frontend.core',
-      'frontend.admin',
       'frontend.dashboard',
       'frontend.settings',
       'frontend.info',
       'frontend.plugins',
       'frontend.users',
       'frontend.consumers',
+      'frontend.apis',
 
 
   ]);

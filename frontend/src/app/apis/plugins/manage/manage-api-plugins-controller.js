@@ -1,12 +1,12 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.login-history' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.login-history' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.apis')
+  angular.module('frontend.apis')
     .controller('ManageApiPluginsController', [
       '_','$scope', '$rootScope','$log',
         '$state','ApiService','MessageService','DialogService',
@@ -16,7 +16,6 @@
                           $state, ApiService, MessageService, DialogService,
                           KongPluginsService,PluginsService, $uibModal,_api,
                           _plugins,_info ) {
-
 
           var info = _info.data
           var plugins_available = info.plugins.available_on_server
@@ -67,7 +66,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/apis/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: '/frontend/apis/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditApiModalController',
                   resolve: {
@@ -89,23 +88,24 @@
               return group.name == $scope.activeGroup
           }
 
-          function onAddPlugin(plugin) {
+          function onAddPlugin(name) {
+
               $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/apis/plugins/modals/add-plugin-modal.html',
+                  templateUrl: '/frontend/plugins/modals/add-plugin-modal.html',
                   size : 'lg',
-                  controller: 'AddApiPluginController',
+                  controller: 'AddPluginController',
                   resolve: {
                       _api : function() {
                           return _api.data
                       },
-                      _plugin: function () {
-                          return plugin
+                      _pluginName: function () {
+                          return name
                       },
-                      _schema : function() {
-                          return PluginsService.schema(plugin)
+                      _schema: function () {
+                          return PluginsService.schema(name)
                       }
                   }
               });

@@ -389,6 +389,15 @@ tr.danger{
 .btn-icon:hover,.btn-icon:active,.btn-icon:focus{
   background-color: transparent;
 }
+
+label {
+  font-weight: bold;
+}
+.form-group.highlight{
+  background-color: $gray-lighter;
+  padding: 1em;
+}
+
 .btn-icon{
   padding : 3px 3px 3px 3px;
   background-color: transparent !important;

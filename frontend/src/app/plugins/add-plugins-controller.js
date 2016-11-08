@@ -69,6 +69,9 @@
                   size : 'lg',
                   controller: 'AddPluginController',
                   resolve: {
+                      _api : function() {
+                        return null
+                      },
                       _pluginName: function () {
                           return name
                       },

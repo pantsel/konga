@@ -10,11 +10,14 @@
     .controller('AddPluginController', [
         '_','$scope','$rootScope','$log','$state','ListConfig',
         'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
-        'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema',
+        'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema','_api',
       function controller(_,$scope,$rootScope,$log,$state,ListConfig,
                           MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
-                          KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema ) {
+                          KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema,_api ) {
 
+
+          $scope.api = _api
+          $log.debug("API",$scope.api)
 
           //var pluginOptions = new KongPluginsService().pluginOptions()
           var options = new KongPluginsService().pluginOptions(_pluginName)
@@ -76,6 +79,9 @@
               var request_data = {
                   name : _pluginName,
               }
+
+              // Add api_id to request_data if defined
+              if($scope.api) request_data.api_id = $scope.api.id
 
               // If a consumer is defined, add consumer_id to request data
               if($scope.data.consumer instanceof Object) {

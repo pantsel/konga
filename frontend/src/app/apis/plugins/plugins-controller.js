@@ -1,12 +1,12 @@
 /**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.login-history' module.
+ * This file contains all necessary Angular controller definitions for 'frontend.login-history' module.
  *
  * Note that this file should only contain controllers and nothing else.
  */
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.apis')
+  angular.module('frontend.apis')
     .controller('AdminApisPluginsController', [
         '_','$scope', '$log', '$state','ApiService','$uibModal','DialogService','InfoService','_api',
       function controller(_,$scope, $log, $state, ApiService, $uibModal,DialogService,InfoService,_api ) {
@@ -62,7 +62,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/apis/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: '/frontend/apis/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditApiModalController',
                   resolve: {

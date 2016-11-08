@@ -2,36 +2,39 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.admin.apis', [
+    angular.module('frontend.apis', [
         'angular.chips',
         'ngFileUpload'
     ]);
 
     // Module configuration
-    angular.module('frontend.admin.apis')
+    angular.module('frontend.apis')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('admin.apis', {
+                    .state('apis', {
+                        parent : 'frontend',
                         url: '/apis',
                         data : {
-                            pageName : "Apis",
+                            pageName : "APIs",
                             displayName : "apis",
                             prefix : '<i class="material-icons text-warning">cloud_queue</i>'
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/apis/index.html',
-                                controller: 'AdminApisController',
+                                templateUrl: '/frontend/apis/apis.html',
+                                controller: 'ApisController',
                                 resolve : {
-                                    _info : ['InfoService',function(InfoService) {
-                                        return InfoService.getInfo()
-                                    }],
+                                    _apis: [
+                                        'ApiService',
+                                        function resolve(ApiService) {
+                                            return ApiService.all()
+                                        }
+                                    ],
                                     _activeNode: [
                                         'NodesService',
                                         function resolve(NodesService) {
-
                                             return NodesService.isActiveNodeSet()
                                         }
                                     ],
@@ -39,30 +42,71 @@
                             }
                         }
                     })
-                    .state('admin.apis.plugins', {
-                        url: '/:apiId/plugins',
-                        params : {
-                          api : {}
-                        },
+                    .state('apis.edit', {
+                        url: '/:api_id/edit',
                         data : {
-                            pageName : "Apis : Plugins",
-                            displayName : "plugins"
+                            pageName : "Edit API",
+                            displayName : "edit",
+                            prefix : '<i class="material-icons text-warning">edit</i>'
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/apis/plugins/plugins.html',
-                                controller: 'AdminApisPluginsController',
+                                templateUrl: '/frontend/apis/edit-api.html',
+                                controller: 'EditApiController',
                                 resolve : {
                                     _api: [
+                                        'ApiService','$stateParams',
+                                        function resolve(ApiService,$stateParams) {
+                                            return ApiService.findById($stateParams.api_id)
+                                        }
+                                    ],
+                                    _plugins: [
                                         '$stateParams',
                                         'ApiService',
                                         '$log',
                                         function resolve(
                                             $stateParams,
-                                            ApiService,
-                                            $log
+                                            ApiService
                                         ) {
-                                            return ApiService.findById($stateParams.apiId)
+                                            return ApiService.plugins($stateParams.api_id)
+                                        }
+                                    ],
+                                    _activeNode: [
+                                        'NodesService',
+                                        function resolve(NodesService) {
+                                            return NodesService.isActiveNodeSet()
+                                        }
+                                    ],
+                                }
+                            }
+                        }
+                    })
+                    .state('apis.plugins', {
+                        url: '/:api_id/plugins',
+                        params : {
+                          api : {}
+                        },
+                        data : {
+                            pageName : "API Plugins",
+                            displayName : "API plugins"
+                        },
+                        views: {
+                            'content@': {
+                                templateUrl: '/frontend/apis/api-plugins.html',
+                                controller: 'ApiPluginsController',
+                                resolve : {
+                                    _api : [
+                                        'ApiService','$stateParams',
+                                        function(ApiService, $stateParams) {
+                                            return ApiService.findById($stateParams.api_id)
+                                        }
+                                    ],
+                                    _plugins : [
+                                        'PluginsService','$stateParams',
+                                        function(PluginsService, $stateParams) {
+                                            return PluginsService.load({
+                                                api_id : $stateParams.api_id
+                                            })
                                         }
                                     ],
                                     _activeNode: [
@@ -76,18 +120,15 @@
                             }
                         },
                     })
-                    .state('admin.apis.plugins.manage', {
+                    .state('apis.plugins.manage', {
                         url: '/manage',
-                        params : {
-                            api : {}
-                        },
                         data : {
-                            pageName : "Add Plugin",
+                            pageName : "Manage API Plugins",
                             displayName : "manage"
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/frontend/admin/apis/plugins/manage/manage-api-plugins.html',
+                                templateUrl: '/frontend/apis/plugins/manage/manage-api-plugins.html',
                                 controller: 'ManageApiPluginsController',
                                 resolve : {
                                     _api: [
@@ -99,7 +140,7 @@
                                             ApiService,
                                             $log
                                         ) {
-                                            return ApiService.findById($stateParams.apiId)
+                                            return ApiService.findById($stateParams.api_id)
                                         }
                                     ],
                                     _plugins: [
@@ -111,7 +152,7 @@
                                             ApiService,
                                             $log
                                         ) {
-                                            return ApiService.plugins($stateParams.apiId)
+                                            return ApiService.plugins($stateParams.api_id)
                                         }
                                     ],
                                     _info: [

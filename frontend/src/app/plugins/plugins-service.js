@@ -6,15 +6,17 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.admin.apis')
+  angular.module('frontend.plugins')
     .service('PluginsService', [
         '$log', '$state','$http','BackendConfig',
       function( $log, $state, $http,BackendConfig) {
 
           return {
 
-            load : function() {
-                return $http.get(BackendConfig.url + '/kong/plugins')
+            load : function(query) {
+                return $http.get(BackendConfig.url + '/kong/plugins',{
+                    params: query
+                })
             },
 
             add : function(data) {

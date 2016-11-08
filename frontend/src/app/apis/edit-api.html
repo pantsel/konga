@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    {{api.name || api.id}}
+                </div>
+            </div>
+            <div class="list-group">
+                <a
+                        class="list-group-item clickable"
+                        ng-class="{'active' : sections[activeSection].name == section.name }"
+                        data-ng-click="showSection($index)"
+                        data-ng-repeat="section in sections">
+                    <i class="material-icons" data-ng-bind-html="section.icon"></i>
+                    {{section.name}}
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div data-ui-view="details" ng-show="activeSection == 0"></div>
+        <div data-ui-view="groups" ng-show="activeSection == 1"></div>
+        <div data-ui-view="credentials" ng-show="activeSection == 2"></div>
+    </div>
+</div>
+
+
+<div class="row margin-bottom">
+    <div class="col-md-12">
+        <h4># {{api.name || api.id}}</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="material-icons">info_outline</i>
+                    API details
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="">
+                    <div class="form-group highlight" ng-class="{'has-error' : errors.name}">
+                        <label class="control-label">Name <em>( <small class=text-muted">optional</small></em> )</label>
+                        <input ng-model="api.name" class="form-control">
+                        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+                        <p class="help-block">The API name. If none is specified, will default to the <code>request_host</code> or <code>request_path</code>.</p>
+                    </div>
+                    <div class="form-group highlight" ng-class="{'has-error' : errors.request_host}">
+                        <label class="control-label">Request Host
+                            <em>( <small class="text-muted">semi-optional</small> )</em></label>
+                        <input ng-model="api.request_host" class="form-control">
+                        <div class="text-danger" ng-if="errors.request_host" data-ng-bind="errors.request_host"></div>
+                        <p class="help-block">
+                            The public DNS address that points to your API. For example, <code>mockbin.com</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.
+                        </p>
+                    </div>
+                    <div class="form-group highlight" ng-class="{'has-error' : errors.request_path}">
+                        <label class="control-label">Request Path
+                            <em>( <small class="text-muted">semi-optional</small> )</em></label>
+                        <input ng-model="api.request_path" class="form-control">
+                        <div class="text-danger" ng-if="errors.request_path" data-ng-bind="errors.request_path"></div>
+                        <p class="help-block">
+                            The public path that points to your API. For example, <code>/someservice</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.
+                        </p>
+                    </div>
+                    <div class="form-group highlight">
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="api.strip_request_path"><strong>Strip Request Path</strong></label>
+                        </div>
+                        <p class="help-block">
+                            Strip the request_path value before proxying the request to the final API. For example a request made to <code>/someservice/hello</code> will be resolved to <code>upstream_url/hello</code>. By default is false.
+                        </p>
+                    </div>
+                    <div class="form-group highlight">
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="api.preserve_host"><strong>Preserve Host</strong></label>
+                        </div>
+                        <p class="help-block">
+                            Preserves the original <code>Host</code> header sent by the client, instead of replacing it with the <code>hostname</code> of the <code>upstream_url</code>. By default is false.
+                        </p>
+                    </div>
+                    <div class="form-group highlight " ng-class="{'has-error' : errors.upstream_url}">
+                        <label class="control-label">Upstream URL</label>
+                        <input type="url" ng-model="api.upstream_url" class="form-control">
+                        <div class="text-danger" ng-if="errors.upstream_url" data-ng-bind="errors.upstream_url"></div>
+                        <p class="help-block">
+                            The base target URL that points to your API server, this URL will be used for proxying requests. For example, <code>https://mockbin.com</code>.
+                        </p>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="submit()">
+                            <i class="material-icons">&#xE876;</i>
+                            Submit changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="material-icons">settings_input_component</i>
+                    Assigned plugins
+                </div>
+            </div>
+            <table class="table table-hover">
+                <tr>
+                    <th width="1"></th>
+                    <th>Name</th>
+                    <th>Consumer</th>
+                    <th>Created</th>
+                    <th width="1"></th>
+                    <th width="1"></th>
+                </tr>
+                <tr
+                        dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                    <td>
+                        <input
+                                uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"
+                                ng-change="updatePlugin(item)"
+                                ng-model="item.enabled"
+                                type="checkbox"/>
+                    </td>
+                    <th>{{item.name}}</th>
+                    <td>
+                        <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
+                        <span data-ng-if="!item.consumer_id" >All consumers</span>
+                    </td>
+                    <td>{{item.created_at | date : format : timezone}}</td>
+
+                    <td>
+
+                        <i
+                                uib-tooltip="Edit"
+                                ng-click="onEditPlugin(item)"
+                                class="material-icons text-warning clickable">&#xE254;</i>
+                    </td>
+                    <td>
+                        <i
+                                uib-tooltip="Delete"
+                                ng-click="onEditPlugin(item)"
+                                ng-click="deletePlugin(item)"
+                                class="material-icons text-danger clickable">&#xE872;</i>
+                    </td>
+                </tr>
+                <tr data-ng-if="plugins.data.length === 0">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>no data found...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
