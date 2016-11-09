@@ -93,13 +93,13 @@ h5 {
 }
 
 .navbar.default:before{
-  content: "";
-  position: absolute;
-  top:0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: $brand-primary;
+  //content: "";
+  //position: absolute;
+  //top:0;
+  //left: 0;
+  //width: 100%;
+  //height: 2px;
+  //background-color: $brand-primary;
 }
 
 
@@ -563,7 +563,7 @@ pre {
   img{
     height: 40px;
     border-radius: 50%;
-    border: 1px solid $brand-primary;
+    border: 1px solid $brand-success;
     padding: 2px;
   }
 }
