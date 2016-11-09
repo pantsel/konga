@@ -6822,13 +6822,13 @@ button.close {
 }
 .btn-primary:hover,
 .btn-primary:active:hover {
-  background-color: #0d87e9;
+  background-color: darken($brand-primary,13%);
 }
 .btn-primary:active {
-  background-color: #0b76cc;
-  background-image: -webkit-radial-gradient(circle, #0b76cc 10%, $brand-primary 11%);
-  background-image: -o-radial-gradient(circle, #0b76cc 10%, $brand-primary 11%);
-  background-image: radial-gradient(circle, #0b76cc 10%, $brand-primary 11%);
+  background-color: $brand-primary;
+  background-image: -webkit-radial-gradient(circle, darken($brand-primary,13%) 10%, $brand-primary 11%);
+  background-image: -o-radial-gradient(circle, darken($brand-primary,13%) 10%, $brand-primary 11%);
+  background-image: radial-gradient(circle, darken($brand-primary,13%) 10%, $brand-primary 11%);
   background-repeat: no-repeat;
   -webkit-background-size: 1000% 1000%;
   background-size: 1000%;
@@ -6845,13 +6845,13 @@ button.close {
 }
 .btn-success:hover,
 .btn-success:active:hover {
-  background-color: #439a46;
+  background-color: darken($brand-success,13%);
 }
 .btn-success:active {
   background-color: #39843c;
-  background-image: -webkit-radial-gradient(circle, #39843c 10%, $brand-success 11%);
-  background-image: -o-radial-gradient(circle, #39843c 10%, $brand-success 11%);
-  background-image: radial-gradient(circle, #39843c 10%, $brand-success 11%);
+  background-image: -webkit-radial-gradient(circle, darken($brand-success,13%) 10%, $brand-success 11%);
+  background-image: -o-radial-gradient(circle, darken($brand-success,13%) 10%, $brand-success 11%);
+  background-image: radial-gradient(circle, darken($brand-success,13%) 10%, $brand-success 11%);
   background-repeat: no-repeat;
   -webkit-background-size: 1000% 1000%;
   background-size: 1000%;
@@ -7260,7 +7260,7 @@ input[type="checkbox"]:focus,
 input[type="checkbox"]:focus:after,
 .checkbox input[type="checkbox"]:focus:after,
 .checkbox-inline input[type="checkbox"]:focus:after {
-  border-color: $brand-primary;
+  border-color: $brand-success;
 }
 input[type="checkbox"]:after,
 .checkbox input[type="checkbox"]:after,

@@ -9,14 +9,14 @@
   angular.module('frontend.plugins')
     .controller('ApiPluginsController', [
         '_','$scope', '$stateParams','$log', '$state','ApiService','PluginsService',
-        '$uibModal','DialogService','InfoService','_plugins','_api',
+        '$uibModal','DialogService','InfoService','_plugins',
       function controller(_,$scope, $stateParams, $log, $state, ApiService, PluginsService,
-                          $uibModal,DialogService,InfoService,_plugins,_api ) {
+                          $uibModal,DialogService,InfoService,_plugins ) {
 
-          $scope.api = _api.data
-          $state.current.data.pageName = "API Plugins : " + ( $scope.api.name || $scope.api.id )
+
 
           $scope.plugins = _plugins.data
+          $scope.onAddPlugin = onAddPlugin
           $scope.onEditPlugin = onEditPlugin
           $scope.deletePlugin = deletePlugin
           $scope.updatePlugin = updatePlugin
@@ -29,6 +29,37 @@
            * Functions
            * ----------------------------------------------------------------------
            */
+
+          function onAddPlugin() {
+              $uibModal.open({
+                  animation: true,
+                  ariaLabelledBy: 'modal-title',
+                  ariaDescribedBy: 'modal-body',
+                  templateUrl: '/frontend/apis/add-api-plugin-modal.html',
+                  size : 'lg',
+                  controller: 'AddApiPluginModalController',
+                  resolve: {
+                      _api: function () {
+                          return $scope.api
+                      },
+                      _plugins : function() {
+                          return PluginsService.load()
+                      },
+                      _info: [
+                          '$stateParams',
+                          'InfoService',
+                          '$log',
+                          function resolve(
+                              $stateParams,
+                              InfoService,
+                              $log
+                          ) {
+                              return InfoService.getInfo()
+                          }
+                      ]
+                  }
+              });
+          }
 
            function updatePlugin(plugin) {
               PluginsService.update(plugin.id,{
@@ -79,7 +110,7 @@
           }
 
           function fetchPlugins() {
-                PluginsService.load()
+                PluginsService.load({api_id:$stateParams.api_id})
                     .then(function(res){
                         $scope.plugins = res.data
                     })

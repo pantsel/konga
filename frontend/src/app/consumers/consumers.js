@@ -20,7 +20,7 @@
                         data : {
                             pageName : "Consumers",
                             displayName : "consumers",
-                            prefix : '<i class="material-icons text-success">perm_identity</i>'
+                            prefix : '<i class="material-icons">perm_identity</i>'
                         },
 
                         views: {
@@ -67,7 +67,7 @@
                         data : {
                             pageName : "Edit Consumer",
                             displayName : "edit consumer",
-                            prefix : '<i class="material-icons text-success">perm_identity</i>'
+                            prefix : '<i class="material-icons">perm_identity</i>'
                         },
                         views: {
                             'content@': {

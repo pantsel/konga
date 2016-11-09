@@ -8,13 +8,13 @@
 //## Gray and brand colors for use across Bootstrap.
 
 $gray-base:              rgba(77,83,96,1);
-$gray-darker:            lighten($gray-base, 13.5%); // #222
-$gray-dark:              #212121;
+$gray-darker:            darken($gray-base, 13.5%); // #222
+$gray-dark:              darken($gray-base, 10.5%);;
 $gray:                   #666;
 $gray-light:             #bbb;
 $gray-lighter:           lighten($gray-base, 62.5%); // #eee
 
-$brand-primary:         #29B6F6;
+$brand-primary:         #03A9F4;
 $brand-success:         #26C281;
 $brand-info:            rgba(70,191,189,1);
 $brand-warning:         rgba(253,180,92,1);

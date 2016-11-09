@@ -19,7 +19,7 @@
                         data : {
                             pageName : "APIs",
                             displayName : "apis",
-                            prefix : '<i class="material-icons text-warning">cloud_queue</i>'
+                            prefix : '<i class="material-icons">cloud_queue</i>'
                         },
                         views: {
                             'content@': {
@@ -47,12 +47,12 @@
                         data : {
                             pageName : "Edit API",
                             displayName : "edit",
-                            prefix : '<i class="material-icons text-warning">edit</i>'
+                            prefix : '<i class="material-icons">edit</i>'
                         },
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/apis/edit-api.html',
-                                controller: 'EditApiController',
+                                controller: 'ApiController',
                                 resolve : {
                                     _api: [
                                         'ApiService','$stateParams',
@@ -71,11 +71,19 @@
                             },
                             'details@apis.edit': {
                                 templateUrl: '/frontend/apis/api-details.html',
-                                //controller: 'ConsumerDetailsController',
+                                controller: 'ApiDetailsController',
                             },
                             'plugins@apis.edit': {
                                 templateUrl: '/frontend/apis/api-plugins.html',
-                                //controller: 'ConsumerGroupsController',
+                                controller: 'ApiPluginsController',
+                                resolve : {
+                                    _plugins : [
+                                        'PluginsService','$stateParams',
+                                        function(PluginsService,$stateParams) {
+                                            return PluginsService.load({api_id : $stateParams.api_id})
+                                        }
+                                    ]
+                                }
                             }
                         }
                     })

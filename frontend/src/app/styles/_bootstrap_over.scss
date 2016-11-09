@@ -171,13 +171,13 @@ input.form-control, select.form-control{
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: $brand-success;
+  color: $brand-primary;
   padding: 22px;
   text-shadow: none !important;
 }
 
 .navbar-default .navbar-nav > li:hover > a {
-  color: $brand-success;
+  color: $brand-primary;
 
 }
 
@@ -206,7 +206,7 @@ input.form-control, select.form-control{
 .navbar-default .navbar-nav > li.active > a,
 .navbar-default .navbar-nav > li.active > a:hover,
 .navbar-default .navbar-nav > li.active > a:focus{
-  color: $brand-success;
+  color: $brand-primary;
   background-color: transparent;
   font-weight: bold;
 }
@@ -218,13 +218,13 @@ input.form-control, select.form-control{
   right: 0;
   position: absolute;
   height: 3px;
-  background-color: $brand-success;
+  background-color: $brand-primary;
 }
 
 
 
 .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
-  color:$brand-success !important;
+  color:$brand-primary !important;
   padding-top:22px;
   font-size: 1.4em;
 }

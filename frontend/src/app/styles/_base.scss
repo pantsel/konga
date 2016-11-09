@@ -99,7 +99,7 @@ h5 {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: $brand-success;
+  background-color: $brand-primary;
 }
 
 
@@ -111,6 +111,10 @@ header .navbar-nav {
 
 .page-title {
   font-size: 2em;
+  //color : $brand-primary
+  i{
+    color : $brand-primary
+  }
 }
 
 .page-head{
@@ -416,6 +420,14 @@ label {
 .panel {
 
   .panel-heading{
+    &.primary {
+      border-bottom: 2px solid $brand-primary;
+      background-color: transparent;
+      color: $brand-primary;
+    }
+    .btn.pull-right{
+      margin-top: -4px;
+    }
     .btn-icon {
       margin-top: -5px;
       i{
@@ -551,7 +563,7 @@ pre {
   img{
     height: 40px;
     border-radius: 50%;
-    border: 1px solid $brand-success;
+    border: 1px solid $brand-primary;
     padding: 2px;
   }
 }

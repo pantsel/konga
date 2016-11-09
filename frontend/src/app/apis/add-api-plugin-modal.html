@@ -1,0 +1,56 @@
+<div class="modal-header warning">
+    <h4 class="modal-title" id="modal-title">
+        Add new Plugin to {{api.name || api.id}}
+        <a href="#" class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons">clear</i>
+        </a>
+    </h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 padding">
+            <ul class="nav nav-pills">
+                <li
+                        role="presentation"
+                        data-ng-click="setActiveGroup(group.name)"
+                        ng-class="{'active' : activeGroup == group.name}"
+                        data-ng-repeat="group in pluginGroups">
+                    <a href="#">{{group.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row"  data-ng-repeat="group in pluginGroups | filter : filterGroup">
+        <div class="col-md-12">
+            <br>
+            <h4><i class="material-icons pull-left">{{group.icon}}</i>&nbsp;{{group.name}}</h4>
+            <p class="help-block">{{group.description}}</p>
+            <hr>
+        </div>
+
+        <div class="col-md-4" data-ng-repeat="(key,value) in group.plugins">
+            <div class="panel panel-default" iln-match-height>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="capitalize">{{key.split('-').join(" ")}}</span>
+                        <div class="pull-right">
+                            <button
+                                    class="btn btn-primary btn-link btn-icon"
+                                    angular-ripple data-ng-click="onAddPlugin(key)">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p class="help-block">
+                        {{value.description}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

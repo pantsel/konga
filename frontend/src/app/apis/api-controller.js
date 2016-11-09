@@ -7,12 +7,12 @@
   'use strict';
 
   angular.module('frontend.apis')
-    .controller('EditApiController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','_api',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,_api ) {
+    .controller('ApiController', [
+      '$scope','$state','_api',
+      function controller($scope,$state,_api) {
 
           $scope.api = _api.data
-
+          $state.current.data.pageName = "Edit API : " + ( $scope.api.name || $scope.api.id )
           $scope.activeSection = 0;
           $scope.sections = [
               {
@@ -27,21 +27,6 @@
 
           $scope.showSection = function(index) {
               $scope.activeSection = index
-          }
-
-
-          $scope.updateApi = function() {
-
-              $scope.loading = true
-              ApiService.update($scope.api)
-                  .then(function(res){
-                      $log.debug("Update Api: ",res)
-                      $scope.loading = false
-                  }).catch(function(err){
-                  $log.error("Update Api: ",err)
-                  $scope.loading = false
-              })
-
           }
 
       }

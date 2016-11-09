@@ -1,11 +1,24 @@
 <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading primary">
         <div class="panel-title">
             <i class="material-icons">settings_input_component</i>
             Assigned plugins
+            <button class="btn btn-link pull-right btn-primary" ng-click="onAddPlugin()">
+                <i class="material-icons">add</i>
+                add plugin
+            </button>
         </div>
     </div>
-    <table class="table table-hover">
+    <div class="col-md-12 bg-light-grey padding">
+        <div class="input-group col-sm-4 pull-left">
+            <div class="input-group-addon">
+                <i class="material-icons">&#xE8B6;</i>
+            </div>
+            <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+    <table class="table">
         <tr>
             <th width="1"></th>
             <th>Name</th>
@@ -32,17 +45,17 @@
 
             <td>
 
-                <i
-                        uib-tooltip="Edit"
-                        ng-click="onEditPlugin(item)"
-                        class="material-icons text-warning clickable">&#xE254;</i>
+                <button class="btn btn-link btn-warning" ng-click="onEditPlugin(item)">
+                    <i class="material-icons">&#xE254;</i>
+                    edit
+                </button>
+
             </td>
             <td>
-                <i
-                        uib-tooltip="Delete"
-                        ng-click="onEditPlugin(item)"
-                        ng-click="deletePlugin(item)"
-                        class="material-icons text-danger clickable">&#xE872;</i>
+                <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
+                    <i class="material-icons">&#xE872;</i>
+                    delete
+                </button>
             </td>
         </tr>
         <tr data-ng-if="plugins.data.length === 0">
