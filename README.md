@@ -8,7 +8,6 @@
 
 ## Summary
 
-- [**Screenshots**](#screenshots)
 - [**Features**](#features)
 - [**Compatibility**](#compatibility)
 - [**Prerequisites**](#prerequisites)
