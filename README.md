@@ -1,8 +1,10 @@
-## Just another GUI to [KONG Admin API](http://getkong.org)
+## Just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
 
 [![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
 
-[![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
+
+
+[![Dashboard](screenshots/bc.png)](screenshots/bc.png?raw=true)
 
 ## Summary
 
@@ -15,21 +17,6 @@
 - [**Configuration**](#configuration)
 - [**Running Konga**](#running-konga)
 - [**License**](#license)
-    
-    
-
-## Screenshots
-
-##### Admin Home
-<kbd>[![Admin Home](screenshots/thumbs/admin.jpg)](screenshots/admin.png?raw=true)</kbd>
-
-##### APIs Management
-<kbd>[![APIs](screenshots/thumbs/apis.jpg)](screenshots/apis.png?raw=true)</kbd>   <kbd>[![APIs plugins](screenshots/thumbs/apis-plugins.jpg)](screenshots/apis-plugins.png?raw=true)</kbd>  
-<kbd>[![APIs plugins management](screenshots/thumbs/manage-api-plugins.jpg)](screenshots/manage-api-pugins.png?raw=true)</kbd>
-
-##### Consumers Management
-<kbd>[![Consumers](screenshots/thumbs/consumers.jpg)](screenshots/consumers.png?raw=true)</kbd>  <kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-info.jpg)](screenshots/consumers-cfg-info.png?raw=true)</kbd>  
-<kbd>[![Consumers](screenshots/thumbs/consumers-cfg-groups.jpg)](screenshots/consumers-cfg-groups.png?raw=true)</kbd>  <kbd>[![APIs plugins management](screenshots/thumbs/consumers-cfg-creds.jpg)](screenshots/consumers-cfg-creds.png?raw=true)</kbd>
 
 ## Features
 * Manage APIs and plugins
@@ -153,9 +140,7 @@ login: demo | password: demodemodemo
 
 ## ToDo
 * Complete tests
-* ~~Implement dynamic SSL plugin~~
 * Add more consumer import adapters (?)
-* Implement Logging plugins
 * Write a detailed Wiki
 
 ## Author
