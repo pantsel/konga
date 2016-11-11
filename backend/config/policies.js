@@ -21,6 +21,11 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   '*': ['authenticated'],
 
+
+  KongaApiController : {
+    '*' : ['kongRequestHost']
+  },
+
   AuthController: {
     '*':              ['passport'],
     'checkPassword':  ['authenticated']
@@ -45,6 +50,7 @@ module.exports.policies = {
   KongPluginController : {
     '*':              ['authenticated','dynamicNode'],
   },
+
 
 
   // User controller

@@ -25,26 +25,16 @@
  */
 module.exports = {
   connections: {
-    // Add your connections here, remember install that adapter also
 
-    // MySQL is the world's most popular relational database.
-    // Learn more: http://en.wikipedia.org/wiki/MySQL
-    mysql: {
-      adapter: 'sails-mysql',
-      host: 'localhost',
-      user: '',
-      password: '',
-      database: '',
-      charset: 'utf8',
-      collation: 'utf8_swedish_ci'
-    }
   },
   models: {
-    connection: 'localDiskDb' // Change this to be one of your connections key
+    connection : 'localDiskDb'
   },
   session: {
     secret: '' // Add your own SECRET string here
   },
+  kong_admin_url : '',
+  kong_proxy_hosts : ['127.0.0.1:8000'],
   port: 1338,
   environment: 'development',
   log: {

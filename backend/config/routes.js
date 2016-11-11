@@ -112,4 +112,8 @@ module.exports.routes = {
   'GET /remote/connection/test'          : 'RemoteStorageController.testConnection',
 
 
+    // Konga API
+    'GET /api/consumers/:id/credentials/:credential' : 'KongaApiController.getConsumerCredentials'
+
+
 };
