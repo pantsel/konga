@@ -195,7 +195,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/settings/modals/create-node-modal.html',
+                  templateUrl: '/frontend/settings/modals/create-node-modal.html',
                   size : 'lg',
                   controller: function($scope,$rootScope,$log,NodeModel,MessageService,$uibModalInstance) {
                       $scope.node = {

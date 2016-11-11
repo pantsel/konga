@@ -133,7 +133,7 @@
                       $scope.credentials = [
                           {
                               name : "Key Auth",
-                              description : "An API key will be auto-generated for each consumer.",
+                              description : "Generate an API key for each consumer.",
                               value : "key-auth"
                           },
                           {
