@@ -50,6 +50,9 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 sails.models.consumer.create(onlyInKong)
                                     .exec(function(err,docs){
                                         if (err) return callback(err)
+
+                                        // ToDo maybe sync Authorization plugins as well?
+
                                         return callback()
                                     })
                             },
