@@ -184,7 +184,6 @@ kong_proxy_hosts : ['127.0.0.1:8000'],
 Konga will now accept API requests originated from <code>127.0.0.1:8000</code>
 
  
-
 ### API Methods
 
 > All examples are using the example API above.
