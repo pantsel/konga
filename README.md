@@ -153,7 +153,7 @@ All steps can be easily done form the GUI.
 
 #### Step 1
 
-The first thing you need to do is add an Kong API to use as a Gateway to Konga.
+The first thing you need to do is create a Kong API to use as a Gateway to Konga.
 
 **Example API configuration:**
 
