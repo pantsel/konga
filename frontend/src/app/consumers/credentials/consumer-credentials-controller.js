@@ -11,26 +11,29 @@
       '_','$scope', '$log', '$state',
         'ConsumerService','MessageService','$uibModal',
         'DialogService',
-        '_keys','_jwts','_basic_auth_credentials','_hmac_auth_credentials',
+        '_keys','_jwts','_basic_auth_credentials','_hmac_auth_credentials','_oauth2_credentials',
       function controller(_,$scope, $log, $state,
                           ConsumerService, MessageService,$uibModal,
                           DialogService,
-                          _keys, _jwts, _basic_auth_credentials, _hmac_auth_credentials ) {
+                          _keys, _jwts, _basic_auth_credentials, _hmac_auth_credentials,_oauth2_credentials ) {
 
 
           $scope.keys = _keys.data
           $scope.jwts = _jwts.data
           $scope.basic_auth_credentials = _basic_auth_credentials.data
           $scope.hmac_auth_credentials = _hmac_auth_credentials.data
+          $scope.oauth2_credentials = _oauth2_credentials.data
 
 
           $scope.updateConsumerDetails = updateConsumerDetails
           $scope.createApiKey = createApiKey
           $scope.createJWT = createJWT
           $scope.createBasicAuthCredentials = createBasicAuthCredentials
+          $scope.createOAuth2 = createOAuth2
           $scope.createHMAC = createHMAC
           $scope.deleteKey = deleteKey
           $scope.deleteJWT = deleteJWT
+          $scope.deleteOAuth2 = deleteOAuth2
           $scope.deleteBasicAuthCredentials = deleteBasicAuthCredentials
           $scope.deleteHMACAuthCredentials = deleteHMACAuthCredentials
 
@@ -63,6 +66,23 @@
                               function onSuccess(result) {
                                   MessageService.success('Credentials deleted successfully');
                                   fetchBasicAuthCredentials()
+                              }
+                          )
+
+                  },function decline(){})
+          }
+
+          function deleteOAuth2($index,oauth) {
+              DialogService.prompt(
+                  "Delete JWT","Really want to delete the selected OAuth2?",
+                  ['No don\'t','Yes! delete it'],
+                  function accept(){
+                      ConsumerService
+                          .removeCredential($scope.consumer.id,'oauth2',oauth.id)
+                          .then(
+                              function onSuccess(result) {
+                                  MessageService.success('OAuth2 deleted successfully');
+                                  fetchOAuth2()
                               }
                           )
 
@@ -136,6 +156,21 @@
               });
           }
 
+          function createOAuth2() {
+              $uibModal.open({
+                  animation: true,
+                  ariaLabelledBy: 'modal-title',
+                  ariaDescribedBy: 'modal-body',
+                  templateUrl: '/frontend/consumers/credentials/create-oauth2-modal.html',
+                  controller: 'CreateOAuth2Controller',
+                  controllerAs: '$ctrl',
+                  resolve : {
+                      _consumer : function() {
+                          return $scope.consumer
+                      }
+                  }
+              });
+          }
 
           function createHMAC() {
               $uibModal.open({
@@ -218,6 +253,14 @@
 
           }
 
+          function fetchOAuth2() {
+              ConsumerService.loadCredentials($scope.consumer.id,'oauth2')
+                  .then(function(res){
+                      $scope.oauth2_credentials = res.data
+                  })
+
+          }
+
           /**
            * ----------------------------------------------------------
            * Listeners
@@ -227,6 +270,10 @@
 
           $scope.$on('consumer.key.created',function(ev,group){
               fetchKeys()
+          })
+
+          $scope.$on('consumer.oauth2.created',function(ev,group){
+              fetchOAuth2()
           })
 
           $scope.$on('consumer.jwt.created',function(ev,group){

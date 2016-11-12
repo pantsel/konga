@@ -117,6 +117,13 @@
                                             return ConsumerService.loadCredentials($stateParams.id,'basic-auth')
                                         }
                                     ],
+                                    _oauth2_credentials : [
+                                        'ConsumerService',
+                                        '$stateParams',
+                                        function(ConsumerService,$stateParams){
+                                            return ConsumerService.loadCredentials($stateParams.id,'oauth2')
+                                        }
+                                    ],
                                     _hmac_auth_credentials : [
                                         'ConsumerService',
                                         '$stateParams',
