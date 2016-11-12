@@ -24,7 +24,8 @@
 
 
           function createBasicAuthCredentials() {
-              ConsumerService.createBasicAuthCredentials($scope.consumer.id,$scope.credentials).then(function(resp){
+              ConsumerService
+                  .addCredential($scope.consumer.id,'basic-auth',$scope.credentials).then(function(resp){
                   $log.debug("Credentials generated",resp)
                   $rootScope.$broadcast('consumer.basic-auth.created')
                   $uibModalInstance.dismiss()

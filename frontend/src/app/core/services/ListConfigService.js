@@ -80,7 +80,7 @@
               width : 1
             },
             {
-              title: '#',
+              title: '',
               width : 1
             },
             {

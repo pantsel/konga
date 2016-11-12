@@ -23,7 +23,7 @@
 
 
           function createApiKey() {
-              ConsumerService.createApiKey($scope.consumer.id,{
+              ConsumerService.addCredential($scope.consumer.id,'key-auth',{
                   key : $scope.key.value
               }).then(function(resp){
                   $log.debug("Key generated",resp)

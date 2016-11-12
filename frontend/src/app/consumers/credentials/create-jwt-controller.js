@@ -40,7 +40,7 @@
 
           function createJWT() {
 
-              ConsumerService.createJWT($scope.consumer.id,cleanJWT($scope.jwt)).then(function(resp){
+              ConsumerService.addCredential($scope.consumer.id,'jwt',cleanJWT($scope.jwt)).then(function(resp){
                   $log.debug("JWT generated",resp)
                   $rootScope.$broadcast('consumer.jwt.created')
                   $uibModalInstance.dismiss()

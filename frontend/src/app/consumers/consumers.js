@@ -100,28 +100,28 @@
                                         'ConsumerService',
                                         '$stateParams',
                                         function(ConsumerService,$stateParams){
-                                            return ConsumerService.fetchKeys($stateParams.id)
+                                            return ConsumerService.loadCredentials($stateParams.id,'key-auth')
                                         }
                                     ],
                                     _jwts : [
                                         'ConsumerService',
                                         '$stateParams',
                                         function(ConsumerService,$stateParams){
-                                            return ConsumerService.fetchJWTs($stateParams.id)
+                                            return ConsumerService.loadCredentials($stateParams.id,'jwt')
                                         }
                                     ],
                                     _basic_auth_credentials : [
                                         'ConsumerService',
                                         '$stateParams',
                                         function(ConsumerService,$stateParams){
-                                            return ConsumerService.fetchBasicAuthCredentials($stateParams.id)
+                                            return ConsumerService.loadCredentials($stateParams.id,'basic-auth')
                                         }
                                     ],
                                     _hmac_auth_credentials : [
                                         'ConsumerService',
                                         '$stateParams',
                                         function(ConsumerService,$stateParams){
-                                            return ConsumerService.fetchHMACAuthCredentials($stateParams.id)
+                                            return ConsumerService.loadCredentials($stateParams.id,'hmac-auth')
                                         }
                                     ]
                                 }

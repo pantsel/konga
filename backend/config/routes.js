@@ -64,30 +64,19 @@ module.exports.routes = {
   // Consumer routes
   'POST /kong/consumers'                : 'KongConsumerController.create',
   'POST /kong/consumers/:id/acls'       : 'KongConsumerController.addAcl',
-  'GET /kong/consumers/:id/key-auth'    : 'KongConsumerController.retrieveKeys',
-  'GET /kong/consumers/:id/jwt'         : 'KongConsumerController.retrieveJWT',
-  'POST /kong/consumers/:id/key-auth'   : 'KongConsumerController.createKey',
-  'POST /kong/consumers/:id/jwt'        : 'KongConsumerController.createJWT',
   'GET /kong/consumers/:id'             : 'KongConsumerController.retrieve',
   'GET /kong/consumers/:id/acls'        : 'KongConsumerController.retrieveAcls',
   'GET /kong/consumers'                 : 'KongConsumerController.list',
   'PATCH /kong/consumers/:id'           : 'KongConsumerController.update',
   'PUT /kong/consumers'                 : 'KongConsumerController.updateOrCreate',
   'DELETE /kong/consumers/:id'          : 'KongConsumerController.delete',
-  'DELETE /kong/consumers/:id/acls/:aclId'  : 'KongConsumerController.deleteAcl',
-  'DELETE /kong/consumers/:id/key-auth/:keyId'  : 'KongConsumerController.deleteKey',
-  'DELETE /kong/consumers/:id/jwt/:jwtId'  : 'KongConsumerController.deleteJWT',
 
 
+  'GET /kong/consumers/:id/credentials'   : 'KongConsumerController.listCredentials',
+  'GET /kong/consumers/:id/:credential'   : 'KongConsumerController.retrieveCredentials',
+  'POST /kong/consumers/:id/:credential'   : 'KongConsumerController.createCredential',
+  'DELETE /kong/consumers/:id/:credential/:credential_id'   : 'KongConsumerController.removeCredential',
 
-  'GET /kong/consumers/:id/basic-auth'    : 'KongConsumerController.retrieveBasicAuthCredentials',
-  'POST /kong/consumers/:id/basic-auth'   : 'KongConsumerController.createBasicAuthCredentials',
-  'DELETE /kong/consumers/:id/basic-auth/:credentialId'  : 'KongConsumerController.deleteBasicAuthCredentials',
-
-
-  'GET /kong/consumers/:id/hmac-auth'    : 'KongConsumerController.retrieveHMACAuthCredentials',
-  'POST /kong/consumers/:id/hmac-auth'   : 'KongConsumerController.createHMACAuthCredentials',
-  'DELETE /kong/consumers/:id/hmac-auth/:credentialId'  : 'KongConsumerController.deleteHMACAuthCredentials',
 
 
   // Plugin routes

@@ -41,7 +41,7 @@
                   ['No don\'t','Yes! delete it'],
                   function accept(){
                       ConsumerService
-                          .deleteHMACAuthCredentials($scope.consumer.id,credentials.id)
+                          .removeCredential($scope.consumer.id,'hmac-auth',credentials.id)
                           .then(
                               function onSuccess(result) {
                                   MessageService.success('Credentials deleted successfully');
@@ -58,7 +58,7 @@
                   ['No don\'t','Yes! delete it'],
                   function accept(){
                       ConsumerService
-                          .deleteBasicAuthCredentials($scope.consumer.id,credentials.id)
+                          .removeCredential($scope.consumer.id,'basic-auth',credentials.id)
                           .then(
                               function onSuccess(result) {
                                   MessageService.success('Credentials deleted successfully');
@@ -75,7 +75,7 @@
                   ['No don\'t','Yes! delete it'],
                   function accept(){
                       ConsumerService
-                          .deleteJWT($scope.consumer.id,jwt.id)
+                          .removeCredential($scope.consumer.id,'jwt',jwt.id)
                           .then(
                               function onSuccess(result) {
                                   MessageService.success('JWT deleted successfully');
@@ -92,7 +92,7 @@
                   ['No don\'t','Yes! delete it'],
                   function accept(){
                       ConsumerService
-                          .deleteKey($scope.consumer.id,key.id)
+                          .removeCredential($scope.consumer.id,'key-auth',key.id)
                           .then(
                               function onSuccess(result) {
                                   MessageService.success('Key deleted successfully');
@@ -188,7 +188,7 @@
 
 
           function fetchBasicAuthCredentials() {
-              ConsumerService.fetchBasicAuthCredentials($scope.consumer.id)
+              ConsumerService.loadCredentials($scope.consumer.id,'basic-auth')
                   .then(function(res){
                       $scope.basic_auth_credentials = res.data;
                   })
@@ -196,14 +196,14 @@
 
 
           function fetchHMACAuthCredentials() {
-              ConsumerService.fetchHMACAuthCredentials($scope.consumer.id)
+              ConsumerService.loadCredentials($scope.consumer.id,'hmac-auth')
                   .then(function(res){
                       $scope.hmac_auth_credentials = res.data;
                   })
           }
 
           function fetchKeys() {
-              ConsumerService.fetchKeys($scope.consumer.id)
+              ConsumerService.loadCredentials($scope.consumer.id,'key-auth')
                   .then(function(res){
                       $scope.keys = res.data
                   })
@@ -211,13 +211,12 @@
           }
 
           function fetchJWTs() {
-              ConsumerService.fetchJWTs($scope.consumer.id)
+              ConsumerService.loadCredentials($scope.consumer.id,'jwt')
                   .then(function(res){
                       $scope.jwts = res.data
                   })
 
           }
-
 
           /**
            * ----------------------------------------------------------

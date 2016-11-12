@@ -27,6 +27,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
     node_id : {
       type : 'string',
       required : true
+    },
+    credentials : {
+      type: 'array',
+      defaultsTo : []
     }
   },
   autoPK: false

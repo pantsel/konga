@@ -29,7 +29,7 @@
               if($scope.credentials.secret == '')
                   delete $scope.credentials.secret
 
-              ConsumerService.createHMACAuthCredentials($scope.consumer.id,$scope.credentials).then(function(resp){
+              ConsumerService.addCredential($scope.consumer.id,'hmac-auth',$scope.credentials).then(function(resp){
                   $log.debug("Credentials generated",resp)
                   $rootScope.$broadcast('consumer.hmac-auth.created')
                   $uibModalInstance.dismiss()

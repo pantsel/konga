@@ -56,59 +56,21 @@
                   return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/acls/' + groupId)
               },
 
-              createApiKey : function(consumerId,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/key-auth',data)
+              addCredential : function(consumerId,credential,data) {
+                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential,data)
               },
 
-              fetchKeys : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/key-auth')
+              loadCredentials : function(consumerId,credential) {
+                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential)
               },
 
-              deleteKey : function(consumerId,keyId) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/key-auth/' + keyId)
+              listCredentials : function(consumerId) {
+                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/credentials')
               },
 
-
-
-              createJWT : function(consumerId,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/jwt',data)
+              removeCredential : function(consumerId,credential,credential_id) {
+                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential + '/' + credential_id)
               },
-
-              fetchJWTs : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/jwt')
-              },
-
-              deleteJWT : function(consumerId,jwtId) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/jwt/' + jwtId)
-              },
-
-
-              // BASIC AUTH
-              createBasicAuthCredentials : function(consumerId,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/basic-auth',data)
-              },
-
-              fetchBasicAuthCredentials : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/basic-auth')
-              },
-
-              deleteBasicAuthCredentials : function(consumerId,cId) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/basic-auth/' + cId)
-              },
-
-              // HMAC AUTH
-              createHMACAuthCredentials : function(consumerId,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/hmac-auth',data)
-              },
-
-              fetchHMACAuthCredentials : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/hmac-auth')
-              },
-
-              deleteHMACAuthCredentials : function(consumerId,cId) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/hmac-auth/' + cId)
-              },
-
           }
       }
     ])

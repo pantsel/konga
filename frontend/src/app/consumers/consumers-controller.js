@@ -99,6 +99,7 @@
               }
           });
 
+
           function checkConsumers(checked) {
               $scope.items.forEach(function(consumer){
                   consumer.checked = checked
@@ -123,83 +124,7 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: '/frontend/consumers/credentials/mass-assign-modal.html',
-                  controller: function($log,$scope,$uibModalInstance,ConsumerService,MessageService,_consumers){
-
-                      $scope.consumers = _consumers
-                      $scope.close = function() {
-                          $uibModalInstance.dismiss()
-                      }
-
-                      $scope.credentials = [
-                          {
-                              name : "Key Auth",
-                              description : "Generate an API key for each consumer.",
-                              value : "key-auth"
-                          },
-                          {
-                              name : "JWT",
-                              description : "Generate JWT credentials for each consumer." +
-                              " The default values will be used for all of JWT configuration properties" +
-                              " as specified in <a href='https://getkong.org/plugins/jwt/'>Kong's documentation</a>.",
-                              value : "jwt"
-                          },
-                          {
-                              name : "HMAC Auth",
-                              description : "Generate HMAC credentials for each consumer." +
-                              "The consumer's username will be used as the username property " +
-                              "and a secret will be auto-generated for each credential.",
-                              value : "hmac-auth"
-                          }
-                      ]
-
-
-                      $scope.onCredentialSelected = function(credential) {
-                          DialogService.prompt(
-                              "Mass Assign Credentials",
-                              "You are about to mass assign <strong>" + credential + "</strong> credentials" +
-                              " to " + consumers.length + " selected consumers.<br>Continue?",
-                              ['No don\'t','Yes, do it!'],
-                              function accept(){
-                                  $scope.busy = true
-
-                                  var promises = []
-
-                                  switch(credential) {
-                                      case "hmac-auth":
-                                          _consumers.forEach(function(consumer){
-                                              promises.push(ConsumerService.createHMACAuthCredentials(consumer.id,{
-                                                  username : consumer.username,
-                                                  secret   : Math.random().toString(36).slice(-8)
-                                              }))
-                                          })
-                                          break;
-                                      case "key-auth":
-                                          _consumers.forEach(function(consumer){
-                                              promises.push(ConsumerService.createApiKey(consumer.id))
-                                          })
-                                          break;
-                                      case "jwt":
-                                          _consumers.forEach(function(consumer){
-                                              promises.push(ConsumerService.createJWT(consumer.id))
-                                          })
-                                          break;
-                                  }
-
-
-
-                                  $q
-                                      .all(promises)
-                                      .finally(
-                                          function onFinally() {
-                                              $scope.busy = false;
-                                              MessageService.success('Credentials where assigned successfully!')
-                                          }
-                                      )
-                                  ;
-
-                              },function decline(){})
-                      }
-                  },
+                  controller: 'MassAssignCredentialsController',
                   controllerAs: '$ctrl',
                   resolve : {
                       _consumers : function() {
@@ -400,6 +325,14 @@
                   .then(
                       function onSuccess(response) {
                           $scope.items = response;
+
+                          // Apply consumers credentials
+                          $scope.items.forEach(function(item){
+                              ConsumerService.listCredentials(item.id)
+                                  .then(function(res){
+                                      item.creds = res.data
+                                  })
+                          })
                       }
                   )
                   ;
@@ -425,6 +358,19 @@
 
           $scope.$on('consumer.updated',function(ev,user){
               _triggerFetchData()
+          })
+
+          $scope.$on('credentials.assigned',function(ev,user){
+              _triggerFetchData()
+          })
+
+
+          // Apply consumers credentials
+          $scope.items.forEach(function(item){
+              ConsumerService.listCredentials(item.id)
+                  .then(function(res){
+                      item.creds = res.data
+                  })
           })
 
       }
