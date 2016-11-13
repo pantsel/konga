@@ -13,13 +13,23 @@ var KongaApiController = {
         })
     },
 
+    /**
+     * Creates a consumer and with associated groups and authorizations
+     * @param req
+     * @param res
+     */
     createConsumer : function(req,res) {
-        KongaApiService.createConsumer(req,function(err,response){
+        KongaApiService.consumers.create(req,function(err,response){
             if(err) return res.kongError(err)
             return res.json(response)
         })
     },
 
+    /**
+     * Registers or updates an already registered api and it's associated plugins
+     * @param req
+     * @param res
+     */
     registerApi : function(req,res) {
         KongaApiService.apis.register(req,function(err,response){
             if(err) return res.kongError(err)
