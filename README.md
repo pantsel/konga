@@ -183,7 +183,7 @@ kong_proxy_hosts : ['127.0.0.1:8000'],
 </pre>
 Konga will now accept API requests originated from <code>127.0.0.1:8000</code>
 
-> In a production environment it would be safer if the server blocked incoming traffic to the port Konga is lifted as well.
+> In a production environment, where Konga resides in the same server as Kong, it would be safer to block incoming traffic to the port Konga is lifted as well.
 
 ### API Methods
 
