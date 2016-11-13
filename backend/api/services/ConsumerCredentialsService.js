@@ -34,7 +34,7 @@ var ConsumerCredentialsService = {
 
     listCredentials : function(consumer_id,cb) {
 
-        var credentials = ['jwt','key-auth','basic-auth','hmac-auth']
+        var credentials = ['jwt','key-auth','basic-auth','hmac-auth','oauth2']
         var promises = []
 
         credentials.forEach(function(credential){
