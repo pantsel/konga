@@ -186,15 +186,8 @@ Konga will now accept API requests originated from <code>127.0.0.1:8000</code>
  
 ### API Methods
 
-> All examples are using the example API above.
+All requests made to Konga's API require some custom headers.
 
-#### Create Consumer <code>POST</code>
-
-> $ curl -X POST http://kong:8000/konga/api/consumers
-
-This method allows you to create a consumer and associate it with groups and authorizations all at once.
-
-##### Request Headers
 
 <table>
     <tr>
@@ -213,6 +206,14 @@ This method allows you to create a consumer and associate it with groups and aut
         <td><small>Konga can manage multiple Kong nodes. Because of that you need to specify the id of the node you need to work with.</small></td>
     </tr>
 </table>
+
+
+#### Create Consumer <code>POST</code>
+
+> $ curl -X POST http://kong:8000/{your-api-request-path}/api/consumers
+
+This method allows you to create a consumer while associating it with groups and authorizations all at once.
+
 
 ##### Request Body
 
@@ -268,6 +269,38 @@ This method allows you to create a consumer and associate it with groups and aut
             "redirect_uri" : "http://testio.com/authorize"
         }	
     }]
+}
+</pre>
+
+
+#### Register API <code>POST</code>
+
+> $ curl -X POST http://kong:8000/{your-api-request-path}/api/apis
+
+This method allows you to register an API to Kong while adding required plugins to it as well.
+
+> You can also update an already registered API and it's associated plugins by including the API's <code>id</code> and <code>created_at</code> properties to the request.
+
+##### Example Request body
+
+<pre>
+{
+	"name" : "testapi",
+	"request_path" : "/testapi",
+	"strip_request_path" : true,
+	"preserve_host" : false,
+	"upstream_url" : "http://testapi.io",
+	"plugins" : [{
+		"name" : "hmac-auth",
+		"config.hide_credentials" :false
+	},{
+		"name" : "acl",
+		"config.blacklist" : "192.168.1.2,192.168.1.3"
+		
+	},{
+		"name" : "jwt" // Default configuration will be used
+	}]
+	
 }
 </pre>
 

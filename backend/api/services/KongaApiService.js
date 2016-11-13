@@ -128,6 +128,94 @@ var KongaApiService = {
         });
 
 
+    },
+
+    apis : {
+        register : function(req,cb) {
+
+            var api = req.body
+            var result = {}
+            var plugins = []
+            if(api.plugins) {
+                plugins = api.plugins
+                delete api.plugins
+            }
+
+            KongaApiService.apis.updateOrAddApi(api,function(err,_api) {
+
+                if (err)  return cb(err)
+
+                result = _api
+
+                KongaApiService.apis
+                    .updateOrAddPlugins(result.name,plugins,function(err,_plugins){
+                        if (err)  {
+                            KongaApiService.apis.deleteApi(result.id,function(err,deleted){})
+                            return cb(err)
+                        }
+                        result.plugins = _plugins
+                        return cb(null,result)
+
+                    })
+            })
+        },
+        updateOrAddApi : function(api,cb) {
+
+            unirest.put(sails.config.kong_admin_url + "/apis")
+                .send(api)
+                .end(function (response) {
+                    if (response.error)  {
+                        if(response.body) {
+                            response.body.path = "api"
+                            response.body.obj = api
+                        }
+
+                        return cb(response)
+                    }
+
+                    return cb(null,response.body)
+                })
+        },
+
+        deleteApi : function(api_id,cb) {
+            unirest.delete(sails.config.kong_admin_url + "/apis/" + api_id)
+                .end(function (response) {
+                    if (response.error)  return cb(response)
+                    return cb(null,true)
+                })
+        },
+
+        updateOrAddPlugins : function(api,plugins,cb) {
+            if(!plugins || !plugins.length) return cb(null,{})
+            var promises = []
+
+            plugins.forEach(function(plugin) {
+                promises.push(function (callback) {
+
+
+                    unirest.put(sails.config.kong_admin_url + '/apis/' + api + "/plugins")
+                        .send(plugin)
+                        .end(function (response) {
+
+                            if (response.error) {
+                                if(response.body) {
+                                    response.body.path = "plugins"
+                                    response.body.obj = plugin
+                                }
+
+                                return callback(response)
+                            }
+
+                            return callback(null, response.body)
+                        })
+                })
+            })
+
+            async.series(promises, function(err,result) {
+                if (err) return cb(err)
+                return cb(null,result)
+            });
+        }
     }
 
 }

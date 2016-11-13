@@ -103,7 +103,8 @@ module.exports.routes = {
 
     // Konga API
     'GET /api/consumers/:id/credentials/:credential' : 'KongaApiController.getConsumerCredentials',
-    'POST /api/consumers' : 'KongaApiController.createConsumer'
+    'POST /api/consumers' : 'KongaApiController.createConsumer',
+    'POST /api/apis'      : 'KongaApiController.registerApi'
 
 
 };

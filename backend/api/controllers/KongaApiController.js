@@ -18,6 +18,13 @@ var KongaApiController = {
             if(err) return res.kongError(err)
             return res.json(response)
         })
+    },
+
+    registerApi : function(req,res) {
+        KongaApiService.apis.register(req,function(err,response){
+            if(err) return res.kongError(err)
+            return res.json(response)
+        })
     }
 
 
