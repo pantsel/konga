@@ -159,10 +159,10 @@ The first thing you need to do is create a Kong API to use as a Gateway to Konga
 
 <pre>
 name : konga
-config.request_path : /konga
+config.request_path : /kongapi
 config.strip_request_path : true
 config.preserve_host : true // We need this set to true so that Konga can validate that the request is coming from Kong
-config.upstream_url : http://konga-host-url
+config.upstream_url : http://konga-host-url/api
 </pre>
 
 #### Step 2
@@ -211,7 +211,7 @@ All requests made to Konga's API require some custom headers.
 
 #### Create Consumer <code>POST</code>
 
-> $ curl -X POST http://kong:8000/{your-api-request-path}/api/consumers
+> $ curl -X POST http://kong:8000/{your-api-request-path}/consumers
 
 This method allows you to create a consumer while associating it with groups and authorizations all at once.
 
@@ -276,7 +276,7 @@ This method allows you to create a consumer while associating it with groups and
 
 #### Register API <code>POST</code>
 
-> $ curl -X POST http://kong:8000/{your-api-request-path}/api/apis
+> $ curl -X POST http://kong:8000/{your-api-request-path}/apis
 
 This method allows you to register an API to Kong while adding required plugins to it as well.
 
