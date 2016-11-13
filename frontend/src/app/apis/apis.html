@@ -1,11 +1,4 @@
 
-
-<!--<div class="well">-->
-    <!--<p class="help-block">-->
-        <!--The API object describes an API that's being exposed by Kong. Kong needs to know how to retrieve the API when a consumer is calling it from the Proxy port. Each API object must specify a request host, a request path or both. Kong will proxy all requests to the API to the specified upstream URL.-->
-    <!--</p>-->
-<!--</div>-->
-
 <div class="row">
     <div class="col-md-12 actions">
         <a href="#" class="btn btn-primary" ng-click="openAddApiModal(api)">
@@ -28,6 +21,7 @@
         <div class="table-responsive" >
             <table class="table table-hover table-striped">
                 <tr>
+                    <th width="1"></th>
                     <th width="1"></th>
                     <th width="1"></th>
                     <th>Name</th>
@@ -62,6 +56,9 @@
                             {{api.preserve_host ? 'cloud_done' : 'cloud_off'}}
                         </i>
 
+                    </td>
+                    <td>
+                        <raw-view data-item="api"></raw-view>
                     </td>
                     <td>
                         <strong>

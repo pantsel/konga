@@ -30,6 +30,9 @@
                     data-ng-class="{'text-success' : consumer.creds.total,'text-muted' : !consumer.creds.total}"
                     class="material-icons">fingerprint</i>
         </td>
+        <td>
+            <raw-view data-item="consumer"></raw-view>
+        </td>
         <td>{{consumer.username || "-"}}</td>
         <td>{{consumer.custom_id || "-"}}</td>
         <td>{{consumer.import_id || "-"}}</td>

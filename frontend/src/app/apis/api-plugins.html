@@ -21,6 +21,7 @@
     <table class="table">
         <tr>
             <th width="1"></th>
+            <th width="1"></th>
             <th>Name</th>
             <th>Consumer</th>
             <th>Created</th>
@@ -35,6 +36,9 @@
                         ng-change="updatePlugin(item)"
                         ng-model="item.enabled"
                         type="checkbox"/>
+            </td>
+            <td>
+                <raw-view data-item="item"></raw-view>
             </td>
             <th>{{item.name}}</th>
             <td>
