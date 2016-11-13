@@ -2,6 +2,7 @@
 
 var unirest = require('unirest')
 var KongaApiService = require('../services/KongaApiService')
+var ConsumerService = require('../services/ConsumerService')
 
 var KongaApiController = {
 
@@ -21,6 +22,12 @@ var KongaApiController = {
     createConsumer : function(req,res) {
         KongaApiService.consumers.create(req,function(err,response){
             if(err) return res.kongError(err)
+
+            // Sync consumers
+            //ConsumerService.sync(function(err,ok){
+            //    // Fire and forget
+            //})
+
             return res.json(response)
         })
     },
