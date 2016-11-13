@@ -220,7 +220,7 @@ This method allows you to create a consumer while associating it with groups and
 
 <table>
     <tr>
-        <th>Parameter</th>
+        <th>Attribute</th>
         <th>Description</th>
     </tr>
     <tr>
@@ -281,6 +281,44 @@ This method allows you to create a consumer while associating it with groups and
 This method allows you to register an API to Kong while adding required plugins to it as well.
 
 > You can also update an already registered API and it's associated plugins by including the API's <code>id</code> and <code>created_at</code> properties to the request.
+
+
+#####Request Body
+
+<table><thead>
+<tr>
+<th style="text-align: right">Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right"><code>name</code><br><em>optional</em></td>
+<td>The API name. If none is specified, will default to the <code>request_host</code> or <code>request_path</code>.</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>request_host</code><br><em>semi-optional</em></td>
+<td>The public DNS address that points to your API. For example, <code>mockbin.com</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>request_path</code><br><em>semi-optional</em></td>
+<td>The public path that points to your API. For example, <code>/someservice</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>strip_request_path</code><br><em>optional</em></td>
+<td>Strip the <code>request_path</code> value before proxying the request to the final API. For example a request made to <code>/someservice/hello</code> will be resolved to <code>upstream_url/hello</code>. By default is <code>false</code>.</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>preserve_host</code><br><em>optional</em></td>
+<td>Preserves the original <code>Host</code> header sent by the client, instead of replacing it with the hostname of the <code>upstream_url</code>. By default is <code>false</code>.</td>
+</tr>
+<tr>
+<td style="text-align: right"><code>upstream_url</code></td>
+<td>The base target URL that points to your API server, this URL will be used for proxying requests. For example, <code>https://mockbin.com</code>.</td>
+</tr>
+<td style="text-align: right"><code>plugins</code></td>
+<td>An array of plugin configurations to add to the API.</td>
+</tr>
+</tbody></table>
 
 ##### Example Request body
 
