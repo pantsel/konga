@@ -146,44 +146,20 @@ login: demo | password: demodemodemo
 Apart from the GUI, Konga also exposes an API providing helpful methods for 
 integrating your services and applications with Kong
 
-### Exposing the API
+#### Exposing the API
 
-There are some steps you need to take before exposing Konga's API.
-All steps can be easily done form the GUI.
+In <code>/backend/local.js</code> set the attribute <code>expose_api</code> to <code>true</code>
 
-#### Step 1
+When the backend is lifted again, Konga will register it's API to Kong, create a consumer and associate that consumer to an apikey.
 
-The first thing you need to do is create a Kong API to use as a Gateway to Konga.
-
-**Example API configuration:**
-
-<pre>
-name : konga
-config.request_path : /kongapi
-config.strip_request_path : true
-config.preserve_host : true // We need this set to true so that Konga can validate that the request is coming from Kong
-config.upstream_url : http://konga-host-url/api
-</pre>
-
-#### Step 2
-
-Add a ***Key Authentication*** plugin to the created API.
-
-#### Step 3
-
-Create a consumer and associate it with an API key credential. This api key will be used to authenticate the requests made to Konga's API.
-
-#### Step 4
-
-Finally , you need to configure the kong_proxy_hosts property in <code>/backend/local.js</code>.
+Additionally , you need to configure the <code>whitelist_hosts</code> attribute in <code>/backend/local.js</code>.
 These are the hosts from which Konga will accept API requests.
-For a local Kong installation this property would be:
-<pre>
-kong_proxy_hosts : ['127.0.0.1:8000'],
-</pre>
-Konga will now accept API requests originated from <code>127.0.0.1:8000</code>
 
-> In a production environment, where Konga resides in the same server as Kong, it would be safer to block incoming traffic to the port Konga's backend is lifted as well.
+By default, Konga will only accept API requests from <code>127.0.0.1</code>
+<pre>
+whitelist_hosts : ["127.0.0.1"]
+</pre>
+
 
 ### API Methods
 
@@ -197,21 +173,21 @@ All requests made to Konga's API require some custom headers.
         <th>Description</th>
     </tr>
     <tr>
-        <td><code>api-key-name</code> (required)</td>
+        <td><code>apiKey</code> (required)</td>
         <td>-</td>
-        <td><small>The api-key associated with the consumer you created to consume Konga's API. The name of this header must match one of the <code>key_names</code> you specified when assigning the Key Authentication plugin to the API.</small></td>
+        <td><small>The api-key of "konga" consumer.</small></td>
     </tr>
     <tr>
-        <td><code>konga-node-id</code> (optional)</td>
-        <td><small>The first active node found will be used.</small></td>
-        <td><small>Konga can manage multiple Kong nodes. Because of that you need to specify the id of the node you need to work with.</small></td>
+        <td><code>kong-admin-url</code> (optional)</td>
+        <td><small>The <code>kong_admin_url</code> specified in <code>/backend</code> configuration.</small></td>
+        <td><small>The URL of Kong's admin API.</small></td>
     </tr>
 </table>
 
 
 #### Create Consumer <code>POST</code>
 
-> $ curl -X POST http://kong:8000/{your-api-request-path}/consumers
+> $ curl -X POST http://kong:8000/konga/consumers
 
 This method allows you to create a consumer while associating it with groups and authorizations all at once.
 
@@ -276,7 +252,7 @@ This method allows you to create a consumer while associating it with groups and
 
 #### Register API <code>POST</code>
 
-> $ curl -X POST http://kong:8000/{your-api-request-path}/apis
+> $ curl -X POST http://kong:8000/konga/apis
 
 This method allows you to register an API to Kong while adding required plugins to it as well.
 
@@ -349,6 +325,7 @@ This method allows you to register an API to Kong while adding required plugins 
 * Complete tests
 * Add more consumer import adapters (?)
 * Write a detailed Wiki
+* Move API to it's own module so that it is lifted on a different port (?)
 
 ## Author
 Panagis Tselentis
