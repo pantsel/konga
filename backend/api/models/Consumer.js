@@ -25,13 +25,14 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
       type: 'string'
     },
     node_id : {
-      type : 'string',
-      required : true
-    },
-    credentials : {
-      type: 'array',
-      defaultsTo : []
+      type : 'string'
     }
   },
-  autoPK: false
+  autoPK: false,
+
+  beforeCreate: function (values, cb) {
+
+    if(!values.node_id) values.node_id = sails.config.kong_admin_url
+    cb();
+  }
 });

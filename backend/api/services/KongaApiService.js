@@ -7,21 +7,21 @@ var async= require('async')
 var KongaApiService = {
 
     consumers : {
-        create: function (req, cb) {
+        create: function (inc, cb) {
 
             var consumer = {}
             unirest.post(sails.config.kong_admin_url + '/consumers')
                 .send({
-                    username  : req.body.username,
-                    custom_id : req.body.custom_id
+                    username  : inc.username,
+                    custom_id : inc.custom_id
                 })
                 .end(function (response) {
                     if (response.error)  {
                         if(response.body) {
                             response.body.path = "consumer"
                             response.body.obj = {
-                                username  : req.body.username,
-                                custom_id : req.body.custom_id
+                                username  : inc.username,
+                                custom_id : inc.custom_id
                             }
                         }
 
@@ -32,7 +32,7 @@ var KongaApiService = {
 
                     KongaApiService
                         .consumers
-                        .addAcls(consumer.id,req.body.acls,function(err,result){
+                        .addAcls(consumer.id,inc.acls,function(err,result){
                             if(err) {
                                 // Try to delete the created consumer in case of error
                                 KongaApiService
@@ -44,7 +44,7 @@ var KongaApiService = {
 
                             KongaApiService
                                 .consumers
-                                .addAuthorizations(consumer.id,req.body.authorizations,function(err,auths){
+                                .addAuthorizations(consumer.id,inc.authorizations,function(err,auths){
                                     if(err) {
                                         // Try to delete the created consumer in case of error
                                         KongaApiService
@@ -138,9 +138,8 @@ var KongaApiService = {
     },
 
     apis : {
-        register : function(req,cb) {
+        register : function(api,cb) {
 
-            var api = req.body
             var result = {}
             var plugins = []
             if(api.plugins) {

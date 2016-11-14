@@ -28,19 +28,6 @@
                         };
                     }
 
-                    // Add node id to load
-                    //if(parameters.hasOwnProperty('where')){
-                    //    parameters.where.and = [{
-                    //        node_id : '2'
-                    //    }]
-                    //}else{
-                    //    parameters.where = {
-                    //        and : [{
-                    //            node_id : '2'
-                    //        }]
-                    //    }
-                    //}
-
                     return DataService
                         .collection(self.endpoint, parameters)
                         .then(

@@ -15,9 +15,12 @@ var ConsumerService = {
 
                 var kongConsumers = response.body.data
 
+
                 sails.models.consumer.find({})
                     .exec(function (err, consumers) {
                         if (err) return cb(err)
+
+                        sails.log.debug('ConsumerService:sync => Konga consumers',consumers);
 
                         // Find the consumers that only exist in Kong's db
                         var onlyInKong = kongConsumers.filter(function (current) {
@@ -35,17 +38,9 @@ var ConsumerService = {
 
                         async.series([
                             function (callback) {
-                                sails.log.info('Importing Kong\'s consumers in Konga]');
-
-                                // Add node_id property
-                                onlyInKong.forEach(function (consumer) {
-                                    consumer.node_id = req.node_id
-                                })
-
                                 sails.models.consumer.create(onlyInKong)
                                     .exec(function (err, docs) {
                                         if (err) return callback(err)
-
                                         // ToDo maybe sync Authorization plugins as well?
 
                                         return callback()

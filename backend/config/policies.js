@@ -23,7 +23,7 @@ module.exports.policies = {
 
 
   KongaApiController : {
-    '*' : ['kongRequestHost']
+    '*' : ['exposedApi','kongRequestHost']
   },
 
   AuthController: {
