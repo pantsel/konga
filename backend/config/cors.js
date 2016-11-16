@@ -68,5 +68,5 @@ module.exports.cors = {
    * response to preflight requests.                                          *
    *                                                                          *
    ***************************************************************************/
-  headers: 'content-type, access-control-allow-origin, authorization'
+  headers: 'content-type, access-control-allow-origin, authorization, kong-admin-url'
 };

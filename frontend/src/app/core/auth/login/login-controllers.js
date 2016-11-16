@@ -25,9 +25,9 @@
         $scope, $state,
         AuthService, FocusOnService
       ) {
-        // Already authenticated so redirect back to books list
+        // Already authenticated so to dashboard
         if (AuthService.isAuthenticated()) {
-          $state.go('admin');
+          $state.go('dashboard');
         }
 
         // Scope function to perform actual login request to server

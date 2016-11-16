@@ -8,13 +8,13 @@
 
   angular.module('frontend.settings')
     .controller('SettingsController', [
-      '_','$scope', '$rootScope','$q','$log','$ngBootbox',
+      '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
         'SocketHelperService','UserService','MessageService',
-        '$state','$uibModal','DialogService','NodeModel',
+        '$state','$uibModal','DialogService','NodeModel','$localStorage',
         'ListConfig','_nodes','_countNodes',
-      function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,
+      function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
                           SocketHelperService, UserService, MessageService,
-                          $state, $uibModal,DialogService,NodeModel,
+                          $state, $uibModal,DialogService,NodeModel,$localStorage,
                           ListConfig, _nodes, _countNodes ) {
 
 
@@ -127,6 +127,11 @@
                   .then(
                       function onSuccess(result) {
                           $rootScope.$broadcast('kong.node.updated',result.data)
+                          if(node.active) {
+                              $rootScope.$broadcast('kong.node.deactivated',result.data)
+                          }else{
+                              $rootScope.$broadcast('kong.node.activated',result.data)
+                          }
                       },function(err){
                           $scope.busy = false
                           NodeModel.handleError($scope,err)
@@ -304,6 +309,38 @@
               _triggerFetchData()
           })
 
+          $scope.$on('kong.node.deactivated',function(ev,node){
+              delete $localStorage.activeNode;
+
+              UserModel
+                  .update(UserService.user().id, {
+                      node_id : ''
+                  })
+                  .then(
+                      function onSuccess() {
+                          var credentials = $localStorage.credentials
+                          credentials.user.node_id = ''
+                          $localStorage.credentials = credentials
+                      }
+                  );
+          })
+
+          $scope.$on('kong.node.activated',function(ev,node){
+              $localStorage.activeNode = node
+
+              UserModel
+                  .update(UserService.user().id, {
+                      node_id : 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
+                  })
+                  .then(
+                      function onSuccess(data) {
+                          console.log("Sdsdsdssdds",data)
+                          var credentials = $localStorage.credentials
+                          credentials.user.node_id = 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
+                          $localStorage.credentials = credentials
+                      }
+                  );
+          })
           $scope.$on('kong.node.created',function(ev,node){
               _triggerFetchData()
           })

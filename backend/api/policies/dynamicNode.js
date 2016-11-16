@@ -12,20 +12,9 @@ var _ = require('lodash');
 module.exports = function dynamicNode(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.dynamicNode() called]');
 
-  sails.models.kongnode.findOne({
-    active:true
-  }).exec(function afterwards(err, node){
-    if (err) return next(err)
-    if(!node) {
-      var error = new Error();
-      error.message = 'Unable to find a node to connect'
-      error.code = 'E_NODE_UNDEFINED'
-      error.status = 500;
-      return  next(error)
-    }
-    request.node_id = node.id
-    sails.config.kong_admin_url = 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
-    return  next()
-  })
+
+  sails.config.kong_admin_url = request.headers['kong-admin-url'] || sails.config.kong_admin_url
+  request.node_id = sails.config.kong_admin_url
+  return  next()
 
 };

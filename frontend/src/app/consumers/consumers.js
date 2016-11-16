@@ -18,6 +18,7 @@
                         parent : 'frontend',
                         url: '/consumers',
                         data : {
+                            activeNode : true,
                             pageName : "Consumers",
                             displayName : "consumers",
                             prefix : '<i class="material-icons">perm_identity</i>'
@@ -28,13 +29,6 @@
                                 templateUrl: '/frontend/consumers/index.html',
                                 controller: 'ConsumersController',
                                 resolve : {
-                                    _activeNode: [
-                                        'NodesService',
-                                        function resolve(NodesService) {
-
-                                            return NodesService.isActiveNodeSet()
-                                        }
-                                    ],
                                     _items: [
                                         'ListConfig',
                                         'ConsumerModel',

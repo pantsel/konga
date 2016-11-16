@@ -16,27 +16,27 @@
 
     angular.module('frontend.core.services')
         .factory('NodesService', [
-            'NodeModel', '$q','$state',
-            function factory(NodeModel, $q, $state) {
+            'NodeModel', '$q','$state','$localStorage',
+            function factory(NodeModel, $q, $state, $localStorage) {
                 return {
+                    activeNode : function() {
+                        return $localStorage.credentials.user.node_id
+                    },
+                    authorize: function authorize(needsActiveNode) {
+                        if(needsActiveNode)
+                            return $localStorage.credentials.user.node_id
+                        return true;
+                    },
                     isActiveNodeSet : function() {
                         var defer = $q.defer()
 
-                        NodeModel.load(_.merge({}, {
-                            active:true
-                        })).then(function(resp){
-                            if(resp.length) {
-                                defer.resolve(resp[0])
-
-                            }else{
-                                defer.reject("No active nodes found")
-                                $state.go('settings')
-                            }
-                        }).catch(function(err){
-                            defer.reject(err)
+                        if($localStorage.credentials.user.node_id){
+                            defer.resolve($localStorage.credentials.user.node_id)
+                        }else{
                             $state.go('settings')
-                        })
+                            defer.reject("No active nodes found")
 
+                        }
                         return defer.promise
                     }
                 }

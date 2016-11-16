@@ -17,6 +17,7 @@
                         parent : 'frontend',
                         url: '/apis',
                         data : {
+                            activeNode : true,
                             pageName : "APIs",
                             displayName : "apis",
                             prefix : '<i class="material-icons">cloud_queue</i>'
@@ -31,13 +32,7 @@
                                         function resolve(ApiService) {
                                             return ApiService.all()
                                         }
-                                    ],
-                                    _activeNode: [
-                                        'NodesService',
-                                        function resolve(NodesService) {
-                                            return NodesService.isActiveNodeSet()
-                                        }
-                                    ],
+                                    ]
                                 }
                             }
                         }

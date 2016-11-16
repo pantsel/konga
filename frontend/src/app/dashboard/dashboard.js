@@ -17,7 +17,8 @@
                         url: '/dashboard',
                         parent : 'frontend',
                         data : {
-                            access: 0,
+                            activeNode : true,
+                            access: 1,
                             pageName : "Dashboard",
                             displayName : "dashboard",
                             prefix : '<i class="material-icons text-primary">dashboard</i>'
@@ -31,7 +32,6 @@
                                     _activeNode: [
                                         'NodesService',
                                         function resolve(NodesService) {
-
                                             return NodesService.isActiveNodeSet()
                                         }
                                     ],

@@ -1,16 +1,9 @@
 [
   {
     "id": 1,
-    "name" : "node1",
+    "name" : "default",
     "kong_admin_ip": "127.0.0.1",
     "kong_admin_port": "8001",
-    "active": true
-  },
-  {
-    "id": 2,
-    "name" : "node2",
-    "kong_admin_ip": "192.168.1.116",
-    "kong_admin_port": "8183",
-    "active": true
+    "active": false
   }
 ]

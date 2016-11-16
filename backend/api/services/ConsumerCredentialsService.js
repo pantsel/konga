@@ -7,39 +7,12 @@ var async = require('async')
 
 var ConsumerCredentialsService = {
 
-    add : function(consumer_id,type,value,cb) {
-        sails.models.consumer
-            .findOne(consumer_id)
-            .exec(function(err,consumer){
-                var credential = _.merge({type:type},{id:value.id})
-                consumer.credentials.push(credential)
-                consumer.save()
-                return cb(null)
-            })
-    },
-
-    remove : function(consumer_id,type,credential_id,cb) {
-        sails.models.consumer
-            .findOne(consumer_id)
-            .exec(function(err,consumer){
-                consumer.credentials.forEach(function(cred,index){
-                    if(cred.type === type && cred.id === credential_id) {
-                        consumer.credentials.splice(index, 1);
-                        consumer.save()
-                        return cb(null)
-                    }
-                })
-            })
-    },
-
     listCredentials : function(consumer_id,cb) {
 
         var credentials = ['jwt','key-auth','basic-auth','hmac-auth','oauth2']
         var promises = []
 
         credentials.forEach(function(credential){
-
-            console.log(sails.config.kong_admin_url + '/consumers/' + consumer_id + "/" + credential)
 
             promises.push(function(cb) {
                 unirest.get(sails.config.kong_admin_url + '/consumers/' + consumer_id + "/" + credential)

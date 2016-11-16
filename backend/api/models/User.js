@@ -31,6 +31,11 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
       defaultsTo: false
     },
 
+    node_id : {
+      type : 'string',
+      defaultsTo: ''
+    },
+
     // Passport configurations
     passports: {
       collection: 'Passport',

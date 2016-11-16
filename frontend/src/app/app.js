@@ -60,7 +60,8 @@
         // Add interceptors for $httpProvider and $sailsSocketProvider
         $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.interceptors.push('ErrorInterceptor');
-          $httpProvider.interceptors.push('TemplateCacheInterceptor');
+        $httpProvider.interceptors.push('TemplateCacheInterceptor');
+        $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
@@ -141,11 +142,11 @@
   angular.module('frontend')
     .run([
       '$rootScope', '$state', '$injector',
-      'editableOptions','editableThemes','$templateCache',
+      'editableOptions','editableThemes','$templateCache','NodesService',
       'AuthService','cfpLoadingBar',
       function run(
         $rootScope, $state, $injector,
-        editableOptions,editableThemes,$templateCache,
+        editableOptions,editableThemes,$templateCache,NodesService,
         AuthService,cfpLoadingBar
       ) {
 
@@ -169,6 +170,12 @@
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
                 $state.go('auth.login');
+            }
+
+
+            if (!NodesService.authorize(toState.data.activeNode)) {
+                event.preventDefault();
+                $state.go('settings');
             }
 
             if (toState.redirectTo) {

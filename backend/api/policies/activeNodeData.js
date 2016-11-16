@@ -13,30 +13,20 @@ var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
 module.exports = function activeNodeData(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.activeNodeData() called]');
 
-  sails.models.kongnode.findOne({
-    active:true
-  }).exec(function afterwards(err, node){
-    if (err) return next(err)
-    if(!node) {
-      var error = new Error();
-      error.message = 'Unable to find a node to connect'
-      error.code = 'E_NODE_UNDEFINED'
-      error.status = 500;
-      return  next(error)
-    }
 
-    var c = actionUtil.parseCriteria(request)
+  sails.config.kong_admin_url = request.headers['kong-admin-url'] || sails.config.kong_admin_url
 
-    if(c.hasOwnProperty('or')){
-      c['and'] = [{node_id : node.id}]
-    }else{
-      c['where'] = {node_id : node.id}
-    }
+  var c = actionUtil.parseCriteria(request)
 
-    request.query.where = JSON.stringify(c)
+  if(c.hasOwnProperty('or')){
+    c['and'] = [{node_id : sails.config.kong_admin_url}]
+  }else{
+    c['where'] = {node_id : sails.config.kong_admin_url}
+  }
 
-    return  next()
-  })
+  request.query.where = JSON.stringify(c)
+
+  return  next()
 
 
 };

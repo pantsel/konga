@@ -14,6 +14,7 @@
                         parent: 'frontend',
                         url: '/info',
                         data : {
+                            activeNode : true,
                             pageName : "Node Info",
                             displayName : "node info",
                             prefix : '<i class="material-icons text-primary">&#xE88F;</i>'
@@ -26,14 +27,7 @@
                                 resolve : {
                                     _info : ['InfoService',function(InfoService) {
                                         return InfoService.getInfo()
-                                    }],
-                                    _activeNode: [
-                                        'NodesService',
-                                        function resolve(NodesService) {
-
-                                            return NodesService.isActiveNodeSet()
-                                        }
-                                    ],
+                                    }]
                                 }
                             }
                         },

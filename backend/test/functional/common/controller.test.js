@@ -42,13 +42,13 @@ describe('Generic controller test', function controllerTest() {
             controller: 'KongNodeController',
             url: '/kongnode/',
             identifier: 1,
-            count: 2,
+            count: 1,
             data: {
                 identifier: {
-                    name : "node1",
+                    name : "default",
                     kong_admin_ip: "127.0.0.1",
                     kong_admin_port: "8001",
-                    active: true,
+                    active: false,
                 },
                 newRecord: {
                     name : "node2",

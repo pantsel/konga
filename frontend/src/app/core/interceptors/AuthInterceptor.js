@@ -44,6 +44,8 @@
                */
               config.data.token = token;
               config.headers.authorization = 'Bearer ' + token;
+
+
             }
 
             return config;

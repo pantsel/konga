@@ -67,9 +67,6 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
             .end(function(response){
                 if(response.error) return  res.kongError(response)
 
-                ConsumerCredentialsService
-                    .add(req.params.id,req.params.credential,response.body,function(err){})
-
                 return res.json(response.body)
             })
     },
@@ -78,9 +75,6 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
         unirest.delete(sails.config.kong_admin_url + '/consumers/' + req.params.id + "/" + req.params.credential + "/" + req.params.credential_id)
             .end(function(response){
                 if(response.error) return  res.kongError(response)
-
-                ConsumerCredentialsService
-                    .remove(req.params.id,req.params.credential,req.params.credential_id,function(err){})
 
                 return res.json(response.body)
             })

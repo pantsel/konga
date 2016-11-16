@@ -14,6 +14,7 @@
                         parent : 'frontend',
                         url: '/plugins',
                         data : {
+                            activeNode : true,
                             pageName : "Plugins",
                             displayName : "plugins",
                             prefix : '<i class="material-icons text-primary">settings_input_component</i>'

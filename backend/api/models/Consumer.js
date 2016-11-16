@@ -31,7 +31,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
   autoPK: false,
 
   beforeCreate: function (values, cb) {
-
     if(!values.node_id) values.node_id = sails.config.kong_admin_url
     cb();
   }
