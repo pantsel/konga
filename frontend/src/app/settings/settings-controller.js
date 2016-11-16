@@ -114,6 +114,7 @@
                   .then(
                       function onSuccess() {
                           MessageService.success('Node deleted successfully');
+                          $rootScope.$broadcast('kong.node.deleted',node)
                           _triggerFetchData()
 
                       }
@@ -307,39 +308,15 @@
           }
           $scope.$on('kong.node.updated',function(ev,node){
               _triggerFetchData()
+              if(node.active) updateUserNode(node)
           })
 
           $scope.$on('kong.node.deactivated',function(ev,node){
-              delete $localStorage.activeNode;
-
-              UserModel
-                  .update(UserService.user().id, {
-                      node_id : ''
-                  })
-                  .then(
-                      function onSuccess() {
-                          var credentials = $localStorage.credentials
-                          credentials.user.node_id = ''
-                          $localStorage.credentials = credentials
-                      }
-                  );
+              updateUserNode()
           })
 
           $scope.$on('kong.node.activated',function(ev,node){
-              $localStorage.activeNode = node
-
-              UserModel
-                  .update(UserService.user().id, {
-                      node_id : 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
-                  })
-                  .then(
-                      function onSuccess(data) {
-                          console.log("Sdsdsdssdds",data)
-                          var credentials = $localStorage.credentials
-                          credentials.user.node_id = 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port
-                          $localStorage.credentials = credentials
-                      }
-                  );
+              updateUserNode(node)
           })
           $scope.$on('kong.node.created',function(ev,node){
               _triggerFetchData()
@@ -347,7 +324,22 @@
 
           $scope.$on('kong.node.deleted',function(ev,node){
               _triggerFetchData()
+              if(node.active) updateUserNode()
           })
+
+          function updateUserNode(node) {
+              UserModel
+                  .update(UserService.user().id, {
+                      node_id : node ? 'http://' + node.kong_admin_ip + ':' + node.kong_admin_port : ''
+                  })
+                  .then(
+                      function onSuccess(res) {
+                          var credentials = $localStorage.credentials
+                          credentials.user.node_id = res.data.node_id
+                          $localStorage.credentials = credentials
+                      }
+                  );
+          }
 
 
       }
