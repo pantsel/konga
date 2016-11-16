@@ -140,6 +140,7 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
+**N.B. When running Konga for the first time, you will need to add or activate a node from the settings window by clicking the Star icon. Konga will not work until you set an active node.**
 
 ## Konga API
 
