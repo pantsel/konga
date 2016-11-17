@@ -1,4 +1,4 @@
-## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)
+## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 [![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
 
@@ -9,6 +9,7 @@
 
 ## Summary
 
+- [**Discussions & Support**] (#discussions)
 - [**Features**](#features)
 - [**Compatibility**](#compatibility)
 - [**Prerequisites**](#prerequisites)
@@ -18,6 +19,11 @@
 - [**Running Konga**](#running-konga)
 - [**Konga API**](#konga-api)
 - [**License**](#license)
+
+## Discussions & Support
+If you need to discuss anything Konga related, we have a chatroom on Gitter:
+
+[![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 ## Features
 * Manage APIs and plugins
