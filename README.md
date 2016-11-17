@@ -418,7 +418,7 @@ HTTP 200 OK
 * Complete tests
 * Add more consumer import adapters (?)
 * Write a detailed Wiki
-* Move API to it's own module so that it is lifted on a different port (?)
+* Move API to it's own module so that it can be lifted on a different port (?)
 
 ## Author
 Panagis Tselentis
