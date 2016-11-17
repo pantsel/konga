@@ -19,7 +19,7 @@ var ConsumerCredentialsService = {
                     .end(function(response){
                         if(response.error) return  cb(response)
                         return cb(null,{
-                            type : credential,
+                            name : credential,
                             data : response.body.data,
                             total : response.body.total
                         })
@@ -30,13 +30,16 @@ var ConsumerCredentialsService = {
         async.series(promises, function(err,result) {
             if (err) return cb(err)
 
-            var obj = {}
+            var obj = {
+                credentials : []
+            }
             var sum_total = 0
             result.forEach(function(result){
                 sum_total = sum_total + result.total
+                if(result.total > 0) obj.credentials.push(result)
             })
 
-            obj.credentials = result
+
             obj.total = sum_total
 
             return cb(null,obj)

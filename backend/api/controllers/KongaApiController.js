@@ -2,15 +2,19 @@
 
 var unirest = require('unirest')
 var KongaApiService = require('../services/KongaApiService')
-var ConsumerService = require('../services/ConsumerService')
+var ConsumerCredentialsService = require('../services/ConsumerCredentialsService')
 
 var KongaApiController = {
 
-    getConsumerCredentials : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + '/consumers/' + req.params.id + '/' + req.params.credential)
-            .end(function (response) {
-                if (response.error)  return res.kongError(response)
-                return res.json(response.body.data)
+    /**
+     * List all credentials assigned to the specified consumer
+     * @param req
+     * @param res
+     */
+    listConsumerCredentials : function(req,res) {
+        ConsumerCredentialsService.listCredentials(req.params.id,function(err,result){
+            if(err) return res.negotiate(err)
+            return res.json(result)
         })
     },
 

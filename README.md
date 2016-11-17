@@ -319,6 +319,93 @@ This method allows you to register an API to Kong while adding required plugins 
 }
 </pre>
 
+#### Retrieve consumer credentials <code>GET</code>
+
+> $ curl -X GET http://kong:8000/konga/consumers/{id or username}/credentials
+
+This method allows you to retrieve all credentials assigned to the specified consumer
+
+##### Example response
+
+<pre>
+HTTP 200 OK
+
+{
+  "credentials": [
+    {
+      "name": "jwt",
+      "data": [
+        {
+          "secret": "5e107841ab65444b936c45013723c377",
+          "id": "6c5431ca-b311-4111-aea4-b4d57a61d5c4",
+          "created_at": 1479414037000,
+          "key": "87aacc4f613447ed9f8bcec05f787a34",
+          "algorithm": "HS256",
+          "consumer_id": "8c669088-796b-46f2-aaa5-f403760811f0"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "name": "key-auth",
+      "data": [
+        {
+          "created_at": 1479327062000,
+          "consumer_id": "8c669088-796b-46f2-aaa5-f403760811f0",
+          "key": "17cd7df14bc24dc385d7e40fdeb25714",
+          "id": "a7e22f17-c738-4a53-b994-d2921255936e"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "name": "basic-auth",
+      "data": [
+        {
+          "password": "5ff2c1403184451fcfcc44c495473d4fa1199832",
+          "consumer_id": "8c669088-796b-46f2-aaa5-f403760811f0",
+          "id": "b1885b62-4246-459d-b95e-6b57006e52db",
+          "username": "konga",
+          "created_at": 1479413997000
+        }
+      ],
+      "total": 1
+    },
+    {
+      "name": "hmac-auth",
+      "data": [
+        {
+          "secret": "secret",
+          "id": "7692ba10-4145-4e68-a677-512346130f68",
+          "username": "konga",
+          "created_at": 1479414006000,
+          "consumer_id": "8c669088-796b-46f2-aaa5-f403760811f0"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "name": "oauth2",
+      "data": [
+        {
+          "consumer_id": "8c669088-796b-46f2-aaa5-f403760811f0",
+          "client_id": "083a0d192bcb427a812f60604c90ba1b",
+          "id": "414e40e2-491b-4d08-bcfb-bfebe07e7dba",
+          "created_at": 1479414034000,
+          "name": "konga",
+          "redirect_uri": [
+            "http://konga.io/authorize"
+          ],
+          "client_secret": "29264fb197004a02a5a70912535f638a"
+        }
+      ],
+      "total": 1
+    }
+  ],
+  "total": 5
+}
+</pre>
+
 
 
 ## ToDo
