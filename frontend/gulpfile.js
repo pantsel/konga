@@ -129,10 +129,14 @@ function index() {
       .pipe(g.embedlr())
       .pipe(replace({
         patterns: [
-          {
-            match: 'backendUrl',
-            replacement: settings.backendUrl
-          }
+            {
+                match: 'backendUrl',
+                replacement: settings.backendUrl
+            },
+            {
+                match: 'enableLogs',
+                replacement: true
+            }
         ]
       }))
       .pipe(gulp.dest('./.tmp/'))
@@ -179,10 +183,14 @@ gulp.task('dist', ['vendors', 'assets', 'fonts', 'styles-dist', 'scripts-dist'],
       .pipe(g.inject(gulp.src('./dist/' + bower.name + '.min.{js,css}'), {ignorePath: 'dist'}))
       .pipe(replace({
         patterns: [
-          {
-            match: 'backendUrl',
-            replacement: settings.backendUrl
-          }
+            {
+                match: 'backendUrl',
+                replacement: settings.backendUrl
+            },
+            {
+                match: 'enableLogs',
+                replacement: false
+            }
         ]
       }))
       .pipe(g.htmlmin(htmlminOpts))

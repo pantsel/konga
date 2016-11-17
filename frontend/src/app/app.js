@@ -31,6 +31,9 @@
    *  4) Set up application routes
    */
   angular.module('frontend')
+      .config(function($logProvider){
+          $logProvider.debugEnabled(window.enableLogs == 'true' ? true : false);
+      })
       .config(['$provide',function($provide) {
           $provide.decorator('$state', function($delegate) {
               var originalTransitionTo = $delegate.transitionTo;
