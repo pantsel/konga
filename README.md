@@ -9,7 +9,7 @@
 
 ## Summary
 
-- [**Discussions & Support**](#discussions-&-support)
+- [**Discussions & Support**](#discussions--support)
 - [**Features**](#features)
 - [**Compatibility**](#compatibility)
 - [**Prerequisites**](#prerequisites)
