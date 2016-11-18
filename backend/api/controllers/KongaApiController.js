@@ -12,6 +12,7 @@ var KongaApiController = {
      * @param res
      */
     listConsumerCredentials : function(req,res) {
+
         ConsumerCredentialsService.listCredentials(req.params.id,function(err,result){
             if(err) return res.negotiate(err)
             return res.json(result)

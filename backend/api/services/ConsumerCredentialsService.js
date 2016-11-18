@@ -17,7 +17,10 @@ var ConsumerCredentialsService = {
             promises.push(function(cb) {
                 unirest.get(sails.config.kong_admin_url + '/consumers/' + consumer_id + "/" + credential)
                     .end(function(response){
-                        if(response.error) return  cb(response)
+                        if(response.error) return  cb({
+                            status : response.error.status,
+                            message : response.body.message
+                        })
                         return cb(null,{
                             name : credential,
                             data : response.body.data,
