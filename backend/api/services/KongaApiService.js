@@ -151,6 +151,14 @@ var KongaApiService = {
 
                 if (err)  return cb(err)
 
+                if(!_api) {
+                    var error = new Error();
+                    error.message = 'Could not create an API with the requested properties.';
+                    error.customMessage = api;
+                    error.status = 400;
+                    return cb(error)
+                }
+
                 result = _api
 
                 KongaApiService.apis
@@ -166,6 +174,8 @@ var KongaApiService = {
             })
         },
         updateOrAddApi : function(api,cb) {
+
+
 
             unirest.put(sails.config.kong_admin_url + "/apis")
                 .send(api)
@@ -204,11 +214,6 @@ var KongaApiService = {
                         .end(function (response) {
 
                             if (response.error) {
-                                if(response.body) {
-                                    response.body.path = "plugins"
-                                    response.body.obj = plugin
-                                }
-
                                 return callback(response)
                             }
 
