@@ -13,7 +13,6 @@ var ConsumerCredentialsService = {
         var promises = []
 
         credentials.forEach(function(credential){
-
             promises.push(function(cb) {
                 unirest.get(sails.config.kong_admin_url + '/consumers/' + consumer_id + "/" + credential)
                     .end(function(response){
