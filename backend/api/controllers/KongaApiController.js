@@ -3,6 +3,7 @@
 var unirest = require('unirest')
 var KongaApiService = require('../services/KongaApiService')
 var ConsumerCredentialsService = require('../services/ConsumerCredentialsService')
+var ConsumerService = require('../services/ConsumerService')
 
 var KongaApiController = {
 
@@ -33,6 +34,20 @@ var KongaApiController = {
             //    // Fire and forget
             //})
 
+            return res.json(response)
+        })
+    },
+
+
+    /**
+     * Updates a Consumer
+     * @param req
+     * @param res
+     */
+    updateConsumer : function(req,res) {
+        KongaApiService.consumers.update(req.params.id,req.body,function(err,response){
+            if(err) return res.kongError(err)
+            ConsumerService.sync(function(err,ok){}) // Fire and forget
             return res.json(response)
         })
     },

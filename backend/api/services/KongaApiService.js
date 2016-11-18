@@ -59,6 +59,15 @@ var KongaApiService = {
                 })
         },
 
+        update : function(consumer_id,consumer,cb) {
+            unirest.patch(sails.config.kong_admin_url + '/consumers/' + consumer_id)
+                .send(consumer)
+                .end(function (response) {
+                    if (response.error) return cb(response)
+                    return cb(null,response.body)
+                })
+        },
+
         delete : function(consumer_id,cb) {
             unirest.delete(sails.config.kong_admin_url + '/consumers/' + consumer_id)
                 .end(function (response) {
