@@ -179,6 +179,11 @@ All requests made to Konga's API require some custom headers.
         <th>Description</th>
     </tr>
     <tr>
+        <td><code>Content-Type</code> (required)</td>
+        <td></td>
+        <td><small>Must be set to 'application/json'</small></td>
+    </tr>
+    <tr>
         <td><code>apiKey</code> (required)</td>
         <td>-</td>
         <td><small>The api-key of "konga" consumer.</small></td>
@@ -262,7 +267,7 @@ This method allows you to create a consumer while associating it with groups and
 
 This method allows you to register an API to Kong while adding required plugins to it as well.
 
-> You can also update an already registered API and it's associated plugins by including the API's <code>id</code> and <code>created_at</code> properties to the request.
+> You can also update an already registered API and it's associated plugins by including the API's <code>id</code> property to the request.
 
 
 #####Request Body

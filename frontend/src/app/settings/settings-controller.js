@@ -147,7 +147,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/frontend/admin/settings/modals/test-node-modal.html',
+                  templateUrl: '/frontend/settings/modals/test-node-modal.html',
                   size : 'sm',
                   backdrop: 'static',
                   keyboard: false,

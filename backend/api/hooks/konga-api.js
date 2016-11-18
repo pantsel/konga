@@ -10,7 +10,6 @@ module.exports = function hook(sails) {
 
     process: function process(next) {
 
-
       if(!sails.config.expose_api) return next()
 
       var konga_api = {

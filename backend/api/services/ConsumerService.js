@@ -41,8 +41,6 @@ var ConsumerService = {
                                 sails.models.consumer.create(onlyInKong)
                                     .exec(function (err, docs) {
                                         if (err) return callback(err)
-                                        // ToDo maybe sync Authorization plugins as well?
-
                                         return callback()
                                     })
                             },
@@ -51,6 +49,7 @@ var ConsumerService = {
                                 var ids = onlyInKonga.map(function (item) {
                                     return item.id
                                 })
+
                                 sails.models.consumer.destroy({
                                     id: ids
                                 }).exec(function (err) {

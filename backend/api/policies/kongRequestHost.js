@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function kongRequestHost(request, response, next) {
-  sails.log.verbose(__filename + ':' + __line + ' [Policy.kongRequestHost() called]');
+  sails.log.debug(__filename + ':' + __line + ' [Policy.kongRequestHost() called]');
 
     // First of all check if the request is coming from a valid kong proxy host
     if(sails.config.whitelist_hosts.indexOf(request.host) < 0 ) {

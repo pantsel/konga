@@ -10,7 +10,7 @@ var _ = require('lodash');
  * @param   {Function}  next        Callback function
  */
 module.exports = function exposedApi(request, response, next) {
-  sails.log.verbose(__filename + ':' + __line + ' [Policy.exposedApi() called]');
+  sails.log.debug(__filename + ':' + __line + ' [Policy.exposedApi() called]');
 
 
   if(!sails.config.expose_api) {
