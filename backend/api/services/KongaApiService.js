@@ -164,7 +164,8 @@ var KongaApiService = {
                 KongaApiService.apis
                     .updateOrAddPlugins(result.name,plugins,function(err,_plugins){
                         if (err)  {
-                            KongaApiService.apis.deleteApi(result.id,function(err,deleted){})
+                            if(err.statusCode !== 409)
+                                KongaApiService.apis.deleteApi(result.id,function(err,deleted){})
                             return cb(err)
                         }
                         result.plugins = _plugins
@@ -175,20 +176,45 @@ var KongaApiService = {
         },
         updateOrAddApi : function(api,cb) {
 
-
-
-            unirest.put(sails.config.kong_admin_url + "/apis")
-                .send(api)
+            // Try to find the API
+            unirest.get(sails.config.kong_admin_url + "/apis/" + api.id)
                 .end(function (response) {
                     if (response.error)  {
-                        if(response.body) {
-                            response.body.path = "api"
-                            response.body.obj = api
+                        if(response.statusCode === 404) {
+                            // API not found we need to create it
+                            KongaApiService.apis.createApi(api,function(err,api){
+                                if(err) return cb(err)
+                                return cb(null,api)
+                            })
+                        }else{
+                            return cb(response)
                         }
-
-                        return cb(response)
+                    }else{
+                        // Api found, we need to update it
+                        var api_id = api.id
+                        delete api.id
+                        KongaApiService.apis.updateApi(api_id,api,function(err,api){
+                            if(err) return cb(err)
+                            return cb(null,api)
+                        })
                     }
+                })
+        },
 
+        createApi : function(api,cb) {
+            unirest.post(sails.config.kong_admin_url + "/apis")
+                .send(api)
+                .end(function (response) {
+                    if (response.error)  return cb(response)
+                    return cb(null,response.body)
+                })
+        },
+        updateApi : function(api_id,api,cb) {
+
+            unirest.patch(sails.config.kong_admin_url + "/apis/" + api_id)
+                .send(api)
+                .end(function (response) {
+                    if (response.error)  return cb(response)
                     return cb(null,response.body)
                 })
         },
