@@ -25,7 +25,7 @@ var KongaApiController = {
      */
     createConsumer : function(req,res) {
         KongaApiService.consumers.create(req.body,function(err,response){
-            if(err) return res.kongError(err)
+            if(err) return res.negotiate(err)
 
             // Sync consumers
             //ConsumerService.sync(function(err,ok){
@@ -43,7 +43,7 @@ var KongaApiController = {
      */
     registerApi : function(req,res) {
         KongaApiService.apis.register(req.body,function(err,response){
-            if(err) return res.kongError(err)
+            if(err) return res.negotiate(err)
             return res.json(response)
         })
     }
