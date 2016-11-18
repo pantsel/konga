@@ -179,6 +179,11 @@ All requests made to Konga's API require some custom headers.
         <th>Description</th>
     </tr>
     <tr>
+        <td><code>Content-Type</code> (required)</td>
+        <td></td>
+        <td><small>Must be set to 'application/json'</small></td>
+    </tr>
+    <tr>
         <td><code>apiKey</code> (required)</td>
         <td>-</td>
         <td><small>The api-key of "konga" consumer.</small></td>
