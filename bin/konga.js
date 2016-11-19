@@ -1,4 +1,4 @@
-#!/usr/bin/env nodecd bin
+#!/usr/bin/env node bin
 var argv = require('minimist')(process.argv.slice(2));
 var child_process = require('child_process');
 var spawn = child_process.spawn
