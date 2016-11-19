@@ -149,7 +149,7 @@ login: demo | password: demodemodemo
 
 ## Konga API
 
-#### This section is going to be deprecated. All logic is moved to [kong-admin-proxy](https://github.com/pantsel/kong-admin-proxy)
+### This section is going to be deprecated. All logic is moved to [kong-admin-proxy](https://github.com/pantsel/kong-admin-proxy)
 
 Apart from the GUI, Konga also exposes an API providing helpful methods for 
 integrating your services and applications with Kong
