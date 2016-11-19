@@ -31,10 +31,10 @@
                                 resolve : {
                                     _items: [
                                         'ListConfig',
-                                        'ConsumerModel',
+                                        'ConsumerModel','ConsumerService',
                                         function resolve(
                                             ListConfig,
-                                            ConsumerModel
+                                            ConsumerModel, ConsumerService
                                         ) {
                                             var config = ListConfig.getConfig();
 
@@ -43,12 +43,16 @@
                                                 sort: 'createdAt DESC'
                                             };
 
-                                            return ConsumerModel.load(parameters);
+                                            return ConsumerService.sync()
+                                                .then(function(res){
+                                                    return ConsumerModel.load(parameters);
+                                                })
                                         }
                                     ],
                                     _count: [
                                         'ConsumerModel',
                                         function resolve(ConsumerModel) {
+
                                             return ConsumerModel.count();
                                         }
                                     ],
