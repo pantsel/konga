@@ -149,6 +149,8 @@ login: demo | password: demodemodemo
 
 ## Konga API
 
+#### This section is going to be deprecated. All logic is moved to [kong-admin-proxy](https://github.com/pantsel/kong-admin-proxy)
+
 Apart from the GUI, Konga also exposes an API providing helpful methods for 
 integrating your services and applications with Kong
 
@@ -423,7 +425,7 @@ HTTP 200 OK
 * Complete tests
 * Add more consumer import adapters (?)
 * Write a detailed Wiki
-* Move API to it's own module so that it can be lifted on a different port (?)
+* Move API to it's own module so that it can be lifted on a different port - See [kong-admin-proxy](https://github.com/pantsel/kong-admin-proxy)
 
 ## Author
 Panagis Tselentis
