@@ -23,7 +23,10 @@
           var pluginOptions = new KongPluginsService().pluginOptions()
 
           $scope.pluginOptions = pluginOptions
-          $scope.pluginGroups = new KongPluginsService().pluginGroups()
+          new KongPluginsService().makePluginGroups().then(function(groups){
+              $scope.pluginGroups = groups
+              $log.debug("Plugin Groups",$scope.pluginGroups)
+          })
           $scope.activeGroup = 'Authentication'
           $scope.setActiveGroup = setActiveGroup
           $scope.filterGroup = filterGroup

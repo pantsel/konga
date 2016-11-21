@@ -15,10 +15,47 @@
   'use strict';
 
   angular.module('frontend.core.services')
-    .factory('KongPluginsService', [
-      function factory() {
+    .factory('KongPluginsService', ['InfoService',
+      function factory(InfoService) {
 
-          var KongPluginsService = function() {};
+          var self;
+          var KongPluginsService = function() {
+              self = this
+          };
+
+
+          function inGroups(plugin_name) {
+              var found = false
+              self.pluginGroups().forEach(function(group){
+                  Object.keys(group.plugins).forEach(function(group_plugin_name){
+                      if(plugin_name === group_plugin_name) {
+                          found = true
+                      }
+                  })
+              })
+
+              return found;
+          }
+
+
+          KongPluginsService.prototype.makePluginGroups = function() {
+              return InfoService.getInfo().then(function(resp){
+                  var info = resp.data
+                  var plugins_available = info.plugins.available_on_server
+                  var pluginGroups = self.pluginGroups()
+
+                  Object.keys(plugins_available).forEach(function(plugin_name){
+                      if(!inGroups(plugin_name)) {
+                          pluginGroups[pluginGroups.length - 1].plugins[plugin_name] = {}
+                      }
+                  })
+
+                  return pluginGroups;
+
+
+              })
+          },
+
 
 
           /**
@@ -151,6 +188,12 @@
                 },
 
               }
+            },
+            {
+                name: "Custom",
+                description: "Custom Plugins",
+                icon: "perm_identity",
+                plugins : {}
             }
           ]
         }

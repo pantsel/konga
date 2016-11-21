@@ -119,11 +119,6 @@
               .then(function(resp){
                   $scope.info = resp.data
               })
-          var info = InfoService
-              .getInfo()
-              .then(function(resp){
-                  $scope.info = resp.data
-              })
           var clusters = InfoService
               .clusterStatus()
               .then(function(resp){
