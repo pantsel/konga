@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gulp watch",
     "test": "gulp test",
-    "postinstall": "bower install"
+    "postinstall": "bower --allow-root install"
   },
   "keywords": [
     "angular"
