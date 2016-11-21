@@ -17,6 +17,7 @@
 - [**Installation**](#installation)
 - [**Configuration**](#configuration)
 - [**Running Konga**](#running-konga)
+- [**More Kong relate stuff**](#more-kong-related-stuff)
 - [**License**](#license)
 
 ## Discussions & Support
@@ -144,6 +145,10 @@ login: admin | password: adminadminadmin
 
 *Demo user*
 login: demo | password: demodemodemo
+
+## More Kong related stuff
+- [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
+- [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
 
 
 ## ToDo
