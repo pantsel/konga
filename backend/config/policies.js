@@ -21,11 +21,6 @@ module.exports.policies = {
   // Default policy for all controllers and actions
   '*': ['authenticated'],
 
-
-  KongaApiController : {
-    '*' : ['exposedApi','kongRequestHost']
-  },
-
   AuthController: {
     '*':              ['passport'],
     'checkPassword':  ['authenticated']

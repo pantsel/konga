@@ -29,29 +29,10 @@
 module.exports = {
 
   /**
-   * The full URL of the backend server.
-   * In case of localhost, this attribute must contain
-   * the machine's actual ip address instead of 'localhost' or '127.0.0.1'
-   * so that Kong can access it if running on a virtual host.
-   */
-  konga_url : 'http://192.168.1.2:1338',
-
-
-  /**
    * The default fallback URL to Kong's admin API.
    */
   kong_admin_url : 'http://127.0.0.1:8001',
 
-  /**
-   * Whether or not Konga will expose it's Utilities API.
-   */
-  expose_api : false,
-
-  /**
-   * An array of hosts from which Konga's API will accept requests.
-   * Only used when 'expose_api' attribute is set to true
-   */
-  whitelist_hosts : ['127.0.0.1'],
 
   connections: {
 
