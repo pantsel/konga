@@ -26,6 +26,15 @@
           new KongPluginsService().makePluginGroups().then(function(groups){
               $scope.pluginGroups = groups
               $log.debug("Plugin Groups",$scope.pluginGroups)
+
+              $scope.pluginGroups.forEach(function(group){
+                  for(var key in group.plugins) {
+                      if(!plugins_available[key]) delete group.plugins[key]
+                  }
+              })
+
+              // Init
+              syncPlugins(_plugins.data.data)
           })
           $scope.activeGroup = 'Authentication'
           $scope.setActiveGroup = setActiveGroup
@@ -42,11 +51,7 @@
               $scope.alert = undefined
           }
 
-          $scope.pluginGroups.forEach(function(group){
-              for(var key in group.plugins) {
-                  if(!plugins_available[key]) delete group.plugins[key]
-              }
-          })
+
 
 
           /**
@@ -143,8 +148,7 @@
               fetchPlugins()
           })
 
-          // Init
-          syncPlugins(_plugins.data.data)
+
 
 
       }
