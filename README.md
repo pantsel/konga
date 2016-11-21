@@ -17,7 +17,7 @@
 - [**Installation**](#installation)
 - [**Configuration**](#configuration)
 - [**Running Konga**](#running-konga)
-- [**More Kong relate stuff**](#more-kong-related-stuff)
+- [**More Kong related stuff**](#more-kong-related-stuff)
 - [**License**](#license)
 
 ## Discussions & Support
