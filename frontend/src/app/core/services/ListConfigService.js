@@ -84,10 +84,6 @@
               width : 1
             },
             {
-              title: '',
-              width : 1
-            },
-            {
               title: 'username',
               column: 'username',
               searchable: true,

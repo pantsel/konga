@@ -25,12 +25,6 @@
             <input type="checkbox" data-ng-model="consumer.checked"/>
         </td>
         <td>
-            <i
-                    uib-tooltip="{{consumer.creds.total ? 'Has assigned credentials' : 'No credentials assigned'}}"
-                    data-ng-class="{'text-success' : consumer.creds.total,'text-muted' : !consumer.creds.total}"
-                    class="material-icons">fingerprint</i>
-        </td>
-        <td>
             <raw-view data-item="consumer"></raw-view>
         </td>
         <td>{{consumer.username || "-"}}</td>
