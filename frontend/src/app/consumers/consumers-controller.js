@@ -325,17 +325,8 @@
                   .then(
                       function onSuccess(response) {
                           $scope.items = response;
-
-                          // Apply consumers credentials
-                          $scope.items.forEach(function(item){
-                              ConsumerService.listCredentials(item.id)
-                                  .then(function(res){
-                                      item.creds = res.data
-                                  })
-                          })
                       }
-                  )
-                  ;
+                  );
 
               // And wrap those all to promise loading
               $q
@@ -362,15 +353,6 @@
 
           $scope.$on('credentials.assigned',function(ev,user){
               _triggerFetchData()
-          })
-
-
-          // Apply consumers credentials
-          $scope.items.forEach(function(item){
-              ConsumerService.listCredentials(item.id)
-                  .then(function(res){
-                      item.creds = res.data
-                  })
           })
 
       }
