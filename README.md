@@ -7,6 +7,10 @@
 
 <em>Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/).</em>
 
+
+> Konga is not compatible with current Kong 0.10.x versions. An update is underway but I cannot guarantee a release date.
+
+
 ## Summary
 
 - [**Discussions & Support**](#discussions--support)
