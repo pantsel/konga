@@ -99,7 +99,7 @@
           function setNode(node) {
               $rootScope.node = node
               if(node) {
-                  $scope.adminUrl = $rootScope.node.kong_admin_ip + ":" + $rootScope.node.kong_admin_port
+                  $scope.adminUrl = $rootScope.node.kong_admin_url;
               }else{
                   $scope.adminUrl = 'no node defined'
               }

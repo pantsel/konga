@@ -14,11 +14,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
       type: 'string',
       required : true
     },
-    kong_admin_ip: {
-      type: 'string',
-      required : true
-    },
-    kong_admin_port: {
+    kong_admin_url: {
       type: 'string',
       required : true
     },

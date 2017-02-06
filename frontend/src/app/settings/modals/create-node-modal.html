@@ -24,20 +24,12 @@
                 <p class="help-block">A unique node name.</p>
             </div>
         </div>
-        <div class="form-group" ng-class="{'has-error' : errors.kong_admin_ip}">
-            <label class="col-sm-4 control-label">Kong Admin IP <br><em><small class="help-block">required</small></em></label>
+        <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
+            <label class="col-sm-4 control-label">Kong Admin URL <br><em><small class="help-block">required</small></em></label>
             <div class="col-sm-7">
-                <input ng-model="node.kong_admin_ip" class="form-control">
-                <div class="text-danger" ng-if="errors.kong_admin_ip" data-ng-bind="errors.kong_admin_ip"></div>
-                <p class="help-block">The IP or domain of Kong's admin api.</p>
-            </div>
-        </div>
-        <div class="form-group" ng-class="{'has-error' : errors.kong_admin_port}">
-            <label class="col-sm-4 control-label">Kong Admin port <br><em><small class="help-block">required</small></em></label>
-            <div class="col-sm-7">
-                <input ng-model="node.kong_admin_port" class="form-control">
-                <div class="text-danger" ng-if="errors.kong_admin_port" data-ng-bind="errors.kong_admin_port"></div>
-                <p class="help-block">The port of Kong's admin api.</p>
+                <input ng-model="node.kong_admin_url" class="form-control">
+                <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
+                <p class="help-block">The URL to Kong's admin api.</p>
             </div>
         </div>
         <div class="form-group">

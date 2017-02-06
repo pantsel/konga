@@ -34,9 +34,8 @@
         </td>
         <td><a href="#" editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
         <td>
-            <a href="#" editable-text="node.kong_admin_ip" onbeforesave="updateNode(node)">{{node.kong_admin_ip}}</a>
+            <a href="#" editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
         </td>
-        <td><a href="#" editable-text="node.kong_admin_port" onbeforesave="updateNode(node)">{{node.kong_admin_port}}</a></td>
         <td>{{node.createdAt | date : "MMM d, y"}}</td>
         <td>{{node.updatedAt | date : "MMM d, y"}}</td>
         <td>

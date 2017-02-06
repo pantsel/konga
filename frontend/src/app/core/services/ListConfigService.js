@@ -43,16 +43,8 @@
               inTitle: true
             },
             {
-              title: 'kong admin ip',
-              column: 'kong_admin_ip',
-              searchable: true,
-              sortable: true,
-              inSearch: true,
-              inTitle: true
-            },
-            {
-              title: 'kong admin port',
-              column: 'kong_admin_port',
+              title: 'kong admin url',
+              column: 'kong_admin_url',
               searchable: true,
               sortable: true,
               inSearch: true,
