@@ -116,10 +116,10 @@
                           MessageService.error(key + " : " + err.data.customMessage[key])
                       })
                       $scope.errors = errors
-                  },function evt(evt){
+                  },function evt(event){
                       // Only used for ssl plugin certs upload
-                      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                      $log.debug('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                      var progressPercentage = parseInt(100.0 * event.loaded / event.total);
+                      $log.debug('progress: ' + progressPercentage +'% ' + event.config.data.file.name);
                   })
           }
 
