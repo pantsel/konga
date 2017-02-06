@@ -46,7 +46,7 @@ describe('Generic controller test', function controllerTest() {
             data: {
                 identifier: {
                     name : "default",
-                    kong_admin_url: "http://127.0.0.1:8001",
+                    kong_admin_url: "http://localhost:8001",
                     active: false,
                 },
                 newRecord: {
