@@ -24,7 +24,7 @@
                     },
                     authorize: function authorize(needsActiveNode) {
                         if(needsActiveNode)
-                            return $localStorage.credentials.user.node_id
+                            return $localStorage.credentials && $localStorage.credentials.user.node_id
                         return true;
                     },
                     isActiveNodeSet : function() {
