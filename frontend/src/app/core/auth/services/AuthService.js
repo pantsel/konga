@@ -63,7 +63,7 @@
             if (accessLevel === AccessLevels.user) {
               return this.isAuthenticated();
             } else if (accessLevel === AccessLevels.admin) {
-              return this.isAuthenticated() && Boolean($localStorage.credentials.user.admin);
+              return this.isAuthenticated() && $localStorage.credentials && Boolean($localStorage.credentials.user.admin);
             } else {
               return accessLevel === AccessLevels.anon;
             }
