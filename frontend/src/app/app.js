@@ -90,7 +90,7 @@
         // Yeah we wanna to use HTML5 urls!
         $locationProvider
           .html5Mode({
-            enabled: true,
+            enabled: false, // disable html5 mode
             requireBase: false
           })
           .hashPrefix('!');
