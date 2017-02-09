@@ -23,6 +23,9 @@ var htmlminOpts = {
   removeRedundantAttributes: true
 };
 
+
+var KONGA_PREFIX = process.env.KONGA_ROUTE_PREFIX || "dist";
+
 var settings;
 
 // Try to read frontend configuration file, fallback to default file
@@ -131,11 +134,11 @@ function index() {
         patterns: [
             {
                 match: 'backendUrl',
-                replacement: settings.backendUrl
+                replacement: process.env.KONGA_BACKEND_URL || settings.backendUrl
             },
             {
                 match: 'enableLogs',
-                replacement: true
+                replacement: process.env.KONGA_FRONTEND_LOGS || true
             }
         ]
       }))
@@ -165,31 +168,32 @@ gulp.task('partials', function() {
 /**
  * Fonts
  */
-gulp.task('fonts', function() {
-  return gulp.src('./bower_components/fontawesome/fonts/**')
-      .pipe(gulp.dest('./dist/fonts'))
-      ;
-});
+//gulp.task('fonts', function() {
+//  return gulp.src('./bower_components/fontawesome/fonts/**')
+//      .pipe(gulp.dest('./dist/fonts'))
+//      ;
+//});
 
 /**
  * Dist
  */
-gulp.task('dist', ['vendors', 'assets', 'fonts', 'styles-dist', 'scripts-dist'], function() {
+gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function() {
   return gulp.src('./src/app/index.html')
       .pipe(g.inject(gulp.src('./dist/vendors.min.{js,css}'), {
         ignorePath: 'dist',
-        starttag: '<!-- inject:vendor:{{ext}} -->'
+        starttag: '<!-- inject:vendor:{{ext}} -->',
+          addRootSlash:false
       }))
-      .pipe(g.inject(gulp.src('./dist/' + bower.name + '.min.{js,css}'), {ignorePath: 'dist'}))
+      .pipe(g.inject(gulp.src('./dist/' + bower.name + '.min.{js,css}'), {ignorePath: 'dist',addRootSlash:false}))
       .pipe(replace({
         patterns: [
             {
                 match: 'backendUrl',
-                replacement: settings.backendUrl
+                replacement: process.env.KONGA_BACKEND_URL || settings.backendUrl
             },
             {
                 match: 'enableLogs',
-                replacement: false
+                replacement: process.env.KONGA_FRONTEND_LOGS || false
             }
         ]
       }))
@@ -202,7 +206,7 @@ gulp.task('dist', ['vendors', 'assets', 'fonts', 'styles-dist', 'scripts-dist'],
  * Static file server
  */
 gulp.task('statics', g.serve({
-  port: settings.frontend.ports.development,
+  port: process.env.KONGA_FRONTEND_PORT || settings.frontend.ports.development,
   root: ['./.tmp', './src/app', './bower_components'],
   middleware: historyApiFallback({})
 }));
@@ -211,7 +215,7 @@ gulp.task('statics', g.serve({
  * Production file server, note remember to run 'gulp dist' first!
  */
 gulp.task('production',g.serve({
-    port: settings.frontend.ports.production,
+    port: process.env.KONGA_FRONTEND_PORT || settings.frontend.ports.production,
     root: ['./dist'],
     middleware: historyApiFallback({})
 }));
