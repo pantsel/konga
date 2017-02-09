@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "install": "cd frontend && npm install && cd ../backend && npm install",
-    "start": "concurrently \"(cd backend && sails lift)\" \"(cd frontend && gulp serve)\"",
+    "start": "node ./bin/konga play",
     "production": "concurrently \"(cd backend && sails lift --prod)\" \"(cd frontend && gulp production)\"",
     "test": "cd backend && mocha"
   },
