@@ -1,13 +1,9 @@
 {
   "name": "frontend",
-  "main": [
-    "/dist/frontend.min.js",
-    "/dist/frontend.min.css"
-  ],
   "version": "0.1.0",
-  "description": "Frontend application for angular-sailsjs-boilerplate",
+  "description": "Frontend application for Konga",
   "authors": [
-    "Tarmo Leppänen"
+    "Tselentis Panagis"
   ],
   "ignore": [
     "**/.*",
@@ -20,7 +16,6 @@
   ],
   "dependencies": {
     "jquery": "2.1.3",
-    "fontawesome": "4.3.0",
     "angular": "1.5.*",
     "angular-animate": "1.5.*",
     "angular-loading-bar": "0.7.0",
