@@ -56,7 +56,7 @@ else if (argv._[0] === 'play')
         [
             "lift",
             "--port=" + bport,
-            env === 'production' ? "--prod" : "--dev"
+            "--prod"
         ],
         {cwd : path.join(__dirname,"..","backend"), stdio: "inherit"});
     cmdBack.on('exit', function(code){
@@ -65,7 +65,7 @@ else if (argv._[0] === 'play')
 
     var cmdFront = spawn('gulp' + ( isWin ? '.cmd' : '' ),
         [
-            env === 'production' ? "production" : "serve",
+            "production",
             "--p=" + fport
         ],
         {cwd: path.join(__dirname,"..","frontend") ,stdio: "inherit"});
@@ -76,17 +76,17 @@ else if (argv._[0] === 'play')
 
 
 }
-else if (argv._[0] === 'dist')
-{
-    // Generate distribution content
-    var cmd = spawn('gulp' + ( isWin ? '.cmd' : '' ),
-        ["dist"],
-        {cwd: '../frontend' ,stdio: "inherit"});
-    cmd.on('exit', function(code){
-        console.log(code);
-    });
-
-}
+//else if (argv._[0] === 'dist')
+//{
+//    // Generate distribution content
+//    var cmd = spawn('gulp' + ( isWin ? '.cmd' : '' ),
+//        ["dist"],
+//        {cwd: '../frontend' ,stdio: "inherit"});
+//    cmd.on('exit', function(code){
+//        console.log(code);
+//    });
+//
+//}
 else
 {
     console.log(argv)
