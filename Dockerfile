@@ -1,4 +1,7 @@
-FROM mhart/alpine-node:6
+FROM mhart/alpine-node
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git
 
 RUN npm install -g bower gulp sails
 
@@ -13,4 +16,4 @@ EXPOSE 3000 1338
 
 RUN chmod 777 ./start.sh
 
-CMD ["/bin/sh","./start.sh"]
+CMD ["/bin/bash","./start.sh"]
