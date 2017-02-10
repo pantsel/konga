@@ -29,23 +29,15 @@ else if (argv._[0] === 'build')
 }
 else if (argv._[0] === 'play')
 {
-    var env   = argv._[1] || 'development'
-
-    if(env !== 'production' && env !== 'development') {
-        console.error("Invalid environment")
-        console.log("Try 'production' or 'development'")
-        return false;
-    }
-
-    var fport = process.env.KONGA_FRONTEND_PORT || argv.frontend || front_settings.frontend.ports[env]
-    var bport = process.env.KONGA_PORT || argv.backend || back_settings.port
+    var fport = process.env.KONGA_FRONTEND_PORT || argv.frontend || front_settings.frontend.ports["production"]
+    var bport = process.env.KONGA_BACKEND_PORT || argv.backend || back_settings.port
 
     console.log("------------------------------------------------------")
     console.log("Playing Konga!")
     console.log("")
     console.log("Environment : " + env)
     console.log("")
-    console.log("Ports")
+    console.log("PORTS")
     console.log("frontend    : " + fport)
     console.log("backend     : " + bport)
     console.log("------------------------------------------------------")
@@ -72,32 +64,19 @@ else if (argv._[0] === 'play')
     cmdFront.on('exit', function(code){
         console.log(code);
     });
-
-
-
 }
-//else if (argv._[0] === 'dist')
-//{
-//    // Generate distribution content
-//    var cmd = spawn('gulp' + ( isWin ? '.cmd' : '' ),
-//        ["dist"],
-//        {cwd: '../frontend' ,stdio: "inherit"});
-//    cmd.on('exit', function(code){
-//        console.log(code);
-//    });
-//
-//}
 else
 {
     console.log(argv)
-    console.log("Unknown command. Try one of these");
+    console.log("Unknown command. Try one of:");
     logHelp()
 }
 
 function logHelp() {
-    console.log("==========================================================================================================================================");
-    console.log("konga build                                           | Install dependencies.");
-    console.log("konga dist                                            | Create production-ready code to frontend/dist ready to be served by any web server");
-    console.log("konga play [development --frontend="+front_settings.frontend.ports.development+" -backend="+back_settings.port+"] | Start frontend and backend servers using the specified environment and ports.");
+    console.log("========================================================================");
+    console.log("konga build     | Install dependencies.");
+    console.log("konga dist      | Create production-ready static code to frontend/dist");
+    console.log("konga play      | Start frontend and backend servers in production mode.");
+    console.log("========================================================================");
     process.exit()
 }
