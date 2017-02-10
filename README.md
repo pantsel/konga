@@ -104,7 +104,6 @@ If you're changing your backend API url to another than <code>http://localhost:1
 
 ## Running Konga
 
-
 #### Development
 <pre>
 $ npm start
@@ -142,6 +141,31 @@ $ gulp production
 $ cd backend
 $ sails lift --prod
 </pre>
+
+#### Production Docker Image
+
+Environment variables
+
+<table>
+    <tr>
+        <th>Env var</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>KONGA_BACKEND_URL</code></td>
+        <td><small>The full URL of the backend server</small></td>
+    </tr>
+    <tr>
+        <td><code>KONGA_FRONTEND_PORT</code></td>
+        <td><small>The PORT on which the frontend server will be lifted</small></td>
+    </tr>
+    <tr>
+        <td><code>KONGA_BACKEND_PORT</code></td>
+        <td><small>The PORT on which the backend server will be lifted</small></td>
+    </tr>
+</table>
+
+
 
 #### Login
 *Admin*

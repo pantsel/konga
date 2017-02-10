@@ -3,7 +3,7 @@
   "frontend": {
     "ports": {
       "production": 3000,
-      "development": 3001
+      "development": 3002
     }
   }
 }
