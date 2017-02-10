@@ -24,8 +24,6 @@ var htmlminOpts = {
 };
 
 
-var KONGA_BACKEND_URL = process.env.KONGA_BACKEND_URL || (process.env.HOST + ":" + process.env.PORT)
-
 var settings;
 
 // Try to read frontend configuration file, fallback to default file
@@ -34,6 +32,8 @@ try {
 } catch (error) {
   settings = JSON.parse(fs.readFileSync('./config/config_example.json', 'utf8'));
 }
+
+var KONGA_BACKEND_URL = process.env.KONGA_BACKEND_URL || settings.backendUrl
 
 // Overwrite port if explicitly set in command
 var argv = require('minimist')(process.argv.slice(2));
