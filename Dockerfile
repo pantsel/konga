@@ -1,9 +1,11 @@
-FROM mhart/alpine-node
+FROM node:6
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git
+#RUN apk update && apk upgrade && \
+#    apk add --no-cache bash git
 
-RUN npm install -g bower gulp sails
+
+RUN npm install -g bower gulp
+
 
 WORKDIR /app
 

@@ -35,7 +35,7 @@ else if (argv._[0] === 'play')
     console.log("------------------------------------------------------")
     console.log("Playing Konga!")
     console.log("")
-    console.log("Environment : " + env)
+    console.log("Environment : Production")
     console.log("")
     console.log("PORTS")
     console.log("frontend    : " + fport)
@@ -44,10 +44,10 @@ else if (argv._[0] === 'play')
     console.log("")
 
     // Lift backend
-    var cmdBack = spawn('sails' + ( isWin ? '.cmd' : '' ),
+    var cmdBack = spawn('node',
         [
-            "lift",
-            "--port=" + bport,
+            "app.js",
+            //"--port=" + bport,
             "--prod"
         ],
         {cwd : path.join(__dirname,"..","backend"), stdio: "inherit"});

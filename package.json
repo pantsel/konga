@@ -25,7 +25,7 @@
   "scripts": {
     "install": "cd frontend && npm install && cd ../backend && npm install",
     "start": "node ./bin/konga play",
-    "production": "concurrently \"(cd backend && sails lift --prod)\" \"(cd frontend && gulp production)\"",
+    "production": "concurrently \"(cd backend && node app.js --prod)\" \"(cd frontend && gulp production)\"",
     "test": "cd backend && mocha"
   },
   "bin": {
