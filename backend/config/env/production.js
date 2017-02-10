@@ -16,7 +16,7 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  hookTimeout: 60000
+  hookTimeout: 60000,
 
   // models: {
   //   connection: 'someMysqlServer'
@@ -26,7 +26,7 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  // port: 80,
+  port: process.env.KONGA_BACKEND_PORT || 1338,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
