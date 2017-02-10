@@ -24,7 +24,7 @@ var htmlminOpts = {
 };
 
 
-var KONGA_PREFIX = process.env.KONGA_ROUTE_PREFIX || "dist";
+var KONGA_BACKEND_URL = process.env.KONGA_BACKEND_URL || (process.env.HOST + ":" + process.env.PORT)
 
 var settings;
 
@@ -134,7 +134,7 @@ function index() {
         patterns: [
             {
                 match: 'backendUrl',
-                replacement: process.env.KONGA_BACKEND_URL || settings.backendUrl
+                replacement: KONGA_BACKEND_URL || settings.backendUrl
             },
             {
                 match: 'enableLogs',
@@ -189,7 +189,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
         patterns: [
             {
                 match: 'backendUrl',
-                replacement: process.env.KONGA_BACKEND_URL || settings.backendUrl
+                replacement: KONGA_BACKEND_URL || settings.backendUrl
             },
             {
                 match: 'enableLogs',

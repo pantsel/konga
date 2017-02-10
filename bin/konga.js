@@ -37,8 +37,8 @@ else if (argv._[0] === 'play')
         return false;
     }
 
-    var fport = argv.frontend || front_settings.frontend.ports[env]
-    var bport = argv.backend || back_settings.port
+    var fport = process.env.KONGA_FRONTEND_PORT || argv.frontend || front_settings.frontend.ports[env]
+    var bport = process.env.KONGA_PORT || argv.backend || back_settings.port
 
     console.log("------------------------------------------------------")
     console.log("Playing Konga!")
