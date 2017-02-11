@@ -153,10 +153,6 @@
         AuthService,cfpLoadingBar
       ) {
 
-
-
-
-
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
@@ -177,13 +173,13 @@
 
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
-                $state.go('auth.login');
+                $state.go('auth.login', params, {location: 'replace'})
             }
 
 
             if (!NodesService.authorize(toState.data.activeNode)) {
                 event.preventDefault();
-                $state.go('settings');
+                $state.go('settings', params, {location: 'replace'})
             }
 
             if (toState.redirectTo) {
