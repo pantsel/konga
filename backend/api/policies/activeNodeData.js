@@ -24,10 +24,6 @@ module.exports = function activeNodeData(request, response, next) {
     c['node_id'] = sails.config.kong_admin_url
   }
 
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  console.log(c)
-
-
   request.query.where = JSON.stringify(c)
 
   console.log(request.query)
