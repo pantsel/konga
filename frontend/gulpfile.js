@@ -93,7 +93,7 @@ gulp.task('vendors', function() {
  * Index
  */
 gulp.task('index', index);
-gulp.task('build-all', ['styles', 'templates'], index);
+gulp.task('build-all', ['styles', 'fontsdev','templates'], index);
 
 function index() {
   var opt = {read: false};
@@ -140,16 +140,22 @@ gulp.task('partials', function() {
 /**
  * Fonts
  */
-//gulp.task('fonts', function() {
-//  return gulp.src('./bower_components/fontawesome/fonts/**')
-//      .pipe(gulp.dest('./dist/fonts'))
-//      ;
-//});
+gulp.task('fonts', function() {
+  return gulp.src('./bower_components/bootstrap/fonts/**')
+      .pipe(gulp.dest('./dist/fonts'))
+      ;
+});
+
+gulp.task('fontsdev', function() {
+    return gulp.src('./bower_components/bootstrap/fonts/**')
+        .pipe(gulp.dest('./.tmp/fonts'))
+        ;
+});
 
 /**
  * Dist
  */
-gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function() {
+gulp.task('dist', ['vendors', 'fonts','assets', 'styles-dist', 'scripts-dist'], function() {
   return gulp.src('./src/app/index.html')
       .pipe(g.inject(gulp.src('./dist/vendors.min.{js,css}'), {
         ignorePath: 'dist',
