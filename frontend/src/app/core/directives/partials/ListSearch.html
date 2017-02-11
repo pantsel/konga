@@ -13,7 +13,7 @@
                     <li class="title padding-left">Affected columns</li>
                     <li class="divider"></li>
                     <li data-ng-repeat="column in filters.columns | filter: inSearch">
-                        <a href="#" data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">
+                        <a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">
                             <i class="material-icons"
                                 data-ng-class="{'opaque': !column.inSearch}"
                             >done</i>

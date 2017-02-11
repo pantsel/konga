@@ -1,4 +1,4 @@
-/* jshint node: true */
+
 'use strict';
 
 var gulp = require('gulp');
@@ -9,7 +9,6 @@ var noop = g.util.noop;
 var es = require('event-stream');
 var Queue = require('streamqueue');
 var lazypipe = require('lazypipe');
-var stylish = require('jshint-stylish');
 var bower = require('./bower');
 var mainBowerFiles = require('main-bower-files');
 var historyApiFallback = require('connect-history-api-fallback');
@@ -58,13 +57,6 @@ gulp.task('styles-dist', ['styles'], function() {
   return cssFiles().pipe(dist('css', bower.name));
 });
 
-gulp.task('csslint', ['styles'], function() {
-  return cssFiles()
-      .pipe(g.cached('csslint'))
-      .pipe(g.csslint('./.csslintrc'))
-      .pipe(g.csslint.reporter())
-      ;
-});
 
 
 /**
@@ -215,7 +207,7 @@ gulp.task('watch', ['statics', 'default'], function() {
     start: true
   });
 
-  gulp.watch('./src/app/**/*.js', ['jshint']).on('change', function(evt) {
+  gulp.watch('./src/app/**/*.js', []).on('change', function(evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
     }
@@ -223,7 +215,7 @@ gulp.task('watch', ['statics', 'default'], function() {
 
   gulp.watch('./src/app/index.html', ['index']);
   gulp.watch(['./src/app/**/*.html', '!./src/app/index.html'], ['templates']);
-  gulp.watch(['./src/app/**/*.scss'], ['csslint']).on('change', function(evt) {
+  gulp.watch(['./src/app/**/*.scss'], []).on('change', function(evt) {
     if (evt.type !== 'changed') {
       gulp.start('index');
     }
@@ -233,12 +225,8 @@ gulp.task('watch', ['statics', 'default'], function() {
 /**
  * Default task
  */
-gulp.task('default', ['lint', 'build-all']);
+gulp.task('default', ['build-all']);
 
-/**
- * Lint everything
- */
-gulp.task('lint', ['jshint', 'csslint']);
 
 /**
  * Test
@@ -362,18 +350,5 @@ function dist(ext, name, opt) {
 function livereload() {
   return lazypipe()
       .pipe(isWatching ? g.livereload : noop)()
-      ;
-}
-
-/**
- * Jshint with stylish reporter
- */
-function jshint(jshintfile) {
-  // Read JSHint settings, for some reason jshint-stylish won't work on initial load of files
-  var jshintSettings = JSON.parse(fs.readFileSync(jshintfile, 'utf8'));
-
-  return lazypipe()
-      .pipe(g.jshint, jshintSettings)
-      .pipe(g.jshint.reporter, stylish)()
       ;
 }

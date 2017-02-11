@@ -22,7 +22,7 @@
                     data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
                     data-ui-sref-active="active"
                 >
-                    <a href="#"
+                    <a
                        data-ui-sref="{{item.state}}"
                     >{{item.title}}</a>
                 </li>
@@ -32,7 +32,7 @@
                         data-ui-sref-active="active"
                         data-ng-show="!auth.isAuthenticated()"
                 >
-                    <a href="#" data-ui-sref="auth.login">Login</a>
+                    <a  data-ui-sref="auth.login">Login</a>
                 </li>
                 <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
@@ -63,7 +63,7 @@
                         </li>
                         <li class="divider"></li>
                         <li role="menuitem">
-                            <a href="#" data-ng-click="logout()">
+                            <a  data-ng-click="logout()">
                                 <i class="material-icons">&#xE879;</i>
                                 Logout
                             </a>
