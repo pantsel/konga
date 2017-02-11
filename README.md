@@ -155,16 +155,12 @@ Environment variables
         <td><code>KONGA_BACKEND_URL</code></td>
         <td><small>The full URL of the backend server</small></td>
     </tr>
-    <tr>
-        <td><code>KONGA_FRONTEND_PORT</code></td>
-        <td><small>The PORT on which the frontend server will be lifted</small></td>
-    </tr>
-    <tr>
-        <td><code>KONGA_BACKEND_PORT</code></td>
-        <td><small>The PORT on which the backend server will be lifted</small></td>
-    </tr>
 </table>
 
+<pre>
+$ docker pull pantsel/konga
+$ docker run -p {frontend port}:3000 -p {backend-port}:1338 -e KONGA_BACKEND_URL={full backend url} pantsel/konga
+</pre>
 
 
 #### Login
