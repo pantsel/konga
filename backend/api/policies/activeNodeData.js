@@ -26,7 +26,6 @@ module.exports = function activeNodeData(request, response, next) {
 
   request.query.where = JSON.stringify(c)
 
-  console.log(request.query)
 
   return  next()
 
