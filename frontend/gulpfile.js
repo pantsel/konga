@@ -206,7 +206,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
  * Static file server
  */
 gulp.task('statics', g.serve({
-  port: process.env.KONGA_FRONTEND_PORT || settings.frontend.ports.development,
+  port: settings.frontend.ports.development,
   root: ['./.tmp', './src/app', './bower_components'],
   middleware: historyApiFallback({})
 }));
@@ -215,7 +215,7 @@ gulp.task('statics', g.serve({
  * Production file server, note remember to run 'gulp dist' first!
  */
 gulp.task('production',g.serve({
-    port: process.env.KONGA_FRONTEND_PORT || settings.frontend.ports.production,
+    port: settings.frontend.ports.production,
     root: ['./dist'],
     middleware: historyApiFallback({})
 }));
