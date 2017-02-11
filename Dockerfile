@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy app
 COPY . /app/
 
-RUN npm --unsafe-perm install
+RUN npm --unsafe-perm --verbose install
 
 EXPOSE 3000 1338
 

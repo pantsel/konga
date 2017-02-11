@@ -170,6 +170,11 @@
 
             cfpLoadingBar.start();
 
+            if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
+                event.preventDefault();
+                $state.go('dashboard', params, {location: 'replace'})
+            }
+
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
                 $state.go('auth.login');
