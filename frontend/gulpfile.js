@@ -35,26 +35,6 @@ try {
 
 var KONGA_BACKEND_URL = process.env.KONGA_BACKEND_URL || settings.backendUrl
 
-// Overwrite port if explicitly set in command
-var argv = require('minimist')(process.argv.slice(2));
-if(argv.p) {
-    settings.frontend.ports.production = argv.p
-    settings.frontend.ports.development = argv.p
-}
-
-
-/**
- * JS Hint
- */
-gulp.task('jshint', function() {
-  return gulp.src([
-        './gulpfile.js',
-        './src/app/**/*.js'
-      ])
-      .pipe(g.cached('jshint'))
-      .pipe(jshint('./.jshintrc'))
-      .pipe(livereload());
-});
 
 /**
  * CSS
