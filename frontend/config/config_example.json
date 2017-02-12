@@ -1,5 +1,5 @@
 {
-  "backendUrl": "http://localhost:1338",
+  "backendUrl": "@@backendUrl",
   "frontend": {
     "ports": {
       "production": 3000,

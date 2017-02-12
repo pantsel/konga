@@ -9,7 +9,7 @@
 
   angular.module('frontend')
     .constant('BackendConfig', {
-      url: window.io.sails.env_backend_url == '@@envBackendUrl' ? window.io.sails.url : window.io.sails.env_backend_url
+      url: window.io.sails.url
     })
   ;
 }());
