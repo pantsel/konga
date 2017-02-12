@@ -17,9 +17,7 @@
   ],
   "main": "",
   "dependencies": {
-    "minimist": "^1.2.0"
-  },
-  "devDependencies": {
+    "minimist": "^1.2.0",
     "concurrently": "^3.1.0"
   },
   "scripts": {
