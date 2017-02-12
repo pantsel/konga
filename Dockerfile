@@ -4,7 +4,7 @@ RUN apk update && apk upgrade && \
     apk add --no-cache bash git
 
 
-RUN npm install -g bower gulp
+RUN npm install -g bower
 
 WORKDIR /app
 
@@ -26,4 +26,4 @@ EXPOSE 3000 1338
 
 RUN chmod 777 ./start.sh
 
-CMD ["/bin/bash","./start.sh"]
+ENTRYPOINT ["/bin/bash","./start.sh"]
