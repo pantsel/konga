@@ -23,9 +23,9 @@
     "concurrently": "^3.1.0"
   },
   "scripts": {
-    "install": "cd frontend && npm install && cd ../backend && npm install",
+    "install": "cd frontend && npm install --production && cd ../backend && npm install --production",
     "start": "node ./bin/konga play",
-    "production": "concurrently \"(cd backend && node app.js --prod)\" \"(cd frontend && gulp production)\"",
+    "production": "concurrently \"(cd backend && node app.js --prod)\" \"(cd frontend && node server.js)\"",
     "test": "cd backend && mocha"
   },
   "bin": {

@@ -4,9 +4,7 @@
 nbproject
 .idea
 .node_history
-frontend/bower_components
 frontend/.tmp
-frontend/dist
 frontend/node_modules
 backend/.tmp
 backend/node_modules
