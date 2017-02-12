@@ -11,9 +11,7 @@ WORKDIR /app
 # Copy app
 COPY . /app
 
-ENV NODE_ENV production
-
-RUN npm --unsafe-perm --verbose install
+RUN npm --unsafe-perm --verbose install --production
 
 EXPOSE 3000 1338
 
