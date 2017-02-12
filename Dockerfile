@@ -1,11 +1,10 @@
 FROM mhart/alpine-node
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache make gcc g++ python bash git
+    apk add --no-cache bash git
 
 
 RUN npm install -g bower gulp
-
 
 WORKDIR /app
 

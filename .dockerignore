@@ -15,4 +15,4 @@ frontend/npm-debug.log
 _README.md
 frontend/config/config.json
 backend/api/services/remote/credentials/google-spreadsheets
-
+frontend/bower_components/

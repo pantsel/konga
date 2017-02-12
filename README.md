@@ -159,7 +159,10 @@ Environment variables
 
 <pre>
 $ docker pull pantsel/konga
-$ docker run -p {frontend port}:3000 -p {backend-port}:1338 -e KONGA_BACKEND_URL={full backend url} pantsel/konga
+$ docker run -p {frontend port}:3000 
+                -p {backend-port}:1338 
+                -e KONGA_BACKEND_URL={full backend url} 
+                pantsel/konga
 </pre>
 
 
