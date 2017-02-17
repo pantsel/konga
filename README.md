@@ -158,7 +158,7 @@ Environment variables
 </table>
 
 The following instructions assume that you have a running Kong instance following the
-instruction from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
+instructions from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
 <pre>
 $ docker pull pantsel/konga
 $ docker run -p 3000:3000 
