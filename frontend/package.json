@@ -12,7 +12,9 @@
   ],
   "dependencies": {
     "bower": "^1.8.0",
-    "connect-history-api-fallback": "1.1.0"
+    "connect": "^3.5.0",
+    "connect-history-api-fallback": "1.1.0",
+    "serve-static": "^1.11.2"
   },
   "devDependencies": {
     "event-stream": "3.3.2",

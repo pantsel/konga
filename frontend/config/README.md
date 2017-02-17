@@ -8,5 +8,5 @@ changes to it. Note that ```config.json``` is ignored from vcs.
 Currently this configration file contains following values for frontend side:
 
 <pre>
-backendUrl = Sails backend URL, defaults to http://localhost:1337
+backendUrl = Sails backend URL, defaults to http://localhost:1338
 </pre>

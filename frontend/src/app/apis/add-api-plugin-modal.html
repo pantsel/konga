@@ -1,7 +1,7 @@
 <div class="modal-header warning">
     <h4 class="modal-title" id="modal-title">
         Add new Plugin to {{api.name || api.id}}
-        <a href="#" class="modal-close pull-right" ng-click="close()">
+        <a  class="modal-close pull-right" ng-click="close()">
             <i class="material-icons">clear</i>
         </a>
     </h4>
@@ -16,7 +16,7 @@
                         data-ng-click="setActiveGroup(group.name)"
                         ng-class="{'active' : activeGroup == group.name}"
                         data-ng-repeat="group in pluginGroups">
-                    <a href="#">{{group.name}}</a>
+                    <a >{{group.name}}</a>
                 </li>
             </ul>
         </div>

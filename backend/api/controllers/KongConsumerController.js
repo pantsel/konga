@@ -3,7 +3,6 @@
 var unirest = require('unirest');
 var _ = require('lodash');
 
-var mysql = require('../../node_modules/sails-mysql/node_modules/mysql')
 var KongService = require('../services/KongService')
 var ConsumerCredentialsService = require('../services/ConsumerCredentialsService')
 

@@ -90,7 +90,7 @@
         // Yeah we wanna to use HTML5 urls!
         $locationProvider
           .html5Mode({
-            enabled: true,
+            enabled: false, // disable html5 mode
             requireBase: false
           })
           .hashPrefix('!');
@@ -153,10 +153,6 @@
         AuthService,cfpLoadingBar
       ) {
 
-
-
-
-
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
@@ -170,15 +166,20 @@
 
             cfpLoadingBar.start();
 
+            if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
+                event.preventDefault();
+                $state.go('dashboard', params, {location: 'replace'})
+            }
+
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
-                $state.go('auth.login');
+                $state.go('auth.login', params, {location: 'replace'})
             }
 
 
             if (!NodesService.authorize(toState.data.activeNode)) {
                 event.preventDefault();
-                $state.go('settings');
+                $state.go('settings', params, {location: 'replace'})
             }
 
             if (toState.redirectTo) {

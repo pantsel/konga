@@ -1,7 +1,7 @@
 <div class="modal-header success">
     <h4 class="modal-title" id="modal-title">
         Manage Groups
-        <a href="#" class="modal-close pull-right" ng-click="close()">
+        <a  class="modal-close pull-right" ng-click="close()">
             <i class="material-icons ">clear</i>
         </a>
     </h4>
@@ -46,7 +46,7 @@
             <tr data-ng-repeat="group in groups | orderBy:'createdAt':true | filter: search.value">
                 <td>{{$index + 1}}.</td>
                 <td>
-                    <a href="#" editable-text="group.name" onbeforesave="updateGroup(group)">{{ group.name || "empty" }}</a>
+                    <a  editable-text="group.name" onbeforesave="updateGroup(group)">{{ group.name || "empty" }}</a>
 
                 </td>
                 <td class="no-wrap">{{group.createdAt | date : format : timezone}}</td>

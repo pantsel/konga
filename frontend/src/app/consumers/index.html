@@ -1,33 +1,33 @@
 
 <div class="row">
     <div class="col-md-12 actions">
-        <a href="#" class="btn btn-success" ng-click="openCreateConsumerModal()">
+        <button class="btn btn-success" ng-click="openCreateConsumerModal()">
             <i class="material-icons">&#xE145;</i>
             Create consumer
-        </a>
-        <a href="#"
+        </button>
+        <button
            class="btn btn-warning" ng-click="importConsumers()">
             <i class="material-icons"><i class="material-icons">&#xE2C6;</i></i>
             Import
-        </a>
-        <!--<a href="#"-->
+        </button>
+        <!--<a -->
            <!--class="btn btn-default" ng-click="massAssignCredentials()">-->
             <!--<i class="material-icons">fingerprint</i>-->
             <!--mass assign credentials-->
         <!--</a>-->
-        <a href="#"
+        <button
            data-uib-tooltip="Sync Kong consumers to Konga"
            data-ng-disabled="syncing"
            class="btn btn-primary" ng-click="syncConsumers()">
             <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="syncing"></fading-circle-spinner>
             <i class="material-icons" data-ng-show="!syncing">sync</i>
             sync
-        </a>
-        <a href="#" class="btn btn-danger" data-ng-disabled="deleting" ng-click="deleteChecked()">
+        </button>
+        <button class="btn btn-danger" data-ng-disabled="deleting" ng-click="deleteChecked()">
             <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="deleting"></fading-circle-spinner>
             <i class="material-icons" data-ng-show="!deleting">delete</i>
             delete selected
-        </a>
+        </button>
     </div>
 
 </div>

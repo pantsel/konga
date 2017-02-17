@@ -16,7 +16,7 @@
                     data-ng-click="setActiveGroup(group.name)"
                     ng-class="{'active' : activeGroup == group.name}"
                     data-ng-repeat="group in pluginGroups">
-                <a href="#">{{group.name}}</a>
+                <a >{{group.name}}</a>
             </li>
         </ul>
     </div>
@@ -40,6 +40,7 @@
                 <span class="capitalize">{{key.split('-').join(" ")}}</span>
                 <div class="pull-right">
                     <button
+                            ng-show="!value.isAdded"
                             class="btn btn-primary btn-link btn-icon"
                             angular-ripple data-ng-click="onAddPlugin(key)">
                         <i class="material-icons" data-ng-class="{'text-white':value.isAdded}">add</i>

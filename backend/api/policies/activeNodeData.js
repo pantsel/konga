@@ -21,10 +21,11 @@ module.exports = function activeNodeData(request, response, next) {
   if(c.hasOwnProperty('or')){
     c['and'] = [{node_id : sails.config.kong_admin_url}]
   }else{
-    c['where'] = {node_id : sails.config.kong_admin_url}
+    c['node_id'] = sails.config.kong_admin_url
   }
 
   request.query.where = JSON.stringify(c)
+
 
   return  next()
 
