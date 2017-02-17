@@ -40,6 +40,7 @@
                 <span class="capitalize">{{key.split('-').join(" ")}}</span>
                 <div class="pull-right">
                     <button
+                            ng-show="!value.isAdded"
                             class="btn btn-primary btn-link btn-icon"
                             angular-ripple data-ng-click="onAddPlugin(key)">
                         <i class="material-icons" data-ng-class="{'text-white':value.isAdded}">add</i>
