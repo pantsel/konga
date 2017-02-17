@@ -1,3 +1,6 @@
+# Note that if you want to build Konga from here,
+# you must < cd frontend && gulp dist > first
+
 FROM mhart/alpine-node
 
 RUN apk update && apk upgrade && \
