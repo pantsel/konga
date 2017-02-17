@@ -76,7 +76,7 @@ try running <code>$ npm install</code> in /backend and /frontend separately
 
 ## Configuration
 You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
-settings. Basically by default you don't need to make any configurations at all. With default configuration backend will be run on http://localhost:1337 and frontend on http://localhost:3001 (development) http://localhost:3000 (production).
+settings.
 
 ##### Backend
 There is an example of backend configuration file on following path.
@@ -153,17 +153,24 @@ Environment variables
     </tr>
     <tr>
         <td><code>KONGA_BACKEND_URL</code></td>
-        <td><small>The full URL of the backend server</small></td>
+        <td><small>The full URL of Konga's backend server component</small></td>
     </tr>
 </table>
 
+The following instructions assume that you have a running Kong instance following the
+instruction from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
 <pre>
 $ docker pull pantsel/konga
-$ docker run -p {frontend port}:3000 
-                -p {backend-port}:1338 
-                -e KONGA_BACKEND_URL={full backend url} 
-                pantsel/konga
+$ docker run -p 3000:3000 
+             -p 1338:1338 
+             -e KONGA_BACKEND_URL={Konga's backend url} 
+             --link kong:kong
+             --name konga
+             pantsel/konga
 </pre>
+
+The GUI will be available at <code>http://{your server's public ip}:3000</code>
+Login, go to settings -> new node and add http://kong:8001 for Kong Admin URL.
 
 
 #### Login
