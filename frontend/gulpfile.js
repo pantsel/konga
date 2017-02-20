@@ -186,9 +186,10 @@ gulp.task('dist', ['vendors', 'assets', 'fonts', 'styles-dist', 'scripts-dist'],
     return gulp.src('./src/app/index.html')
         .pipe(g.inject(gulp.src('./dist/vendors.min.{js,css}'), {
             ignorePath: 'dist',
+            addRootSlash: false,
             starttag: '<!-- inject:vendor:{{ext}} -->'
         }))
-        .pipe(g.inject(gulp.src('./dist/' + bower.name + '.min.{js,css}'), {ignorePath: 'dist'}))
+        .pipe(g.inject(gulp.src('./dist/' + bower.name + '.min.{js,css}'), {ignorePath: 'dist',addRootSlash: false}))
         .pipe(replace({
             patterns: [
                 {
