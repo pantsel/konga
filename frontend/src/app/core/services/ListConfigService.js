@@ -281,7 +281,7 @@
             return {
               itemCount: 0,
               items: [],
-              itemsPerPage: 25,
+              itemsPerPage: 50,
               itemsPerPageOptions: [10, 25, 50, 100, 200],
               currentPage: 1,
               where: {},

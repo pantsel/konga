@@ -1,6 +1,5 @@
 'use strict';
 var _ = require('lodash')
-var ConsumerService = require('../services/ConsumerService')
 
 /**
  * UserController
@@ -8,17 +7,16 @@ var ConsumerService = require('../services/ConsumerService')
  * @description :: Server-side logic for managing Users
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
-
+module.exports = {
     /**
-     * Sync Kong's consumers with Konga
+     * Proxy requests to native Kong Admin API
      * @param req
      * @param res
      */
-    sync : function(req,res) {
-        ConsumerService.sync(function(err,ok){
-            if (err) return res.kongError(err)
-            return res.ok()
-        })
-    }
-});
+    proxy : function(req,res) {
+        global.$proxy.web(req, res, {
+            target: sails.config.kong_admin_url
+        });
+    },
+
+};

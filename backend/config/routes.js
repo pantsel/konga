@@ -45,7 +45,7 @@ module.exports.routes = {
    * ------------------------------------------------------------------------
    */
 
- 'POST /consumers/sync'                 : 'ConsumerController.sync',
+ //'POST /consumers/sync'                 : 'ConsumerController.sync',
 
   // Informational routes
   'GET /kong/info'                      : 'KongInfoController.info',
@@ -61,7 +61,7 @@ module.exports.routes = {
   'PUT /kong/apis/'                     : 'KongApiController.updateOrCreate',
   'DELETE /kong/apis/:id'               : 'KongApiController.delete',
 
-  // Consumer routes
+
   'POST /kong/consumers'                : 'KongConsumerController.create',
   'POST /kong/consumers/:id/acls'       : 'KongConsumerController.addAcl',
   'GET /kong/consumers/:id'             : 'KongConsumerController.retrieve',
@@ -105,7 +105,18 @@ module.exports.routes = {
     'GET /api/consumers/:id/credentials' : 'KongaApiController.listConsumerCredentials',
     'PATCH /api/consumers/:id'           : 'KongaApiController.updateConsumer',
     'POST /api/consumers'                : 'KongaApiController.createConsumer',
-    'POST /api/apis'                     : 'KongaApiController.registerApi'
+    'POST /api/apis'                     : 'KongaApiController.registerApi',
+
+
+  /**
+   * Fallback to proxy
+   */
+
+  'GET /api/*'    : 'ApiController.proxy',
+  'POST /api/*'   : 'ApiController.proxy',
+  'PUT /api/*'    : 'ApiController.proxy',
+  'PATCH /api/*'  : 'ApiController.proxy',
+  'DELETE /api/*' : 'ApiController.proxy'
 
 
 };

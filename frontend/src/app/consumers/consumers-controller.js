@@ -10,10 +10,10 @@
     .controller('ConsumersController', [
       '_','$scope', '$log', '$state','ConsumerService','$q','MessageService',
         'RemoteStorageService','UserService','SocketHelperService',
-        '$uibModal','DialogService','ConsumerModel','ListConfig','_items','_count',
+        '$uibModal','DialogService','ConsumerModel','ListConfig',
       function controller(_,$scope, $log, $state, ConsumerService,$q,MessageService,
                           RemoteStorageService,UserService,SocketHelperService,
-                          $uibModal,DialogService,ConsumerModel,ListConfig,_items,_count ) {
+                          $uibModal,DialogService,ConsumerModel,ListConfig ) {
 
           ConsumerModel.setScope($scope, false, 'items', 'itemCount');
 
@@ -21,8 +21,8 @@
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
 
           // Set initial data
-          $scope.items = _items;
-          $scope.itemCount = _count.count;
+          $scope.loading = false;
+          $scope.items = [] // Init items
           $scope.user = UserService.user();
           $scope.importConsumers = importConsumers
           $scope.openCreateConsumerModal = openCreateConsumerModal
@@ -74,10 +74,49 @@
           };
 
 
-          $scope.pageChanged = function() {
-              $log.log('Page changed to: ' + $scope.paging.currentPage);
+          //$scope.pageChanged = function() {
+          //    $log.log('Page changed to: ' + $scope.paging.currentPage);
+          //    _fetchData();
+          //}
+
+          function getParameterByName(name, url) {
+              if (!url) {
+                  url = window.location.href;
+              }
+              name = name.replace(/[\[\]]/g, "\\$&");
+              var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                  results = regex.exec(url);
+              if (!results) return null;
+              if (!results[2]) return '';
+              return decodeURIComponent(results[2].replace(/\+/g, " "));
+          }
+
+          $scope.loadMore = function() {
+              if(!$scope.next) return false;
+              console.log("Must load More!!!")
+              $scope.paging.offset = $scope.offset
               _fetchData();
           }
+
+
+          $scope.$watch('paging.currentPage', function watcher(valueNew, valueOld) {
+
+              $log.log('Page changed from : ' + valueOld +  ' to: ' + valueNew);
+              if (valueNew !== valueOld) {
+
+                  if(valueNew > valueOld) {
+                      $scope.paging.offset = $scope.offset
+                  }
+
+                  if(valueNew < valueOld) {
+                      $scope.paging.offset = $scope.offset
+                  }
+                  _triggerFetchData();
+
+              }
+          });
+
+
 
           $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
               if (valueNew !== valueOld) {
@@ -269,12 +308,9 @@
 
 
           function _triggerFetchData() {
-              if ($scope.paging.currentPage === 1) {
-                  _fetchData();
-              } else {
-                  $scope.paging.currentPage = 1;
-              }
+              _fetchData();
           }
+
 
 
           /**
@@ -293,67 +329,56 @@
            * @private
            */
           function _fetchData() {
+              console.log("$scope.loading",$scope.loading)
+              if($scope.loading) return false;
               $scope.loading = true;
 
               // Common parameters for count and data query
               var commonParameters = {
-                  where: SocketHelperService.getWhere($scope.filters)
+                  //where: SocketHelperService.getWhere($scope.filters)
               };
 
               // Data query specified parameters
               var parameters = {
-                  limit: $scope.itemsPerPage,
-                  skip: ($scope.paging.currentPage - 1) * $scope.itemsPerPage,
-                  sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
+                  size: $scope.itemsPerPage,
+                  offset: $scope.paging.offset
               };
 
               // Fetch data count
-              var count = ConsumerModel
-                  .count(commonParameters)
-                  .then(
-                      function onSuccess(response) {
-                          $scope.itemCount = response.count;
-                      }
-                  )
-                  ;
-
               $log.debug("parameters",parameters)
 
               // Fetch actual data
-              var load = ConsumerModel
-                  .load(_.merge({}, commonParameters, parameters))
+              ConsumerService
+                  .query(_.merge({}, commonParameters, parameters))
                   .then(
                       function onSuccess(response) {
-                          $scope.items = response;
+
+                          console.log("ConsumerService",response)
+                          $scope.loading = false;
+                          $scope.items = $scope.items.concat(response.data.data);
+                          $scope.itemCount = response.data.total;
+                          $scope.next = response.data.next;
+                          $scope.offset = response.data.offset;
                       }
                   );
-
-              // And wrap those all to promise loading
-              $q
-                  .all([count, load])
-                  .finally(
-                      function onFinally() {
-                          $scope.loaded = true;
-                          $scope.loading = false;
-                      }
-                  )
-              ;
           }
 
 
 
           $scope.$on('consumer.created',function(ev,user){
-              _triggerFetchData()
+              _fetchData()
           })
 
 
           $scope.$on('consumer.updated',function(ev,user){
-              _triggerFetchData()
+              _fetchData()
           })
 
           $scope.$on('credentials.assigned',function(ev,user){
-              _triggerFetchData()
+              _fetchData()
           })
+
+          _fetchData()
 
       }
     ])

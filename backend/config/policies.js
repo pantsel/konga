@@ -61,6 +61,10 @@ module.exports.policies = {
     'remove':   ['authenticated', 'isAdmin']
   },
 
+  ApiController : {
+    'proxy':    ['authenticated','activeNodeData'],
+  },
+
   ConsumerController: {
     '*':        ['authenticated'],
     'count':    ['authenticated','activeNodeData'],

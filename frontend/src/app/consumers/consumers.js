@@ -27,36 +27,7 @@
                         views: {
                             'content@': {
                                 templateUrl: '/frontend/consumers/index.html',
-                                controller: 'ConsumersController',
-                                resolve : {
-                                    _items: [
-                                        'ListConfig',
-                                        'ConsumerModel','ConsumerService',
-                                        function resolve(
-                                            ListConfig,
-                                            ConsumerModel, ConsumerService
-                                        ) {
-                                            var config = ListConfig.getConfig();
-
-                                            var parameters = {
-                                                limit: config.itemsPerPage,
-                                                sort: 'createdAt DESC'
-                                            };
-
-                                            return ConsumerService.sync()
-                                                .then(function(res){
-                                                    return ConsumerModel.load(parameters);
-                                                })
-                                        }
-                                    ],
-                                    _count: [
-                                        'ConsumerModel',
-                                        function resolve(ConsumerModel) {
-
-                                            return ConsumerModel.count();
-                                        }
-                                    ],
-                                }
+                                controller: 'ConsumersController'
                             }
                         }
                     })

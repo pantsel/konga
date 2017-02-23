@@ -12,6 +12,7 @@
     'angular-loading-bar',
     'ngAnimate',
     'ngSanitize',
+    'infinite-scroll',
     'ngBootbox',
     'ngStorage',
     'ui.router',

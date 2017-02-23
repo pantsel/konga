@@ -9,7 +9,7 @@
             'DataModel','DataService','$q','$log',
             function(DataModel,DataService,$q,$log) {
 
-                var model = new DataModel('consumer');
+                var model = new DataModel('consumers');
 
 
                 model.load = function load(parameters, fromCache) {
@@ -27,6 +27,8 @@
                             parameters: parameters
                         };
                     }
+
+                    console.log("################",self.endpoint)
 
                     return DataService
                         .collection(self.endpoint, parameters)
