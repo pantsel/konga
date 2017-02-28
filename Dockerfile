@@ -1,20 +1,20 @@
-# Note that if you want to build Konga from here,
-# you must < cd frontend && gulp dist > first
-
 FROM mhart/alpine-node
 
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git
 
 
-RUN npm install -g bower
+RUN npm install -g bower gulp
+RUN npm install gulp
 
 WORKDIR /app
 
 # Copy app
 COPY . /app
 
-RUN npm --unsafe-perm --verbose install --production
+RUN npm --unsafe-perm --verbose install
+
+RUN cd frontend && gulp dist
 
 EXPOSE 3000 1338
 
