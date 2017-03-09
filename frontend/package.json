@@ -3,7 +3,8 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "start": "gulp watch",
+    "prestart" : "gulp dist",
+    "start": "node server.js",
     "test": "gulp test",
     "postinstall": "bower --allow-root install"
   },
