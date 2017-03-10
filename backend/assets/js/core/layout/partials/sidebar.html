@@ -1,0 +1,9 @@
+<div class="list-group">
+    <a data-ng-repeat="item in navigationItems"
+       data-ui-sref-active="active"
+       data-ui-sref="{{item.state || '#'}}"
+       class="list-group-item">
+        {{item.title}}
+    </a>
+</div>
+

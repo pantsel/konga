@@ -1,0 +1,16 @@
+<div data-ui-view="header"></div>
+<div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head container-fluid">
+  <div class="container">
+    <h3 class="page-title">
+      <span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>
+      <span ng-bind-html="$state.data.pageName"></span>&nbsp;
+      <div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>
+    </h3>
+    <ui-breadcrumbs displayname-property="data.displayName" template-url="js/core/layout/partials/uiBreadcrumbs.tpl.html">
+    </ui-breadcrumbs>
+  </div>
+</div>
+<div class="container main-container">
+  <div data-ui-view="content"></div>
+</div>
+<div data-ui-view="footer"></div>

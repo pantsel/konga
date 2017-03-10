@@ -1,0 +1,80 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dashboard">
+                <img ng-src="images/konga-logo-small.png" class="konga-nav-icon"/>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: white">
+            <ul class="nav navbar-nav">
+                <li class="{{item.class}}"
+                    data-ng-repeat="item in navigationItems"
+                    data-ng-show="auth.authorize(item.access) && item.show()"
+                    data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
+                    data-ui-sref-active="active"
+                >
+                    <a
+                       data-ui-sref="{{item.state}}"
+                    >{{item.title}}</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li
+                        data-ui-sref-active="active"
+                        data-ng-show="!auth.isAuthenticated()"
+                >
+                    <a  data-ui-sref="auth.login">Login</a>
+                </li>
+                <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
+                    <a class="nav-auth-img-container" uib-dropdown-toggle>
+                        <img class="nav-auth-img" ng-src="images/user-icon.png"/>
+                        &nbsp;
+                        <span class="greeting">{{user().firstName}} {{user().lastName}}</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+
+                        <li role="menuitem">
+                            <a data-ui-sref="users.show({id:user().id})">
+                                <i class="material-icons">perm_identity</i>
+                                Profile
+                            </a>
+                        </li>
+                        <li role="menuitem" ng-if="user().admin">
+                            <a data-ui-sref="users">
+                                <i class="material-icons">&#xE7FC;</i>
+                                Users
+                            </a>
+                        </li>
+                        <li role="menuitem" ng-if="user().admin">
+                            <a data-ui-sref="settings">
+                                <i class="material-icons">settings</i>
+                                Settings
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li role="menuitem">
+                            <a  data-ng-click="logout()">
+                                <i class="material-icons">&#xE879;</i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+

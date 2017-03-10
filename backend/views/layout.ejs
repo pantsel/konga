@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html data-ng-app="frontend">
+  <head>
+    <title><%=typeof title == 'undefined' ? 'Konga' : title%></title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="/bower_components/angular-spinkit/build/angular-spinkit.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-chips/dist/main.css">
+    <link rel="stylesheet" href="/bower_components/angular-json-human/dist/angular-json-human.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+  </head>
+
+  <body data-ng-cloak class="ng-cloak">
+    <%- body %>
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+    
+    <!--TEMPLATES END-->
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/angular-ui-utils/ui-utils.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/angular-bootstrap-show-errors/src/showErrors.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angularSails/dist/ngsails.io.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/bower_components/bootswatch-dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/lodash/lodash.js"></script>
+    <script src="/bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="/bower_components/angular-spinkit/build/angular-spinkit.js"></script>
+    <script src="/bower_components/angular-chips/dist/angular-chips.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.js"></script>
+    <script src="/bower_components/angular-utils-pagination/dirPagination.js"></script>
+    <script src="/bower_components/chart.js/dist/Chart.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="/bower_components/angular-moment/angular-moment.js"></script>
+    <script src="/bower_components/bootbox/bootbox.js"></script>
+    <script src="/bower_components/ngBootbox/dist/ngBootbox.js"></script>
+    <script src="/bower_components/angular-json-human/dist/angular-json-human.js"></script>
+    <script src="/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
+    <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="/js/apis/00_apis.js"></script>
+    <script src="/js/apis/add-api-modal-controller.js"></script>
+    <script src="/js/apis/add-api-plugin-modal-controller.js"></script>
+    <script src="/js/apis/api-controller.js"></script>
+    <script src="/js/apis/api-details-controller.js"></script>
+    <script src="/js/apis/apis-controller.js"></script>
+    <script src="/js/apis/apis-service.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/consumers/00_consumers.js"></script>
+    <script src="/js/consumers/consumer-controller.js"></script>
+    <script src="/js/consumers/consumer-model.js"></script>
+    <script src="/js/consumers/consumer-service.js"></script>
+    <script src="/js/consumers/consumers-controller.js"></script>
+    <script src="/js/consumers/credentials/consumer-credentials-controller.js"></script>
+    <script src="/js/consumers/credentials/create-basic-auth-controller.js"></script>
+    <script src="/js/consumers/credentials/create-hmac-auth-controller.js"></script>
+    <script src="/js/consumers/credentials/create-jwt-controller.js"></script>
+    <script src="/js/consumers/credentials/create-key-auth-controller.js"></script>
+    <script src="/js/consumers/credentials/create-oauth2-controller.js"></script>
+    <script src="/js/consumers/credentials/mass-assign-credentials-controller.js"></script>
+    <script src="/js/consumers/details/consumer-details-controller.js"></script>
+    <script src="/js/consumers/groups/consumer-groups-controller.js"></script>
+    <script src="/js/consumers/groups/group.js"></script>
+    <script src="/js/consumers/groups/manage-groups-modal-controllers.js"></script>
+    <script src="/js/consumers/import/import-consumers-connection-controller.js"></script>
+    <script src="/js/consumers/import/import-consumers-controller.js"></script>
+    <script src="/js/consumers/import/import-consumers-storage-controller.js"></script>
+    <script src="/js/consumers/import/import-consumers-table-controller.js"></script>
+    <script src="/js/core/auth/auth.js"></script>
+    <script src="/js/core/auth/login/login.js"></script>
+    <script src="/js/core/auth/services/00_services.js"></script>
+    <script src="/js/core/auth/services/AuthService.js"></script>
+    <script src="/js/core/auth/services/UserService.js"></script>
+    <script src="/js/core/components/components.js"></script>
+    <script src="/js/core/components/FocusOn.js"></script>
+    <script src="/js/core/constants/AccessLevels.js"></script>
+    <script src="/js/core/constants/BackendConfig.js"></script>
+    <script src="/js/core/core.js"></script>
+    <script src="/js/core/dependencies/dependencies.js"></script>
+    <script src="/js/core/directives/directives.js"></script>
+    <script src="/js/core/directives/ListSearch.js"></script>
+    <script src="/js/core/directives/RawView.js"></script>
+    <script src="/js/core/error/error.js"></script>
+    <script src="/js/core/filters/filters.js"></script>
+    <script src="/js/core/interceptors/00_interceptors.js"></script>
+    <script src="/js/core/interceptors/AuthInterceptor.js"></script>
+    <script src="/js/core/interceptors/ErrorInterceptor.js"></script>
+    <script src="/js/core/interceptors/KongaIntercenptor.js"></script>
+    <script src="/js/core/interceptors/TemplateCacheInterceptor.js"></script>
+    <script src="/js/core/layout/00_layout.js"></script>
+    <script src="/js/core/layout/01_layout-controllers.js"></script>
+    <script src="/js/core/layout/02_layout-directives.js"></script>
+    <script src="/js/core/layout/03_layout-services.js"></script>
+    <script src="/js/core/libraries/libraries.js"></script>
+    <script src="/js/core/libraries/LoDash.js"></script>
+    <script src="/js/core/models/00_models.js"></script>
+    <script src="/js/core/models/DataModel.js"></script>
+    <script src="/js/core/plugins/angular-matchheight.js"></script>
+    <script src="/js/core/plugins/material.spinner.js"></script>
+    <script src="/js/core/plugins/uiBreadcrumbs.js"></script>
+    <script src="/js/core/services/00_services.js"></script>
+    <script src="/js/core/services/DataService.js"></script>
+    <script src="/js/core/services/DialogService.js"></script>
+    <script src="/js/core/services/HttpStatusService.js"></script>
+    <script src="/js/core/services/KongPluginsService.js"></script>
+    <script src="/js/core/services/ListConfigService.js"></script>
+    <script src="/js/core/services/MessageService.js"></script>
+    <script src="/js/core/services/NodesService.js"></script>
+    <script src="/js/core/services/RemoteStorageService.js"></script>
+    <script src="/js/core/services/SocketHelperService.js"></script>
+    <script src="/js/dashboard/01_dashboard.js"></script>
+    <script src="/js/dashboard/02_dashboard-controller.js"></script>
+    <script src="/js/info/00_info.js"></script>
+    <script src="/js/info/01_info-controllers.js"></script>
+    <script src="/js/info/02_info-service.js"></script>
+    <script src="/js/plugins/00_plugins.js"></script>
+    <script src="/js/plugins/add-plugin-controller.js"></script>
+    <script src="/js/plugins/add-plugins-controller.js"></script>
+    <script src="/js/plugins/api-plugins-controller.js"></script>
+    <script src="/js/plugins/edit-plugin-controller.js"></script>
+    <script src="/js/plugins/plugin-helper-service.js"></script>
+    <script src="/js/plugins/plugins-controller.js"></script>
+    <script src="/js/plugins/plugins-service.js"></script>
+    <script src="/js/settings/01_settings.js"></script>
+    <script src="/js/settings/node-model.js"></script>
+    <script src="/js/settings/settings-controller.js"></script>
+    <script src="/js/settings/settings-model.js"></script>
+    <script src="/js/users/00_users.js"></script>
+    <script src="/js/users/user-controller.js"></script>
+    <script src="/js/users/user-create-controller.js"></script>
+    <script src="/js/users/user-model.js"></script>
+    <script src="/js/users/users-controller.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>

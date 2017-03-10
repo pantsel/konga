@@ -1,0 +1,25 @@
+<div>
+    <h4>Files used in this example</h4>
+
+    <p>
+        Below you can see all the actual <em>backend / frontend</em> files which are used to make this example page work.
+    </p>
+
+    <div class="row">
+        <div class="col-xs-3"
+            data-ng-repeat="(title, items) in filesJson"
+        >
+            <h5 data-ng-bind-html="title"></h5>
+
+            <ul class="list-unstyled">
+                <li data-ng-repeat="item in items">
+                    <a href="{{item.url}}" target="_blank"
+                        data-tooltip-html-unsafe="{{getTooltip(item)}}"
+                        data-tooltip-placement="left"
+                        data-ng-bind-html="item.title"
+                    ></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

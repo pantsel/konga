@@ -27,6 +27,18 @@ module.exports.routes = {
     res.send(200);
   },
 
+  '/': {
+    view: 'homepage'
+  },
+
+  '/404': {
+    view: 'homepage'
+  },
+
+  '/500': {
+    view: '500'
+  },
+
   // Authentication routes
   '/logout': 'AuthController.logout',
   'POST /login': 'AuthController.callback',

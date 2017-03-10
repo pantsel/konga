@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs">
+    <li
+        data-ng-repeat="item in navigationItems"
+        data-ui-sref-active="active"
+    >
+        <a
+            data-ng-if="item.state"
+            data-ui-sref="{{item.state}}">
+            {{item.title}}
+        </a>
+
+        <a style="text-decoration: line-through;"
+            data-ng-if="!item.state"
+        >
+            {{item.title}}
+        </a>
+    </li>
+</ul>
