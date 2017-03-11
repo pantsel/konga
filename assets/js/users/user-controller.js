@@ -85,6 +85,8 @@
               $scope.user.password_confirmation = undefined
           }
 
+          initUserPassports()
+
       }
     ])
   ;
