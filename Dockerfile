@@ -16,7 +16,7 @@ COPY . /app
 
 RUN npm --unsafe-perm --verbose install --production
 
-EXPOSE 3000 1338
+EXPOSE 1338
 
 RUN chmod 777 ./start.sh
 
