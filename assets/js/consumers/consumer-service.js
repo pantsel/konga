@@ -11,6 +11,15 @@
         '$log', '$state','$http','BackendConfig',
       function( $log, $state, $http,BackendConfig) {
 
+          function clean(obj) {
+              // Delete empty keys
+              Object.keys(obj).forEach(function(key){
+                  if(!obj[key]) delete obj[key]
+              })
+
+              return obj
+          }
+
           return {
 
               query : function(query) {
@@ -34,7 +43,7 @@
               },
 
               create : function(consumer) {
-                  return $http.post(BackendConfig.url + '/kong/consumers',consumer)
+                  return $http.post(BackendConfig.url + '/kong/consumers',clean(consumer))
               },
 
               update : function(id,data) {

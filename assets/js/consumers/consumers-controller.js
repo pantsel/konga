@@ -28,14 +28,14 @@
           $scope.openCreateConsumerModal = openCreateConsumerModal
           $scope.deleteConsumer = deleteConsumer
           $scope.deleteChecked = deleteChecked
-          $scope.massAssignCredentials = massAssignCredentials
-          $scope.syncConsumers = syncConsumers
+          //$scope.massAssignCredentials = massAssignCredentials
+          //$scope.syncConsumers = syncConsumers
           $scope.globalCheck = {
               isAllChecked : false
           };
 
           // Initialize used title items
-          $scope.titleItems = ListConfig.getTitleItems(ConsumerModel.endpoint);
+          $scope.titleItems = ListConfig.getTitleItems('consumer');
 
           $log.debug("items",$scope.items)
           //$log.debug("_count",_count)
@@ -49,8 +49,8 @@
           };
 
           $scope.sort = {
-              column: 'createdAt',
-              direction: false
+              column: 'created_at',
+              direction: true
           };
 
           // Initialize filters
@@ -61,16 +61,16 @@
 
           // Function to change sort column / direction on list
           $scope.changeSort = function changeSort(item) {
-              var sort = $scope.sort;
+              //var sort = $scope.sort;
+              //
+              //if (sort.column === item.column) {
+              //    sort.direction = !sort.direction;
+              //} else {
+              //    sort.column = item.column;
+              //    sort.direction = true;
+              //}
 
-              if (sort.column === item.column) {
-                  sort.direction = !sort.direction;
-              } else {
-                  sort.column = item.column;
-                  sort.direction = true;
-              }
-
-              _triggerFetchData();
+              //_triggerFetchData();
           };
 
 
@@ -79,21 +79,21 @@
           //    _fetchData();
           //}
 
-          function getParameterByName(name, url) {
-              if (!url) {
-                  url = window.location.href;
-              }
-              name = name.replace(/[\[\]]/g, "\\$&");
-              var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                  results = regex.exec(url);
-              if (!results) return null;
-              if (!results[2]) return '';
-              return decodeURIComponent(results[2].replace(/\+/g, " "));
-          }
+          //function getParameterByName(name, url) {
+          //    if (!url) {
+          //        url = window.location.href;
+          //    }
+          //    name = name.replace(/[\[\]]/g, "\\$&");
+          //    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          //        results = regex.exec(url);
+          //    if (!results) return null;
+          //    if (!results[2]) return '';
+          //    return decodeURIComponent(results[2].replace(/\+/g, " "));
+          //}
 
           $scope.loadMore = function() {
               if(!$scope.next) return false;
-              console.log("Must load More!!!")
+              $log.debug("Must load More!!!")
               $scope.paging.offset = $scope.offset
               _fetchData();
           }
@@ -120,16 +120,16 @@
 
           $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
               if (valueNew !== valueOld) {
-                  _triggerFetchData();
+                  _triggerFetchData(true);
               }
           });
 
 
-          $scope.$watch('filters', function watcher(valueNew, valueOld) {
-              if (valueNew !== valueOld) {
-                  _triggerFetchData();
-              }
-          },true);
+          //$scope.$watch('filters', function watcher(valueNew, valueOld) {
+          //    if (valueNew !== valueOld) {
+          //        _triggerFetchData();
+          //    }
+          //},true);
 
 
           $scope.$watch('globalCheck.isAllChecked', function watcher(valueNew, valueOld) {
@@ -145,36 +145,36 @@
               })
           }
 
-          function massAssignCredentials() {
-
-              var consumers = []
-              $scope.items.forEach(function(consumer){
-                  if(consumer.checked) consumers.push(consumer)
-              })
-
-              if(!consumers.length) {
-                  MessageService.error('You have not selected any consumers')
-                  return false
-              }
-
-
-              $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/consumers/credentials/mass-assign-modal.html',
-                  controller: 'MassAssignCredentialsController',
-                  controllerAs: '$ctrl',
-                  resolve : {
-                      _consumers : function() {
-                          return consumers;
-                      }
-                  }
-              });
-
-
-
-          }
+          //function massAssignCredentials() {
+          //
+          //    var consumers = []
+          //    $scope.items.forEach(function(consumer){
+          //        if(consumer.checked) consumers.push(consumer)
+          //    })
+          //
+          //    if(!consumers.length) {
+          //        MessageService.error('You have not selected any consumers')
+          //        return false
+          //    }
+          //
+          //
+          //    $uibModal.open({
+          //        animation: true,
+          //        ariaLabelledBy: 'modal-title',
+          //        ariaDescribedBy: 'modal-body',
+          //        templateUrl: '/js/consumers/credentials/mass-assign-modal.html',
+          //        controller: 'MassAssignCredentialsController',
+          //        controllerAs: '$ctrl',
+          //        resolve : {
+          //            _consumers : function() {
+          //                return consumers;
+          //            }
+          //        }
+          //    });
+          //
+          //
+          //
+          //}
 
           function deleteChecked() {
 
@@ -197,25 +197,25 @@
 
           }
 
-          function syncConsumers() {
-              DialogService.prompt(
-                  "Sync Consumers","<strong>This action will sync Kong's consumers with Konga.</strong><br>" +
-                  "Kong's consumers that don't exists in Konga's database will be imported" +
-                  " while Konga's consumers that don't exist in Kong's database will be removed." +
-                  "<br><br>Continue?",
-                  ['No don\'t','Yes, do it!'],
-                  function accept(){
-                      $scope.syncing = true
-                      ConsumerService.sync()
-                          .then(function(res){
-                              $scope.syncing = false
-                              MessageService.success("Consumers synced successfully!")
-                              _triggerFetchData()
-                          }).catch(function(err){
-                          $scope.syncing = false
-                      })
-                  },function decline(){})
-          }
+          //function syncConsumers() {
+          //    DialogService.prompt(
+          //        "Sync Consumers","<strong>This action will sync Kong's consumers with Konga.</strong><br>" +
+          //        "Kong's consumers that don't exists in Konga's database will be imported" +
+          //        " while Konga's consumers that don't exist in Kong's database will be removed." +
+          //        "<br><br>Continue?",
+          //        ['No don\'t','Yes, do it!'],
+          //        function accept(){
+          //            $scope.syncing = true
+          //            ConsumerService.sync()
+          //                .then(function(res){
+          //                    $scope.syncing = false
+          //                    MessageService.success("Consumers synced successfully!")
+          //                    _triggerFetchData()
+          //                }).catch(function(err){
+          //                $scope.syncing = false
+          //            })
+          //        },function decline(){})
+          //}
 
           function deleteConsumers(consumers) {
 
@@ -230,7 +230,7 @@
                   .finally(
                       function onFinally() {
                           $scope.deleting = false;
-                          _triggerFetchData()
+                          _triggerFetchData(true)
                       }
                   )
               ;
@@ -307,8 +307,9 @@
 
 
 
-          function _triggerFetchData() {
-              _fetchData();
+
+          function _triggerFetchData(reInit) {
+              _fetchData(reInit);
           }
 
 
@@ -328,8 +329,8 @@
            *
            * @private
            */
-          function _fetchData() {
-              console.log("$scope.loading",$scope.loading)
+          function _fetchData(reInit) {
+
               if($scope.loading) return false;
               $scope.loading = true;
 
@@ -341,8 +342,10 @@
               // Data query specified parameters
               var parameters = {
                   size: $scope.itemsPerPage,
-                  offset: $scope.paging.offset
+                  offset: $scope.paging.offset || 0
               };
+
+              if($scope.filters.searchWord) parameters.username = $scope.filters.searchWord
 
               // Fetch data count
               $log.debug("parameters",parameters)
@@ -353,9 +356,14 @@
                   .then(
                       function onSuccess(response) {
 
-                          console.log("ConsumerService",response)
+                          $log.debug("ConsumerService",response)
                           $scope.loading = false;
-                          $scope.items = $scope.items.concat(response.data.data);
+                          if(reInit) {
+                              $scope.items = response.data.data
+                          }else{
+                              $scope.items = $scope.items.concat(response.data.data);
+                          }
+
                           $scope.itemCount = response.data.total;
                           $scope.next = response.data.next;
                           $scope.offset = response.data.offset;
@@ -366,7 +374,7 @@
 
 
           $scope.$on('consumer.created',function(ev,user){
-              _fetchData()
+              _fetchData(true)
           })
 
 
@@ -378,7 +386,12 @@
               _fetchData()
           })
 
-          _fetchData()
+
+          $scope.$on('search',function(ev,user){
+              _fetchData(true)
+          })
+
+          _fetchData(true)
 
       }
     ])

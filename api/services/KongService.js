@@ -35,13 +35,13 @@ var KongService = {
     },
 
     list: function (req, res) {
-        var getAPIs = function (previousAPIs,url) {
+        var getData = function (previousData,url) {
             unirest.get(url)
                 .end(function (response) {
                     if (response.error) return res.kongError(response)
-                    var apis = previousAPIs.concat(response.body.data);
+                    var apis = previousData.concat(response.body.data);
                     if (response.body.next) {
-                        getAPIs(apis,response.body.next);
+                        getData(apis,response.body.next);
                     }
                     else {
                         response.body.data = apis;
@@ -49,7 +49,7 @@ var KongService = {
                     }
                 })
         };
-        getAPIs([],sails.config.kong_admin_url + req.url.replace('/kong',''));
+        getData([],sails.config.kong_admin_url + req.url.replace('/kong',''));
     },
 
     update: function (req, res) {

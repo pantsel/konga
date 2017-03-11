@@ -47,13 +47,17 @@
         replace: true,
         templateUrl: '/js/core/directives/partials/ListSearch.html',
         controller: [
-          '$scope',
-          function controller($scope) {
+          '$scope','$rootScope',
+          function controller($scope,$rootScope) {
             $scope.id = Math.floor((Math.random() * 6) + 1);
 
             $scope.inSearch = function inSearch(item) {
               return (!angular.isUndefined(item.searchable)) ? item.searchable : false;
             };
+
+            $scope.search = function() {
+              $rootScope.$broadcast('search')
+            }
           }
         ]
       };

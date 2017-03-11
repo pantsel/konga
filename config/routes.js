@@ -28,7 +28,10 @@ module.exports.routes = {
   },
 
   '/': {
-    view: 'homepage'
+    view: 'homepage',
+    locals: {
+      angularDebugEnabled : process.env == 'production' ? false : true
+    }
   },
 
   '/404': {

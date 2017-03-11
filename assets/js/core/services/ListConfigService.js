@@ -92,15 +92,8 @@
               inTitle: true
             },
             {
-              title: 'import_id',
-              column: 'import_id',
-              sortable: true,
-              inSearch: true,
-              inTitle: true
-            },
-            {
               title: 'created',
-              column: 'createdAt',
+              column: 'created_at',
               sortable: true,
             },
             {

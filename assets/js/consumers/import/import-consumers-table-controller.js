@@ -9,17 +9,17 @@
     angular.module('frontend.consumers')
         .controller('ImportConsumersTableController', [
             '_','$scope', '$log', '$state','ConsumerService','MessageService',
-            '$uibModal','$uibModalInstance','_consumers','_existingConsumers',
+            '$uibModal','$uibModalInstance','_consumers',
             function controller(_,$scope, $log, $state, ConsumerService, MessageService,
-                                $uibModal, $uibModalInstance,_consumers,_existingConsumers) {
+                                $uibModal, $uibModalInstance,_consumers) {
 
                 $scope.consumers = _consumers;
-                $scope.existingConsumers = _existingConsumers
-                $log.debug("existingConsumers",_existingConsumers)
+                $scope.existingConsumers = []
+                $log.debug("existingConsumers",$scope.existingConsumers)
 
                 $scope.consumers.forEach(function(consumer){
-                    for(var i=0;i<_existingConsumers.length;i++) {
-                        if(consumer.username === _existingConsumers[i].username){
+                    for(var i=0;i<$scope.existingConsumers.length;i++) {
+                        if(consumer.username === $scope.existingConsumers[i].username){
                             consumer.exists = true
                             return;
                         }

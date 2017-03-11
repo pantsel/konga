@@ -79,11 +79,11 @@
                             _consumers : function() {
                                 return consumers
                             },
-                            _existingConsumers : function() {
-                                return ConsumerModel
-                                    .load()
-                                ;
-                            }
+                            //_existingConsumers : function() {
+                            //    return ConsumerModel
+                            //        .load()
+                            //    ;
+                            //}
                         }
                     });
                 }

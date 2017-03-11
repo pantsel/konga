@@ -30,7 +30,7 @@
    */
   angular.module('frontend')
       .config(function($logProvider){
-          $logProvider.debugEnabled(window.enableLogs == 'true' ? true : false);
+          $logProvider.debugEnabled(window.enableLogs);
       })
       .config(['$provide',function($provide) {
           $provide.decorator('$state', function($delegate) {
@@ -152,6 +152,8 @@
       ) {
 
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
+
+          $rootScope.moment = window.moment
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
           editableOptions.theme = 'bs3';
