@@ -18,6 +18,8 @@ module.exports = {
 
   hookTimeout: 60000,
 
+  port: process.env.KONGA_BACKEND_PORT || 1337,
+
   kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
   // models: {
   //   connection: 'someMongodbServer'
