@@ -13,6 +13,7 @@
     "Passport.js"
   ],
   "dependencies": {
+    "bower": "^1.8.0",
     "async": "1.5.0",
     "barrels": "1.6.0",
     "bcryptjs": "2.3.0",
