@@ -44,10 +44,11 @@
               UserModel
                   .update(data.id, data)
                   .then(
-                      function onSuccess() {
+                      function onSuccess(data) {
                           $scope.showForm = false;
                           MessageService.success('User "' + $scope.user.username + '" updated successfully');
                           initUserPassports()
+                          UserService.updateUser(data.data)
                           deferred.resolve(true);
                       },function(err){
                           UserModel.handleError($scope,err)

@@ -62,6 +62,10 @@
         $scope.logout = function logout() {
           AuthService.logout();
         };
+
+          $scope.$on('user.updated',function(ev,user){
+              $scope.user = UserService.user;
+          })
       }
     ])
   ;
