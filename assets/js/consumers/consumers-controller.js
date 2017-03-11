@@ -308,8 +308,8 @@
 
 
 
-          function _triggerFetchData(reInit) {
-              _fetchData(reInit);
+          function _triggerFetchData() {
+              _fetchData();
           }
 
 
@@ -329,7 +329,7 @@
            *
            * @private
            */
-          function _fetchData(reInit) {
+          function _fetchData() {
 
               if($scope.loading) return false;
               $scope.loading = true;
@@ -381,12 +381,11 @@
               _fetchData()
           })
 
-
           $scope.$on('search',function(ev,user){
-              _fetchData(true)
+              _fetchData()
           })
 
-          _fetchData(true)
+          _fetchData()
 
       }
     ])

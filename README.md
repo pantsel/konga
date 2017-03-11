@@ -41,11 +41,9 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Multiple nodes management
 * GUI level authentication
 * Multiple users (Only admin and user roles for now)
-* Utilities API
 
 ## Compatibility
-Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
-Feedback on older versions compatibility is welcome.
+Konga is built and tested on Kong 0.9.x. 0.10.x compatibility is underway but I cannot guarantee a release date.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
@@ -55,7 +53,6 @@ Feedback on older versions compatibility is welcome.
 - Bower
 
 ## Used libraries
-* angular-sailsjs-boilerplate (awesome): https://github.com/tarlepp/angular-sailsjs-boilerplate
 * Sails.js, http://sailsjs.org/
 * AngularJS, https://angularjs.org/
 * Bootstrap, http://getbootstrap.com/
