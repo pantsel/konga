@@ -63,6 +63,7 @@
   "scripts": {
     "postinstall" : "bower --allow-root install",
     "start": "node app.js",
+    "production" : "node app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha"
   },
