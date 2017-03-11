@@ -23,9 +23,8 @@
           return {
 
               query : function(query) {
-                  console.log("sdsdsd")
                   return $http({
-                      url : BackendConfig.url + '/api/consumers',
+                      url : BackendConfig.url + '/kong/consumers',
                       method: "GET",
                       params : query
                   })

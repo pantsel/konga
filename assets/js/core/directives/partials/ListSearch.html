@@ -2,40 +2,40 @@
     <form class="form-inline" role="form">
         <div class="form-group">
             <div class="input-group" uib-dropdown is-open="status.isopen">
-                <span class="input-group-addon">
+                <span class="input-group-addon" uib-dropdown-toggle>
                     <i class="material-icons">&#xE8B6;</i>
                 </span>
                 <input class="form-control" type="text" placeholder="search..."
                     data-ng-model="filters.searchWord"
                 />
-                <span class="input-group-addon clickable">
-                    <button type="button" class="btn btn-primary btn-sm" data-ng-click="search()">
-                        Search
-                    </button>
+                <!--<span class="input-group-addon clickable">-->
+                    <!--<button type="button" class="btn btn-primary btn-sm" data-ng-click="search()">-->
+                        <!--Search-->
+                    <!--</button>-->
 
-                </span>
-                <!--<ul uib-dropdown-menu class="dropdown-menu pull-right dropdown-menu-arrow" role="menu">-->
-                    <!--<li class="title padding-left">Affected columns</li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li data-ng-repeat="column in filters.columns | filter: inSearch">-->
-                        <!--<a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">-->
-                            <!--<i class="material-icons"-->
-                                <!--data-ng-class="{'opaque': !column.inSearch}"-->
-                            <!--&gt;done</i>-->
+                <!--</span>-->
+                <ul uib-dropdown-menu class="dropdown-menu pull-right dropdown-menu-arrow" role="menu">
+                    <li class="title padding-left">Affected columns</li>
+                    <li class="divider"></li>
+                    <li data-ng-repeat="column in filters.columns | filter: inSearch">
+                        <a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">
+                            <i class="material-icons"
+                                data-ng-class="{'opaque': !column.inSearch}"
+                            >done</i>
 
 
-                            <!--<span-->
-                                <!--data-ng-if="column.titleSearch"-->
-                                <!--data-ng-bind="column.titleSearch"-->
-                            <!--&gt;</span>-->
+                            <span
+                                data-ng-if="column.titleSearch"
+                                data-ng-bind="column.titleSearch"
+                            ></span>
 
-                            <!--<span-->
-                                <!--data-ng-if="!column.titleSearch"-->
-                                <!--data-ng-bind="column.title"-->
-                            <!--&gt;</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
+                            <span
+                                data-ng-if="!column.titleSearch"
+                                data-ng-bind="column.title"
+                            ></span>
+                        </a>
+                    </li>
+                </ul>
 
 
             </div>

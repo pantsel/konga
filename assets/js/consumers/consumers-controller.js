@@ -61,14 +61,14 @@
 
           // Function to change sort column / direction on list
           $scope.changeSort = function changeSort(item) {
-              //var sort = $scope.sort;
-              //
-              //if (sort.column === item.column) {
-              //    sort.direction = !sort.direction;
-              //} else {
-              //    sort.column = item.column;
-              //    sort.direction = true;
-              //}
+              var sort = $scope.sort;
+
+              if (sort.column === item.column) {
+                  sort.direction = !sort.direction;
+              } else {
+                  sort.column = item.column;
+                  sort.direction = true;
+              }
 
               //_triggerFetchData();
           };
@@ -99,30 +99,30 @@
           }
 
 
-          $scope.$watch('paging.currentPage', function watcher(valueNew, valueOld) {
+          //$scope.$watch('paging.currentPage', function watcher(valueNew, valueOld) {
+          //
+          //    $log.log('Page changed from : ' + valueOld +  ' to: ' + valueNew);
+          //    if (valueNew !== valueOld) {
+          //
+          //        if(valueNew > valueOld) {
+          //            $scope.paging.offset = $scope.offset
+          //        }
+          //
+          //        if(valueNew < valueOld) {
+          //            $scope.paging.offset = $scope.offset
+          //        }
+          //        _triggerFetchData();
+          //
+          //    }
+          //});
 
-              $log.log('Page changed from : ' + valueOld +  ' to: ' + valueNew);
-              if (valueNew !== valueOld) {
-
-                  if(valueNew > valueOld) {
-                      $scope.paging.offset = $scope.offset
-                  }
-
-                  if(valueNew < valueOld) {
-                      $scope.paging.offset = $scope.offset
-                  }
-                  _triggerFetchData();
-
-              }
-          });
 
 
-
-          $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
-              if (valueNew !== valueOld) {
-                  _triggerFetchData(true);
-              }
-          });
+          //$scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
+          //    if (valueNew !== valueOld) {
+          //        _triggerFetchData(true);
+          //    }
+          //});
 
 
           //$scope.$watch('filters', function watcher(valueNew, valueOld) {
@@ -358,12 +358,7 @@
 
                           $log.debug("ConsumerService",response)
                           $scope.loading = false;
-                          if(reInit) {
-                              $scope.items = response.data.data
-                          }else{
-                              $scope.items = $scope.items.concat(response.data.data);
-                          }
-
+                          $scope.items = response.data.data
                           $scope.itemCount = response.data.total;
                           $scope.next = response.data.next;
                           $scope.offset = response.data.offset;
@@ -374,7 +369,7 @@
 
 
           $scope.$on('consumer.created',function(ev,user){
-              _fetchData(true)
+              $scope.items.push(user)
           })
 
 
