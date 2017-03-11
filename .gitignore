@@ -119,3 +119,4 @@ nbproject
 /logs/*
 !/logs/.gitkeep
 /config/mssqlconfig.js
+/www/
