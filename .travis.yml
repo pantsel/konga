@@ -15,6 +15,7 @@ services:
   - mysql
 
 before_script:
+  - npm install -g bower
 
 notifications:
   email: true
