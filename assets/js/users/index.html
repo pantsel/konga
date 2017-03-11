@@ -1,0 +1,26 @@
+
+<div class="row">
+    <div class="col-md-12 actions">
+        <a data-ui-sref="users.create" class="btn btn-primary pull-left">
+            <i class="material-icons">&#xE145;</i>
+            Create User
+        </a>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div
+                class="table-responsive"
+                data-ng-include="'/js/users/partials/users-table.html'">
+        </div>
+    </div>
+
+</div>
+

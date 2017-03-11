@@ -41,11 +41,9 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Multiple nodes management
 * GUI level authentication
 * Multiple users (Only admin and user roles for now)
-* Utilities API
 
 ## Compatibility
-Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
-Feedback on older versions compatibility is welcome.
+Konga is built and tested on Kong 0.9.x. 0.10.x compatibility is underway but I cannot guarantee a release date.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
@@ -55,7 +53,6 @@ Feedback on older versions compatibility is welcome.
 - Bower
 
 ## Used libraries
-* angular-sailsjs-boilerplate (awesome): https://github.com/tarlepp/angular-sailsjs-boilerplate
 * Sails.js, http://sailsjs.org/
 * AngularJS, https://angularjs.org/
 * Bootstrap, http://getbootstrap.com/
@@ -71,36 +68,19 @@ $ git clone https://github.com/pantsel/konga.git
 $ cd konga
 $ npm install
 </pre>
-This will install all frontend and backend dependencies. If for some reason this fails, 
-try running <code>$ npm install</code> in /backend and /frontend separately
 
 ## Configuration
-You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
+You can configure your  application to use your environment specified
 settings.
 
-##### Backend
-There is an example of backend configuration file on following path.
+There is an example configuration file on following path.
 
 <pre>
-/backend/config/local_example.js
+/config/local_example.js
 </pre>
 
-Just copy this to <code>/backend/config/local.js</code> and make necessary changes to it. Note that this
+Just copy this to <code>/config/local.js</code> and make necessary changes to it. Note that this
 <code>local.js</code> file is in .gitignore so it won't go to VCS at any point.
-
-##### Frontend
-There is an example of front configuration file on following path.
-
-<pre>
-/frontend/config/config_example.json
-</pre>
-
-Just copy this to <code>/frontend/config/config.json</code> and make necessary changes to it. Note that this
-<code>config.json</code> file is in .gitignore so it won't go to VCS at any point.
-
-##### Notes
-If you're changing your backend API url to another than <code>http://localhost:1337</code> you need to make
-<code>frontend/config/config.json</code> with proper content on it. Use that example file as start.
 
 ## Running Konga
 
@@ -108,68 +88,29 @@ If you're changing your backend API url to another than <code>http://localhost:1
 <pre>
 $ npm start
 </pre>
-Konga GUI is available at http://localhost:3001
-
-You can also start frontend and backend separately
-<pre>
-$ cd frontend
-$ gulp serve
-</pre>
-<pre>
-$ cd backend
-$ sails lift
-</pre>
+Konga GUI will be available at http://localhost:1337
 
 #### Production
-<pre>
-$ cd frontend
-$ gulp dist
-</pre>
-This will create production-ready static code to frontend/dist ready to be served by any web server
 
 <pre>
 $ npm run production
 </pre>
-Konga GUI is available at http://localhost:3000
-
-You can also start frontend and backend separately
-<pre>
-$ cd frontend
-$ gulp production
-</pre>
-<pre>
-$ cd backend
-$ sails lift --prod
-</pre>
+Konga GUI will be available at http://localhost:1338
 
 #### Production Docker Image
 
-Environment variables
-
-<table>
-    <tr>
-        <th>Env var</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><code>KONGA_BACKEND_URL</code></td>
-        <td><small>The full URL of Konga's backend server component</small></td>
-    </tr>
-</table>
 
 The following instructions assume that you have a running Kong instance following the
 instructions from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
 <pre>
 $ docker pull pantsel/konga
-$ docker run -p 3000:3000 
-             -p 1338:1338 
-             -e KONGA_BACKEND_URL={Konga's backend url} 
+$ docker run -p 1338:1338 
              --link kong:kong
              --name konga
              pantsel/konga
 </pre>
 
-The GUI will be available at <code>http://{your server's public ip}:3000</code>
+The GUI will be available at <code>http://{your server's public ip}:1338</code>
 Login, go to settings -> new node and add http://kong:8001 for Kong Admin URL.
 
 

@@ -1,9 +1,0 @@
-{
-  "box-model": false,
-  "fallback-colors": false,
-  "box-sizing": false,
-  "compatible-vendor-prefixes": false,
-  "gradients": false,
-  "adjoining-classes": false,
-  "outline-none" : false
-}
