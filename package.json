@@ -13,11 +13,11 @@
     "Passport.js"
   ],
   "dependencies": {
-    "bower": "^1.8.0",
     "async": "1.5.0",
     "barrels": "1.6.0",
     "bcryptjs": "2.3.0",
     "bluebird": "3.0.5",
+    "bower": "^1.8.0",
     "csv-parser": "^1.11.0",
     "ejs": "^2.5.6",
     "google-auth-library": "^0.10.0",
@@ -40,6 +40,7 @@
     "include-all": "^1.0.0",
     "jsonwebtoken": "5.4.1",
     "lodash": "3.10.1",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mongodb": "^2.2.11",
     "mysql": "^2.11.1",
@@ -61,9 +62,9 @@
     "supertest": "1.1.0"
   },
   "scripts": {
-    "postinstall" : "bower --allow-root install",
+    "postinstall": "bower --allow-root install",
     "start": "node app.js",
-    "production" : "node app.js --prod",
+    "production": "node app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha"
   },
