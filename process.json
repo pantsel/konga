@@ -1,24 +1,12 @@
 {
   "apps" : [{
-    "name"        : "backend",
-    "cwd"         : "./backend",
+    "name"        : "konga",
+    "cwd"         : "./",
     "script"      : "app.js",
-    "exec_mode": "cluster",
-    "instances"  : 1,
+    "args"        : "--prod",
     "env": {
       "NODE_ENV": "production",
       "PORT": 1338
     }
-  },
-    {
-      "name"        : "frontend",
-      "script"      : "./frontend/server.js",
-      "instances"  : 1,
-      "exec_mode": "cluster",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3000,
-        "KONGA_BACKEND_URL": "http://192.168.1.3:1338"
-      }
-    }]
+  }]
 }
