@@ -17,7 +17,7 @@
 <div class="form-group" ng-class="{'has-error' : errors.uris}">
     <label class="col-sm-4 control-label">Uris <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="api.hosts" class="form-control">
+        <input ng-model="api.uris" class="form-control">
         <div class="text-danger" ng-if="errors.uris" data-ng-bind="errors.uris"></div>
         <p class="help-block">A comma-separated list of URIs prefixes that point to your API. For example: <code>/my-path</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
     </div>
@@ -25,7 +25,7 @@
 <div class="form-group" ng-class="{'has-error' : errors.methods}">
     <label class="col-sm-4 control-label">Methods <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="api.hosts" class="form-control">
+        <input ng-model="api.methods" class="form-control">
         <div class="text-danger" ng-if="errors.methods" data-ng-bind="errors.methods"></div>
         <p class="help-block">A comma-separated list of HTTP methods that point to your API. For example: <code>GET</code>,<code>POST</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
     </div>

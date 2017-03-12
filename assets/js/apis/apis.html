@@ -35,7 +35,7 @@
                     <td>
 
                         <i
-                                uib-tooltip="Strip Request Path"
+                                uib-tooltip="Strip {{settings.kong_version == '0-9-x' ? 'Request Path' : 'Uri'}}"
                                 ng-click="toggleStripRequestPathOrUri(api)"
                                 data-ng-class="{'text-primary' : isRequestPathOrUriStripped(api),'text-muted' : !isRequestPathOrUriStripped(api)}"
                                 class="material-icons clickable">
