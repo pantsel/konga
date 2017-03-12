@@ -78,9 +78,9 @@
    *  2) Version info parsing (back- and frontend)
    */
   angular.module('frontend.core.layout')
-    .controller('FooterController', ['_','$scope','$state','AuthService',
+    .controller('FooterController', ['_','$scope','$state','AuthService','SettingsService',
         '$rootScope','NodeModel','SocketHelperService',
-      function controller(_,$scope,$state,AuthService,
+      function controller(_,$scope,$state,AuthService,SettingsService,
                           $rootScope,NodeModel,SocketHelperService) {
 
           var commonParameters = {
@@ -90,6 +90,8 @@
                   active:true
               })
           };
+
+          $scope.settings = SettingsService.getSettings()
 
           function _triggerFetchData() {
               NodeModel.load(_.merge({}, commonParameters, {}))

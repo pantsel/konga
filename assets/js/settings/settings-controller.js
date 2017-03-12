@@ -9,11 +9,11 @@
     angular.module('frontend.settings')
         .controller('SettingsController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
-            'SocketHelperService','UserService','MessageService',
+            'SocketHelperService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','NodeModel','$localStorage',
             'ListConfig','_nodes','_countNodes',
             function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
-                                SocketHelperService, UserService, MessageService,
+                                SocketHelperService, UserService,SettingsService, MessageService,
                                 $state, $uibModal,DialogService,NodeModel,$localStorage,
                                 ListConfig, _nodes, _countNodes ) {
 
@@ -27,6 +27,15 @@
                 $scope.nodes = _nodes;
                 $scope.nodesCount = _countNodes.count;
                 $scope.user = UserService.user();
+                $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
+                $scope.general_settings = SettingsService.getSettings()
+                console.log("$scope.general_settings",$scope.general_settings)
+
+
+                $scope.updateSettings = function() {
+                    SettingsService.setSettings($scope.general_settings)
+                    MessageService.success('Settings updated successfully!')
+                }
 
                 // Initialize used title items
                 $scope.nodeTitleItems = ListConfig.getTitleItems(NodeModel.endpoint);

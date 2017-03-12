@@ -8,17 +8,40 @@
 
   angular.module('frontend.apis')
     .controller('AddApiModalController', [
-      '$scope', '$rootScope','$log', '$state','ApiService','$uibModalInstance','MessageService',
-      function controller($scope,$rootScope, $log, $state, ApiService, $uibModalInstance, MessageService ) {
+      '$scope', '$rootScope','$log', '$state','ApiService','SettingsService',
+        '$uibModalInstance','MessageService',
+      function controller($scope,$rootScope, $log, $state, ApiService, SettingsService,
+                          $uibModalInstance, MessageService ) {
 
-          $scope.api = {
-              name : '',
-              request_host : '',
-              request_path : '',
-              strip_request_path : false,
-              preserve_host: false,
-              upstream_url : ''
+          var apis = {
+              '0-9-x': {
+                  name: '',
+                  request_host: '',
+                  request_path: '',
+                  strip_request_path: false,
+                  preserve_host: false,
+                  upstream_url: ''
+              },
+              '0-10-x' : {
+                  name : '',
+                  hosts : '',
+                  uris : '',
+                  methods : '',
+                  strip_uri : true,
+                  preserve_host: false,
+                  retries : 5,
+                  upstream_connect_timeout : 6000,
+                  upstream_send_timeout : 6000,
+                  upstream_read_timeout : 6000,
+                  https_only:false,
+                  http_if_terminated:true,
+                  upstream_url : ''
+              }
           }
+
+          $scope.settings = SettingsService.getSettings()
+
+          $scope.api = apis[$scope.settings.kong_version]
 
           $scope.close = function() {
               $uibModalInstance.dismiss()

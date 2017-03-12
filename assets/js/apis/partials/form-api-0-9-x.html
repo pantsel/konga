@@ -1,0 +1,87 @@
+<div class="form-group" ng-class="{'has-error' : errors.name}">
+    <label class="col-sm-4 control-label">Name <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.name" class="form-control">
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+        <p class="help-block">The API name. If none is specified, will default to the <code>request_host</code> or <code>request_path</code>.</p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.request_host}">
+    <label class="col-sm-4 control-label">Request Host
+        <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.request_host" class="form-control">
+        <div class="text-danger" ng-if="errors.request_host" data-ng-bind="errors.request_host"></div>
+        <p class="help-block">
+            The public DNS address that points to your API. For example, <code>mockbin.com</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.
+        </p>
+
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.request_path}">
+    <label class="col-sm-4 control-label">Request Path
+        <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.request_path" class="form-control">
+        <div class="text-danger" ng-if="errors.request_path" data-ng-bind="errors.request_path"></div>
+        <p class="help-block">
+            The public path that points to your API. For example, <code>/someservice</code>. At least <code>request_host</code> or <code>request_path</code> or both should be specified.
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Strip Request Path
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.strip_request_path"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <!--<select ng-model="api.strip_request_path"-->
+        <!--ng-change="updateApi(api)"-->
+        <!--class="form-control"-->
+        <!--ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">-->
+        <!--</select>-->
+        <p class="help-block">
+            Strip the request_path value before proxying the request to the final API. For example a request made to <code>/someservice/hello</code> will be resolved to <code>upstream_url/hello</code>. By default is false.
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Preserve Host
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.preserve_host"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <!--<select ng-model="api.preserve_host"-->
+        <!--ng-change="updateApi(api)"-->
+        <!--class="form-control"-->
+        <!--ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">-->
+        <!--</select>-->
+        <p class="help-block">
+            Preserves the original <code>Host</code> header sent by the client, instead of replacing it with the <code>hostname</code> of the <code>upstream_url</code>. By default is false.
+        </p>
+    </div>
+</div>
+<div class="form-group " ng-class="{'has-error' : errors.upstream_url}">
+    <label class="col-sm-4 control-label">Upstream URL</label>
+    <div class="col-sm-7">
+        <input type="url" ng-model="api.upstream_url" class="form-control">
+        <div class="text-danger" ng-if="errors.upstream_url" data-ng-bind="errors.upstream_url"></div>
+        <p class="help-block">
+            The base target URL that points to your API server, this URL will be used for proxying requests. For example, <code>https://mockbin.com</code>.
+        </p>
+    </div>
+</div>

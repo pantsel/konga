@@ -25,9 +25,6 @@
                     <th width="1"></th>
                     <th width="1"></th>
                     <th>Name</th>
-                    <th>Request Host</th>
-                    <th>Request Path</th>
-
                     <th>Upstream URL</th>
                     <th>Created</th>
                     <th width="1"></th>
@@ -39,8 +36,8 @@
 
                         <i
                                 uib-tooltip="Strip Request Path"
-                                ng-click="api.strip_request_path=!api.strip_request_path;updateApi(api)"
-                                data-ng-class="{'text-primary' : api.strip_request_path,'text-muted' : !api.strip_request_path}"
+                                ng-click="toggleStripRequestPathOrUri(api)"
+                                data-ng-class="{'text-primary' : isRequestPathOrUriStripped(api),'text-muted' : !isRequestPathOrUriStripped(api)}"
                                 class="material-icons clickable">
                             font_download
                         </i>
@@ -65,9 +62,6 @@
                             <a class="clickable" data-ui-sref="apis.edit({api_id:api.id})">{{ api.name || "-" }}</a>
                         </strong>
                     </td>
-                    <td>{{ api.request_host || "-" }}</td>
-                    <td>{{ api.request_path || "-" }}</td>
-
                     <td>{{ api.upstream_url || "-" }}</td>
                     <td>{{api.created_at | date : format : timezone}}</td>
                     <td>

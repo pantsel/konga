@@ -8,10 +8,11 @@
 
   angular.module('frontend.apis')
     .controller('ApiDetailsController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','MessageService',
-      function controller($scope, $log, $state, ApiService, $uibModal,MessageService) {
+      '$scope', '$log', '$state','ApiService','$uibModal','MessageService','SettingsService',
+      function controller($scope, $log, $state, ApiService, $uibModal,MessageService,SettingsService) {
 
 
+          $scope.settings = SettingsService.getSettings()
           $scope.updateApi = function() {
 
               $scope.loading = true

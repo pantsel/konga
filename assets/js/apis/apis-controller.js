@@ -8,10 +8,11 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','_apis',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,_apis ) {
+      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','SettingsService','_apis',
+      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,SettingsService,_apis ) {
 
           $scope.apis = _apis.data
+          $scope.settings = SettingsService.getSettings()
 
           function getApis(){
               $scope.loading = true;
@@ -25,6 +26,24 @@
 
           }
 
+          $scope.toggleStripRequestPathOrUri = function(api) {
+
+              if($scope.settings.kong_version == '0-9-x'){
+                  api.strip_request_path=!api.strip_request_path
+              }else{
+                  api.strip_uri=!api.strip_uri
+              }
+
+              $scope.updateApi(api)
+          }
+
+          $scope.isRequestPathOrUriStripped = function(api) {
+              if($scope.settings.kong_version == '0-9-x'){
+                  return api.strip_request_path
+              }
+
+              return api.strip_uri
+          }
 
           $scope.$on('api.created',function(){
               getApis()
