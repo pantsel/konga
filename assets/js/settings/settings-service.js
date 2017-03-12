@@ -12,7 +12,7 @@
             function($localStorage ) {
 
                 var defSettings = {
-                    kong_version : "0-9-x"
+                    kong_version : "0-10-x"
                 }
 
                 return {
