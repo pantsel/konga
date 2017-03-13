@@ -62,7 +62,7 @@
             if (response.status === 401) {
               $localStorage.$reset();
 
-              $injector.get('$state').go('auth.login');
+              // $injector.get('$state').go('auth.login');
             }
 
             return $q.reject(response);

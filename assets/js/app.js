@@ -173,7 +173,7 @@
 
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
-                $state.go('auth.login', params, {location: 'replace'})
+                $state.go('auth.login', params)
             }
 
             if (toState.redirectTo) {
