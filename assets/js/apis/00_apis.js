@@ -24,7 +24,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/apis/apis.html',
+                                templateUrl: 'js/apis/apis.html',
                                 controller: 'ApisController',
                                 resolve : {
                                     _apis: [
@@ -46,7 +46,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/apis/edit-api.html',
+                                templateUrl: 'js/apis/edit-api.html',
                                 controller: 'ApiController',
                                 resolve : {
                                     _api: [
@@ -65,11 +65,11 @@
 
                             },
                             'details@apis.edit': {
-                                templateUrl: '/js/apis/api-details.html',
+                                templateUrl: 'js/apis/api-details.html',
                                 controller: 'ApiDetailsController',
                             },
                             'plugins@apis.edit': {
-                                templateUrl: '/js/apis/api-plugins.html',
+                                templateUrl: 'js/apis/api-plugins.html',
                                 controller: 'ApiPluginsController',
                                 resolve : {
                                     _plugins : [
@@ -93,7 +93,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/apis/api-plugins.html',
+                                templateUrl: 'js/apis/api-plugins.html',
                                 controller: 'ApiPluginsController',
                                 resolve : {
                                     _api : [
@@ -129,7 +129,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/apis/plugins/manage/manage-api-plugins.html',
+                                templateUrl: 'js/apis/plugins/manage/manage-api-plugins.html',
                                 controller: 'ManageApiPluginsController',
                                 resolve : {
                                     _api: [

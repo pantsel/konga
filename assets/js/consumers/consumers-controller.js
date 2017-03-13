@@ -162,7 +162,7 @@
           //        animation: true,
           //        ariaLabelledBy: 'modal-title',
           //        ariaDescribedBy: 'modal-body',
-          //        templateUrl: '/js/consumers/credentials/mass-assign-modal.html',
+          //        templateUrl: 'js/consumers/credentials/mass-assign-modal.html',
           //        controller: 'MassAssignCredentialsController',
           //        controllerAs: '$ctrl',
           //        resolve : {
@@ -258,7 +258,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/consumers/import/modal-select-storage.html',
+                  templateUrl: 'js/consumers/import/modal-select-storage.html',
                   controller: 'ImportConsumersStorageController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -274,7 +274,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/consumers/create-consumer-modal.html',
+                  templateUrl: 'js/consumers/create-consumer-modal.html',
                   controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerService){
 
                       $scope.consumer = {

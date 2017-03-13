@@ -18,7 +18,7 @@
         scope: {
           'files': '@'
         },
-        templateUrl: '/js/core/layout/partials/files.html',
+        templateUrl: 'js/core/layout/partials/files.html',
         controller: [
           '$scope',
           function controller($scope) {

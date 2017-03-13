@@ -22,7 +22,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: '/js/info/index.html',
+                                templateUrl: 'js/info/index.html',
                                 controller: 'InfoController',
                                 resolve : {
                                     _info : ['InfoService',function(InfoService) {

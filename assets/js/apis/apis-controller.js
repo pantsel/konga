@@ -69,7 +69,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/apis/add-api-modal.html',
+                  templateUrl: 'js/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
                   size: 'lg',

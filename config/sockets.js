@@ -122,7 +122,8 @@ module.exports.sockets = {
     'polling'
   ],
 
-  origins: '*:*'
+  origins: '*:*',
+
 
   // More configuration options for Sails+Socket.io:
   // http://sailsjs.org/#/documentation/reference/sails.config/sails.config.sockets.html

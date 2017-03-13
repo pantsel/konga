@@ -8,8 +8,8 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$log', '$state','$q','InfoService','_activeNode',
-      function controller($scope, $log, $state,$q,InfoService,_activeNode) {
+      '$scope', '$log', '$state','$q','InfoService',
+      function controller($scope, $log, $state,$q,InfoService) {
 
 
           $scope.closeAlert = function() {

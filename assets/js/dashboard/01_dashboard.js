@@ -26,16 +26,8 @@
 
                         views: {
                             'content@': {
-                                templateUrl: '/js/dashboard/dashboard.html',
-                                controller: 'DashboardController',
-                                resolve : {
-                                    _activeNode: [
-                                        'NodesService',
-                                        function resolve(NodesService) {
-                                            return NodesService.isActiveNodeSet()
-                                        }
-                                    ],
-                                }
+                                templateUrl: 'js/dashboard/dashboard.html',
+                                controller: 'DashboardController'
                             },
 
                         },

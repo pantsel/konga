@@ -22,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/users/index.html',
+                                templateUrl: 'js/users/index.html',
                                 controller: 'UsersController',
                                 resolve: {
                                     _items: [
@@ -61,7 +61,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/users/user-create.html',
+                                templateUrl: 'js/users/user-create.html',
                                 controller: 'UserCreateController'
                             }
                         }
@@ -75,7 +75,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/users/user.html',
+                                templateUrl: 'js/users/user.html',
                                 controller: 'UserController',
                                 resolve: {
                                     _user: [

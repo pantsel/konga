@@ -73,7 +73,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/plugins/modals/add-plugin-modal.html',
+                  templateUrl: 'js/plugins/modals/add-plugin-modal.html',
                   size : 'lg',
                   controller: 'AddPluginController',
                   resolve: {

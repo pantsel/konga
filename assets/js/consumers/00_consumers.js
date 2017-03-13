@@ -26,7 +26,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: '/js/consumers/index.html',
+                                templateUrl: 'js/consumers/index.html',
                                 controller: 'ConsumersController'
                             }
                         }
@@ -40,16 +40,16 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/consumers/edit-consumer.html',
+                                templateUrl: 'js/consumers/edit-consumer.html',
                                 controller: 'ConsumerController',
 
                             },
                             'details@consumers.edit': {
-                                templateUrl: '/js/consumers/details/consumer-details.html',
+                                templateUrl: 'js/consumers/details/consumer-details.html',
                                 controller: 'ConsumerDetailsController',
                             },
                             'groups@consumers.edit': {
-                                templateUrl: '/js/consumers/groups/consumer-groups.html',
+                                templateUrl: 'js/consumers/groups/consumer-groups.html',
                                 controller: 'ConsumerGroupsController',
                                 resolve : {
                                     _acls : [
@@ -62,7 +62,7 @@
                                 }
                             },
                             'credentials@consumers.edit': {
-                                templateUrl: '/js/consumers/credentials/consumer-credentials.html',
+                                templateUrl: 'js/consumers/credentials/consumer-credentials.html',
                                 controller: 'ConsumerCredentialsController',
                                 resolve : {
                                     _keys : [

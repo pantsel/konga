@@ -21,7 +21,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/js/core/error/partials/error.html',
+                templateUrl: 'js/core/error/partials/error.html',
                 controller: 'ErrorController',
                 resolve: {
                   _error: function resolve() {

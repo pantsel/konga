@@ -22,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/settings/index.html',
+                                templateUrl: 'js/settings/index.html',
                                 controller: 'SettingsController',
                                 resolve: {
                                     _nodes: [

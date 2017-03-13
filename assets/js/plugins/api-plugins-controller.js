@@ -35,7 +35,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/apis/add-api-plugin-modal.html',
+                  templateUrl: 'js/apis/add-api-plugin-modal.html',
                   size : 'lg',
                   controller: 'AddApiPluginModalController',
                   resolve: {
@@ -95,7 +95,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: '/js/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: 'js/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditPluginController',
                   resolve: {

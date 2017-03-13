@@ -59,7 +59,7 @@
                         keyboard  : false,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: '/js/consumers/import/modal-import.html',
+                        templateUrl: 'js/consumers/import/modal-import.html',
                         controller: 'ImportConsumersController',
                         controllerAs: '$ctrl',
                         resolve : {

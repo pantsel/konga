@@ -104,7 +104,7 @@
         //  })
         //  .state('profile.edit', {
         //    url: '/profile',
-        //    templateUrl: '/js/profile/profile.html',
+        //    templateUrl: 'js/profile/profile.html',
         //    controller: 'ProfileController'
         //  })
         //;
@@ -118,11 +118,11 @@
               },
             views: {
               header: {
-                templateUrl: '/js/core/layout/partials/header.html',
+                templateUrl: 'js/core/layout/partials/header.html',
                 controller: 'HeaderController'
               },
               footer: {
-                templateUrl: '/js/core/layout/partials/footer.html',
+                templateUrl: 'js/core/layout/partials/footer.html',
                 controller: 'FooterController'
               }
             }
@@ -176,12 +176,6 @@
                 $state.go('auth.login', params, {location: 'replace'})
             }
 
-
-            if (!NodesService.authorize(toState.data.activeNode)) {
-                event.preventDefault();
-                $state.go('settings', params, {location: 'replace'})
-            }
-
             if (toState.redirectTo) {
                 event.preventDefault();
                 $state.go(toState.redirectTo, params, {location: 'replace'})
@@ -200,7 +194,7 @@
             return AuthService.isAuthenticated()
         }
 
-        // Check for state change errors.
+         //Check for state change errors.
         //$rootScope.$on('$stateChangeError', function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
         //  event.preventDefault();
         //

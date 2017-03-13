@@ -156,7 +156,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: '/js/settings/modals/test-node-modal.html',
+                        templateUrl: 'js/settings/modals/test-node-modal.html',
                         size : 'sm',
                         backdrop: 'static',
                         keyboard: false,
@@ -210,7 +210,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: '/js/settings/modals/create-node-modal.html',
+                        templateUrl: 'js/settings/modals/create-node-modal.html',
                         size : 'lg',
                         controller: function($scope,$rootScope,$log,NodeModel,MessageService,$uibModalInstance) {
                             $scope.node = {

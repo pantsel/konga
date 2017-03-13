@@ -21,7 +21,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/plugins/plugins.html',
+                                templateUrl: 'js/plugins/plugins.html',
                                 controller: 'PluginsController',
                                 resolve: {
                                     _plugins : [
@@ -45,7 +45,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: '/js/plugins/add-plugins.html',
+                                templateUrl: 'js/plugins/add-plugins.html',
                                 controller: 'AddPluginsController',
                                 resolve : {
                                     _plugins: [

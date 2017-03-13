@@ -25,7 +25,7 @@
             },
             views: {
               'content@': {
-                templateUrl: '/js/core/auth/login/login.html',
+                templateUrl: 'js/core/auth/login/login.html',
                 controller: 'LoginController'
               }
             }
