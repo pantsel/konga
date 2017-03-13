@@ -1,0 +1,166 @@
+<div class="modal-header warning">
+    <h5 class="modal-title" id="modal-title">
+        Add  {{pluginName.split("-").join(" ")}} plugin
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons">clear</i>
+        </a>
+
+    </h5>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <p class="help-block" data-ng-bind-html="description"></p>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger" ng-if="errors.config">
+        <button type="button" class="close" ng-click="errors.config=null" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{errors.config}}
+    </div>
+
+    <form class="form-horizontal">
+
+        <div data-ng-if="!data.no_consumer" class="form-group">
+            <label class="col-sm-4 control-label"><strong>consumer</strong></label>
+            <div class="col-sm-7">
+                <input
+                        type="text"
+                        ng-model="data.consumer"
+                        placeholder="search consumer..."
+                        uib-typeahead="item as item.username for item in getConsumer($viewValue)"
+                        typeahead-template-url="js/app/plugins/modals/custom-template.html"
+                        class="form-control"
+                        typeahead-wait-ms="200"
+                        typeahead-show-hint="true"
+                        typeahead-min-length="0">
+                <p class="help-block">
+                    The CONSUMER ID that this plugin configuration will target.
+                    This value can only be used if authentication has been enabled
+                    so that the system can identify the user making the request.
+                    If left blank, the plugin will be applied to all consumers.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in data.fields">
+            <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
+            <div class="col-sm-7">
+                <div ng-switch on="value.type">
+                    <div ng-switch-when="table">
+
+                        <div ng-if="value.schema.flexible">
+                            <div data-ng-repeat="(cf_key,cf_data) in value.custom_fields" class="plugin-field-table margin-bottom">
+                                <p class="no-margin">
+                                    <strong class="pull-left">{{cf_key}}</strong>
+                                    <button data-ng-click="removeCustomField(value,cf_key)" class="btn btn-sm btn-flat btn-danger pull-right" style="margin-top: -15px">
+                                        <i class="material-icons no-margin">clear</i>
+                                    </button>
+                                </p>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div data-ng-repeat="(title,content) in cf_data" class="col-md-4">
+                                        <input type="{{content.type}}" class="form-control" data-ng-model="content.value"/>
+                                        <div class="help-block">{{title}}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="input-group">
+                                <input type="text"
+                                       on-key-enter="addCustomField(value)"
+                                       data-ng-model="value.custom_field"
+                                       class="form-control"
+                                       my-enter="doSomething()"
+                                       placeholder="add an object to limit...">
+                                <span class="input-group-btn">
+                                    <button data-ng-click="addCustomField(value)" class="btn btn-primary" type="button">add</button>
+                                </span>
+                            </div>
+                            <!--<pre>{{value.custom_fields | json}}</pre>-->
+                        </div>
+                        <div ng-if="!value.schema.flexible" class="plugin-field-table">
+                            <div data-ng-repeat="(key,data) in value.schema.fields">
+                                <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
+                                <div ng-switch on="data.type">
+                                    <div ng-switch-when="array">
+                                        <chips ng-model="data.value">
+                                            <chip-tmpl>
+                                                <div class="default-chip">
+                                                    {{chip}}
+                                                    <i class="material-icons" remove-chip>clear</i>
+                                                </div>
+                                            </chip-tmpl>
+                                            <input chip-control/>
+                                        </chips>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <input type="{{data.type}}" ng-model="data.value" class="form-control">
+                                    </div>
+                                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                                    <p class="help-block">{{data.help}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div ng-switch-when="string">
+                        <div data-ng-if="value.enum">
+                            <select class="form-control" ng-model="value.value" ng-options="x for x in value.enum">
+                            </select>
+                        </div>
+                        <div data-ng-if="!value.enum">
+                            <input type="text" ng-model="value.value" class="form-control">
+                        </div>
+                    </div>
+                    <div ng-switch-when="array">
+                        <chips ng-model="value.value">
+                            <chip-tmpl>
+                                <div class="default-chip">
+                                    {{chip}}
+                                    <i class="material-icons" remove-chip>clear</i>
+                                </div>
+                            </chip-tmpl>
+                            <input chip-control/>
+                        </chips>
+                    </div>
+                    <div ng-switch-when="select">
+                        <select class="form-control"  ng-model="value.value">
+                            <option  ng-repeat="item in units" ng-value="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <div ng-switch-when="boolean">
+                        <input
+                                bs-switch
+                                ng-model="value.value"
+                                switch-size="small"
+                                type="checkbox"
+                                switch-on-text="YES"
+                                switch-off-text="NO"
+                                ng-change="updateApi(api)"
+                        >
+
+                    </div>
+                    <div ng-switch-when="file">
+                        <input type="file"
+                               ngf-select ng-model="data.value" name="data.value"
+                        />
+                    </div>
+                    <div ng-switch-default>
+                        <input type="{{value.type}}" ng-model="value.value" class="form-control">
+
+                    </div>
+                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                    <p class="help-block">{{value.help}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="button" data-ng-disabled="busy" class="btn btn-primary" ng-click="addPlugin()">
+                    <i class="material-icons" ng-if="!busy">&#xE876;</i>
+                    <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                    add plugin
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
