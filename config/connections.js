@@ -37,12 +37,12 @@ module.exports.connections = {
    * Run:
    * npm install sails-mysql
    */
-  someMysqlServer: {
+  mysql: {
     adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
+    host: process.env.MYSQL_HOST || 'localhost',
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD || null,
+    database: process.env.MYSQL_DATABASE || 'konga_database'
   },
 
   /**
@@ -52,13 +52,13 @@ module.exports.connections = {
    * Run:
    * npm install sails-mongo
    */
-  someMongodbServer: {
+  mongo: {
     adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 27017,
-    user: 'username',
-    password: 'password',
-    database: 'your_mongo_db_name_here'
+    host: process.env.MONGO_HOST || 'localhost',
+    port: process.env.MONGO_PORT || 27017,
+    user: process.env.MONGO_USER ||  null,
+    password: process.env.MONGO_PASSWORD ||  null,
+    database: process.env.MONGO_DATABASE ||  'konga_database',
   },
 
   /**
@@ -68,13 +68,16 @@ module.exports.connections = {
    * Run:
    * npm install sails-postgresql
    */
-  somePostgresqlServer: {
+  postgres: {
     adapter: 'sails-postgresql',
-    host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_POSTGRES_USER',
-    password: 'YOUR_POSTGRES_PASSWORD',
-    database: 'YOUR_POSTGRES_DB'
-  }
+    host: process.env.PG_HOST || 'localhost',
+    user:  process.env.PG_USER || 'postgres',
+    password: process.env.PG_PASSWORD || 'admin1!',
+    port: process.env.PG_PORT || 5432,
+    database: process.env.PG_DATABASE ||'konga_database',
+    poolSize: process.env.PG_POLLSIZE || 10,
+    ssl: process.env.PG_SSL || false
+  },
 
   /**
    * More adapters:

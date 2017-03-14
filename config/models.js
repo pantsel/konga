@@ -17,6 +17,6 @@ module.exports.models = {
    * connections (see `config/connections.js`)                                *
    *                                                                          *
    ***************************************************************************/
-  connection: 'localDiskDb',
+  connection : process.env.MODELS_CONNECTION || 'postgres',
   migrate: 'alter'
 };
