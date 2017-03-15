@@ -143,10 +143,10 @@ $ docker run -p 1338:1338
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres' or 'mysql'
              -e "DB_HOST=your-db-hostname" \
-             -e "DB_PORT=your-db-port" \
-             -e "DB_USER=your-db-user" \
-             -e "DB_PASSWORD=your-db-password" \
-             -e "DB_DATABASE=your-db-name" \
+             -e "DB_PORT=your-db-port" \ // Defaults to the default db port
+             -e "DB_USER=your-db-user" \ // Omit if nor relevant
+             -e "DB_PASSWORD=your-db-password" \ // Omit if nor relevant
+             -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
              --name konga \
              pantsel/konga
 </pre>
