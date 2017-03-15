@@ -91,7 +91,7 @@
            */
           login: function login(credentials) {
             return $http
-              .post(BackendConfig.url + '/login', credentials, {withCredentials: true})
+              .post('login', credentials, {withCredentials: true})
               .then(
                 function(response) {
                   MessageService.success('You have been logged in.');
