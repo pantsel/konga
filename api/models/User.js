@@ -9,7 +9,15 @@ var _ = require('lodash');
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
+  tableName : "konga_users",
+  autoPK: false,
   attributes: {
+    id : {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement : true
+    },
     username: {
       type: 'string',
       unique: true
@@ -41,5 +49,22 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
       collection: 'Passport',
       via: 'user'
     },
-  }
+  },
+
+  seedData:[
+    {
+      "username": "admin",
+      "email": "admin@some.domain",
+      "firstName": "Arnold",
+      "lastName": "Administrator",
+      "admin": true
+    },
+    {
+      "username": "demo",
+      "email": "demo@some.domain",
+      "firstName": "John",
+      "lastName": "Doe",
+      "admin": false
+    }
+  ]
 });

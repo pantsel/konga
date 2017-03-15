@@ -18,8 +18,19 @@ var bcrypt = require('bcryptjs');
  */
 var Passport = {
   schema: true,
+  tableName : "konga_passports",
+  autoPK : false,
 
   attributes: {
+
+
+    id : {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement : true
+    },
+
     /**
      * Required field: Protocol
      *

@@ -9,6 +9,7 @@ var _ = require('lodash');
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
+  tableName : "konga_kong_groups",
   attributes: {
     name: {
       type: 'string',

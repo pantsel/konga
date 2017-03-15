@@ -9,7 +9,15 @@ var _ = require('lodash');
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
+  tableName : "konga_kong_nodes",
+  autoPK : false,
   attributes: {
+    id : {
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement : true
+    },
     name: {
       type: 'string',
       required : true
@@ -23,5 +31,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
       required : true,
       defaultsTo : false
     }
-  }
+  },
+  seedData : [
+    {
+      "name" : "default",
+      "kong_admin_url": "http://localhost:8001",
+      "active": false
+    }
+  ]
 });
