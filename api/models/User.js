@@ -8,7 +8,9 @@ var _ = require('lodash');
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
-module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
+
+
+var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
   tableName : "konga_users",
   autoPK: false,
   attributes: {
@@ -68,3 +70,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Model')), {
     }
   ]
 });
+
+var mongoModel = function() {
+  var obj = _.cloneDeep(defaultModel)
+  delete obj.autoPK
+  delete obj.attributes.id
+  return obj;
+}
+
+module.exports = sails.config.models.connection == 'mongo' ? mongoModel() : defaultModel

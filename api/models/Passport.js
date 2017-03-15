@@ -1,6 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcryptjs');
+var _ = require('lodash');
 
 /**
  * Passport Model
@@ -16,7 +17,7 @@ var bcrypt = require('bcryptjs');
  * weight as possible as the application only needs to serialize and deserialize
  * the user, but not the authentication data, to and from the session.
  */
-var Passport = {
+var defaultModel = {
   schema: true,
   tableName : "konga_passports",
   autoPK : false,
@@ -141,4 +142,12 @@ var Passport = {
   }
 };
 
-module.exports = Passport;
+
+var mongoModel = function() {
+  var obj = _.cloneDeep(defaultModel)
+  delete obj.autoPK
+  delete obj.attributes.id
+  return obj;
+}
+
+module.exports = sails.config.models.connection == 'mongo' ? mongoModel() : defaultModel
