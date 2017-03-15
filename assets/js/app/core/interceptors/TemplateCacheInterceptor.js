@@ -13,10 +13,7 @@
       function() {
         return {
           request: function( config ) {
-            if( config.url.indexOf( ".html", config.url.length - ".html".length ) !== -1 ) {
-
-            }
-
+            if( config.url.indexOf( ".html", config.url.length - ".html".length ) !== -1 ) {}
             return config;
           }
         };
