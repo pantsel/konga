@@ -39,10 +39,11 @@ module.exports.connections = {
    */
   mysql: {
     adapter: 'sails-mysql',
-    host: process.env.MYSQL_HOST || 'localhost',
-    user: process.env.MYSQL_USER || 'root',
-    password: process.env.MYSQL_PASSWORD || null,
-    database: process.env.MYSQL_DATABASE || 'konga_database'
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 3306,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || null,
+    database: process.env.DB_DATABASE || 'konga_database'
   },
 
   /**
@@ -54,11 +55,11 @@ module.exports.connections = {
    */
   mongo: {
     adapter: 'sails-mongo',
-    host: process.env.MONGO_HOST || 'localhost',
-    port: process.env.MONGO_PORT || 27017,
-    user: process.env.MONGO_USER ||  null,
-    password: process.env.MONGO_PASSWORD ||  null,
-    database: process.env.MONGO_DATABASE ||  'konga_database',
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 27017,
+    user: process.env.DB_USER ||  null,
+    password: process.env.DB_PASSWORD ||  null,
+    database: process.env.DB_DATABASE ||  'konga_database',
   },
 
   /**
@@ -70,13 +71,13 @@ module.exports.connections = {
    */
   postgres: {
     adapter: 'sails-postgresql',
-    host: process.env.PG_HOST || 'localhost',
-    user:  process.env.PG_USER || 'postgres',
-    password: process.env.PG_PASSWORD || 'admin1!',
-    port: process.env.PG_PORT || 5432,
-    database: process.env.PG_DATABASE ||'konga_database',
-    poolSize: process.env.PG_POLLSIZE || 10,
-    ssl: process.env.PG_SSL || false
+    host: process.env.DB_HOST || 'localhost',
+    user:  process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'admin1!',
+    port: process.env.DB_PORT || 5432,
+    database: process.env.DB_DATABASE ||'konga_database',
+    poolSize: process.env.DB_POLLSIZE || 10,
+    ssl: process.env.DB_SSL || false
   },
 
   /**

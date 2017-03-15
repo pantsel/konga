@@ -37,9 +37,11 @@ module.exports = {
   connections: {
 
   },
-  models: {
 
+  models: {
+    connection: process.env.DB_ADAPTER || 'localDiskDb',
   },
+
   session: {
     secret: '' // Add your own SECRET string here
   },
