@@ -125,7 +125,6 @@ Konga GUI will be available at http://localhost:1338
 
 ### Production Docker Image
 
-
 The following instructions assume that you have a running Kong instance following the
 instructions from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
 <pre>
