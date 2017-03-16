@@ -26,6 +26,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       type: 'string',
       required : true
     },
+    kong_version: {
+      type: 'string',
+      required : true,
+      defaultsTo : '0-10-x'
+    },
     active: {
       type: 'boolean',
       required : true,
