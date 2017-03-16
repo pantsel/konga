@@ -103,9 +103,9 @@
           }
 
           function setNode(node) {
-              $rootScope.node = node
+              $rootScope.$node = node
               if(node) {
-                  $scope.adminUrl = $rootScope.node.kong_admin_url;
+                  $scope.adminUrl = $rootScope.$node.kong_admin_url;
               }else{
                   $scope.adminUrl = 'no node defined'
               }

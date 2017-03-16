@@ -191,6 +191,9 @@
                 }
 
                 $scope.updateNode = function(node) {
+
+                    console.log("On update node",node)
+
                     NodeModel
                         .update(node.id,node)
                         .then(
@@ -212,9 +215,13 @@
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/settings/modals/create-node-modal.html',
                         size : 'lg',
-                        controller: function($scope,$rootScope,$log,NodeModel,MessageService,$uibModalInstance) {
+                        controller: function($scope,$rootScope,$log,NodeModel,MessageService,SettingsService,$uibModalInstance) {
+
+                            $scope.kong_versions = SettingsService.getKongVersions()
+
                             $scope.node = {
                                 kong_admin_url : '',
+                                kong_version : '0-10-x',
                             }
 
                             $scope.close = function(){

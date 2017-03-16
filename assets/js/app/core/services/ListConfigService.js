@@ -51,6 +51,10 @@
               inTitle: true
             },
             {
+              title: 'kong version',
+              column: 'kong_version'
+            },
+            {
               title: 'created',
               column: 'createdAt',
               sortable: true,
