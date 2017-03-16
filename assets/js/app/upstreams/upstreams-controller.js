@@ -11,11 +11,11 @@
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
             'SocketHelperService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','Upstream','$localStorage',
-            'ListConfig','_upstreams',
+            'ListConfig',
             function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
                                 SocketHelperService, UserService,SettingsService, MessageService,
                                 $state, $uibModal,DialogService,Upstream,$localStorage,
-                                ListConfig, _upstreams ) {
+                                ListConfig ) {
 
 
                 Upstream.setScope($scope, false, 'items', 'itemCount');
@@ -25,9 +25,8 @@
 
                 // Set initial data
                 $scope.loading = false
-                $scope.items = _upstreams.data
-                $log.debug("Upstreams =>",$scope.items)
-                $scope.totalItems = _upstreams.total
+                $scope.items = []
+                $scope.totalItems = 0
 
                 // Initialize used title items
                 $scope.titleItems = ListConfig.getTitleItems('upstream');
@@ -35,7 +34,7 @@
 
                 $scope.sort = {
                     column: 'created_at',
-                    direction: false
+                    direction: true
                 };
 
                 // Initialize filters
@@ -71,7 +70,26 @@
                     })
                 }
 
-                $scope.openCreateUpstreamModal = function() {
+
+                $scope.openEditItemModal = function(item) {
+
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/upstreams/add-upstream-modal.html',
+                        controller: 'UpdateUpstreamModalController',
+                        controllerAs: '$ctrl',
+                        resolve : {
+                            _item : function() {
+                                return item
+                            }
+                        }
+                        //size: 'lg',
+                    });
+                }
+
+                $scope.openCreateItemModal = function() {
 
                     $uibModal.open({
                         animation: true,
@@ -119,6 +137,9 @@
                             MessageService.success('Upstream deleted successfully');
                         })
                 }
+
+
+                _fetchData()
 
             }
         ])

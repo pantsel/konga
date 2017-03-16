@@ -116,7 +116,13 @@
            */
           update: function update(endPoint, identifier, data) {
             return $http
-              .put(_parseEndPointUrl(endPoint, identifier), data);
+              .patch(_parseEndPointUrl(endPoint, identifier), data);
+          },
+
+
+          updateOrCreate: function update(endPoint, data) {
+            return $http
+                .put(_parseEndPointUrl(endPoint), data);
           },
 
           /**

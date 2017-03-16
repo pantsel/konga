@@ -22,8 +22,25 @@ module.exports = {
 
 
         var request = unirest[req.method.toLowerCase()](sails.config.kong_admin_url + req.url)
+        request.headers({'Content-Type': 'application/json'})
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
+        {
+            if(req.body && req.body.orderlist) {
+                for( var i = 0; i < req.body.orderlist.length; i ++) {
+                    try{
+                        req.body.orderlist[i] = parseInt(req.body.orderlist[i])
+                    }catch(err) {
+                        return res.badRequest({
+                            body : {
+                                message : 'Ordelist entities must be integers'
+                            }
+                        })
+                    }
+                }
+            }
             request.send(req.body)
+        }
+
 
         request.end(function (response) {
             if (response.error)  return res.negotiate(response)

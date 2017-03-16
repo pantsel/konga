@@ -385,6 +385,16 @@
             .update(self.endpoint, identifier, data);
         };
 
+
+
+        DataModel.prototype.updateOrCreate = function updateOrCreate(data) {
+          var self = this;
+
+
+          return DataService
+              .updateOrCreate(self.endpoint, data);
+        };
+
         /**
          * Service function to delete specified object from current model endpoint. Note that this will
          * also trigger 'handleMessage' service function, which will handle all necessary updates to

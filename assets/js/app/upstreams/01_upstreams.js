@@ -23,26 +23,8 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/upstreams/index.html',
-                                controller: 'UpstreamsController',
-                                resolve: {
-                                    _upstreams: [
-                                        'ListConfig',
-                                        'Upstream',
-                                        function resolve(
-                                            ListConfig,
-                                            Upstream
-                                        ) {
-                                            var config = ListConfig.getConfig();
-
-                                            var parameters = {
-                                                size: config.itemsFetchSize
-                                            };
-
-                                            return Upstream.load(_.merge({}, parameters));
-                                        }
-                                    ]
-                                }
+                                templateUrl : 'js/app/upstreams/index.html',
+                                controller  : 'UpstreamsController'
                             }
                         }
                     })

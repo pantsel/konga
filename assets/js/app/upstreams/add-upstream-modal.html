@@ -9,6 +9,9 @@
 </div>
 
 <div class="modal-body" id="modal-body">
+    <div class="alert alert-danger" data-ng-show="errors.message">
+        {{errors.message}}
+    </div>
     <form class="form-horizontal">
         <div class="form-group" ng-class="{'has-error' : errors.name}">
             <label class="col-sm-4 control-label">Name
@@ -38,7 +41,15 @@
             <label class="col-sm-4 control-label">Orderlist
                 <br><em><small class="help-block">optional</small></em></label>
             <div class="col-sm-7">
-                <input type="text" ng-model="upstream.orderlist" class="form-control">
+                <chips ng-model="upstream.orderlist">
+                    <chip-tmpl>
+                        <div class="default-chip">
+                            {{chip}}
+                            <i class="material-icons" remove-chip>clear</i>
+                        </div>
+                    </chip-tmpl>
+                    <input chip-control/>
+                </chips>
                 <div class="text-danger" ng-if="errors.orderlist" data-ng-bind="errors.orderlist"></div>
                 <p class="help-block">
                     A list of sequential, but randomly ordered, integer numbers that determine the distribution of the slots in the balancer. If omitted it will be generated. If given, it must have exactly <code>slots</code> number of entries.

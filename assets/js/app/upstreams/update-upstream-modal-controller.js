@@ -7,15 +7,13 @@
   'use strict';
 
   angular.module('frontend.upstreams')
-    .controller('AddUpstreamModalController', [
+    .controller('UpdateUpstreamModalController', [
       '$scope', '$rootScope','$log', '$state','ApiService','SettingsService',
-        '$uibModalInstance','Upstream','MessageService',
+        '$uibModalInstance','Upstream','MessageService','_item',
       function controller($scope,$rootScope, $log, $state, ApiService, SettingsService,
-                          $uibModalInstance, Upstream, MessageService ) {
+                          $uibModalInstance, Upstream, MessageService,_item ) {
 
-          $scope.upstream = {
-              slots : 1000
-          }
+          $scope.upstream = _item
 
 
           $scope.close = function() {
@@ -25,19 +23,16 @@
           $scope.submit = function() {
 
               $scope.busy = true
-              var data = angular.copy($scope.upstream)
-              delete data.token
-              $log.debug("data",data)
-              Upstream.create(data)
+              Upstream.update($scope.upstream.id,angular.copy($scope.upstream))
                   .then(
                       function onSuccess(result) {
-                          $log.debug("AddUpstreamModalController:created upstream",result)
-                          MessageService.success('New upstream created successfully');
+                          $log.debug("UpdateUpstreamModalController:created upstream",result)
+                          MessageService.success('Upstream updated successfully');
                           $scope.busy = false;
-                          $rootScope.$broadcast('kong.upstream.created',result.data)
+                          $rootScope.$broadcast('kong.upstream.updated',result.data)
                           $uibModalInstance.dismiss()
                       },function(err){
-                          $log.error("AddUpstreamModalController:created upstream error",err)
+                          $log.error("UpdateUpstreamModalController:update upstream error",err)
                           $scope.busy = false
                           Upstream.handleError($scope,err)
                       }
