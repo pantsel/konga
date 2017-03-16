@@ -7,7 +7,6 @@ module.exports = {
         return KongService.create(req,res)
     },
     retrieve : function(req,res) {
-        console.log("-------------------------------------")
         return KongService.retrieve(req,res)
     },
 

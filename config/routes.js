@@ -123,6 +123,10 @@ module.exports.routes = {
     'POST /api/apis'                     : 'KongaApiController.registerApi',
 
 
+  // Upstream routes
+  //'GET /kong/upstreams'                      : 'KongUpstreamsController.list',
+
+
   /**
    * Fallback to proxy
    */

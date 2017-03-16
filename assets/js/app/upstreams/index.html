@@ -1,0 +1,32 @@
+
+<div class="row">
+    <div class="col-md-12 actions">
+        <button class="btn btn-success" ng-click="openCreateUpstreamModal()">
+            <i class="material-icons">&#xE145;</i>
+            Create upstream
+        </button>
+        <button class="btn btn-danger" data-ng-disabled="deleting" ng-click="deleteChecked()">
+            <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="deleting"></fading-circle-spinner>
+            <i class="material-icons" data-ng-show="!deleting">delete</i>
+            delete selected
+        </button>
+    </div>
+
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <list-search
+            class="pull-left margin-right"
+            data-filters="filters"
+            data-options="itemsPerPageOptions"
+            data-items="itemsPerPage"
+    ></list-search>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div
+                class="table-responsive"
+                data-ng-include="'js/app/upstreams/partials/upstreams-table.html'">
+        </div>
+    </div>
+</div>
+

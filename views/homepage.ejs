@@ -6,6 +6,7 @@
       <span ng-bind-html="$state.data.pageName"></span>&nbsp;
       <div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>
     </h3>
+    <p class="help-block" ng-bind-html="$state.data.pageDescription"></p>
     <ui-breadcrumbs displayname-property="data.displayName" template-url="js/app/core/layout/partials/uiBreadcrumbs.tpl.html">
     </ui-breadcrumbs>
   </div>

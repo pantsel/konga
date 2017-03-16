@@ -23,6 +23,50 @@
          *        }}
          */
         var titleItems = {
+          upstream: [
+            {
+              title: '',
+              column : '',
+              checkbox : true,
+              width : 1
+            },
+            {
+              title: '',
+              column : '',
+              width : 1
+            },
+            {
+              title: 'name',
+              column: 'name',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            //{
+            //  title: 'orderlist',
+            //  column: 'orderlist',
+            //},
+            {
+              title: 'slots',
+              column: 'slots'
+            },
+            {
+              title: 'created',
+              column: 'created_at',
+              sortable: true,
+            },
+            {
+              title: '',
+              column: '',
+              width : 1
+            },
+            {
+              title: '',
+              column: '',
+              width : 1
+            },
+          ],
           kongnode: [
             {
               title: '#',
@@ -278,6 +322,7 @@
             return {
               itemCount: 0,
               items: [],
+              itemsFetchSize: 4294967295,
               itemsPerPage: 50,
               itemsPerPageOptions: [10, 25, 50, 100, 200],
               currentPage: 1,

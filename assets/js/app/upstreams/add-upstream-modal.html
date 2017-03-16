@@ -1,0 +1,59 @@
+<div class="modal-header success">
+    <h4 class="modal-title" id="modal-title">
+        Create new Upstream
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons ">clear</i>
+        </a>
+
+    </h4>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <form class="form-horizontal">
+        <div class="form-group" ng-class="{'has-error' : errors.name}">
+            <label class="col-sm-4 control-label">Name
+                <br><em><small class="help-block">required</small></em></label>
+            <div class="col-sm-7">
+                <input ng-model="upstream.name" class="form-control">
+                <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+                <p class="help-block">
+                    This is a hostname like name that can be referenced in an <code>upstream_url</code> field of an <code>api</code>.
+                </p>
+
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : errors.slots}">
+            <label class="col-sm-4 control-label">Slots
+                <br><em><small class="help-block">optional</small></em></label>
+            <div class="col-sm-7">
+                <input type="number" ng-model="upstream.slots" class="form-control">
+                <div class="text-danger" ng-if="errors.slots" data-ng-bind="errors.slots"></div>
+                <p class="help-block">
+                    The number of slots in the loadbalancer algorithm (<code>10-65536</code>, defaults to <code>1000</code>).
+                </p>
+
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : errors.orderlist}">
+            <label class="col-sm-4 control-label">Orderlist
+                <br><em><small class="help-block">optional</small></em></label>
+            <div class="col-sm-7">
+                <input type="text" ng-model="upstream.orderlist" class="form-control">
+                <div class="text-danger" ng-if="errors.orderlist" data-ng-bind="errors.orderlist"></div>
+                <p class="help-block">
+                    A list of sequential, but randomly ordered, integer numbers that determine the distribution of the slots in the balancer. If omitted it will be generated. If given, it must have exactly <code>slots</code> number of entries.
+                </p>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="submit" class="btn btn-primary" ng-click="submit()">
+                    <i class="material-icons">&#xE876;</i>
+                    Submit Upstream
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

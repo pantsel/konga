@@ -19,6 +19,7 @@
                         data : {
                             activeNode : true,
                             pageName : "APIs",
+                            pageDescription : "The API object describes an API that's being exposed by Kong. Kong needs to know how to retrieve the API when a consumer is calling it from the Proxy port. Each API object must specify a request host, a request path or both. Kong will proxy all requests to the API to the specified upstream URL.",
                             displayName : "apis",
                             prefix : '<i class="material-icons">cloud_queue</i>'
                         },

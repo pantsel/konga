@@ -24,7 +24,9 @@
            * @returns {*|Promise}
            */
           response: function responseCallback(response) {
-            if (response.data.error &&
+            if (
+                response.data &&
+                response.data.error &&
               response.data.status &&
               response.data.status !== 200
             ) {

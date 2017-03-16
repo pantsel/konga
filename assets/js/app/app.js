@@ -13,6 +13,7 @@
       'frontend.core',
       'frontend.dashboard',
       'frontend.settings',
+      'frontend.upstreams',
       'frontend.info',
       'frontend.plugins',
       'frontend.users',
