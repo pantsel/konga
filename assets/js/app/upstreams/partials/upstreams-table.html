@@ -34,7 +34,7 @@
             <td>{{item.slots || "-"}}</td>
             <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
             <td>
-                <a class="btn clickable btn-warning btn-link" data-ng-click="openEditItemModal(item)">
+                <a class="btn clickable btn-warning btn-link" data-ui-sref="upstreams.edit({id:item.id})">
                     <i class="material-icons">edit</i>
                     edit
                 </a>

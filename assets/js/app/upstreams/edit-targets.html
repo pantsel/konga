@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title pull-left">
+            Targets
+        </div>
+        <button class="btn btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
+            <i class="material-icons" data-ng-show="!deleting">delete</i>
+            Add target
+        </button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <p class="help-block">A target is an ip address/hostname with a port that identifies an instance of a backend service. Every upstream can have many targets, and the targets can be dynamically added and removed. So changes are effectuated on the fly.</p>
+
+        <div class="col-md-12 bg-light-grey padding">
+            <list-search
+                    class="pull-left margin-right"
+                    data-filters="filters"
+                    data-options="itemsPerPageOptions"
+                    data-items="itemsPerPage"
+            ></list-search>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                class="clickable"
+                                data-ng-show="item.column"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title"
+                        ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title"
+            ></span>
+                        <input data-ng-if="item.checkbox" type="checkbox" data-ng-model="globalCheck.isAllChecked"/>
+                        <i class="material-icons"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+                        >
+                            {{sort.direction ? '&#xE316;' : '&#xE313;'}}
+                        </i>
+                    </th>
+                </tr>
+                <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
+                    <td>
+                        <input type="checkbox" data-ng-model="item.checked"/>
+                    </td>
+                    <td>
+                        <raw-view data-item="item"></raw-view>
+                    </td>
+                    <td>{{item.target || "-"}}</td>
+                    <td>{{item.weight || "-"}}</td>
+                    <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                </tr>
+
+                <tr data-ng-if="items.length === 0 && !loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>No data found...</em>
+                    </td>
+                </tr>
+                <tr data-ng-if="loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>Loading targets...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+
+
+    </div>
+</div>

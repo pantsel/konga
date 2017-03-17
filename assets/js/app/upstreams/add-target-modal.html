@@ -1,0 +1,51 @@
+<div class="modal-header success">
+    <h4 class="modal-title" id="modal-title">
+        Add new target
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons ">clear</i>
+        </a>
+
+    </h4>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <div class="alert alert-danger" data-ng-show="errors.message">
+        {{errors.message}}
+    </div>
+    <form class="form-horizontal">
+        <div class="form-group" ng-class="{'has-error' : errors.target}">
+            <label class="col-sm-4 control-label">Target
+                <br><em><small class="help-block">required</small></em></label>
+            <div class="col-sm-7">
+                <input ng-model="item.target" class="form-control">
+                <div class="text-danger" ng-if="errors.target" data-ng-bind="errors.target"></div>
+                <p class="help-block">
+                    The target address (ip or hostname) and port. If omitted the <code>port</code> defaults to <code>8000</code>.
+                    If the hostname resolves to an SRV record, the <code>port</code> value will overridden by the value from the dns record.
+                </p>
+
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : errors.weight}">
+            <label class="col-sm-4 control-label">Weight
+                <br><em><small class="help-block">optional</small></em></label>
+            <div class="col-sm-7">
+                <input type="number" ng-model="item.weight" class="form-control">
+                <div class="text-danger" ng-if="errors.weight" data-ng-bind="errors.weight"></div>
+                <p class="help-block">
+                    The weight this target gets within the upstream loadbalancer (<code>0</code>-<code>1000</code>, defaults to <code>100</code>).
+                    If the hostname resolves to an SRV record, the <code>weight</code> value will overridden by the value from the dns record.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="submit" class="btn btn-primary" ng-click="submit()">
+                    <i class="material-icons">&#xE876;</i>
+                    Submit target
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

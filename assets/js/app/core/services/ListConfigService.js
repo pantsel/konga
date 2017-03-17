@@ -23,6 +23,36 @@
          *        }}
          */
         var titleItems = {
+          target: [
+            {
+              title: '',
+              column : '',
+              checkbox : true,
+              width : 1
+            },
+            {
+              title: '',
+              column : '',
+              width : 1
+            },
+            {
+              title: 'target',
+              column: 'target',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'weight',
+              column: 'weight'
+            },
+            {
+              title: 'created',
+              column: 'created_at',
+              sortable: true,
+            }
+          ],
           upstream: [
             {
               title: '',
