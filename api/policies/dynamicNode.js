@@ -13,6 +13,11 @@ module.exports = function dynamicNode(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.dynamicNode() called]');
 
 
+  if(!request.headers['kong-admin-url']) return response.badRequest({
+    message : "No active node is defined. Please activate a node in settings",
+    goTo : "settings"
+  })
+
   sails.config.kong_admin_url = request.headers['kong-admin-url'] || sails.config.kong_admin_url
   request.node_id = sails.config.kong_admin_url
   return  next()

@@ -14,27 +14,27 @@
           return {
 
               all : function() {
-                  return $http.get(BackendConfig.url + '/kong/apis')
+                  return $http.get('kong/apis')
               },
 
               findById : function(apiId) {
-                  return $http.get(BackendConfig.url + '/kong/apis/' + apiId)
+                  return $http.get('kong/apis/' + apiId)
               },
 
               update : function(api) {
-                  return $http.patch(BackendConfig.url + '/kong/apis/' + api.id,api)
+                  return $http.patch('kong/apis/' + api.id,api)
               },
 
               delete : function(api) {
-                  return $http.delete(BackendConfig.url + '/kong/apis/' + api.id)
+                  return $http.delete('kong/apis/' + api.id)
               },
 
               add : function(api) {
-                  return $http.post(BackendConfig.url + '/kong/apis/',api)
+                  return $http.post('kong/apis/',api)
               },
 
               plugins : function(apiId) {
-                  return $http.get(BackendConfig.url + '/kong/apis/' + apiId + '/plugins')
+                  return $http.get('kong/apis/' + apiId + '/plugins')
               },
 
 
@@ -43,7 +43,7 @@
                       if(!plugin[key] || plugin[key] == '') delete plugin[key]
                   }
 
-                  return $http.post(BackendConfig.url + '/kong/apis/' + apiId + '/plugins',plugin)
+                  return $http.post('kong/apis/' + apiId + '/plugins',plugin)
 
 
               },
@@ -57,11 +57,11 @@
                       delete data.config
                   }
 
-                  return $http.patch(BackendConfig.url + '/kong/apis/' + apiId + '/plugins/' + pluginId,data)
+                  return $http.patch('kong/apis/' + apiId + '/plugins/' + pluginId,data)
               },
 
               deletePlugin : function(apiId,pluginId) {
-                  return $http.delete(BackendConfig.url + '/kong/apis/' + apiId + '/plugins/' + pluginId)
+                  return $http.delete('kong/apis/' + apiId + '/plugins/' + pluginId)
               }
           }
       }
