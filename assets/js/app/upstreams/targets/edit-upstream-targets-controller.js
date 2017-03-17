@@ -68,14 +68,14 @@
           }
 
           $scope.onAddTarget = function() {
-              $uibModal.open({
+              var modalInstance = $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'js/app/upstreams/targets/add-target-modal.html',
                   controller: [
-                      '$scope','$rootScope','$log','$uibModalInstance','DataModel','_upstream',
-                      function($scope,$rootScope,$log,$uibModalInstance,DataModel,_upstream) {
+                      '$scope','$rootScope','$log','$uibModalInstance','DataModel','MessageService','_upstream',
+                      function($scope,$rootScope,$log,$uibModalInstance,DataModel,MessageService,_upstream) {
 
                           var targetModel = new DataModel('api/upstreams/' + _upstream.id + '/targets')
 
@@ -94,8 +94,10 @@
                               targetModel.create($scope.item)
                                   .then(function(resp){
                                       $log.debug("Create target =>",resp)
-                                      $rootScope.$broadcast('upstream.target.created',resp)
-                                      $uibModalInstance.dismiss()
+                                      MessageService.success("Target added successfully!")
+                                      $uibModalInstance.dismiss({
+                                          data : resp
+                                      })
                                   },function(err){
                                       $log.error("Create target error =>",err)
                                       $scope.errors = {}
@@ -115,6 +117,12 @@
                       }
                   }
                   //size: 'lg',
+              });
+
+              modalInstance.result.then(function () {
+
+              }, function (data) {
+                  if(data && data.data) _fetchData()
               });
           }
 

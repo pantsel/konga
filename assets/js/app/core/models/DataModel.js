@@ -288,7 +288,6 @@
             .collection(self.endpoint, parameters)
             .then(
               function onSuccess(response) {
-                console.log("SSSSSSSSSSSSSSSSSSSSSSS",response)
                 self.objects = response.data;
 
                 if (fromCache && self.scope && self.itemNames.objects) {
