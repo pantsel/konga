@@ -72,7 +72,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/upstreams/add-target-modal.html',
+                  templateUrl: 'js/app/upstreams/targets/add-target-modal.html',
                   controller: [
                       '$scope','$rootScope','$log','$uibModalInstance','DataModel','_upstream',
                       function($scope,$rootScope,$log,$uibModalInstance,DataModel,_upstream) {

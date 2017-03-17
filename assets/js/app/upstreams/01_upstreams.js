@@ -45,7 +45,7 @@
                                 controller:'EditUpstreamDetailsController',
                             },
                             'targets@upstreams.edit': {
-                                templateUrl: 'js/app/upstreams/edit-targets.html',
+                                templateUrl: 'js/app/upstreams/targets/targets.html',
                                 controller: 'EditUpstreamTargetsController',
                             },
                         }
