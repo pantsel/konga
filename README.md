@@ -28,6 +28,8 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 
 ## Features
 * Manage APIs and plugins
+* Manage API Load balancing via upstreams and targets
+* Manage SSL credentials
 * Manage consumers, groups and credentials
 * Mass import consumers from :
     * CSV document
@@ -38,6 +40,8 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Multiple nodes management
 * GUI level authentication
 * Multiple users (Only admin and user roles for now)
+* Persistent object store out of the box
+* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server)
 
 ## Compatibility
 Konga is compatible with Kong 0.9.x,0.10.x
@@ -90,6 +94,7 @@ The application also supports some of the most popular databases out of the box:
 1. MySQL
 2. MongoDB
 3. PostgresSQL
+4. SQL Server
 
 In order to use them, in your <code>/config/local.js</code> replace
 <pre>
@@ -100,11 +105,11 @@ models: {
 with
 <pre>
 models: {
-    connection: process.env.DB_ADAPTER || 'the-name-of-adapter-you-wish-to-use', // 'mysql', 'mongo' or 'postgres'
+    connection: process.env.DB_ADAPTER || 'the-name-of-adapter-you-wish-to-use', // 'mysql', 'mongo', 'sqlserver' or 'postgres'
 }
 </pre>
 
-See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/adapters/available-adapters) for further information
+See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/adapters/available-adapters) for further configuration
 
 
 
@@ -140,7 +145,7 @@ $ docker run -p 1338:1338
 // You may also need to add an extra link that points to your database container
 $ docker run -p 1338:1338 
              --link kong:kong \
-             -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres' or 'mysql'
+             -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
              -e "DB_PORT=your-db-port" \ // Defaults to the default db port
              -e "DB_USER=your-db-user" \ // Omit if not relevant

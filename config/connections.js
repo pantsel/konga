@@ -76,7 +76,7 @@ module.exports.connections = {
     password: process.env.DB_PASSWORD || 'admin1!',
     port: process.env.DB_PORT || 5432,
     database: process.env.DB_DATABASE ||'konga_database',
-    poolSize: process.env.DB_POLLSIZE || 10,
+    //poolSize: process.env.DB_POOLSIZE || 10,
     ssl: process.env.DB_SSL || false
   },
 
@@ -84,4 +84,13 @@ module.exports.connections = {
    * More adapters:
    * https://github.com/balderdashy/sails
    */
+
+  'sqlserver': {
+    adapter: 'sails-sqlserver',
+    host: process.env.DB_HOST || 'localhost',
+    user:  process.env.DB_USER || null,
+    password: process.env.DB_PASSWORD || null,
+    port: process.env.DB_PORT || 49150,
+    database: process.env.DB_DATABASE ||'konga_database'
+  },
 };
