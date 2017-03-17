@@ -43,6 +43,18 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
             });
     },
 
+    addCertificates : function(fds,req, res) {
+        return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .headers({'Content-Type': 'multipart/form-data'})
+            .field('snis', req.body['snis'] || '')
+            .attach('cert', fds[0])
+            .attach('key', fds[1])
+            .end(function (response) {
+                if (response.error)  return res.kongError(response)
+                return res.json(response.body)
+            });
+    },
+
     addPlugin : function(req,res) {
         return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
             .send(req.body)

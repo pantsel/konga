@@ -92,8 +92,6 @@ module.exports.routes = {
   'POST /kong/consumers/:id/:credential'   : 'KongConsumerController.createCredential',
   'DELETE /kong/consumers/:id/:credential/:credential_id'   : 'KongConsumerController.removeCredential',
 
-
-
   // Plugin routes
   'POST /kong/plugins'                  : 'KongPluginController.create',
   'DELETE /kong/plugins/:id'            : 'KongPluginController.delete',
@@ -114,6 +112,11 @@ module.exports.routes = {
   'GET /remote/adapters'                 : 'RemoteStorageController.loadAdapters',
   'POST /remote/consumers'               : 'RemoteStorageController.loadConsumers',
   'GET /remote/connection/test'          : 'RemoteStorageController.testConnection',
+
+
+
+  // Kong 0.10.x certificates routes
+  'POST /kong/certificates'                : 'KongCertificatesController.upload',
 
 
     // Konga API

@@ -22,6 +22,10 @@
               {
                   name : 'Assigned plugins',
                   icon : '&#xE8C1;'
+              },
+              {
+                  name : 'SSL',
+                  icon : '&#xE32A;'
               }
           ]
 

@@ -601,3 +601,8 @@ pre {
   padding-left: 15px;
   padding-right: 2px;
 }
+
+
+.table-align-top > thead > tr > th, .table-align-top > tbody > tr > th, .table-align-top > tfoot > tr > th, .table-align-top > thead > tr > td, .table-align-top > tbody > tr > td, .table-align-top > tfoot > tr > td {
+  vertical-align: top !important;
+}

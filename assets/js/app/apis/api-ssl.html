@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading primary">
+        <div class="panel-title pull-left">
+            <i class="material-icons">security</i>
+            SSL
+        </div>
+        <button class="btn btn-primary btn-link pull-right" data-ng-click="openUploadCertsModal()">
+            upload certificates
+        </button>
+        <div class="clearfix"></div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-align-top table-striped table-hover">
+            <tr>
+                <th width="1">#</th>
+                <th>Credentials</th>
+                <th>Created at</th>
+                <td width="1"><!-- delete --></td>
+            </tr>
+            <tr data-ng-repeat="item in certificates">
+                <td>{{$index + 1}}.</td>
+                <td>
+                    <pre>{{item.cert}}</pre>
+                    <pre>{{item.key}}</pre>
+                    <p>
+                        <strong>SNIs: <code>{{item.snis ? item.snis.join(",") : ''}}</code></strong>
+                    </p>
+
+                </td>
+                <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                <td>
+                    <button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">
+                        <i class="material-icons">&#xE872;</i>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-if="(certificates == {} || !certificates.length) && !loading">
+                <td colspan="100%" class="text-center text-muted">
+                    <em>No data found...</em>
+                </td>
+            </tr>
+            <tr data-ng-if="loading">
+                <td colspan="100%" class="text-center text-muted">
+                    <em>Loading certificates...</em>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

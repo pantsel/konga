@@ -80,6 +80,10 @@
                                         }
                                     ]
                                 }
+                            },
+                            'ssl@apis.edit': {
+                                templateUrl: 'js/app/apis/api-ssl.html',
+                                controller: 'ApiSSLController'
                             }
                         }
                     })
