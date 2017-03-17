@@ -20,8 +20,20 @@
 
     </div>
     <div class="col-md-9">
-        <div data-ui-view="details" ng-show="activeSection == 0"></div>
-        <div data-ui-view="targets" ng-show="activeSection == 1"></div>
+        <div class="row" ng-show="!upstream && loading">
+            <div class="col-md-12 text-center margin padding">
+                <h4>Loading data...</h4>
+                <br>
+                <div class="anim-loader">
+                    <span class="dot dot_1"></span>
+                    <span class="dot dot_2"></span>
+                    <span class="dot dot_3"></span>
+                    <span class="dot dot_4"></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="upstream" data-ui-view="details" ng-show="activeSection == 0"></div>
+        <div ng-if="upstream" data-ui-view="targets" ng-show="activeSection == 1"></div>
     </div>
 </div>
 

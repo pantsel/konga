@@ -17,7 +17,6 @@
 
 
           $scope.upstreamId = $stateParams.id
-          $scope.upstream = {}
           $scope.sections = [
               {
                   name : 'Details',
@@ -35,13 +34,16 @@
 
 
           function _fetchUpstream() {
+              $scope.loading = true;
               Upstream.fetch($scope.upstreamId)
                   .then(function(resp){
                       $log.debug("Fetch upstream =>",resp)
                       $scope.upstream = resp
-
+                      $scope.loading = false;
                       $state.current.data.pageDescription = $scope.upstream.name
-                  })
+                  },function(err){
+                  $scope.loading = false;
+              })
           }
 
 
