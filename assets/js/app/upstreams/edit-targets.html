@@ -12,6 +12,9 @@
     <div class="panel-body">
         <p class="help-block">A target is an ip address/hostname with a port that identifies an instance of a backend service. Every upstream can have many targets, and the targets can be dynamically added and removed. So changes are effectuated on the fly.</p>
 
+        <p class="help-block">
+            Because the upstream maintains a history of target changes, the targets cannot be deleted or modified. To disable a target, post a new one with <code>weight=0</code>.
+        </p>
         <div class="col-md-12 bg-light-grey padding">
             <list-search
                     class="pull-left margin-right"
@@ -47,9 +50,6 @@
                     </th>
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
-                    <td>
-                        <input type="checkbox" data-ng-model="item.checked"/>
-                    </td>
                     <td>
                         <raw-view data-item="item"></raw-view>
                     </td>

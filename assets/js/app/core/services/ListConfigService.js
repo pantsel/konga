@@ -27,12 +27,6 @@
             {
               title: '',
               column : '',
-              checkbox : true,
-              width : 1
-            },
-            {
-              title: '',
-              column : '',
               width : 1
             },
             {
