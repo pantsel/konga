@@ -14,14 +14,14 @@
           return {
 
               getInfo : function() {
-                  return $http.get(BackendConfig.url + '/kong/info')
+                  return $http.get('kong/info')
               },
               nodeStatus : function() {
-                  return $http.get(BackendConfig.url + '/kong/status')
+                  return $http.get('kong/status')
               },
 
               clusterStatus : function() {
-                  return $http.get(BackendConfig.url + '/kong/cluster')
+                  return $http.get('kong/cluster')
               },
           }
       }

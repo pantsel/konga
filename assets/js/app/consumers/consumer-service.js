@@ -24,7 +24,7 @@
 
               query : function(query) {
                   return $http({
-                      url : BackendConfig.url + '/kong/consumers',
+                      url : 'kong/consumers',
                       method: "GET",
                       params : query
                   })
@@ -32,7 +32,7 @@
 
               findById : function(id) {
                   return $http({
-                      url : BackendConfig.url + '/kong/consumers/' + id,
+                      url : 'kong/consumers/' + id,
                       method: "GET"
                   })
               },
@@ -42,43 +42,43 @@
               },
 
               create : function(consumer) {
-                  return $http.post(BackendConfig.url + '/kong/consumers',clean(consumer))
+                  return $http.post('kong/consumers',clean(consumer))
               },
 
               update : function(id,data) {
-                  return $http.patch(BackendConfig.url + '/kong/consumers/' + id,data)
+                  return $http.patch('kong/consumers/' + id,data)
               },
 
               delete : function(consumer) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumer.id)
+                  return $http.delete('kong/consumers/' + consumer.id)
               },
 
               fetchAcls : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/acls')
+                  return $http.get('kong/consumers/' + consumerId + '/acls')
               },
 
               addAcl : function(consumerId,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/acls',data)
+                  return $http.post('kong/consumers/' + consumerId + '/acls',data)
               },
 
               deleteAcl : function(consumerId,groupId) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/acls/' + groupId)
+                  return $http.delete('kong/consumers/' + consumerId + '/acls/' + groupId)
               },
 
               addCredential : function(consumerId,credential,data) {
-                  return $http.post(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential,data)
+                  return $http.post('kong/consumers/' + consumerId + '/' + credential,data)
               },
 
               loadCredentials : function(consumerId,credential) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential)
+                  return $http.get('kong/consumers/' + consumerId + '/' + credential)
               },
 
               listCredentials : function(consumerId) {
-                  return $http.get(BackendConfig.url + '/kong/consumers/' + consumerId + '/credentials')
+                  return $http.get('kong/consumers/' + consumerId + '/credentials')
               },
 
               removeCredential : function(consumerId,credential,credential_id) {
-                  return $http.delete(BackendConfig.url + '/kong/consumers/' + consumerId + '/' + credential + '/' + credential_id)
+                  return $http.delete('kong/consumers/' + consumerId + '/' + credential + '/' + credential_id)
               },
           }
       }

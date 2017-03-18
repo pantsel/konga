@@ -64,7 +64,7 @@
                         files.push(data['config.key'])
 
                         Upload.upload({
-                            url: BackendConfig.url + '/kong/plugins',
+                            url: 'kong/plugins',
                             arrayKey: '',
                             data: {
                                 file: files,
