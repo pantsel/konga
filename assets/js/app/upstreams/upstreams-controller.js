@@ -19,6 +19,8 @@
 
 
                 Upstream.setScope($scope, false, 'items', 'itemCount');
+                $scope.deleteItem = deleteItem
+                $scope.deleteChecked = deleteChecked
 
                 // Add default list configuration variable to current scope
                 $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
@@ -115,13 +117,55 @@
                     });
                 }
 
+                function deleteChecked() {
+
+                    var items = []
+                    $scope.items.forEach(function(item){
+                        if(item.checked) items.push(item)
+                    })
+
+                    if(!items.length) {
+                        MessageService.error('You have not selected any upstreams to delete')
+                        return false
+                    }
+
+                    DialogService.prompt(
+                        "Delete Upstreams","Really want to delete the selected upstreams?",
+                        ['No don\'t','Yes! delete them'],
+                        function accept(){
+                            deleteItems(items)
+                        },function decline(){})
+
+                }
+
+                function deleteItems(items) {
+
+                    $scope.deleting = true;
+                    var promises = []
+                    items.forEach(function(item){
+                        promises.push(Upstream.delete(item.id))
+                    })
+
+                    $q
+                        .all(promises)
+                        .finally(
+                            function onFinally() {
+                                $scope.deleting = false;
+                                _fetchData()
+                            }
+                        )
+                    ;
+                }
+
 
                 // Listeners
                 $scope.$on('kong.upstream.created',function(ev,data){
                     _fetchData()
                 })
 
-                $scope.deleteItem = function(item) {
+
+
+                function deleteItem(item) {
                     DialogService.prompt(
                         "Delete Upstream","Really want to delete the selected upstream?",
                         ['No don\'t','Yes! delete it'],
