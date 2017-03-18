@@ -133,8 +133,12 @@
                 function doDeleteItem(item) {
                     Upstream.delete(item.id)
                         .then(function(res){
-                            _fetchData()
-                            MessageService.success('Upstream deleted successfully');
+                            $log.debug("Delete upstream",res)
+                            if(res.status == 204) {
+                                _fetchData()
+                                MessageService.success('Upstream deleted successfully');
+                            }
+
                         })
                 }
 
