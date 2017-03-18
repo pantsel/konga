@@ -9,7 +9,7 @@
             'DataModel','DataService','$q','$log',
             function(DataModel,DataService,$q,$log) {
 
-                var model = new DataModel('consumers');
+                var model = new DataModel('api/consumers');
 
 
                 model.load = function load(parameters, fromCache) {

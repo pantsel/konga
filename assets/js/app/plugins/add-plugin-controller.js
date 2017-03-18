@@ -84,8 +84,12 @@
               if($scope.api) request_data.api_id = $scope.api.id
 
               // If a consumer is defined, add consumer_id to request data
-              if($scope.data.consumer instanceof Object) {
-                  request_data.consumer_id = $scope.data.consumer.id
+              //if($scope.data.consumer instanceof Object) {
+              //    request_data.consumer_id = $scope.data.consumer.id
+              //}
+
+              if($scope.data.consumer_id) {
+                  request_data.consumer_id = $scope.data.consumer_id
               }
 
               // Apply monkey patches to request data if needed

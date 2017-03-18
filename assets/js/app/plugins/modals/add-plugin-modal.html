@@ -18,19 +18,35 @@
 
     <form class="form-horizontal">
 
+        <!--<div data-ng-if="!data.no_consumer" class="form-group">-->
+            <!--<label class="col-sm-4 control-label"><strong>consumer</strong></label>-->
+            <!--<div class="col-sm-7">-->
+                <!--<input-->
+                        <!--type="text"-->
+                        <!--ng-model="data.consumer"-->
+                        <!--placeholder="search consumer..."-->
+                        <!--uib-typeahead="item as item.username for item in getConsumer($viewValue)"-->
+                        <!--typeahead-template-url="js/app/plugins/modals/custom-template.html"-->
+                        <!--class="form-control"-->
+                        <!--typeahead-wait-ms="200"-->
+                        <!--typeahead-show-hint="true"-->
+                        <!--typeahead-min-length="0">-->
+                <!--<p class="help-block">-->
+                    <!--The CONSUMER ID that this plugin configuration will target.-->
+                    <!--This value can only be used if authentication has been enabled-->
+                    <!--so that the system can identify the user making the request.-->
+                    <!--If left blank, the plugin will be applied to all consumers.-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
         <div data-ng-if="!data.no_consumer" class="form-group">
             <label class="col-sm-4 control-label"><strong>consumer</strong></label>
             <div class="col-sm-7">
                 <input
                         type="text"
-                        ng-model="data.consumer"
-                        placeholder="search consumer..."
-                        uib-typeahead="item as item.username for item in getConsumer($viewValue)"
-                        typeahead-template-url="js/app/plugins/modals/custom-template.html"
+                        ng-model="data.consumer_id"
                         class="form-control"
-                        typeahead-wait-ms="200"
-                        typeahead-show-hint="true"
-                        typeahead-min-length="0">
+                        >
                 <p class="help-block">
                     The CONSUMER ID that this plugin configuration will target.
                     This value can only be used if authentication has been enabled

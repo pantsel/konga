@@ -271,7 +271,7 @@
                     },
                 'consumer_id' : {
                         displayName : "Apply to",
-                      type: 'search',
+                      type: 'text',
                       value: null,
                       help: 'The CONSUMER ID that this plugin configuration will target. ' +
                       'This value can only be used if authentication has been enabled ' +
