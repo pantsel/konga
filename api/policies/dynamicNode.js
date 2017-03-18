@@ -10,7 +10,7 @@ var _ = require('lodash');
  * @param   {Function}  next        Callback function
  */
 module.exports = function dynamicNode(request, response, next) {
-  sails.log.verbose(__filename + ':' + __line + ' [Policy.dynamicNode() called]');
+  sails.log.debug(__filename + ':' + __line + ' [Policy.dynamicNode() called]',request.headers['kong-admin-url']);
 
 
   if(!request.headers['kong-admin-url']) return response.badRequest({

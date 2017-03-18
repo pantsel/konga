@@ -23,7 +23,7 @@
           {
             state: 'info',
             show : function() {
-              return AuthService.isAuthenticated()
+              return AuthService.isAuthenticated() && $rootScope.$node
             },
             title: 'Node info',
             access: AccessLevels.user
@@ -31,7 +31,7 @@
           {
             state: 'apis',
             show : function() {
-              return AuthService.isAuthenticated()
+              return AuthService.isAuthenticated() && $rootScope.$node
             },
             title: 'APIs',
             access: AccessLevels.user
@@ -39,7 +39,7 @@
           {
             state: 'consumers',
             show : function() {
-              return AuthService.isAuthenticated()
+              return AuthService.isAuthenticated() && $rootScope.$node
             },
             title: 'Consumers',
             access: AccessLevels.user
@@ -47,7 +47,7 @@
           {
             state: 'plugins',
             show : function() {
-              return AuthService.isAuthenticated()
+              return AuthService.isAuthenticated() && $rootScope.$node
             },
             title: 'Plugins',
             access: AccessLevels.anon
