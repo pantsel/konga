@@ -117,6 +117,12 @@
 
           }
 
+
+          $scope.$on('kong.node.deleted',function(ev,node){
+              if(node.id == $rootScope.$node.id) setNode(null)
+
+          })
+
           $scope.$on('kong.node.updated',function(ev,node){
               if(node.active) {
                   setNode(node)
