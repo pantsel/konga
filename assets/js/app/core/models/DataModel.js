@@ -414,6 +414,7 @@
               },
               function onError(error) {
                 $log.error('DataModel.delete() failed.', error, self.endpoint, identifier);
+                return error;
               }
             )
           ;
