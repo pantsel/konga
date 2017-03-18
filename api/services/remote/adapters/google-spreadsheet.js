@@ -36,7 +36,7 @@ module.exports = {
                     "name": "Ignore first row",
                     "type": "boolean",
                     "description": "Whether or not to ignore the first row of the spreadsheet." +
-                    " This can be useful in case it contains the columns titles."
+                    " This can be useful in case it contains the column titles."
                 },
             },
             "consumer": {
