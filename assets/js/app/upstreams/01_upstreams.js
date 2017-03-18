@@ -32,7 +32,7 @@
                         url: '/:id',
                         data : {
                             pageName : "Edit Upstream",
-                            displayName : "upstreams",
+                            displayName : "edit",
                             prefix : '<i class="material-icons">&#xE8F2;</i>'
                         },
                         views: {
