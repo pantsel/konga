@@ -12,19 +12,21 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
 
         var import_id;
         if(req.body.import_id) {
-            import_id = req.body.import_id
+            //import_id = req.body.import_id
             delete req.body.import_id
         }
         KongService.createCb(req,res,function(error,consumer){
             if(error) return res.kongError(error)
 
             // Insert created consumer to Konga
-            consumer.import_id = import_id || ''
-            consumer.node_id = req.node_id
-            sails.models.consumer.create(consumer).exec(function (err, record) {
-                if(err) return res.kongError(err)
-                return res.json(record)
-            });
+            //consumer.import_id = import_id || ''
+            //consumer.node_id = req.node_id
+            //sails.models.consumer.create(consumer).exec(function (err, record) {
+            //    if(err) return res.kongError(err)
+            //    return res.json(record)
+            //});
+
+            return res.json(consumer)
         })
     },
 
@@ -32,31 +34,36 @@ var KongConsumerController  = _.merge(_.cloneDeep(require('../base/KongControlle
         KongService.updateCb(req,res,function(error,consumer){
             if(error) return res.kongError(error)
 
-            // Update consumer Konga consumer
-            sails.models.consumer
-                .update({id:req.params.id
-                },{
-                    username: consumer.username,
-                    custom_id : consumer.custom_id
-                }).exec(function afterwards(err, updated){
+            return res.json(consumer);
 
-                if(err) return res.kongError(err)
-                return res.json(consumer);
-            });
+            //// Update consumer Konga consumer
+            //sails.models.consumer
+            //    .update({id:req.params.id
+            //    },{
+            //        username: consumer.username,
+            //        custom_id : consumer.custom_id
+            //    }).exec(function afterwards(err, updated){
+            //
+            //    if(err) return res.kongError(err)
+            //    return res.json(consumer);
+            //});
         })
     },
 
     delete : function(req,res) {
         KongService.deleteCb(req,res,function(error,deleted){
             if(error) return res.kongError(error)
-            // Delete consumer from Konga
-            sails.models.consumer.destroy({
-                id: req.params.id
-            }).exec(function (err){
-                if(err) return res.kongError(err)
-                console.log("Destroyed consumer with id " + req.params.id)
-                return res.ok();
-            });
+
+            return res.ok();
+
+            //// Delete consumer from Konga
+            //sails.models.consumer.destroy({
+            //    id: req.params.id
+            //}).exec(function (err){
+            //    if(err) return res.kongError(err)
+            //    console.log("Destroyed consumer with id " + req.params.id)
+            //    return res.ok();
+            //});
         })
     },
 
