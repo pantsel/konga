@@ -41,7 +41,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     {
       "name" : "default",
       "kong_admin_url": "http://localhost:8001",
-      "active": false
+      "active": true
     }
   ]
 });
