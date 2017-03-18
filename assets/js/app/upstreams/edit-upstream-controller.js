@@ -13,9 +13,6 @@
       function controller($scope,$rootScope,$stateParams,
                           $log, $state,Upstream, MessageService ) {
 
-
-
-
           $scope.upstreamId = $stateParams.id
           $scope.sections = [
               {
