@@ -109,7 +109,7 @@
               $rootScope.$node = node
               if(node) {
                   if(!beforeNode)
-                    MessageService.success("Connected to '" + node.name + "'")
+                    MessageService.success("Connected to '" + node.kong_admin_url + "'")
                   $scope.adminUrl = $rootScope.$node.kong_admin_url;
               }else{
                   $scope.adminUrl = 'no connection defined'
