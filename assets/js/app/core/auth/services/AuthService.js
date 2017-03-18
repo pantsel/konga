@@ -94,7 +94,7 @@
               .post('login', credentials, {withCredentials: true})
               .then(
                 function(response) {
-                  MessageService.success('You have been logged in.');
+                  MessageService.success('You have logged in successfully!');
 
                   $localStorage.credentials = response.data;
                 }
@@ -111,7 +111,7 @@
           logout: function logout() {
             $localStorage.$reset();
 
-            MessageService.success('You have been logged out.');
+            MessageService.success('You have logged out.');
 
             $state.go('auth.login');
           }

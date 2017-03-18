@@ -155,11 +155,7 @@
           /**
            * Init UI
            */
-          if($rootScope.$node) {
-              fetchData();
-          }else{
-            $state.go('settings')
-          }
+          fetchData();
       }
     ])
   ;
