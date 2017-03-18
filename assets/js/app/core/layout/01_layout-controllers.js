@@ -78,9 +78,11 @@
    *  2) Version info parsing (back- and frontend)
    */
   angular.module('frontend.core.layout')
-    .controller('FooterController', ['_','$scope','$state','AuthService','SettingsService',
+    .controller('FooterController', ['_','$scope','$state','AuthService',
+        'SettingsService','MessageService',
         '$rootScope','NodeModel','SocketHelperService',
-      function controller(_,$scope,$state,AuthService,SettingsService,
+      function controller(_,$scope,$state,AuthService,
+                          SettingsService,MessageService,
                           $rootScope,NodeModel,SocketHelperService) {
 
           var commonParameters = {
@@ -103,11 +105,14 @@
           }
 
           function setNode(node) {
+              var beforeNode = angular.copy($rootScope.$node)
               $rootScope.$node = node
               if(node) {
+                  if(!beforeNode)
+                    MessageService.success("Connected to '" + node.name + "'")
                   $scope.adminUrl = $rootScope.$node.kong_admin_url;
               }else{
-                  $scope.adminUrl = 'no node defined'
+                  $scope.adminUrl = 'no connection defined'
               }
 
           }

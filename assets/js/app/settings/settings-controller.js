@@ -25,6 +25,7 @@
 
                 // Set initial data
                 $scope.nodes = _nodes;
+                $scope.createNode = createNode
                 $scope.nodesCount = _countNodes.count;
                 $scope.user = UserService.user();
                 $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
@@ -208,7 +209,7 @@
                     ;
                 }
 
-                $scope.createNode = function() {
+                function createNode() {
                     $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
@@ -354,6 +355,10 @@
                                 $localStorage.credentials = credentials
                             }
                         );
+                }
+
+                if(!$scope.nodes.length) {
+                    createNode()
                 }
 
 

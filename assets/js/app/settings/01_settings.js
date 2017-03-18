@@ -16,7 +16,7 @@
                         parent : 'frontend',
                         data : {
                             access : 1,
-                            pageName : "Konga Settings",
+                            pageName : "Settings",
                             displayName : "settings",
                             prefix : '<i class="material-icons">&#xE8B8;</i>'
                         },

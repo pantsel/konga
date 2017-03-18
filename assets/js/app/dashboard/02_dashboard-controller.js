@@ -8,8 +8,8 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$log', '$state','$q','InfoService',
-      function controller($scope, $log, $state,$q,InfoService) {
+      '$scope', '$rootScope','$log', '$state','$q','InfoService',
+      function controller($scope,$rootScope, $log, $state,$q,InfoService) {
 
 
           $scope.closeAlert = function() {
@@ -152,8 +152,14 @@
                       })
           }
 
-          fetchData();
-
+          /**
+           * Init UI
+           */
+          if($rootScope.$node) {
+              fetchData();
+          }else{
+            $state.go('settings')
+          }
       }
     ])
   ;

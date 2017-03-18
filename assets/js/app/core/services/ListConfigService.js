@@ -93,11 +93,6 @@
           ],
           kongnode: [
             {
-              title: '#',
-              width : 1
-            },
-            {
-              title: '',
               width : 1,
               column: 'active',
               sortable: true

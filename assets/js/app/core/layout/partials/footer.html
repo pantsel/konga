@@ -20,7 +20,7 @@
                         <i class="material-icons">cast_connected</i>{{adminUrl}}
                     </a>
                 </li>
-                <li data-ng-show="isAuthenticated()">
+                <li data-ng-show="isAuthenticated() && $node">
                     <a target="_blank">
                         Kong version : <strong>{{$node.kong_version.split("-").join(".")}}</strong>
                     </a>

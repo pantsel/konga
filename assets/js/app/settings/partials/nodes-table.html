@@ -21,14 +21,13 @@
         </th>
     </tr>
     <tr data-ng-repeat="node in nodes">
-        <td>{{node.id}}.</td>
 
         <td>
             <button class="btn btn-link"
-                    uib-tooltip="toggle selected node"
-                    ng-class="{'btn-default':!node.active,'btn-warning':node.active}"
+                    uib-tooltip="Toggle active connection"
+                    ng-class="{'btn-default':!node.active,'btn-primary':node.active}"
                     ng-click="toggleActive(node)">
-                <i class="material-icons">{{node.active ? 'star' : 'star_border'}}</i>
+                <i class="material-icons">{{node.active ? '&#xE834;' : '&#xE835;'}}</i>
             </button>
 
         </td>

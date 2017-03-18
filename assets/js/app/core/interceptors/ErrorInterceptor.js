@@ -66,9 +66,9 @@
               $injector.get('MessageService').error(message);
             }
 
-            //if(response.data.goTo) {
-            //  $injector.get('$state').go(response.data.goTo);
-            //}
+            if(response.data.goTo) {
+              $injector.get('$state').go(response.data.goTo);
+            }
 
             return $q.reject(response);
           }

@@ -14,7 +14,7 @@ module.exports = function dynamicNode(request, response, next) {
 
 
   if(!request.headers['kong-admin-url']) return response.badRequest({
-    message : "No active node is defined. Please activate a node in settings",
+    message : "No connection is selected. Please activate a connection in settings",
     goTo : "settings"
   })
 

@@ -15,7 +15,7 @@
           {
             state: 'dashboard',
             show : function() {
-              return AuthService.isAuthenticated()
+              return AuthService.isAuthenticated() && $rootScope.$node
             },
             title: 'Dashboard',
             access: AccessLevels.user
