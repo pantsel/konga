@@ -4,7 +4,7 @@ module.exports = {
     schema : {
         "name": "API",
         "value": "api",
-        "description": "Import Consumers by issuing a GET request to an API",
+        "description": "Import Consumers by issuing a GET request to an API endpoint",
         "form_fields": {
             "connection": {
                 "endpoint": {
@@ -29,13 +29,13 @@ module.exports = {
                     "name": "username field",
                     "type": "text",
                     "required": true,
-                    "description": "The resulting object's property that will be used as the consumers <code>username</code>."
+                    "description": "The property that will be used as the consumer <code>username</code>."
                 },
                 "custom_id": {
                     "name": "custom_id field",
                     "type": "text",
                     "required": true,
-                    "description": "The resulting object's property will be used as the consumers <code>custom_id</code>."
+                    "description": "The property will be used as the consumer <code>custom_id</code>."
                 }
             }
         }
