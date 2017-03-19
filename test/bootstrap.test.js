@@ -23,7 +23,7 @@ before(function before(next) {
                 migrate: 'drop'
             },
             port: 1336,
-            environment: 'development',
+            environment: 'test',
             log: {
                 level: 'error'
             },

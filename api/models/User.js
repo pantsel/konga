@@ -59,6 +59,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       "email": "admin@some.domain",
       "firstName": "Arnold",
       "lastName": "Administrator",
+      "node_id" : "http://kong:8001",
       "admin": true
     },
     {
@@ -66,6 +67,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       "email": "demo@some.domain",
       "firstName": "John",
       "lastName": "Doe",
+      "node_id" : "http://kong:8001",
       "admin": false
     }
   ]
