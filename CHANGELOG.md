@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 * Added Change Log.
 * Implemented better first-launch setup logic.
-* "Kong nodes" are now described as "Connections".
+* "Kong nodes" are now referenced as "Connections".
 * Fixed minor issues.
 
 ## [0.6.0](https://github.com/pantsel/konga/releases/tag/v0.6.0) - 18-3-2017
