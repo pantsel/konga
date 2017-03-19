@@ -31,7 +31,7 @@ module.exports = function isAdmin(request, response, next) {
         error = new Error();
 
         error.status = 403;
-        error.message = 'Forbidden - You are not administrator user.';
+        error.message = 'Forbidden - You are not an administrator.';
 
         next(error);
       }

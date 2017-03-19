@@ -122,11 +122,12 @@
                     NodeModel
                         .delete(node.id)
                         .then(
-                            function onSuccess() {
-                                MessageService.success('Connection deleted successfully');
-                                $rootScope.$broadcast('kong.node.deleted',node)
-                                _triggerFetchData()
-
+                            function onSuccess(data) {
+                                if(data.status < 204) {
+                                    MessageService.success('Connection deleted successfully');
+                                    $rootScope.$broadcast('kong.node.deleted',node)
+                                    _triggerFetchData()
+                                }
                             }
                         )
                     ;
