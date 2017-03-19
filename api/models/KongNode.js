@@ -40,7 +40,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
   seedData : [
     {
       "name" : "default",
-      "kong_admin_url": "http://localhost:8001",
+      "kong_admin_url": "http://kong:8001",
       "active": false
     }
   ]
