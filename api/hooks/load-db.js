@@ -18,66 +18,72 @@ module.exports = function hook(sails) {
      */
     process: function process(next) {
 
-      var seedPassports = function(cb) {
-        sails.models.user
-            .find()
-            .exec(function callback(error, users) {
-              if(error) return cb(error)
+        if(sails.config.environment != 'test') {
+            var seedPassports = function(cb) {
+                sails.models.user
+                    .find()
+                    .exec(function callback(error, users) {
+                        if(error) return cb(error)
 
-              var passportsFns = []
-              users.forEach(function(user){
-                passportsFns.push(function(_cb){
-                  sails.models.passport
-                      .create({
-                        protocol: "local",
-                        password : user.username == 'admin' ? 'adminadminadmin' : 'demodemodemo',
-                        user : user.id
-                      }).exec(function(err,passport){
-                    if(err) return _cb(err)
-                    return _cb(null)
-                  })
-                })
+                        var passportsFns = []
+                        users.forEach(function(user){
+                            passportsFns.push(function(_cb){
+                                sails.models.passport
+                                    .create({
+                                        protocol: "local",
+                                        password : user.username == 'admin' ? 'adminadminadmin' : 'demodemodemo',
+                                        user : user.id
+                                    }).exec(function(err,passport){
+                                    if(err) return _cb(err)
+                                    return _cb(null)
+                                })
+                            })
+                        })
+
+                        async.series(passportsFns,cb)
+
+                    })
+            }
+
+            async.series([
+                sails.models.user.seed,
+                seedPassports,
+                sails.models.kongnode.seed
+            ],next);
+        }else{
+            sails.models.user
+              .find()
+              .exec(function callback(error, users) {
+                if (error) {
+                  next(error);
+                } else if (users.length !== 0 && JSON.stringify(users[0]) !== '{}') {
+                  next();
+                } else {
+                  sails.log.verbose(__filename + ':' + __line + ' [Hook.load-db] Populating database with fixture data...');
+
+                  var _ = require('lodash');
+                  var Barrels = require('barrels');
+                  var barrels = new Barrels();
+                  var fixtures = _.keys(barrels.data);
+
+                  barrels.populate(['user'], function(error) {
+                    if (error) {
+                      next(error);
+                    }
+
+                    fixtures = _.without(fixtures, 'user');
+
+                    barrels.populate(fixtures, next, false);
+                  }, false);
+                }
               })
-
-              async.series(passportsFns,cb)
-
-            })
-      }
-
-      async.series([
-        sails.models.user.seed,
-        seedPassports,
-        sails.models.kongnode.seed
-      ],next);
+            ;
+        }
 
 
-      //sails.models.user
-      //  .find()
-      //  .exec(function callback(error, users) {
-      //    if (error) {
-      //      next(error);
-      //    } else if (users.length !== 0 && JSON.stringify(users[0]) !== '{}') {
-      //      next();
-      //    } else {
-      //      sails.log.verbose(__filename + ':' + __line + ' [Hook.load-db] Populating database with fixture data...');
-      //
-      //      var _ = require('lodash');
-      //      var Barrels = require('barrels');
-      //      var barrels = new Barrels();
-      //      var fixtures = _.keys(barrels.data);
-      //
-      //      barrels.populate(['user'], function(error) {
-      //        if (error) {
-      //          next(error);
-      //        }
-      //
-      //        fixtures = _.without(fixtures, 'user');
-      //
-      //        barrels.populate(fixtures, next, false);
-      //      }, false);
-      //    }
-      //  })
-      //;
+
+
+
     },
 
     /**

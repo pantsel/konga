@@ -7,6 +7,7 @@
 
 <em>Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/).</em>
 
+[Site and working demo here](https://pantsel.github.io/konga/)
 
 ## Summary
 
