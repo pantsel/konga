@@ -1,264 +1,639 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="Konga - More than just another GUI to Kong Admin API">
+        <meta name="author" content="pantsel" />
+        <!-- SITE TITLE -->
+        <title>Konga - More than just another GUI to Kong Admin API</title>
+        <!-- STYLESHEETS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+        <!-- DEMO COLORS  -->
+        <link href="css/colors/green.css" class="css-color" rel="stylesheet">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!-- FAVICON  -->
+        <link rel="icon" href="img/favicon.ico">
+    </head>
+    <body>
+        <!-- PRELOADER -->
+        <div id="preloader">
+            <div class="spinner"></div>
+        </div>
+   
+        <!-- MAIN NAV -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <!-- MAIN NAV LOGO -->
+                    <a class="logo page-scroll" href="#header"><img src="img/konga-logo.png" class="img-responsive" alt=""></a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <!-- MAIN NAV LINKS -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="page-scroll" href="#services">About</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#features">Features</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/pantsel/konga/blob/master/README.md" target="_blank">Documentation</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#getkonga">Get konga</a>
+                        </li>
+                        <li>
+                            <a href="https://getkong.org/" target="_blank">kong</a>
+                        </li>
+                        <!--<li>-->
+                            <!--<a class="page-scroll" href="#video">Video</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="page-scroll" href="#pricing">Pricing</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="page-scroll" href="#team">Team</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="page-scroll" href="#clients">Clients</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="page-scroll" href="#contact">Contact</a>-->
+                        <!--</li>-->
+                    </ul>
+                    <!-- END MAIN NAV LINKS -->
+                </div>
+            </div>
+        </nav>
+        <!-- END MAIN NAV -->
+        <!-- HEADER -->
+        <header id="header">
+            <div class="container">
+                <div class="intro-text">
+                    <h1 class="intro-lead-in">Elegant Kong GUI</h1>
+                    <span class="intro-heading">An open source tool that enables you to manage your Kong API Gateway with ease</span>
+                    <div class="header-buttons">
+                        <a href="#getkonga" class="primary-button page-scroll">Get Konga</a>
+                        <a href="#services" class="primary-button button-inverse page-scroll hidden-xs">Learn More</a>
+                    </div>
 
-    <title>Konga by pantsel</title>
-  </head>
-
-  <body>
-    <header>
-      <div class="inner">
-        <h1>Konga</h1>
-        <h2>Just another GUI to Kong API Gateway</h2>
-        <a href="https://github.com/pantsel/konga" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
-
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>
-<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
-
-<p><a href="https://postimg.org/gallery/podmfn4g/">https://postimg.org/gallery/podmfn4g/</a></p>
-
-<h2>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
-
-<ul>
-<li>Manage APIs and plugins</li>
-<li>Manage consumers, groups and credentials</li>
-<li>Multiple nodes management</li>
-<li>GUI level authentication</li>
-</ul>
-
-<h2>
-<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compatibility</h2>
-
-<p>Konga is built and tested on Kong 0.9.x but it probably works with older versions as well.
-Feedback on older versions is welcome.</p>
-
-<h2>
-<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisites</h2>
-
-<ul>
-<li>Nodejs</li>
-<li>Npm</li>
-<li>Gulp</li>
-<li>Bower</li>
-</ul>
-
-<h2>
-<a id="used-libraries" class="anchor" href="#used-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Used libraries.</h2>
-
-<ul>
-<li>angular-sailsjs-boilerplate (awesome): <a href="https://github.com/tarlepp/angular-sailsjs-boilerplate">https://github.com/tarlepp/angular-sailsjs-boilerplate</a>
-</li>
-<li>Sails.js, <a href="http://sailsjs.org/">http://sailsjs.org/</a>
-</li>
-<li>AngularJS, <a href="https://angularjs.org/">https://angularjs.org/</a>
-</li>
-<li>Bootstrap, <a href="http://getbootstrap.com/">http://getbootstrap.com/</a>
-</li>
-</ul>
-
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
-
-<p>Install <code>npm</code> and <code>node.js</code>. Instructions can be found <a href="http://sailsjs.org/#/getStarted?q=what-os-do-i-need">here</a>.</p>
-
-<p>Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.</p>
-
-<pre>
-$ npm install bower gulp sails -g
-</pre>
-
-<h4>
-<a id="backend-and-frontend-installation" class="anchor" href="#backend-and-frontend-installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend and frontend installation</h4>
-
-<p>Clone this repository</p>
-
-<pre>$ git clone https://github.com/pantsel/konga.git</pre>
-
-<p>Navigate to /backend and /frontend directories and run <code>npm install</code></p>
-
-<pre>
-$ cd path/to/cloned/konga/repo/backend
-$ npm install
-</pre>
-
-<pre>
-$ cd path/to/cloned/konga/repo/backend
-$ npm install
-</pre>
-
-<h3>
-<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h3>
-
-<p>You can configure your <code>backend</code> and <code>frontend</code> applications to use your environment specified
-settings. Basically by default you don't need to make any configurations at all. With default configuration backend will be run on http://localhost:1337 and frontend on http://localhost:3001 (development) http://localhost:3000 (production).</p>
-
-<h5>
-<a id="backend" class="anchor" href="#backend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend</h5>
-
-<p>There is an example of backend configuration file on following path.</p>
-
-<pre>
-/backend/config/local_example.js
-</pre>
-
-<p>Just copy this to <code>/backend/config/local.js</code> and make necessary changes to it. Note that this
-<code>local.js</code> file is in .gitignore so it won't go to VCS at any point.</p>
-
-<h5>
-<a id="frontend" class="anchor" href="#frontend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frontend</h5>
-
-<p>There is an example of front configuration file on following path.</p>
-
-<pre>
-/frontend/config/config_example.json
-</pre>
-
-<p>Just copy this to <code>/frontend/config/config.json</code> and make necessary changes to it. Note that this
-<code>config.json</code> file is in .gitignore so it won't go to VCS at any point.</p>
-
-<h5>
-<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Notes</h5>
-
-<p>If you're changing your backend API url to another than <code>http://localhost:1337</code> you need to make
-<code>frontend/config/config.json</code> with proper content on it. Use that example file as start.</p>
-
-<h2>
-<a id="running-konga" class="anchor" href="#running-konga" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running Konga</h2>
-
-<h4>
-<a id="backend-1" class="anchor" href="#backend-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend</h4>
-
-<pre>
-$ cd backend
-$ sails lift
-</pre>
-
-<p>This will start sails.js server on defined port. By default this is accessible from http://localhost:1337 url. If you
-try that with your browser you should only see page that contains <code>Not Found</code> message on it. This means that
-everything is ok.</p>
-
-<h4>
-<a id="frontend-1" class="anchor" href="#frontend-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Frontend</h4>
-
-<h5>
-<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h5>
-
-<pre>
-$ cd frontend
-$ gulp serve
-</pre>
-
-<p>This will start simple web server that you can use within developing frontend side. By default this is accessible from http://localhost:3001 url. You should be see login page if you try that url with your browser.</p>
-
-<h5>
-<a id="deployment" class="anchor" href="#deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployment</h5>
-
-<p>As in production</p>
-
-<pre>
-$ cd frontend
-$ gulp dist
-</pre>
-
-<p>This will create a deployment code to <code>frontend/dist</code> folder. After that you can serve those static HTML, CSS,
-Javascript and asset files by any web server you like (Apache, nginx, IIS, etc.). For testing this production ready code
-you can also use <code>gulp production</code> command which will serve those dist files. By default this is accessible from
-http://localhost:3000 url.</p>
-
-<h3>
-<a id="possible-failures" class="anchor" href="#possible-failures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Possible failures</h3>
-
-<p>Below is small list of possible failures that can occur while trying this POC.</p>
-
-<ol>
-    <li>Sails won't lift and you get error message like: <code>Fatal error: watch ENOSPC</code>
-        <ul>
-            <li>http://stackoverflow.com/questions/16748737/grunt-watch-error-waiting-fatal-error-watch-enospc</li>
-            <li>tl;dr just run <code>npm dedupe</code>
-        </li>
-</ul>
-    </li>
-    <li>Frontend side is missing some 3rd party libraries. eg. browser console is full of some errors.
-        <ul>
-            <li>Try to install bower packages manually by command <code>bower install</code> in <code>frontend</code> directory.
-        </li>
-</ul>        
-    </li>
-    <li>When running gulp serve from the frontend directory an error of 'scss-lint' is not recognized.
-        <ul>
-            <li>Try running gem install scss-lint from the frontend directory.
-        </li>
-</ul>        
-    </li>
-</ol>
-
-<h2>
-<a id="login-to-gui" class="anchor" href="#login-to-gui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Login to GUI</h2>
-
-<h4>
-<a id="admin" class="anchor" href="#admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin</h4>
-
-<p>login: admin | password: adminadminadmin</p>
-
-<h4>
-<a id="demo-user" class="anchor" href="#demo-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo user</h4>
-
-<p>login: demo | password: demodemodemo</p>
-
-<h2>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ToDo</h2>
-
-<ul>
-<li>Complete tests</li>
-<li>Include Logging &amp; dynamic SSL plugins</li>
-<li>Write a detailed Wiki</li>
-</ul>
-
-<h2>
-<a id="author" class="anchor" href="#author" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author</h2>
-
-<p>Panagis Tselentis</p>
-
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-
-<p>The MIT License (MIT)</p>
+                    <div class="header-dashboard"> 
+                        <img src="img/bc.png" class="dashboard" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="headerbackground"></div>
+        </header>
+        <!-- END HEADER -->
+        <!-- SERVICES -->
+        <section id="services">
+            <div class="container">
+                <div class="row">
+                    <!-- SERVICES HEADING -->
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Simplified workflow</h2>
+                        <span class="separator"></span>
+                        <p class="section-subheading ">More than just another GUI to KONG Admin API.</p>
+                    </div>
+                    <!-- END SERVICES HEADING -->
+                </div>
+                <div class="row">
+                    <div class="col-md-3 last">
+                        <i class="nc-icon-outline diamond"></i>
+                        <h4 class="service-heading">Elegant</h4>
+                        <p class="">Konga provides an elegant and clean GUI that is fun to work with.</p>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="nc-icon-outline keyboard"></i>
+                        <h4 class="service-heading">Responsive</h4>
+                        <p class="">Works great on desktop browsers, as well as mobile devices and tablets. </p>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="nc-icon-outline heart"></i>
+                        <h4 class="service-heading">Easy to use</h4>
+                        <p class="">Being truly user friendly, it makes the hard task of managing your Kong Gateway a breeze.</p>
+                    </div>
+                    <div class="col-md-3 last">
+                        <i class="nc-icon-outline pc"></i>
+                        <h4 class="service-heading">Easy to setup</h4>
+                        <p class="">You can get it running in a couple of minutes via git, npm or dockerhub with trivial configuration.</p>
+                    </div>
+                </div>
+            </div>
         </section>
+        <!-- END SERVICES -->
+        <!-- FEATURES -->
+        <section id="features" class="gray-bg">
+            <div class="container">
+                <div class="row">
+                    <div id="features-tabs" class="features-tabs">
+                        <!-- TAB 1 -->
+                        <div id="features-tab1">
+                            <div class="row">
+                                <h2 class="section-heading">Managing tools</h2>
+                                <p class="section-subheading ">Konga offers the tools you need to manage your Kong cluster with ease.</p>
+                            </div>
+                            <ul>
+                                <li>Real time monitoring of Kong's state.</li>
+                                <li>Detailed Node information.</li>
+                                <li>Multi user environment.</li>
+                                <li>Manage APIs, Plugins, Consumers and credentials.</li>
+                                <li>Manage multiple Kong nodes running on different Kong versions.</li>
+                            </ul>
+                            <!--<a href="#" class="primary-button button-inverse">Get Desktop Version</a>-->
+                            <img src="img/mockups/tab1.png" class="fadeRight animated" alt="">
+                        </div>
+                        <!-- END TAB 1 -->
+                        <!-- TAB 2 -->
+                        <div id="features-tab2">
+                            <div class="row">
+                                <h2 class="section-heading">Database Integration</h2>
+                                <p class="section-subheading ">
+                                    Konga integrates with some of the most popular databases out of the box.
+                                </p>
+                            </div>
+                            <ul>
+                                <li>MySQL</li>
+                                <li>PostgresSQL</li>
+                                <li>MongoDB</li>
+                                <li>SQL Server</li>
+                            </ul>
 
-        <aside id="sidebar">
-          <a href="https://github.com/pantsel/konga/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/pantsel/konga/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+                            <!--<a href="#" class="primary-button button-inverse">Get Mobile Version</a>-->
+                            <img src="img/dbs.png" class="fadeRight animated" alt="">
+                        </div>
+                        <!-- END TAB 2 -->
+                        <!-- TAB 3 -->
+                        <div id="features-tab3">
+                            <div class="row">
+                                <h2 class="section-heading">Mass Imports</h2>
+                                <p class="section-subheading ">Easily import consumers from remote sources.</p>
+                            </div>
+                            <ul>
+                                <li>Databases</li>
+                                <li>CSV documents</li>
+                                <li>Google spreadsheets</li>
+                                <li>APIs</li>
+                            </ul>
+                            <!--<a href="#" class="primary-button button-inverse">Get Tablet Version</a>-->
+                            <img src="img/mimport.png" class="fadeRight animated" alt="">
+                        </div>
+                        <!-- END TAB 3 -->
+                        <!-- FEATURES TABS -->
+                        <ul class='tabs'>
+                            <li class='tab col-md-4'><a href="#features-tab1"><span class="triangle"><span class="inner-triangle"></span></span>Managing tools</a></li>
+                            <li class='tab col-md-4'><a href="#features-tab2"><span class="triangle"><span class="inner-triangle"></span></span>Database integration</a></li>
+                            <li class='tab col-md-4'><a href="#features-tab3"><span class="triangle"><span class="inner-triangle"></span></span>Mass imports</a></li>
+                        </ul>
+                        <!-- END FEATURES TABS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END FEATURES -->
+        <section id="getkonga">
+            <div class="container vendor-logos">
+                <div class="row">
+                    <!-- SERVICES HEADING -->
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Get Konga</h2>
+                        <span class="separator"></span>
+                        <p class="section-subheading ">Konga is available at GitHub, Npm and DockerHub.</p>
+                    </div>
+                    <!-- END SERVICES HEADING -->
+                </div>
+                <div class="row">
+                    <div class="col-md-4 last">
+                        <a href="https://github.com/pantsel/konga" target="_blank">
+                            <img class="img-responsive" src="img/github/logo.png">
+                        </a>
 
-          <p class="repo-owner"><a href="https://github.com/pantsel/konga"></a> is maintained by <a href="https://github.com/pantsel">pantsel</a>.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="https://www.npmjs.com/package/kongadmin" target="_blank">
+                            <img class="img-responsive" src="img/npm.png">
+                        </a>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="https://hub.docker.com/r/pantsel/konga/" target="_blank">
+                            <img class="img-responsive" src="img/docker.png">
+                        </a>
 
-  
-  </body>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--&lt;!&ndash; SOLUTIONS &ndash;&gt;-->
+        <!--<section id="solutions" class="gray-bg">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--&lt;!&ndash; SOLUTIONS HEADING &ndash;&gt;-->
+                    <!--<div class="col-lg-12 text-center">-->
+                        <!--<h2 class="section-heading">Our solutions </h2>-->
+                        <!--<span class="separator"></span>-->
+                        <!--<p class="section-subheading ">Sed risus feugiat fusce eu sit conubia venenatis dolor</p>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END SOLUTIONS HEADING &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="chart" data-percent="85">85<span class="percent">%</span> </div>-->
+                        <!--<div class="chart-content">-->
+                            <!--<i class="nc-icon-outline suitcase"></i>-->
+                            <!--<h4 class="service-heading">Enterprise solutions</h4>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="chart" data-percent="75">75<span class="percent">%</span></div>-->
+                        <!--<div class="chart-content">-->
+                            <!--<i class="nc-icon-outline cart"></i>-->
+                            <!--<h4 class="service-heading">Ecommerce Marketing</h4>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="chart" data-percent="65">65<span class="percent">%</span></div>-->
+                        <!--<div class="chart-content">-->
+                            <!--<i class="nc-icon-outline world"></i>-->
+                            <!--<h4 class="service-heading">Target information</h4>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END SOLUTIONS &ndash;&gt;-->
+        <!--&lt;!&ndash; PRICING TABLES &ndash;&gt;-->
+        <!--<section id="pricing">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--&lt;!&ndash; PRICING TABLES HEADING &ndash;&gt;-->
+                    <!--<div class="col-lg-12 text-center">-->
+                        <!--<h2 class="section-heading">Our pricing</h2>-->
+                        <!--<span class="separator"></span>-->
+                        <!--<p class="section-subheading ">Deserunt nesciunt sed molestiae quos, dolor eaque quis facilis tempora consequuntu.</p>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END PRICING TABLES HEADING &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row outer-margin">-->
+                    <!--&lt;!&ndash; PRICING TABLE 1 &ndash;&gt;-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="row pricing-title">BASIC</div>-->
+                        <!--<div class="row pricing">-->
+                            <!--<div class="col-lg-3 col-md-3 col-sm-3" >-->
+                                <!--<div class="row">-->
+                                    <!--<span class="pricing-price"><span class="currency">$</span>20</span>-->
+                                    <!--<span class="pricing-time">/mo</span>-->
+                                    <!--<div class="billing-time">billed annually</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>CRM Auto-Sync</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Click-to-Call Back from the web</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Track accrued energy costs</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Power and Predictive Dialing</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Speech & text Analytics</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Sales Acceleration Platform</span></span></div>-->
+                            <!--<div class="pricing-row button-container">-->
+                                <!--<a href="#" class="secondary-button secondary-button-inverse">Get Started</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; PRICING TABLE 2 &ndash;&gt;-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="row pricing-title">STANDARD</div>-->
+                        <!--<div class="row pricing active">-->
+                            <!--<div class="col-lg-3 col-md-3 col-sm-3" >-->
+                                <!--<div class="row">-->
+                                    <!--<span class="pricing-price"><span class="currency">$</span>50</span>-->
+                                    <!--<span class="pricing-time">/mo</span>-->
+                                    <!--<div class="billing-time">billed annually</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="pricing-row selected"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-plus"></i>Everything in BASIC, including:</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Routing Using Full Context</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Unlimited Email, Chat & Social</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Omni-channel real time SLA</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Disaster Recovery</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Tight IVR/ACD Integration</span></span></div>-->
+                            <!--<div class="pricing-row button-container">-->
+                                <!--<a href="#" class="secondary-button">Get Started</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; PRICING TABLE 3 &ndash;&gt;-->
+                    <!--<div class="col-md-4">-->
+                        <!--<div class="row pricing-title">PREMIUM</div>-->
+                        <!--<div class="row pricing">-->
+                            <!--<div class="col-lg-3 col-md-3 col-sm-3" >-->
+                                <!--<div class="row">-->
+                                    <!--<span class="pricing-price"><span class="currency">$</span>90</span>-->
+                                    <!--<span class="pricing-time">/mo</span>-->
+                                    <!--<div class="billing-time">billed annually</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="pricing-row selected"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-plus"></i>Everything in STANDARD, including:</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Quality & Customer Experience </span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Dedicated account manager</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Power and Predictive Dialing</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Configurable Call Recording</span></span></div>-->
+                            <!--<div class="pricing-row"><span class="pricing-value"><span class="pricing-option"><i class="fa fa-check"></i>Track accrued energy costs</span></span></div>-->
+                            <!--<div class="pricing-row button-container">-->
+                                <!--<a href="#" class="secondary-button secondary-button-inverse">Get Started</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; PRICING TABLES &ndash;&gt;-->
+        <!--&lt;!&ndash; TESTIMONIALS &ndash;&gt;-->
+        <!--<section id="testimonials" class="gray-bg">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--<div class="slider">-->
+                        <!--&lt;!&ndash; TESTIMONIALS 1 &ndash;&gt;-->
+                        <!--<div class="tt-content">-->
+                            <!--<h3><span class="tt-quote">“</span><span class="tt-quote tt-quote-right">”</span>KeySoft is really helping all of us to make collaboration a differentiating factor to win is really helping all of us.</h3>-->
+                            <!--<div class="tt-container">-->
+                                <!--<h4 >Antony Casalena</h4>-->
+                                <!--<span class="content">Vice president, IQTeam</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; TESTIMONIALS 2 &ndash;&gt;-->
+                        <!--<div class="tt-content">-->
+                            <!--<h3 ><span class="tt-quote">“</span><span class="tt-quote tt-quote-right">”</span>KeySoft is really helping all of us to make collaboration a differentiating factor to win is really helping all of us.</h3>-->
+                            <!--<div class="tt-container">-->
+                                <!--<h4 >Antony Casalena</h4>-->
+                                <!--<span class="content">Vice president, IQTeam</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; TESTIMONIALS 3 &ndash;&gt;-->
+                        <!--<div class="tt-content">-->
+                            <!--<h3 ><span class="tt-quote">“</span><span class="tt-quote tt-quote-right">”</span>KeySoft is really helping all of us to make collaboration a differentiating factor to win is really helping all of us.</h3>-->
+                            <!--<div class="tt-container">-->
+                                <!--<h4 >Antony Casalena</h4>-->
+                                <!--<span class="content">Vice president, IQTeam</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; TESTIMONIALS IMAGE CAPTIONS &ndash;&gt;-->
+                    <!--<div class="tt-images">-->
+                        <!--<div class="tt-image"><img width="80" height="80" src="img/testimonials/testimonial1.png" alt="team"></div>-->
+                        <!--<div class="tt-image"><img width="80" height="80" src="img/testimonials/testimonial2.png" alt="team"></div>-->
+                        <!--<div class="tt-image"><img width="80" height="80" src="img/testimonials/testimonial3.png" alt="team"></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END TESTIMONIALS IMAGE CAPTIONS &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END TESTIMONIALS &ndash;&gt;-->
+        <!--&lt;!&ndash; TEAM &ndash;&gt;-->
+        <!--<section id="team">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--&lt;!&ndash; TEAM HEADING &ndash;&gt;-->
+                    <!--<div class="col-lg-12 text-center">-->
+                        <!--<h2 class="section-heading">Our team</h2>-->
+                        <!--<span class="separator"></span>-->
+                        <!--<p class="section-subheading ">Our team maintains an effective mix of development experience and seasoned leadership.</p>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END TEAM HEADING &ndash;&gt;  -->
+                <!--</div>-->
+                <!--<div class="row outer-margin">-->
+                    <!--&lt;!&ndash; TEAM 1 &ndash;&gt;-->
+                    <!--<div class="col-md-4 team-wrapper">-->
+                        <!--<div class="row team-member">-->
+                            <!--<img src="img/team/team1.jpg" alt="">-->
+                            <!--<div class="team-socials">-->
+                                <!--<a href="#"><span class="fa fa-facebook"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-twitter"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-linkedin"></span></a>-->
+                            <!--</div>-->
+                            <!--<div class="team-content">-->
+                                <!--<h5>Jerry Mack</h5>-->
+                                <!--<span class="team-subtitle">Web Developer</span>-->
+                                <!--<p>He enjoys the finer details of a project, considering every stage of his.</p>-->
+                                <!--<span class="triangle"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; TEAM 2 &ndash;&gt;-->
+                    <!--<div class="col-md-4 team-wrapper">-->
+                        <!--<div class="row team-member team-member-down">-->
+                            <!--<div class="team-content">-->
+                                <!--<h5>Anna Shaw</h5>-->
+                                <!--<span class="team-subtitle">Project Manager</span>-->
+                                <!--<p>He enjoys the finer details of a project, considering every stage of her.</p>-->
+                                <!--<span class="triangle"></span>-->
+                            <!--</div>-->
+                            <!--<div class="team-socials">-->
+                                <!--<a href="#"><span class="fa fa-facebook"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-twitter"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-linkedin"></span></a>-->
+                            <!--</div>-->
+                            <!--<img src="img/team/team2.jpg" alt="">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; TEAM 3 &ndash;&gt;-->
+                    <!--<div class="col-md-4 team-wrapper">-->
+                        <!--<div class="row team-member">-->
+                            <!--<img src="img/team/team3.jpg" alt="">-->
+                            <!--<div class="team-socials">-->
+                                <!--<a href="#"><span class="fa fa-facebook"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-twitter"></span></a>-->
+                                <!--<a href="#"><span class="fa fa-linkedin"></span></a>-->
+                            <!--</div>-->
+                            <!--<div class="team-content">-->
+                                <!--<h5>Leon Thompson</h5>-->
+                                <!--<span class="team-subtitle">UX Designer</span>-->
+                                <!--<p>She enjoys the finer details of a project, considering every stage of her.</p>-->
+                                <!--<span class="triangle"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END TEAM &ndash;&gt;-->
+        <!--&lt;!&ndash; CLIENTS &ndash;&gt;-->
+        <!--<section id="clients" class="gray-bg">-->
+            <!--<div class="container">-->
+                <!--<div class="slider">-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"><img src="img/logos/logo1.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo2.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo3.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo4.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"><img src="img/logos/logo5.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo1.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#">  <img src="img/logos/logo2.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#">   <img src="img/logos/logo3.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#">  <img src="img/logos/logo4.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo5.png" alt=""></a>-->
+                    <!--</div>-->
+                    <!--<div class="clients-content">-->
+                        <!--<a href="#"> <img src="img/logos/logo1.png" alt=""></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END CLIENTS &ndash;&gt;-->
+        <!--&lt;!&ndash; SUBSCRIBE &ndash;&gt;-->
+        <!--<section id="subscribe" class="parallax">-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--<h3>Subscribe to receive free updates!</h3>-->
+                    <!--<form class="subscribe-form">-->
+                        <!--<input type="email"  placeholder="Your email adress"/>-->
+                        <!--<button type="submit">Subscribe</button>-->
+                        <!--<div id="subscribe-success"></div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END SUBSCRIBE &ndash;&gt;-->
+        <!--&lt;!&ndash; CONTACT &ndash;&gt;-->
+        <!--<section id="contact">-->
+            <!--<div class="contact-map-container">-->
+                <!--&lt;!&ndash; GOOGLE MAP&ndash;&gt;-->
+                <!--<div id="map"></div>-->
+            <!--</div>-->
+            <!--<div class="container">-->
+                <!--<div class="contact-form-container">-->
+                    <!--&lt;!&ndash; CONTACT HEADING &ndash;&gt;-->
+                    <!--<div class="row">-->
+                        <!--<h2 class="section-heading">Contact</h2>-->
+                        <!--<p class="section-subheading ">Deserunt nesciunt sed molestiae quos, dolor eaque quis facilis tempora consequuntu.</p>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; END CONTACT HEADING &ndash;&gt;-->
+                    <!--<div class="row">-->
+                        <!--&lt;!&ndash; CONTACT FORM &ndash;&gt;-->
+                        <!--<form name="sentMessage" id="contactForm" novalidate>-->
+                            <!--<div class="row">-->
+                                <!--<div class="form-group">-->
+                                    <!--<input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">-->
+                                    <!--<p class="help-block text-danger"></p>-->
+                                <!--</div>-->
+                                <!--<div class="form-group pull-right">-->
+                                    <!--<input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Please enter your email address.">-->
+                                    <!--<p class="help-block text-danger"></p>-->
+                                <!--</div>-->
+                                <!--<div class="form-group form-textarea">-->
+                                    <!--<textarea class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>-->
+                                    <!--<p class="help-block text-danger"></p>-->
+                                <!--</div>-->
+                                <!--<div class="clearfix"></div>-->
+                                <!--<div class="text-center">-->
+                                    <!--<div id="success"></div>-->
+                                    <!--<button type="submit" class="btn btn-xl">Send Message</button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                        <!--&lt;!&ndash; END CONTACT FORM &ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--&lt;!&ndash; END CONTACT &ndash;&gt;-->
+        <!-- FOOTER -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- UPPER FOOTER -->
+                    <div class="upper-footer">
+                        <div class="pull-left">
+                            <a class="logo page-scroll" href="#page-top"><img src="img/konga-logo.png" class="img-responsive" alt=""></a>
+                            <p>Konga is an open source tool for managing Kong API Gateway. </p>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="footer-nav">
+                                <li class="">
+                                    <a class="page-scroll" href="#services">About</a>
+                                </li>
+                                <li class="">
+                                    <a target="_blank" href="https://github.com/pantsel/konga/blob/master/README.md">Documentation</a>
+                                </li>
+                                <li class="">
+                                    <a class="page-scroll" href="#features">Features</a>
+                                </li>
+                                <li class="">
+                                    <a href="#https://getkong.org/" target="_blank">Kong</a>
+                                </li>
+                                <li class="">
+                                    <a class="page-scroll" href="#getkonga">Get Konga</a>
+                                </li>
+                            </ul>
+                            <ul class="footer-secondary-nav">
+                                <li class="">
+                                    <a target="_blank" href="https://github.com/pantsel/konga/issues"><span class="fa fa-bug"></span>Issues</a>
+                                </li>
+                                <li class="">
+                                    <a  href="mailto:tselentispanagis@gmail.com"><span class="fa fa-envelope"></span>tselentispanagis@gmail.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END UPPER FOOTER -->
+                    <!-- LOWER FOOTER -->
+                    <div class="lower-footer">
+                        <div class="pull-left">
+                            <span>© 2017 Konga. All rights reserved </span>
+                        </div>
+                        <div class="pull-right">
+                            <a href="https://github.com/pantsel/konga"><span class="fa fa-github"></span></a>
+                        </div>
+                    </div>
+                    <!-- END LOWER FOOTER -->
+                </div>
+            </div>
+        </footer>
+        <!-- END FOOTER -->
+        <!-- SCRIPTS -->
+        <!-- jQuery & Bootstrap -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.easing.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- smoothscroll  -->
+        <script src="js/smoothscroll.js"></script>
+        <!-- piechart  -->
+        <script src="js/jquery.easytabs.min.js"></script>
+        <!-- tabs  -->
+        <script src="js/piechart.js"></script>
+        <!-- sliders -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- contact form -->
+        <script src="js/jqBootstrapValidation.js"></script>
+        <script src="js/classie.js"></script>
+        <!-- google map -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <!-- custom script -->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

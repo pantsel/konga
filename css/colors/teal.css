@@ -1,0 +1,59 @@
+a,
+a:hover,
+a:focus,
+a:active,
+a.active,
+.navbar-default.navbar-shrink .navbar-nav>.active>a:focus,
+.navbar-default.navbar-shrink .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a,
+#services .nc-icon-outline,
+.pricing .col-lg-3,
+.pricing .fa,
+#subscribe .subscribe-form button,
+.primary-button,
+.primary-button.button-inverse:hover ,
+.secondary-button-inverse,
+.chart,
+.chart-content .nc-icon-outline,
+.footer-nav a:hover,
+.features-tabs .tab a.active ,
+.features-tabs .tab:hover a
+{ color: #009688 }
+
+
+.team-content,
+.pricing-title,
+.parallax,
+.separator,
+header,
+.btn-xl ,
+.primary-button.button-inverse,
+.secondary-button,
+.secondary-button.secondary-button-inverse:hover,
+.pricing  .secondary-button.secondary-button-inverse:hover,
+.pricing.active .col-lg-2.selected,
+.pricing.active
+{background: #009688 ; background-color: #009688}
+
+.pricing.active,
+.team-member:hover .triangle,
+#contact .form-group textarea.form-control:focus,
+#contact .form-group input.form-control:focus,
+.secondary-button-inverse,
+.primary-button.button-inverse:hover ,
+.primary-button.button-inverse
+{	border-color: #009688 }
+
+
+.team-content .triangle {     border-bottom: 10px solid #009688; }
+.team-member-down .triangle {   border-top: 10px solid #009688; border-bottom: 0; }
+
+.chart canvas,
+.contact-map-container #map,
+.video-container img,
+#features img,
+header .header-dashboard .dashboard {
+
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+}
