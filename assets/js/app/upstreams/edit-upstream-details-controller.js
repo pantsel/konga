@@ -16,14 +16,13 @@
           $scope.submit = function() {
 
               $scope.busy = true
-              Upstream.updateOrCreate(angular.copy($scope.upstream))
+              Upstream.update($scope.upstream.id,angular.copy($scope.upstream))
                   .then(
                       function onSuccess(result) {
                           $log.debug("UpdateUpstreamModalController:created upstream",result)
                           MessageService.success('Upstream updated successfully');
                           $scope.busy = false;
                           $rootScope.$broadcast('kong.upstream.updated',result.data)
-                          $uibModalInstance.dismiss()
                       },function(err){
                           $log.error("UpdateUpstreamModalController:update upstream error",err)
                           $scope.busy = false
