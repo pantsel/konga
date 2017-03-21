@@ -17,14 +17,23 @@ module.exports = {
 
         req.url = req.url.replace('/api','') // Remove the /api prefix
 
+        sails.log("req.url",req.url)
+
+        // Fix upstream method
+        console.log("req.url.split('/')",req.url.split('/'))
+        if(req.url.split('/')[1] == 'upstreams' && req.method.toLowerCase() == 'put') {
+            req.method = "PATCH"
+        }
+
+
         sails.log("ApiController",sails.config.kong_admin_url + req.url)
         sails.log("req.method",req.method)
-
 
         var request = unirest[req.method.toLowerCase()](sails.config.kong_admin_url + req.url)
         request.headers({'Content-Type': 'application/json'})
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
+
             if(req.body && req.body.orderlist) {
                 for( var i = 0; i < req.body.orderlist.length; i ++) {
                     try{
