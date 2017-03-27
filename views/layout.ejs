@@ -31,7 +31,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--STYLES-->
-    <link rel="stylesheet" href="min/production.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="/bower_components/angular-spinkit/build/angular-spinkit.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-chips/dist/main.css">
+    <link rel="stylesheet" href="/bower_components/angular-json-human/dist/angular-json-human.css">
+    <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
   </head>
 
@@ -93,7 +100,141 @@
     </script>
 
     <!--SCRIPTS-->
-    <script src="min/production.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/angular-ui-utils/ui-utils.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/angular-bootstrap-show-errors/src/showErrors.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angularSails/dist/ngsails.io.js"></script>
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/bower_components/bootswatch-dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/lodash/lodash.js"></script>
+    <script src="/bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="/bower_components/angular-spinkit/build/angular-spinkit.js"></script>
+    <script src="/bower_components/angular-chips/dist/angular-chips.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.js"></script>
+    <script src="/bower_components/angular-utils-pagination/dirPagination.js"></script>
+    <script src="/bower_components/chart.js/dist/Chart.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="/bower_components/angular-moment/angular-moment.js"></script>
+    <script src="/bower_components/bootbox/bootbox.js"></script>
+    <script src="/bower_components/ngBootbox/dist/ngBootbox.js"></script>
+    <script src="/bower_components/angular-json-human/dist/angular-json-human.js"></script>
+    <script src="/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
+    <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="/js/app/apis/00_apis.js"></script>
+    <script src="/js/app/apis/add-api-modal-controller.js"></script>
+    <script src="/js/app/apis/add-api-plugin-modal-controller.js"></script>
+    <script src="/js/app/apis/api-controller.js"></script>
+    <script src="/js/app/apis/api-details-controller.js"></script>
+    <script src="/js/app/apis/api-ssl-controller.js"></script>
+    <script src="/js/app/apis/apis-controller.js"></script>
+    <script src="/js/app/apis/apis-service.js"></script>
+    <script src="/js/app/app.js"></script>
+    <script src="/js/app/consumers/00_consumers.js"></script>
+    <script src="/js/app/consumers/consumer-controller.js"></script>
+    <script src="/js/app/consumers/consumer-model.js"></script>
+    <script src="/js/app/consumers/consumer-service.js"></script>
+    <script src="/js/app/consumers/consumers-controller.js"></script>
+    <script src="/js/app/consumers/credentials/consumer-credentials-controller.js"></script>
+    <script src="/js/app/consumers/credentials/create-basic-auth-controller.js"></script>
+    <script src="/js/app/consumers/credentials/create-hmac-auth-controller.js"></script>
+    <script src="/js/app/consumers/credentials/create-jwt-controller.js"></script>
+    <script src="/js/app/consumers/credentials/create-key-auth-controller.js"></script>
+    <script src="/js/app/consumers/credentials/create-oauth2-controller.js"></script>
+    <script src="/js/app/consumers/credentials/mass-assign-credentials-controller.js"></script>
+    <script src="/js/app/consumers/details/consumer-details-controller.js"></script>
+    <script src="/js/app/consumers/groups/consumer-groups-controller.js"></script>
+    <script src="/js/app/consumers/groups/group.js"></script>
+    <script src="/js/app/consumers/groups/manage-groups-modal-controllers.js"></script>
+    <script src="/js/app/consumers/import/import-consumers-connection-controller.js"></script>
+    <script src="/js/app/consumers/import/import-consumers-controller.js"></script>
+    <script src="/js/app/consumers/import/import-consumers-storage-controller.js"></script>
+    <script src="/js/app/consumers/import/import-consumers-table-controller.js"></script>
+    <script src="/js/app/core/auth/auth.js"></script>
+    <script src="/js/app/core/auth/login/login.js"></script>
+    <script src="/js/app/core/auth/services/00_services.js"></script>
+    <script src="/js/app/core/auth/services/AuthService.js"></script>
+    <script src="/js/app/core/auth/services/UserService.js"></script>
+    <script src="/js/app/core/components/components.js"></script>
+    <script src="/js/app/core/components/FocusOn.js"></script>
+    <script src="/js/app/core/constants/AccessLevels.js"></script>
+    <script src="/js/app/core/constants/BackendConfig.js"></script>
+    <script src="/js/app/core/core.js"></script>
+    <script src="/js/app/core/dependencies/dependencies.js"></script>
+    <script src="/js/app/core/directives/directives.js"></script>
+    <script src="/js/app/core/directives/ListSearch.js"></script>
+    <script src="/js/app/core/directives/RawView.js"></script>
+    <script src="/js/app/core/error/error.js"></script>
+    <script src="/js/app/core/filters/filters.js"></script>
+    <script src="/js/app/core/interceptors/00_interceptors.js"></script>
+    <script src="/js/app/core/interceptors/AuthInterceptor.js"></script>
+    <script src="/js/app/core/interceptors/ErrorInterceptor.js"></script>
+    <script src="/js/app/core/interceptors/KongaIntercenptor.js"></script>
+    <script src="/js/app/core/interceptors/TemplateCacheInterceptor.js"></script>
+    <script src="/js/app/core/layout/00_layout.js"></script>
+    <script src="/js/app/core/layout/01_layout-controllers.js"></script>
+    <script src="/js/app/core/layout/02_layout-directives.js"></script>
+    <script src="/js/app/core/layout/03_layout-services.js"></script>
+    <script src="/js/app/core/libraries/libraries.js"></script>
+    <script src="/js/app/core/libraries/LoDash.js"></script>
+    <script src="/js/app/core/models/00_models.js"></script>
+    <script src="/js/app/core/models/DataModel.js"></script>
+    <script src="/js/app/core/plugins/angular-matchheight.js"></script>
+    <script src="/js/app/core/plugins/material.spinner.js"></script>
+    <script src="/js/app/core/plugins/uiBreadcrumbs.js"></script>
+    <script src="/js/app/core/services/00_services.js"></script>
+    <script src="/js/app/core/services/DataService.js"></script>
+    <script src="/js/app/core/services/DialogService.js"></script>
+    <script src="/js/app/core/services/HttpStatusService.js"></script>
+    <script src="/js/app/core/services/KongPluginsService.js"></script>
+    <script src="/js/app/core/services/ListConfigService.js"></script>
+    <script src="/js/app/core/services/MessageService.js"></script>
+    <script src="/js/app/core/services/NodesService.js"></script>
+    <script src="/js/app/core/services/RemoteStorageService.js"></script>
+    <script src="/js/app/core/services/SocketHelperService.js"></script>
+    <script src="/js/app/dashboard/01_dashboard.js"></script>
+    <script src="/js/app/dashboard/02_dashboard-controller.js"></script>
+    <script src="/js/app/info/00_info.js"></script>
+    <script src="/js/app/info/01_info-controllers.js"></script>
+    <script src="/js/app/info/02_info-service.js"></script>
+    <script src="/js/app/plugins/00_plugins.js"></script>
+    <script src="/js/app/plugins/add-plugin-controller.js"></script>
+    <script src="/js/app/plugins/add-plugins-controller.js"></script>
+    <script src="/js/app/plugins/api-plugins-controller.js"></script>
+    <script src="/js/app/plugins/edit-plugin-controller.js"></script>
+    <script src="/js/app/plugins/plugin-helper-service.js"></script>
+    <script src="/js/app/plugins/plugins-controller.js"></script>
+    <script src="/js/app/plugins/plugins-service.js"></script>
+    <script src="/js/app/settings/01_settings.js"></script>
+    <script src="/js/app/settings/node-model.js"></script>
+    <script src="/js/app/settings/settings-controller.js"></script>
+    <script src="/js/app/settings/settings-model.js"></script>
+    <script src="/js/app/settings/settings-service.js"></script>
+    <script src="/js/app/upstreams/01_upstreams.js"></script>
+    <script src="/js/app/upstreams/add-upstream-modal-controller.js"></script>
+    <script src="/js/app/upstreams/edit-upstream-controller.js"></script>
+    <script src="/js/app/upstreams/edit-upstream-details-controller.js"></script>
+    <script src="/js/app/upstreams/targets/edit-upstream-targets-controller.js"></script>
+    <script src="/js/app/upstreams/update-upstream-modal-controller.js"></script>
+    <script src="/js/app/upstreams/upstream.js"></script>
+    <script src="/js/app/upstreams/upstreams-controller.js"></script>
+    <script src="/js/app/upstreams/upstreams-service.js"></script>
+    <script src="/js/app/users/00_users.js"></script>
+    <script src="/js/app/users/user-controller.js"></script>
+    <script src="/js/app/users/user-create-controller.js"></script>
+    <script src="/js/app/users/user-model.js"></script>
+    <script src="/js/app/users/users-controller.js"></script>
     <!--SCRIPTS END-->
 
   </body>

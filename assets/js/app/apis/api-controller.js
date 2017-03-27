@@ -8,8 +8,8 @@
 
   angular.module('frontend.apis')
     .controller('ApiController', [
-      '$scope','$state','$log','_api',
-      function controller($scope,$state,$log,_api) {
+      '$scope','$rootScope','$state','SettingsService','$log','_api',
+      function controller($scope,$rootScope,$state,SettingsService,$log,_api) {
 
           $scope.api = _api.data
 
@@ -27,12 +27,21 @@
               {
                   name : 'Assigned plugins',
                   icon : '&#xE8C1;'
-              },
-              {
-                  name : 'SSL',
-                  icon : '&#xE32A;'
               }
           ]
+
+
+
+          $rootScope.$watch('$node',function(newval) {
+              if(newval && newval.kong_version == '0-10-x') {
+                  $scope.sections.push({
+                      name : 'SSL',
+                      icon : '&#xE32A;'
+                  })
+              }
+          })
+
+
 
           $scope.showSection = function(index) {
               $scope.activeSection = index
