@@ -8,8 +8,8 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService','SettingsService','_apis',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,SettingsService,_apis ) {
+      '$scope','$rootScope', '$log', '$state','ApiService','$uibModal','DialogService','SettingsService','_apis',
+      function controller($scope,$rootScope, $log, $state, ApiService, $uibModal,DialogService,SettingsService,_apis ) {
 
           $scope.apis = _apis.data
           $scope.settings = SettingsService.getSettings()
@@ -28,7 +28,7 @@
 
           $scope.toggleStripRequestPathOrUri = function(api) {
 
-              if($scope.settings.kong_version == '0-9-x'){
+              if($rootScope.$node.kong_version == '0-9-x'){
                   api.strip_request_path=!api.strip_request_path
               }else{
                   api.strip_uri=!api.strip_uri
