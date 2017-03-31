@@ -112,7 +112,12 @@ models: {
 
 See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/adapters/available-adapters) for further configuration
 
-
+***************************************************************************************** 
+##### Note : 
+In case of <code>MySQL</code>, <code>PostgresSQL</code> or <code>SQL Server</code> adapters, 
+you will need to create a database named <code>konga_database</code> manually the first time. 
+Konga **will not** create the database for you, it will only create and populate its respective tables. 
+***************************************************************************************** 
 
 ## Running Konga
 
@@ -143,7 +148,10 @@ $ docker run -p 1338:1338
 
 #### To use one of the supported databases
 <pre>
-// You may also need to add an extra link that points to your database container
+// As stated before, in case of 'postgres','sqlserver'  or 'mysql' adapters,
+// the database defined in DB_DATABASE must be created manually the first time.
+// Konga will not create the database for you, it will just populate it with tables and data.
+// You may also need to add an extra link that points to your database container.
 $ docker run -p 1338:1338 
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
