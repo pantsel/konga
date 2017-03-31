@@ -150,25 +150,28 @@
                     <i class="material-icons">device_hub</i>&nbsp;
                     Cluster ({{clusters.total}} nodes)</div>
             </div>
-            <table class="table">
-                <tr>
-                    <th width="1">status</th>
-                    <th>name</th>
-                    <th>address</th>
+            <div class="panel-body no-padding table-responsive">
+                <table class="table">
+                    <tr>
+                        <th width="1">status</th>
+                        <th>name</th>
+                        <th>address</th>
 
-                </tr>
-                <tr data-ng-repeat="cluster in clusters.data">
-                    <td>
+                    </tr>
+                    <tr data-ng-repeat="cluster in clusters.data">
+                        <td>
                         <span
                                 data-ng-class="{'label-success' : cluster.status == 'alive','label-danger' : cluster.status == 'failed','label-warning' : cluster.status == 'left'}"
                                 class="label">
                             {{cluster.status}}
                         </span>
-                    </td>
-                    <td>{{cluster.name}}</td>
-                    <td>{{cluster.address}}</td>
-                </tr>
-            </table>
+                        </td>
+                        <td width="50">{{cluster.name}}</td>
+                        <td>{{cluster.address}}</td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
     </div>
     <div class="col-md-4">
