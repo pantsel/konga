@@ -187,7 +187,15 @@
                 }
 
 
+
+                $scope.$on('kong.node.updated',function(node){
+                    _fetchData()
+                })
+
+
                 _fetchData()
+
+
 
             }
         ])

@@ -9,6 +9,7 @@
             <div class="list-group">
                 <a
                         class="list-group-item clickable"
+                        data-ng-show="section.isVisible"
                         ng-class="{'active' : sections[activeSection].name == section.name }"
                         data-ng-click="showSection($index)"
                         data-ng-repeat="section in sections">

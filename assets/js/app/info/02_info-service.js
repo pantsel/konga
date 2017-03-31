@@ -8,16 +8,18 @@
 
   angular.module('frontend.info')
     .service('InfoService', [
-        '$log', '$state','$http','BackendConfig',
-      function( $log, $state, $http, BackendConfig) {
+        '$log', '$state','$http',
+      function( $log, $state, $http) {
 
           return {
 
               getInfo : function() {
                   return $http.get('kong/info')
               },
-              nodeStatus : function() {
-                  return $http.get('kong/status')
+              nodeStatus : function(params) {
+                  return $http.get('kong/status',{
+                      params : params
+                  })
               },
 
               clusterStatus : function() {

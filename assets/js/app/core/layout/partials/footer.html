@@ -16,12 +16,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li data-ng-show="isAuthenticated()">
-                    <a target="_blank">
-                        <i class="material-icons">cast_connected</i>{{adminUrl}}
-                    </a>
-                </li>
-                <li data-ng-show="isAuthenticated() && $node">
-                    <a target="_blank">
+                    <a class="clickable" data-ng-click="showConnectionsModal()">
+                        <i class="material-icons">cast_connected</i>
+                        {{adminUrl}}
+                        |
                         Kong version : <strong>{{$node.kong_version.split("-").join(".")}}</strong>
                     </a>
                 </li>

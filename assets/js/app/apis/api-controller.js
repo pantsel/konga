@@ -22,23 +22,26 @@
           $scope.sections = [
               {
                   name : 'API Details',
-                  icon : '&#xE88F;'
+                  icon : '&#xE88F;',
+                  isVisible : true
               },
               {
                   name : 'Assigned plugins',
-                  icon : '&#xE8C1;'
+                  icon : '&#xE8C1;',
+                  isVisible : true
+              },
+              {
+                  name : 'SSL',
+                  icon : '&#xE32A;',
+                  isVisible : true
               }
           ]
 
 
 
           $rootScope.$watch('$node',function(newval) {
-              if(newval && newval.kong_version == '0-10-x') {
-                  $scope.sections.push({
-                      name : 'SSL',
-                      icon : '&#xE32A;'
-                  })
-              }
+
+              $scope.sections[2].isVisible = newval && newval.kong_version == '0-10-x'
           })
 
 
@@ -59,6 +62,11 @@
           function isObject(obj) {
               return obj === Object(obj);
           }
+
+
+          $scope.$on('kong.node.updated',function(node){
+              $state.go('apis')
+          })
 
       }
     ])

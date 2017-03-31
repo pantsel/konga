@@ -17,8 +17,9 @@ var KongInfoController = {
                 return res.json(response.body)
             })
     },
+
     status : function(req,res) {
-        unirest.get(sails.config.kong_admin_url + "/status")
+        unirest.get(( req.query.kong_admin_url || sails.config.kong_admin_url ) + "/status")
             .end(function(response){
                 if(response.error) return res.negotiate(response.error)
                 return res.json(response.body)

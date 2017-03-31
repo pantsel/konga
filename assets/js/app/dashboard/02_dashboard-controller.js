@@ -156,6 +156,12 @@
            * Init UI
            */
           fetchData();
+
+
+
+          $scope.$on('kong.node.updated',function(node){
+              fetchData();
+          })
       }
     ])
   ;

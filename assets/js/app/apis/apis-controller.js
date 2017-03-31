@@ -49,6 +49,11 @@
               getApis()
           })
 
+
+          $scope.$on('kong.node.updated',function(node){
+              getApis()
+          })
+
           $scope.deleteApi = function($index,api) {
               DialogService.prompt(
                   "Delete API","Really want to delete the selected API?",

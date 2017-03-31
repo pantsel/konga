@@ -33,7 +33,9 @@
           }
 
 
-
+          $scope.$on('kong.node.updated',function(node){
+              $state.go('consumers')
+          })
 
       }
     ])

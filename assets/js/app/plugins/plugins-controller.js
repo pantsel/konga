@@ -100,6 +100,11 @@
           })
 
 
+          $scope.$on('kong.node.updated',function(node){
+              fetchPlugins()
+          })
+
+
       }
     ])
   ;
