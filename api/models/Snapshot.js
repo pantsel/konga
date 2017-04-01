@@ -23,6 +23,12 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       required : true,
       unique: true
     },
+    kong_node_name: {
+      type : 'string'
+    },
+    kong_node_url: {
+      type : 'string'
+    },
     kong_version: {
       type : 'string'
     },
