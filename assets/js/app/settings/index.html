@@ -45,28 +45,18 @@
 
             </div>
         </uib-tab>
-        <!--<uib-tab index="1">-->
-            <!--<uib-tab-heading>-->
-                <!--General Settings-->
-            <!--</uib-tab-heading>-->
-            <!--<br>-->
-            <!--<div class="col-md-12">-->
-                <!--<form class="form-horizontal">-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="control-label">Kong version</label>-->
-                        <!--<select-->
-                                <!--data-ng-change="updateSettings()"-->
-                                <!--class="form-control" ng-model="general_settings.kong_version" ng-options="item.value as item.name for item in kong_versions">-->
-                        <!--</select>-->
-                        <!--<p class="help-block">-->
-                            <!--Kong's Admin API version.-->
-                        <!--</p>-->
-                    <!--</div>-->
+        <uib-tab index="1">
+            <uib-tab-heading>
+                Snapshots <span class="badge">Beta</span>
+            </uib-tab-heading>
+            <br>
 
-                <!--</form>-->
-            <!--</div>-->
+            <div
+                 ng-controller="SnapshotsController"
+                 data-ng-include="'js/app/settings/partials/snapshots-table.html'"></div>
 
-        <!--</uib-tab>-->
+
+        </uib-tab>
     </uib-tabset>
 
 </div>

@@ -25,6 +25,24 @@ var KongService = {
             })
     },
 
+    createFromEndpointCb: function (endpoint,data, cb) {
+
+        if(data.config) {
+            Object.keys(data.config).forEach(function(key){
+                data["config." + key] = data.config[key]
+            })
+
+            delete data.config
+        }
+
+        unirest.post(sails.config.kong_admin_url + endpoint)
+            .send(data)
+            .end(function (response) {
+                if (response.error)  return cb(response)
+                return cb(null,response.body)
+            })
+    },
+
 
     retrieve: function (req, res) {
         unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
@@ -33,6 +51,25 @@ var KongService = {
                 return res.json(response.body)
             })
     },
+
+    listAllCb: function (req, endpoint, cb) {
+        var getData = function (previousData,url) {
+            unirest.get(url)
+                .end(function (response) {
+                    if (response.error) return cb(response)
+                    var data = previousData.concat(response.body.data);
+                    if (response.body.next) {
+                        getData(data,response.body.next);
+                    }
+                    else {
+                        response.body.data = data;
+                        return cb(null,response.body)
+                    }
+                })
+        };
+        getData([],sails.config.kong_admin_url  + endpoint);
+    },
+
 
     list: function (req, res) {
         var getData = function (previousData,url) {

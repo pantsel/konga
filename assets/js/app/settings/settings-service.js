@@ -8,8 +8,8 @@
 
     angular.module('frontend.settings')
         .service('SettingsService', [
-            '$localStorage',
-            function($localStorage ) {
+            '$localStorage','$http',
+            function($localStorage,$http ) {
 
                 var defSettings = {
                     kong_version : "0-10-x"
@@ -27,6 +27,11 @@
                     },
                     getSettings : function() {
                         return $localStorage.settings || defSettings
+                    },
+                    takeSnapshot : function(name) {
+                        return $http.post('api/snapshots/take',{
+                            name : name
+                        })
                     }
                 }
 

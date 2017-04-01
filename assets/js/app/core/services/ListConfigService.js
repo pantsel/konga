@@ -224,52 +224,34 @@
               width : 1
             },
           ],
-          author: [
+          snapshot: [
             {
-              title: 'Author',
+              title: 'id',
+              column: 'id',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'name',
               column: 'name',
-              class: 'col-xs-11',
-              searchable: true,
-              sortable: true,
-              inSearch: true,
-              inTitle: true
-            },
-            {
-              title: 'Books',
-              column: false,
-              class: 'text-right col-xs-1',
-              searchable: false,
-              sortable: false,
-              inSearch: false,
-              inTitle: true
-            }
-          ],
-          book: [
-            {
-              title: 'Title',
-              column: 'title',
-              class: 'col-xs-8',
-              searchable: true,
-              sortable: true,
-              inSearch: true,
-              inTitle: true
-            },
-            {
-              title: 'Author',
-              column: false,
-              class: 'col-xs-3',
               searchable: false,
               sortable: false,
               inSearch: false,
               inTitle: true
             },
             {
-              title: 'Year',
-              column: 'releaseDate',
-              class: 'col-xs-1 text-right',
+              title: 'kong version',
+              column: 'kong_version',
               searchable: true,
               sortable: true,
-              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'created at',
+              column: 'createdAt',
+              sortable: true,
               inTitle: true
             }
           ],

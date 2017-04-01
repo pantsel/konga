@@ -107,5 +107,9 @@ module.exports.policies = {
     'remove':   ['authenticated', 'isAdmin','dynamicNode']
   },
 
+  SnapshotController : {
+    '*': ['dynamicNode'],
+  }
+
 
 };
