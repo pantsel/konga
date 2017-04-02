@@ -23,40 +23,38 @@
                         views: {
                             'content@': {
                                 templateUrl: 'js/app/settings/index.html',
-                                controller: 'SettingsController',
-                                resolve: {
-                                    _nodes: [
-                                        '_',
-                                        'ListConfig','SocketHelperService',
-                                        'NodeModel',
-                                        function resolve(
-                                            _,
-                                            ListConfig,SocketHelperService,
-                                            NodeModel
-                                        ) {
-                                            var config = ListConfig.getConfig();
-                                            var commonParameters = {
-                                                where: SocketHelperService.getWhere({
-                                                    searchWord: ''
-                                                })
-                                            };
-
-                                            var parameters = {
-                                                limit: config.itemsPerPage,
-                                                sort: 'createdAt DESC'
-                                            };
-
-                                            return NodeModel.load(_.merge({}, commonParameters, parameters));
-                                        }
-                                    ],
-                                    _countNodes: [
-                                        'NodeModel',
-                                        function resolve(NodeModel) {
-                                            return NodeModel.count();
-                                        }
-                                    ]
+                                controller: 'SettingsController'
+                            },
+                            'nodes@settings': {
+                                templateUrl: 'js/app/settings/nodes/list.html',
+                                controller: 'NodesController',
+                            },
+                            'snapshots@settings': {
+                                templateUrl: 'js/app/settings/snapshots/list.html',
+                                controller: 'SnapshotsController',
+                            },
+                        }
+                    })
+                    .state('settings.snapshot', {
+                        url: '/snapshot/:id',
+                        parent : 'frontend',
+                        data : {
+                            access : 0,
+                            pageName : "Snapshot Details",
+                            displayName : "snapshot",
+                            prefix : '<i class="material-icons">&#xE412;</i>'
+                        },
+                        views: {
+                            'content@': {
+                                templateUrl: 'js/app/settings/snapshots/snapshot.html',
+                                controller: 'SnapshotController',
+                                resolve : {
+                                    _snapshot : ['Snapshot','$stateParams',
+                                        function(Snapshot,$stateParams){
+                                        return Snapshot.fetch($stateParams.id)
+                                    }]
                                 }
-                            }
+                            },
                         }
                     })
             }

@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12 text-right form-group">
+        <a id="downloadAnchorElem" style="display:none"></a>
+        <button class="btn btn-warning" data-ng-click="downloadSnapshot()">
+            <i class="material-icons">&#xE2C4;</i>
+            download snapshot
+        </button>
+        <button class="btn btn-primary" data-ng-click="showRestoreModal()">
+            <i class="material-icons">&#xE929;</i>
+            apply snapshot
+        </button>
+    </div>
+    <div class="col-md-12 table-responsive">
+        <table class="table table-condensed table-bordered" style="background-color: #fff">
+            <tr>
+                <th>Name</th>
+                <th>Node</th>
+                <th>URL</th>
+                <th>Kong version</th>
+                <th>Taken at</th>
+            </tr>
+            <tr>
+                <td><strong class="text-primary">{{snapshot.name}}</strong></td>
+                <td>{{snapshot.kong_node_name}}</td>
+                <td>{{snapshot.kong_node_url}}</td>
+                <td>{{snapshot.kong_version.split('-').join('.')}}</td>
+                <td>{{snapshot.createdAt | date}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <uib-tabset active="active">
+            <uib-tab index="$index" data-ng-repeat="(key,value) in snapshot.data">
+                <uib-tab-heading>
+                    <strong>{{key.toUpperCase().split("_").join(" ")}}</strong>
+                </uib-tab-heading>
+                <br>
+                <div json-human="value"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

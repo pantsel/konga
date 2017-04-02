@@ -5,45 +5,7 @@
                 Connections
             </uib-tab-heading>
             <br>
-            <!--<h4>-->
-            <!--<i class="material-icons">&#xE335;</i>-->
-            <!--Kong Nodes-->
-            <!--</h4>-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-info">
-                        <p>
-                            <i class="material-icons">add</i> Create one or more connections.<br>
-                            <i class="material-icons">add</i> Select the connection you want to use by clicking on the corresponding checkbox.
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 actions">
-                    <button class="btn btn-primary pull-left" ng-click="createNode()">
-                        <i class="material-icons">&#xE145;</i>
-                        new connection
-                    </button>
-                    <list-search
-                            class="pull-right margin-right"
-                            data-filters="filters"
-                            data-options="itemsPerPageOptions"
-                            data-items="itemsPerPage"
-                    ></list-search>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div
-                            class="table-responsive"
-                            data-ng-include="'js/app/settings/partials/nodes-table.html'">
-                    </div>
-                </div>
-
-            </div>
+            <div data-ui-view="nodes"></div>
         </uib-tab>
         <uib-tab index="1">
             <uib-tab-heading>
@@ -51,9 +13,7 @@
             </uib-tab-heading>
             <br>
 
-            <div
-                 ng-controller="SnapshotsController"
-                 data-ng-include="'js/app/settings/partials/snapshots-table.html'"></div>
+            <div data-ui-view="snapshots"></div>
 
 
         </uib-tab>

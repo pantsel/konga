@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <p>
+                <i class="material-icons">add</i> Create one or more connections.<br>
+                <i class="material-icons">add</i> Select the connection you want to use by clicking on the corresponding checkbox.
+            </p>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 actions">
+        <button class="btn btn-primary pull-left" ng-click="createNode()">
+            <i class="material-icons">&#xE145;</i>
+            new connection
+        </button>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 table-responsive">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th width="{{item.width}}" class="text-nowrap"
+                    data-ng-repeat="item in nodeTitleItems | filter:titleFilter"
+                >
+                    <a
+                            data-ng-show="item.column"
+                            class="clickable"
+                            data-ng-click="changeSort(item)"
+                            data-ng-bind-html="item.title"
+                    ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title"
+            ></span>
+
+                    <i class="fa"
+                       data-ng-show="sort.column == item.column"
+                       data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+                    ></i>
+                </th>
+            </tr>
+            <tr data-ng-repeat="node in nodes">
+
+                <td>
+                    <button class="btn btn-link"
+                            uib-tooltip="Toggle active connection"
+                            ng-class="{'btn-default':!node.active,'btn-primary':node.active}"
+                            ng-click="toggleActive(node)">
+                        <i class="material-icons">{{node.active ? '&#xE834;' : '&#xE835;'}}</i>
+                    </button>
+
+                </td>
+                <td><a  editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
+                <td>
+                    <a  editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
+                </td>
+                <td>
+                    <a href="#"
+                       editable-select="node.kong_version"
+                       onaftersave="updateNode(node)"
+                       e-ng-options="s.value as s.name for s in kong_versions">
+                        {{ node.kong_version.split("-").join(".") }}
+                    </a>
+                </td>
+                <td>{{node.createdAt | date : "MMM d, y"}}</td>
+                <td>{{node.updatedAt | date : "MMM d, y"}}</td>
+                <td>
+                    <button class="btn btn-danger btn-link" ng-bootbox-confirm="Are you sure you want to delete this connection?"
+                            ng-bootbox-confirm-action="deleteNode(node)">
+                        <i class="material-icons">delete</i>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            <tr data-ng-if="nodes.length === 0">
+                <td colspan="100%" class="text-center">
+                    <h5>No connections found...</h5>
+                </td>
+            </tr>
+        </table>
+
+        <ul uib-pagination
+            class="pagination"
+            data-total-items="itemCount"
+            data-ng-model="paging.currentPage"
+            data-ng-change="pageChanged()"
+            data-items-per-page="itemsPerPage"
+            data-max-size="10"
+            data-boundary-links="true"
+            data-rotate="false"
+        ></ul>
+    </div>
+</div>

@@ -369,7 +369,7 @@
 
 
           $scope.$on('consumer.created',function(ev,user){
-              $scope.items.push(user)
+              _fetchData()
           })
 
 

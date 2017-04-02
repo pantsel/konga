@@ -45,7 +45,7 @@
                 // Initialize filters
                 $scope.filters = {
                     searchWord: '',
-                    columns: $scope.nodeTitleItems,
+                    columns: $scope.titleItems,
                 };
 
                 // Function to change sort column / direction on list
@@ -69,10 +69,11 @@
                 }
 
                 /**
-                 * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch author data
+                 * Simple watcher for 'itemsPerPage' scope variable. If this is changed we need to fetch data
                  * from server.
                  */
                 $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
+                    console.log("sdsdd")
                     if (valueNew !== valueOld) {
                         _triggerFetchData();
                     }
@@ -86,24 +87,59 @@
                 },true);
 
                 $scope.takeSnapshot = function(){
-                    $ngBootbox.prompt('Enter a unique name')
-                        .then(function(name) {
 
-                            if(!name) {
-                                MessageService.error('You need to provide a unique name for the snapshot');
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/settings/snapshots/take-snapshot-modal.html',
+                        size : 'sm',
+                        backdrop: 'static',
+                        keyboard: false,
+                        controller: function($scope,$rootScope,$log,$uibModalInstance,SnapshotsService,MessageService) {
+
+                            $scope.node = $rootScope.$node;
+                            $scope.snapshot = {
+                                name : ''
+                            }
+                            $scope.close = function(){
+                                $uibModalInstance.dismiss()
                             }
 
-                            SettingsService.takeSnapshot(name)
-                                .then(function(success){
-                                    MessageService.success('Snapshot created!');
-                                    _triggerFetchData()
-                                }).catch(function(err){
+                            $scope.submit = function() {
 
-                            })
+                                $scope.error = '';
 
-                        }, function() {
-                            console.log('Prompt dismissed!');
-                        });
+                                if(!$scope.snapshot.name) {
+                                    $scope.error = 'Name is required'
+                                    return false;
+                                }
+
+
+                                $scope.submitting = true;
+                                SnapshotsService.takeSnapshot($scope.snapshot.name)
+                                    .then(function(response){
+                                        MessageService.success('Snapshot created!');
+                                        $scope.submitting = false;
+                                        $uibModalInstance.dismiss({
+                                            result : response.data
+                                        })
+                                    }).catch(function(err){
+                                    $scope.submitting = false;
+                                    if(err.data && err.data.message) {
+                                        $scope.error = err.data.message
+                                    }
+                                })
+                            }
+                        }
+                    });
+
+
+                    modalInstance.result.then(function (data) {
+                    }, function (data) {
+                        if(data && data.result) _triggerFetchData()
+                    });
+
                 }
 
 

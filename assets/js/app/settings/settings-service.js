@@ -27,11 +27,6 @@
                     },
                     getSettings : function() {
                         return $localStorage.settings || defSettings
-                    },
-                    takeSnapshot : function(name) {
-                        return $http.post('api/snapshots/take',{
-                            name : name
-                        })
                     }
                 }
 

@@ -236,9 +236,9 @@
             {
               title: 'name',
               column: 'name',
-              searchable: false,
-              sortable: false,
-              inSearch: false,
+              searchable: true,
+              sortable: true,
+              inSearch: true,
               inTitle: true
             },
             {

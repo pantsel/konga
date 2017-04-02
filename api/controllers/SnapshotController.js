@@ -71,6 +71,8 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
                         sails.models.snapshot.create({
                             name : req.param("name"),
+                            kong_node_name :  node.name,
+                            kong_node_url : node.kong_admin_url,
                             kong_version : node.kong_version,
                             data : result
                         }).exec(function(err,created){
@@ -111,7 +113,8 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             })
 
             var fns = []
-            Object.keys(snapshot.data).forEach(function(key){
+            var imports = req.param("imports") || Object.keys(snapshot.data)
+            imports.forEach(function(key){
 
                 //if(key != 'upstream_targets' && key != 'upstreams') {
                     snapshot.data[key].forEach(function(item){
