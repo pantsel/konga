@@ -59,10 +59,10 @@
            * @returns {*|Promise}
            */
           responseError: function responseErrorCallback(response) {
-            if (response.status === 401) {
+            if (response.status === 401 || response.status === 403) {
               $localStorage.$reset();
 
-              // $injector.get('$state').go('auth.login');
+               $injector.get('$state').go('auth.login');
             }
 
             return $q.reject(response);
