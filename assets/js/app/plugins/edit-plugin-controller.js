@@ -162,10 +162,11 @@
                   enabled : $scope.plugin.enabled,
               }
 
-              if($scope.data.consumer_id instanceof Object) {
-                  data.consumer_id = $scope.data.consumer_id.id
-              }
+              //if($scope.data.consumer_id instanceof Object) {
+              //    data.consumer_id = $scope.data.consumer_id.id
+              //}
 
+              data.consumer_id = $scope.data.consumer_id
 
               function createConfig(fields,prefix) {
 

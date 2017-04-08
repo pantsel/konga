@@ -40,13 +40,7 @@
                 <input
                         type="text"
                         ng-model="data.consumer_id"
-                        placeholder="search consumer..."
-                        uib-typeahead="item as item.username for item in getConsumer($viewValue)"
-                        typeahead-template-url="js/app/plugins/modals/custom-template.html"
-                        class="form-control"
-                        typeahead-wait-ms="200"
-                        typeahead-show-hint="true"
-                        typeahead-min-length="0">
+                        class="form-control">
                 <p class="help-block">
                     The CONSUMER ID that this plugin configuration will target.
                     This value can only be used if authentication has been enabled
