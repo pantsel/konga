@@ -27,14 +27,18 @@
 
   angular.module('frontend.core.auth.services')
     .factory('UserService', [
-      '$localStorage','$rootScope',
-      function factory($localStorage,$rootScope) {
+        '_','$localStorage','$rootScope',
+      function factory(_,$localStorage,$rootScope) {
         return {
           user: function user() {
             return $localStorage.credentials ? $localStorage.credentials.user : {};
           },
 
-            updateUser : function(user) {
+            updateUser : function(user,keepNode) {
+
+                if(keepNode) {
+                    user.node =$localStorage.credentials.user.node // Retain user node
+                }
                 $localStorage.credentials.user = user;
                 $rootScope.$broadcast('user.updated',$localStorage.credentials.user)
             }
