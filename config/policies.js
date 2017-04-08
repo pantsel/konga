@@ -108,7 +108,8 @@ module.exports.policies = {
   },
 
   SnapshotController : {
-    '*': ['authenticated','dynamicNode'],
+    '*': ['authenticated'],
+    'takeSnapShot' : ['authenticated','dynamicNode'],
   }
 
 

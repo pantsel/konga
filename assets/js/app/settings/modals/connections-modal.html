@@ -26,7 +26,7 @@
                 <fading-circle-spinner class="spinner"></fading-circle-spinner>
             </div>
             <div data-ng-if="!connection.checkingConnection">
-                <i class="material-icons text-primary">{{connection.active ? '&#xE834;' : '&#xE835;'}}</i>
+                <i class="material-icons text-primary">{{user.node.id == connection.id ? '&#xE834;' : '&#xE835;'}}</i>
             </div>
         </td>
         <td><strong>{{connection.name}}</strong></td>

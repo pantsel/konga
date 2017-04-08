@@ -129,22 +129,37 @@
                 };
 
                 $scope.toggleActive = function(node) {
-                    NodeModel
-                        .update(node.id,{active:!node.active})
+
+                    if($rootScope.user.node && node.id == $rootScope.user.node.id) return false;
+
+                    UserModel
+                        .update(UserService.user().id, {
+                            node : node
+                        })
                         .then(
-                            function onSuccess(result) {
-                                $rootScope.$broadcast('kong.node.updated',result.data)
-                                if(node.active) {
-                                    $rootScope.$broadcast('kong.node.deactivated',result.data)
-                                }else{
-                                    $rootScope.$broadcast('kong.node.activated',result.data)
-                                }
-                            },function(err){
-                                $scope.busy = false
-                                NodeModel.handleError($scope,err)
+                            function onSuccess(res) {
+                                var credentials = $localStorage.credentials
+                                credentials.user.node = node
+                                $rootScope.$broadcast('user.node.updated',node)
                             }
-                        )
-                    ;
+                        );
+
+                    //NodeModel
+                    //    .update(node.id,{active:!node.active})
+                    //    .then(
+                    //        function onSuccess(result) {
+                    //            $rootScope.$broadcast('kong.node.updated',result.data)
+                    //            if(node.active) {
+                    //                $rootScope.$broadcast('kong.node.deactivated',result.data)
+                    //            }else{
+                    //                $rootScope.$broadcast('kong.node.activated',result.data)
+                    //            }
+                    //        },function(err){
+                    //            $scope.busy = false
+                    //            NodeModel.handleError($scope,err)
+                    //        }
+                    //    )
+                    //;
                 }
 
 

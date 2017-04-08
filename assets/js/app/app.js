@@ -215,5 +215,12 @@
         //});
       }
     ])
+      .controller('MainController',['$log','$rootScope','UserService',
+      function($log,$rootScope,UserService){
+
+          $rootScope.user = UserService.user()
+          $log.debug("MainController:User => ", $rootScope.user)
+
+          }])
   ;
 }());

@@ -8,9 +8,10 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope','$rootScope', '$log', '$state','ApiService','$uibModal','DialogService','SettingsService','_apis',
-      function controller($scope,$rootScope, $log, $state, ApiService, $uibModal,DialogService,SettingsService,_apis ) {
+      '$scope','$rootScope', '$log', '$state','ApiService','UserService','$uibModal','DialogService','SettingsService','_apis',
+      function controller($scope,$rootScope, $log, $state, ApiService, UserService,$uibModal,DialogService,SettingsService,_apis ) {
 
+          $scope.user = UserService.user()
           $scope.apis = _apis.data
           $scope.settings = SettingsService.getSettings()
 
