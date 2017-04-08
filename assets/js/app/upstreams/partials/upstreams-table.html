@@ -34,17 +34,17 @@
             <td>{{item.slots || "-"}}</td>
             <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
             <td>
-                <a class="btn clickable btn-warning btn-link" data-ui-sref="upstreams.edit({id:item.id})">
-                    <i class="material-icons">edit</i>
-                    edit
+                <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})">
+                    <i class="material-icons">info_outline</i>
+                    details
                 </a>
             </td>
-            <td>
-                <button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">
-                    <i class="material-icons">&#xE872;</i>
-                    Delete
-                </button>
-            </td>
+            <!--<td>-->
+                <!--<button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">-->
+                    <!--<i class="material-icons">&#xE872;</i>-->
+                    <!--Delete-->
+                <!--</button>-->
+            <!--</td>-->
         </tr>
 
         <tr data-ng-if="items.length === 0 && !loading">
