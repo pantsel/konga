@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 ## [0.6.4](https://github.com/pantsel/konga/releases/tag/v0.6.4) - 8-4-2017
 
 * Changed user - node relation logic (see note).
+* Active node version is taken directly from the Gateway info endpoint instead of the user created node.
 * Fixed Bottom panel connection chooser (issue #41).
 * Removed delete and update functionality from Upstreams.
 * Various fixes and improvements
