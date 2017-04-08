@@ -188,7 +188,7 @@
 
 
 
-                $scope.$on('kong.node.updated',function(node){
+                $scope.$on('user.node.updated',function(node){
                     _fetchData()
                 })
 

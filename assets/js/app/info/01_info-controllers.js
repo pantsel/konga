@@ -13,11 +13,8 @@
 
 
 
-          $scope.$on('kong.node.updated',function(node){
-              InfoService.getInfo()
-                  .then(function(response){
-                      $scope.info = response.data
-                  })
+          $scope.$on('user.node.updated',function(node){
+              _getInfo()
           })
 
           function _getInfo() {
