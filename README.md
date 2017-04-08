@@ -118,7 +118,7 @@ In case of <code>MySQL</code>, <code>PostgresSQL</code> or <code>SQL Server</cod
 you will need to create a database named <code>konga_database</code> manually and run the app in development mode the first time. 
 <pre>node app.js --dev</pre>
 Then kill the process and start Konga as you would in production mode.
-Konga **will not** create the database or tables in production mode as a fail safe. 
+Konga **will not** create the database or tables in production mode. 
 ***************************************************************************************** 
 
 ## Running Konga
