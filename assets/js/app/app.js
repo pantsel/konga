@@ -215,12 +215,37 @@
         //});
       }
     ])
-      .controller('MainController',['$log','$rootScope','UserService',
-      function($log,$rootScope,UserService){
+      .controller('MainController',['$log','$scope','$rootScope','UserService','InfoService','AuthService',
+          function($log,$scope,$rootScope,UserService,InfoService,AuthService){
 
-          $rootScope.user = UserService.user()
-          $rootScope.konga_version = window.konga_version
-          $log.debug("MainController:User => ", $rootScope.user)
+              $rootScope.user = UserService.user()
+              $rootScope.konga_version = window.konga_version
+              $log.debug("MainController:User => ", $rootScope.user)
+
+              // ToDo decide whether to use Gateway Info for getting active node version and stuff...
+              $scope.$on('user.node.updated',function(ev,node){
+
+                  $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
+                  // Fetch and store Gateway Info
+                  _fetchGatewayInfo()
+              })
+
+              $scope.$on('user.login',function(ev,user){
+                    _fetchGatewayInfo()
+
+              })
+
+
+              if(AuthService.isAuthenticated())
+                _fetchGatewayInfo()
+
+              function _fetchGatewayInfo() {
+                  InfoService.getInfo()
+                      .then(function(response){
+                        $rootScope.Gateway = response.data
+                        $log.debug("MainController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway)
+                  })
+              }
 
           }])
   ;

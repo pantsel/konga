@@ -1,4 +1,4 @@
-<div class="row" data-ng-if="!info">
+<div class="row" data-ng-if="!Gateway">
     <div class="col-md-12 text-center margin padding">
         <h4>Fetching node info...</h4>
         <br>
@@ -10,9 +10,9 @@
         </div>
     </div>
 </div>
-<div class="row" data-ng-if="info">
+<div class="row" data-ng-if="Gateway">
     <div class="col-md-12">
-        <div json-human="info" class="table-responsive"></div>
+        <div json-human="Gateway" class="table-responsive"></div>
     </div>
 </div>
 

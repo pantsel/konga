@@ -4,7 +4,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li>
                     <a>
-                        v.{{konga_version}}
+                        <strong>KONGA {{konga_version}}</strong>
                     </a>
                 </li>
                 <li>
@@ -25,7 +25,7 @@
                         <i class="material-icons">cast_connected</i>
                         {{user.node.kong_admin_url}}
                         |
-                        Kong version : <strong>{{user.node.kong_version.split("-").join(".")}}</strong>
+                        Kong version : <strong>{{Gateway.version}}</strong>
                     </a>
                 </li>
             </ul>

@@ -45,10 +45,10 @@
 
   angular.module('frontend.core.auth.services')
     .factory('AuthService', [
-      '$http', '$state', '$localStorage',
+      '$http', '$state', '$localStorage','$rootScope',
       'AccessLevels', 'BackendConfig', 'MessageService',
       function factory(
-        $http, $state, $localStorage,
+        $http, $state, $localStorage,$rootScope,
         AccessLevels, BackendConfig, MessageService
       ) {
         return {
@@ -94,9 +94,9 @@
               .post('login', credentials, {withCredentials: true})
               .then(
                 function(response) {
-                  MessageService.success('You have logged in successfully!');
-
-                  $localStorage.credentials = response.data;
+                    MessageService.success('You have logged in successfully!');
+                    $localStorage.credentials = response.data;
+                    $rootScope.$broadcast('user.login',$localStorage.credentials)
                 }
               )
             ;

@@ -39,9 +39,8 @@
 
 
 
-          $rootScope.$watch('$node',function(newval) {
-
-              $scope.sections[2].isVisible = newval && newval.kong_version == '0-10-x'
+          $rootScope.$watch('Gateway',function(newval) {
+              $scope.sections[2].isVisible = newval && newval.version.indexOf("0.10.") > -1
           })
 
 
@@ -64,7 +63,7 @@
           }
 
 
-          $scope.$on('user.node.updated',function(node){
+          $scope.$on('use.node.updated',function(node){
               $state.go('apis')
           })
 

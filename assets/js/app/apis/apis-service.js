@@ -12,7 +12,7 @@
       function( $log, $state, $http,BackendConfig) {
 
           var properties = {
-              '0-9-x': {
+              '09': {
                   name: '',
                   request_host: '',
                   request_path: '',
@@ -20,7 +20,7 @@
                   preserve_host: false,
                   upstream_url: ''
               },
-              '0-10-x' : {
+              '010' : {
                   name : '',
                   hosts : '',
                   uris : '',

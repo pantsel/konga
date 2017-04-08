@@ -14,9 +14,8 @@
                           $uibModalInstance, MessageService ) {
 
 
-          $scope.api = ApiService.getProperties($rootScope.$node.kong_version)
+          $scope.api = ApiService.getProperties($rootScope.Gateway.version.split('.').slice(0, -1).join(''))
 
-          $log.debug("Kong version",$rootScope.$node.kong_version)
           $log.debug("$scope.api",$scope.api)
 
           $scope.close = function() {

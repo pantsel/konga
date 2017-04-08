@@ -23,6 +23,6 @@
     <div class="col-md-9">
         <div data-ui-view="details" ng-show="activeSection == 0"></div>
         <div data-ui-view="plugins" ng-show="activeSection == 1"></div>
-        <div ng-if="$node.kong_version == '0-10-x'" data-ui-view="ssl" ng-show="activeSection == 2"></div>
+        <div ng-if="Gateway.version.indexOf('0.10.') > -1" data-ui-view="ssl" ng-show="activeSection == 2"></div>
     </div>
 </div>
