@@ -30,7 +30,8 @@ module.exports.routes = {
   '/': {
     view: 'homepage',
     locals: {
-      angularDebugEnabled : process.env == 'production' ? false : true
+      angularDebugEnabled : process.env == 'production' ? false : true,
+      konga_version : require('../package.json').version
     }
   },
 

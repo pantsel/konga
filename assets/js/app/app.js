@@ -219,6 +219,7 @@
       function($log,$rootScope,UserService){
 
           $rootScope.user = UserService.user()
+          $rootScope.konga_version = window.konga_version
           $log.debug("MainController:User => ", $rootScope.user)
 
           }])
