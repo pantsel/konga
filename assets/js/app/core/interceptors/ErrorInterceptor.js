@@ -62,14 +62,14 @@
               message = message + ' <span class="text-small">(HTTP status ' + response.status + ')</span>';
             }
 
-            if(response.data.goTo) {
-              $injector.get('$state').go(response.data.goTo);
-              return $q.reject(response);
-            }
+            //if(response.data.goTo) {
+            //  $injector.get('$state').go(response.data.goTo);
+            //  return $q.reject(response);
+            //}
 
-            if (message) {
-              $injector.get('MessageService').error(message);
-            }
+            //if (message) {
+            //  $injector.get('MessageService').error(message);
+            //}
 
             return $q.reject(response);
           }

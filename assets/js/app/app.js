@@ -171,16 +171,16 @@
                 event.preventDefault();
                 $state.go('dashboard', params, {location: 'replace'})
             }
-
-            if (!AuthService.authorize(toState.data.access)) {
-                event.preventDefault();
-                $state.go('auth.login', params)
-            }
-
-            if (toState.redirectTo) {
-                event.preventDefault();
-                $state.go(toState.redirectTo, params, {location: 'replace'})
-            }
+            //
+            //if (!AuthService.authorize(toState.data.access)) {
+            //    event.preventDefault();
+            //    $state.go('auth.login', params)
+            //}
+            //
+            //if (toState.redirectTo) {
+            //    event.preventDefault();
+            //    $state.go(toState.redirectTo, params, {location: 'replace'})
+            //}
 
         });
 

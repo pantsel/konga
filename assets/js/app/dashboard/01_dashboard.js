@@ -17,8 +17,8 @@
                         url: '/dashboard',
                         parent : 'frontend',
                         data : {
-                            activeNode : true,
-                            access: 1,
+                            //activeNode : true,
+                            //access: 1,
                             pageName : "Dashboard",
                             displayName : "dashboard",
                             prefix : '<i class="material-icons text-primary">dashboard</i>'
