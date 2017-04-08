@@ -8,10 +8,9 @@
 
   angular.module('frontend.info')
     .controller('InfoController', [
-      '$scope', '$log', '$state','InfoService','_info',
-      function controller($scope, $log, $state,InfoService,_info) {
+      '$scope', '$log', '$state','InfoService',
+      function controller($scope, $log, $state,InfoService) {
 
-          $scope.info = _info.data
 
 
           $scope.$on('kong.node.updated',function(node){
@@ -20,6 +19,15 @@
                       $scope.info = response.data
                   })
           })
+
+          function _getInfo() {
+              InfoService.getInfo()
+                  .then(function(response){
+                      $scope.info = response.data
+                  })
+          }
+
+          _getInfo()
 
       }
     ])
