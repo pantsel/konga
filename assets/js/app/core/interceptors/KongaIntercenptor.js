@@ -26,14 +26,14 @@
            */
           request: function requestCallback(config) {
 
-            var konga_node_id = '';
+            var kong_admin_url = '';
 
             // Yeah we have some user data on local storage
-            if ($localStorage.credentials) {
-              konga_node_id = $localStorage.credentials.user.node_id
+            if ($localStorage.credentials && $localStorage.credentials.user.node) {
+                kong_admin_url = $localStorage.credentials.user.node.kong_admin_url
             }
 
-            config.headers['kong-admin-url'] = konga_node_id;
+            config.headers['kong-admin-url'] = kong_admin_url;
 
             return config;
           }

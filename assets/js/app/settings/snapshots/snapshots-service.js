@@ -11,9 +11,10 @@
             '$http',
             function($http ) {
                 return {
-                    takeSnapshot : function(name) {
+                    takeSnapshot : function(name,node_id) {
                         return $http.post('api/snapshots/take',{
-                            name : name
+                            name : name,
+                            node_id : node_id
                         })
                     },
                     restoreSnapshot : function(id,imports) {

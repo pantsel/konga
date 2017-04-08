@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <h5>Select objects to import</h5>
             <p class="help-block">
-                Select the Objects you want to import to <code>{{$node.name}}</code>
+                Select the Objects you want to import to <code>{{user.node.name}}</code>
                 or <a data-ng-click="selectNode()" class="clickable">select another node</a>.
             </p>
             <div class="form-group well">
@@ -32,7 +32,7 @@
     </div>
     <div class="row" data-ng-if="ready && restoring">
         <div class="col-md-12 text-center margin-bottom">
-            <h5>Applying snapshot to "{{$node.name}}". Please wait...</h5>
+            <h5>Applying snapshot to "{{user.node.name}}". Please wait...</h5>
             <br>
             <div class="anim-loader">
                 <span class="dot dot_1"></span>

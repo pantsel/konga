@@ -46,8 +46,9 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/settings/snapshots/snapshot-apply-modal.html',
-                        controller: function($scope,$uibModalInstance,SnapshotsService,_snapshot){
+                        controller: function($scope,$uibModalInstance,SnapshotsService,UserService,_snapshot){
 
+                            $scope.user = UserService.user()
 
                             $scope.ready = false;
                             $scope.imports = []
@@ -79,10 +80,12 @@
                                     ariaLabelledBy: 'modal-title',
                                     ariaDescribedBy: 'modal-body',
                                     templateUrl: 'js/app/settings/modals/connections-modal.html',
-                                    controller: ['$scope','$uibModalInstance','$log','NodeModel','InfoService','_nodes',
-                                        function($scope,$uibModalInstance,$log,NodeModel,InfoService,_nodes){
+                                    controller: ['$scope','$uibModalInstance','$log','NodeModel','InfoService','UserService','$localStorage','_nodes',
+                                        function($scope,$uibModalInstance,$log,NodeModel,InfoService,UserService,$localStorage,_nodes){
 
                                             $scope.connections = _nodes
+                                            $scope.user = UserService.user()
+                                            $scope.node = $scope.user.node
 
                                             $log.debug("connections",$scope.connections)
 
@@ -114,10 +117,9 @@
                                                         .update(node.id,{active:!node.active})
                                                         .then(
                                                             function onSuccess(result) {
-                                                                $rootScope.$broadcast('kong.node.updated',result.data)
-                                                                $rootScope.$broadcast('kong.node.activated',result.data)
 
-
+                                                                $localStorage.credentials.user.node = result.data
+                                                                $rootScope.$broadcast('user.node.updated',result.data)
                                                                 $scope.close()
 
                                                             },function(err){

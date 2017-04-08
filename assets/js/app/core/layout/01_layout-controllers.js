@@ -79,21 +79,16 @@
    */
   angular.module('frontend.core.layout')
     .controller('FooterController', ['_','$scope','$state','AuthService',
-        'SettingsService','MessageService',
+        'SettingsService','MessageService','UserService','$log',
         '$rootScope','NodeModel','SocketHelperService','$uibModal',
       function controller(_,$scope,$state,AuthService,
-                          SettingsService,MessageService,
+                          SettingsService,MessageService,UserService,$log,
                           $rootScope,NodeModel,SocketHelperService,$uibModal) {
 
-          var commonParameters = {
-              where: SocketHelperService.getWhere({
-                  searchWord: ''
-              },{
-                  active:true
-              })
-          };
 
-          $scope.settings = SettingsService.getSettings()
+          $scope.user = UserService.user();
+
+          $log.debug("FooterController:user =>",$scope.user)
 
           $scope.showConnectionsModal = function() {
 
@@ -102,8 +97,8 @@
                       ariaLabelledBy: 'modal-title',
                       ariaDescribedBy: 'modal-body',
                       templateUrl: 'js/app/settings/modals/connections-modal.html',
-                      controller: ['$scope','$uibModalInstance','$log','NodeModel','InfoService','_nodes',
-                          function($scope,$uibModalInstance,$log,NodeModel,InfoService,_nodes){
+                      controller: ['$scope','$uibModalInstance','$log','NodeModel','InfoService','$localStorage','_nodes',
+                          function($scope,$uibModalInstance,$log,NodeModel,InfoService,$localStorage,_nodes){
 
                               $scope.connections = _nodes
 
@@ -137,10 +132,9 @@
                                           .update(node.id,{active:!node.active})
                                           .then(
                                               function onSuccess(result) {
-                                                  $rootScope.$broadcast('kong.node.updated',result.data)
-                                                  $rootScope.$broadcast('kong.node.activated',result.data)
 
-
+                                                  $localStorage.credentials.user.node = result.data // Update localStorage
+                                                  $rootScope.$broadcast('user.node.updated',result.data)
                                                   $scope.close()
 
                                               },function(err){
@@ -186,44 +180,6 @@
                       }
                   });
           }
-
-          function _triggerFetchData() {
-              NodeModel.load(_.merge({}, commonParameters, {}))
-                  .then(function(resp){
-                      setNode(resp[0])
-                  }).catch(function(err){
-                  $scope.adminUrl = 'no node defined'
-              })
-          }
-
-          function setNode(node) {
-              var beforeNode = angular.copy($rootScope.$node)
-              $rootScope.$node = node
-              if(node) {
-                  if(!beforeNode)
-                    MessageService.success("Selected connection:  " + node.kong_admin_url)
-                  $scope.adminUrl = $rootScope.$node.kong_admin_url;
-              }else{
-                  $scope.adminUrl = 'no connection defined'
-              }
-
-          }
-
-
-          $scope.$on('kong.node.deleted',function(ev,node){
-              if(node.id == $rootScope.$node.id) setNode(null)
-
-          })
-
-          $scope.$on('kong.node.updated',function(ev,node){
-              if(node.active) {
-                  setNode(node)
-              }else{
-                  _triggerFetchData()
-              }
-          })
-
-          if(AuthService.isAuthenticated()) _triggerFetchData();
       }
     ])
   ;

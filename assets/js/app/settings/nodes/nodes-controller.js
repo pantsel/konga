@@ -323,7 +323,7 @@
                 }
                 $scope.$on('kong.node.updated',function(ev,node){
                     _triggerFetchData()
-                    if(node.active) updateUserNode(node)
+                    updateUserNode(node.active ? node : null)
                 })
 
                 $scope.$on('kong.node.deactivated',function(ev,node){
@@ -345,22 +345,18 @@
                 function updateUserNode(node) {
                     UserModel
                         .update(UserService.user().id, {
-                            node_id : node ? node.kong_admin_url : ''
+                            node : node
                         })
                         .then(
                             function onSuccess(res) {
                                 var credentials = $localStorage.credentials
-                                credentials.user.node_id = res.data.node_id
-                                $localStorage.credentials = credentials
+                                credentials.user.node = node
+                                $rootScope.$broadcast('user.node.updated',node)
                             }
                         );
                 }
 
-
-
                 _triggerFetchData()
-
-
             }
         ])
     ;

@@ -18,9 +18,9 @@
                 <li data-ng-show="isAuthenticated()">
                     <a class="clickable" data-ng-click="showConnectionsModal()">
                         <i class="material-icons">cast_connected</i>
-                        {{adminUrl}}
+                        {{user.node.kong_admin_url}}
                         |
-                        Kong version : <strong>{{$node.kong_version.split("-").join(".")}}</strong>
+                        Kong version : <strong>{{user.node.kong_version.split("-").join(".")}}</strong>
                     </a>
                 </li>
             </ul>

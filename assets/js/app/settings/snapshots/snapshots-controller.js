@@ -96,9 +96,10 @@
                         size : 'sm',
                         backdrop: 'static',
                         keyboard: false,
-                        controller: function($scope,$rootScope,$log,$uibModalInstance,SnapshotsService,MessageService) {
+                        controller: function($scope,$rootScope,$log,$uibModalInstance,SnapshotsService,MessageService,UserService) {
 
-                            $scope.node = $rootScope.$node;
+                            $scope.user = UserService.user()
+                            $scope.node = $scope.user.node;
                             $scope.snapshot = {
                                 name : ''
                             }
@@ -117,7 +118,7 @@
 
 
                                 $scope.submitting = true;
-                                SnapshotsService.takeSnapshot($scope.snapshot.name)
+                                SnapshotsService.takeSnapshot($scope.snapshot.name,$scope.node.id)
                                     .then(function(response){
                                         MessageService.success('Snapshot created!');
                                         $scope.submitting = false;

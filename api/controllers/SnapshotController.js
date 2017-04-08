@@ -15,10 +15,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
         // Get node
         sails.models.kongnode.findOne({
-            kong_admin_url : sails.config.kong_admin_url
+            id : req.param("node_id")
         }).exec(function(err,node){
             if(err) res.negotiate(err)
-            if(!node) res.badInput({
+            if(!node) res.badRequest({
                 message : "Invalid Kong Node"
             })
 

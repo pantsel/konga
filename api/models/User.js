@@ -46,6 +46,10 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       defaultsTo: ''
     },
 
+    node : {
+      model : 'kongnode'
+    },
+
     // Passport configurations
     passports: {
       collection: 'Passport',
