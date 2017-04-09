@@ -91,12 +91,12 @@
           //    return decodeURIComponent(results[2].replace(/\+/g, " "));
           //}
 
-          $scope.loadMore = function() {
-              if(!$scope.next) return false;
-              $log.debug("Must load More!!!")
-              $scope.paging.offset = $scope.offset
-              _fetchData();
-          }
+          //$scope.loadMore = function() {
+          //    if(!$scope.next) return false;
+          //    $log.debug("Must load More!!!")
+          //    $scope.paging.offset = $scope.offset
+          //    _fetchData();
+          //}
 
 
           //$scope.$watch('paging.currentPage', function watcher(valueNew, valueOld) {
@@ -127,7 +127,9 @@
 
           //$scope.$watch('filters', function watcher(valueNew, valueOld) {
           //    if (valueNew !== valueOld) {
-          //        _triggerFetchData();
+          //        $scope.items = $scope.items.filter(function(item){
+          //            return item.username.toLowerCase().indexOf(valueNew.searchWord.toLowerCase()) > -1
+          //        })
           //    }
           //},true);
 
