@@ -78,17 +78,28 @@
    *  2) Version info parsing (back- and frontend)
    */
   angular.module('frontend.core.layout')
-    .controller('FooterController', ['_','$scope','$state','AuthService',
+    .controller('FooterController', ['_','$scope','$state','AuthService','InfoService','UserModel','$localStorage',
         'SettingsService','MessageService','UserService','$log',
         '$rootScope','NodeModel','SocketHelperService','$uibModal',
-      function controller(_,$scope,$state,AuthService,
+      function controller(_,$scope,$state,AuthService,InfoService,UserModel,$localStorage,
                           SettingsService,MessageService,UserService,$log,
                           $rootScope,NodeModel,SocketHelperService,$uibModal) {
 
 
           $scope.user = UserService.user();
+          $scope.closeDropdown = function() {
+              $scope.isOpen = false;
+          }
 
           $log.debug("FooterController:user =>",$scope.user)
+
+          function _fetchConnections() {
+              NodeModel.load({
+                  sort: 'createdAt DESC'
+              }).then(function(connections){
+                  $scope.connections = connections;
+              })
+          }
 
           $scope.showConnectionsModal = function() {
 
@@ -113,6 +124,56 @@
                       }
                   });
           }
+
+          $scope.activateConnection = function(node) {
+
+              $scope.alerts = [];
+
+              if(($rootScope.user.node.id == node.id ) || node.checkingConnection) return false;
+
+
+              // Check if the connection is valid
+              node.checkingConnection = true;
+              InfoService.nodeStatus({
+                  kong_admin_url : node.kong_admin_url
+              }).then(function(response){
+                  $log.debug("Check connection:success",response)
+                  node.checkingConnection = false;
+
+                  UserModel
+                      .update(UserService.user().id, {
+                          node : node
+                      })
+                      .then(
+                          function onSuccess(res) {
+                              var credentials = $localStorage.credentials
+                              credentials.user.node = node
+                              $rootScope.$broadcast('user.node.updated',node)
+                          },function(err){
+                              $scope.busy = false
+                              UserModel.handleError($scope,err)
+                          }
+                      );
+
+              }).catch(function(error){
+                  $log.debug("Check connection:error",error)
+                  node.checkingConnection = false;
+                  MessageService.error("Oh snap! Can't connect to the selected node.")
+              })
+
+          }
+
+          $scope.$on('kong.node.created',function(ev,node){
+            _fetchConnections()
+          })
+
+          $scope.$on('kong.node.deleted',function(ev,node){
+              _fetchConnections()
+          })
+
+
+          if(AuthService.isAuthenticated())
+            _fetchConnections()
       }
     ])
   ;

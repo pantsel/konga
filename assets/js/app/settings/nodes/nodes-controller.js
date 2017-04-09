@@ -211,7 +211,7 @@
                         .then(
                             function onSuccess(result) {
                                 $rootScope.$broadcast('kong.node.updated',result.data)
-                                if(!node.active) showTestNodeModal(node)
+                                //if(!node.active) showTestNodeModal(node)
                             },function(err){
                                 $scope.busy = false
                                 NodeModel.handleError($scope,err)
@@ -338,11 +338,11 @@
                 }
                 $scope.$on('kong.node.updated',function(ev,node){
                     _triggerFetchData()
-                    updateUserNode(node.active ? node : null)
+                    //updateUserNode(node.active ? node : null)
                 })
 
                 $scope.$on('kong.node.deactivated',function(ev,node){
-                    updateUserNode()
+                    //updateUserNode()
                 })
 
                 $scope.$on('kong.node.activated',function(ev,node){
@@ -354,7 +354,7 @@
 
                 $scope.$on('kong.node.deleted',function(ev,node){
                     _triggerFetchData()
-                    if(node.active) updateUserNode()
+                    if(UserService.user().node && UserService.user().node.id == node.id) updateUserNode()
                 })
 
                 function updateUserNode(node) {

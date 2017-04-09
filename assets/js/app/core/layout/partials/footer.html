@@ -4,7 +4,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li>
                     <a>
-                        <strong>KONGA {{konga_version}}</strong>
+                        <strong class="text-success">KONGA {{konga_version}}</strong>
                     </a>
                 </li>
                 <li>
@@ -12,6 +12,7 @@
                         <i class="fa fa-github"></i>GitHub
                     </a>
                 </li>
+
                 <li>
                     <a href="https://github.com/pantsel/konga/issues" target="_blank">
                         <i class="material-icons">bug_report</i>Issues
@@ -20,14 +21,54 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li data-ng-show="isAuthenticated()">
-                    <a class="clickable" data-ng-click="showConnectionsModal()">
+                <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
+                    <a class="clickable" uib-dropdown-toggle>
                         <i class="material-icons">cast_connected</i>
                         {{user.node.kong_admin_url}}
                         |
                         Kong version : <strong>{{Gateway.version}}</strong>
                     </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li role="menuitem" style="background-color: #f4f4f4">
+
+                            <a>
+
+                                Choose connetion
+                                <i class="material-icons pull-right clickable" data-ng-click="closeDropdown()">close</i>
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <table class="table table-hover no-margin">
+                                <tr data-ng-repeat="connection in connections"
+                                    class="clickable"
+                                    data-ng-click="activateConnection(connection)"
+                                >
+                                    <td width="1">
+                                        <div data-ng-if="connection.checkingConnection">
+                                            <fading-circle-spinner class="spinner"></fading-circle-spinner>
+                                        </div>
+                                        <div data-ng-if="!connection.checkingConnection">
+                                            <i class="material-icons text-primary">{{user.node.id == connection.id ? '&#xE834;' : '&#xE835;'}}</i>
+                                        </div>
+                                    </td>
+                                    <td><strong>{{connection.name}}</strong></td>
+                                    <td>{{connection.kong_admin_url}}</td>
+                                    <td>v.{{connection.kong_version.split("-").join(".")}}</td>
+                                </tr>
+                            </table>
+                        </li>
+
+                    </ul>
+
                 </li>
+                <!--<li data-ng-show="isAuthenticated()">-->
+                    <!--<a class="clickable" data-ng-click="showConnectionsModal()">-->
+                        <!--<i class="material-icons">cast_connected</i>-->
+                        <!--{{user.node.kong_admin_url}}-->
+                        <!--|-->
+                        <!--Kong version : <strong>{{Gateway.version}}</strong>-->
+                    <!--</a>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
