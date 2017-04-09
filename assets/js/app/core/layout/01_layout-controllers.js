@@ -129,7 +129,7 @@
 
               $scope.alerts = [];
 
-              if(($rootScope.user.node.id == node.id ) || node.checkingConnection) return false;
+              if(($rootScope.user.node && $rootScope.user.node.id == node.id ) || node.checkingConnection) return false;
 
 
               // Check if the connection is valid
@@ -165,6 +165,10 @@
 
           $scope.$on('kong.node.created',function(ev,node){
             _fetchConnections()
+          })
+
+          $scope.$on('kong.node.updated',function(ev,node){
+              _fetchConnections()
           })
 
           $scope.$on('kong.node.deleted',function(ev,node){

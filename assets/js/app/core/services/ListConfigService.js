@@ -93,11 +93,6 @@
           ],
           kongnode: [
             {
-              width : 1,
-              column: 'active',
-              sortable: true
-            },
-            {
               title: 'name',
               column: 'name',
               searchable: true,
@@ -126,12 +121,7 @@
               title: 'updated',
               column: 'updatedAt',
               sortable: true,
-            },
-            {
-              title: '',
-              column: '',
-              width : 1
-            },
+            }
           ],
           consumer: [
             {

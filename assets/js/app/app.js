@@ -215,8 +215,10 @@
         //});
       }
     ])
-      .controller('MainController',['$log','$scope','$rootScope','UserService','InfoService','AuthService',
-          function($log,$scope,$rootScope,UserService,InfoService,AuthService){
+      .controller('MainController',['$log','$scope','$rootScope','Settings',
+          'UserService','InfoService','AuthService',
+          function($log,$scope,$rootScope,Settings,
+                   UserService,InfoService,AuthService){
 
               $rootScope.user = UserService.user()
               $rootScope.konga_version = window.konga_version
@@ -236,8 +238,30 @@
               })
 
 
-              if(AuthService.isAuthenticated())
-                _fetchGatewayInfo()
+              if(AuthService.isAuthenticated()) {
+                  _fetchGatewayInfo()
+                  _fetchSettings()
+              }
+
+              function _fetchSettings() {
+                  Settings.load()
+                      .then(function(settings){
+                          $log.debug("MainController:_fetchSettings: =>", settings )
+                          $rootScope.konga_settings_id = settings.length ? settings[0].id : null
+                          $rootScope.konga_settings = settings.length ? settings[0].data : {}
+
+                          // Append extra settings
+                          if(!$rootScope.konga_settings.notify_when)
+                            $rootScope.konga_settings.notify_when = {}
+
+                          if(!$rootScope.konga_settings.notify_when.node_down) {
+                              $rootScope.konga_settings.notify_when.node_down = {
+                                  description : "A node is down or unresponsive - Health checks must be enabled to the nodes that need to be monitored.",
+                                  active : false
+                              }
+                          }
+                      })
+              }
 
               function _fetchGatewayInfo() {
                   InfoService.getInfo()

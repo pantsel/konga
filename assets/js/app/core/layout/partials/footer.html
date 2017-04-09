@@ -24,9 +24,9 @@
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
                         <i class="material-icons">cast_connected</i>
-                        {{user.node.kong_admin_url}}
+                        {{user.node.kong_admin_url || N/A}}
                         |
-                        Kong version : <strong>{{Gateway.version}}</strong>
+                        Kong version : <strong>{{Gateway.version || N/A}}</strong>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                         <li role="menuitem" style="background-color: #f4f4f4">

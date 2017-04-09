@@ -128,6 +128,16 @@
                     ;
                 };
 
+
+                $scope.toggleHealthChecks = function(node) {
+                    NodeModel.update(node.id,{
+                        health_checks : !node.health_checks
+                    }).then(function(_node){
+                        node.health_checks = !node.health_checks
+                        MessageService.success("Health checks " + ( node.health_checks ? " enabled" : " disabled" ) + " for the specified node")
+                    })
+                }
+
                 $scope.toggleActive = function(node) {
 
                     if($rootScope.user.node && node.id == $rootScope.user.node.id) return false;
