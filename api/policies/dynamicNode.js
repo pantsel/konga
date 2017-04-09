@@ -13,11 +13,11 @@ module.exports = function dynamicNode(request, response, next) {
   sails.log.debug(__filename + ':' + __line + ' [Policy.dynamicNode() called]',request.headers['kong-admin-url']);
 
 
-  if(!request.headers['kong-admin-url']) return response.badRequest({
+  if(!request.headers['kong-admin-url'] && ! request.query.kong_admin_url) return response.badRequest({
     message : "No connection is selected. Please activate a connection in settings"
   })
 
-  sails.config.kong_admin_url = request.headers['kong-admin-url']
+  sails.config.kong_admin_url = request.headers['kong-admin-url'] || request.query.kong_admin_url
   request.node_id = sails.config.kong_admin_url
   return  next()
 
