@@ -28,20 +28,16 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 ## Features
-* Manage APIs and plugins
-* Manage API Load balancing via upstreams and targets
+* Manage all Kong Admin API Objects
 * Manage SSL credentials
-* Manage consumers, groups and credentials
 * Mass import consumers from :
     * CSV document
     * Google Spreadsheets
     * MySQL
     * MongoDB
-    * more underway...
-* Multiple nodes management
-* GUI level authentication
-* Multiple users (Only admin and user roles for now)
-* Persistent object store out of the box
+    * APIs
+* Manage multiple Gateways
+* Multiple users
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server)
 
 ## Compatibility
@@ -183,13 +179,6 @@ login: demo | password: demodemodemo
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
 - [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
 
-
-## ToDo
-* Complete tests
-* Add more consumer import adapters (?)
-* Write a detailed Wiki
-* Bundle more database adapters like cassandra
-* Complete Kong 0.10.x compatibility with certs, upstreams and targets
 
 ## Author
 Panagis Tselentis
