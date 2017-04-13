@@ -19,16 +19,16 @@
 
 
                 Upstream.setScope($scope, false, 'items', 'itemCount');
-                $scope.deleteItem = deleteItem
-                $scope.deleteChecked = deleteChecked
+                $scope.deleteItem = deleteItem;
+                $scope.deleteChecked = deleteChecked;
 
                 // Add default list configuration variable to current scope
                 $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
 
                 // Set initial data
-                $scope.loading = false
-                $scope.items = []
-                $scope.totalItems = 0
+                $scope.loading = false;
+                $scope.items = [];
+                $scope.totalItems = 0;
 
                 // Initialize used title items
                 $scope.titleItems = ListConfig.getTitleItems('upstream');
@@ -89,7 +89,7 @@
                         }
                         //size: 'lg',
                     });
-                }
+                };
 
                 $scope.openCreateItemModal = function() {
 
@@ -102,7 +102,7 @@
                         controllerAs: '$ctrl',
                         //size: 'lg',
                     });
-                }
+                };
 
 
                 function _fetchData(){
@@ -119,13 +119,13 @@
 
                 function deleteChecked() {
 
-                    var items = []
+                    var items = [];
                     $scope.items.forEach(function(item){
                         if(item.checked) items.push(item)
-                    })
+                    });
 
                     if(!items.length) {
-                        MessageService.error('You have not selected any upstreams to delete')
+                        MessageService.error('You have not selected any upstreams to delete');
                         return false
                     }
 
@@ -141,10 +141,10 @@
                 function deleteItems(items) {
 
                     $scope.deleting = true;
-                    var promises = []
+                    var promises = [];
                     items.forEach(function(item){
                         promises.push(Upstream.delete(item.id))
-                    })
+                    });
 
                     $q
                         .all(promises)
@@ -161,7 +161,7 @@
                 // Listeners
                 $scope.$on('kong.upstream.created',function(ev,data){
                     _fetchData()
-                })
+                });
 
 
 
@@ -177,9 +177,9 @@
                 function doDeleteItem(item) {
                     Upstream.delete(item.id)
                         .then(function(res){
-                            $log.debug("Delete upstream",res)
+                            $log.debug("Delete upstream",res);
                             if(res.status == 204) {
-                                _fetchData()
+                                _fetchData();
                                 MessageService.success('Upstream deleted successfully');
                             }
 
@@ -189,13 +189,16 @@
 
 
                 $scope.$on('user.node.updated',function(node){
-                    _fetchData()
-                })
+                    if(UserService.user().node.kong_version == '0-9-x'){
+                        $state.go('dashboard')
+                    }else{
+                        _fetchData()
+                    }
+
+                });
 
 
                 _fetchData()
-
-
 
             }
         ])
