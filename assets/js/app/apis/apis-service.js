@@ -8,8 +8,8 @@
 
   angular.module('frontend.apis')
     .service('ApiService', [
-        '$log', '$state','$http','BackendConfig',
-      function( $log, $state, $http,BackendConfig) {
+        '$log', '$state','$http',
+      function( $log, $state, $http) {
 
           var properties = {
               '09': {

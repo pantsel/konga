@@ -70,7 +70,7 @@
 
           }
 
-          $scope.openAddApiModal = function(api) {
+          $scope.openAddApiModal = function() {
               $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
@@ -78,12 +78,7 @@
                   templateUrl: 'js/app/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
-                  size: 'lg',
-                  resolve: {
-                      api: function () {
-                          return api;
-                      }
-                  }
+                  size: 'lg'
               });
           }
 
