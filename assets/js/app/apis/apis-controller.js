@@ -39,7 +39,7 @@
           }
 
           $scope.isRequestPathOrUriStripped = function(api) {
-              if($rootScope.Gateway.version.indexOf("0.9.") > -1){
+              if($rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.9.") > -1){
                   return api.strip_request_path
               }
 
