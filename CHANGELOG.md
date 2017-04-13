@@ -34,3 +34,9 @@ All notable changes to this project will be documented in this file.
 
 ### Note: This version introduces changes in Konga's database. See issue #40 on how they can be implemented.
 
+## [0.6.5](https://github.com/pantsel/konga/releases/tag/v0.6.5) - 13-4-2017
+
+* Fixed: Adding apis consecutively pre-populates fields with previous entry (issue #43)
+* Fixed: dashboard not updating when changing node (issue #41).
+* Various fixes and improvements
+
