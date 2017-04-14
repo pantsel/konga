@@ -1,0 +1,71 @@
+<div class="modal-header warning">
+    <h5 class="modal-title" id="modal-title">
+        Configure <span class="capitalize">
+            {{transport.name.toUpperCase()}}
+        </span>
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons">clear</i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+
+
+    <form>
+
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="item in transport.schema">
+            <label>{{item.name}}</label>
+            <div ng-switch on="item.type">
+                <div ng-switch-when="text">
+                    <input type="text"
+                           placeholder="{{item.description}}"
+                           ng-model-options=" {getterSetter: true }"
+                           ng-model="getModel(item.model || item.name)" class="form-control">
+                </div>
+                <div ng-switch-when="array">
+                    <chips ng-model="item.item">
+                        <chip-tmpl>
+                            <div class="default-chip">
+                                {{chip}}
+                                <i class="material-icons" remove-chip>clear</i>
+                            </div>
+                        </chip-tmpl>
+                        <input chip-control/>
+                    </chips>
+                </div>
+                <div ng-switch-when="select">
+                    <select class="form-control"  ng-model="item.item">
+                        <option  ng-repeat="item in units" ng-item="item">{{item}}</option>
+                    </select>
+                </div>
+                <div ng-switch-when="boolean">
+                    <input
+                            bs-switch
+                            ng-model="item.item"
+                            switch-size="small"
+                            type="checkbox"
+                            switch-on-text="YES"
+                            switch-off-text="NO"
+                            ng-change="updateApi(api)"
+                    >
+
+                </div>
+                <div ng-switch-default>
+                    <input type="{{item.type}}" ng-model="item.item" class="form-control">
+
+                </div>
+                <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                <p class="help-block">{{item.help}}</p>
+            </div>
+        </div>
+        <pre>{{transport.settings | json}}</pre>
+        <div class="form-group">
+            <button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="submit()">
+                <i class="material-icons" ng-if="!busy">&#xE876;</i>
+                <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                submit changes
+            </button>
+        </div>
+    </form>
+</div>

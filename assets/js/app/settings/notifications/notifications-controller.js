@@ -8,8 +8,10 @@
 
     angular.module('frontend.settings')
         .controller('NotificationsController', [
-            '_','$scope', '$rootScope','$log','EmailTransport','Settings','MessageService',
-            function controller(_,$scope, $rootScope,$log,EmailTransport,Settings,MessageService) {
+            '_','$scope', '$rootScope','$log','EmailTransport',
+            'Settings','MessageService','$uibModal',
+            function controller(_,$scope, $rootScope,$log,EmailTransport,
+                                Settings,MessageService,$uibModal) {
 
 
                 $scope.updateKongaSettings = function() {
@@ -19,6 +21,58 @@
                 $scope.setDefaultTransport = function(name) {
                     $rootScope.konga_settings.default_transport = name;
                     updateKongaSettings()
+
+                }
+
+                $scope.configureTransport = function(transport) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        size : 'sm',
+                        templateUrl: 'js/app/settings/notifications/configure-transport-modal.html',
+                        controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,
+                                             EmailTransport,_transport){
+
+                            $scope.transport = _transport
+                            $log.debug("configureTransport:transport => ",$scope.transport)
+                            $scope.close = function() {
+                                $uibModalInstance.dismiss()
+                            }
+
+                            $scope.submit = function() {
+                                EmailTransport.update($scope.transport.id,{
+                                    settings : $scope.transport.settings
+                                }).then(function(updated){
+                                    MessageService.success("Transport updated!")
+                                })
+                            }
+
+                            $scope.getModel = function(path) {
+
+                                var segs = path.split('.');
+                                var root = $scope.transport.settings;
+
+                                while (segs.length > 0) {
+                                    var pathStep = segs.shift();
+                                    if (typeof root[pathStep] === 'undefined') {
+                                        root[pathStep] = segs.length === 0 ? { value:  '' } : {};
+                                    }
+                                    root = root[pathStep];
+                                }
+
+                                console.log("#####################",root)
+                                return root;
+                            }
+
+
+                        },
+                        resolve: {
+                            _transport: function () {
+                                return transport
+                            }
+                        }
+                    });
 
                 }
 

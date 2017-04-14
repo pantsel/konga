@@ -28,14 +28,15 @@
                 <div class="col-md-4" data-ng-repeat="transport in transports">
                     <div class="panel" ng-class="{'panel-primary' : konga_settings.default_transport == transport.name,'panel-default' : konga_settings.default_transport != transport.name}">
                         <div class="panel-heading">
-                            <div class="panel-title clickable" data-ng-click="setDefaultTransport(transport.name)">
-                                <div class="pull-left">
+                            <div class="panel-title" >
+                                <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
                                     <i class="material-icons">{{konga_settings.default_transport == transport.name ? '&#xE834;' : '&#xE835;'}}</i>
                                     {{transport.name.toUpperCase()}}
                                 </div>
 
                                 <div class="pull-right">
                                     <button class="btn btn-link btn-sm"
+                                            data-ng-click="configureTransport(transport)"
                                             data-ng-class="{'text-white':konga_settings.default_transport == transport.name}"
                                     >
                                         <i class="material-icons">settings</i>

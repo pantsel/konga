@@ -56,12 +56,14 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         },
         {
           name : "username",
+          model : "auth.user",
           description : "The SMTP user username",
           type : "text",
           required : true
         },
         {
           name : "password",
+          model : "auth.pass",
           description : "The SMTP user password",
           type : "text",
           required : true
@@ -114,12 +116,14 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       "schema": [
         {
           name : "api_key",
+          model : "auth.api_key",
           description : "The API key that you got from www.mailgun.com/cp",
           type : "text",
           required : true
         },
         {
           name : "domain",
+          model : "auth.domain",
           description : "One of your domain names listed at your https://mailgun.com/app/domains",
           type : "text",
           required : true
