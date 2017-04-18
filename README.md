@@ -112,7 +112,7 @@ See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/a
 ##### Note : 
 In case of <code>MySQL</code>, <code>PostgresSQL</code> or <code>SQL Server</code> adapters, 
 you will need to create a database named <code>konga_database</code> manually and run the app in development mode the first time. 
-<pre>node app.js --dev</pre>
+<pre>npm start</pre>
 Then kill the process and start Konga as you would in production mode.
 Konga **will not** create the database or tables in production mode. 
 ***************************************************************************************** 
@@ -135,12 +135,11 @@ Konga GUI will be available at http://localhost:1338
 ### Production Docker Image
 
 The following instructions assume that you have a running Kong instance following the
-instructions from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
+instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
 <pre>
-$ docker pull pantsel/konga
-$ docker run -p 1338:1338 
-             --link kong:kong
-             --name konga
+$ docker run -p 1337:1337 \
+             --link kong:kong \
+             --name konga \
              pantsel/konga
 </pre>
 
@@ -151,7 +150,7 @@ $ docker run -p 1338:1338
 // start in development mode the first time in order to be able to create the tables.
 // You can do that by bashing into Konga's container and running 'node app.js --dev'.
 // You may also need to add an extra link that points to your database container.
-$ docker run -p 1338:1338 
+$ docker run -p 1337:1337 
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
