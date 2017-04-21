@@ -28,7 +28,7 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: process.env.KONGA_BACKEND_PORT || 1338,
+  port: process.env.KONGA_BACKEND_PORT || 1337,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
