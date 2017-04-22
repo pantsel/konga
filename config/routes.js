@@ -21,6 +21,7 @@
  * For more information on configuring custom routes, check out:
  * http://sailsjs.org/#/documentation/concepts/Routes/RouteTargetSyntax.html
  */
+
 module.exports.routes = {
   // See https://github.com/balderdashy/sails/issues/2062
   'OPTIONS /*': function(req, res) {
@@ -30,7 +31,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage',
     locals: {
-      angularDebugEnabled : process.env == 'production' ? false : true,
+      angularDebugEnabled : process.env.NODE_ENV == 'production' ? false : true,
       konga_version : require('../package.json').version
     }
   },

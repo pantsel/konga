@@ -129,7 +129,7 @@
 
               $scope.alerts = [];
 
-              if(($rootScope.user.node.id == node.id ) || node.checkingConnection) return false;
+              if((UserService.user().node.id == node.id ) || node.checkingConnection) return false;
 
 
               // Check if the connection is valid

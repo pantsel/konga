@@ -44,7 +44,9 @@
                 </td>
                 <th>{{item.name}}</th>
                 <td>
-                    {{item.api_id || 'All APIs'}}</td>
+                    <a data-ng-if="item.api_id" data-ui-sref="apis.edit({id:item.api_id})">{{item.api_id}}</a>
+                    <span data-ng-if="!item.api_id" >All APIs</span>
+                </td>
                 <td>
                     <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
                     <span data-ng-if="!item.consumer_id" >All consumers</span>

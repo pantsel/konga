@@ -13,14 +13,16 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     takeSnapShot : function(req,res) {
 
+
         // Get node
         sails.models.kongnode.findOne({
             id : req.param("node_id")
         }).exec(function(err,node){
-            if(err) res.negotiate(err)
-            if(!node) res.badRequest({
+            if(err) return res.negotiate(err)
+            if(!node) return res.badRequest({
                 message : "Invalid Kong Node"
             })
+
 
 
             var result = {}
@@ -66,8 +68,11 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                         })
                     })
 
+
+
                     async.series(fns,function(err,data){
                         if(err) return res.negotiate(err)
+
 
                         sails.models.snapshot.create({
                             name : req.param("name"),
@@ -83,6 +88,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 }else{
                     sails.models.snapshot.create({
                         name : req.param("name"),
+                        kong_node_name :  node.name,
                         kong_version : node.kong_version,
                         data : result
                     }).exec(function(err,created){

@@ -8,9 +8,9 @@
 
   angular.module('frontend.upstreams')
     .controller('EditUpstreamController', [
-      '$scope', '$rootScope','$stateParams',
+      '$scope', '$rootScope','$stateParams','UserService',
         '$log', '$state','Upstream','MessageService',
-      function controller($scope,$rootScope,$stateParams,
+      function controller($scope,$rootScope,$stateParams,UserService,
                           $log, $state,Upstream, MessageService ) {
 
           $scope.upstreamId = $stateParams.id
@@ -48,7 +48,12 @@
 
 
           $scope.$on('user.node.updated',function(node){
-              $state.go('upstreams')
+              if(UserService.user().node.kong_version == '0-9-x'){
+                  $state.go('dashboard')
+              }else{
+                  $state.go('upstreams')
+              }
+
           })
       }
     ])

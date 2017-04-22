@@ -14,7 +14,7 @@
                           $uibModalInstance, MessageService ) {
 
 
-          $scope.api = ApiService.getProperties($rootScope.Gateway.version.split('.').slice(0, -1).join(''))
+          $scope.api = angular.copy(ApiService.getProperties($rootScope.Gateway.version.split('.').slice(0, -1).join('')))
 
           $log.debug("$scope.api",$scope.api)
 

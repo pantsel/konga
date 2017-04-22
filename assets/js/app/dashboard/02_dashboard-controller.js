@@ -109,36 +109,38 @@
               }
           }
 
-          var status = InfoService
-              .nodeStatus()
-              .then(function(resp){
-                  $scope.status = resp.data
-              })
-          var info = InfoService
-              .getInfo()
-              .then(function(resp){
-                  $scope.info = resp.data
-              })
-          var clusters = InfoService
-              .clusterStatus()
-              .then(function(resp){
-                  $scope.clusters = resp.data
-              })
+
 
 
 
           function fetchData() {
               $scope.loading = true
+              $log.debug("DashboardController:fetchData() called")
+
+              var status = InfoService
+                  .nodeStatus()
+                  .then(function(resp){
+                      $scope.status = resp.data
+                      $log.debug("DashboardController:fetchData:status",$scope.status)
+                  })
+              var info = InfoService
+                  .getInfo()
+                  .then(function(resp){
+                      $scope.info = resp.data
+                      $log.debug("DashboardController:fetchData:info",$scope.info)
+                  })
+              var clusters = InfoService
+                  .clusterStatus()
+                  .then(function(resp){
+                      $scope.clusters = resp.data
+                      $log.debug("DashboardController:fetchData:clusters",$scope.clusters)
+                  })
+
               $q
-                  .all([status, info])
+                  .all([status, info, clusters])
                   .finally(
                       function onFinally() {
-
-                          $log.debug("status",$scope.status)
-                          $log.debug("info",$scope.info)
-                          $log.debug("clusters",$scope.clusters)
                           $scope.loading = false
-
                           if($scope.status && $scope.info) {
                               drawCharts();
                           }else{
@@ -159,8 +161,10 @@
 
 
 
-          $scope.$on('kong.node.updated',function(node){
+          $scope.$on('user.node.updated',function(node){
+
               fetchData();
+
           })
       }
     ])
