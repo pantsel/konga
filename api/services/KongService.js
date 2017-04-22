@@ -52,6 +52,14 @@ var KongService = {
             })
     },
 
+    nodeStatus : function(node,cb) {
+        unirest.get(node.kong_admin_url + "/status")
+            .end(function (response) {
+                if (response.error)  return cb(response)
+                return cb(null,response.body)
+            })
+    },
+
     listAllCb: function (req, endpoint, cb) {
         var getData = function (previousData,url) {
             unirest.get(url)

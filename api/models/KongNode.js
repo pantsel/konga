@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var HealthCheckEvents = require("../events/health-checks")
 
 /**
  * KongNode.js
@@ -40,6 +41,24 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       required : true,
       defaultsTo : false
     }
+  },
+  afterUpdate: function (values, cb) {
+
+    sails.log("KongNode:afterUpdate:called()")
+    sails.log("KongNode:afterUpdate:health_checks",values.health_checks)
+
+    // Manage toggle health checks
+    if(values.health_checks) {
+      // Send event to begin health checks for the updated node
+      sails.log("KongNode:afterUpdate:emit health_checks.start")
+      HealthCheckEvents.emit('health_checks.start',values);
+    }else{
+      // Send event to stop health checks for the updated node
+      sails.log("KongNode:afterUpdate:emit health_checks.stop")
+      HealthCheckEvents.emit('health_checks.stop',values);
+    }
+
+    cb()
   },
   seedData : [
     {
