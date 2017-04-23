@@ -9,7 +9,7 @@ var _ = require('lodash');
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
-  tableName : "konga_kong_settings",
+  tableName : "konga_settings",
   autoPK : false,
   attributes: {
     id : {
@@ -26,7 +26,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     {
       "data" : {
         email_notifications : false,
-        default_transport : 'smtp',
+        default_transport : 'sendmail',
       }
     },
   ]

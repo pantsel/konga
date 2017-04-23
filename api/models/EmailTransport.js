@@ -82,32 +82,8 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     {
       "name" : "sendmail",
       "description" : "Pipe messages to the sendmail command",
-      "schema": [
-        {
-          name : "newline",
-          defaultValue : "unix",
-          description : "Either 'windows' or 'unix' (default). Forces all newlines in the output to either use Windows syntax <CR><LF> or Unix syntax <LF>",
-          type : "select",
-          options : ["windows","unix"]
-        },
-        {
-          name : "path",
-          defaultValue : "/usr/sbin/sendmail",
-          description : "Path to the sendmail command",
-          type : "text",
-          required : true
-        },
-        {
-          name : "args",
-          description : 'An optional array of command line options to pass to the sendmail command (ie. ["-f", "foo@blurdybloop.com"]). This overrides all default arguments except for ’-i’ and recipient list so you need to make sure you have all required arguments set (ie. the ‘-f’ flag)',
-          type : "array"
-        }
-
-      ],
       "settings" : {
-        sendmail: true,
-        newline : 'unix',
-        path: '/usr/sbin/sendmail'
+        sendmail: true
       }
     },
     {

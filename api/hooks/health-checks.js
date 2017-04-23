@@ -22,18 +22,6 @@ module.exports = function hook(sails) {
 
         sails.log("Hook:health_checks:process() called")
 
-
-        //sendmail({
-        //    from: 'Konga@github.com',
-        //    to: 'tselentispanagis@gmail.com',
-        //    subject: 'test sendmail',
-        //    html: 'Mail of test sendmail ',
-        //}, function(err, reply) {
-        //    console.log(err && err.stack);
-        //    console.dir(reply);
-        //});
-
-
         // Start health checks for all eligible nodes
         sails.models.kongnode.find({})
             .exec(function(err,nodes){

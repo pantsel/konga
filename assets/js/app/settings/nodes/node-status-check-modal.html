@@ -1,0 +1,64 @@
+<div class="modal-header warning">
+    <h5 class="modal-title" id="modal-title">
+        Status Check
+        <a class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons">clear</i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+
+    <div data-ng-show="!node.health_check_details">
+
+        <h5>No information available...</h5>
+        <p class="help-block">
+            You need to enable health checks for this node
+            in order to start getting status information.
+        </p>
+    </div>
+    <div data-ng-show="node.health_check_details" class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Health checks</th>
+                <td>{{node.health_checks ? 'enabled' : 'disabled'}}</td>
+            </tr>
+            <tr>
+                <th>Last known status</th>
+                <td>{{node.health_check_details.lastSucceeded > node.health_check_details.lastFailed ? 'healthy' : 'Down or unresponsive'}}</td>
+            </tr>
+            <tr>
+                <th>Last checked</th>
+                <th>{{moment(node.health_check_details.lastChecked).fromNow()}}</th>
+            </tr>
+            <tr>
+                <th>Last failed</th>
+                <td>{{moment(node.health_check_details.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss")}}</td>
+            </tr>
+            <tr>
+                <th>Last notified</th>
+                <td>{{moment(node.health_check_details.lastNotified).fromNow()}}</td>
+            </tr>
+            <tr>
+                <th>
+                    <span data-ng-if="node.health_check_details.lastSucceeded > node.health_check_details.lastFailed">
+                        Uptime
+                    </span>
+                    <span data-ng-if="node.health_check_details.lastSucceeded <= node.health_check_details.lastFailed">
+                        Downtime
+                    </span>
+                </th>
+                <td>
+                    <span data-ng-if="node.health_check_details.lastSucceeded > node.health_check_details.lastFailed">
+                        {{moment.duration(moment().diff(moment(node.health_check_details.lastSucceeded))).humanize()}}
+                    </span>
+                    <span data-ng-if="node.health_check_details.lastSucceeded <= node.health_check_details.lastFailed">
+                        {{moment.duration(moment().diff(moment(node.health_check_details.lastFailed))).humanize()}}
+                    </span>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+</div>

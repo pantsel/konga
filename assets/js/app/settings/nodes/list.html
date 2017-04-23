@@ -51,7 +51,7 @@
                     ></i>
                 </th>
                 <th width="1"></th>
-                <!--<th width="1"></th>-->
+                <th width="1"></th>
             </tr>
             <tr data-ng-repeat="node in nodes">
 
@@ -82,12 +82,13 @@
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
                 <td>{{node.updatedAt | date : "MMM d, y"}}</td>
-                <!--<td>-->
-                    <!--<a ui-sref="settings.node({id:node.id})" class="btn btn-primary btn-link">-->
-                        <!--<i class="material-icons">settings</i>-->
-                        <!--configure-->
-                    <!--</a>-->
-                <!--</td>-->
+                <td>
+                    <button
+                            data-ng-click="onShowStatusCheck(node)"
+                            class="btn btn-primary btn-link">
+                        status check
+                    </button>
+                </td>
                 <td>
                     <button class="btn btn-danger btn-link" ng-bootbox-confirm="Are you sure you want to delete this connection?"
                             ng-bootbox-confirm-action="deleteNode(node)">

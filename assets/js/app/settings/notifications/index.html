@@ -36,6 +36,7 @@
 
                                 <div class="pull-right">
                                     <button class="btn btn-link btn-sm"
+                                            data-ng-show="transport.name != 'sendmail'"
                                             data-ng-click="configureTransport(transport)"
                                             data-ng-class="{'text-white':konga_settings.default_transport == transport.name}"
                                     >

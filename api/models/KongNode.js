@@ -36,6 +36,9 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       type : 'boolean',
       defaultsTo : false
     },
+    health_check_details : {
+      type : 'json'
+    },
     active: {
       type: 'boolean',
       required : true,

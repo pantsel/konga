@@ -138,6 +138,33 @@
                     })
                 }
 
+                $scope.onShowStatusCheck = function(node) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/settings/nodes/node-status-check-modal.html',
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,_node){
+
+                            $scope.node = _node
+
+
+                            $scope.close = function() {
+                                $uibModalInstance.dismiss()
+                            }
+
+
+
+
+                        },
+                        resolve: {
+                            _node: function () {
+                                return node
+                            }
+                        }
+                    });
+                }
+
                 $scope.toggleActive = function(node) {
 
                     if($rootScope.user.node && node.id == $rootScope.user.node.id) return false;
