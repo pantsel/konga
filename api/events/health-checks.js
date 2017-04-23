@@ -9,7 +9,17 @@ var tasks = {}
 var KongService = require('../services/KongService')
 var moment = require('moment')
 var nodemailer = require('nodemailer');
+var mg = require('nodemailer-mailgun-transport');
 var notificationsInterval = 2;
+var sendmail = require('sendmail')({
+    logger: {
+        debug: console.log,
+        info: console.info,
+        warn: console.warn,
+        error: console.error
+    },
+    silent: false
+})
 
 module.exports = {
     emit : function(event,data) {
@@ -96,7 +106,16 @@ module.exports = {
 
                     sails.log("health_checks:createTransporter:transport =>",transport)
                     if(!transport) return cb()
-                    return cb(null,nodemailer.createTransport(transport.settings));
+
+
+                    switch(settings[0].data.default_transport) {
+                        case "smtp":
+                            return cb(null,nodemailer.createTransport(transport.settings));
+                        case "mailgun":
+                            return cb(null,nodemailer.createTransport(mg(transport.settings)));
+                        default :
+                            return cb()
+                    }
 
                 })
             })
@@ -115,11 +134,11 @@ module.exports = {
                 var html = self.makeNotificationHTML(node)
 
                 self.getAdminEmailsList(function(err,receivers){
-                    sails.log("health_checks:notify:receivers => " + receivers)
+                    sails.log("health_checks:notify:receivers => ",  receivers)
                     if(!err && receivers.length) {
                         var mailOptions = {
                             from: '"Konga" <noreply@konga.io>', // sender address
-                            to: receivers, // list of receivers
+                            to: receivers.join(","), // list of receivers
                             subject: 'A node is down or unresponsive', // Subject line
                             html: html
                         };

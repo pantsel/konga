@@ -3,6 +3,8 @@
 var HealthCheckEvents = require("../events/health-checks")
 var cron = require('node-cron');
 
+
+
 /**
  * load-db.js
  *
@@ -19,6 +21,17 @@ module.exports = function hook(sails) {
     process: function process(next) {
 
         sails.log("Hook:health_checks:process() called")
+
+
+        //sendmail({
+        //    from: 'Konga@github.com',
+        //    to: 'tselentispanagis@gmail.com',
+        //    subject: 'test sendmail',
+        //    html: 'Mail of test sendmail ',
+        //}, function(err, reply) {
+        //    console.log(err && err.stack);
+        //    console.dir(reply);
+        //});
 
 
         // Start health checks for all eligible nodes
