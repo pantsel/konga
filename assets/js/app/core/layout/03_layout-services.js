@@ -11,11 +11,13 @@
     .factory('HeaderNavigationItems', [
       'AccessLevels','AuthService','$rootScope','UserService',
       function factory(AccessLevels,AuthService,$rootScope,UserService) {
+
+        console.log("################",$rootScope.Gateway)
         return [
           {
             state: 'dashboard',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
+              return AuthService.isAuthenticated()
             },
             title: 'Dashboard',
             access: AccessLevels.user
@@ -23,7 +25,7 @@
           {
             state: 'info',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
+              return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'Node info',
             access: AccessLevels.user
@@ -31,7 +33,7 @@
           {
             state: 'apis',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
+              return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'APIs',
             access: AccessLevels.user
@@ -39,7 +41,7 @@
           {
             state: 'consumers',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
+              return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'Consumers',
             access: AccessLevels.user
@@ -47,7 +49,7 @@
           {
             state: 'plugins',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
+              return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'Plugins',
             access: AccessLevels.anon
@@ -55,7 +57,7 @@
           {
             state: 'upstreams',
             show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+              return AuthService.isAuthenticated() && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
             },
             title: 'Upstreams',
             access: AccessLevels.anon
