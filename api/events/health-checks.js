@@ -46,7 +46,6 @@ module.exports = {
         }
 
         tasks[node.id].timesFailed = 0;
-        tasks[node.id].lastSucceeded = new Date(); // Start with a success no matter what
         tasks[node.id].cron.start()
         tasks[node.id].isStarted = true;
     },
@@ -88,7 +87,6 @@ module.exports = {
                     sails.log('Health check for node ' + node.id + ' succeeded',data);
                     tasks[node.id].timesFailed = 0;
                     tasks[node.id].lastSucceeded = new Date();
-
                 }
 
                 self.updateNodeHealthCheckDetails(node.id)

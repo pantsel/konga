@@ -144,14 +144,19 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/settings/nodes/node-status-check-modal.html',
-                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,_node){
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,NodeModel,_node){
 
-                            $scope.node = _node
 
+
+                            console.log("#############",_node)
 
                             $scope.close = function() {
                                 $uibModalInstance.dismiss()
                             }
+
+                            NodeModel.fetch(_node.id).then(function(node){
+                                $scope.node = node
+                            })
 
 
 

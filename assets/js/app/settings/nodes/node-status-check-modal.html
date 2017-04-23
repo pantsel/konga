@@ -8,6 +8,8 @@
     </h5>
 </div>
 <div class="modal-body">
+    <h4 class="no-margin">Connection : {{node.name}}</h4>
+</div>
 
     <div data-ng-show="!node.health_check_details">
 
@@ -25,7 +27,7 @@
             </tr>
             <tr>
                 <th>Last known status</th>
-                <td>{{node.health_check_details.lastSucceeded > node.health_check_details.lastFailed ? 'healthy' : 'Down or unresponsive'}}</td>
+                <td>{{moment(node.health_check_details.lastSucceeded || 0) > moment(node.health_check_details.lastFailed || 0) ? 'healthy' : 'Down or unresponsive'}}</td>
             </tr>
             <tr>
                 <th>Last checked</th>
@@ -41,18 +43,18 @@
             </tr>
             <tr>
                 <th>
-                    <span data-ng-if="node.health_check_details.lastSucceeded > node.health_check_details.lastFailed">
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) > moment(node.health_check_details.lastFailed || 0)">
                         Uptime
                     </span>
-                    <span data-ng-if="node.health_check_details.lastSucceeded <= node.health_check_details.lastFailed">
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) <= moment(node.health_check_details.lastFailed || 0)">
                         Downtime
                     </span>
                 </th>
                 <td>
-                    <span data-ng-if="node.health_check_details.lastSucceeded > node.health_check_details.lastFailed">
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) > moment(node.health_check_details.lastFailed || 0)">
                         {{moment.duration(moment().diff(moment(node.health_check_details.lastSucceeded))).humanize()}}
                     </span>
-                    <span data-ng-if="node.health_check_details.lastSucceeded <= node.health_check_details.lastFailed">
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) <= moment(node.health_check_details.lastFailed || 0)">
                         {{moment.duration(moment().diff(moment(node.health_check_details.lastFailed))).humanize()}}
                     </span>
                 </td>
@@ -60,5 +62,3 @@
             </tr>
         </table>
     </div>
-
-</div>
