@@ -147,9 +147,6 @@
                         controller: function(_,$scope,$rootScope,$log,$uibModalInstance,NodeModel,_node){
 
 
-
-                            console.log("#############",_node)
-
                             $scope.close = function() {
                                 $uibModalInstance.dismiss()
                             }
@@ -157,6 +154,16 @@
                             NodeModel.fetch(_node.id).then(function(node){
                                 $scope.node = node
                             })
+
+
+                            $scope.toggleHealthChecks = function(node) {
+                                NodeModel.update(node.id,{
+                                    health_checks : node.health_checks
+                                }).then(function(_node){
+                                    $rootScope.$broadcast('kong.node.updated',_node)
+                                    MessageService.success("Health checks " + ( node.health_checks ? " enabled" : " disabled" ) + " for the specified node")
+                                })
+                            }
 
 
 

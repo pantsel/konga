@@ -12,7 +12,6 @@
       'AccessLevels','AuthService','$rootScope','UserService',
       function factory(AccessLevels,AuthService,$rootScope,UserService) {
 
-        console.log("################",$rootScope.Gateway)
         return [
           {
             state: 'dashboard',

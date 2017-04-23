@@ -4,7 +4,7 @@
             <p>
                 <i class="material-icons">add</i> Create one or more connections.<br>
                 <i class="material-icons">add</i> Select the connection you want to use by clicking on the corresponding checkbox.<br>
-                <i class="material-icons">add</i> Enable health checks for a node/connection by clicking on the corresponding heart icon.
+                <!--<i class="material-icons">add</i> Enable health checks for a node/connection by clicking on the corresponding heart icon.-->
             </p>
         </div>
 
@@ -30,7 +30,7 @@
 
             <tr>
                 <th width="1"></th>
-                <th width="1"></th>
+                <!--<th width="1"></th>-->
                 <th width="{{item.width}}" class="text-nowrap"
                     data-ng-repeat="item in nodeTitleItems | filter:titleFilter"
                 >
@@ -62,12 +62,12 @@
                     </button>
 
                 </td>
-                <td>
-                    <i class="material-icons clickable"
-                       ng-click="toggleHealthChecks(node)"
-                        uib-tooltip="{{node.health_checks ? 'Disable health checks' : 'Enable health checks'}}"
-                        data-ng-class="{'text-danger': node.health_checks}">favorite_border</i>
-                </td>
+                <!--<td>-->
+                    <!--<i class="material-icons clickable"-->
+                       <!--ng-click="toggleHealthChecks(node)"-->
+                        <!--uib-tooltip="{{node.health_checks ? 'Disable health checks' : 'Enable health checks'}}"-->
+                        <!--data-ng-class="{'text-danger': node.health_checks}">favorite_border</i>-->
+                <!--</td>-->
                 <td><a  editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
                 <td>
                     <a  editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
@@ -85,8 +85,11 @@
                 <td>
                     <button
                             data-ng-click="onShowStatusCheck(node)"
-                            class="btn btn-primary btn-link">
-                        status check
+                            class="btn btn-default btn-link">
+                        <i class="material-icons clickable"
+                            ng-click="toggleHealthChecks(node)"
+                            data-ng-class="{'text-success': node.health_checks}">favorite_border</i>
+                        <span data-ng-class="{'text-success': node.health_checks}">health checks</span>
                     </button>
                 </td>
                 <td>

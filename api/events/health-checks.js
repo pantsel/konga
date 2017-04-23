@@ -39,15 +39,24 @@ module.exports = {
         sails.log('Start scheduled health checks for node ' + node.id);
         var self = this;
 
-        if(!tasks[node.id]) {
-            tasks[node.id] = {
-                cron : self.createCron(node)
-            }
-        }
+        sails.models.kongnode.findOne({
+            id:node.id
+        }).exec(function(err,node){
+            if(!err && node) {
 
-        tasks[node.id].timesFailed = 0;
-        tasks[node.id].cron.start()
-        tasks[node.id].isStarted = true;
+                if(node.health_check_details) {
+                    tasks[node.id] = node.health_check_details
+                    tasks[node.id].cron = self.createCron(node)
+                }else{
+                    tasks[node.id] = {
+                        cron : self.createCron(node)
+                    }
+                }
+                tasks[node.id].timesFailed = 0;
+                tasks[node.id].cron.start()
+                tasks[node.id].isStarted = true;
+            }
+        })
     },
 
     stop : function(node) {
@@ -69,6 +78,8 @@ module.exports = {
                 tasks[node.id].lastChecked = new Date();
 
                 if(err) {
+                    if(!tasks[node.id].firstFailed) tasks[node.id].firstFailed = new Date();
+                    tasks[node.id].firstSucceeded = null;
                     tasks[node.id].lastFailed = new Date();
                     tasks[node.id].timesFailed++;
                     sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
@@ -85,7 +96,9 @@ module.exports = {
                     }
                 }else{
                     sails.log('Health check for node ' + node.id + ' succeeded',data);
+                    if(!tasks[node.id].firstSucceeded) tasks[node.id].firstSucceeded = new Date();
                     tasks[node.id].timesFailed = 0;
+                    tasks[node.id].firstFailed = null;
                     tasks[node.id].lastSucceeded = new Date();
                 }
 
