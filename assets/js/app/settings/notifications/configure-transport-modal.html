@@ -20,43 +20,43 @@
                 <div ng-switch-when="text">
                     <input type="text"
                            placeholder="{{item.description}}"
-                           ng-model-options=" {getterSetter: true }"
-                           ng-model="getModel(item.model || item.name)" class="form-control">
+                           ng-model="getModelParent(item.model || item.name)[ getModelLeaf(item.model || item.name) ]"
+                           class="form-control">
                 </div>
-                <div ng-switch-when="array">
-                    <chips ng-model="item.item">
-                        <chip-tmpl>
-                            <div class="default-chip">
-                                {{chip}}
-                                <i class="material-icons" remove-chip>clear</i>
-                            </div>
-                        </chip-tmpl>
-                        <input chip-control/>
-                    </chips>
-                </div>
-                <div ng-switch-when="select">
-                    <select class="form-control"  ng-model="item.item">
-                        <option  ng-repeat="item in units" ng-item="item">{{item}}</option>
-                    </select>
-                </div>
-                <div ng-switch-when="boolean">
-                    <input
-                            bs-switch
-                            ng-model="item.item"
-                            switch-size="small"
-                            type="checkbox"
-                            switch-on-text="YES"
-                            switch-off-text="NO"
-                            ng-change="updateApi(api)"
-                    >
+                <!--<div ng-switch-when="array">-->
+                    <!--<chips ng-model="item.item">-->
+                        <!--<chip-tmpl>-->
+                            <!--<div class="default-chip">-->
+                                <!--{{chip}}-->
+                                <!--<i class="material-icons" remove-chip>clear</i>-->
+                            <!--</div>-->
+                        <!--</chip-tmpl>-->
+                        <!--<input chip-control/>-->
+                    <!--</chips>-->
+                <!--</div>-->
+                <!--<div ng-switch-when="select">-->
+                    <!--<select class="form-control"  ng-model="item.item">-->
+                        <!--<option  ng-repeat="item in units" ng-item="item">{{item}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div ng-switch-when="boolean">-->
+                    <!--<input-->
+                            <!--bs-switch-->
+                            <!--ng-model="item.item"-->
+                            <!--switch-size="small"-->
+                            <!--type="checkbox"-->
+                            <!--switch-on-text="YES"-->
+                            <!--switch-off-text="NO"-->
+                            <!--ng-change="updateApi(api)"-->
+                    <!--&gt;-->
 
-                </div>
-                <div ng-switch-default>
-                    <input type="{{item.type}}" ng-model="item.item" class="form-control">
+                <!--</div>-->
+                <!--<div ng-switch-default>-->
+                    <!--<input type="{{item.type}}" ng-model="item.item" class="form-control">-->
 
-                </div>
-                <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
-                <p class="help-block">{{item.help}}</p>
+                <!--</div>-->
+                <!--<div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>-->
+                <!--<p class="help-block">{{item.help}}</p>-->
             </div>
         </div>
         <pre>{{transport.settings | json}}</pre>

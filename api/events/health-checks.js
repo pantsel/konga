@@ -31,6 +31,7 @@ module.exports = {
             }
         }
 
+        tasks[node.id].timesFailed = 0;
         tasks[node.id].lastSucceeded = new Date(); // Start with a success no matter what
         tasks[node.id].cron.start()
     },
@@ -41,11 +42,6 @@ module.exports = {
             tasks[node.id].cron.stop()
             delete tasks[node.id]
         }
-    },
-
-    getMinutesDiff : function(start,end) {
-        var duration = moment.duration(moment(start).diff(moment(end)));
-        return duration.asMinutes();
     },
 
     createCron : function(node) {
@@ -59,14 +55,16 @@ module.exports = {
 
                 if(err) {
                     tasks[node.id].lastFailed = new Date();
-                    tasks[node.id].timesFailed = tasks[node.id].timesFailed ? tasks[node.id].timesFailed++ : 1;
-                    sails.log('Health check for node ' + node.id + ' failed',err);
+                    tasks[node.id].timesFailed++;
+                    sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
 
-                    if(self.getMinutesDiff(tasks[node.id].lastFailed,tasks[node.id].lastSucceeded) > notificationsInterval) {
-
-                        sails.log("Last notified diff=> " + self.getMinutesDiff(new Date(),tasks[node.id].lastNotified))
-                        if(!tasks[node.id].lastNotified || self.getMinutesDiff(new Date(),tasks[node.id].lastNotified) > notificationsInterval) {
-                            sails.log('###################################################');
+                    // Start sending notifications the second time a node health check fails
+                    // because the first time might be due to a simple restart or something
+                    if(tasks[node.id].timesFailed > 1) {
+                        var timeDiff = self.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
+                        sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[node.id].lastNotified);
+                        sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
+                        if(!tasks[node.id].lastNotified || timeDiff > notificationsInterval) {
                             self.notify(node)
                         }
                     }
@@ -79,53 +77,113 @@ module.exports = {
         })
     },
 
+    createTransporter : function(cb) {
+
+        // Get active transport
+        sails.models.settings.find().limit(1)
+            .exec(function(err,settings){
+                if(err) return cb(err)
+                sails.log("helath_checks:createTransporter:settings =>",settings)
+                if(!settings.length || !settings[0].data || !settings[0].data.email_notifications) return cb()
+                sails.log("helath_checks:createTransporter => trying to get transport",{
+                    "notifications_enabled" : settings[0].data.email_notifications,
+                    "transport_name" : settings[0].data.default_transport
+                })
+                sails.models.emailtransport.findOne({
+                    name : settings[0].data.default_transport
+                }).exec(function(err,transport){
+                    if(err) return cb(err)
+
+                    sails.log("health_checks:createTransporter:transport =>",transport)
+                    if(!transport) return cb()
+                    return cb(null,nodemailer.createTransport(transport.settings));
+
+                })
+            })
+
+    },
+
     notify : function(node) {
 
         var self = this
 
-        var transporter = nodemailer.createTransport({
-            host : '109.123.110.249',
-            port : 25,
-            auth: {
-                user: 'imeweb@ime.net.gr',
-                pass: '1m3w!@#'
-            }
-        });
+        self.createTransporter(function(err,transporter){
+            if(err || !transporter) {
+                sails.log("health_check:failed to create transporter. No notification will be sent.",err)
+            }else{
+                var transporter = transporter
+                var html = self.makeNotificationHTML(node)
 
-        var duration = tasks[node.id].timesFailed * notificationsInterval
-        var html = '<h3>A Kong Node is down or unresponsive for more than ' + duration + ' minutes</h3>' +
-            '<table>' +
+                self.getAdminEmailsList(function(err,receivers){
+                    sails.log("health_checks:notify:receivers => " + receivers)
+                    if(!err && receivers.length) {
+                        var mailOptions = {
+                            from: '"Konga" <noreply@konga.io>', // sender address
+                            to: receivers, // list of receivers
+                            subject: 'A node is down or unresponsive', // Subject line
+                            html: html
+                        };
+
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, function(error, info){
+                            if(error){
+                                sails.log.error("Health_checks:notify:error",error)
+
+                            }else{
+                                sails.log.info("Health_checks:notify:success",info)
+                                tasks[node.id].lastNotified = new Date();
+
+                            }
+                        });
+                    }
+                })
+            }
+        })
+
+
+
+
+    },
+
+    makeNotificationHTML : function makeNotificationHTML(node) {
+
+        var self = this;
+
+        var duration = Math.floor(self.getMinutesDiff(tasks[node.id].lastFailed,tasks[node.id].lastSucceeded))
+
+        var html = '<p>A Kong Node is down or unresponsive for more than ' + duration + ' minutes</p>' +
+            '<table style="border: 1px solid #ccc;background-color: #eaeaea">' +
             '<tr>' +
-            '<th>Id</th>' +
-            '<td>' + node.id + '</td>' +
+            '<th style="text-align: left">Id</th>' +
+            '<td style="text-align: left">' + node.id + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<th>Name</th>' +
-            '<td>' + node.name + '</td>' +
+            '<th style="text-align: left">Name</th>' +
+            '<td style="text-align: left">' + node.name + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<th>Kong Admin URL</th>' +
-            '<td>' + node.kong_admin_url + '</td>' +
+            '<th style="text-align: left">Kong Admin URL</th>' +
+            '<td style="text-align: left">' + node.kong_admin_url + '</td>' +
             '</tr>' +
             '</table>';
 
-        var mailOptions = {
-            from: '"Konga" <noreply@konga.io>', // sender address
-            to: ['tselentispanagis@gmail.com'], // list of receivers
-            subject: 'A node is down or unresponsive', // Subject line
-            html: html
-        };
+        return html;
+    },
 
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info){
-            if(error){
-                sails.log.error("Health_checks:notify:error",error)
+    getMinutesDiff : function(start,end) {
+        var duration = moment.duration(moment(start).diff(moment(end)));
+        return duration.asMinutes();
+    },
 
-            }else{
-                sails.log.info("Health_checks:notify:success",info)
-                tasks[node.id].lastNotified = new Date();
-
-            }
-        });
+    getAdminEmailsList : function(cb) {
+        sails.models.user.find({
+            admin : true
+        }).exec(function(err,admins){
+            if(err) return cb(err)
+            if(!admins.length) return cb([])
+            return cb(null,admins.map(function(item){
+                return item.email;
+            }))
+        })
     }
 }

@@ -31,11 +31,13 @@
                         ariaDescribedBy: 'modal-body',
                         size : 'sm',
                         templateUrl: 'js/app/settings/notifications/configure-transport-modal.html',
-                        controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,MessageService,
                                              EmailTransport,_transport){
 
                             $scope.transport = _transport
                             $log.debug("configureTransport:transport => ",$scope.transport)
+
+
                             $scope.close = function() {
                                 $uibModalInstance.dismiss()
                             }
@@ -45,24 +47,39 @@
                                     settings : $scope.transport.settings
                                 }).then(function(updated){
                                     MessageService.success("Transport updated!")
+                                    $scope.close()
                                 })
                             }
 
-                            $scope.getModel = function(path) {
 
+                            $scope.getModelParent = function(path) {
                                 var segs = path.split('.');
                                 var root = $scope.transport.settings;
 
-                                while (segs.length > 0) {
+                                while (segs.length > 1) {
                                     var pathStep = segs.shift();
                                     if (typeof root[pathStep] === 'undefined') {
-                                        root[pathStep] = segs.length === 0 ? { value:  '' } : {};
+                                        root[pathStep] = {};
                                     }
                                     root = root[pathStep];
                                 }
-
-                                console.log("#####################",root)
                                 return root;
+                            };
+
+                            $scope.getModelLeaf = function(path) {
+                                var segs = path.split('.');
+                                return segs[segs.length-1];
+                            };
+
+
+                            $scope.getItemValue = function(item,path) {
+                                return _.get(item, path, "")
+                            }
+
+                            $scope.setItemValue = function(item,path,value) {
+                                console.log("#############",item)
+                                console.log("#############",path)
+                                return _.set(item, path, value)
                             }
 
 
