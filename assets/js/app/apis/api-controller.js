@@ -31,6 +31,11 @@
                   isVisible : true
               },
               {
+                  name : 'Health Checks',
+                  icon : '&#xE87E;',
+                  isVisible : true
+              },
+              {
                   name : 'SSL',
                   icon : '&#xE32A;',
                   isVisible : true

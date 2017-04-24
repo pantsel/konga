@@ -167,6 +167,7 @@
                             $rootScope.$on('node.health_checks',function(event,data){
                                 if(data.node_id == $scope.node.id) {
                                     $scope.node.health_check_details = data
+                                    $scope.$apply()
                                 }
                             })
 
@@ -406,6 +407,17 @@
                 $scope.$on('kong.node.deleted',function(ev,node){
                     _triggerFetchData()
                     if(UserService.user().node && UserService.user().node.id == node.id) updateUserNode()
+                })
+
+                $rootScope.$on('node.health_checks',function(event,data){
+
+                    for(var i=0;i<$scope.nodes.length;i++) {
+                        if(data.node_id == $scope.nodes[i].id) {
+                            $scope.nodes[i].health_check_details = data
+                            $scope.$apply()
+                        }
+                    }
+
                 })
 
                 function updateUserNode(node) {

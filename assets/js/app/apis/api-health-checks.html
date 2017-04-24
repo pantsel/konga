@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading primary">
+        <div class="panel-title">
+            <i class="material-icons">favorite_outline</i>
+            Health Checks
+
+            <div class="pull-right" data-ng-if="apiHC">
+                <input
+                        bs-switch
+                        ng-model="apiHC.active"
+                        type="checkbox"
+                        switch-size="small"
+                        switch-on-text="ENABLED"
+                        switch-off-text="DISABLED"
+                        ng-change="toggleApiHC()"
+                >
+            </div>
+
+
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-info">
+                Administrators can also be notified via email
+                when an API is down or unresponsive
+                by enabling <code>Email Notifications</code> in <code>settings</code>.
+        </div>
+        <div class="alert alert-danger" ng-if="apiHC.active && !apiHC.health_check_endpoint">
+            You need to define an HC Endpoint in order for health checks to work
+        </div>
+        <form>
+            <div class="form-group">
+                <label>HC Endpoint <span class="text-danger">*</span></label>
+                <input type="text" ng-model="apiHC.health_check_endpoint" class="form-control" required placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>GET</code> request to the specified endpoint every minute.</small></p>
+            </div>
+            <div class="form-group">
+                <label>Notification Endpoint <small class="text-muted">(optional)</small></label>
+                <input type="text" ng-model="apiHC.notification_endpoint" class="form-control" placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>POST</code> request to the specified endpoint the first time a health check fails and one every 15 minutes the API stays down or unresponsive.</small></p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" ng-click="save()">
+                    save changes
+                </button>
+            </div>
+            <hr>
+        </form>
+    </div>
+</div>

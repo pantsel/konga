@@ -12,7 +12,7 @@ var KongService = require('../services/KongService')
 var moment = require('moment')
 var nodemailer = require('nodemailer');
 var mg = require('nodemailer-mailgun-transport');
-var notificationsInterval = 2;
+var notificationsInterval = 30;
 var sendmail = require('sendmail')({
     logger: {
         debug: console.log,
@@ -85,15 +85,11 @@ module.exports = {
                     tasks[node.id].timesFailed++;
                     sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
 
-                    // Start sending notifications the second time a node health check fails
-                    // because the first time might be due to a simple restart or something
-                    if(tasks[node.id].timesFailed > 1) {
-                        var timeDiff = self.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
-                        sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[node.id].lastNotified);
-                        sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
-                        if(!tasks[node.id].lastNotified || timeDiff > notificationsInterval) {
-                            self.notify(node)
-                        }
+                    var timeDiff = self.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
+                    sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[node.id].lastNotified);
+                    sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
+                    if(!tasks[node.id].lastNotified || timeDiff > notificationsInterval) {
+                        self.notify(node)
                     }
 
                 }else{
