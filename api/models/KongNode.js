@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var HealthCheckEvents = require("../events/health-checks")
+var HealthCheckEvents = require("../events/node-health-checks")
 
 /**
  * KongNode.js

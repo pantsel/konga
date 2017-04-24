@@ -9,11 +9,11 @@
     angular.module('frontend.settings')
         .controller('NodesController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
-            'SocketHelperService','UserService','SettingsService','MessageService',
+            'SocketHelperService','AuthService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','NodeModel','$localStorage',
             'ListConfig',
             function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
-                                SocketHelperService, UserService,SettingsService, MessageService,
+                                SocketHelperService, AuthService,UserService,SettingsService, MessageService,
                                 $state, $uibModal,DialogService,NodeModel,$localStorage,
                                 ListConfig ) {
 
@@ -28,7 +28,6 @@
                 $scope.user = UserService.user();
                 $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
                 $scope.general_settings = SettingsService.getSettings()
-                console.log("$scope.general_settings",$scope.general_settings)
 
 
                 $scope.updateSettings = function() {
@@ -165,8 +164,11 @@
                                 })
                             }
 
-
-
+                            $rootScope.$on('node.health_checks',function(event,data){
+                                if(data.node_id == $scope.node.id) {
+                                    $scope.node.health_check_details = data
+                                }
+                            })
 
                         },
                         resolve: {
@@ -419,6 +421,7 @@
                             }
                         );
                 }
+
 
                 _triggerFetchData()
             }

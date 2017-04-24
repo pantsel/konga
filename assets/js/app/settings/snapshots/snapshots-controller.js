@@ -73,7 +73,6 @@
                  * from server.
                  */
                 $scope.$watch('itemsPerPage', function watcher(valueNew, valueOld) {
-                    console.log("sdsdd")
                     if (valueNew !== valueOld) {
                         _triggerFetchData();
                     }

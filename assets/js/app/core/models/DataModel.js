@@ -439,6 +439,7 @@
           // Actual subscribe
           $sailsSocket
             .subscribe(self.endpoint, function modelEvent(message) {
+
               // Handle socket event
               self._handleEvent(message);
             })

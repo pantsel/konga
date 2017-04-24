@@ -27,6 +27,18 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       "data" : {
         email_notifications : false,
         default_transport : 'sendmail',
+        notify_when : {
+          node_down : {
+            title: "A node is down or unresponsive",
+            description : "Health checks must be enabled for the nodes that need to be monitored.",
+            active : false
+          },
+          api_down : {
+            title : "An API is down or unresponsive",
+            description : "Health checks must be enabled for the APIs that need to be monitored.",
+            active : false
+          }
+        }
       }
     },
   ]

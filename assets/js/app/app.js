@@ -215,9 +215,9 @@
         //});
       }
     ])
-      .controller('MainController',['$log','$scope','$rootScope','Settings',
+      .controller('MainController',['$log','$scope','$rootScope','Settings','NodeModel',
           'UserService','InfoService','AuthService',
-          function($log,$scope,$rootScope,Settings,
+          function($log,$scope,$rootScope,Settings,NodeModel,
                    UserService,InfoService,AuthService){
 
               $rootScope.user = UserService.user()
@@ -249,17 +249,6 @@
                           $log.debug("MainController:_fetchSettings: =>", settings )
                           $rootScope.konga_settings_id = settings.length ? settings[0].id : null
                           $rootScope.konga_settings = settings.length ? settings[0].data : {}
-
-                          // Append extra settings
-                          if(!$rootScope.konga_settings.notify_when)
-                            $rootScope.konga_settings.notify_when = {}
-
-                          if(!$rootScope.konga_settings.notify_when.node_down) {
-                              $rootScope.konga_settings.notify_when.node_down = {
-                                  description : "A node is down or unresponsive - Health checks must be enabled to the nodes that need to be monitored.",
-                                  active : false
-                              }
-                          }
                       })
               }
 

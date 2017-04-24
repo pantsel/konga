@@ -79,6 +79,11 @@
             return Boolean($localStorage.credentials);
           },
 
+
+            token : function token() {
+                return $localStorage.credentials.token;
+            },
+
           /**
            * Method make login request to backend server. Successfully response from
            * server contains user data and JWT token as in JSON object. After successful

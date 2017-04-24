@@ -57,7 +57,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Notify me when</h5>
+                    <h5>Notify administrators when</h5>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <tr
@@ -69,7 +69,10 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td data-ng-bind-html="value.description"></td>
+                                <td>
+                                    <h6 class="no-margin">{{value.title}}</h6>
+                                    <p class="help-block no-margin">{{value.description}}</p>
+                                </td>
                             </tr>
                         </table>
                     </div>

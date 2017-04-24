@@ -127,10 +127,16 @@ module.exports.routes = {
     'POST /api/apis'                     : 'KongaApiController.registerApi',
 
 
+
+
+
+
     // Snapshots
     'POST /api/snapshots/take'                     : 'SnapshotController.takeSnapShot',
     'POST /api/snapshots/:id/restore'              : 'SnapshotController.restore',
 
+    // Kong Nodes
+    'GET /api/kongnodes/healthchecks/subscribe'    : 'KongNodeController.subscribeHealthChecks',
 
   // Upstream routes
   //'GET /kong/upstreams'                      : 'KongUpstreamsController.list',

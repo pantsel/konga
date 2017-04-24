@@ -81,6 +81,7 @@ module.exports = {
                     if(!tasks[node.id].firstFailed) tasks[node.id].firstFailed = new Date();
                     tasks[node.id].firstSucceeded = null;
                     tasks[node.id].lastFailed = new Date();
+                    tasks[node.id].isHealthy = false;
                     tasks[node.id].timesFailed++;
                     sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
 
@@ -94,10 +95,12 @@ module.exports = {
                             self.notify(node)
                         }
                     }
+
                 }else{
                     sails.log('Health check for node ' + node.id + ' succeeded',data);
                     if(!tasks[node.id].firstSucceeded) tasks[node.id].firstSucceeded = new Date();
                     tasks[node.id].timesFailed = 0;
+                    tasks[node.id].isHealthy = true;
                     tasks[node.id].firstFailed = null;
                     tasks[node.id].lastSucceeded = new Date();
                 }
@@ -118,6 +121,8 @@ module.exports = {
             // Fire and forger for now
             if(err) {
                 sails.log("health_checks:updateNodeHealthCheckDetails:failed",err)
+            }else{
+                sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
             }
         })
     },
@@ -129,8 +134,11 @@ module.exports = {
             .exec(function(err,settings){
                 if(err) return cb(err)
                 sails.log("helath_checks:createTransporter:settings =>",settings)
-                if(!settings.length || !settings[0].data || !settings[0].data.email_notifications) return cb()
-                sails.log("helath_checks:createTransporter => trying to get transport",{
+                if(!settings.length
+                    || !settings[0].data
+                    || !settings[0].data.email_notifications
+                    || !settings[0].data.notify_when.node_down.active) return cb()
+                sails.log("health_checks:createTransporter => trying to get transport",{
                     "notifications_enabled" : settings[0].data.email_notifications,
                     "transport_name" : settings[0].data.default_transport
                 })
