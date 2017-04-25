@@ -130,7 +130,7 @@
 
                 $scope.toggleActive = function(node) {
 
-                    if($rootScope.user.node && node.id == $rootScope.user.node.id) return false;
+                    if(UserService.user().node && node.id == UserService.user().node.id) return false;
 
                     UserModel
                         .update(UserService.user().id, {
