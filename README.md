@@ -28,17 +28,15 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 ## Features
-* Manage all Kong Admin API Objects
-* Manage SSL credentials
-* Mass import consumers from :
-    * CSV document
-    * Google Spreadsheets
-    * MySQL
-    * MongoDB
-    * APIs
-* Manage multiple Gateways
-* Multiple users
-* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server)
+* Manage all Kong Admin API Objects.
+* Manage SSL credentials.
+* Import/Export Consumers.
+* Manage multiple Kong Gateways.
+* Easy Kong Gateway migration using exported consumers and node Snapshots.
+* Gateway and API health checks.
+* Email notifications
+* Multiple users.
+* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
 Konga is compatible with Kong 0.9.x,0.10.x
@@ -138,9 +136,10 @@ The following instructions assume that you have a running Kong instance followin
 instructions from [Kong's docker hub](https://hub.docker.com/r/mashape/kong/)
 <pre>
 $ docker pull pantsel/konga
-$ docker run -p 1338:1338 
+$ docker run -p 1337:1337 
              --link kong:kong
              --name konga
+             -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
              pantsel/konga
 </pre>
 
@@ -151,7 +150,7 @@ $ docker run -p 1338:1338
 // start in development mode the first time in order to be able to create the tables.
 // You can do that by bashing into Konga's container and running 'node app.js --dev'.
 // You may also need to add an extra link that points to your database container.
-$ docker run -p 1338:1338 
+$ docker run -p 1337:1337 
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
@@ -159,12 +158,13 @@ $ docker run -p 1338:1338
              -e "DB_USER=your-db-user" \ // Omit if not relevant
              -e "DB_PASSWORD=your-db-password" \ // Omit if not relevant
              -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
+             -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
              --name konga \
              pantsel/konga
 </pre>
 
 
-The GUI will be available at <code>http://{your server's public ip}:1338</code>
+The GUI will be available at <code>http://{your server's public ip}:1337</code>
 Login, go to settings -> new node and add http://kong:8001 for Kong Admin URL.
 
 
