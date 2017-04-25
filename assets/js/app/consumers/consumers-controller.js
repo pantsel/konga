@@ -25,6 +25,7 @@
           $scope.items = [] // Init items
           $scope.user = UserService.user();
           $scope.importConsumers = importConsumers
+          $scope.exportConsumers = exportConsumers
           $scope.openCreateConsumerModal = openCreateConsumerModal
           $scope.deleteConsumer = deleteConsumer
           $scope.deleteChecked = deleteChecked
@@ -269,6 +270,24 @@
                       }
                   }
               });
+          }
+
+
+          function exportConsumers() {
+              var data = {}
+              data.date = new Date()
+              data.node = UserService.user().node.name
+              data.dataCount = $scope.itemCount
+              data.id = new Date().getTime()
+              data.data = _.cloneDeep($scope.items)
+              delete data.data.created_at
+              delete data.data.$$hashKey
+              var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+              var dlAnchorElem = document.getElementById('downloadAnchorElem');
+              dlAnchorElem.setAttribute("href",     dataStr     );
+              dlAnchorElem.setAttribute("download", data.node + "_consumers_" + data.id + ".json");
+              dlAnchorElem.click();
+
           }
 
           function openCreateConsumerModal() {

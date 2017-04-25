@@ -32,5 +32,12 @@ All notable changes to this project will be documented in this file.
 * Removed delete and update functionality from Upstreams.
 * Various fixes and improvements
 
+
+## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 25-4-2017
+* Kong nodes & API health checks
+* Email notifications
+* Consumer exports
+* Various fixes and improvements
+
 ### Note: This version introduces changes in Konga's database. See issue #40 on how they can be implemented.
 
