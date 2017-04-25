@@ -36,7 +36,8 @@ All notable changes to this project will be documented in this file.
 ## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 25-4-2017
 * Kong nodes & API health checks
 * Email notifications
-* Consumer exports
+* Export consumers in .json file
+* New consumers import adapter : Konga JSON
 * Various fixes and improvements
 
 ### Note: This version introduces changes in Konga's database. See issue #40 on how they can be implemented.

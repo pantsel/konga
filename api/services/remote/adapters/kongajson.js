@@ -18,7 +18,7 @@ module.exports = {
                     name : "Keep Ids",
                     "type" : "boolean",
                     "default" : false,
-                    description : "Try to import consumers using the ids of the exported ones"
+                    description : "Keep exported consumers Ids"
                 },
             }
         }
