@@ -35,11 +35,13 @@
 
           function _fetchApiHC() {
               ApiHCModel.load({
-                      api_id : $scope.api.id
-              },{limit:1}).then(function(data){
+                  api_id : $scope.api.id,
+                  limit : 1
+              }).then(function(data){
                         if(!data.length) {
                             ApiHCModel.create({
                                 "api_id" : $scope.api.id,
+                                "api" : $scope.api,
                                 "health_check_endpoint" : "",
                                 "notification_endpoint" : "",
                                 "active" : false
