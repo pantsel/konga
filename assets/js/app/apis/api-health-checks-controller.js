@@ -45,8 +45,8 @@
                                 "health_check_endpoint" : "",
                                 "notification_endpoint" : "",
                                 "active" : false
-                            }).then(function(_data){
-                                $scope.apiHC = _data
+                            }).then(function(response){
+                                $scope.apiHC = response.data
                             },function(err){
                                 //
                             })
@@ -56,6 +56,16 @@
                   })
           }
 
+
+
+          $scope.$on('api.health_checks',function(event,data){
+
+              if(data.hc_id == $scope.apiHC.id) {
+                  $scope.apiHC.data = data
+                  $scope.$apply()
+              }
+
+          })
 
           _fetchApiHC()
 

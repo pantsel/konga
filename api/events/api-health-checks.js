@@ -35,9 +35,9 @@ module.exports = {
 
     start : function(hc) {
 
-        if(tasks[hc.id] &&  tasks[hc.id].isStarted) return false;
+        if(( tasks[hc.id] &&  tasks[hc.id].isStarted )|| !hc.id) return false;
 
-        sails.log('Start scheduled health checks for hc ' + hc.id);
+        sails.log('Start scheduled health checks for hc ', tasks[hc.id]);
         var self = this;
 
         sails.models.apihealthcheck.findOne({
@@ -45,8 +45,8 @@ module.exports = {
         }).exec(function(err,hc){
             if(!err && hc) {
 
-                if(hc.health_check_details) {
-                    tasks[hc.id] = hc.health_check_details
+                if(hc.data) {
+                    tasks[hc.id] = hc.data
                     tasks[hc.id].cron = self.createCron(hc)
                 }else{
                     tasks[hc.id] = {
@@ -75,40 +75,56 @@ module.exports = {
         return cron.schedule('* * * * *', function() {
             sails.log('Performing health check for hc ' + hc.id);
 
-            if(!hc.health_check_endpoint) {
-                sails.log("api_health_checks =>","no health_check_endpoint defined. Ending it.")
-                return false;
-            }
+            // Get ApiHealthCheck again in case it has been changed while the cron was running
+            sails.models.apihealthcheck.findOne({
+                id:hc.id
+            }).exec(function(err,hc){
+                if(err || !hc) {
 
-            unirest.get(hc.health_check_endpoint)
-                .end(function (response) {
-                    if (response.error)  { // health check failed
-                        if(!tasks[hc.id].firstFailed) tasks[hc.id].firstFailed = new Date();
-                        tasks[hc.id].firstSucceeded = null;
-                        tasks[hc.id].lastFailed = new Date();
-                        tasks[hc.id].isHealthy = false;
-                        tasks[hc.id].timesFailed++;
-                        sails.log('health_checks:cron:checkStatus => Health check for hc ' + hc.id + ' failed ' + tasks[hc.id].timesFailed + ' times');
+                    sails.log("api_health_checks => Failed to retrieve apiHealthCheck with id " + hc.id,err)
 
-                        var timeDiff = self.getMinutesDiff(new Date(),tasks[hc.id].lastNotified)
-                        sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[hc.id].lastNotified);
-                        sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
-                        if(!tasks[hc.id].lastNotified || timeDiff > notificationsInterval) {
-                            self.notify(hc)
-                        }
-                    }else{ // health check succeeded
-                        sails.log('Health check for hc ' + hc.id + ' succeeded');
-                        if(!tasks[hc.id].firstSucceeded) tasks[hc.id].firstSucceeded = new Date();
-                        tasks[hc.id].timesFailed = 0;
-                        tasks[hc.id].isHealthy = true;
-                        tasks[hc.id].firstFailed = null;
-                        tasks[hc.id].lastSucceeded = new Date();
+                }else{
+                    tasks[hc.id] = hc.data
+
+                    if(!hc.health_check_endpoint) {
+                        sails.log("api_health_checks =>","no health_check_endpoint defined. Ending it.")
+                        return false;
                     }
 
+                    sails.log("api_health_checks => Performing GET request to " + hc.health_check_endpoint)
 
-                    self.updatehcHealthCheckDetails(hc.id)
-                })
+                    unirest.get(hc.health_check_endpoint)
+                        .end(function (response) {
+                            if (response.error)  { // health check failed
+                                if(!tasks[hc.id].firstFailed) tasks[hc.id].firstFailed = new Date();
+                                tasks[hc.id].firstSucceeded = null;
+                                tasks[hc.id].lastFailed = new Date();
+                                tasks[hc.id].isHealthy = false;
+                                tasks[hc.id].timesFailed++;
+                                sails.log('health_checks:cron:checkStatus => Health check for hc ' + hc.id + ' failed ' + tasks[hc.id].timesFailed + ' times');
 
+                                var timeDiff = self.getMinutesDiff(new Date(),tasks[hc.id].lastNotified)
+                                sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[hc.id].lastNotified);
+                                sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
+                                if(!tasks[hc.id].lastNotified || timeDiff > notificationsInterval) {
+                                    self.notify(hc)
+                                }
+                            }else{ // health check succeeded
+                                sails.log('Health check for hc ' + hc.id + ' succeeded');
+                                if(!tasks[hc.id].firstSucceeded) tasks[hc.id].firstSucceeded = new Date();
+                                tasks[hc.id].timesFailed = 0;
+                                tasks[hc.id].isHealthy = true;
+                                tasks[hc.id].firstFailed = null;
+                                tasks[hc.id].lastSucceeded = new Date();
+                            }
+
+
+                            self.updatehcHealthCheckDetails(hc.id)
+                        })
+                }
+
+
+            })
 
         })
     },
@@ -125,7 +141,7 @@ module.exports = {
             if(err) {
                 sails.log("health_checks:updatehcHealthCheckDetails:failed",err)
             }else{
-                sails.sockets.blast('hc.health_checks', _.merge({hc_id:hcId},data));
+                sails.sockets.blast('api.health_checks', _.merge({hc_id:hcId},data));
             }
         })
     },
@@ -177,6 +193,8 @@ module.exports = {
 
         var self = this
 
+        self.notifyNotificationEndpoint(hc)
+
         self.createTransporter(function(err,result){
             if(err || !result) {
                 sails.log("health_check:failed to create transporter. No notification will be sent.",err)
@@ -223,6 +241,26 @@ module.exports = {
                 })
             }
         })
+    },
+
+    notifyNotificationEndpoint : function(hc) {
+
+        sails.log("api_health_checks:notifyNotificationEndpoint")
+        if(!hc.notification_endpoint) {
+            sails.log("api_health_checks:notifyNotificationEndpoint => No notification endpoint defined")
+            return false;
+        }
+
+        unirest.post(hc.notification_endpoint)
+            .send(hc.api)
+            .end(function (response) {
+                if (response.error)  {
+                    sails.log("api_health_checks:notifyNotificationEndpoint => Failed to notify notification endpoint",response.error)
+                }else{
+                    sails.log("api_health_checks:notifyNotificationEndpoint => Succeeded to notify notification endpoint")
+                }
+
+            })
     },
 
     makeNotificationHTML : function makeNotificationHTML(hc) {

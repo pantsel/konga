@@ -52,6 +52,7 @@ module.exports.policies = {
 
   ApiHealthCheckController : {
     '*':              ['authenticated','dynamicNode'],
+    'subscribeHealthChecks' : ['authenticated']
   },
 
 

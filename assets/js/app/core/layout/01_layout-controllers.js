@@ -178,16 +178,34 @@
           })
 
           function _subscribe() {
+
               io.socket.get('/api/kongnodes/healthchecks/subscribe?token=' + AuthService.token(),
                   function(data, jwr){
-                      $log.info("NotifSub:data",data)
-                      $log.info("NotifSub:jwr",jwr)
+                      //$log.info("NotifSub:data",data)
+                      //$log.info("NotifSub:jwr",jwr)
 
                       if (jwr.statusCode == 200){
-                          $log.info("Subscribing to room",data.room)
+                          //$log.info("Subscribing to room",data.room)
                           io.socket.on(data.room,function(obj){
-                              $log.info("Notification received",obj)
+                              //$log.info("Notification received",obj)
                               $rootScope.$broadcast("node.health_checks",obj)
+
+                          });
+                      } else {
+                          $log.info(jwr);
+                      }
+                  });
+
+              io.socket.get('/api/apis/healthchecks/subscribe?token=' + AuthService.token(),
+                  function(data, jwr){
+                      //$log.info("ApiHealthChecksSub:data",data)
+                      //$log.info("ApiHealthChecksSub:jwr",jwr)
+
+                      if (jwr.statusCode == 200){
+                          //$log.info("Subscribing to room",data.room)
+                          io.socket.on(data.room,function(obj){
+                              //$log.info("Notification received",obj)
+                              $rootScope.$broadcast("api.health_checks",obj)
 
                           });
                       } else {
@@ -201,6 +219,9 @@
 
           if(AuthService.isAuthenticated()) {
               _fetchConnections()
+              if(!io.socket.isConnecting) {
+                  _subscribe()
+              }
               io.socket.on('connect', function(){
                   _subscribe()
               });
