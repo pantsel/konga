@@ -20,7 +20,7 @@ module.exports = function hook(sails) {
      */
     process: function process(next) {
 
-        sails.log("Hook:health_checks:process() called")
+        sails.log("Hook:api_health_checks:process() called")
 
         // Start health checks for all eligible nodes
         sails.models.apihealthcheck.find({

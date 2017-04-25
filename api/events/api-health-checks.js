@@ -37,7 +37,7 @@ module.exports = {
 
         if(( tasks[hc.id] &&  tasks[hc.id].isStarted )|| !hc.id) return false;
 
-        sails.log('Start scheduled health checks for hc ', tasks[hc.id]);
+        sails.log('Start scheduled health checks for hc ', hc.id);
         var self = this;
 
         sails.models.apihealthcheck.findOne({
@@ -84,7 +84,7 @@ module.exports = {
                     sails.log("api_health_checks => Failed to retrieve apiHealthCheck with id " + hc.id,err)
 
                 }else{
-                    tasks[hc.id] = hc.data
+                    tasks[hc.id] = _.merge(tasks[hc.id],hc.data)
 
                     if(!hc.health_check_endpoint) {
                         sails.log("api_health_checks =>","no health_check_endpoint defined. Ending it.")
