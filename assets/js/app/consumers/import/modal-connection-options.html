@@ -58,7 +58,7 @@
 
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-if="adapter.form_fields.consumer">
                 <h5>Consumer Fields</h5>
                 <div class="form-group"
                      data-ng-repeat="(key,field) in adapter.form_fields.consumer">

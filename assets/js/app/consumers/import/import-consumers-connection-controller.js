@@ -27,6 +27,7 @@
 
                 $scope.loadConsumers = function() {
                     $scope.busy = true
+
                     if($scope.adapter.hasFiles) {
 
                         Upload.upload({
@@ -40,9 +41,10 @@
                             $uibModalInstance.dismiss()
                         }, function (err) {
                             $log.debug("Upload error",err)
+                            console.log(err)
                             MessageService.error("Could not retrieve consumers from " +
                                 "the remote storage. Make sure your connection options " +
-                                "are correct.")
+                                "are correct. " + err.data)
                             $scope.busy = false
                         }, function (evt) {
                             $log.debug("Upload evt",evt)

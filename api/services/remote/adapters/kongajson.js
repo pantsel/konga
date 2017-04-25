@@ -5,46 +5,50 @@ module.exports = {
         "name": "Konga JSON export",
         "value": "kongajson",
         "description": "Import previously exported Consumers",
+        "hasFiles" : true,
         "form_fields": {
             "connection": {
-                "endpoint": {
-                    "name": "kongajson",
+                "file": {
+                    "name": "File",
                     "required" : true,
                     "type": "file",
                     "description": "The JSON file containing the exported consumers"
                 },
-            },
-            "consumer": {
-
+                "keepids" : {
+                    name : "Keep Ids",
+                    "type" : "boolean",
+                    "default" : false,
+                    description : "Try to import consumers using the ids of the exported ones"
+                },
             }
         }
     },
     methods : {
         loadConsumers : function(req,res) {
 
-            var headers = {}
-            if(req.param('headers')) {
-                var string = req.param('headers')
-                var split = string.split(",")
-                split.forEach(function(keyVal){
-                    var array = keyVal.split(":")
-                    headers[array[0]] = array[1]
-                })
 
-                console.log("Headers =>",headers)
-            }
+            req.file('file').upload(function (err, uploadFiles) {
 
-            var request = unirest.get(req.param('endpoint'))
-            request.headers(headers)
-            request.end(function (response) {
-                if (response.error)  return res.negotiate(response)
+                if(err) return res.negotiate(err);
 
-                console.log("response.body",response.body)
 
-                var jsonRes = response.body
+                if(!uploadFiles.length) return res.badRequest("No files uploaded")
 
-                return res.json(req.param('data_property') ? jsonRes[req.param('data_property')] : jsonRes)
-            })
+
+                var jsonData = require(uploadFiles[0].fd)
+
+                var keepIds = req.body.keepids || false
+
+                if(!keepIds) {
+                    jsonData.forEach(function(item){
+                        delete item.id
+                    })
+                }
+
+
+                return res.json(jsonData.data)
+
+            });
         }
     }
 
