@@ -35,8 +35,6 @@
                         })
                     }
 
-
-
                     $log.debug("Plugin Groups",$scope.pluginGroups)
                 })
 
