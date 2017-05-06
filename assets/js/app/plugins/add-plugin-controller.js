@@ -99,6 +99,10 @@
               var config = PluginHelperService.createConfigProperties($scope.data.fields)
               request_data = _.merge(request_data,config)
 
+              // Delete unset fields
+              Object.keys(request_data).forEach(function(key){
+                  if(request_data[key] === "") delete request_data[key]
+              })
 
               $log.debug("REQUEST DATA =>",request_data)
 
