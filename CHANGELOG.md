@@ -53,7 +53,7 @@ All notable changes to this project will be documented in this file.
 * Various fixes and improvements
 
 
-## [0.6.7](https://github.com/pantsel/konga/releases/tag/v0.6.8) - 7-5-2017
+## [0.6.8](https://github.com/pantsel/konga/releases/tag/v0.6.8) - 7-5-2017
 
 * Proper Certificates implementation
 
