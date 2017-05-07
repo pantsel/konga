@@ -29,5 +29,24 @@ var KongCertificatesController  = _.merge(_.cloneDeep(require('../base/KongContr
     },
 
 
+    update : function(req,res) {
+
+        req.file('file').upload(function (err, uploadFiles) {
+
+            var fds = []
+
+            if(uploadFiles.length) {
+                uploadFiles.forEach(function(file){
+                    fds.push(fs.readFileSync(file.fd))
+                })
+            }
+
+
+            return PluginService.updateCertificates(fds,req,res)
+        });
+
+    },
+
+
 })
 module.exports = KongCertificatesController;

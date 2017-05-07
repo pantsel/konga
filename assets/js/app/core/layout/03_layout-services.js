@@ -20,14 +20,14 @@
             title: 'Dashboard',
             access: AccessLevels.user
           },
-          {
-            state: 'info',
-            show : function() {
-              return AuthService.isAuthenticated() && UserService.user().node
-            },
-            title: 'Node info',
-            access: AccessLevels.user
-          },
+          //{
+          //  state: 'info',
+          //  show : function() {
+          //    return AuthService.isAuthenticated() && UserService.user().node
+          //  },
+          //  title: 'Node info',
+          //  access: AccessLevels.user
+          //},
           {
             state: 'apis',
             show : function() {
@@ -58,6 +58,14 @@
               return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
             },
             title: 'Upstreams',
+            access: AccessLevels.anon
+          },
+          {
+            state: 'certificates',
+            show : function() {
+              return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+            },
+            title: 'Certificates',
             access: AccessLevels.anon
           }
         ];

@@ -1,0 +1,56 @@
+<div class="modal-header warning">
+    <h4 class="modal-title" id="modal-title">
+        {{data.id ? 'Certificate Details' : 'Add Certificate'}}
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="material-icons">clear</i>
+        </a>
+    </h4>
+</div>
+
+<div class="modal-body">
+    {{errors}}
+    <div class="form-group" ng-class="{'has-error' : errors.cert}">
+        <label class="control-label">Certificate</label>
+        <pre ng-if="data.id">{{data.cert}}</pre>
+        <p class="help-block" ng-if="!data.id">Upload the certificate file</p>
+        <input type="file"
+               ngf-select ng-model="data.cert" name="data.value" ng-if="!data.id"
+        />
+        <div class="text-danger" ng-if="errors.cert" data-ng-bind="errors.cert"></div>
+    </div>
+    <hr>
+    <div class="form-group" ng-class="{'has-error' : errors.key}">
+        <label class="control-label">Key</label>
+        <pre ng-if="data.id">{{data.key}}</pre>
+        <p class="help-block" ng-if="!data.id">Upload the certificate .key file</p>
+        <input type="file" ng-if="!data.id"
+               ngf-select ng-model="data.key" name="data.value"
+        />
+        <div class="text-danger" ng-if="errors.key" data-ng-bind="errors.key"></div>
+    </div>
+    <hr>
+    <div class="form-group" ng-class="{'has-error' : errors.snis}">
+        <label class="control-label">Server Name Indications</label>
+        <p class="help-block">A comma separated list of Server Name Indications. ex: <code>ssl-example.com,other-ssl-example.com</code></p>
+        <input type="text"
+               class="form-control"
+               ng-disabled="data.id"
+               ng-model="data.snis" name="data.value"
+        />
+        <div class="text-danger" ng-if="errors.snis" data-ng-bind="errors.snis"></div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <button type="text"
+                ng-if="!data.id"
+                data-ng-disabled="uploading"
+                class="btn btn-primary btn-block" data-ng-click="submitCerts()">
+            {{data.id ? 'Update' : 'Submit'}} Certificates
+        </button>
+        <button type="text"
+                ng-if="data.id"
+                class="btn btn-primary btn-block" data-ng-click="close()">
+            ok
+        </button>
+    </div>
+</div>

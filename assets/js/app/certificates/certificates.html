@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12 actions">
+        <a  class="btn btn-primary" ng-click="openUploadCertsModal()">
+            <i class="material-icons">&#xE145;</i>
+            Add Certificate
+        </a>
+    </div>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <div class="input-group col-sm-4 pull-left">
+        <div class="input-group-addon">
+            <i class="material-icons">&#xE8B6;</i>
+        </div>
+        <input type="text" data-ng-model="search" class="form-control" placeholder="search certificates...">
+    </div>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-align-top table-striped table-hover">
+                <tr>
+                    <th>id</th>
+                    <th>SNIs</th>
+                    <th>Created at</th>
+                    <td width="1"><!-- show --></td>
+                    <td width="1"><!-- delete --></td>
+                </tr>
+                <tr
+                        dir-paginate="item in certificates | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+
+                    <td>{{item.id}}</td>
+                    <td>{{item.snis ? item.snis.join(",") : ''}}</td>
+                    <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                    <td>
+                        <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
+                            <i class="material-icons">info_outline</i>
+                            details
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">
+                            <i class="material-icons">&#xE872;</i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr data-ng-if="(certificates == {} || !certificates.length) && !loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>No data found...</em>
+                    </td>
+                </tr>
+                <tr data-ng-if="loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>Loading certificates...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>

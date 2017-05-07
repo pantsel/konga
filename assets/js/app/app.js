@@ -16,6 +16,7 @@
       'frontend.upstreams',
       'frontend.info',
       'frontend.plugins',
+      'frontend.certificates',
       'frontend.users',
       'frontend.consumers',
       'frontend.apis'
