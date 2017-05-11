@@ -9,6 +9,8 @@
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
+> Konga [0.7.0](https://github.com/pantsel/konga/tree/konga-070) is underway and introduces new cool features like consumers exporting, Node and API health checks as well as Email notifications. Whoever wants to test it and drop some feedback is most welcome to do so. Don't forget to run Konga in dev mode once so that the db changes will be applied.
+
 ## Summary
 
 - [**Discussions & Support**](#discussions--support)
@@ -130,7 +132,7 @@ Konga GUI will be available at http://localhost:1337
 <pre>
 $ npm run production
 </pre>
-Konga GUI will be available at http://localhost:1338
+Konga GUI will be available at http://localhost:1337
 
 ### Production Docker Image
 
@@ -163,7 +165,7 @@ $ docker run -p 1337:1337
 </pre>
 
 
-The GUI will be available at <code>http://{your server's public ip}:1338</code>
+The GUI will be available at <code>http://{your server's public ip}:1337</code>
 Login, go to settings -> new node and add http://kong:8001 for Kong Admin URL.
 
 

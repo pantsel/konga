@@ -33,15 +33,15 @@
               {
                   name : 'SSL',
                   icon : '&#xE32A;',
-                  isVisible : true
+                  isVisible : false
               }
           ]
 
 
 
-          $rootScope.$watch('Gateway',function(newval) {
-              $scope.sections[2].isVisible = newval && newval.version.indexOf("0.10.") > -1
-          })
+          //$rootScope.$watch('Gateway',function(newval) {
+          //    $scope.sections[2].isVisible = newval && newval.version.indexOf("0.10.") > -1
+          //})
 
 
 

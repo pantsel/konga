@@ -44,7 +44,7 @@
                 </td>
                 <th>{{item.name}}</th>
                 <td>
-                    <a data-ng-if="item.api_id" data-ui-sref="apis.edit({id:item.api_id})">{{item.api_id}}</a>
+                    <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
                     <span data-ng-if="!item.api_id" >All APIs</span>
                 </td>
                 <td>

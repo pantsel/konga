@@ -119,6 +119,7 @@ module.exports.routes = {
 
   // Kong 0.10.x certificates routes
   'POST /kong/certificates'                : 'KongCertificatesController.upload',
+  'PATCH /kong/certificates/:id'                : 'KongCertificatesController.update',
 
 
     // Konga API

@@ -40,3 +40,20 @@ All notable changes to this project will be documented in this file.
 * Fixed: dashboard not updating when changing node (issue #41).
 * Various fixes and improvements
 
+
+## [0.6.6](https://github.com/pantsel/konga/releases/tag/v0.6.6) - 25-4-2017
+
+* Fixed issue:  Can't edit consumer/api with custom user #49
+* Fixed bower dependencies
+* Various fixes and improvements
+
+
+## [0.6.7](https://github.com/pantsel/konga/releases/tag/v0.6.7) - 6-5-2017
+
+* Various fixes and improvements
+
+
+## [0.6.8](https://github.com/pantsel/konga/releases/tag/v0.6.8) - 7-5-2017
+
+* Proper Certificates implementation
+

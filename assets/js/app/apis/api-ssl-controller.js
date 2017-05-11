@@ -8,10 +8,10 @@
 
   angular.module('frontend.apis')
     .controller('ApiSSLController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','DialogService',
-        'MessageService','SettingsService','$http','Upload',
-      function controller($scope, $log, $state, ApiService, $uibModal,DialogService,
-                          MessageService,SettingsService,$http,Upload) {
+      '$scope', '$rootScope','$log', '$state','ApiService','$uibModal','DialogService',
+        'MessageService','SettingsService','$http','Upload','Semver',
+      function controller($scope, $rootScope, $log, $state, ApiService, $uibModal,DialogService,
+                          MessageService,SettingsService,$http,Upload, Semver) {
 
 
           $scope.openUploadCertsModal = function() {
@@ -114,12 +114,14 @@
 
 
 
+
           function _fetchCertificates() {
               $scope.loading = true;
               $http.get('api/certificates')
                   .then(function(res){
                     $log.debug("Fetch API certificates",res)
-                      $scope.certificates = res.data
+                      $scope.certificates = Semver.cmp($rootScope.Gateway.version,"0.10.0") > 0 ? res.data.data : res.data
+                      console.log("$scope.certificates",$scope.certificates)
                       $scope.loading = false;
                   }).catch(function(err){
                     $log.error("Fetch API certificates error",err)

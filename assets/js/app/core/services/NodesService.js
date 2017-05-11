@@ -20,18 +20,18 @@
             function factory(NodeModel, $q, $state, $localStorage) {
                 return {
                     activeNode : function() {
-                        return $localStorage.credentials.user.node_id
+                        return $localStorage.credentials.user.node
                     },
                     authorize: function authorize(needsActiveNode) {
                         if(needsActiveNode)
-                            return $localStorage.credentials && $localStorage.credentials.user.node_id
+                            return $localStorage.credentials && $localStorage.credentials.user.node
                         return true;
                     },
                     isActiveNodeSet : function() {
                         var defer = $q.defer()
 
-                        if($localStorage.credentials.user.node_id){
-                            defer.resolve($localStorage.credentials.user.node_id)
+                        if($localStorage.credentials.user.node){
+                            defer.resolve($localStorage.credentials.user.node.id)
                         }else{
                             $state.go('settings')
                             defer.reject("No active nodes found")
