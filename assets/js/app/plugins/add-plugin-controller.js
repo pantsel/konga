@@ -101,7 +101,7 @@
 
               // Delete unset fields
               Object.keys(request_data).forEach(function(key){
-                  if(!request_data[key].length) delete request_data[key]
+                  if(!request_data[key] || !request_data[key].length) delete request_data[key]
               })
 
               $log.debug("REQUEST DATA =>",request_data)
