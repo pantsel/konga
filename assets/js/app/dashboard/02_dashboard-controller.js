@@ -8,9 +8,14 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$rootScope','$log', '$state','$q','InfoService',
-      function controller($scope,$rootScope, $log, $state,$q,InfoService) {
+      '$scope', '$rootScope','$log', '$state','$q','InfoService','$timeout',
+      function controller($scope,$rootScope, $log, $state,$q,InfoService,$timeout) {
 
+
+          var loadTime = 5000,
+              errorCount = 0,
+              hasInitiallyLoaded = false,
+              loadPromise;
 
           $scope.closeAlert = function() {
               if($scope.alert) delete $scope.alert
@@ -113,8 +118,9 @@
 
 
 
+
           function fetchData() {
-              $scope.loading = true
+              if(!hasInitiallyLoaded) $scope.loading = true
               $log.debug("DashboardController:fetchData() called")
 
               var status = InfoService
@@ -141,9 +147,13 @@
                   .finally(
                       function onFinally() {
                           $scope.loading = false
+                          hasInitiallyLoaded = true
                           if($scope.status && $scope.info) {
                               drawCharts();
+                              errorCount = 0;
+                              nextLoad();
                           }else{
+                              nextLoad(++errorCount * 2 * loadTime);
                               $scope.error = true
                               $scope.alert = {
                                   msg : 'You have to setup and activate a node in order to connect to Kong\'s admin API. You can do that in <a href="/admin/settings"><strong>settings</strong></a>',
@@ -160,11 +170,27 @@
           fetchData();
 
 
+          
+
+          var cancelNextLoad = function() {
+              $timeout.cancel(loadPromise);
+          };
+
+          var nextLoad = function(mill) {
+              mill = mill || loadTime;
+
+              // Make sure the last timeout is cleared before starting a new one
+              cancelNextLoad();
+              loadPromise = $timeout(fetchData, mill);
+          };
+
+          // clear the timeout when the view is destroyed
+          $scope.$on('$destroy', function() {
+              cancelNextLoad();
+          });
 
           $scope.$on('user.node.updated',function(node){
-
               fetchData();
-
           })
       }
     ])
