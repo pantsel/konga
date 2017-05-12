@@ -28,7 +28,7 @@
                 $scope.user = UserService.user();
                 $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
                 $scope.general_settings = SettingsService.getSettings()
-                console.log("$scope.general_settings",$scope.general_settings)
+                //console.log("$scope.general_settings",$scope.general_settings)
 
 
                 $scope.updateSettings = function() {

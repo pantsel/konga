@@ -32,6 +32,7 @@
 
 
                             $scope.uploading = true;
+                            $scope.errorMessage = ""
                             var files = [$scope.data.cert,$scope.data.key];
 
 
@@ -69,14 +70,25 @@
 
                         function handleErrors(err) {
                             $scope.errors = {}
-                            if(err.data && err.data.customMessage){
 
-                                for(var key in err.data.customMessage){
-                                    $scope.errors[key] = err.data.customMessage[key]
+                            if(err.data) {
+                                if(err.data.customMessage){
+
+                                    for(var key in err.data.customMessage){
+                                        $scope.errors[key] = err.data.customMessage[key]
+                                    }
                                 }
+
+                                if(err.data.message) {
+                                    $scope.errorMessage = err.data.message
+                                }
+                            }else{
+                                $scope.errorMessage = "An unknown error has occured"
                             }
 
-                            console.log("SCOPE ERRORS",$scope.errors)
+
+
+                            //console.log("SCOPE ERRORS",$scope.errors)
                         }
 
                     },

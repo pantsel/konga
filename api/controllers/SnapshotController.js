@@ -105,7 +105,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     restore : function(req,res) {
 
         var snaphsot_id = req.params.id
-        var target_node = req.body.kong_admin_url
         var responseData = {
 
         }
@@ -126,15 +125,24 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     snapshot.data[key].forEach(function(item){
                         fns.push(function(cb){
                             KongService.createFromEndpointCb("/" + key,item,function(err,created){
+
+                                console.log("######################",item);
+
                                 if(!responseData[key]) {
                                     responseData[key] = {
                                         imported : 0,
-                                        failed : 0
+                                        failed : {
+                                            count : 0,
+                                            items : []
+                                        }
                                     }
                                 }
 
                                 if(err) {
-                                    responseData[key].failed++
+                                    responseData[key].failed.count++
+                                    if(responseData[key].failed.items.indexOf(item.name) < 0) {
+                                        responseData[key].failed.items.push(item.name)
+                                    }
                                     return cb()
                                 }
                                 responseData[key].imported++

@@ -58,7 +58,13 @@
                 <tr data-ng-repeat="(key,value) in results">
                     <td>{{key}}</td>
                     <td><strong class="text-success">{{value.imported}}</strong></td>
-                    <td><strong class="text-danger">{{value.failed}}</strong></td>
+                    <td>
+                        <strong class="text-danger">{{value.failed.count}}</strong>
+                        <br>
+                        <p class="help-block">{{value.failed.items.join(", ")}}</p>
+
+
+                    </td>
                 </tr>
             </table>
         </div>
