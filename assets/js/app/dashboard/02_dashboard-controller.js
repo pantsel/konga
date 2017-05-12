@@ -149,6 +149,7 @@
                           $scope.loading = false
                           hasInitiallyLoaded = true
                           if($scope.status && $scope.info) {
+                              $scope.error = false
                               drawCharts();
                               errorCount = 0;
                               nextLoad();
