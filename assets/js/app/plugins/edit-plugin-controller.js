@@ -95,31 +95,28 @@
                   delete $scope.data.fields.limits.schema.fields.year
 
 
-                  Object.keys(_plugin.config.limits).forEach(function(key){
+                  if(_plugin.config.limits) {
+                      Object.keys(_plugin.config.limits).forEach(function(key){
 
-                      //console.log("_plugin.config.limits[key]",_plugin.config.limits[key])
+                          //console.log("_plugin.config.limits[key]",_plugin.config.limits[key])
 
-                      var inner_fields = {}
-                      Object.keys(_plugin.config.limits[key]).forEach(function(k){
-                          inner_fields[k] = {
-                              type : 'number',
-                              default : _plugin.config.limits[key][k]
+                          var inner_fields = {}
+                          Object.keys(_plugin.config.limits[key]).forEach(function(k){
+                              inner_fields[k] = {
+                                  type : 'number',
+                                  default : _plugin.config.limits[key][k]
+                              }
+                          })
+
+                          $scope.data.fields.limits.schema.fields[key] = {
+
+                              schema : {
+                                  fields : inner_fields
+                              }
                           }
                       })
-
-                      $scope.data.fields.limits.schema.fields[key] = {
-
-                          schema : {
-                              fields : inner_fields
-                          }
-                      }
-                  })
-
-                  console.log("$scope.data =>",$scope.data)
+                  }
               }
-
-
-
 
               // Customize data fields according to plugin
               PluginHelperService.customizeDataFieldsForPlugin(_plugin.name,$scope.data.fields)
