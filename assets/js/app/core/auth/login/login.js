@@ -49,7 +49,8 @@
                           function successCallback() {
                               $state.go('dashboard');
                           },
-                          function errorCallback() {
+                          function errorCallback(err) {
+                              $scope.loginError = err.data.message
                               _reset();
                           }
                       )

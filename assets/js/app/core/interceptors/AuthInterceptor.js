@@ -60,9 +60,11 @@
            */
           responseError: function responseErrorCallback(response) {
             if (response.status === 401 || response.status === 403) {
-              $localStorage.$reset();
+                $localStorage.$reset();
 
-               $injector.get('$state').go('auth.login');
+
+              if($injector.get('$state').$current != 'auth.login')
+                $injector.get('$state').go('auth.login');
             }
 
             return $q.reject(response);
