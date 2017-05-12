@@ -43,6 +43,16 @@
                                             })
                                         }
 
+                                        if(key == 'username') {
+                                            failedTrans.err.invalidAttributes[key].forEach(function(item){
+
+                                                if(item.rule == 'minLength') {
+                                                    $scope.errors[key] = "The username must be at least 7 characters long."
+                                                }
+
+                                            })
+                                        }
+
                                     }
                                 }
 
