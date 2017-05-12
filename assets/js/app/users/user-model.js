@@ -12,7 +12,6 @@
                 var model = new DataModel('user');
 
                 model.handleError = function($scope,err) {
-                    console.log("errrrrrrrrrrrrr",err)
                     $scope.errors = {}
                     if(err.data){
 
@@ -26,6 +25,27 @@
                                 for(var key in raw.err.invalidAttributes){
                                     $scope.errors[key] = raw.err.invalidAttributes[key][0].message
                                 }
+                            })
+                        }
+
+                        if(err.data.failedTransactions && err.data.failedTransactions.length) {
+                            err.data.failedTransactions.forEach(function(failedTrans){
+                                if(failedTrans.err && failedTrans.err.invalidAttributes){
+                                    for(var key in failedTrans.err.invalidAttributes){
+
+                                        if(key == 'password') {
+                                            failedTrans.err.invalidAttributes[key].forEach(function(item){
+
+                                                if(item.rule == 'minLength') {
+                                                    $scope.errors[key] = "The password must be at least 7 characters long."
+                                                }
+
+                                            })
+                                        }
+
+                                    }
+                                }
+
                             })
                         }
                     }

@@ -118,7 +118,7 @@
                                     Security
                                 </th>
                             </tr>
-                            <tr data-ng-show="editableForm.$visible">
+                            <tr data-ng-show="editableForm.$visible" ng-class="{'danger' : errors.password}">
                                 <th>Password</th>
                                 <td>
                                     <span
@@ -127,6 +127,7 @@
                                             data-e-name="user.passports.password">
 
                                     </span>
+                                    <p class="text-danger" ng-if="errors.password" data-ng-bind="errors.password"></p>
 
                                 </td>
                             </tr>
