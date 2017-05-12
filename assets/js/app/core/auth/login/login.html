@@ -7,8 +7,11 @@
                 </hdiv>
             </div>
             <div class="panel-body">
-                <form name="loginForm" method="post" novalidate="novalidate">
+                <div class="alert alert-danger" data-ng-show="loginError">
+                    {{loginError}}
+                </div>
 
+                <form name="loginForm" method="post" novalidate="novalidate">
                     <div class="form-group"
                          data-show-errors
                     >

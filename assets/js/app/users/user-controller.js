@@ -41,6 +41,10 @@
 
               // Make actual data update
               var deferred = $q.defer();
+
+
+              data.passports.protocol = 'local'; // Make sure the protocol is set
+
               UserModel
                   .update(data.id, data)
                   .then(
@@ -82,7 +86,7 @@
                   password : "",
                   protocol : 'local'
               }
-              $scope.user.password_confirmation = undefined
+              $scope.user.password_confirmation = ""
           }
 
           initUserPassports()

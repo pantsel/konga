@@ -126,12 +126,7 @@
               title: 'updated',
               column: 'updatedAt',
               sortable: true,
-            },
-            {
-              title: '',
-              column: '',
-              width : 1
-            },
+            }
           ],
           consumer: [
             {
