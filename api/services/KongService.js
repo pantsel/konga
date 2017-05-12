@@ -27,17 +27,13 @@ var KongService = {
 
     createFromEndpointCb: function (endpoint,data, cb) {
 
-        if(data.config) {
-            Object.keys(data.config).forEach(function(key){
-                data["config." + key] = data.config[key]
-            })
-
-            delete data.config
-        }
-
         unirest.post(sails.config.kong_admin_url + endpoint)
+            .header('Content-Type', 'application/json')
             .send(data)
             .end(function (response) {
+                //if(data.name == "request-transformer") {
+                //    console.log(response.error)
+                //}
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
             })

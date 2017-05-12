@@ -126,8 +126,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                         fns.push(function(cb){
                             KongService.createFromEndpointCb("/" + key,item,function(err,created){
 
-                                console.log("######################",item);
-
                                 if(!responseData[key]) {
                                     responseData[key] = {
                                         imported : 0,
