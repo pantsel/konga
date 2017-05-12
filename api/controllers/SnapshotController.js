@@ -27,7 +27,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
             var result = {}
 
-            var endpoints = ['/apis','/plugins']
+            var endpoints = ['/apis','/plugins','/consumers']
 
             if(node.kong_version == '0-10-x') {
                 endpoints = endpoints.concat(['/upstreams'])

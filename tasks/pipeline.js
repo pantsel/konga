@@ -24,6 +24,7 @@ var cssFilesToInject = [
     "bower_components/angular-spinkit/build/angular-spinkit.min.css",
     "bower_components/angular-chips/dist/main.css",
     "bower_components/angular-json-human/dist/angular-json-human.css",
+    "bower_components/mdi/css/materialdesignicons.css",
     "styles/**/*.css"
 ];
 
