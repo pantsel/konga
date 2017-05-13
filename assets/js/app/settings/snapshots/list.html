@@ -21,8 +21,8 @@
                    class="hidden"
                    file-select="data"
                    file-loaded="onSnapshotLoaded()"
-                   file-error="myError($error)"
-                   file-progress="myProgress($total,$loaded)">
+                   file-error="onSnapshotReadError($error)"
+                   file-progress="onSnapshotReadProgress($total,$loaded)">
             <button
                     class="btn btn-warning" ng-click="importSnapshot()">
                 <i class="mdi mdi-upload"></i>

@@ -253,21 +253,30 @@
                 }
 
                 $scope.onSnapshotLoaded = function(data) {
-                    var importedSnapshot = JSON.parse($base64.decode($scope.file.data.replace("data:;base64,","")))
-                    //console.log("importedSnapshot",importedSnapshot)
 
-                    // Add timestamp to snapshot name and remove it's id and dates
-                    //delete importedSnapshot.id;
+                    var importedSnapshot;
+
+                    try{
+                        importedSnapshot = JSON.parse($base64.decode($scope.file.data.replace("data:;base64,","")))
+                    }catch(err){
+                        MessageService.error(err)
+                    }
+
+                    if(!importedSnapshot) return false;
+
+                    // Add timestamp to snapshot name to prevent conflicts and remove it's id and timestamps
+                    importedSnapshot.name = new Date().getTime() + "_" + importedSnapshot.name
+                    delete importedSnapshot.id;
                     delete importedSnapshot.createdAt;
                     delete importedSnapshot.updatedAt;
-                    importedSnapshot.name = new Date().getTime() + "_" + importedSnapshot.name
+
 
                     Snapshot.create(importedSnapshot)
                         .then(function(){
                             _triggerFetchData()
                         }).catch(function(err){
                         // ToDo better error handling
-                        alert("Could not upload snapshot. Make sure the data format is correct.")
+                        MessageService.error("Could not upload snapshot. Make sure the data format is correct.")
                     })
 
                 }
