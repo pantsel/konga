@@ -1,6 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 module.exports = {
+    enabled : true,
     schema : {
         "name": "MongoDB",
         "value": "mongodb",

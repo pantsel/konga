@@ -4,6 +4,7 @@ var path = require('path')
 var mkdirp = require('mkdirp');
 
 module.exports = {
+    enabled : true,
     schema : {
         "name": "Google Spreadsheet",
         "value": "google-spreadsheet",

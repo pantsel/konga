@@ -8,7 +8,9 @@ module.exports = {
             var schemas = {}
             files.forEach(function(file) {
                 if(file.indexOf('index') < 0) {
-                    schemas[file.replace(".js","")] = require('./' + file).schema
+                    var fileData = require('./' + file)
+                    if(fileData.enabled)
+                        schemas[file.replace(".js","")] = fileData.schema
                 }
             });
             res.json(schemas)

@@ -2,6 +2,7 @@ var csv = require('csv-parser')
 var fs = require('fs')
 
 module.exports = {
+    enabled : true,
     schema : {
         "name": "CSV",
         "value": "csv",

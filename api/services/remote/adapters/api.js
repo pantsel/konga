@@ -1,6 +1,7 @@
 var unirest = require('unirest')
 
 module.exports = {
+    enabled : true,
     schema : {
         "name": "API",
         "value": "api",

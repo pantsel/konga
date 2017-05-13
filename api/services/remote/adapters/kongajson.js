@@ -1,6 +1,7 @@
 var unirest = require('unirest')
 
 module.exports = {
+    enabled : false,
     schema : {
         "name": "Konga JSON export",
         "value": "kongajson",

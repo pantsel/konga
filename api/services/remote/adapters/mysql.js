@@ -1,6 +1,7 @@
 var mysql = require('mysql')
 
 module.exports = {
+    enabled : true,
     schema : {
         "name": "MySQL",
         "value": "mysql",
