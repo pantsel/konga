@@ -127,6 +127,16 @@
                 },
               }
             },
+              {
+                  name : "Serverless",
+                  description : "Invoke serverless functions in combination with other plugins:",
+                  icon : "cloud_queue",
+                  plugins : {
+                      "aws-lambda" : {
+                          description : "Invoke an <a href='https://aws.amazon.com/lambda/' target='_blank'>AWS Lambda</a> function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
+                      }
+                  }
+              },
             {
               name : "Analytics & Monitoring",
               icon : "pie_chart_outlined",
