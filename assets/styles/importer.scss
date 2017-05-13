@@ -7,6 +7,7 @@
 @import 'bootstrap_over';
 @import 'angular';
 @import "animloader";
+@import "mdi";
 
 
 $color-footer-text: #999;
@@ -608,68 +609,7 @@ pre {
   vertical-align: top !important;
 }
 
-.mdi::before {
-  font-size: 24px;
-  line-height: 14px;
-}
-.btn .mdi::before {
-  position: relative;
-  top: 4px;
-}
-.btn-xs .mdi::before {
-  font-size: 18px;
-  top: 3px;
-}
-.btn-sm .mdi::before {
-  font-size: 18px;
-  top: 3px;
-}
-.dropdown-menu .mdi {
-  width: 18px;
-}
-.dropdown-menu .mdi::before {
-  position: relative;
-  top: 4px;
-  left: -8px;
-}
-.nav .mdi::before {
-  position: relative;
-  top: 4px;
-}
-.navbar .navbar-toggle .mdi::before {
-  position: relative;
-  top: 4px;
-  color: #FFF;
-}
-.breadcrumb .mdi::before {
-  position: relative;
-  top: 4px;
-}
-.breadcrumb a:hover {
-  text-decoration: none;
-}
-.breadcrumb a:hover span {
-  text-decoration: underline;
-}
-.alert .mdi::before {
-  position: relative;
-  top: 4px;
-  margin-right: 2px;
-}
-.input-group-addon .mdi::before {
-  position: relative;
-  top: 3px;
-}
-.navbar-brand .mdi::before {
-  position: relative;
-  top: 2px;
-  margin-right: 2px;
-}
-.list-group-item .mdi::before {
-  position: relative;
-  top: 3px;
-  left: -3px
-}
+
 
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary{
   background: $brand-primary;
