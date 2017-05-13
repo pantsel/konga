@@ -63,6 +63,8 @@
         // Add interceptors for $httpProvider and $sailsSocketProvider
         $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.interceptors.push('ErrorInterceptor');
+        $httpProvider.interceptors.push('timeoutHttpIntercept');
+
         // $httpProvider.interceptors.push('TemplateCacheInterceptor');
         $httpProvider.interceptors.push('KongaInterceptor');
 
