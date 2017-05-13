@@ -148,9 +148,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     restore : function(req,res) {
 
         var snaphsot_id = req.params.id
-        var responseData = {
-
-        }
+        var responseData = {}
 
         sails.models.snapshot.findOne({
             id : snaphsot_id
@@ -250,12 +248,18 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                         })
 
                                     })
+
+                                    async.series(consumerFns,function(err,data){
+                                        responseData[key].imported++
+                                        return cb(null,data)
+                                    })
+                                }else{
+
+                                    responseData[key].imported++
+                                    return cb(null,responseData)
                                 }
 
-                                async.series(consumerFns,function(err,data){
-                                    responseData[key].imported++
-                                    return cb(null,data)
-                                })
+
                             })
                         })
                     })
