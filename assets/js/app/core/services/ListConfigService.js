@@ -220,14 +220,14 @@
             },
           ],
           snapshot: [
-            {
-              title: 'id',
-              column: 'id',
-              searchable: true,
-              sortable: true,
-              inSearch: true,
-              inTitle: true
-            },
+            //{
+            //  title: 'id',
+            //  column: 'id',
+            //  searchable: true,
+            //  sortable: true,
+            //  inSearch: true,
+            //  inTitle: true
+            //},
             {
               title: 'name',
               column: 'name',

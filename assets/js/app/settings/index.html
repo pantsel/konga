@@ -1,22 +1,48 @@
-<div class="row">
-    <uib-tabset active="active">
-        <uib-tab index="0">
-            <uib-tab-heading>
-                Connections
-            </uib-tab-heading>
-            <br>
-            <div data-ui-view="nodes"></div>
-        </uib-tab>
-        <uib-tab index="1" ng-show="user.node && user.admin">
-            <uib-tab-heading>
-                Snapshots <span class="badge">Beta</span>
-            </uib-tab-heading>
-            <br>
-
-            <div data-ui-view="snapshots"></div>
-
-
-        </uib-tab>
-    </uib-tabset>
+<div class="row margin-bottom">
+    <div class="col-md-12">
+        <!--<div class="list-group">-->
+            <!--<a href="#" class="list-group-item">-->
+                <!--<h4 class="list-group-item-heading">Connections</h4>-->
+                <!--<p class="list-group-item-text">Define Kong Node connections and select the one to use.</p>-->
+            <!--</a>-->
+            <!--<a href="#" class="list-group-item">-->
+                <!--<h4 class="list-group-item-heading">Snapshots</h4>-->
+                <!--<p class="list-group-item-text">Take Node Snapshots and restore them a later time.</p>-->
+            <!--</a>-->
+            <!--<a href="#" class="list-group-item">-->
+                <!--<h4 class="list-group-item-heading">General</h4>-->
+                <!--<p class="list-group-item-text">General application settings.</p>-->
+            <!--</a>-->
+        <!--</div>-->
+        <ul class="nav nav-tabs">
+            <li ui-sref=".connections" ui-sref-active="active"><a>Connections</a></li>
+            <li ui-sref=".snapshots" ui-sref-active="active"><a>Snapshots <span class="badge">Beta</span></a></li>
+        </ul>
+    </div>
 
 </div>
+
+<div data-ui-view="settingsContent"></div>
+
+<!--<div class="row">-->
+    <!--<uib-tabset active="active">-->
+        <!--<uib-tab index="0">-->
+            <!--<uib-tab-heading>-->
+                <!--Connections-->
+            <!--</uib-tab-heading>-->
+            <!--<br>-->
+            <!--<div data-ui-view="nodes"></div>-->
+        <!--</uib-tab>-->
+        <!--<uib-tab index="1" ng-show="user.node && user.admin">-->
+            <!--<uib-tab-heading>-->
+                <!--Snapshots <span class="badge">Beta</span>-->
+            <!--</uib-tab-heading>-->
+            <!--<br>-->
+
+            <!--<div data-ui-view="snapshots"></div>-->
+
+
+        <!--</uib-tab>-->
+    <!--</uib-tabset>-->
+
+<!--</div>-->

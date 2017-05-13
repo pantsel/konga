@@ -17,7 +17,7 @@
                             activeNode : true,
                             pageName : "Plugins",
                             pageDescription : "A Plugin entity represents a plugin configuration that will be executed during the HTTP request/response workflow, and it's how you can add functionalities to APIs that run behind Kong, like Authentication or Rate Limiting for example.",
-                            displayName : "plugins",
+                            //displayName : "plugins",
                             prefix : '<i class="material-icons text-primary">settings_input_component</i>'
                         },
                         views: {
@@ -42,6 +42,7 @@
                         },
                         data : {
                             pageName : "Add Global Plugins",
+                            pageDescription : null,
                             displayName : "add"
                         },
                         views: {

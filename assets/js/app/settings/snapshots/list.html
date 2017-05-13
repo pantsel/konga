@@ -51,14 +51,13 @@
                 <th width="1"></th>
             </tr>
             <tr data-ng-repeat="snapshot in snapshots">
-                <td>{{snapshot.id}}</td>
                 <td><strong>{{snapshot.name || 'undefined'}}@{{snapshot.kong_node_name}}</strong></td>
                 <td>
                     {{snapshot.kong_version.split("-").join(".")}}
                 </td>
                 <td>{{snapshot.createdAt | date : "MMM d, y"}}</td>
                 <td>
-                    <a ui-sref="settings.snapshot({id:snapshot.id})" class="btn btn-warning btn-link">
+                    <a ui-sref="settings.snapshots.show({id:snapshot.id})" class="btn btn-warning btn-link">
                         <i class="material-icons">edit</i>
                         details
                     </a>
@@ -78,7 +77,8 @@
                 </td>
             </tr>
         </table>
-
+    </div>
+    <div class=" col-md-12">
         <ul uib-pagination
             class="pagination"
             data-total-items="itemCount"
@@ -90,4 +90,5 @@
             data-rotate="false"
         ></ul>
     </div>
+
 </div>

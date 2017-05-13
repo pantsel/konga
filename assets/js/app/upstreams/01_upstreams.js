@@ -18,7 +18,7 @@
                             activeNode : true,
                             pageName : "Upstreams",
                             pageDescription : "The upstream object represents a virtual hostname and can be used to loadbalance incoming requests over multiple services (targets). So for example an upstream named <code>service.v1.xyz</code> with an API object created with an <code>upstream_url=https://service.v1.xyz/some/path</code>. Requests for this API would be proxied to the targets defined within the upstream.",
-                            displayName : "upstreams",
+                            //displayName : "upstreams",
                             prefix : '<i class="material-icons">&#xE8F2;</i>'
                         },
                         views: {
@@ -33,6 +33,7 @@
                         data : {
                             pageName : "Edit Upstream",
                             displayName : "edit",
+                            pageDescription : null,
                             prefix : '<i class="material-icons">&#xE8F2;</i>'
                         },
                         views: {
