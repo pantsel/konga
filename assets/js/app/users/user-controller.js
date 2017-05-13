@@ -55,6 +55,7 @@
                           UserService.updateUser(data.data,true)
                           deferred.resolve(true);
                       },function(err){
+                          console.log("Err",err)
                           UserModel.handleError($scope,err)
                           deferred.reject('Error');
                       }

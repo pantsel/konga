@@ -99,7 +99,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-class="{'danger' : errors.email}">
                                 <th>Email</th>
                                 <td>
                                     <span
@@ -109,6 +109,7 @@
                                         <span data-ng-show="!user.email">-</span>
                                         <a data-ng-show="user.email" href="mailto:{{user.email}}">{{user.email}}</a>
                                     </span>
+                                    <p class="text-danger" ng-if="errors.email" data-ng-bind="errors.email"></p>
 
                                 </td>
                             </tr>
