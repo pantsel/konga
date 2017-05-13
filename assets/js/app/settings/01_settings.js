@@ -37,7 +37,7 @@
                     })
                     .state('settings.snapshot', {
                         url: '/snapshot/:id',
-                        parent : 'frontend',
+                        parent : 'settings',
                         data : {
                             access : 0,
                             pageName : "Snapshot Details",

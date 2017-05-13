@@ -52,7 +52,7 @@
             </tr>
             <tr data-ng-repeat="snapshot in snapshots">
                 <td>{{snapshot.id}}</td>
-                <td><strong>{{snapshot.name || 'undefined'}}</strong></td>
+                <td><strong>{{snapshot.name || 'undefined'}}@{{snapshot.kong_node_name}}</strong></td>
                 <td>
                     {{snapshot.kong_version.split("-").join(".")}}
                 </td>
