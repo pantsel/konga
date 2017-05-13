@@ -93,25 +93,19 @@
                             },
                         }
                     })
-                    .state('settings.node', {
-                        url: '/node/:id',
+                    .state('settings.notifications', {
+                        url: '/notifications',
                         parent : 'settings',
                         data : {
                             access : 0,
-                            pageName : "Node settings",
-                            displayName : "node",
-                            prefix : '<i class="material-icons">&#xE335;</i>'
+                            //pageName : "Node settings",
+                            displayName : "notifications",
+                            //prefix : '<i class="material-icons">&#xE335;</i>'
                         },
                         views: {
-                            'content@': {
-                                templateUrl: 'js/app/settings/nodes/node.html',
-                                controller: 'NodeController',
-                                resolve : {
-                                    _node : ['NodeModel','$stateParams',
-                                        function(NodeModel,$stateParams){
-                                            return NodeModel.fetch($stateParams.id)
-                                        }]
-                                }
+                            'settingsContent': {
+                                templateUrl: 'js/app/settings/notifications/index.html',
+                                controller: 'NotificationsController'
                             },
                         }
                     })

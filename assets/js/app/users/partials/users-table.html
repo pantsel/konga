@@ -21,8 +21,8 @@
         </th>
     </tr>
     <tr data-ng-repeat="user in items">
-        <td>{{user.id}}.</td>
-        <td><i class="material-icons" ng-class="{'text-warning': user.admin,'text-muted' : !user.admin}">{{user.admin ? 'star' : 'person'}}</i></td>
+        <td>
+            <i class="mdi" ng-class="{'text-warning mdi-crown': user.admin,'text-muted mdi-account-outline' : !user.admin}"></i></td>
         <td><a data-ui-sref="users.show({id: user.id})">{{user.username}}</a></td>
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>

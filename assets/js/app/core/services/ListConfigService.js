@@ -98,6 +98,11 @@
               width : 1
             },
             {
+              title: '',
+              column: '',
+              width : 1
+            },
+            {
               title: 'name',
               column: 'name',
               searchable: true,
@@ -122,11 +127,11 @@
               column: 'createdAt',
               sortable: true,
             },
-            {
-              title: 'updated',
-              column: 'updatedAt',
-              sortable: true,
-            }
+            //{
+            //  title: 'updated',
+            //  column: 'updatedAt',
+            //  sortable: true,
+            //}
           ],
           consumer: [
             {
@@ -170,10 +175,10 @@
             },
           ],
           user: [
-            {
-              title: '#',
-              width : 1
-            },
+            //{
+            //  title: '#',
+            //  width : 1
+            //},
             {
               title: '',
               column: '',
