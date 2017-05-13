@@ -93,6 +93,11 @@
           ],
           kongnode: [
             {
+              title: '',
+              column: '',
+              width : 1
+            },
+            {
               title: 'name',
               column: 'name',
               searchable: true,

@@ -68,11 +68,7 @@
                             'settingsContent': {
                                 templateUrl: 'js/app/settings/snapshots/list.html',
                                 controller: 'SnapshotsController'
-                            },
-                            'notifications@settings': {
-                                templateUrl: 'js/app/settings/notifications/index.html',
-                                controller: 'NotificationsController',
-                            },
+                            }
                         }
                     })
                     .state('settings.snapshots.show', {

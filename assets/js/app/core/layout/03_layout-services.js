@@ -29,14 +29,14 @@
           //  title: 'Node info',
           //  access: AccessLevels.user
           //},
-          {
-            state: 'info',
-            show : function() {
-              return AuthService.isAuthenticated() && $rootScope.Gateway
-            },
-            title: 'Node info',
-            access: AccessLevels.user
-          },
+          //{
+          //  state: 'info',
+          //  show : function() {
+          //    return AuthService.isAuthenticated() && $rootScope.Gateway
+          //  },
+          //  title: 'Node info',
+          //  access: AccessLevels.user
+          //},
           {
             state: 'apis',
             show : function() {

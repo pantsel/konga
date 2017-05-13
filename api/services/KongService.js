@@ -146,7 +146,7 @@ var KongService = {
 
                 if(req.url.indexOf("/kong/apis") > -1) {
                     // If api was deleted, delete its health checks as well
-                    var id = req.url.pop() || req.url.pop();  // handle potential trailing slash
+                    var id = req.url.substr(req.url.lastIndexOf('/') + 1)
 
                     // If api was updated, update its health checks as well
                     ApiHealthCheckService.deleteCb({
