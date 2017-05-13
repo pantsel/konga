@@ -11,10 +11,24 @@
 </div>
 <div class="row">
     <div class="col-md-12 actions">
-        <button class="btn btn-primary pull-left" data-ng-click="takeSnapshot()">
-            <i class="material-icons">&#xE412;</i>
-            Take snapshot
-        </button>
+        <div class="pull-left">
+            <button class="btn btn-primary" data-ng-click="takeSnapshot()">
+                <i class="material-icons">&#xE412;</i>
+                Take snapshot
+            </button>
+            <input type="file" ng-model="file.data"
+                   id="import-snapshot"
+                   class="hidden"
+                   file-select="data"
+                   file-loaded="onSnapshotLoaded()"
+                   file-error="myError($error)"
+                   file-progress="myProgress($total,$loaded)">
+            <button
+                    class="btn btn-warning" ng-click="importSnapshot()">
+                <i class="mdi mdi-upload"></i>
+                import
+            </button>
+        </div>
         <list-search
                 class="pull-right margin-right"
                 data-filters="filters"

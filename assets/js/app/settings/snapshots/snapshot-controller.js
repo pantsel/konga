@@ -19,7 +19,7 @@
 
                 $log.debug("Snapshot",_snapshot)
 
-                $scope.snapshot = _snapshot
+                $scope.snapshot = angular.copy(_snapshot)
 
                 // Hide the orderlist attribute of upstreams for faster rendering
                 if($scope.snapshot.data.upstreams) {
@@ -30,13 +30,12 @@
 
 
                 $scope.downloadSnapshot = function() {
-                    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(JSONC.compress( $scope.snapshot )));
+                    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(_snapshot));
                     var dlAnchorElem = document.getElementById('downloadAnchorElem');
                     dlAnchorElem.setAttribute("href",     dataStr     );
-                    dlAnchorElem.setAttribute("download", "snapshot_" + $scope.snapshot.name + ".jsonc");
+                    dlAnchorElem.setAttribute("download", "snpsht_" + _snapshot.name + "@" + _snapshot.kong_node_name + ".json");
                     dlAnchorElem.click();
                 }
-
 
 
                 $scope.showRestoreModal = function() {

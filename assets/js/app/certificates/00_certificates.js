@@ -17,7 +17,7 @@
                             activeNode : true,
                             pageName : "Certificates",
                             pageDescription : "A certificate object represents a public certificate/private key pair for an SSL certificate. These objects are used by Kong to handle SSL/TLS termination for encrypted requests. Certificates are optionally associated with SNI objects to tie a cert/key pair to one or more hostnames.",
-                            displayName : "certificates",
+                            //displayName : "certificates",
                             prefix : '<i class="material-icons text-primary">perm_identity</i>'
                         },
                         views: {

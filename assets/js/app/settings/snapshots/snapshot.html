@@ -1,71 +1,28 @@
 <div class="row">
-    <div class="col-md-12 text-right form-group">
-        <!--<a id="downloadAnchorElem" style="display:none"></a>-->
-        <!--<button class="btn btn-warning" data-ng-click="downloadSnapshot()">-->
-            <!--<i class="material-icons">&#xE2C4;</i>-->
-            <!--download snapshot-->
-        <!--</button>-->
-
+    <div class="col-md-6">
+        <h4>
+            {{snapshot.name}}@{{snapshot.kong_node_name}}<br>
+            <small>
+                Kong {{snapshot.kong_version.split('-').join('.')}}
+                &nbsp;
+                <i class="mdi mdi-calendar-blank"></i>
+                {{snapshot.createdAt | date}}
+            </small>
+        </h4>
     </div>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="panel panel-default" iln-match-height>
-                    <div class="panel-body">
-                        <p>Snapshot</p>
-                        <h5 class="elipsize"
-                        >{{snapshot.name}}@{{snapshot.kong_node_name}}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default" iln-match-height>
-                    <div class="panel-body">
-                        <p>Kong version</p>
-                        <h5>{{snapshot.kong_version.split('-').join('.')}}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default" iln-match-height>
-                    <div class="panel-body">
-                        <p>Taken at</p>
-                        <h5>{{snapshot.createdAt | date}}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default" iln-match-height>
-                    <div class="panel-body">
-                        <p>Actions</p>
-                        <button class="btn btn-primary btn-block" data-ng-click="showRestoreModal()">
-                            <i class="material-icons">&#xE929;</i>
-                            restore
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-primary" data-ng-click="showRestoreModal()">
+            <i class="material-icons">&#xE929;</i>
+            restore
+        </button>
+        <a id="downloadAnchorElem" style="display:none"></a>
+        <button class="btn btn-warning" data-ng-click="downloadSnapshot()">
+            <i class="material-icons">&#xE2C4;</i>
+            export
+        </button>
     </div>
-    <!--<div class="col-md-12 table-responsive">-->
-        <!--<table class="table table-condensed table-bordered" style="background-color: #fff">-->
-            <!--<tr>-->
-                <!--<th>Name</th>-->
-                <!--<th>Node</th>-->
-                <!--<th>URL</th>-->
-                <!--<th>Kong version</th>-->
-                <!--<th>Taken at</th>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td><strong class="text-primary">{{snapshot.name}}</strong></td>-->
-                <!--<td>{{snapshot.kong_node_name}}</td>-->
-                <!--<td>{{snapshot.kong_node_url}}</td>-->
-                <!--<td>{{snapshot.kong_version.split('-').join('.')}}</td>-->
-                <!--<td>{{snapshot.createdAt | date}}</td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</div>-->
+</div>
+<div class="row">
     <div class="col-md-12">
         <uib-tabset active="active">
             <uib-tab index="$index" data-ng-repeat="(key,value) in snapshot.data">
