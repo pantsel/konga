@@ -30,17 +30,15 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 ## Features
-* Manage all Kong Admin API Objects
-* Manage SSL credentials
-* Mass import consumers from :
-    * CSV document
-    * Google Spreadsheets
-    * MySQL
-    * MongoDB
-    * APIs
-* Manage multiple Gateways
-* Multiple users
-* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server)
+* Manage all Kong Admin API Objects.
+* Manage SSL credentials.
+* Import/Export Consumers.
+* Manage multiple Kong Gateways.
+* Easy Kong Gateway migration using exported consumers and node Snapshots.
+* Gateway and API health checks.
+* Email notifications
+* Multiple users.
+* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
 Konga is compatible with Kong 0.9.x,0.10.x
@@ -139,9 +137,11 @@ Konga GUI will be available at http://localhost:1337
 The following instructions assume that you have a running Kong instance following the
 instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
 <pre>
-$ docker run -p 1337:1337 \
-             --link kong:kong \
-             --name konga \
+$ docker pull pantsel/konga
+$ docker run -p 1337:1337 
+             --link kong:kong
+             --name konga
+             -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
              pantsel/konga
 </pre>
 
@@ -160,6 +160,7 @@ $ docker run -p 1337:1337
              -e "DB_USER=your-db-user" \ // Omit if not relevant
              -e "DB_PASSWORD=your-db-password" \ // Omit if not relevant
              -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
+             -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
              --name konga \
              pantsel/konga
 </pre>

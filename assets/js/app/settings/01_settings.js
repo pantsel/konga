@@ -69,6 +69,10 @@
                                 templateUrl: 'js/app/settings/snapshots/list.html',
                                 controller: 'SnapshotsController'
                             },
+                            'notifications@settings': {
+                                templateUrl: 'js/app/settings/notifications/index.html',
+                                controller: 'NotificationsController',
+                            },
                         }
                     })
                     .state('settings.snapshots.show', {
@@ -89,6 +93,28 @@
                                         function(Snapshot,$stateParams){
                                         return Snapshot.fetch($stateParams.id)
                                     }]
+                                }
+                            },
+                        }
+                    })
+                    .state('settings.node', {
+                        url: '/node/:id',
+                        parent : 'settings',
+                        data : {
+                            access : 0,
+                            pageName : "Node settings",
+                            displayName : "node",
+                            prefix : '<i class="material-icons">&#xE335;</i>'
+                        },
+                        views: {
+                            'content@': {
+                                templateUrl: 'js/app/settings/nodes/node.html',
+                                controller: 'NodeController',
+                                resolve : {
+                                    _node : ['NodeModel','$stateParams',
+                                        function(NodeModel,$stateParams){
+                                            return NodeModel.fetch($stateParams.id)
+                                        }]
                                 }
                             },
                         }

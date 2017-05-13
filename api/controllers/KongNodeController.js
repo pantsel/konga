@@ -10,6 +10,20 @@ var _ = require('lodash');
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
+    subscribeHealthChecks: function(req, res) {
+
+        if (!req.isSocket) {
+            sails.log.error("KongNodeController:subscribe failed")
+            return res.badRequest('Only a client socket can subscribe.');
+        }
+
+        var roomName = 'node.health_checks';
+        sails.sockets.join(req.socket, roomName);
+        res.json({
+            room: roomName
+        });
+    },
+
     update : function(req,res){
         sails.models.kongnode.findOne({id:req.params.id}).exec(function afterwards(err, node){
 

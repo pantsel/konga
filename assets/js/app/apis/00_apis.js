@@ -81,6 +81,10 @@
                                     ]
                                 }
                             },
+                            'healthchecks@apis.edit': {
+                                templateUrl: 'js/app/apis/api-health-checks.html',
+                                controller: 'ApiHealthChecksController',
+                            },
                             'ssl@apis.edit': {
                                 templateUrl: 'js/app/apis/api-ssl.html',
                                 controller: 'ApiSSLController'

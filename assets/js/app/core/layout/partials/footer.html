@@ -24,6 +24,9 @@
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
                         <i class="material-icons">cast_connected</i>
+                        {{user.node.kong_admin_url || N/A}}
+                        |
+                        Kong version : <strong>{{Gateway.version || N/A}}</strong>
                         Connected to
                         <strong>{{user.node.name}}</strong>
                     </a>
@@ -32,7 +35,7 @@
 
                             <a>
 
-                                Choose connection
+                                Choose connetion
                                 <i class="material-icons pull-right clickable" data-ng-click="closeDropdown()">close</i>
                             </a>
                         </li>

@@ -216,8 +216,10 @@
         //});
       }
     ])
-      .controller('MainController',['$log','$scope','$rootScope','UserService','InfoService','AuthService',
-          function($log,$scope,$rootScope,UserService,InfoService,AuthService){
+      .controller('MainController',['$log','$scope','$rootScope','Settings','NodeModel',
+          'UserService','InfoService','AuthService',
+          function($log,$scope,$rootScope,Settings,NodeModel,
+                   UserService,InfoService,AuthService){
 
               $rootScope.user = UserService.user()
               $rootScope.konga_version = window.konga_version
@@ -237,8 +239,19 @@
               })
 
 
-              if(AuthService.isAuthenticated())
-                _fetchGatewayInfo()
+              if(AuthService.isAuthenticated()) {
+                  _fetchGatewayInfo()
+                  _fetchSettings()
+              }
+
+              function _fetchSettings() {
+                  Settings.load()
+                      .then(function(settings){
+                          $log.debug("MainController:_fetchSettings: =>", settings )
+                          $rootScope.konga_settings_id = settings.length ? settings[0].id : null
+                          $rootScope.konga_settings = settings.length ? settings[0].data : {}
+                      })
+              }
 
               function _fetchGatewayInfo() {
                   InfoService.getInfo()

@@ -1,6 +1,8 @@
 'use strict';
 
 var unirest = require("unirest")
+var ApiHealthCheckService = require('../services/ApiHealthCheckService')
+
 
 
 var KongService = {
@@ -48,6 +50,14 @@ var KongService = {
             })
     },
 
+    nodeStatus : function(node,cb) {
+        unirest.get(node.kong_admin_url + "/status")
+            .end(function (response) {
+                if (response.error)  return cb(response)
+                return cb(null,response.body)
+            })
+    },
+
     listAllCb: function (req, endpoint, cb) {
         var getData = function (previousData,url) {
             unirest.get(url)
@@ -90,6 +100,14 @@ var KongService = {
             .send(req.body)
             .end(function (response) {
                 if (response.error) return res.kongError(response)
+
+                if(req.url.indexOf("/kong/apis") > -1) {
+                    // If api was updated, update its health checks as well
+                    ApiHealthCheckService.updateCb({
+                        api_id : response.body.id
+                    },{api : response.body},function(err,updated){})
+                }
+
                 return res.json(response.body)
             })
     },
@@ -99,6 +117,15 @@ var KongService = {
             .send(req.body)
             .end(function (response) {
                 if (response.error) return cb(response)
+
+                if(req.url.indexOf("/kong/apis") > -1) {
+                    // If api was updated, update its health checks as well
+                    // If api was updated, update its health checks as well
+                    ApiHealthCheckService.updateCb({
+                        api_id : response.body.id
+                    },{api : response.body},function(err,updated){})
+                }
+
                 return cb(null,response.body)
             })
     },
@@ -116,6 +143,17 @@ var KongService = {
         unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
             .end(function (response) {
                 if (response.error) return res.kongError(response)
+
+                if(req.url.indexOf("/kong/apis") > -1) {
+                    // If api was deleted, delete its health checks as well
+                    var id = req.url.pop() || req.url.pop();  // handle potential trailing slash
+
+                    // If api was updated, update its health checks as well
+                    ApiHealthCheckService.deleteCb({
+                        api_id : id
+                    },function(err,updated){})
+                }
+
                 return res.json(response.body)
             })
     },
@@ -124,6 +162,16 @@ var KongService = {
         unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
             .end(function (response) {
                 if (response.error) return cb(response)
+
+                if(req.url.indexOf("/kong/apis") > -1) {
+                    // If api was deleted, delete its health checks as well
+                    var id = req.url.pop() || req.url.pop();  // handle potential trailing slash
+
+                    ApiHealthCheckService.deleteCb({
+                        api_id : id
+                    },function(err,updated){})
+                }
+
                 return cb(null,response.body)
             })
     }

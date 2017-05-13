@@ -48,7 +48,9 @@ module.exports = function hook(sails) {
             async.series([
                 sails.models.user.seed,
                 seedPassports,
-                sails.models.kongnode.seed
+                sails.models.kongnode.seed,
+                sails.models.emailtransport.seed,
+                sails.models.settings.seed
             ],next);
         }else{
             sails.models.user

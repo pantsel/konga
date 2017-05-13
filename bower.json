@@ -34,7 +34,7 @@
     "bootswatch-dist": "paper",
     "angular-bootstrap": "~2.1.4",
     "angular-json-human": "~1.2.1",
-    "angular-bootstrap-switch": "~0.5.1",
+    "angular-bootstrap-switch": "~0.5.2",
     "angular-spinkit": "~0.3.4",
     "lodash": "~4.16.4",
     "angular-chips": "~1.0.8",

@@ -32,6 +32,25 @@ All notable changes to this project will be documented in this file.
 * Removed delete and update functionality from Upstreams.
 * Various fixes and improvements
 
+## [0.6.5](https://github.com/pantsel/konga/releases/tag/v0.6.5) - 13-4-2017
+
+* Fixed: Adding apis consecutively pre-populates fields with previous entry (issue #43)
+* Fixed: dashboard not updating when changing node (issue #41).
+* Various fixes and improvements
+
+## [0.6.6](https://github.com/pantsel/konga/releases/tag/v0.6.6) - 25-4-2017
+
+* Fixed issue:  Can't edit consumer/api with custom user #49
+* Fixed bower dependencies
+* Various fixes and improvements
+
+## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 25-4-2017
+* Kong nodes & API health checks
+* Email notifications
+* Export consumers in .json file
+* New consumers import adapter : Konga JSON
+* Various fixes and improvements
+
 ### Note: This version introduces changes in Konga's database. See issue #40 on how they can be implemented.
 
 ## [0.6.5](https://github.com/pantsel/konga/releases/tag/v0.6.5) - 13-4-2017

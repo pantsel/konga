@@ -1,16 +1,16 @@
 'use strict';
 
 var _ = require('lodash');
-var HealthCheckEvents = require("../events/node-health-checks")
+var HealthCheckEvents = require("../events/api-health-checks")
 
 /**
- * KongNode.js
+ * ApiHealthCheck.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
-  tableName : "konga_kong_nodes",
+  tableName : "konga_api_health_checks",
   autoPK : false,
   attributes: {
     id : {
@@ -19,57 +19,55 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       unique: true,
       autoIncrement : true
     },
-    name: {
-      type: 'string',
-      required : true
-    },
-    kong_admin_url: {
-      type: 'string',
-      required : true
-    },
-    kong_version: {
-      type: 'string',
+
+    api_id : {
+      type : "string",
       required : true,
-      defaultsTo : '0-10-x'
+      unique: true
     },
-    health_checks : {
+
+    api : {
+      type : 'json'
+    },
+
+    health_check_endpoint : {
+      type : "string"
+    },
+
+    notification_endpoint : {
+      type : "string",
+    },
+
+    active : {
       type : 'boolean',
       defaultsTo : false
     },
-    health_check_details : {
+
+    data : {
       type : 'json'
-    },
-    active: {
-      type: 'boolean',
-      required : true,
-      defaultsTo : false
     }
   },
+
+
   afterUpdate: function (values, cb) {
 
-    sails.log("KongNode:afterUpdate:called()")
-    sails.log("KongNode:afterUpdate:health_checks",values.health_checks)
+    sails.log("ApiHealthCheck:afterUpdate:called()")
+    sails.log("ApiHealthCheck:afterUpdate:health_checks",values)
 
     // Manage toggle health checks
-    if(values.health_checks) {
+    if(values.active) {
       // Send event to begin health checks for the updated node
-      sails.log("KongNode:afterUpdate:emit health_checks.start")
-      HealthCheckEvents.emit('health_checks.start',values);
+      sails.log("ApiHealthCheck:afterUpdate:emit api.health_checks.start")
+      HealthCheckEvents.emit('api.health_checks.start',values);
     }else{
       // Send event to stop health checks for the updated node
-      sails.log("KongNode:afterUpdate:emit health_checks.stop")
-      HealthCheckEvents.emit('health_checks.stop',values);
+      sails.log("ApiHealthCheck:afterUpdate:emit api.health_checks.stop")
+      HealthCheckEvents.emit('api.health_checks.stop',values);
     }
+
 
     cb()
   },
-  seedData : [
-    {
-      "name" : "default",
-      "kong_admin_url": "http://kong:8001",
-      "active": true
-    }
-  ]
 });
 
 

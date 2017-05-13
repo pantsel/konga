@@ -9,11 +9,11 @@
     angular.module('frontend.settings')
         .controller('NodesController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
-            'SocketHelperService','UserService','SettingsService','MessageService',
+            'SocketHelperService','AuthService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','NodeModel','$localStorage',
             'ListConfig',
             function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
-                                SocketHelperService, UserService,SettingsService, MessageService,
+                                SocketHelperService, AuthService,UserService,SettingsService, MessageService,
                                 $state, $uibModal,DialogService,NodeModel,$localStorage,
                                 ListConfig ) {
 
@@ -28,7 +28,6 @@
                 $scope.user = UserService.user();
                 $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
                 $scope.general_settings = SettingsService.getSettings()
-                //console.log("$scope.general_settings",$scope.general_settings)
 
 
                 $scope.updateSettings = function() {
@@ -127,6 +126,59 @@
                         )
                     ;
                 };
+
+
+                $scope.toggleHealthChecks = function(node) {
+                    NodeModel.update(node.id,{
+                        health_checks : !node.health_checks
+                    }).then(function(_node){
+                        node.health_checks = !node.health_checks
+                        MessageService.success("Health checks " + ( node.health_checks ? " enabled" : " disabled" ) + " for the specified node")
+                    })
+                }
+
+                $scope.onShowStatusCheck = function(node) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/settings/nodes/node-status-check-modal.html',
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,NodeModel,_node){
+
+
+                            $scope.close = function() {
+                                $uibModalInstance.dismiss()
+                            }
+
+                            NodeModel.fetch(_node.id).then(function(node){
+                                $scope.node = node
+                            })
+
+
+                            $scope.toggleHealthChecks = function(node) {
+                                NodeModel.update(node.id,{
+                                    health_checks : node.health_checks
+                                }).then(function(_node){
+                                    $rootScope.$broadcast('kong.node.updated',_node)
+                                    MessageService.success("Health checks " + ( node.health_checks ? " enabled" : " disabled" ) + " for the specified node")
+                                })
+                            }
+
+                            $rootScope.$on('node.health_checks',function(event,data){
+                                if(data.node_id == $scope.node.id) {
+                                    $scope.node.health_check_details = data
+                                    $scope.$apply()
+                                }
+                            })
+
+                        },
+                        resolve: {
+                            _node: function () {
+                                return node
+                            }
+                        }
+                    });
+                }
 
                 $scope.toggleActive = function(node) {
 
@@ -357,6 +409,17 @@
                     if(UserService.user().node && UserService.user().node.id == node.id) updateUserNode()
                 })
 
+                $rootScope.$on('node.health_checks',function(event,data){
+
+                    for(var i=0;i<$scope.nodes.length;i++) {
+                        if(data.node_id == $scope.nodes[i].id) {
+                            $scope.nodes[i].health_check_details = data
+                            $scope.$apply()
+                        }
+                    }
+
+                })
+
                 function updateUserNode(node) {
                     UserModel
                         .update(UserService.user().id, {
@@ -370,6 +433,7 @@
                             }
                         );
                 }
+
 
                 _triggerFetchData()
             }

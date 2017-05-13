@@ -104,6 +104,21 @@ input.form-control, select.form-control{
   }
 }
 
+.modal-header.danger{
+  border-bottom: 2px solid $brand-danger;
+  h1,h2,h3,h4,h5{
+    color: $brand-danger;
+  }
+}
+
+
+.modal-header.primary{
+  border-bottom: 2px solid $brand-primary;
+  h1,h2,h3,h4,h5{
+    color: $brand-primary;
+  }
+}
+
 
 .content {
   margin-top: 20px;

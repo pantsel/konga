@@ -5,11 +5,11 @@
      * Model for Author API, this is used to wrap all Author objects specified actions and data change actions.
      */
     angular.module('frontend.settings')
-        .service('Settings', [
+        .service('EmailTransport', [
             'DataModel',
             function(DataModel) {
 
-                var model = new DataModel('settings');
+                var model = new DataModel('emailtransport');
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}
