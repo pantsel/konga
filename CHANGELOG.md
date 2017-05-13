@@ -65,4 +65,5 @@ All notable changes to this project will be documented in this file.
 * Implemented data polling in the dashboard page (issue #61).
 * Demo user can now define default connection although permissions are not fully implemented yet. It's best that you only use admin users for now (issue #60).
 * Better error handling on profile updates (issue #59).
+* Various minor fixes and improvements
 

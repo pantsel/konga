@@ -230,13 +230,23 @@ input.form-control, select.form-control{
 }
 
 
-.modal-dialog{
-  margin: 0 auto;
-  padding:0;
+.modal {
+  text-align: center;
+}
 
-  .modal-content {
-    border-radius: 0 0 3px 3px;
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
   }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
 
 .bootbox {

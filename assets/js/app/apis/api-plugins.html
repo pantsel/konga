@@ -31,11 +31,19 @@
         <tr
                 dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
             <td>
+                <!--<input-->
+                        <!--uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"-->
+                        <!--ng-change="updatePlugin(item)"-->
+                        <!--ng-model="item.enabled"-->
+                        <!--type="checkbox"/>-->
+
                 <input
-                        uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"
+                        bs-switch
+                        switch-on-color="primary"
                         ng-change="updatePlugin(item)"
                         ng-model="item.enabled"
-                        type="checkbox"/>
+                        type="checkbox"
+                        switch-size="mini">
             </td>
             <td>
                 <raw-view data-item="item"></raw-view>
