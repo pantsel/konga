@@ -6,6 +6,8 @@
 var Sails = require('sails');
 var fs = require('fs');
 
+process.env.NODE_ENV = 'test';
+
 /**
  * Mocha bootstrap before function, that is run before any tests are being processed. This will lift sails.js with
  * test configuration.
