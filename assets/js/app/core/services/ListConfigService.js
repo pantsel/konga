@@ -48,12 +48,12 @@
             }
           ],
           upstream: [
-            {
-              title: '',
-              column : '',
-              checkbox : true,
-              width : 1
-            },
+            //{
+            //  title: '',
+            //  column : '',
+            //  checkbox : true,
+            //  width : 1
+            //},
             {
               title: '',
               column : '',

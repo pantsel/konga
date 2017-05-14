@@ -24,9 +24,7 @@
             </th>
         </tr>
         <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
-            <td>
-                <input type="checkbox" data-ng-model="item.checked"/>
-            </td>
+
             <td>
                 <raw-view data-item="item"></raw-view>
             </td>
