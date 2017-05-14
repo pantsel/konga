@@ -77,7 +77,7 @@ All notable changes to this project will be documented in this file.
 * Proper Certificates implementation
 
 
-## [0.6.9](https://github.com/pantsel/konga/releases/tag/v0.6.9) - 7-5-2017
+## [0.6.9](https://github.com/pantsel/konga/releases/tag/v0.6.9) - 13-5-2017
 
 * Consumers can also be backed up with the Snapshots feature.
 * Request Transformer Plugins can now be restored through Snapshots Feature (issue #62). 
@@ -85,4 +85,11 @@ All notable changes to this project will be documented in this file.
 * Demo user can now define default connection although permissions are not fully implemented yet. It's best that you only use admin users for now (issue #60).
 * Better error handling on profile updates (issue #59).
 * Various minor fixes and improvements
+
+
+## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.6.9) - 14-5-2017
+
+* Node and API health checks.
+* Email notifications when health checks for Nodes or APIs fail.
+* Relative paths support for assets and sails.io.
 

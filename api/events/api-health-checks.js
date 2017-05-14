@@ -252,6 +252,7 @@ module.exports = {
         }
 
         unirest.post(hc.notification_endpoint)
+            .header('Content-Type', 'application/json')
             .send(hc.api)
             .end(function (response) {
                 if (response.error)  {

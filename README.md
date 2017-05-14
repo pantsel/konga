@@ -31,12 +31,11 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 
 ## Features
 * Manage all Kong Admin API Objects.
-* Manage SSL credentials.
-* Import/Export Consumers.
-* Manage multiple Kong Gateways.
-* Easy Kong Gateway migration using exported consumers and node Snapshots.
-* Gateway and API health checks.
-* Email notifications
+* Import Consumers from remote sources (Databases, files, APIs etc.).
+* Manage multiple Kong Nodes.
+* Backup, restore and migrate Kong Nodes using Snapshots.
+* Monitor Node and API states using health checks.
+* Email notifications.
 * Multiple users.
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 

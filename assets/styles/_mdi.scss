@@ -1,40 +1,43 @@
 .mdi::before {
   font-size: 24px;
-  line-height: $line-height-base;
+  top:1px;
+  line-height: 1;
+  vertical-align: sub;
 }
 .btn .mdi::before {
   position: relative;
-  top: 4px;
+  top: 1px;
+  vertical-align: sub;
   line-height: 0.6;
 }
 .btn-xs .mdi::before {
   font-size: 18px;
-  top: 3px;
+  vertical-align: sub;
 }
 .btn-sm .mdi::before {
   font-size: 18px;
-  top: 3px;
+  vertical-align: sub;
 }
 .dropdown-menu .mdi {
   width: 18px;
 }
 .dropdown-menu .mdi::before {
   position: relative;
-  top: 4px;
+  vertical-align: sub;
   left: -8px;
 }
 .nav .mdi::before {
   position: relative;
-  top: 4px;
+  vertical-align: sub;
 }
 .navbar .navbar-toggle .mdi::before {
   position: relative;
-  top: 4px;
+  vertical-align: sub;
   color: #FFF;
 }
 .breadcrumb .mdi::before {
   position: relative;
-  top: 4px;
+  vertical-align: sub;
 }
 .breadcrumb a:hover {
   text-decoration: none;
@@ -44,20 +47,20 @@
 }
 .alert .mdi::before {
   position: relative;
-  top: 4px;
+  vertical-align: sub;
   margin-right: 2px;
 }
 .input-group-addon .mdi::before {
   position: relative;
-  top: 3px;
+  vertical-align: sub;
 }
 .navbar-brand .mdi::before {
   position: relative;
-  top: 2px;
+  vertical-align: sub;
   margin-right: 2px;
 }
 .list-group-item .mdi::before {
   position: relative;
-  top: 3px;
+  vertical-align: sub;
   left: -3px
 }
