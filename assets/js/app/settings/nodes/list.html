@@ -61,11 +61,12 @@
                 </td>
                 <td data-ng-if="user.admin">
                     <i
-                            class="mdi mdi-heart-pulse clickable"
+                            uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            class="mdi mdi-heart-pulse"
                             ng-if="node.health_checks" class="material-icons"
                             data-ng-class="{'text-danger': node.health_check_details && !node.health_check_details.isHealthy,'text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>
 
-                    <i ng-if="!node.health_checks" class="mdi mdi-heart-pulse"></i>
+                    <i uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-pulse"></i>
                 </td>
                 <td><a  editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
                 <td>
