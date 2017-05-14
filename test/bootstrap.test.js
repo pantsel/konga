@@ -1,7 +1,6 @@
 /**
  * Mocha bootstrap file for backend application tests.
  */
-'use strict';
 
 var Sails = require('sails');
 var fs = require('fs');
