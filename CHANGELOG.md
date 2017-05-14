@@ -87,9 +87,10 @@ All notable changes to this project will be documented in this file.
 * Various minor fixes and improvements
 
 
-## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.6.9) - 14-5-2017
+## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 14-5-2017
 
 * Node and API health checks.
 * Email notifications when health checks for Nodes or APIs fail.
+* Import/Export Snapshots.
 * Relative paths support for assets and sails.io.
 
