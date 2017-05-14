@@ -93,4 +93,5 @@ All notable changes to this project will be documented in this file.
 * Email notifications when health checks for Nodes or APIs fail.
 * Import/Export Snapshots.
 * Relative paths support for assets and sails.io.
+* Local db path is now configurable and persistent in docker image with it's own volume.
 
