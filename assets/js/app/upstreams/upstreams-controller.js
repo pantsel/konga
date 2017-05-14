@@ -106,6 +106,7 @@
 
 
                 function _fetchData(){
+                    $scope.loading  = true;
                     var config = ListConfig.getConfig();
 
                     var parameters = {
@@ -114,6 +115,7 @@
 
                     Upstream.load(_.merge({}, parameters)).then(function(response){
                         $scope.items = response.data
+                        $scope.loading  = false;
                     });
                 }
 

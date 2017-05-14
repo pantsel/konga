@@ -6,16 +6,21 @@
         </a>
     </div>
 </div>
-<div class="col-md-12 bg-light-grey padding">
-    <div class="input-group col-sm-4 pull-left">
-        <div class="input-group-addon">
-            <i class="material-icons">&#xE8B6;</i>
-        </div>
-        <input type="text" data-ng-model="search" class="form-control" placeholder="search certificates...">
-    </div>
-    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
-</div>
 <div class="row">
+    <div class="col-md-12">
+        <div class="bg-light-grey padding clearfix">
+            <div class="input-group col-sm-4 pull-left">
+                <div class="input-group-addon">
+                    <i class="material-icons">&#xE8B6;</i>
+                </div>
+                <input type="text" data-ng-model="search" class="form-control" placeholder="search certificates...">
+            </div>
+            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+        </div>
+    </div>
+</div>
+<konga-loader ng-if="loading && !certificates.length"></konga-loader>
+<div class="row" ng-if="!loading || certificates.length">
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-align-top table-striped table-hover">

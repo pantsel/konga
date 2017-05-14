@@ -10,20 +10,6 @@
             <i class="material-icons"><i class="material-icons">&#xE2C6;</i></i>
             Import
         </button>
-        <a id="downloadAnchorElem" style="display:none"></a>
-        <!--<button-->
-                <!--class="btn btn-default" ng-click="exportConsumers()">-->
-            <!--<i class="material-icons"><i class="material-icons">&#xE2C4;</i></i>-->
-            <!--Export-->
-        <!--</button>-->
-        <!--<button-->
-           <!--data-uib-tooltip="Sync Kong consumers to Konga"-->
-           <!--data-ng-disabled="syncing"-->
-           <!--class="btn btn-primary" ng-click="syncConsumers()">-->
-            <!--<fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="syncing"></fading-circle-spinner>-->
-            <!--<i class="material-icons" data-ng-show="!syncing">sync</i>-->
-            <!--sync-->
-        <!--</button>-->
         <button class="btn btn-danger" data-ng-disabled="deleting" ng-click="deleteChecked()">
             <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="deleting"></fading-circle-spinner>
             <i class="material-icons" data-ng-show="!deleting">delete</i>
@@ -32,29 +18,22 @@
     </div>
 
 </div>
-<div class="col-md-12 bg-light-grey padding">
-    <!--<ul uib-pager-->
-        <!--total-items="itemCount"  items-per-page="itemsPerPage" class="pull-right no-margin" align="false"  ng-model="paging.currentPage"></ul>-->
-    <!--<ul uib-pagination-->
-        <!--class="pagination pull-right"-->
-        <!--data-total-items="itemCount"-->
-        <!--data-ng-model="paging.currentPage"-->
-        <!--data-ng-change="pageChanged()"-->
-        <!--data-items-per-page="itemsPerPage"-->
-        <!--data-max-size="10"-->
-        <!--data-boundary-links="true"-->
-        <!--data-rotate="false"-->
-    <!--&gt;</ul>-->
-    <list-search
-            class="pull-left margin-right"
-            data-filters="filters"
-            data-options="itemsPerPageOptions"
-            data-items="itemsPerPage"
-    ></list-search>
-</div>
 <div class="row">
+    <div class="col-md-12">
+        <div class="bg-light-grey padding clearfix">
+            <list-search
+                    class="pull-left margin-right"
+                    data-filters="filters"
+                    data-options="itemsPerPageOptions"
+                    data-items="itemsPerPage"
+            ></list-search>
+        </div>
+    </div>
 
+</div>
 
+<konga-loader ng-if="loading && !items.length"></konga-loader>
+<div class="row" ng-if="!loading || items.length">
     <div class="col-md-12">
         <div
                 class="table-responsive"

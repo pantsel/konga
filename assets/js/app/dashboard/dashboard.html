@@ -14,18 +14,7 @@
         </div>
     </div>
 </div>
-<div class="row" data-ng-if="loading && !error">
-    <div class="col-md-12 text-center margin padding">
-        <h4>Connecting to node. Please wait...</h4>
-        <br>
-        <div class="anim-loader">
-            <span class="dot dot_1"></span>
-            <span class="dot dot_2"></span>
-            <span class="dot dot_3"></span>
-            <span class="dot dot_4"></span>
-        </div>
-    </div>
-</div>
+<konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
 <div class="row" data-ng-if="!loading && !error && info">
 
     <div class="col-md-8">

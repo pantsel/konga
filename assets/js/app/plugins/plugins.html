@@ -6,17 +6,24 @@
         </a>
     </div>
 </div>
-<div class="col-md-12 bg-light-grey padding">
-    <div class="input-group col-sm-4 pull-left">
-        <div class="input-group-addon">
-            <i class="material-icons">&#xE8B6;</i>
+<div class="row">
+    <div class="col-md-12">
+        <div class="bg-light-grey padding clearfix">
+            <div class="input-group col-sm-4 pull-left">
+                <div class="input-group-addon">
+                    <i class="material-icons">&#xE8B6;</i>
+                </div>
+                <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
+            </div>
+            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
         </div>
-        <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
     </div>
-    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
 </div>
 
-<div class="row">
+
+<konga-loader ng-if="loading && !plugins.data.length"></konga-loader>
+
+<div class="row" ng-if="!loading || plugins.data.length">
 
     <div class="table-responsive col-md-12">
         <table class="table table-hover table-striped">
@@ -61,9 +68,9 @@
                 <td>{{item.created_at | date : format : timezone}}</td>
 
                 <td>
-                    <button type="button" ng-click="onEditPlugin(item)" class="btn btn-warning btn-link">
-                        <i class="material-icons">&#xE254;</i>
-                        Edit
+                    <button type="button" ng-click="onEditPlugin(item)" class="btn btn-primary btn-link">
+                        <i class="mdi mdi-settings"></i>
+                        configuration
                     </button>
                 </td>
                 <td>

@@ -9,20 +9,19 @@
   angular.module('frontend.plugins')
     .controller('PluginsController', [
         '_','$scope', '$log', '$state','ApiService','PluginsService',
-        '$uibModal','DialogService','InfoService','_plugins',
+        '$uibModal','DialogService','InfoService',
       function controller(_,$scope, $log, $state, ApiService, PluginsService,
-                          $uibModal,DialogService,InfoService,_plugins ) {
+                          $uibModal,DialogService,InfoService ) {
 
           //$scope.api = _api.data
           //$state.current.data.pageName = "Plugins <small>( API : " + ( $scope.api.name || $scope.api.id )+ " )</small>"
 
-          $scope.plugins = _plugins.data
+          //$scope.plugins = _plugins.data
           $scope.onEditPlugin = onEditPlugin
           $scope.deletePlugin = deletePlugin
           $scope.updatePlugin = updatePlugin
           $scope.search = ''
 
-          $log.debug("Plugins",$scope.plugins.data)
 
           /**
            * ----------------------------------------------------------------------
@@ -79,9 +78,11 @@
           }
 
           function fetchPlugins() {
+              $scope.loading = true;
                 PluginsService.load()
                     .then(function(res){
                         $scope.plugins = res.data
+                        $scope.loading = false;
                     })
           }
 
@@ -104,6 +105,8 @@
               fetchPlugins()
           })
 
+
+          fetchPlugins();
 
       }
     ])

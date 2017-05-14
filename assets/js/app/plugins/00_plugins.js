@@ -23,15 +23,7 @@
                         views: {
                             'content@': {
                                 templateUrl: 'js/app/plugins/plugins.html',
-                                controller: 'PluginsController',
-                                resolve: {
-                                    _plugins : [
-                                        'PluginsService',
-                                        function(PluginsService) {
-                                            return PluginsService.load()
-                                        }
-                                    ]
-                                }
+                                controller: 'PluginsController'
                             }
                         }
                     })

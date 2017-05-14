@@ -12,15 +12,20 @@
         <!--</button>-->
     </div>
 </div>
-<div class="col-md-12 bg-light-grey padding">
-    <list-search
-            class="pull-left margin-right"
-            data-filters="filters"
-            data-options="itemsPerPageOptions"
-            data-items="itemsPerPage"
-    ></list-search>
-</div>
 <div class="row">
+    <div class="col-md-12">
+        <div class="bg-light-grey padding clearfix">
+            <list-search
+                    class="pull-left margin-right"
+                    data-filters="filters"
+                    data-options="itemsPerPageOptions"
+                    data-items="itemsPerPage"
+            ></list-search>
+        </div>
+    </div>
+</div>
+<konga-loader ng-if="loading && !items.length"></konga-loader>
+<div class="row" ng-if="!loading || items.length">
     <div class="col-md-12">
         <div
                 class="table-responsive"
