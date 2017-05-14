@@ -20,4 +20,6 @@ EXPOSE 1337
 
 RUN chmod 777 ./start.sh
 
+VOLUME /kongadata
+
 ENTRYPOINT ["/bin/bash","./start.sh"]

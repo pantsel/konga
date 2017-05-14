@@ -27,7 +27,9 @@ module.exports.connections = {
    * Installed by default.
    */
   localDiskDb: {
-    adapter: 'sails-disk'
+    adapter: 'sails-disk',
+    filePath:  process.env.DB_PATH || '/kongadata/',
+    fileName: 'konga.db'
   },
 
   /**
