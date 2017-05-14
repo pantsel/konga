@@ -22,32 +22,20 @@
           $scope.sections = [
               {
                   name : 'API Details',
-                  icon : '&#xE88F;',
+                  icon : 'mdi mdi-information-outline',
                   isVisible : true
               },
               {
                   name : 'Assigned plugins',
-                  icon : '&#xE8C1;',
+                  icon : 'mdi mdi-power-plug',
                   isVisible : true
               },
               {
                   name : 'Health Checks',
-                  icon : '&#xE87E;',
+                  icon : 'mdi mdi-heart-pulse',
                   isVisible : true
-              },
-              {
-                  name : 'SSL',
-                  icon : '&#xE32A;',
-                  isVisible : false
               }
           ]
-
-
-
-          //$rootScope.$watch('Gateway',function(newval) {
-          //    $scope.sections[2].isVisible = newval && newval.version.indexOf("0.10.") > -1
-          //})
-
 
 
           $scope.showSection = function(index) {

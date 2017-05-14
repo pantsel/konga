@@ -8,24 +8,13 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope','$rootScope', '$log', '$state','ApiService','UserService','$uibModal','DialogService','SettingsService','_apis',
-      function controller($scope,$rootScope, $log, $state, ApiService, UserService,$uibModal,DialogService,SettingsService,_apis ) {
+      '$scope','$rootScope', '$log', '$state','ApiService','UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
+      function controller($scope,$rootScope, $log, $state, ApiService, UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
 
           $scope.user = UserService.user()
-          $scope.apis = _apis.data
           $scope.settings = SettingsService.getSettings()
 
-          function getApis(){
-              $scope.loading = true;
-              ApiService.all()
-                  .then(function(res){
-                      $scope.apis = res.data
-                      $scope.loading= false;
-                  }).catch(function(err){
-                  $scope.loading= false;
-              })
 
-          }
 
           $scope.toggleStripRequestPathOrUri = function(api) {
 
@@ -98,6 +87,47 @@
               })
 
           }
+
+
+          function getApis(){
+              $scope.loading = true;
+              ApiService.all()
+                  .then(function(res){
+                      $scope.apis = res.data
+                      assginApisHealthChecks();
+                      $scope.loading= false;
+                  }).catch(function(err){
+                  $scope.loading= false;
+              })
+
+          }
+
+
+          function assginApisHealthChecks() {
+              $scope.apis.data.forEach(function(api){
+                  if(!api.health_checks){
+                      ApiHCModel.load({
+                          api_id : api.id,
+                          limit : 1
+                      }).then(function(data){
+                          if(data[0]) api.health_checks = data[0]
+                      })
+                  }
+              })
+          }
+
+
+          getApis();
+
+
+          $scope.$on('api.health_checks',function(event,data){
+              $scope.apis.data.forEach(function(api){
+                  if(api.health_checks && data.hc_id == api.health_checks.id) {
+                      api.health_checks.data = data
+                      $scope.$apply()
+                  }
+              })
+          })
 
       }
     ])

@@ -13,7 +13,7 @@
                         ng-class="{'active' : sections[activeSection].name == section.name }"
                         data-ng-click="showSection($index)"
                         data-ng-repeat="section in sections">
-                    <i class="material-icons" data-ng-bind-html="section.icon"></i>
+                    <i class="{{section.icon}}"></i>
                     {{section.name}}
                 </a>
             </div>
@@ -24,7 +24,6 @@
         <div data-ui-view="details" ng-show="activeSection == 0"></div>
         <div data-ui-view="plugins" ng-show="activeSection == 1"></div>
         <div data-ui-view="healthchecks" ng-show="activeSection == 2"></div>
-        <div ng-if="Gateway.version.indexOf('0.10.') > -1" data-ui-view="ssl" ng-show="activeSection == 3"></div>
 
     </div>
 </div>

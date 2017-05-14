@@ -60,6 +60,7 @@
 
           $scope.$on('api.health_checks',function(event,data){
 
+              if(!$scope.apiHC) return false;
               if(data.hc_id == $scope.apiHC.id) {
                   $scope.apiHC.data = data
                   $scope.$apply()

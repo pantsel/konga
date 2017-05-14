@@ -24,6 +24,7 @@
                     <th width="1"></th>
                     <th width="1"></th>
                     <th width="1"></th>
+                    <th width="1"></th>
                     <th>Name</th>
                     <th>Upstream URL</th>
                     <th>Created</th>
@@ -41,8 +42,6 @@
                                 class="material-icons clickable">
                             font_download
                         </i>
-
-
                     </td>
                     <td>
                         <i
@@ -55,6 +54,14 @@
 
                     </td>
                     <td>
+                        <i
+                            ng-if="api.health_checks && api.health_checks.active"
+                            class="mdi mdi-heart-pulse"
+                            uib-tooltip="{{api.health_checks.data ? ( api.health_checks.data.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            data-ng-class="{'text-danger': api.health_checks.data && !api.health_checks.data.isHealthy,'text-success': api.health_checks.data && api.health_checks.data.isHealthy}"></i>
+
+                        <i uib-tooltip="HC disabled" ng-if="!api.health_checks || !api.health_checks.active" class="mdi mdi-heart-pulse"></i></td>
+                    <td>
                         <raw-view data-item="api"></raw-view>
                     </td>
                     <td>
@@ -65,9 +72,9 @@
                     <td>{{ api.upstream_url || "-" }}</td>
                     <td>{{api.created_at | date : format : timezone}}</td>
                     <td>
-                        <a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-warning btn-link">
-                            <i class="material-icons">edit</i>
-                            edit
+                        <a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-primary btn-link">
+                            <i class="mdi mdi-settings"></i>
+                            configuration
                         </a>
                     </td>
                     <td>
