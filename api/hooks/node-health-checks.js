@@ -1,4 +1,4 @@
-'use strict';
+
 
 var HealthCheckEvents = require("../events/node-health-checks")
 var cron = require('node-cron');
