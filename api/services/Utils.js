@@ -1,9 +1,14 @@
 module.exports = {
-    removeEmptyObjects : function removeEmpty(obj) {
-        Object.keys(obj).forEach(function(key) {
-            (obj[key] && typeof obj[key] === 'object') && removeEmpty(obj[key]) ||
-            (obj[key] === '' || obj[key] === null || Object.keys(obj[key]).length == 0) && delete obj[key]
-        });
-        return obj;
+    Object : {
+        clean : function clean(obj) {
+            for(var key in obj) {
+                if(JSON.stringify(obj[key])=="{}" || !obj[key]) {
+                    delete obj[key];
+                } else if (typeof obj[key] == "object") {
+                    obj[key] = this.clean(obj[key]);
+                }
+            }
+            return obj;
+        }
     }
 }
