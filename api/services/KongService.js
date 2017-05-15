@@ -10,6 +10,7 @@ var KongService = {
     create: function (req, res) {
 
         unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
                 if (response.error)  return res.kongError(response)
@@ -20,6 +21,7 @@ var KongService = {
     createCb: function (req, res, cb) {
 
         unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
                 if (response.error)  return cb(response)
@@ -44,6 +46,7 @@ var KongService = {
 
     retrieve: function (req, res) {
         unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
@@ -52,6 +55,7 @@ var KongService = {
 
     nodeStatus : function(node,cb) {
         unirest.get(node.kong_admin_url + "/status")
+            .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
@@ -61,6 +65,7 @@ var KongService = {
     listAllCb: function (req, endpoint, cb) {
         var getData = function (previousData,url) {
             unirest.get(url)
+                .header('Content-Type', 'application/json')
                 .end(function (response) {
                     if (response.error) return cb(response)
                     var data = previousData.concat(response.body.data);
@@ -80,6 +85,7 @@ var KongService = {
     list: function (req, res) {
         var getData = function (previousData,url) {
             unirest.get(url)
+                .header('Content-Type', 'application/json')
                 .end(function (response) {
                     if (response.error) return res.kongError(response)
                     var apis = previousData.concat(response.body.data);
@@ -97,6 +103,7 @@ var KongService = {
 
     update: function (req, res) {
         unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
                 if (response.error) return res.kongError(response)
@@ -114,6 +121,7 @@ var KongService = {
 
     updateCb: function (req, res,cb) {
         unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
                 if (response.error) return cb(response)
@@ -132,6 +140,7 @@ var KongService = {
 
     updateOrCreate: function (req, res) {
         unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
                 if (response.error) return res.kongError(response)
@@ -141,6 +150,7 @@ var KongService = {
 
     delete: function (req, res) {
         unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error) return res.kongError(response)
 
@@ -160,6 +170,7 @@ var KongService = {
 
     deleteCb: function (req, res,cb) {
         unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
+            .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error) return cb(response)
 
