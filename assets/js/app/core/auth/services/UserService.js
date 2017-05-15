@@ -36,7 +36,7 @@
 
           function updateUser(user,keepNode) {
 
-              var existingUser = user()
+              var existingUser = $localStorage.credentials ? $localStorage.credentials.user : {};
 
               // Only update localStorage if user is the same
               if(existingUser.id == user.id) {
