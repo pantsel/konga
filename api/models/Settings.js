@@ -25,6 +25,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
   seedData : [
     {
       "data" : {
+        signup : {
+          enable : true,
+          require_activation : false
+        },
+        info_polling_interval : 5000,
         email_notifications : false,
         default_transport : 'sendmail',
         notify_when : {
