@@ -8,6 +8,7 @@
 @import 'angular';
 @import "animloader";
 @import "mdi";
+@import "login";
 
 
 $color-footer-text: #999;
@@ -618,4 +619,11 @@ pre {
 tr.disabled{
   opacity: .7;
   background-color: #eaeaea;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
+  border: none;
+  -webkit-box-shadow: inset 0 -3px 0 #03A9F4;
+  box-shadow: inset 0 -3px 0 #03A9F4;
+  color: #03A9F4;
 }

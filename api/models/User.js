@@ -29,12 +29,10 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       unique: true
     },
     firstName: {
-      type: 'string',
-      required: true
+      type: 'string'
     },
     lastName: {
-      type: 'string',
-      required: true
+      type: 'string'
     },
     admin: {
       type: 'boolean',

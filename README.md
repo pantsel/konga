@@ -9,7 +9,6 @@
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
-> Konga [0.7.0](https://github.com/pantsel/konga/tree/konga-070) is underway and introduces new cool features like consumers exporting, Node and API health checks as well as Email notifications. Whoever wants to test it and drop some feedback is most welcome to do so. Don't forget to run Konga in dev mode once so that the db changes will be applied.
 
 ## Summary
 

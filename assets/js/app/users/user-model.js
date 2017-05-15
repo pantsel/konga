@@ -6,8 +6,8 @@
      */
     angular.module('frontend.users')
         .service('UserModel', [
-            'DataModel','DataService','$q','$log',
-            function(DataModel,DataService,$q,$log) {
+            'DataModel','DataService','$q','$log','$http',
+            function(DataModel,DataService,$q,$log,$http) {
 
                 var model = new DataModel('user');
 
@@ -61,43 +61,12 @@
                     }
                 }
 
+                model.signup = function signup(data) {
+                    return $http.post('auth/signup',data)
+                }
+
                 return model;
-                //
-                //model.create = function create(data) {
-                //    var self = this;
-                //    var defer = $q.defer()
-                //
-                //    if(data.passports.password !== data.password_confirmation) {
-                //
-                //        defer.reject({
-                //            data: {
-                //                invalidAttributes: {
-                //                    password_confirmation: [
-                //                        {message: "Password and password confirmation don't match"}
-                //                    ]
-                //                }
-                //            }
-                //        })
-                //    }else{
-                //        DataService
-                //            .create(self.endpoint, data)
-                //            .then(
-                //                function onSuccess(result) {
-                //                    defer.resolve(result);
-                //                },
-                //                function onError(error) {
-                //                    $log.error('DataModel.create() failed.', error, self.endpoint, data);
-                //                    defer.reject(error)
-                //                }
-                //            )
-                //    }
-                //
-                //
-                //
-                //    return defer.promise
-                //};
-                //
-                //return model
+
             }
         ])
     ;

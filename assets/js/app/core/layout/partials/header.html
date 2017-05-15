@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" data-ng-if="isAuthenticated()">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -38,7 +38,7 @@
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
                         &nbsp;
-                        <span class="greeting">{{user().firstName}} {{user().lastName}}</span>
+                        <span class="greeting">Hello, {{user().username}}</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">

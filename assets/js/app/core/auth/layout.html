@@ -1,0 +1,15 @@
+<div class="row page-login">
+    <div class="col-md-12">
+        <div class="login-form-container">
+            <img ng-src="images/konga-logo.png" class="img-responsive margin-bottom"/>
+            <br>
+            <ul class="nav nav-tabs nav-justified">
+                <li ui-sref="auth.login" ui-sref-active="active"><a>LOGIN</a></li>
+                <li ui-sref="auth.signup" ui-sref-active="active"><a>SIGNUP</a></li>
+            </ul>
+            <br>
+            <div data-ui-view="authContent"></div>
+            <p class="help-block text-center">KONGA {{konga_version}}</p>
+        </div>
+    </div>
+</div>

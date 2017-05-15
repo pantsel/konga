@@ -1,0 +1,14 @@
+.page-login{
+  margin-top: 50px;
+  .login-form-container{
+    margin: auto;
+    width: 320px;
+    max-width: 90%;
+
+    .form-group{
+      &.has-error{
+        background-color: transparent !important;
+      }
+    }
+  }
+}

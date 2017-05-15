@@ -51,6 +51,8 @@ module.exports.routes = {
   'POST /auth/local': 'AuthController.callback',
   'POST /auth/local/:action': 'AuthController.callback',
 
+  'POST /auth/signup': 'AuthController.signup',
+
   '/auth/:provider': 'AuthController.provider',
   '/auth/:provider/callback': 'AuthController.callback',
   '/auth/:provider/:action': 'AuthController.callback',

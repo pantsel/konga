@@ -10,6 +10,33 @@ var _ = require('lodash');
  * includes the minimum amount of functionality for the basics of Passport.js to work.
  */
 var AuthController = {
+
+
+  signup : function(req,res) {
+
+    var data = req.allParams()
+    var passports = data.passports
+    delete data.passports;
+    delete data.password_confirmation
+
+
+    sails.models.user
+        .create(data)
+        .exec(function(err,user){
+          if(err) return res.negotiate(err)
+
+          sails.models.passport
+              .create({
+                protocol: passports.protocol,
+                password : passports.password,
+                user : user.id
+              }).exec(function(err,passport){
+            if(err) return res.negotiate(err)
+            return res.json(user)
+          })
+        })
+  },
+
   /**
    * Log out a user and return them to the homepage
    *

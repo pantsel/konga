@@ -22,8 +22,10 @@ module.exports.policies = {
   '*': ['authenticated'],
 
   AuthController: {
+    'checkPassword':  ['authenticated'],
+    'signup':         ['createUser'],
     '*':              ['passport'],
-    'checkPassword':  ['authenticated']
+
   },
 
   KongInfoController : {

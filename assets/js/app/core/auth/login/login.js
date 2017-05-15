@@ -24,7 +24,7 @@
               access: 0
             },
             views: {
-              'content@': {
+              'authContent': {
                 templateUrl: 'js/app/core/auth/login/login.html',
                 controller: 'LoginController'
               }
@@ -35,10 +35,10 @@
     ])
     .controller('LoginController', [
           '$scope', '$state',
-          'AuthService', 'FocusOnService',
+          'AuthService', 'FocusOnService','MessageService',
           function controller(
               $scope, $state,
-              AuthService, FocusOnService
+              AuthService, FocusOnService, MessageService
           ) {
 
               // Scope function to perform actual login request to server
@@ -50,8 +50,7 @@
                               $state.go('dashboard');
                           },
                           function errorCallback(err) {
-                              $scope.loginError = err.data.message
-                              _reset();
+                              MessageService.error(err.data.message)
                           }
                       )
                   ;

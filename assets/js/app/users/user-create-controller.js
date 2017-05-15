@@ -32,7 +32,7 @@
           $scope.createUser = function createUser() {
               $scope.busy = true;
               UserModel
-                  .create(angular.copy($scope.user))
+                  .signup(angular.copy($scope.user))
                   .then(
                       function onSuccess(result) {
                           MessageService.success('New user created successfully');
