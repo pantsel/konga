@@ -29,19 +29,28 @@
     .factory('UserService', [
         '_','$localStorage','$rootScope',
       function factory(_,$localStorage,$rootScope) {
+
+          function user() {
+              return $localStorage.credentials ? $localStorage.credentials.user : {};
+          }
+
+          function updateUser(user,keepNode) {
+
+              var existingUser = user()
+
+              // Only update localStorage if user is the same
+              if(existingUser.id == user.id) {
+                  if(keepNode) {
+                      user.node =$localStorage.credentials.user.node // Retain user node
+                  }
+                  $localStorage.credentials.user = user;
+                  $rootScope.$broadcast('user.updated',$localStorage.credentials.user)
+              }
+          }
+
         return {
-          user: function user() {
-            return $localStorage.credentials ? $localStorage.credentials.user : {};
-          },
-
-            updateUser : function(user,keepNode) {
-
-                if(keepNode) {
-                    user.node =$localStorage.credentials.user.node // Retain user node
-                }
-                $localStorage.credentials.user = user;
-                $rootScope.$broadcast('user.updated',$localStorage.credentials.user)
-            }
+            user: user,
+            updateUser : updateUser
         };
       }
     ])
