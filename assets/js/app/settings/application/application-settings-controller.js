@@ -7,7 +7,7 @@
     'use strict';
 
     angular.module('frontend.settings')
-        .controller('NotificationsController', [
+        .controller('ApplicationSettingsController', [
             '_','$scope', '$rootScope','$log','EmailTransport',
             'Settings','MessageService','$uibModal',
             function controller(_,$scope, $rootScope,$log,EmailTransport,

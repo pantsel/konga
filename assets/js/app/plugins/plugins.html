@@ -34,7 +34,7 @@
                 <th>API</th>
                 <th>Consumer</th>
                 <th>Created</th>
-                <th width="1"></th>
+                <!--<th width="1"></th>-->
                 <th width="1"></th>
             </tr>
             <tr
@@ -56,7 +56,7 @@
                 <td>
                     <raw-view data-item="item"></raw-view>
                 </td>
-                <th>{{item.name}}</th>
+                <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
                 <td>
                     <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
                     <span data-ng-if="!item.api_id" >All APIs</span>
@@ -67,12 +67,6 @@
                 </td>
                 <td>{{item.created_at | date : format : timezone}}</td>
 
-                <td>
-                    <button type="button" ng-click="onEditPlugin(item)" class="btn btn-primary btn-link">
-                        <i class="mdi mdi-settings"></i>
-                        configuration
-                    </button>
-                </td>
                 <td>
                     <button type="button" ng-click="deletePlugin(item)" class="btn btn-danger btn-link">
                         <i class="material-icons">&#xE872;</i>

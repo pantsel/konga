@@ -33,7 +33,7 @@
                     <th>Name</th>
                     <th>Upstream URL</th>
                     <th>Created</th>
-                    <th width="1"></th>
+                    <!--<th width="1"></th>-->
                     <th width="1"></th>
                 </tr>
                 <tr
@@ -76,15 +76,15 @@
                     </td>
                     <td>{{ api.upstream_url || "-" }}</td>
                     <td>{{api.created_at | date : format : timezone}}</td>
-                    <td>
-                        <a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-primary btn-link">
-                            <i class="mdi mdi-settings"></i>
-                            configuration
-                        </a>
-                    </td>
+                    <!--<td>-->
+                        <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
+
+                            <!--edit-->
+                        <!--</a>-->
+                    <!--</td>-->
                     <td>
                         <button type="button" ng-click="deleteApi($index,api)" class="btn btn-danger btn-link">
-                            <i class="material-icons">&#xE872;</i>
+                            <i class="mdi mdi-delete"></i>
                             Delete
                         </button>
                     </td>

@@ -30,15 +30,15 @@
             <td>
                 <raw-view data-item="consumer"></raw-view>
             </td>
-            <td>{{consumer.username || "-"}}</td>
+            <td><a data-ui-sref="consumers.edit({'id':consumer.id})"><strong>{{consumer.username || "-"}}</strong></a></td>
             <td>{{consumer.custom_id || "-"}}</td>
             <td>{{moment(consumer.created_at).format("MMM DD YYYY @h:mm")}}</td>
-            <td>
-                <a data-ui-sref="consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">
-                    <i class="material-icons">settings</i>
-                    Configuration
-                </a>
-            </td>
+            <!--<td>-->
+                <!--<a data-ui-sref="consumers.edit({'id':consumer.id})" class="btn btn-primary btn-link">-->
+                    <!--<i class="material-icons">settings</i>-->
+                    <!--Configuration-->
+                <!--</a>-->
+            <!--</td>-->
             <td>
                 <button type="button" ng-click="deleteConsumer(consumer)" class="btn btn-danger btn-link">
                     <i class="material-icons">&#xE872;</i>

@@ -163,11 +163,11 @@
               column: 'created_at',
               sortable: true,
             },
-            {
-              title: '',
-              column: '',
-              width : 1
-            },
+            //{
+            //  title: '',
+            //  column: '',
+            //  width : 1
+            //},
             {
               title: '',
               column: '',

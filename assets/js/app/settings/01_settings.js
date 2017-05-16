@@ -93,19 +93,19 @@
                             },
                         }
                     })
-                    .state('settings.notifications', {
-                        url: '/notifications',
+                    .state('settings.application', {
+                        url: '/application',
                         parent : 'settings',
                         data : {
                             access : 0,
                             //pageName : "Node settings",
-                            displayName : "notifications",
+                            displayName : "Application",
                             //prefix : '<i class="material-icons">&#xE335;</i>'
                         },
                         views: {
                             'settingsContent': {
-                                templateUrl: 'js/app/settings/notifications/index.html',
-                                controller: 'NotificationsController'
+                                templateUrl: 'js/app/settings/application/index.html',
+                                controller: 'ApplicationSettingsController'
                             },
                         }
                     })
