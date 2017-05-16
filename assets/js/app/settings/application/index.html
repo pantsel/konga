@@ -89,8 +89,7 @@
                                             data-ng-click="configureTransport(transport)"
                                             data-ng-class="{'text-white':KONGA_CONFIG.default_transport == transport.name}"
                                     >
-                                        <i class="material-icons">settings</i>
-                                        configure
+                                        <i class="mdi mdi-settings"></i>
                                     </button>
                                 </div>
                                 <div class="clearfix"></div>
@@ -149,7 +148,7 @@
                 <div class="col-md-12">
                     <h6>{{context.toUpperCase()}}</h6>
                     <div class="well">
-                        <label class="checkbox-inline margin-bottom margin-right" data-ng-repeat="(key,value) in permissions">
+                        <label class="checkbox-inline margin-right" data-ng-repeat="(key,value) in permissions">
                             <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.user_permissions[context][key]">
                             {{key}}
                         </label>
