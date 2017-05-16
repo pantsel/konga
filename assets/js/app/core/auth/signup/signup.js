@@ -60,6 +60,7 @@
                                   .login(credentials)
                                   .then(
                                       function successCallback() {
+                                          $(".login-form-container").hide()
                                           $state.go('dashboard');
                                       },
                                       function errorCallback(err) {

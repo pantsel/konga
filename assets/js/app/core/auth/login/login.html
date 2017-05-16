@@ -1,5 +1,4 @@
 <form name="loginForm" method="post" novalidate="novalidate">
-    <br>
     <div class="form-group"
          data-show-errors
     >
@@ -30,7 +29,7 @@
     <div class="form-group">
         <button class="btn btn-primary btn-block"
                 data-ng-click="login()"
-                data-ng-disabled="!loginForm.$valid"
+                data-ng-disabled="!loginForm.$valid || busy"
         >
             Login
         </button>

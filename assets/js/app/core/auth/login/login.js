@@ -43,14 +43,18 @@
 
               // Scope function to perform actual login request to server
               $scope.login = function login() {
+                  $scope.busy = true;
                   AuthService
                       .login($scope.credentials)
                       .then(
                           function successCallback() {
+                              $(".login-form-container").hide()
                               $state.go('dashboard');
+                              $scope.busy = false;
                           },
                           function errorCallback(err) {
                               MessageService.error(err.data.message)
+                              $scope.busy = false;
                           }
                       )
                   ;
