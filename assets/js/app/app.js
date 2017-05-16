@@ -191,7 +191,7 @@
             }
 
 
-            if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup.enable) {
+            if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup_enable) {
                 event.preventDefault();
                 $state.go('auth.login', params, {location: 'replace'})
             }
