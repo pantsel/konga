@@ -1,10 +1,11 @@
 <form name="loginForm" method="post" novalidate="novalidate">
-    <div class="form-group form-group-lg"
+    <div class="form-group "
          data-show-errors
          ng-class="{'has-error' : errors.username}"
     >
+        <label class="control-label no-margin">Username <span class="text-danger text-small">*</span></label>
         <input type="text" name="username" class="form-control username"
-               placeholder="Username..." autofocus autocomplete="off" required="required"
+               placeholder="Enter your username..." autofocus autocomplete="off" required="required"
                data-focus-on="username"
                data-ng-model="user.username"
         />
@@ -13,13 +14,15 @@
 
     </div>
 
-    <div class="form-group form-group-lg"
+    <div class="form-group "
          ng-class="{'has-error' : errors.email}"
          data-show-errors
     >
+
+        <label class="control-label no-margin">Email  <span class="text-danger text-small">*</span></label>
         <input type="email" name="email"
                class="form-control password"
-               placeholder="Email..." required="required"
+               placeholder="Enter your email..." required="required"
                data-ng-model="user.email"
         />
         <p class="help-block no-margin" ng-show="loginForm.email.$touched && loginForm.email.$error.required">The email is required.</p>
@@ -27,28 +30,30 @@
 
 
     </div>
-    <div class="form-group form-group-lg"
+    <div class="form-group "
          data-show-errors
          ng-class="{'has-error' : errors.password}"
     >
+        <label class="control-label no-margin">Password <span class="text-danger text-small">*</span></label>
         <input autocomplete="new-password" type="password" name="password"
                class="form-control password"
-               placeholder="Password..." required="required"
+               placeholder="Enter your password..." required="required"
                data-ng-model="user.passports.password"
         />
         <p class="help-block no-margin" ng-show="loginForm.password.$touched && loginForm.password.$error.required">Password is required.</p>
 
 
     </div>
-    <div class="form-group form-group-lg"
+    <div class="form-group "
          ng-class="{'has-error' : errors.password_confirmation}"
          data-show-errors="{ trigger: 'keypress' }"
     >
+        <label class="control-label no-margin">Password confirmation <span class="text-danger text-small">*</span></label>
         <input
                 ng-pattern="user.passports.password"
                 autocomplete="new-password" type="password" name="password_confirmation"
                class="form-control password"
-               placeholder="Confirm password..." required="required"
+               placeholder="Confirm your password..." required="required"
                data-ng-model="user.password_confirmation"
         />
         <div ng-messages="loginForm.password_confirmation.$error" ng-if="loginForm.password_confirmation.$dirty && loginForm.password_confirmation.$invalid">
@@ -58,7 +63,7 @@
         </div>
     <br>
     <div class="form-group">
-        <button class="btn btn-primary btn-lg btn-block"
+        <button class="btn btn-primary btn-block"
                 data-ng-click="signup()"
                 data-ng-disabled="!loginForm.$valid || busy"
         >

@@ -28,34 +28,25 @@
         </div>
         <div class="col-md-9">
             <div class="form-group">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <tr>
-                            <td width="1">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_enable">
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <h6 class="no-margin">Allow users to sign up from the login page.</h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="1">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_require_activation">
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <h6 class="no-margin">Send activation email</h6>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_enable">
+                            </label>
+                            Allow users to sign up from the login page.
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_require_activation">
+                            </label>
+                            Send activation email
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

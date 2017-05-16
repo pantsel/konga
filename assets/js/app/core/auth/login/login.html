@@ -1,9 +1,11 @@
 <form name="loginForm" method="post" novalidate="novalidate">
-    <div class="form-group form-group-lg"
+    <br>
+    <div class="form-group"
          data-show-errors
     >
+        <label class="control-label no-margin">Login</label>
         <input type="text" name="username" class="form-control username"
-               placeholder="Username or Email..." autofocus autocomplete="off" required="required"
+               placeholder="Enter username or email..." autofocus autocomplete="off" required="required"
                data-focus-on="username"
                data-ng-model="credentials.identifier"
         />
@@ -11,12 +13,13 @@
 
     </div>
 
-    <div class="form-group form-group-lg"
+    <div class="form-group"
          data-show-errors
     >
+        <label class="control-label no-margin">Password</label>
         <input autocomplete="new-password" type="password" name="password"
                class="form-control password"
-               placeholder="Password..." required="required"
+               placeholder="Enter password..." required="required"
                data-ng-model="credentials.password"
         />
         <p class="help-block no-margin" ng-show="loginForm.password.$touched && loginForm.password.$error.required">Password is required.</p>
@@ -25,7 +28,7 @@
     </div>
     <br>
     <div class="form-group">
-        <button class="btn btn-primary btn-lg btn-block"
+        <button class="btn btn-primary btn-block"
                 data-ng-click="login()"
                 data-ng-disabled="!loginForm.$valid"
         >
