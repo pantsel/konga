@@ -23,7 +23,7 @@ module.exports.policies = {
 
   AuthController: {
     'checkPassword':  ['authenticated'],
-    'signup':         ['createUser'],
+    'signup':         ['signup','createUser'],
     '*':              ['passport'],
 
   },
