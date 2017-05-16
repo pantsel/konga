@@ -76,8 +76,11 @@
           $scope.updateApi = function(api) {
 
               $scope.loading = true
+
+              // Remove "health_checks" injected property
               var data = angular.copy(api);
               delete data.health_checks;
+
               ApiService.update(data)
                   .then(function(res){
                       $log.debug("Update Api: ",res)
