@@ -132,7 +132,7 @@ module.exports = {
                 sails.log("helath_checks:createTransporter:settings =>",settings)
                 if(!settings.length
                     || !settings[0].data
-                    || !settings[0].data.email_notifications
+                    //|| !settings[0].data.email_notifications
                     || !settings[0].data.notify_when.node_down.active) return cb()
                 sails.log("health_checks:createTransporter => trying to get transport",{
                     "notifications_enabled" : settings[0].data.email_notifications,
