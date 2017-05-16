@@ -263,7 +263,8 @@
       // Load initial configuration to window
       $http.get('api/settings/initial')
               .then(function(response){
-                window.KONGA_CONFIG = response.data
+                window.KONGA_CONFIG = response.data.data
+                window.KONGA_CONFIG_ID = response.data.id
                 angular.bootstrap(document, ['frontend']);
               })
               .catch(function(err){

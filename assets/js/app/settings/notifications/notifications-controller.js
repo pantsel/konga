@@ -19,7 +19,7 @@
                 }
 
                 $scope.setDefaultTransport = function(name) {
-                    $rootScope.konga_settings.default_transport = name;
+                    $rootScope.KONGA_CONFIG.default_transport = name;
                     updateKongaSettings()
 
                 }
@@ -94,13 +94,13 @@
                 }
 
                 function updateKongaSettings() {
-                    Settings.update($rootScope.konga_settings_id,{
-                            data : $rootScope.konga_settings
+                    Settings.update(window.KONGA_CONFIG_ID,{
+                            data : $rootScope.KONGA_CONFIG
                         })
                         .then(function(settings){
                             $log.debug("Konga Settings updated",settings)
                             MessageService.success("Settings updated!")
-                            //$rootScope.konga_settings = settings
+                            //$rootScope.KONGA_CONFIG = settings
                         }, function (error) {
                             $log.debug("Konga Settings failed to update",error)
                             MessageService.error("Failed to update settings!")
@@ -114,7 +114,6 @@
                             $log.debug("NotificationsController:transports =>",$scope.transports)
                         })
                 }
-
 
                 _fetchEmailTransports()
 

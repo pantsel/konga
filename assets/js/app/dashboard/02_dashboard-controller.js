@@ -12,7 +12,7 @@
       function controller($scope,$rootScope, $log, $state,$q,InfoService,$timeout) {
 
 
-          var loadTime = 5000,
+          var loadTime = $rootScope.KONGA_CONFIG.info_polling_interval,
               errorCount = 0,
               hasInitiallyLoaded = false,
               loadPromise;
@@ -152,7 +152,7 @@
                               $scope.error = false
                               drawCharts();
                               errorCount = 0;
-                              nextLoad();
+                              if(loadTime) nextLoad();
                           }else{
                               nextLoad(++errorCount * 2 * loadTime);
                               $scope.error = true

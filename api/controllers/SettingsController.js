@@ -24,7 +24,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 if(err) return res.negotiate(err)
                 // Store settings in memory
                 sails.KONGA_CONFIG = settings[0].data || {}
-                return res.json(settings[0] ? settings[0].data : {})
+                return res.json(settings[0] ? settings[0] : {})
             })
     }
 });

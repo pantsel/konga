@@ -1,17 +1,89 @@
+<br>
 <div class="row">
-    <div class="col-md-12">
-        <h4>
-            Email Notifications
-
-
-        </h4>
-        <p class="help-block">
-            Enable notifications.
-        </p>
+    <div class="col-md-3">
+        <h5>
+            General<br>
+            <small>General settings</small>
+        </h5>
+    </div>
+    <div class="col-md-9">
         <div class="form-group">
+            <label>
+                Dashboard refresh interval
+            </label>
+            <input type="number" class="form-control" data-ng-model="KONGA_CONFIG.info_polling_interval">
+            <p class="help-block">The interval in milliseconds at which the Dashboard data will refresh. If set to 0, polling will be disabled.</p>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-md-3">
+        <h5>
+            Sign up<br>
+            <small>Sign up restrictions</small>
+        </h5>
+    </div>
+    <div class="col-md-9">
+        <div class="form-group">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <td width="1">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_enable">
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <h6 class="no-margin">Allow users to sign up from the login page.</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_require_activation">
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <h6 class="no-margin">Send activation email</h6>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h5>
+            Email<br>
+            <small>Email settings</small>
+        </h5>
+    </div>
+    <div class="col-md-9">
+        <div class="form-group">
+            <label>
+                Email Notifications
+            </label>
+            <div class="clearfix"></div>
             <input
                     bs-switch
-                    ng-model="konga_settings.email_notifications"
+                    ng-model="KONGA_CONFIG.email_notifications"
                     type="checkbox"
                     switch-on-text="ENABLED"
                     switch-off-text="DISABLED"
@@ -19,18 +91,25 @@
             >
         </div>
         <br>
-        <div ng-show="konga_settings.email_notifications">
+        <div class="form-group">
+            <label>Default sender address</label>
+            <input type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
+        </div>
+
+
+        <br>
+        <div ng-show="KONGA_CONFIG.email_notifications">
             <h5>Transports</h5>
             <p class="help-block">
                 Configure email transports and select the one to use.
             </p>
             <div class="row">
                 <div class="col-md-4" data-ng-repeat="transport in transports">
-                    <div class="panel" ng-class="{'panel-primary' : konga_settings.default_transport == transport.name,'panel-default' : konga_settings.default_transport != transport.name}">
+                    <div class="panel" ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
                         <div class="panel-heading">
                             <div class="panel-title" >
                                 <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
-                                    <i class="material-icons">{{konga_settings.default_transport == transport.name ? '&#xE834;' : '&#xE835;'}}</i>
+                                    <i class="material-icons">{{KONGA_CONFIG.default_transport == transport.name ? '&#xE834;' : '&#xE835;'}}</i>
                                     {{transport.name.toUpperCase()}}
                                 </div>
 
@@ -38,7 +117,7 @@
                                     <button class="btn btn-link btn-sm"
                                             data-ng-show="transport.name != 'sendmail'"
                                             data-ng-click="configureTransport(transport)"
-                                            data-ng-class="{'text-white':konga_settings.default_transport == transport.name}"
+                                            data-ng-class="{'text-white':KONGA_CONFIG.default_transport == transport.name}"
                                     >
                                         <i class="material-icons">settings</i>
                                         configure
@@ -61,7 +140,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <tr
-                                    data-ng-repeat="(key,value) in konga_settings.notify_when">
+                                    data-ng-repeat="(key,value) in KONGA_CONFIG.notify_when">
                                 <td width="1">
                                     <div class="checkbox">
                                         <label>
@@ -83,5 +162,13 @@
 
 
 
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-9 col-md-offset-3">
+        <button class="btn btn-primary btn-block" data-ng-click="updateKongaSettings()">
+            save settings
+        </button>
     </div>
 </div>
