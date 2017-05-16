@@ -172,6 +172,7 @@
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
           $rootScope.moment = window.moment
+          $rootScope.KONGA_CONFIG = window.KONGA_CONFIG
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
           editableOptions.theme = 'bs3';
@@ -188,6 +189,13 @@
                 event.preventDefault();
                 $state.go('dashboard', params, {location: 'replace'})
             }
+
+
+            if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup.enable) {
+                event.preventDefault();
+                $state.go('auth.login', params, {location: 'replace'})
+            }
+
             //
             //if (!AuthService.authorize(toState.data.access)) {
             //    event.preventDefault();

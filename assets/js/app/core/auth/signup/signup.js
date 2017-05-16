@@ -21,7 +21,8 @@
           .state('auth.signup', {
             url: '/signup',
             data: {
-              access: 0
+              access: 0,
+              needsSignupEnabled : true
             },
             views: {
               'authContent': {

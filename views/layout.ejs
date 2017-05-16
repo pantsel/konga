@@ -183,6 +183,7 @@
     <script src="js/app/core/filters/filters.js"></script>
     <script src="js/app/core/interceptors/00_interceptors.js"></script>
     <script src="js/app/core/interceptors/AuthInterceptor.js"></script>
+    <script src="js/app/core/interceptors/CsrfInterceptor.js"></script>
     <script src="js/app/core/interceptors/ErrorInterceptor.js"></script>
     <script src="js/app/core/interceptors/HttpTimeoutInterceptor.js"></script>
     <script src="js/app/core/interceptors/KongaIntercenptor.js"></script>
@@ -255,7 +256,21 @@
 
   <script>
     angular.element(document).ready(function() {
-      angular.bootstrap(document, ['frontend']);
+
+      var initInjector = angular.injector(["ng"]);
+      var $http = initInjector.get("$http");
+
+      // Load initial configuration to window
+      $http.get('api/settings/initial')
+              .then(function(response){
+                window.KONGA_CONFIG = response.data
+                angular.bootstrap(document, ['frontend']);
+              })
+              .catch(function(err){
+                alert("Error getting initial configuration")
+              })
+
+
     });
   </script>
 

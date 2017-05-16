@@ -44,6 +44,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       defaultsTo: ''
     },
 
+    active : {
+      type : 'boolean',
+      defaultsTo : false
+    },
+
     node : {
       model : 'kongnode'
     },

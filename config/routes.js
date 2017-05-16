@@ -147,6 +147,9 @@ module.exports.routes = {
   //'GET /kong/upstreams'                      : 'KongUpstreamsController.list',
 
 
+  'GET /api/settings/initial' : 'SettingsController.initial',
+
+
   /**
    * Fallback to proxy
    */

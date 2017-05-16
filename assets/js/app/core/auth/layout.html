@@ -3,7 +3,7 @@
         <div class="login-form-container">
             <img ng-src="images/konga-logo.png" class="img-responsive margin-bottom"/>
             <br>
-            <ul class="nav nav-tabs nav-justified">
+            <ul class="nav nav-tabs nav-justified" data-ng-if="KONGA_CONFIG.signup.enable">
                 <li ui-sref="auth.login" ui-sref-active="active"><a>LOGIN</a></li>
                 <li ui-sref="auth.signup" ui-sref-active="active"><a>SIGNUP</a></li>
             </ul>
