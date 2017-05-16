@@ -15,6 +15,7 @@
         return [
           {
             state: 'dashboard',
+            icon : 'mdi-view-dashboard',
             show : function() {
               return AuthService.isAuthenticated()
             },
@@ -43,6 +44,7 @@
               return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'APIs',
+            icon : 'mdi-cloud-outline',
             access: AccessLevels.user
           },
           {
@@ -51,10 +53,12 @@
               return AuthService.isAuthenticated() && $rootScope.Gateway
             },
             title: 'Consumers',
+            icon : 'mdi-account-outline',
             access: AccessLevels.user
           },
           {
             state: 'plugins',
+            icon : 'mdi-power-plug',
             show : function() {
               return AuthService.isAuthenticated() && $rootScope.Gateway
             },
@@ -63,6 +67,7 @@
           },
           {
             state: 'upstreams',
+            icon : 'mdi-shuffle-variant',
             show : function() {
               return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
             },
@@ -71,6 +76,7 @@
           },
           {
             state: 'certificates',
+            icon : 'mdi-certificate',
             show : function() {
               return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
             },

@@ -95,3 +95,16 @@ All notable changes to this project will be documented in this file.
 * Relative paths support for assets and sails.io.
 * Local db path is now configurable and persistent in docker image with it's own volume.
 
+
+## [0.7.1](https://github.com/pantsel/konga/releases/tag/v0.7.1) - 16-5-2017
+
+* Fixed bug that updated localStorage user when performing a user update even if the acting user wasn't the same.
+* Added the --harmony parameter on start.sh fixing Node version compatibility issues with some modules (nodemailer)
+
+
+## [0.7.2](https://github.com/pantsel/konga/releases/tag/v0.7.2) - 17-5-2017
+
+* UI/UX improvements.
+* User sign up.
+* More configurable application settings.
+

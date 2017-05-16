@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" data-ng-if="isAuthenticated()">
+<nav class="navbar navbar-default navbar-main navbar-fixed-top" data-ng-if="isAuthenticated()">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -9,14 +9,16 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">
-                <img ng-src="images/konga-logo-small.png" class="konga-nav-icon"/>
+                <img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-md visible-lg"/>
+                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: white">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-left">
                 <li class="{{item.class}}"
+                    style="position: relative"
                     data-ng-repeat="item in navigationItems"
                     data-ng-show="auth.authorize(item.access) && item.show()"
                     data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
@@ -24,7 +26,13 @@
                 >
                     <a
                        data-ui-sref="{{item.state}}"
-                    >{{item.title}}</a>
+                    >
+                        <span class="visible-md visible-lg">{{item.title.toUpperCase()}}</span>
+                        <span class="visible-xs visible-sm text-center">
+                            <i class="mdi {{item.icon}}" style="margin-top: -10px"></i>
+                            <span class="text-small" style="display: block">{{item.title}}</span>
+                        </span>
+                    </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -37,8 +45,8 @@
                 <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
-                        &nbsp;
-                        <span class="greeting">Hello, {{user().username}}</span>
+                        <!--&nbsp;-->
+                        <!--<span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().username}}</span>-->
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">

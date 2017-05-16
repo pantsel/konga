@@ -627,3 +627,19 @@ tr.disabled{
   box-shadow: inset 0 -4px 0 #03A9F4;
   color: #03A9F4;
 }
+
+@media screen and (max-width: 801px) {
+  body {
+    .navbar-main{
+      .navbar-collapse{
+        .navbar-left{
+          a{
+            padding:10px 15px
+          }
+        }
+      }
+    }
+  }
+}
+
+

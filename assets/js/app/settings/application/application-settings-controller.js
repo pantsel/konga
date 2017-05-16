@@ -94,6 +94,10 @@
                 }
 
                 function updateKongaSettings() {
+
+
+                    console.log("#####################",$rootScope.KONGA_CONFIG)
+
                     Settings.update(window.KONGA_CONFIG_ID,{
                             data : $rootScope.KONGA_CONFIG
                         })

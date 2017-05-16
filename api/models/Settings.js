@@ -42,6 +42,39 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             description : "Health checks must be enabled for the APIs that need to be monitored.",
             active : false
           }
+        },
+
+        user_permissions : {
+          apis : {
+            create : false,
+            read : true,
+            update : false,
+            delete : false
+          },
+          consumers : {
+            create : false,
+            read : true,
+            update : false,
+            delete : false
+          },
+          plugins : {
+            create : false,
+            read : true,
+            update : false,
+            delete : false
+          },
+          upstreams : {
+            create : false,
+            read : true,
+            update : false,
+            delete : false
+          },
+          credentials : {
+            create : false,
+            read : true,
+            update : false,
+            delete : false
+          },
         }
       }
     },

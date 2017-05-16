@@ -8,11 +8,11 @@
                         class="clickable"
                         data-ng-show="item.column"
                         data-ng-click="changeSort(item)"
-                        data-ng-bind-html="item.title"
+                        data-ng-bind-html="item.title.toUpperCase()"
                 ></a>
             <span
                     data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></span>
                 <input data-ng-if="item.checkbox" type="checkbox" data-ng-model="globalCheck.isAllChecked"/>
                 <i class="material-icons"
