@@ -22,6 +22,7 @@
       'frontend.apis'
   ]);
 
+
   /**
    * Configuration for frontend application, this contains following main sections:
    *
@@ -34,6 +35,28 @@
       .config(function($logProvider){
           $logProvider.debugEnabled(window.enableLogs);
       })
+
+      // Provider to disable UI routers template caching
+      .config(['$provide', function($provide){
+          // Set a suffix outside the decorator function
+          var cacheBuster = Date.now().toString();
+
+          function templateFactoryDecorator($delegate) {
+              var fromUrl = angular.bind($delegate, $delegate.fromUrl);
+              $delegate.fromUrl = function (url, params) {
+                  if (url !== null && angular.isDefined(url) && angular.isString(url)) {
+                      url += (url.indexOf("?") === -1 ? "?" : "&");
+                      url += "v=" + cacheBuster;
+                  }
+
+                  return fromUrl(url, params);
+              };
+
+              return $delegate;
+          }
+
+          $provide.decorator('$templateFactory', ['$delegate', templateFactoryDecorator]);
+      }])
       .config(['$provide',function($provide) {
           $provide.decorator('$state', function($delegate) {
               var originalTransitionTo = $delegate.transitionTo;
@@ -64,8 +87,9 @@
         $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.interceptors.push('ErrorInterceptor');
         $httpProvider.interceptors.push('timeoutHttpIntercept');
+        //$httpProvider.interceptors.push('CsrfInterceptor');
 
-        // $httpProvider.interceptors.push('TemplateCacheInterceptor');
+        //$httpProvider.interceptors.push('TemplateCacheInterceptor');
         $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
@@ -96,22 +120,6 @@
             requireBase: false
           })
           .hashPrefix('!');
-
-        // Routes that needs authenticated user
-        //$stateProvider
-        //  .state('profile', {
-        //    abstract: true,
-        //    template: '<ui-view/>',
-        //    data: {
-        //      access: AccessLevels.user
-        //    }
-        //  })
-        //  .state('profile.edit', {
-        //    url: '/profile',
-        //    templateUrl: 'js/app/profile/profile.html',
-        //    controller: 'ProfileController'
-        //  })
-        //;
 
         // Main state provider for frontend application
         $stateProvider
@@ -154,6 +162,12 @@
         editableOptions,editableThemes,$templateCache,NodesService,
         AuthService,cfpLoadingBar
       ) {
+
+          $rootScope.$on('$routeChangeStart', function(event, next, current) {
+              if (typeof(current) !== 'undefined'){
+                  $templateCache.remove(current.templateUrl);
+              }
+          });
 
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
