@@ -129,7 +129,7 @@
 
             function _fetchCertificates() {
                 $scope.loading = true;
-                $http.get('api/certificates')
+                $http.get('kong/certificates')
                     .then(function(res){
                         if(res.data && Object.keys(res.data).length) {
                             $scope.certificates = Semver.cmp($rootScope.Gateway.version,"0.10.1") > 0 ? res.data.data : res.data
