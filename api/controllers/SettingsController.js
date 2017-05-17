@@ -10,7 +10,7 @@ var _ = require('lodash');
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
-    initial : function(req,res) {
+    find : function(req,res) {
 
         // ToDo cache settings to memory
         //if(sails.KONGA_CONFIG) {

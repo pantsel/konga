@@ -73,44 +73,45 @@ module.exports.routes = {
   'DELETE /kong/cluster'                : 'KongInfoController.deleteCluster',
 
   // Api routes
-  'POST /kong/apis'                     : 'KongApiController.create',
-  'GET /kong/apis/:id'                  : 'KongApiController.retrieve',
-  'GET /kong/apis'                      : 'KongApiController.list',
-  'PATCH /kong/apis/:id'                : 'KongApiController.update',
-  'PUT /kong/apis/'                     : 'KongApiController.updateOrCreate',
-  'DELETE /kong/apis/:id'               : 'KongApiController.delete',
+  //'POST /kong/apis'                     : 'KongApiController.create',
+  //'GET /kong/apis/:id'                  : 'KongApiController.retrieve',
+  'GET /kong/apis'                        : 'KongApiController.list',
+  //'PATCH /kong/apis/:id'                : 'KongApiController.update',
+  //'PUT /kong/apis/'                     : 'KongApiController.updateOrCreate',
+  //'DELETE /kong/apis/:id'               : 'KongApiController.delete',
 
 
-  'POST /kong/consumers'                : 'KongConsumerController.create',
-  'POST /kong/consumers/:id/acls'       : 'KongConsumerController.addAcl',
-  'GET /kong/consumers/:id'             : 'KongConsumerController.retrieve',
-  'GET /kong/consumers/:id/acls'        : 'KongConsumerController.retrieveAcls',
   'GET /kong/consumers'                 : 'KongConsumerController.list',
-  'PATCH /kong/consumers/:id'           : 'KongConsumerController.update',
-  'PUT /kong/consumers'                 : 'KongConsumerController.updateOrCreate',
-  'DELETE /kong/consumers/:id'          : 'KongConsumerController.delete',
+
+  //'POST /kong/consumers'                : 'KongConsumerController.create',
+  //'POST /kong/consumers/:id/acls'       : 'KongConsumerController.addAcl',
+  //'GET /kong/consumers/:id'             : 'KongConsumerController.retrieve',
+  //'GET /kong/consumers/:id/acls'        : 'KongConsumerController.retrieveAcls',
+  //'PATCH /kong/consumers/:id'           : 'KongConsumerController.update',
+  //'PUT /kong/consumers'                 : 'KongConsumerController.updateOrCreate',
+  //'DELETE /kong/consumers/:id'          : 'KongConsumerController.delete',
 
 
-  'GET /kong/consumers/:id/credentials'   : 'KongConsumerController.listCredentials',
-  'GET /kong/consumers/:id/:credential'   : 'KongConsumerController.retrieveCredentials',
-  'POST /kong/consumers/:id/:credential'   : 'KongConsumerController.createCredential',
-  'DELETE /kong/consumers/:id/:credential/:credential_id'   : 'KongConsumerController.removeCredential',
+  //'GET /kong/consumers/:id/credentials'   : 'KongConsumerController.listCredentials',
+  //'GET /kong/consumers/:id/:credential'   : 'KongConsumerController.retrieveCredentials',
+  //'POST /kong/consumers/:id/:credential'   : 'KongConsumerController.createCredential',
+  //'DELETE /kong/consumers/:id/:credential/:credential_id'   : 'KongConsumerController.removeCredential',
 
   // Plugin routes
-  'POST /kong/plugins'                  : 'KongPluginController.create',
-  'DELETE /kong/plugins/:id'            : 'KongPluginController.delete',
-  'PATCH /kong/plugins/:id'             : 'KongPluginController.update',
-
-
-  'POST /kong/apis/:api/plugins'        : 'KongPluginController.create',
-  'GET /kong/plugins/:id'               : 'KongPluginController.retrieve',
-  'GET /kong/plugins/enabled'           : 'KongPluginController.retrieveEnabled',
-  'GET /kong/plugins/schema/:plugin'    : 'KongPluginController.retrieveSchema',
+  //'POST /kong/plugins'                  : 'KongPluginController.create',
+  //'DELETE /kong/plugins/:id'            : 'KongPluginController.delete',
+  //'PATCH /kong/plugins/:id'             : 'KongPluginController.update',
+  //
+  //
+  //'POST /kong/apis/:api/plugins'        : 'KongPluginController.create',
+  //'GET /kong/plugins/:id'               : 'KongPluginController.retrieve',
+  //'GET /kong/plugins/enabled'           : 'KongPluginController.retrieveEnabled',
+  //'GET /kong/plugins/schema/:plugin'    : 'KongPluginController.retrieveSchema',
   'GET /kong/plugins'                   : 'KongPluginController.list',
-  'GET /kong/apis/:api/plugins'         : 'KongPluginController.listApi',
-  'PATCH /kong/apis/:api/plugins/:id'   : 'KongPluginController.update',
-  'PUT /kong/apis/:api/plugins'         : 'KongPluginController.updateOrCreate',
-  'DELETE /kong/apis/:api/plugins/:id'  : 'KongPluginController.delete',
+  //'GET /kong/apis/:api/plugins'         : 'KongPluginController.listApi',
+  //'PATCH /kong/apis/:api/plugins/:id'   : 'KongPluginController.update',
+  //'PUT /kong/apis/:api/plugins'         : 'KongPluginController.updateOrCreate',
+  //'DELETE /kong/apis/:api/plugins/:id'  : 'KongPluginController.delete',
 
   // Remote Storage routes
   'GET /remote/adapters'                 : 'RemoteStorageController.loadAdapters',
@@ -143,22 +144,22 @@ module.exports.routes = {
   'GET /api/kongnodes/healthchecks/subscribe'    : 'KongNodeController.subscribeHealthChecks',
   'GET /api/apis/healthchecks/subscribe'         : 'ApiHealthCheckController.subscribeHealthChecks',
 
-  // Upstream routes
-  //'GET /kong/upstreams'                      : 'KongUpstreamsController.list',
+   // Upstream routes
+  'GET /kong/upstreams'                      : 'KongUpstreamsController.list',
 
 
-  'GET /api/settings/initial' : 'SettingsController.initial',
+  'GET /api/settings' : 'SettingsController.find',
 
 
   /**
    * Fallback to proxy
    */
 
-  'GET /api/*'    : 'ApiController.proxy',
-  'POST /api/*'   : 'ApiController.proxy',
-  'PUT /api/*'    : 'ApiController.proxy',
-  'PATCH /api/*'  : 'ApiController.proxy',
-  'DELETE /api/*' : 'ApiController.proxy'
+  'GET /kong/*'    : 'KongProxyController.proxy',
+  'POST /kong/*'   : 'KongProxyController.proxy',
+  'PUT /kong/*'    : 'KongProxyController.proxy',
+  'PATCH /kong/*'  : 'KongProxyController.proxy',
+  'DELETE /kong/*' : 'KongProxyController.proxy'
 
 
 };

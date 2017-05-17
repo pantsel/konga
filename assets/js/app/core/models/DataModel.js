@@ -46,7 +46,7 @@
 
           // Subscribe to specified endpoint
           if (endpoint) {
-            this.endpoint = endpoint;
+            this.endpoint = 'api/' + endpoint;
 
             this._subscribe();
           } else {

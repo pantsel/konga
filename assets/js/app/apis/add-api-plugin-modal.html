@@ -31,16 +31,20 @@
         </div>
 
         <div class="col-md-4" data-ng-repeat="(key,value) in group.plugins">
-            <div class="panel panel-default" iln-match-height>
+            <div class="panel"
+                 ng-class="{'panel-success' : existingPlugins.indexOf(key) > -1, 'panel-default' : existingPlugins.indexOf(key) <0}"
+                 iln-match-height>
                 <div class="panel-heading">
                     <div class="panel-title">
                         <span class="capitalize">{{key.split('-').join(" ")}}</span>
                         <div class="pull-right">
                             <button
+                                    data-ng-if="existingPlugins.indexOf(key) < 0"
                                     class="btn btn-primary btn-link btn-icon"
                                     angular-ripple data-ng-click="onAddPlugin(key)">
                                 <i class="material-icons">add</i>
                             </button>
+                            <i class="mdi mdi-check-all" data-ng-if="existingPlugins.indexOf(key) > -1"></i>
                         </div>
                     </div>
                 </div>

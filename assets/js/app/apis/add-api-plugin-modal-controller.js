@@ -111,7 +111,20 @@
                     fetchPlugins()
                 })
 
+                function getApiPlugins() {
+                    ApiService.plugins($scope.api.id)
+                        .then(function(response){
+                            $scope.existingPlugins = response.data.data.map(function(item){
+                                return item.name
+                            })
+                        })
+                        .catch(function(err){
 
+                        })
+                }
+
+
+                getApiPlugins();
 
             }
         ])

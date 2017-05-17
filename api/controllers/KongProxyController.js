@@ -1,5 +1,5 @@
 /**
- * ApiController
+ * RemoteApiController
  */
 
 var unirest = require("unirest")
@@ -14,8 +14,7 @@ module.exports = {
      */
     proxy : function(req,res) {
 
-
-        req.url = req.url.replace('/api','') // Remove the /api prefix
+        req.url = req.url.replace('/kong','') // Remove the /api prefix
 
         sails.log("req.url",req.url)
 
