@@ -1,0 +1,43 @@
+<nav class="navbar navbar-primary no-margin" data-ng-if="isAuthenticated()">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">
+                <img ng-src="images/konga-logo-white-no-icon.png" class="konga-nav-icon visible-xs visible-md visible-lg"/>
+                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
+            </a>
+        </div>
+
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="sidenav">
+    <ul class="nav nav-pills nav-stacked">
+
+        <li
+                data-ng-repeat="item in items"
+                data-ng-show="auth.authorize(item.access) && item.show()"
+                data-ui-sref-active="active"
+        >
+
+            <a
+                    data-ui-sref="{{item.state}}"
+                    ng-if="item.state">
+                <i class="mdi {{item.icon}}"></i>
+                <span class="text-small">{{item.title.toUpperCase()}}</span>
+            </a>
+            <a
+                    class="sidenav-heading"
+                    ng-if="!item.state"
+            >
+                <span class="text-small">{{item.title.toUpperCase()}}</span>
+            </a>
+        </li>
+
+
+    </ul>
+</div>

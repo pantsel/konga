@@ -230,4 +230,119 @@
       }
     ])
   ;
+
+
+    angular.module('frontend.core.layout')
+        .controller('SidenavController', ['_','$scope','$state','AuthService','InfoService','UserModel','$localStorage',
+            'SettingsService','MessageService','UserService','$log',
+            '$rootScope','AccessLevels','SocketHelperService','$uibModal',
+            function controller(_,$scope,$state,AuthService,InfoService,UserModel,$localStorage,
+                                SettingsService,MessageService,UserService,$log,
+                                $rootScope,AccessLevels,SocketHelperService,$uibModal) {
+
+
+                $scope.auth = AuthService;
+                $scope.user = UserService.user();
+
+                $scope.items = [
+                    {
+                        state: 'dashboard',
+                        icon : 'mdi-view-dashboard',
+                        show : function() {
+                            return AuthService.isAuthenticated()
+                        },
+                        title: 'Dashboard',
+                        access: AccessLevels.user
+                    },
+                    {
+                        title: 'KONG API',
+                        show : function() {
+                            return true
+                        },
+                        access: AccessLevels.user
+                    },
+                    {
+                        state: 'apis',
+                        show : function() {
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                        },
+                        title: 'APIs',
+                        icon : 'mdi-cloud-outline',
+                        access: AccessLevels.user
+                    },
+                    {
+                        state: 'consumers',
+                        show : function() {
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                        },
+                        title: 'Consumers',
+                        icon : 'mdi-account-outline',
+                        access: AccessLevels.user
+                    },
+                    {
+                        state: 'plugins',
+                        icon : 'mdi-power-plug',
+                        show : function() {
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                        },
+                        title: 'Plugins',
+                        access: AccessLevels.anon
+                    },
+                    {
+                        state: 'upstreams',
+                        icon : 'mdi-shuffle-variant',
+                        show : function() {
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                        },
+                        title: 'Upstreams',
+                        access: AccessLevels.anon
+                    },
+                    {
+                        state: 'certificates',
+                        icon : 'mdi-certificate',
+                        show : function() {
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                        },
+                        title: 'Certificates',
+                        access: AccessLevels.anon
+                    },
+                    {
+                        title: 'Application',
+                        show : function() {
+                            return true
+                        },
+                        access: AccessLevels.user
+                    },
+                    {
+                        state: 'connections',
+                        icon : 'mdi-cast-connected',
+                        show : function() {
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                        },
+                        title: 'Connections',
+                        access: AccessLevels.anon
+                    },
+                    {
+                        state: 'snapshots',
+                        icon : 'mdi-camera',
+                        show : function() {
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                        },
+                        title: 'Snapshots',
+                        access: AccessLevels.anon
+                    },
+                    {
+                        state: 'settings',
+                        icon : 'mdi-settings',
+                        show : function() {
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                        },
+                        title: 'Settings',
+                        access: AccessLevels.anon
+                    },
+                ];
+            }
+
+        ])
+    ;
 }());

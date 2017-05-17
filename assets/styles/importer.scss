@@ -10,6 +10,8 @@
 @import "mdi";
 @import "login";
 @import "panels";
+@import "scrollbars";
+@import "sidenav";
 
 
 $color-footer-text: #999;
@@ -27,8 +29,22 @@ body {
   overflow-y: auto;
   font-size: 1.4em;
   background-color: #f9f9f9;
-  padding-bottom: 30px;
+  //padding-bottom: 30px;
 
+}
+
+.container-fluid{
+
+}
+
+.sidenav-container, .main-container-wrapper{
+  padding: 0;
+}
+
+
+.main-container-wrapper-static,.sidenav{
+  height: calc(100vh - 68px - 25px);
+  overflow-y: auto;
 }
 
 
@@ -60,7 +76,7 @@ h5 {
 }
 
 .main-container {
-  margin-bottom: 30px;
+  //margin-bottom: 30px;
   //margin-top: 65px;
   padding-top: 20px;
 }
@@ -141,7 +157,7 @@ header .navbar-nav {
 }
 
 .page-head{
-  margin-top: 65px;
+  //margin-top: 65px;
   padding: 1em;
   background-color: #f2f2f2;
 
@@ -574,6 +590,10 @@ pre {
     }
   }
 
+}
+
+.full-width{
+  width: 100% !important;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{

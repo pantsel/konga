@@ -133,6 +133,10 @@
                 templateUrl: 'js/app/core/layout/partials/header.html',
                 controller: 'HeaderController'
               },
+                sidenav: {
+                    templateUrl: 'js/app/core/layout/partials/sidenav.html',
+                    controller: 'SidenavController'
+                },
               footer: {
                 templateUrl: 'js/app/core/layout/partials/footer.html',
                 controller: 'FooterController'

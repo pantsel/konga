@@ -20,20 +20,20 @@
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 5px">
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
                         <i class="material-icons">cast_connected</i>
                         Connected to
                         <strong>{{user.node ? user.node.name : 'N/A'}}</strong>
                     </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu panel panel-primary" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                         <li role="menuitem" style="background-color: #f4f4f4">
 
                             <a>
 
-                                Choose connetion
-                                <i class="material-icons pull-right clickable" data-ng-click="closeDropdown()">close</i>
+                                Choose connection
+                                <i class="material-icons pull-right clickable" data-ng-click="isOpen = !isOpen">close</i>
                             </a>
                         </li>
                         <li role="menuitem">
