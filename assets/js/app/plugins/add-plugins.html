@@ -34,7 +34,7 @@
 
 <div class="col-md-4" data-ng-repeat="(key,value) in group.plugins">
     <div class="panel" iln-match-height
-         ng-class="{'panel-default': !value.isAdded,'panel-primary': value.isAdded,'panel-disabled': value.isAdded && !value.enabled}">
+         ng-class="{'panel-default': !value.isAdded,'panel-success': value.isAdded,'panel-disabled': value.isAdded && !value.enabled}">
         <div class="panel-heading">
             <div class="panel-title">
                 <span class="capitalize">{{key.split('-').join(" ")}}</span>
@@ -45,6 +45,7 @@
                             angular-ripple data-ng-click="onAddPlugin(key)">
                         <i class="material-icons" data-ng-class="{'text-white':value.isAdded}">add</i>
                     </button>
+                    <i class="mdi mdi-check-all" ng-show="value.isAdded"></i>
                 </div>
             </div>
         </div>
