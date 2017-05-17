@@ -1,6 +1,6 @@
-<div class="modal-header warning">
+<div class="modal-header">
     <h4 class="modal-title" id="modal-title">
-        Add new Plugin to {{api.name || api.id}}
+        {{(api.name || api.id).toUpperCase()}} : ADD PLUGIN
         <a  class="modal-close pull-right" ng-click="close()">
             <i class="material-icons">clear</i>
         </a>
@@ -9,7 +9,7 @@
 
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-12 padding">
+        <div class="col-md-12" >
             <ul class="nav nav-pills">
                 <li
                         role="presentation"
