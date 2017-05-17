@@ -9,7 +9,7 @@
             'DataModel',
             function(DataModel) {
 
-                var model = new DataModel('api/upstreams');
+                var model = new DataModel('kong/upstreams',true);
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}

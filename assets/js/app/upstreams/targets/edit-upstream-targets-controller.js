@@ -14,7 +14,7 @@
                           $log, $state,Upstream, MessageService, $uibModal, DataModel, ListConfig ) {
 
 
-          var Target = new DataModel('api/upstreams/' + $stateParams.id + '/targets')
+          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets',true)
           Target.setScope($scope, false, 'items', 'itemCount');
 
           // Add default list configuration variable to current scope

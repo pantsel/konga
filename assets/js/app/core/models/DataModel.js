@@ -22,7 +22,7 @@
          * @param   {string}  [endpoint]  Name of the API endpoint
          * @constructor
          */
-        var DataModel = function(endpoint) {
+        var DataModel = function(endpoint,dontAppend) {
           // Initialize default values.
           this.object = {};
           this.objects = [];
@@ -46,7 +46,7 @@
 
           // Subscribe to specified endpoint
           if (endpoint) {
-            this.endpoint = 'api/' + endpoint;
+            this.endpoint = dontAppend ?  endpoint : 'api/' + endpoint;
 
             this._subscribe();
           } else {
