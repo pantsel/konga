@@ -16,11 +16,11 @@
    */
   angular.module('frontend.core.layout')
     .controller('HeaderController', [
-      '$scope', '$state',
+      '$scope', '$state','$rootScope',
       'HeaderNavigationItems',
       'UserService', 'AuthService',
       function controller(
-        $scope, $state,
+        $scope, $state,$rootScope,
         HeaderNavigationItems,
         UserService, AuthService
       ) {
@@ -66,6 +66,11 @@
           $scope.$on('user.updated',function(ev,user){
               $scope.user = UserService.user;
           })
+
+
+          $scope.toggleSideNav = function(){
+              $rootScope.$broadcast('sidenav-toggle')
+          }
       }
     ])
   ;

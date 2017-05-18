@@ -2,16 +2,16 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" aria-expanded="false">
+            <button type="button" ng-click="toggleSideNav()" class="navbar-toggle hidden-md hidden-lg" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">
-                <img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive visible-xs visible-md visible-lg"/>
-                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
-            </a>
+            <!--<a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">-->
+                <!--<img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive visible-xs visible-md visible-lg"/>-->
+                <!--&lt;!&ndash;<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>&ndash;&gt;-->
+            <!--</a>-->
             <!--<a class="navbar-brand">-->
                 <!--&lt;!&ndash;<span ng-bind-html="$state.data.prefix"></span>&ndash;&gt;-->
                 <!--<span class="text-uppercase" ng-bind-html="$state.data.pageName"></span>-->
@@ -54,7 +54,7 @@
                         <span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().username}}</span>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                         <li role="menuitem">
                             <a data-ui-sref="users.show({id:user().id})">

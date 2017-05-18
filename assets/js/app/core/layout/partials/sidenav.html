@@ -1,43 +1,35 @@
-<!--<nav class="navbar navbar-primary no-margin" data-ng-if="isAuthenticated()">-->
-    <!--<div class="container-fluid">-->
-        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-        <!--<div class="navbar-header">-->
-            <!--<a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">-->
-                <!--<img ng-src="images/konga-logo-white-no-icon.png" class="konga-nav-icon visible-xs visible-md visible-lg"/>-->
-                <!--&lt;!&ndash;<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>&ndash;&gt;-->
-            <!--</a>-->
-        <!--</div>-->
-
-
-        <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-    <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-<!--</nav>-->
-
-
-
-<div class="sidenav">
-    <ul class="nav nav-pills nav-stacked">
-
-        <li
-                data-ng-repeat="item in items"
-                data-ng-show="auth.authorize(item.access) && item.show()"
-                data-ui-sref-active="active"
-        >
-
-            <a
-                    data-ui-sref="{{item.state}}"
-                    ng-if="item.state">
-                <i class="mdi {{item.icon}}"></i>
-                <span class="text-small">{{item.title.toUpperCase()}}</span>
+<aside class="js-side-nav side-nav" sidenav>
+    <nav class="js-side-nav-container side-nav__container">
+        <header class="side-nav__header">
+            <a class="brand" data-ui-sref-active="active" data-ui-sref="dashboard">
+                <img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive"/>
+                <!--<span class="version">v{{konga_version}}</span>-->
+                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
             </a>
-            <a
-                    class="sidenav-heading"
-                    ng-if="!item.state"
+        </header>
+        <ul class="nav nav-pills nav-stacked side-nav__content">
+
+            <li
+                    data-ng-repeat="item in items"
+                    data-ng-show="auth.authorize(item.access) && item.show()"
+                    data-ui-sref-active="active"
             >
-                <span class="text-small">{{item.title.toUpperCase()}}</span>
-            </a>
-        </li>
+
+                <a
+                        data-ui-sref="{{item.state}}"
+                        ng-if="item.state">
+                    <i class="mdi {{item.icon}}"></i>
+                    <span class="text-small">{{item.title.toUpperCase()}}</span>
+                </a>
+                <a
+                        class="sidenav-heading"
+                        ng-if="!item.state"
+                >
+                    <span class="text-small">{{item.title.toUpperCase()}}</span>
+                </a>
+            </li>
 
 
-    </ul>
-</div>
+        </ul>
+    </nav>
+</aside>
