@@ -11,6 +11,7 @@
 @import "login";
 @import "panels";
 @import "scrollbars";
+@import "top_nav";
 @import "sidenav";
 
 
@@ -45,6 +46,14 @@ body {
 .main-container-wrapper-static,.sidenav{
   height: calc(100vh - 68px - 25px);
   overflow-y: auto;
+}
+
+.main-container-wrapper{
+  margin-left: $sidenav-width;
+}
+
+.main-container{
+  padding-bottom: 30px;
 }
 
 
@@ -596,10 +605,10 @@ pre {
   width: 100% !important;
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
-  background-color: #f2f2f2;
-
-}
+//.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+//  background-color: #f2f2f2;
+//
+//}
 .nav-auth-img-container {
   padding:12px !important;
   cursor: pointer;
@@ -644,12 +653,12 @@ tr.disabled{
   background-color: #eaeaea;
 }
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
-  border: none;
-  -webkit-box-shadow: inset 0 -4px 0 #03A9F4;
-  box-shadow: inset 0 -4px 0 #03A9F4;
-  color: #03A9F4;
-}
+//.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
+//  border: none;
+//  -webkit-box-shadow: inset 0 -4px 0 #03A9F4;
+//  box-shadow: inset 0 -4px 0 #03A9F4;
+//  color: #03A9F4;
+//}
 
 @media screen and (max-width: 801px) {
   body {

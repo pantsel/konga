@@ -1,0 +1,10 @@
+.navbar-main{
+  .navbar-brand{
+    width: $sidenav-width;
+    padding-top: 3px !important;
+    background-color: darken($brand-royal,5%);
+    &:hover,&:focus{
+      background-color: darken($brand-royal,2%);
+    }
+  }
+}

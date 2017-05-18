@@ -179,10 +179,10 @@ input.form-control, select.form-control{
 
 
 .navbar-default {
-  background: #fff;
-  height: 68px;
-  border-bottom: 1px solid #eaeaea;
-  box-shadow: none;
+  background: $gray-lighter;
+  //height: 68px;
+  //border-bottom: 1px solid #eaeaea;
+  //box-shadow: none;
 }
 
 .navbar-default .navbar-nav > li > a {

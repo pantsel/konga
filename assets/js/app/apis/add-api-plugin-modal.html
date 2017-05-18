@@ -11,16 +11,19 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="list-group">
-                <a
-                        class="list-group-item"
+            <ul class="nav nav-pills nav-stacked">
+                <li
                         role="presentation"
-                        data-ng-click="setActiveGroup(group.name)"
                         ng-class="{'active' : activeGroup == group.name}"
-                        data-ng-repeat="group in pluginGroups">
-                    {{group.name}}
-                </a>
-            </div>
+                        data-ng-click="setActiveGroup(group.name)"
+                        data-ng-repeat="group in pluginGroups"
+                >
+                    <a href>
+                        {{group.name}}
+                    </a>
+                </li>
+            </ul>
+
         </div>
         <div class="col-md-9">
             <div class="row"  data-ng-repeat="group in pluginGroups | filter : filterGroup">
