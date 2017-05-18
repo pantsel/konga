@@ -142,7 +142,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/settings/nodes/node-status-check-modal.html',
+                        templateUrl: 'js/app/connections/node-status-check-modal.html',
                         controller: function(_,$scope,$rootScope,$log,$uibModalInstance,NodeModel,_node){
 
 

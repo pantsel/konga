@@ -11,11 +11,36 @@
       '$scope','$rootScope', '$log', '$state','ApiService','ListConfig','UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
       function controller($scope,$rootScope, $log, $state, ApiService,ListConfig, UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
 
+          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
           $scope.user = UserService.user()
           $scope.settings = SettingsService.getSettings()
 
 
           $scope.titleItems = ListConfig.getTitleItems('api');
+
+          $scope.sort = {
+              column: 'createdAt',
+              direction: false,
+          };
+
+          // Initialize filters
+          $scope.filters = {
+              searchWord: '',
+              columns: $scope.nodeTitleItems,
+          };
+
+          // Function to change sort column / direction on list
+          $scope.changeSort = function changeSort(item) {
+              var sort = $scope.sort;
+
+              if (sort.column === item.column) {
+                  sort.direction = !sort.direction;
+              } else {
+                  sort.column = item.column;
+                  sort.direction = true;
+              }
+
+          };
 
           $scope.toggleStripRequestPathOrUri = function(api) {
 
@@ -68,7 +93,7 @@
                   templateUrl: 'js/app/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
-                  size: 'lg'
+                  //size: 'lg'
               });
           }
 

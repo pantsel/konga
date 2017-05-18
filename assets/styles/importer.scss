@@ -30,9 +30,24 @@ body {
   font-family: 'Open Sans', sans-serif;
   overflow-y: auto;
   font-size: 1.4em;
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
   //padding-bottom: 30px;
 
+}
+
+.control-label{
+  em{
+    small{
+      color: $gray-light;
+      &:before{
+        content : "("
+      }
+
+      &:after{
+        content : ")"
+      }
+    }
+  }
 }
 
 .container-fluid{

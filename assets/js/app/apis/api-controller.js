@@ -16,8 +16,7 @@
           // Fix empty object properties
           fixProperties()
 
-          $log.debug("API",$scope.api)
-          $state.current.data.pageName = "Edit API : " + ( $scope.api.name || $scope.api.id )
+          $state.current.data.pageName = "Edit " + ( $scope.api.name || $scope.api.id )
           $scope.activeSection = 0;
           $scope.sections = [
               {

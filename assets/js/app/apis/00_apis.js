@@ -34,8 +34,9 @@
                         url: '/:api_id/edit',
                         data : {
                             pageName : "Edit API",
-                            displayName : "edit",
-                            prefix : '<i class="material-icons">edit</i>'
+                            pageDescription : "",
+                            displayName : "edit API",
+                            prefix : '<i class="mdi mdi-36px mdi-pencil"></i>'
                         },
                         views: {
                             'content@': {
