@@ -1,23 +1,37 @@
 
+<!--<div class="row">-->
+    <!--<div class="col-md-12 actions">-->
+        <!--<a  class="btn btn-primary" ng-click="openAddApiModal()">-->
+            <!--<i class="material-icons">&#xE145;</i>-->
+            <!--Add New Api-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="bg-light-grey padding clearfix">-->
+            <!--<div class="input-group col-sm-4 pull-left">-->
+                <!--<div class="input-group-addon">-->
+                    <!--<i class="material-icons">&#xE8B6;</i>-->
+                <!--</div>-->
+                <!--<input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">-->
+            <!--</div>-->
+            <!--<dir-pagination-controls class="pull-right"></dir-pagination-controls>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="row">
     <div class="col-md-12 actions">
-        <a  class="btn btn-primary" ng-click="openAddApiModal()">
+        <a  class="btn btn-primary pull-left" ng-click="openAddApiModal()">
             <i class="material-icons">&#xE145;</i>
             Add New Api
         </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="bg-light-grey padding clearfix">
-            <div class="input-group col-sm-4 pull-left">
-                <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
-                </div>
-                <input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">
-            </div>
-            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
-        </div>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="apis.data"
+        ></list-search>
     </div>
 </div>
 <konga-loader ng-if="loading && !apis.data.length"></konga-loader>
@@ -30,14 +44,29 @@
                     <th width="1"></th>
                     <th width="1"></th>
                     <th width="1"></th>
-                    <th>NAME</th>
-                    <th>UPSTREAM URL</th>
-                    <th>CREATED</th>
-                    <!--<th width="1"></th>-->
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
                     <th width="1"></th>
                 </tr>
                 <tr
-                        dir-paginate="api in apis.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                        dir-paginate="api in apis.data | orderBy:'created_at':true | itemsPerPage: 25">
                     <td>
 
                         <i

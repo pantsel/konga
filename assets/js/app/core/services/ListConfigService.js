@@ -23,6 +23,30 @@
          *        }}
          */
         var titleItems = {
+          api: [
+            {
+              title: 'name',
+              column : 'name',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true,
+              width : 1
+            },
+            {
+              title: 'upstream url',
+              column: 'upstream_url',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'created',
+              column: 'created_at',
+              sortable: true,
+            }
+          ],
           target: [
             {
               title: '',
@@ -48,12 +72,6 @@
             }
           ],
           upstream: [
-            //{
-            //  title: '',
-            //  column : '',
-            //  checkbox : true,
-            //  width : 1
-            //},
             {
               title: '',
               column : '',
@@ -67,10 +85,6 @@
               inSearch: true,
               inTitle: true
             },
-            //{
-            //  title: 'orderlist',
-            //  column: 'orderlist',
-            //},
             {
               title: 'slots',
               column: 'slots'
@@ -127,11 +141,6 @@
               column: 'createdAt',
               sortable: true,
             },
-            //{
-            //  title: 'updated',
-            //  column: 'updatedAt',
-            //  sortable: true,
-            //}
           ],
           consumer: [
             {
@@ -163,11 +172,6 @@
               column: 'created_at',
               sortable: true,
             },
-            //{
-            //  title: '',
-            //  column: '',
-            //  width : 1
-            //},
             {
               title: '',
               column: '',

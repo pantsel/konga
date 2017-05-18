@@ -8,13 +8,14 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope','$rootScope', '$log', '$state','ApiService','UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
-      function controller($scope,$rootScope, $log, $state, ApiService, UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
+      '$scope','$rootScope', '$log', '$state','ApiService','ListConfig','UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
+      function controller($scope,$rootScope, $log, $state, ApiService,ListConfig, UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
 
           $scope.user = UserService.user()
           $scope.settings = SettingsService.getSettings()
 
 
+          $scope.titleItems = ListConfig.getTitleItems('api');
 
           $scope.toggleStripRequestPathOrUri = function(api) {
 
