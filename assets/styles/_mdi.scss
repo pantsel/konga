@@ -12,11 +12,11 @@
 }
 
 
-.page-title{
-  .mdi::before {
-    vertical-align: text-bottom;
-  }
-}
+//.page-title{
+//  .mdi::before {
+//    vertical-align: text-bottom;
+//  }
+//}
 
 .btn-xs .mdi::before {
   font-size: 18px;
@@ -64,7 +64,7 @@
 }
 .navbar-brand .mdi::before {
   position: relative;
-  vertical-align: sub;
+  vertical-align: top;
   margin-right: 2px;
 }
 .list-group-item .mdi::before {

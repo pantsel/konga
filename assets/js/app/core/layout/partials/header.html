@@ -8,10 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!--<a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">-->
+            <a class="navbar-brand">
                 <!--<img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive visible-xs visible-md visible-lg"/>-->
-                <!--&lt;!&ndash;<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>&ndash;&gt;-->
-            <!--</a>-->
+                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
+                <span ng-bind-html="$state.data.prefix"></span>
+                <span ng-bind-html="$state.data.pageName"></span>
+            </a>
             <!--<a class="navbar-brand">-->
                 <!--&lt;!&ndash;<span ng-bind-html="$state.data.prefix"></span>&ndash;&gt;-->
                 <!--<span class="text-uppercase" ng-bind-html="$state.data.pageName"></span>-->

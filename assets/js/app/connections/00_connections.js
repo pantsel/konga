@@ -17,7 +17,7 @@
                         data : {
                             access : 0,
                             pageName : "Connections",
-                            prefix : '<i class="mdi mdi-36px mdi-cast-connected"></i>'
+                            prefix : '<i class="mdi mdi-cast-connected"></i>'
                         },
                         views: {
                             'content@': {

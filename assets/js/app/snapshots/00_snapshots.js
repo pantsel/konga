@@ -18,7 +18,7 @@
                             access : 0,
                             pageName : "Snapshots",
                             displayName : null,
-                            prefix : '<i class="mdi mdi-36px mdi-camera"></i>'
+                            prefix : '<i class="mdi mdi-camera"></i>'
                         },
                         views: {
                             'content@': {

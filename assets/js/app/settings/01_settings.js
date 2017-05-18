@@ -18,7 +18,7 @@
                             access: 0,
                             pageName: "Settings",
                             //displayName: "settings",
-                            prefix: '<i class="mdi mdi-36px mdi-settings"></i>'
+                            prefix: '<i class="mdi mdi-settings"></i>'
                         },
                         views: {
                             'content@': {

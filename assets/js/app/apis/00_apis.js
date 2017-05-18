@@ -36,7 +36,7 @@
                             pageName : "Edit API",
                             pageDescription : "",
                             displayName : "edit API",
-                            prefix : '<i class="mdi mdi-36px mdi-pencil"></i>'
+                            prefix : '<i class="mdi mdi-pencil"></i>'
                         },
                         views: {
                             'content@': {
