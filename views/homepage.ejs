@@ -3,7 +3,7 @@
   <div data-ui-view="header"></div>
   <div class="main-container-wrapper-static">
     <div class="container-fluid">
-      <div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head">
+      <div ng-if="isAuthenticated() && $state.name != 'admin' && ($state.data.pageDescription || $state.data.displayName)" class="page-head">
         <!--<h3 class="page-title">-->
           <!--<span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>-->
           <!--<span ng-bind-html="$state.data.pageName"></span>&nbsp;-->
