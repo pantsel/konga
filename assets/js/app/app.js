@@ -19,7 +19,10 @@
       'frontend.certificates',
       'frontend.users',
       'frontend.consumers',
-      'frontend.apis'
+      'frontend.apis',
+      'frontend.connections',
+      'frontend.snapshots',
+
   ]);
 
 

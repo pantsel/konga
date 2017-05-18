@@ -6,8 +6,8 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.settings')
-        .controller('NodesController', [
+    angular.module('frontend.connections')
+        .controller('ConnectionsController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
             'SocketHelperService','AuthService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','NodeModel','$localStorage',
@@ -36,7 +36,7 @@
                 }
 
                 // Initialize used title items
-                $scope.nodeTitleItems = ListConfig.getTitleItems(NodeModel.endpoint);
+                $scope.nodeTitleItems = ListConfig.getTitleItems('kongnode');
 
 
                 // Initialize default sort data
@@ -195,68 +195,10 @@
                                 $rootScope.$broadcast('user.node.updated',node)
                             }
                         );
-
-                    //NodeModel
-                    //    .update(node.id,{active:!node.active})
-                    //    .then(
-                    //        function onSuccess(result) {
-                    //            $rootScope.$broadcast('kong.node.updated',result.data)
-                    //            if(node.active) {
-                    //                $rootScope.$broadcast('kong.node.deactivated',result.data)
-                    //            }else{
-                    //                $rootScope.$broadcast('kong.node.activated',result.data)
-                    //            }
-                    //        },function(err){
-                    //            $scope.busy = false
-                    //            NodeModel.handleError($scope,err)
-                    //        }
-                    //    )
-                    //;
                 }
 
-
-                function showTestNodeModal(node) {
-                    $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/settings/nodes/test-node-modal.html',
-                        size : 'sm',
-                        backdrop: 'static',
-                        keyboard: false,
-                        controller: function($scope,$log,InfoService,MessageService,$uibModalInstance,_node) {
-
-                            $scope.close = function(){
-                                $uibModalInstance.dismiss()
-                            }
-
-                            $scope.connecting = true;
-
-                            $scope.url = _node.kong_admin_url;
-
-                            InfoService.getInfo()
-                                .then(function(res){
-                                    console.log(res)
-                                    $scope.connecting = false;
-                                    $scope.connectionSucceeded = true;
-                                })
-                                .catch(function(err){
-                                    $scope.connecting = false;
-                                })
-
-
-                        },
-                        resolve : {
-                            _node : function() {
-                                return node;
-                            }
-                        }
-                    });
-                }
 
                 $scope.updateNode = function(node) {
-
-                    console.log("On update node",node)
 
                     NodeModel
                         .update(node.id,node)
@@ -272,12 +214,13 @@
                     ;
                 }
 
+
                 function createNode() {
                     $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/settings/nodes/create-node-modal.html',
+                        templateUrl: 'js/app/connections/create-connection-modal.html',
                         size : 'lg',
                         controller: function($scope,$rootScope,$log,NodeModel,MessageService,SettingsService,$uibModalInstance) {
 

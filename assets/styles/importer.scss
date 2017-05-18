@@ -29,13 +29,17 @@ body {
   font-family: 'Open Sans', sans-serif;
   overflow-y: auto;
   font-size: 1.4em;
-  background-color: #f9f9f9;
+  background-color: #fff;
   //padding-bottom: 30px;
 
 }
 
 .container-fluid{
 
+}
+
+a:hover{
+  color: $brand-primary;
 }
 
 .sidenav-container, .main-container-wrapper{
@@ -49,7 +53,7 @@ body {
 }
 
 .main-container-wrapper{
-  margin-left: $sidenav-width;
+  //margin-left: $sidenav-width;
 }
 
 .main-container{
@@ -167,8 +171,8 @@ header .navbar-nav {
 
 .page-head{
   //margin-top: 65px;
-  padding: 1em;
-  background-color: #f2f2f2;
+  padding: 1em 0;
+  //background-color: #f2f2f2;
 
   .breadcrumb {
     padding: 0;
@@ -677,6 +681,8 @@ tr.disabled{
 .modal-body{
   //background-color:#f2f2f2;
 }
+
+
 
 
 //.padding{

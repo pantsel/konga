@@ -1,24 +1,27 @@
 
 <div data-ui-view="header"></div>
-<div class="col-md-3 sidenav-container" ng-if="$state.name.indexOf('auth') < 0">
+<div class="col-md-3 sidenav-container hidden-xs hidden-sm" ng-if="$state.name.indexOf('auth') < 0">
   <div data-ui-view="sidenav"></div>
 </div>
 <div class="main-container-wrapper" ng-class="{'full-width no-margin':$state.name.indexOf('auth') > -1}">
 
   <div class="main-container-wrapper-static">
-    <div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head">
-      <h3 class="page-title">
-      <span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>
-      <span ng-bind-html="$state.data.pageName"></span>&nbsp;
-      <!--<div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>-->
-      </h3>
-      <p ng-if="$state.data.pageDescription" class="help-block" ng-bind-html="$state.data.pageDescription"></p>
-      <ui-breadcrumbs ng-if="$state.data.displayName" displayname-property="data.displayName" template-url="js/app/core/layout/partials/uiBreadcrumbs.tpl.html">
-      </ui-breadcrumbs>
+    <div class="container-fluid">
+      <div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head">
+        <h3 class="page-title">
+          <span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>
+          <span ng-bind-html="$state.data.pageName"></span>&nbsp;
+          <!--<div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>-->
+        </h3>
+        <p ng-if="$state.data.pageDescription" class="help-block" ng-bind-html="$state.data.pageDescription"></p>
+        <ui-breadcrumbs ng-if="$state.data.displayName" displayname-property="data.displayName" template-url="js/app/core/layout/partials/uiBreadcrumbs.tpl.html">
+        </ui-breadcrumbs>
+      </div>
+      <div class="main-container">
+        <div data-ui-view="content" class="main-container-inner"></div>
+      </div>
     </div>
-    <div class="container-fluid main-container">
-      <div data-ui-view="content" class="main-container-inner"></div>
-    </div>
+
   </div>
 
 </div>

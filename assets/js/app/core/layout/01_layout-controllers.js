@@ -109,7 +109,7 @@
                       animation: true,
                       ariaLabelledBy: 'modal-title',
                       ariaDescribedBy: 'modal-body',
-                      templateUrl: 'js/app/settings/modals/connections-modal.html',
+                      templateUrl: 'js/app/connections/connections-modal.html',
                       controller: 'UpdateUserNodeController',
                       controllerAs: '$ctrl',
                       resolve: {
@@ -312,6 +312,15 @@
                             return true
                         },
                         access: AccessLevels.user
+                    },
+                    {
+                        state: 'users',
+                        icon : 'mdi-account-multiple-outline',
+                        show : function() {
+                            return AuthService.isAuthenticated()
+                        },
+                        title: 'Users',
+                        access: AccessLevels.anon
                     },
                     {
                         state: 'connections',

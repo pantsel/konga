@@ -10,6 +10,14 @@
   vertical-align: sub;
   line-height: 0.6;
 }
+
+
+.page-title{
+  .mdi::before {
+    vertical-align: text-bottom;
+  }
+}
+
 .btn-xs .mdi::before {
   font-size: 18px;
   vertical-align: sub;

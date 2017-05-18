@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.settings')
+    angular.module('frontend.snapshots')
         .controller('SnapshotsController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
             'SocketHelperService','UserService','SettingsService','MessageService',
@@ -27,7 +27,7 @@
                 $scope.user = UserService.user();
 
                 // Initialize used title items
-                $scope.titleItems = ListConfig.getTitleItems(Snapshot.endpoint);
+                $scope.titleItems = ListConfig.getTitleItems('snapshot');
 
 
 
@@ -91,7 +91,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/settings/snapshots/take-snapshot-modal.html',
+                        templateUrl: 'js/app/snapshots/take-snapshot-modal.html',
                         size : 'sm',
                         backdrop: 'static',
                         keyboard: false,

@@ -4,12 +4,12 @@
     /**
      * Model for Author API, this is used to wrap all Author objects specified actions and data change actions.
      */
-    angular.module('frontend.settings')
-        .service('NodeModel', [
+    angular.module('frontend.snapshots')
+        .service('Snapshot', [
             'DataModel',
             function(DataModel) {
 
-                var model = new DataModel('kongnode');
+                var model = new DataModel('snapshot');
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}

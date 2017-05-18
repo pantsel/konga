@@ -33,7 +33,7 @@
                         if($localStorage.credentials.user.node){
                             defer.resolve($localStorage.credentials.user.node.id)
                         }else{
-                            $state.go('settings.connections')
+                            $state.go('connections')
                             defer.reject("No active nodes found")
 
                         }

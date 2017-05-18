@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.settings')
+    angular.module('frontend.connections')
         .controller('UpdateUserNodeController', ['$scope','$rootScope','$uibModalInstance','UserService',
             '$log','NodeModel','UserModel','InfoService','$localStorage','_nodes',
             function($scope,$rootScope,$uibModalInstance,UserService,

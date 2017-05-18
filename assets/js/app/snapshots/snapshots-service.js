@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.settings')
+    angular.module('frontend.snapshots')
         .service('SnapshotsService', [
             '$http',
             function($http ) {

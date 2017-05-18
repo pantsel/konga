@@ -48,11 +48,11 @@
                             data-ng-show="item.column"
                             class="clickable"
                             data-ng-click="changeSort(item)"
-                            data-ng-bind-html="item.title"
+                            data-ng-bind-html="item.title.toUpperCase()"
                     ></a>
             <span
                     data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></span>
 
                     <i class="material-icons"

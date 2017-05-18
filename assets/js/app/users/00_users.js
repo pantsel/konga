@@ -17,7 +17,7 @@
                         cache : false,
                         data : {
                             pageName : "Konga Users",
-                            displayName : "konga users",
+                            //displayName : "konga users",
                             prefix : '<i class="material-icons">&#xE7FC;</i>'
                         },
                         views: {

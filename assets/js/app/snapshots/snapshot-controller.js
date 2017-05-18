@@ -6,7 +6,7 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.settings')
+    angular.module('frontend.snapshots')
         .controller('SnapshotController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox',
             'SocketHelperService','MessageService','SnapshotsService',
@@ -44,7 +44,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/settings/snapshots/snapshot-apply-modal.html',
+                        templateUrl: 'js/app/snapshots/snapshot-apply-modal.html',
                         controller: function($scope,$uibModalInstance,SnapshotsService,UserService,_snapshot){
 
                             $scope.user = UserService.user()
@@ -78,7 +78,7 @@
                                     animation: true,
                                     ariaLabelledBy: 'modal-title',
                                     ariaDescribedBy: 'modal-body',
-                                    templateUrl: 'js/app/settings/modals/connections-modal.html',
+                                    templateUrl: 'js/app/connections/connections-modal.html',
                                     controller: 'UpdateUserNodeController',
                                     controllerAs: '$ctrl',
                                     resolve: {
