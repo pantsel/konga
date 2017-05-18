@@ -26,7 +26,7 @@
                   isVisible : true
               },
               {
-                  name : 'Assigned plugins',
+                  name : 'Plugins',
                   icon : 'mdi mdi-power-plug',
                   isVisible : true
               },

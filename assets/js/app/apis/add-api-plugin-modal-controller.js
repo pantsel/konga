@@ -86,13 +86,6 @@
 
 
 
-                function fetchPlugins() {
-                    PluginsService.load()
-                        .then(function(res){
-
-                        })
-                }
-
                 // Listeners
                 $scope.$on('plugin.added',function(){
                     fetchPlugins()
@@ -110,6 +103,14 @@
                 $scope.$on("plugin.updated",function(ev,plugin){
                     fetchPlugins()
                 })
+
+
+                function fetchPlugins() {
+                    PluginsService.load()
+                        .then(function(res){
+
+                        })
+                }
 
                 function getApiPlugins() {
                     ApiService.plugins($scope.api.id)

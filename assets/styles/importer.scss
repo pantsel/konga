@@ -29,7 +29,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   overflow-y: auto;
   font-size: 1.4em;
-  background-color: #fff;
+  background-color: #f2f2f2;
   //padding-bottom: 30px;
 
 }
@@ -155,6 +155,10 @@ h5 {
 }
 
 
+.modal-title{
+  text-transform: uppercase;
+}
+
 
 header .navbar-nav {
 
@@ -163,6 +167,7 @@ header .navbar-nav {
 
 .page-title {
   font-size: 2em;
+  text-transform: uppercase;
   //color : $brand-primary
   i{
     color : $brand-primary
