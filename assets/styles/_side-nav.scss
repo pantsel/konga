@@ -171,8 +171,12 @@
   &.w-sm{
 
     .main-container-wrapper{
-      z-index: 0;
+      //z-index: 0;
       left:0;
+    }
+
+    .side-nav{
+      z-index: 3;
     }
 
 
@@ -190,6 +194,7 @@
 
   .side-nav{
     pointer-events: auto;
+    z-index: 0;
   }
 
   .side-nav::before {
@@ -205,15 +210,12 @@
 
 .main-container-wrapper{
   padding: 0;
-  z-index: 4;
+  //z-index: 4;
   position: absolute;
   left: 0;
   right: 0%;
 }
 
-.navbar-main{
-  z-index: 1;
-}
 
 .navbar-footer{
   position: absolute;

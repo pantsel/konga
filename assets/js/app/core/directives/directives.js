@@ -53,7 +53,7 @@
 
                     scope.$digest();
                 }
-            };
+            }
 
             function showOrHideSidenav() {
                 if(scope.width >= 992){
@@ -62,6 +62,7 @@
                     hideSideNav()
                 }
             }
+
 
             function showSideNav() {
                 sideNavEl.classList.add('side-nav--animatable');

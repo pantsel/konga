@@ -8,8 +8,10 @@
 
   angular.module('frontend.apis')
     .controller('ApisController', [
-      '$scope','$rootScope', '$log', '$state','ApiService','ListConfig','UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
-      function controller($scope,$rootScope, $log, $state, ApiService,ListConfig, UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
+      '$scope','$rootScope', '$log', '$state','ApiService','ListConfig','ApiModel',
+        'UserService','$uibModal','DialogService','SettingsService','ApiHCModel',
+      function controller($scope,$rootScope, $log, $state, ApiService,ListConfig,ApiModel,
+                          UserService,$uibModal,DialogService,SettingsService,ApiHCModel ) {
 
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
           $scope.user = UserService.user()
@@ -62,12 +64,12 @@
           }
 
           $scope.$on('api.created',function(){
-              getApis()
+              _fetchData()
           })
 
 
           $scope.$on('user.node.updated',function(node){
-              getApis()
+              _fetchData()
           })
 
           $scope.deleteApi = function($index,api) {
@@ -93,7 +95,7 @@
                   templateUrl: 'js/app/apis/add-api-modal.html',
                   controller: 'AddApiModalController',
                   controllerAs: '$ctrl',
-                  //size: 'lg'
+                  size: 'lg'
               });
           }
 
@@ -111,7 +113,7 @@
                   .then(function(res){
                       $log.debug("Update Api: ",res)
                       $scope.loading = false
-                      getApis()
+                      _fetchData()
                   }).catch(function(err){
                   $log.error("Update Api: ",err)
                   $scope.loading = false
@@ -120,14 +122,13 @@
           }
 
 
-          function getApis(){
+          function _fetchData(){
               $scope.loading = true;
-              ApiService.all()
-                  .then(function(res){
-                      $scope.apis = res.data
-                      assginApisHealthChecks();
-                      $scope.loading= false;
-                  }).catch(function(err){
+              ApiModel.load({
+                  size : $scope.itemsFetchSize
+              }).then(function(response){
+                  $scope.apis = response;
+                  assginApisHealthChecks();
                   $scope.loading= false;
               })
 
@@ -148,7 +149,7 @@
           }
 
 
-          getApis();
+          _fetchData();
 
 
           $scope.$on('api.health_checks',function(event,data){
