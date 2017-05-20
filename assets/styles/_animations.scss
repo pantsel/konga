@@ -1838,5 +1838,13 @@
     animation-name: fadeInLeftShort;
 }
 
+.form-group{
+    transition: all .3s;
+
+    &.has-error{
+        padding: 15px;
+    }
+}
+
 
 

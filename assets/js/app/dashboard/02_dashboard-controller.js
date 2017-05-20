@@ -173,7 +173,7 @@
 
           $scope.node = {
               kong_admin_url : '',
-              kong_version : '0-10-x',
+              // kong_version : '0-10-x',
           }
 
           $scope.close = function(){
@@ -244,7 +244,7 @@
            * Init UI
            */
 
-          if($rootScope.Gateway) fetchData();
+          if($rootScope.Gateway || UserService.user().node) fetchData();
 
 
           

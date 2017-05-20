@@ -242,7 +242,7 @@
                         show : function() {
                             return true
                         },
-                        access: AccessLevels.user
+                        access: AccessLevels.user && $rootScope.Gateway
                     },
                     {
                         state: 'apis',
@@ -309,7 +309,7 @@
                         state: 'connections',
                         icon : 'mdi-cast-connected',
                         show : function() {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.isAuthenticated()
                         },
                         title: 'Connections',
                         access: AccessLevels.anon
@@ -318,7 +318,7 @@
                         state: 'snapshots',
                         icon : 'mdi-camera',
                         show : function() {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway
                         },
                         title: 'Snapshots',
                         access: AccessLevels.anon
@@ -327,7 +327,7 @@
                         state: 'settings',
                         icon : 'mdi-settings',
                         show : function() {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.isAuthenticated()
                         },
                         title: 'Settings',
                         access: AccessLevels.anon

@@ -282,9 +282,7 @@
                         .then(
                             function onSuccess(response) {
                                 $scope.nodes = response;
-                                if(!$scope.nodes.length){
-                                    createNode()
-                                }
+
                             }
                         )
                         ;
@@ -296,6 +294,11 @@
                             function onFinally() {
                                 $scope.loaded = true;
                                 $scope.loading = false;
+                                if(!$scope.nodes.length){
+                                    // Set Gateway to null to prevent unwanted panic in other pages
+                                    $rootScope.Gateway = null;
+                                    createNode()
+                                }
                             }
                         )
                     ;

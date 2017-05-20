@@ -18,7 +18,7 @@
 
     .panel{
       .panel-heading{
-        background-color: $brand-primary;
+        background-color: $brand-royal;
         padding-top: 15px;
         padding-bottom: 0;
         padding-left: 0;
@@ -53,6 +53,7 @@
     .form-group{
       &.has-error{
         background-color: transparent !important;
+        padding: 0 !important;
       }
     }
   }
