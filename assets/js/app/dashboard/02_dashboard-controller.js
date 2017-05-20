@@ -8,8 +8,10 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$rootScope','$log', '$state','$q','InfoService','$timeout',
-      function controller($scope,$rootScope, $log, $state,$q,InfoService,$timeout) {
+      '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage',
+        'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService',
+      function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,
+                          SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService) {
 
 
           var loadTime = $rootScope.KONGA_CONFIG.info_polling_interval,
@@ -165,10 +167,84 @@
                       })
           }
 
+
+
+          $scope.kong_versions = SettingsService.getKongVersions()
+
+          $scope.node = {
+              kong_admin_url : '',
+              kong_version : '0-10-x',
+          }
+
+          $scope.close = function(){
+              $uibModalInstance.dismiss()
+          }
+
+          $scope.create = function() {
+
+
+              // Check if the connection is valid
+              $scope.checkingConnection = true;
+              InfoService.nodeStatus({
+                  kong_admin_url : $scope.node.kong_admin_url
+              }).then(function(response){
+                  $log.debug("Check connection:success",response)
+                  $scope.checkingConnection = false;
+
+                  // If check succeeds create the connection
+                  NodeModel
+                      .create(angular.copy($scope.node))
+                      .then(
+                          function onSuccess(result) {
+                              $log.info('New node created successfully',result)
+                              MessageService.success('New node created successfully');
+                              $scope.busy = false;
+                              $rootScope.$broadcast('kong.node.created',result.data)
+
+                              // Finally, activate the node for the logged in user
+                              UserModel
+                                  .update(UserService.user().id, {
+                                      node : result.data
+                                  })
+                                  .then(
+                                      function onSuccess(res) {
+                                          var credentials = $localStorage.credentials
+                                          credentials.user.node = result.data
+                                          $rootScope.$broadcast('user.node.updated',result.data)
+                                      },function(err){
+                                          $scope.busy = false
+                                          UserModel.handleError($scope,err)
+                                      }
+                                  );
+
+
+
+
+                          },function(err){
+                              $scope.busy = false
+                              NodeModel.handleError($scope,err)
+                          }
+                      )
+                  ;
+
+
+
+              }).catch(function(error){
+                  $log.debug("Check connection:error",error)
+                  $scope.checkingConnection = false;
+                  MessageService.error("Oh snap! Can't connect to the selected node.")
+              })
+
+
+          }
+
+
+
           /**
            * Init UI
            */
-          fetchData();
+
+          if($rootScope.Gateway) fetchData();
 
 
           
@@ -178,6 +254,10 @@
           };
 
           var nextLoad = function(mill) {
+
+
+              if(!$rootScope.Gateway) return false;
+
               mill = mill || loadTime;
 
               // Make sure the last timeout is cleared before starting a new one

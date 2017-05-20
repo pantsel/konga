@@ -1,19 +1,20 @@
-<div class="row" data-ng-if="error">
-    <div class="col-md-12">
-        <div class="jumbotron">
-            <h1>First things first</h1>
-            <p>
-                You will have to setup and activate a valid connection to a Kong Gateway.
-            </p>
-            <p>
-                <a class="btn btn-primary btn-lg" data-ui-sref="connections" role="button">
-                    <i class="material-icons">settings</i>
-                    Go to settings
-                </a>
-            </p>
+<div class="container margin-top" style="width: 600px;max-width: 100%" data-ng-if="!Gateway">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                First things first
+                </small>
+            </h1>
+            <p class="lead">You will have to setup a connection to a Kong Admin.</p>
+
+        </div>
+        <div class="col-md-12 margin-top">
+            <div ng-include="'js/app/connections/partials/create-connection-form-flat.html?r=' + Date.now()"
+                 class="margin-top"></div>
         </div>
     </div>
 </div>
+
 <konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
 <div class="row" data-ng-if="!loading && !error && info">
 
@@ -22,7 +23,8 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i class="material-icons">cast_connected</i>&nbsp;
-                    CONNECTIONS</div>
+                    CONNECTIONS
+                </div>
             </div>
             <div class="panel-body">
                 <canvas id="server"
@@ -41,7 +43,8 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i class="material-icons">storage</i>&nbsp;
-                    DATABASE</div>
+                    DATABASE
+                </div>
             </div>
             <div class="panel-body">
                 <canvas id="database"
@@ -59,7 +62,8 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i class="material-icons">schedule</i>&nbsp;
-                    TIMERS</div>
+                    TIMERS
+                </div>
             </div>
             <div class="panel-body">
                 <canvas id="timers"
@@ -74,39 +78,41 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-default" iln-match-height>
-        <div class="panel-heading">
-            <div class="panel-title">
-                <i class="material-icons">info_outline</i>&nbsp;GATEWAY INFO</div>
-        </div>
-        <table class="table no-margin">
-            <tr>
-                <th>HostName</th>
-                <td>{{info.hostname}}</td>
-            </tr>
-            <tr>
-                <th>Tag Line</th>
-                <td>{{info.tagline}}</td>
-            </tr>
-            <tr>
-                <th>Version</th>
-                <td>{{info.version}}</td>
-            </tr>
-            <tr>
-                <th>LUA Version</th>
-                <td>{{info.lua_version}}</td>
-            </tr>
-            <tr>
-                <th>Admin listen</th>
-                <td>{{info.configuration.admin_listen}}</td>
-            </tr>
-        </table>
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="material-icons">info_outline</i>&nbsp;GATEWAY INFO
+                </div>
+            </div>
+            <table class="table no-margin">
+                <tr>
+                    <th>HostName</th>
+                    <td>{{info.hostname}}</td>
+                </tr>
+                <tr>
+                    <th>Tag Line</th>
+                    <td>{{info.tagline}}</td>
+                </tr>
+                <tr>
+                    <th>Version</th>
+                    <td>{{info.version}}</td>
+                </tr>
+                <tr>
+                    <th>LUA Version</th>
+                    <td>{{info.lua_version}}</td>
+                </tr>
+                <tr>
+                    <th>Admin listen</th>
+                    <td>{{info.configuration.admin_listen}}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default" iln-match-height>
             <div class="panel-heading">
                 <div class="panel-title">
-                    <i class="material-icons">info_outline</i>&nbsp;DATABASE INFO</div>
+                    <i class="material-icons">info_outline</i>&nbsp;DATABASE INFO
+                </div>
             </div>
             <table class="table no-margin">
                 <tr>
@@ -137,7 +143,8 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i class="material-icons">device_hub</i>&nbsp;
-                    CLUSTER ({{clusters.total}} nodes)</div>
+                    CLUSTER ({{clusters.total}} nodes)
+                </div>
             </div>
             <div class="panel-body no-padding table-responsive">
                 <table class="table">
@@ -168,7 +175,8 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <i class="material-icons">settings_input_component</i>&nbsp;
-                    PLUGINS</div>
+                    PLUGINS
+                </div>
             </div>
             <div class="panel-body">
                 <span class="label"

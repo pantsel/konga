@@ -1,0 +1,28 @@
+<form name="connectionForm" ng-submit="create()">
+    <div class="form-group" ng-class="{'has-error' : errors.name}">
+        <label class="control-label">Name <em><small class="">required</small></em></label>
+        <input ng-model="node.name" class="form-control" placeholder="A unique connection name" required="required">
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+    </div>
+    <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
+        <label class="control-label">Kong Admin URL <em><small class="">required</small></em></label>
+        <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's admin api" required="required">
+        <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
+    </div>
+    <div class="form-group" ng-class="{'has-error' : errors.kong_version}">
+        <label class="control-label">Kong version</label>
+        <select
+                class="form-control" ng-model="node.kong_version" ng-options="item.value as item.name for item in kong_versions">
+        </select>
+        <div class="text-danger" ng-if="errors.kong_version" data-ng-bind="errors.kong_version"></div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block">
+            <i class="mdi mdi-check" ng-if="!busy"></i>
+            <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+            create connection
+        </button>
+    </div>
+</form>

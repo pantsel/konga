@@ -222,38 +222,7 @@
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/connections/create-connection-modal.html',
                         size : 'lg',
-                        controller: function($scope,$rootScope,$log,NodeModel,MessageService,SettingsService,$uibModalInstance) {
-
-                            $scope.kong_versions = SettingsService.getKongVersions()
-
-                            $scope.node = {
-                                kong_admin_url : '',
-                                kong_version : '0-10-x',
-                            }
-
-                            $scope.close = function(){
-                                $uibModalInstance.dismiss()
-                            }
-
-                            $scope.create = function() {
-                                $scope.busy = true;
-                                NodeModel
-                                    .create(angular.copy($scope.node))
-                                    .then(
-                                        function onSuccess(result) {
-                                            $log.info('New node created successfully',result)
-                                            MessageService.success('New node created successfully');
-                                            $scope.busy = false;
-                                            $rootScope.$broadcast('kong.node.created',result.data)
-                                            $uibModalInstance.dismiss()
-                                        },function(err){
-                                            $scope.busy = false
-                                            NodeModel.handleError($scope,err)
-                                        }
-                                    )
-                                ;
-                            }
-                        }
+                        controller: 'CreateConnectionController'
                     });
                 }
 
