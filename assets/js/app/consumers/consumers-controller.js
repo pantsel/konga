@@ -86,6 +86,7 @@
               }).then(function(response){
                   $scope.items = response;
                   $scope.loading= false;
+
               })
           }
 
@@ -108,7 +109,7 @@
               _fetchData()
           })
 
-          $scope.$on('user.node.updated',function(node){
+          $scope.$on('user.node.updated',function(ev,node){
               _fetchData()
           })
 

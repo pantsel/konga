@@ -13,7 +13,7 @@
       .factory('timeoutHttpIntercept', function ($rootScope, $q) {
         return {
           'request': function (config) {
-            config.timeout = 10000;
+            config.timeout = 20000;
             return config;
           }
         }

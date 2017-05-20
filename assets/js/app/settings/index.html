@@ -2,10 +2,9 @@
     <div class="row">
         <div class="col-md-12">
             <h4>
-                General<br>
-                <small>General settings</small>
+                General settings
             </h4>
-            <br>
+            <hr>
             <div class="form-group row col-md-4">
                 <label>
                     Dashboard refresh interval
@@ -15,14 +14,13 @@
             </div>
         </div>
     </div>
-    <hr>
+    <br>
     <div class="row">
         <div class="col-md-12">
             <h4>
-                Sign up<br>
-                <small>Sign up restrictions</small>
+                Sign up restrictions
             </h4>
-            <br>
+            <hr>
             <div class="form-group">
                 <ul class="list-unstyled">
                     <li>
@@ -46,15 +44,13 @@
             </div>
         </div>
     </div>
-    <hr>
-
+    <br>
     <div class="row">
         <div class="col-md-12">
             <h4>
-                Email<br>
-                <small>Email settings</small>
+                Email settings
             </h4>
-            <br>
+            <hr>
             <div class="form-group row col-md-4">
                 <label>Default sender address</label>
                 <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
@@ -129,15 +125,14 @@
 
         </div>
     </div>
-    <hr>
+    <br>
     <div class="row">
         <div class="col-md-12">
 
             <h4>
-                Permissions<br>
-                <small>User permissions</small>
+                User permissions
             </h4>
-            <br>
+            <hr>
             <div class="row" data-ng-repeat="(context,permissions) in KONGA_CONFIG.user_permissions">
                 <div class="col-md-12">
                     <h6>{{context.toUpperCase()}}</h6>

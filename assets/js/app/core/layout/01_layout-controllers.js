@@ -107,34 +107,12 @@
           }
 
 
-
-          $scope.showConnectionsModal = function() {
-
-                  $uibModal.open({
-                      animation: true,
-                      ariaLabelledBy: 'modal-title',
-                      ariaDescribedBy: 'modal-body',
-                      templateUrl: 'js/app/connections/connections-modal.html',
-                      controller: 'UpdateUserNodeController',
-                      controllerAs: '$ctrl',
-                      resolve: {
-                          _nodes: [
-                              'NodeModel',
-                              function resolve(
-                                  NodeModel
-                              ) {
-                                  return NodeModel.load({
-                                      sort: 'createdAt DESC'
-                                  });
-                              }
-                          ]
-                      }
-                  });
-          }
-
           $scope.activateConnection = function(node) {
 
               $scope.alerts = [];
+
+
+
 
               if((UserService.user().node && UserService.user().node.id == node.id ) || node.checkingConnection) return false;
 

@@ -122,6 +122,11 @@ module.exports.policies = {
   SettingsController : {
     'find' : true,
     '*':        ['authenticated','isAdmin'],
+  },
+
+
+  KongProxyController : {
+    "*" : ['authenticated','dynamicNode']
   }
 
 
