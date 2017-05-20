@@ -2,15 +2,13 @@
 <div class="row actions">
     <div class="col-md-12">
         <div class="pull-left">
-            <div class="col-md-12 actions">
-                <a data-ui-sref="plugins.add" class="btn btn-primary">
-                    <i class="material-icons">add</i>
-                    Add global plugins
-                </a>
-            </div>
+            <a data-ui-sref="plugins.add" class="btn btn-primary">
+                <i class="material-icons">add</i>
+                Add global plugins
+            </a>
         </div>
         <list-search
-                class="pull-right margin-right"
+                class="pull-right"
                 data-filters="filters"
                 data-options="itemsPerPageOptions"
                 data-items="itemsPerPage"
@@ -23,55 +21,57 @@
 
 <div class="row" ng-if="!loading || items.data.length">
 
-    <div class="table-responsive col-md-12">
-        <table class="table table-hover table-striped">
-            <tr>
-                <th width="1"></th>
-                <th width="1"></th>
-                <th>NAME</th>
-                <th>API</th>
-                <th>CONSUMER</th>
-                <th>CREATED</th>
-                <th width="1"></th>
-            </tr>
-            <tr
-                    dir-paginate="item in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
-                <td>
-                    <input
-                            bs-switch
-                            switch-on-color="primary"
-                            ng-change="updatePlugin(item)"
-                            ng-model="item.enabled"
-                            type="checkbox"
-                            switch-size="mini">
-                </td>
-                <td>
-                    <raw-view data-item="item"></raw-view>
-                </td>
-                <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
-                <td>
-                    <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
-                    <span data-ng-if="!item.api_id" >All APIs</span>
-                </td>
-                <td>
-                    <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
-                    <span data-ng-if="!item.consumer_id" >All consumers</span>
-                </td>
-                <td>{{item.created_at | date : format : timezone}}</td>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1"></th>
+                    <th width="1"></th>
+                    <th>NAME</th>
+                    <th>API</th>
+                    <th>CONSUMER</th>
+                    <th>CREATED</th>
+                    <th width="1"></th>
+                </tr>
+                <tr
+                        dir-paginate="item in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
+                    <td>
+                        <input
+                                bs-switch
+                                switch-on-color="primary"
+                                ng-change="updatePlugin(item)"
+                                ng-model="item.enabled"
+                                type="checkbox"
+                                switch-size="mini">
+                    </td>
+                    <td>
+                        <raw-view data-item="item"></raw-view>
+                    </td>
+                    <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
+                    <td>
+                        <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
+                        <span data-ng-if="!item.api_id" >All APIs</span>
+                    </td>
+                    <td>
+                        <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
+                        <span data-ng-if="!item.consumer_id" >All consumers</span>
+                    </td>
+                    <td>{{item.created_at | date : format : timezone}}</td>
 
-                <td>
-                    <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
-                        <i class="material-icons">&#xE872;</i>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr data-ng-if="items.data.length === 0">
-                <td colspan="100%" class="text-center text-muted">
-                    <em>no data found...</em>
-                </td>
-            </tr>
-        </table>
+                    <td>
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="material-icons">&#xE872;</i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr data-ng-if="items.data.length === 0">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>no data found...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <dir-pagination-controls></dir-pagination-controls>
     </div>
 
