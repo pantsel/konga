@@ -1,26 +1,18 @@
-/**
- * This file contains all necessary Angular controller definitions for 'frontend.admin.login-history' module.
- *
- * Note that this file should only contain controllers and nothing else.
- */
 (function() {
   'use strict';
 
   angular.module('frontend.plugins')
     .controller('PluginsController', [
         '_','$scope', '$log', '$state','ApiService','PluginsService',
-        '$uibModal','DialogService','InfoService',
+        '$uibModal','DialogService','PluginModel','ListConfig','UserService',
       function controller(_,$scope, $log, $state, ApiService, PluginsService,
-                          $uibModal,DialogService,InfoService ) {
+                          $uibModal, DialogService, PluginModel, ListConfig, UserService ) {
 
-          //$scope.api = _api.data
-          //$state.current.data.pageName = "Plugins <small>( API : " + ( $scope.api.name || $scope.api.id )+ " )</small>"
-
-          //$scope.plugins = _plugins.data
+          PluginModel.setScope($scope, false, 'items', 'itemCount');
+          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',PluginModel)));
+          $scope.user = UserService.user();
           $scope.onEditPlugin = onEditPlugin
-          $scope.deletePlugin = deletePlugin
           $scope.updatePlugin = updatePlugin
-          $scope.search = ''
 
 
           /**
@@ -31,32 +23,17 @@
 
            function updatePlugin(plugin) {
               PluginsService.update(plugin.id,{
-                      enabled : plugin.enabled,
-                      //config : plugin.config
+                      enabled : plugin.enabled
                   })
                   .then(function(res){
                       $log.debug("updatePlugin",res)
-                      $scope.plugins.data[$scope.plugins.data.indexOf(plugin)] = res.data;
+                      // $scope.items.data[$scope.items.data.indexOf(plugin)] = res.data;
 
                   }).catch(function(err){
                   $log.error("updatePlugin",err)
               })
           }
 
-
-          function deletePlugin(plugin) {
-              DialogService.prompt(
-                  "Delete Plugin","Really want to delete the plugin?",
-                  ['No don\'t','Yes! delete it'],
-                  function accept(){
-                      PluginsService.delete(plugin.id)
-                          .then(function(resp){
-                              $scope.plugins.data.splice($scope.plugins.data.indexOf(plugin),1);
-                          }).catch(function(err){
-                          $log.error(err)
-                      })
-                  },function decline(){})
-          }
 
           function onEditPlugin(item) {
               $uibModal.open({
@@ -77,13 +54,15 @@
               });
           }
 
-          function fetchPlugins() {
+          function _fetchData() {
+
               $scope.loading = true;
-                PluginsService.load()
-                    .then(function(res){
-                        $scope.plugins = res.data
-                        $scope.loading = false;
-                    })
+              PluginModel.load({
+                  size : $scope.itemsFetchSize
+              }).then(function(response){
+                  $scope.items = response;
+                  $scope.loading= false;
+              })
           }
 
 
@@ -93,20 +72,20 @@
            * ------------------------------------------------------------
            */
           $scope.$on("plugin.added",function(){
-              fetchPlugins()
+              _fetchData()
           })
 
           $scope.$on("plugin.updated",function(ev,plugin){
-              fetchPlugins()
+              _fetchData()
           })
 
 
           $scope.$on('user.node.updated',function(node){
-              fetchPlugins()
+              _fetchData()
           })
 
 
-          fetchPlugins();
+          _fetchData();
 
       }
     ])

@@ -16,28 +16,28 @@
 
                 <!--</span>-->
 
-                <ul uib-dropdown-menu class="dropdown-menu pull-right dropdown-menu-arrow" role="menu">
-                    <li class="title padding-left">Affected columns</li>
-                    <li class="divider"></li>
-                    <li data-ng-repeat="column in filters.columns | filter: inSearch">
-                        <a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">
-                            <i class="material-icons"
-                                data-ng-class="{'opaque': !column.inSearch}"
-                            >done</i>
+                <!--<ul uib-dropdown-menu class="dropdown-menu animated fadeInDownShort go dropdown-menu-arrow" role="menu">-->
+                    <!--<li class="title padding-left">Affected columns</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li data-ng-repeat="column in filters.columns | filter: inSearch">-->
+                        <!--<a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">-->
+                            <!--<i class="material-icons"-->
+                                <!--data-ng-class="{'opaque': !column.inSearch}"-->
+                            <!--&gt;done</i>-->
 
 
-                            <span
-                                data-ng-if="column.titleSearch"
-                                data-ng-bind="column.titleSearch"
-                            ></span>
+                            <!--<span-->
+                                <!--data-ng-if="column.titleSearch"-->
+                                <!--data-ng-bind="column.titleSearch"-->
+                            <!--&gt;</span>-->
 
-                            <span
-                                data-ng-if="!column.titleSearch"
-                                data-ng-bind="column.title"
-                            ></span>
-                        </a>
-                    </li>
-                </ul>
+                            <!--<span-->
+                                <!--data-ng-if="!column.titleSearch"-->
+                                <!--data-ng-bind="column.title"-->
+                            <!--&gt;</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
 
 
             </div>

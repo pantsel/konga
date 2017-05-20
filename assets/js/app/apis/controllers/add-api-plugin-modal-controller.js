@@ -11,11 +11,11 @@
             '_','$scope', '$rootScope','$log',
             '$state','ApiService','MessageService','DialogService',
             'KongPluginsService','PluginsService','$uibModal','$uibModalInstance',
-            '_api','_plugins',
+            '_api',
             function controller(_,$scope,$rootScope, $log,
                                 $state, ApiService, MessageService, DialogService,
                                 KongPluginsService,PluginsService, $uibModal,$uibModalInstance,
-                                _api,_plugins ) {
+                                _api ) {
 
 
                 var pluginOptions = new KongPluginsService().pluginOptions()
@@ -62,7 +62,7 @@
                 }
 
                 function onAddPlugin(name) {
-                    $uibModal.open({
+                    var modalInstance = $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
@@ -79,6 +79,15 @@
                             _schema: function () {
                                 return PluginsService.schema(name)
                             }
+                        }
+                    });
+
+
+                    modalInstance.result.then(function (data) {
+
+                    }, function (data) {
+                        if(data && data.name && $scope.existingPlugins.indexOf(data.name) < 0) {
+                            $scope.existingPlugins.push(data.name)
                         }
                     });
                 }

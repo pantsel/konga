@@ -36,7 +36,7 @@
 
                 <div class="col-md-6" data-ng-repeat="(key,value) in group.plugins">
                     <div class="panel"
-                         ng-class="{'panel-success' : existingPlugins.indexOf(key) > -1, 'panel-default' : existingPlugins.indexOf(key) <0}"
+                         ng-class="{'panel-success' : existingPlugins.indexOf(key) > -1, 'panel-default' : existingPlugins.indexOf(key) < 0}"
                          iln-match-height>
                         <div class="panel-heading">
                             <div class="panel-title">

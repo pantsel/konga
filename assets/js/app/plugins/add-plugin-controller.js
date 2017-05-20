@@ -114,7 +114,7 @@
                       $scope.busy = false;
                       $rootScope.$broadcast('plugin.added',res.data)
                       MessageService.success('Plugin added successfully!')
-                      $uibModalInstance.dismiss()
+                      $uibModalInstance.dismiss(res.data)
                       if(back) $state.go('plugins') // return to plugins page if specified
                   },function(err){
                       $scope.busy = false;

@@ -145,7 +145,7 @@
       margin-right: 10px;
     }
 
-    &:hover{
+    &:hover, &:active{
       background-color: lighten($brand-royal,5%) !important;
     }
     border-radius: 0;
@@ -225,7 +225,11 @@
 .main-container-wrapper-static{
   height: calc(100vh - 64px);
   overflow-y: auto;
-  padding-bottom: 30px;
+  //padding: 25px;
+}
+
+.main-container{
+  margin: 25px;
 }
 
 .main-container-wrapper{

@@ -14,6 +14,7 @@
 @import "top_nav";
 @import "side-nav";
 @import "animations";
+@import "tables";
 
 
 $color-footer-text: #999;
@@ -53,6 +54,12 @@ body {
 .container-fluid{
 
 }
+
+
+.text-nowrap{
+  white-space: nowrap;
+}
+
 
 a:hover{
   color: $brand-primary;
@@ -347,7 +354,6 @@ footer {
 }
 
 .actions{
-  //margin-top: 1em;
   margin-bottom: 1em;
   text-align: right;
 
@@ -682,7 +688,7 @@ tr.disabled{
 }
 
 .modal-body{
-  //background-color:#f2f2f2;
+  //background-color: $gray-lighter;
 }
 
 

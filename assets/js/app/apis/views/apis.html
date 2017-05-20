@@ -34,8 +34,8 @@
         ></list-search>
     </div>
 </div>
-<konga-loader ng-if="loading && !apis.data.length"></konga-loader>
-<div class="row" ng-show="!loading || apis.data.length">
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
+<div class="row" ng-show="!loading || items.data.length">
     <div class="col-md-12">
         <div class="table-responsive" >
             <table class="table table-hover table-striped">
@@ -66,7 +66,7 @@
                     <th width="1"></th>
                 </tr>
                 <tr
-                        dir-paginate="api in apis.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
+                        dir-paginate="api in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
                     <td>
 
                         <i
@@ -80,7 +80,7 @@
                     <td>
                         <i
                                 uib-tooltip="Preserve Host"
-                                ng-click="api.preserve_host=!api.preserve_host;updateApi(api)"
+                                ng-click="api.preserve_host=!api.preserve_host;updateApi(api.id,{preserve_host : api.preserve_host})"
                                 data-ng-class="{'text-primary' : api.preserve_host,'text-muted' : !api.preserve_host}"
                                 class="material-icons clickable">
                             {{api.preserve_host ? 'cloud_done' : 'cloud_off'}}
@@ -90,11 +90,12 @@
                     <td>
                         <i
                             ng-if="api.health_checks && api.health_checks.active"
-                            class="mdi mdi-heart-pulse"
+                            class="mdi"
                             uib-tooltip="{{api.health_checks.data ? ( api.health_checks.data.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
-                            data-ng-class="{'text-danger': api.health_checks.data && !api.health_checks.data.isHealthy,'text-success': api.health_checks.data && api.health_checks.data.isHealthy}"></i>
+                            data-ng-class="{'mdi-loading mdi-spin': !api.health_checks.data,'mdi-heart-broken text-danger': api.health_checks.data && !api.health_checks.data.isHealthy,'mdi-heart-pulse text-success': api.health_checks.data && api.health_checks.data.isHealthy}"></i>
 
-                        <i uib-tooltip="HC disabled" ng-if="!api.health_checks || !api.health_checks.active" class="mdi mdi-heart-pulse"></i></td>
+
+                        <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!api.health_checks || !api.health_checks.active" class="mdi mdi-heart-outline"></i></td>
                     <td>
                         <raw-view data-item="api"></raw-view>
                     </td>
@@ -112,7 +113,7 @@
                         <!--</a>-->
                     <!--</td>-->
                     <td>
-                        <button type="button" ng-click="deleteApi($index,api)" class="btn btn-danger btn-link">
+                        <button type="button" ng-click="deleteItem($index,api)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete
                         </button>

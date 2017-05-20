@@ -1,29 +1,27 @@
-<div class="row">
-    <div class="col-md-12 actions">
-        <a data-ui-sref="plugins.add" class="btn btn-primary">
-            <i class="material-icons">add</i>
-            Add global plugins
-        </a>
-    </div>
-</div>
-<div class="row">
+
+<div class="row actions">
     <div class="col-md-12">
-        <div class="bg-light-grey padding clearfix">
-            <div class="input-group col-sm-4 pull-left">
-                <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
-                </div>
-                <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
+        <div class="pull-left">
+            <div class="col-md-12 actions">
+                <a data-ui-sref="plugins.add" class="btn btn-primary">
+                    <i class="material-icons">add</i>
+                    Add global plugins
+                </a>
             </div>
-            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
         </div>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
     </div>
 </div>
 
 
-<konga-loader ng-if="loading && !plugins.data.length"></konga-loader>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
 
-<div class="row" ng-if="!loading || plugins.data.length">
+<div class="row" ng-if="!loading || items.data.length">
 
     <div class="table-responsive col-md-12">
         <table class="table table-hover table-striped">
@@ -34,17 +32,11 @@
                 <th>API</th>
                 <th>CONSUMER</th>
                 <th>CREATED</th>
-                <!--<th width="1"></th>-->
                 <th width="1"></th>
             </tr>
             <tr
-                    dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                    dir-paginate="item in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
                 <td>
-                    <!--<input-->
-                            <!--uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"-->
-                            <!--ng-change="updatePlugin(item)"-->
-                            <!--ng-model="item.enabled"-->
-                            <!--type="checkbox"/>-->
                     <input
                             bs-switch
                             switch-on-color="primary"
@@ -68,13 +60,13 @@
                 <td>{{item.created_at | date : format : timezone}}</td>
 
                 <td>
-                    <button type="button" ng-click="deletePlugin(item)" class="btn btn-danger btn-link">
+                    <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
                         <i class="material-icons">&#xE872;</i>
                         Delete
                     </button>
                 </td>
             </tr>
-            <tr data-ng-if="plugins.data.length === 0">
+            <tr data-ng-if="items.data.length === 0">
                 <td colspan="100%" class="text-center text-muted">
                     <em>no data found...</em>
                 </td>

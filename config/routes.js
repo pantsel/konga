@@ -75,13 +75,13 @@ module.exports.routes = {
   // Api routes
   //'POST /kong/apis'                     : 'KongApiController.create',
   //'GET /kong/apis/:id'                  : 'KongApiController.retrieve',
-  'GET /kong/apis'                        : 'KongApiController.list',
+  // 'GET /kong/apis'                        : 'KongApiController.list',
   //'PATCH /kong/apis/:id'                : 'KongApiController.update',
   //'PUT /kong/apis/'                     : 'KongApiController.updateOrCreate',
   //'DELETE /kong/apis/:id'               : 'KongApiController.delete',
 
 
-  'GET /kong/consumers'                 : 'KongConsumerController.list',
+  // 'GET /kong/consumers'                 : 'KongConsumerController.list',
 
   //'POST /kong/consumers'                : 'KongConsumerController.create',
   //'POST /kong/consumers/:id/acls'       : 'KongConsumerController.addAcl',
@@ -107,7 +107,7 @@ module.exports.routes = {
   //'GET /kong/plugins/:id'               : 'KongPluginController.retrieve',
   //'GET /kong/plugins/enabled'           : 'KongPluginController.retrieveEnabled',
   //'GET /kong/plugins/schema/:plugin'    : 'KongPluginController.retrieveSchema',
-  'GET /kong/plugins'                   : 'KongPluginController.list',
+  // 'GET /kong/plugins'                   : 'KongPluginController.list',
   //'GET /kong/apis/:api/plugins'         : 'KongPluginController.listApi',
   //'PATCH /kong/apis/:api/plugins/:id'   : 'KongPluginController.update',
   //'PUT /kong/apis/:api/plugins'         : 'KongPluginController.updateOrCreate',

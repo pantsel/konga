@@ -10,11 +10,11 @@
     .factory('DataModel', [
       '$sailsSocket', '$log',
       '_',
-      'DataService',
+      'DataService','MessageService',
       function(
         $sailsSocket, $log,
         _,
-        DataService
+        DataService,MessageService
       ) {
         /**
          * Constructor for actual data model.
@@ -298,6 +298,9 @@
               },
               function onError(error) {
                 $log.error('DataModel.load() failed.', error, self.endpoint, parameters);
+                if(error.data && error.data.body && error.data.body.message) {
+                  MessageService.error(error.data.body.message)
+                }
               }
             )
           ;

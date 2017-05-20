@@ -18,9 +18,10 @@ module.exports = {
 
         sails.log("req.url",req.url)
 
-        // Fix upstream method
-        console.log("req.url.split('/')",req.url.split('/'))
-        if(req.url.split('/')[1] == 'upstreams' && req.method.toLowerCase() == 'put') {
+        // Fix update method by setting it to "PATCH"
+        // as Kong requires
+
+        if(req.method.toLowerCase() == 'put') {
             req.method = "PATCH"
         }
 

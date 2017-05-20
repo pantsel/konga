@@ -5,11 +5,11 @@
      * Model for Author API, this is used to wrap all Author objects specified actions and data change actions.
      */
     angular.module('frontend.consumers')
-        .service('ConsumerModel', [
+        .service('PluginModel', [
             'DataModel','DataService','$q','$log',
             function(DataModel,DataService,$q,$log) {
 
-                var model = new DataModel('kong/consumers',true);
+                var model = new DataModel('kong/plugins',true);
 
 
                 model.handleError = function($scope,err) {
