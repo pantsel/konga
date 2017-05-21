@@ -111,6 +111,8 @@
 
               $scope.alerts = [];
 
+              console.log(node)
+
 
 
 
@@ -143,7 +145,7 @@
               }).catch(function(error){
                   $log.debug("Check connection:error",error)
                   node.checkingConnection = false;
-                  MessageService.error("Oh snap! Can't connect to the selected node.")
+                  MessageService.error("Oh snap! Can't connect to " + node.kong_admin_url)
               })
 
           }

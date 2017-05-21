@@ -113,18 +113,34 @@
 
                 $scope.deleteNode = function deleteNode(node) {
 
-                    NodeModel
-                        .delete(node.id)
-                        .then(
-                            function onSuccess(data) {
-                                if(data.status < 204) {
-                                    MessageService.success('Connection deleted successfully');
-                                    $rootScope.$broadcast('kong.node.deleted',node)
-                                    _triggerFetchData()
-                                }
-                            }
-                        )
-                    ;
+
+                    if($scope.user.node && $scope.user.node.id == node.id) {
+                        $ngBootbox.alert('<p class="lead">Sorry...</p>Active nodes cannot be deleted.<br><br>Deactivate it and try again.')
+                            .then(function() {});
+                        return false;
+                    }
+
+                    DialogService.prompt(
+                        "Confirm", "Really want to delete the selected item?",
+                        ['No don\'t', 'Yes! delete it'],
+                        function accept() {
+                            NodeModel
+                                .delete(node.id)
+                                .then(
+                                    function onSuccess(data) {
+                                        if(data.status < 204) {
+                                            MessageService.success('Connection deleted successfully');
+                                            $rootScope.$broadcast('kong.node.deleted',node)
+                                            _triggerFetchData()
+                                        }
+                                    }
+                                )
+                            ;
+                        }, function decline() {
+                        })
+
+
+
                 };
 
 
@@ -180,19 +196,28 @@
                     });
                 }
 
+
+
+
                 $scope.toggleActive = function(node) {
 
-                    if(UserService.user().node && node.id == UserService.user().node.id) return false;
 
                     UserModel
                         .update(UserService.user().id, {
-                            node : node
+                            node : isActive(node) ? null : node
                         })
                         .then(
                             function onSuccess(res) {
                                 var credentials = $localStorage.credentials
-                                credentials.user.node = node
-                                $rootScope.$broadcast('user.node.updated',node)
+
+                                if(!res.data.node) {
+                                    delete credentials.user.node;
+                                } else{
+                                    credentials.user.node = node
+                                }
+
+
+                                $rootScope.$broadcast('user.node.updated',res.data.node)
                             }
                         );
                 }
@@ -347,6 +372,10 @@
                                 $rootScope.$broadcast('user.node.updated',node)
                             }
                         );
+                }
+
+                function isActive(node) {
+                    return UserService.user().node && node.id == UserService.user().node.id;
                 }
 
 
