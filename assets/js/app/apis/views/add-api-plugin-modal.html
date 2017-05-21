@@ -26,7 +26,7 @@
 
         </div>
         <div class="col-md-9">
-            <div class="row"  data-ng-repeat="group in pluginGroups | filter : filterGroup">
+            <div class="row" vertilize-container  data-ng-repeat="group in pluginGroups | filter : filterGroup">
                 <div class="col-md-12">
                     <div class="inner margin-bottom padding" style="background-color: #f4f4f4">
                         <h4><i class="material-icons pull-left">{{group.icon}}</i>&nbsp;{{group.name.toUpperCase()}}</h4>
@@ -37,7 +37,7 @@
                 <div class="col-md-6" data-ng-repeat="(key,value) in group.plugins">
                     <div class="panel"
                          ng-class="{'panel-success' : existingPlugins.indexOf(key) > -1, 'panel-default' : existingPlugins.indexOf(key) < 0}"
-                         iln-match-height>
+                         vertilize>
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <span class="capitalize">{{key.split('-').join(" ")}}</span>

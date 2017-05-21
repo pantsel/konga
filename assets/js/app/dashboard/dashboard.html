@@ -16,179 +16,184 @@
 </div>
 
 <konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
-<div class="row" data-ng-if="!loading && !error && info">
 
-    <div class="col-md-8">
-        <div class="panel panel-default" iln-match-height>
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">cast_connected</i>&nbsp;
-                    CONNECTIONS
+<div data-ng-if="!loading && !error && info">
+    <div class="row" vertilize-container>
+        <!-- CONNECTIONS -->
+        <div class="col-md-8">
+            <div class="panel panel-default" vertilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">cast_connected</i>&nbsp;
+                        CONNECTIONS
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <canvas id="server"
+                            height="75"
+                            class="chart chart-bar"
+                            chart-data="data.server.data"
+                            chart-labels="data.server.labels"
+                            chart-options="data.server.options"
+                            chart-series="data.server.series">
+                    </canvas>
                 </div>
             </div>
-            <div class="panel-body">
-                <canvas id="server"
-                        height="75"
-                        class="chart chart-bar"
-                        chart-data="data.server.data"
-                        chart-labels="data.server.labels"
-                        chart-options="data.server.options"
-                        chart-series="data.server.series">
-                </canvas>
-            </div>
         </div>
-    </div>
+        <!-- END CONNECTIONS -->
 
-
-    <div class="col-md-4">
-        <div class="panel panel-default" iln-match-height>
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">schedule</i>&nbsp;
-                    TIMERS
+        <!-- TIMERS -->
+        <div class="col-md-4">
+            <div class="panel panel-default" vertilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">schedule</i>&nbsp;
+                        TIMERS
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <canvas id="timers"
+                            class="chart chart-bar"
+                            chart-data="data.timers.data"
+                            chart-labels="data.timers.labels"
+                            chart-options="data.timers.options"
+                            chart-series="data.timers.series">
+                    </canvas>
                 </div>
             </div>
-            <div class="panel-body">
-                <canvas id="timers"
-                        class="chart chart-bar"
-                        chart-data="data.timers.data"
-                        chart-labels="data.timers.labels"
-                        chart-options="data.timers.options"
-                        chart-series="data.timers.series">
-                </canvas>
-            </div>
         </div>
+        <!-- END -->
     </div>
-    <!--<div class="col-md-12">-->
-        <!--<div class="panel panel-default">-->
-            <!--<div class="panel-heading">-->
-                <!--<div class="panel-title">-->
-                    <!--<i class="material-icons">storage</i>&nbsp;-->
-                    <!--DATABASE-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="panel-body">-->
-                <!--<canvas id="database"-->
-                        <!--class="chart chart-bar"-->
-                        <!--chart-data="data.database.data"-->
-                        <!--chart-labels="data.database.labels"-->
-                        <!--chart-options="data.database.options"-->
-                        <!--chart-series="data.database.series">-->
-                <!--</canvas>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">storage</i>&nbsp;
+    <div class="row">
+        <!-- DATABASE -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">storage</i>&nbsp;
                         DATABASE
                     </div>
                 </div>
-            <div class="panel-body">
+                <div class="panel-body">
                 <span class="label label-default" ng-repeat="(key,value) in status.database">
                     {{key.toUpperCase()}} : {{value}}
                 </span>
-            </div>
+                </div>
 
+            </div>
         </div>
+        <!-- END DATABASE -->
     </div>
+    <div class="row" vertilize-container>
+        <!-- GATEWAY INFO -->
+        <div class="col-md-4">
+            <div class="panel panel-default" verilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">info_outline</i>&nbsp;GATEWAY INFO
+                    </div>
+                </div>
+                <table class="table no-margin">
+                    <tr>
+                        <th>HostName</th>
+                        <td>{{info.hostname}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tag Line</th>
+                        <td>{{info.tagline}}</td>
+                    </tr>
+                    <tr>
+                        <th>Version</th>
+                        <td>{{info.version}}</td>
+                    </tr>
+                    <tr>
+                        <th>LUA Version</th>
+                        <td>{{info.lua_version}}</td>
+                    </tr>
+                    <tr>
+                        <th>Admin listen</th>
+                        <td>{{info.configuration.admin_listen}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- END GATEWAY INFO -->
 
-    <div class="col-md-4">
-        <div class="panel panel-default" iln-match-height>
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">info_outline</i>&nbsp;GATEWAY INFO
+        <!-- DATABASE INFO -->
+        <div class="col-md-4">
+            <div class="panel panel-default" verilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">info_outline</i>&nbsp;DATABASE INFO
+                    </div>
                 </div>
+                <table class="table no-margin">
+                    <tr>
+                        <th>DBMS</th>
+                        <td>{{info.configuration.database}}</td>
+                    </tr>
+                    <tr>
+                        <th>Host</th>
+                        <td>{{info.configuration.pg_host}}</td>
+                    </tr>
+                    <tr>
+                        <th>Database</th>
+                        <td>{{info.configuration.pg_database}}</td>
+                    </tr>
+                    <tr>
+                        <th>User</th>
+                        <td>{{info.configuration.pg_user}}</td>
+                    </tr>
+                    <tr>
+                        <th>Port</th>
+                        <td>{{info.configuration.pg_port}}</td>
+                    </tr>
+                </table>
             </div>
-            <table class="table no-margin">
-                <tr>
-                    <th>HostName</th>
-                    <td>{{info.hostname}}</td>
-                </tr>
-                <tr>
-                    <th>Tag Line</th>
-                    <td>{{info.tagline}}</td>
-                </tr>
-                <tr>
-                    <th>Version</th>
-                    <td>{{info.version}}</td>
-                </tr>
-                <tr>
-                    <th>LUA Version</th>
-                    <td>{{info.lua_version}}</td>
-                </tr>
-                <tr>
-                    <th>Admin listen</th>
-                    <td>{{info.configuration.admin_listen}}</td>
-                </tr>
-            </table>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default" iln-match-height>
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">info_outline</i>&nbsp;DATABASE INFO
+        <!-- END DATABASE INFO -->
+
+        <!-- PLUGINS -->
+        <div class="col-md-4">
+            <div class="panel panel-default" verilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">settings_input_component</i>&nbsp;
+                        PLUGINS
+                    </div>
                 </div>
-            </div>
-            <table class="table no-margin">
-                <tr>
-                    <th>DBMS</th>
-                    <td>{{info.configuration.database}}</td>
-                </tr>
-                <tr>
-                    <th>Host</th>
-                    <td>{{info.configuration.pg_host}}</td>
-                </tr>
-                <tr>
-                    <th>Database</th>
-                    <td>{{info.configuration.pg_database}}</td>
-                </tr>
-                <tr>
-                    <th>User</th>
-                    <td>{{info.configuration.pg_user}}</td>
-                </tr>
-                <tr>
-                    <th>Port</th>
-                    <td>{{info.configuration.pg_port}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">settings_input_component</i>&nbsp;
-                    PLUGINS
-                </div>
-            </div>
-            <div class="panel-body">
+                <div class="panel-body">
                 <span class="label"
                       data-ng-class="{'label-default' : !isEnabled(key),'label-success' : isEnabled(key)}"
                       data-ng-repeat="(key,value) in info.plugins.available_on_server">
                     {{key}}
                 </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">device_hub</i>&nbsp;
-                    CLUSTER ({{clusters.total}} nodes)
                 </div>
             </div>
-            <div class="panel-body no-padding table-responsive">
-                <div ng-controller="ClusterListController" ng-include="'js/app/cluster/views/partials/cluster-list.html?r=' + Date().now"></div>
-            </div>
-
         </div>
+        <!-- END PLUGINS -->
+    </div>
+
+    <div class="row">
+        <!-- CLUSTER -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="material-icons">device_hub</i>&nbsp;
+                        CLUSTER ({{clusters.total}} nodes)
+                    </div>
+                </div>
+                <div class="panel-body no-padding table-responsive">
+                    <div ng-controller="ClusterListController" ng-include="'js/app/cluster/views/partials/cluster-list.html?r=' + Date().now"></div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END CLUSTER -->
     </div>
 
 </div>
+
 
 

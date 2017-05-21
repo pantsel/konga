@@ -60,6 +60,7 @@ body {
 .main-container.container{
   margin-left: auto;
   margin-right: auto;
+  max-width: 100%;
 }
 
 
@@ -697,6 +698,9 @@ tr.disabled{
 }
 
 
+//.iln-match-height  .panel {
+//  height: 100%; !important;
+//}
 
 
 //.padding{
