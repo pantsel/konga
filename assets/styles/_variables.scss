@@ -511,7 +511,7 @@ $state-success-bg:               lighten($brand-success,24%);
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
 
 $state-info-text:                darken($brand-info,15%);
-$state-info-bg:                  lighten($brand-info,37%);
+$state-info-bg:                  lighten($brand-info,40%);
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
 
 $state-warning-text:             $brand-warning;

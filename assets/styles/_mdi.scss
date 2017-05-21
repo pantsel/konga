@@ -24,6 +24,18 @@
   }
 }
 
+.panel-title .mdi::before{
+
+  margin-top: -4px;
+}
+
+.panel-title .btn-icon{
+  .mdi::before {
+    vertical-align: initial;
+    line-height: 1.6;
+  }
+}
+
 
 //.page-title{
 //  .mdi::before {

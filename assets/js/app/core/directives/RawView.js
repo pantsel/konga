@@ -20,7 +20,7 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                template: '<div class="modal-header">' +
+                template: '<div class="modal-header primary">' +
                 ' <h5 class="modal-title" id="modal-title">' +
                 'Raw View' +
                 '<a  class="modal-close pull-right" ng-click="close()">' +

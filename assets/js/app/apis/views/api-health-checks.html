@@ -8,7 +8,7 @@
                         bs-switch
                         ng-model="apiHC.active"
                         type="checkbox"
-                        switch-size="small"
+                        switch-size="mini"
                         switch-on-text="ENABLED"
                         switch-off-text="DISABLED"
                         ng-change="toggleApiHC()"
@@ -40,12 +40,13 @@
                         <input type="text" ng-model="apiHC.notification_endpoint" class="form-control" placeholder="ex. http://my-api/endpoint">
                         <p class="help-block"><small>Konga will perform a <code>POST</code> request to the specified endpoint the first time a health check fails and one every 15 minutes the API stays down or unresponsive.</small></p>
                     </div>
+                    <hr>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" ng-click="save()">
                             save changes
                         </button>
                     </div>
-                    <hr>
+
                 </form>
 
             </uib-tab>
