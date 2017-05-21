@@ -53,7 +53,8 @@
 
                 <td>
                     <i class="mdi clickable"
-                       uib-tooltip="Activate"
+                       tooltip-append-to-body="true"
+                       uib-tooltip="Toggle active"
                        ng-click="toggleActive(node)"
                        ng-class="{'mdi-star text-warning' : user.node && user.node.id == node.id,'mdi-star-outline' :  user.node.id != node.id}"
                     ></i>

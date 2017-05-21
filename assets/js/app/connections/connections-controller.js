@@ -293,10 +293,16 @@
 
                     // Fetch data count
                     var count = NodeModel
-                        .count(commonParameters)
+                        .count()
                         .then(
                             function onSuccess(response) {
+                                console.log(response)
                                 $scope.itemCount = response.count;
+                                if($scope.itemCount == 0){
+                                    // Set Gateway to null to prevent unwanted panic in other pages
+                                    $rootScope.Gateway = null;
+                                    // createNode()
+                                }
                             }
                         );
 
@@ -306,11 +312,13 @@
                         .load(_.merge({}, commonParameters, parameters))
                         .then(
                             function onSuccess(response) {
+                                console.log(response)
                                 $scope.nodes = response;
 
+
+
                             }
-                        )
-                        ;
+                        );
 
                     // And wrap those all to promise loading
                     $q
@@ -319,11 +327,7 @@
                             function onFinally() {
                                 $scope.loaded = true;
                                 $scope.loading = false;
-                                if(!$scope.nodes.length){
-                                    // Set Gateway to null to prevent unwanted panic in other pages
-                                    $rootScope.Gateway = null;
-                                    createNode()
-                                }
+
                             }
                         )
                     ;
