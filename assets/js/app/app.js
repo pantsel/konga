@@ -93,7 +93,7 @@
         //$httpProvider.interceptors.push('CsrfInterceptor');
 
         //$httpProvider.interceptors.push('TemplateCacheInterceptor');
-        $httpProvider.interceptors.push('KongaInterceptor');
+        // $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
@@ -289,6 +289,8 @@
                       .then(function(response){
                         $rootScope.Gateway = response.data
                         $log.debug("MainController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway)
+                  }).catch(function(err){
+                      $rootScope.Gateway = null;
                   })
               }
 
