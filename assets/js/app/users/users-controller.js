@@ -19,15 +19,13 @@
           UserModel.setScope($scope, false, 'items', 'itemCount');
 
           // Add default list configuration variable to current scope
-          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('user',UserModel)));
 
           // Set initial data
           $scope.items = _items;
           $scope.itemCount = _count.count;
           $scope.user = UserService.user();
 
-          // Initialize used title items
-          $scope.titleItems = ListConfig.getTitleItems(UserModel.endpoint);
 
           $log.debug("_items",_items)
           $log.debug("_count",_count)

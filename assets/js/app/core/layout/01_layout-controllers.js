@@ -247,6 +247,24 @@
                         access: AccessLevels.user
                     },
                     {
+                        state: 'info',
+                        show : function() {
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                        },
+                        title: 'Info',
+                        icon : 'mdi-information-outline',
+                        access: AccessLevels.user
+                    },
+                    {
+                        state: 'cluster',
+                        show : function() {
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                        },
+                        title: 'Cluster',
+                        icon : 'mdi-server-network',
+                        access: AccessLevels.user
+                    },
+                    {
                         state: 'apis',
                         show : function() {
                             return AuthService.isAuthenticated() && $rootScope.Gateway

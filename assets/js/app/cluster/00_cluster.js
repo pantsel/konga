@@ -2,29 +2,28 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.info', []);
+    angular.module('frontend.cluster', []);
 
     // Module configuration
-    angular.module('frontend.info')
+    angular.module('frontend.cluster')
         .config([
             '$stateProvider',
             function config($stateProvider) {
                 $stateProvider
-                    .state('info', {
+                    .state('cluster', {
                         parent: 'frontend',
-                        url: '/info',
+                        url: '/cluster',
                         data : {
                             activeNode : true,
-                            pageName : "Node Info",
+                            pageName : "Cluster",
                             // displayName : "node info",
-                            pageDescription : "Generic details about the node",
-                            prefix : '<i class="material-icons text-primary">&#xE88F;</i>'
+                            // pageDescription : "Generic details about the node"
                         },
 
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/info/index.html',
-                                controller: 'InfoController'
+                                templateUrl: 'js/app/cluster/views/index.html',
+                                controller: 'ClusterListController'
                             }
                         },
 

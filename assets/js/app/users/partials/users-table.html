@@ -7,16 +7,16 @@
                     data-ng-show="item.column"
                     class="clickable"
                     data-ng-click="changeSort(item)"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></a>
             <span
                     data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></span>
 
-            <i class="fa"
+            <i class="mdi"
                data-ng-show="sort.column == item.column"
-               data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+               data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
             ></i>
         </th>
     </tr>

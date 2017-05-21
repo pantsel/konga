@@ -411,15 +411,15 @@
 
           return DataService
             .delete(self.endpoint, identifier)
-            .then(
-              function onSuccess(result) {
-                return result;
-              },
-              function onError(error) {
-                $log.error('DataModel.delete() failed.', error, self.endpoint, identifier);
-                return error;
-              }
-            )
+            // .then(
+            //   function onSuccess(result) {
+            //     return result;
+            //   },
+            //   function onError(error) {
+            //     $log.error('DataModel.delete() failed.', error, self.endpoint, identifier);
+            //     return error;
+            //   }
+            // )
           ;
         };
 

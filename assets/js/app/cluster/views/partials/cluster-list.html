@@ -1,0 +1,42 @@
+<table class="table">
+    <tr>
+        <th width="{{item.width}}" class="text-nowrap"
+            data-ng-repeat="item in titleItems | filter:titleFilter"
+        >
+            <a
+                    class="clickable"
+                    data-ng-show="item.column"
+                    data-ng-click="changeSort(item)"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></span>
+            <input data-ng-if="item.checkbox" type="checkbox" data-ng-model="globalCheck.isAllChecked"/>
+            <i class="mdi"
+               data-ng-show="sort.column == item.column"
+               data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+            >
+            </i>
+        </th>
+        <th width="1"></th>
+    </tr>
+    <tr data-ng-repeat="cluster in items.data">
+        <td>
+            <span
+                    data-ng-class="{'label-success' : cluster.status == 'alive','label-danger' : cluster.status == 'failed','label-warning' : cluster.status == 'left'}"
+                    class="label">
+                {{cluster.status}}
+            </span>
+        </td>
+        <td width="50">{{cluster.name}}</td>
+        <td>{{cluster.address}}</td>
+        <td>
+            <button type="button" ng-click="deleteItem($index,cluster)" class="btn btn-danger btn-link" data-ng-disabled="cluster.status != 'failed'">
+                <i class="mdi mdi-delete"></i>
+                remove
+            </button>
+        </td>
+    </tr>
+</table>

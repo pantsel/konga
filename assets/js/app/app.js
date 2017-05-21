@@ -22,6 +22,7 @@
       'frontend.apis',
       'frontend.connections',
       'frontend.snapshots',
+      'frontend.cluster'
 
   ]);
 

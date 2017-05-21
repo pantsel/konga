@@ -38,25 +38,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-default" iln-match-height>
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">storage</i>&nbsp;
-                    DATABASE
-                </div>
-            </div>
-            <div class="panel-body">
-                <canvas id="database"
-                        class="chart-horizontal-bar"
-                        chart-data="data.database.data"
-                        chart-labels="data.database.labels"
-                        chart-options="data.database.options"
-                        chart-series="data.database.series">
-                </canvas>
-            </div>
-        </div>
-    </div>
+
+
     <div class="col-md-4">
         <div class="panel panel-default" iln-match-height>
             <div class="panel-heading">
@@ -76,6 +59,42 @@
             </div>
         </div>
     </div>
+    <!--<div class="col-md-12">-->
+        <!--<div class="panel panel-default">-->
+            <!--<div class="panel-heading">-->
+                <!--<div class="panel-title">-->
+                    <!--<i class="material-icons">storage</i>&nbsp;-->
+                    <!--DATABASE-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="panel-body">-->
+                <!--<canvas id="database"-->
+                        <!--class="chart chart-bar"-->
+                        <!--chart-data="data.database.data"-->
+                        <!--chart-labels="data.database.labels"-->
+                        <!--chart-options="data.database.options"-->
+                        <!--chart-series="data.database.series">-->
+                <!--</canvas>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="material-icons">storage</i>&nbsp;
+                        DATABASE
+                    </div>
+                </div>
+            <div class="panel-body">
+                <span class="label label-default" ng-repeat="(key,value) in status.database">
+                    {{key.toUpperCase()}} : {{value}}
+                </span>
+            </div>
+
+        </div>
+    </div>
+
     <div class="col-md-4">
         <div class="panel panel-default" iln-match-height>
             <div class="panel-heading">
@@ -138,38 +157,6 @@
             </table>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <i class="material-icons">device_hub</i>&nbsp;
-                    CLUSTER ({{clusters.total}} nodes)
-                </div>
-            </div>
-            <div class="panel-body no-padding table-responsive">
-                <table class="table">
-                    <tr>
-                        <th width="1">status</th>
-                        <th>name</th>
-                        <th>address</th>
-
-                    </tr>
-                    <tr data-ng-repeat="cluster in clusters.data">
-                        <td>
-                        <span
-                                data-ng-class="{'label-success' : cluster.status == 'alive','label-danger' : cluster.status == 'failed','label-warning' : cluster.status == 'left'}"
-                                class="label">
-                            {{cluster.status}}
-                        </span>
-                        </td>
-                        <td width="50">{{cluster.name}}</td>
-                        <td>{{cluster.address}}</td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-    </div>
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -180,13 +167,28 @@
             </div>
             <div class="panel-body">
                 <span class="label"
-                      data-ng-class="{'label-default' : !isEnabled(key),'label-success' : isEnabled(key),}"
+                      data-ng-class="{'label-default' : !isEnabled(key),'label-success' : isEnabled(key)}"
                       data-ng-repeat="(key,value) in info.plugins.available_on_server">
                     {{key}}
                 </span>
             </div>
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="material-icons">device_hub</i>&nbsp;
+                    CLUSTER ({{clusters.total}} nodes)
+                </div>
+            </div>
+            <div class="panel-body no-padding table-responsive">
+                <div ng-controller="ClusterListController" ng-include="'js/app/cluster/views/partials/cluster-list.html?r=' + Date().now"></div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 

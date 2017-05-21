@@ -12,8 +12,8 @@
 
     angular.module('frontend.core.services')
         .factory('ListConfig', [
-            '_', 'DialogService',
-            function factory(_, DialogService) {
+            '_', 'DialogService','$log',
+            function factory(_, DialogService,$log) {
                 /**
                  * List title item configuration.
                  *
@@ -362,6 +362,32 @@
                             inSearch: false,
                             inTitle: true
                         }
+                    ],
+                    "cluster.nodes": [
+                        {
+                            title: 'Status',
+                            column: 'status',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'Name',
+                            column: 'name',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'Address',
+                            column: 'address',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        }
                     ]
                 };
 
@@ -410,12 +436,13 @@
                                     "Confirm", "Really want to delete the selected item?",
                                     ['No don\'t', 'Yes! delete it'],
                                     function accept() {
-                                        model.delete(item.id)
+                                        model.delete(item.id || item.name)
                                             .then(function (res) {
-                                                model.scope.items.data.splice(model.scope.items.data.indexOf(item), 1);
-                                            }).catch(function (err) {
 
-                                        })
+                                                model.scope.items.data.splice(model.scope.items.data.indexOf(item), 1);
+                                            },function(err){
+                                                $log.error("ListConfigService : Model delete failed => " + c,err)
+                                            })
                                     }, function decline() {
                                     })
 

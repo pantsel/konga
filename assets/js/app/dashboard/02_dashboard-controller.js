@@ -86,13 +86,7 @@
                       ]
                   },
                   database : {
-                      labels : [
-                          'ACLs',
-                          'APIs',
-                          'Consumers',
-                          'Nodes',
-                          'Plugins'
-                      ],
+                      labels : Object.keys($scope.status.database),
                       options: {
                           //scales: {
                           //    xAxes: [{
@@ -105,13 +99,9 @@
                           //}
                       },
                       series : ['database'],
-                      data : [
-                          $scope.status.database.acls,
-                          $scope.status.database.apis,
-                          $scope.status.database.consumers,
-                          $scope.status.database.nodes,
-                          $scope.status.database.plugins
-                      ]
+                      data : Object.keys($scope.status.database).map(function (key) {
+                          return $scope.status.database[key]
+                      })
                   }
               }
           }
@@ -137,15 +127,15 @@
                       $scope.info = resp.data
                       $log.debug("DashboardController:fetchData:info",$scope.info)
                   })
-              var clusters = InfoService
-                  .clusterStatus()
-                  .then(function(resp){
-                      $scope.clusters = resp.data
-                      $log.debug("DashboardController:fetchData:clusters",$scope.clusters)
-                  })
+              // var cluster = InfoService
+              //     .clusterStatus()
+              //     .then(function(resp){
+              //         $scope.cluster = resp.data
+              //         $log.debug("DashboardController:fetchData:cluster",$scope.cluster)
+              //     })
 
               $q
-                  .all([status, info, clusters])
+                  .all([status, info])
                   .finally(
                       function onFinally() {
                           $scope.loading = false
