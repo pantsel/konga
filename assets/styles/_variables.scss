@@ -3,6 +3,23 @@
 // --------------------------------------------------
 
 
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("/fonts/proximanova-regular.woff") format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("/fonts/Montserrat-Light.otf") format("opentype");
+}
+
+
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("/fonts/Montserrat-SemiBold.otf") format("opentype");
+}
+
+
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
@@ -46,13 +63,13 @@ $link-hover-decoration: underline;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  "Montserrat-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          13px;
+$font-size-base:          15px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
@@ -69,7 +86,7 @@ $line-height-base:        1.846; // 20/14
 $line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-$headings-font-family:    inherit;
+$headings-font-family:    "Montserrat-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;;
 $headings-font-weight:    400;
 $headings-line-height:    1.1;
 $headings-color:          #444;
@@ -126,7 +143,7 @@ $caret-width-large:         5px;
 //## Customizes the `.table` component with basic values, each used across all table variations.
 
 //** Padding for `<th>`s and `<td>`s.
-$table-cell-padding:            8px;
+$table-cell-padding:            12px;
 //** Padding for cells in `.table-condensed`.
 $table-condensed-cell-padding:  5px;
 

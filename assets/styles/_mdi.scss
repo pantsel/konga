@@ -1,6 +1,6 @@
 .mdi::before {
   font-size: 24px;
-  top:1px;
+  //top:1px;
   line-height: 1;
   vertical-align: sub;
 }
@@ -9,6 +9,12 @@
   top: 1px;
   vertical-align: sub;
   line-height: 0.6;
+}
+
+.table {
+  .mdi::before {
+    vertical-align: middle;
+  }
 }
 
 
@@ -26,6 +32,8 @@
   font-size: 18px;
   vertical-align: initial;
 }
+
+
 .dropdown-menu .mdi {
   width: 18px;
 }

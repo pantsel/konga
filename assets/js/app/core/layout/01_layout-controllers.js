@@ -240,9 +240,9 @@
                     {
                         title: 'KONG API',
                         show : function() {
-                            return true
+                            return AuthService.isAuthenticated() && $rootScope.Gateway
                         },
-                        access: AccessLevels.user && $rootScope.Gateway
+                        access: AccessLevels.user
                     },
                     {
                         state: 'apis',

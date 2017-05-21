@@ -309,7 +309,7 @@
                             itemCount: 0,
                             items: [],
                             itemsFetchSize: 4294967295,
-                            itemsPerPage: 50,
+                            itemsPerPage: 25,
                             titleItems: this.getTitleItems(property),
                             itemsPerPageOptions: [10, 25, 50, 100],
                             currentPage: 1,

@@ -131,6 +131,10 @@
     padding-bottom: 0;
     padding-top: 20px;
     font-size: 0.9em;
+
+    &:hover{
+      background-color: transparent !important;
+    }
   }
 
   li.active > a{
