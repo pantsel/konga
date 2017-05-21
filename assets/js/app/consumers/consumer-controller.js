@@ -16,15 +16,15 @@
           $scope.sections = [
               {
                   name : 'Details',
-                  icon : '&#xE88F;'
+                  icon : 'mdi-information-outline'
               },
               {
                   name : 'ACL Groups',
-                  icon : '&#xE7FC'
+                  icon : 'mdi-account-multiple-outline'
               },
               {
                   name : 'Credentials',
-                  icon : '&#xE899;'
+                  icon : 'mdi-security'
               },
           ]
 

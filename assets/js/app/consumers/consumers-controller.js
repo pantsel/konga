@@ -21,8 +21,6 @@
           $scope.importConsumers = importConsumers
           $scope.openCreateConsumerModal = openCreateConsumerModal
 
-
-
           function importConsumers() {
               $uibModal.open({
                   animation: true,
@@ -47,7 +45,10 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'js/app/consumers/create-consumer-modal.html',
-                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerService){
+                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel,ListConfig){
+
+                      ConsumerModel.setScope($scope, false, 'items', 'itemCount');
+                      $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
 
                       $scope.consumer = {
                           username  : '',
@@ -58,14 +59,19 @@
                       $scope.submit = submit
 
                       function submit(){
-                          ConsumerService.create($scope.consumer)
+
+                          $scope.errors = {}
+
+                          ConsumerModel.create($scope.consumer)
                               .then(function(res){
                                   MessageService.success("Consumer created successfully!")
                                   $rootScope.$broadcast('consumer.created',res.data)
                                   close()
                               }).catch(function(err){
                                 $log.error("Failed to create consumer", err)
-                                $scope.errors = err.data.customMessage || {}
+
+                                $scope.handleErrors(err)
+
                           })
                       }
 
