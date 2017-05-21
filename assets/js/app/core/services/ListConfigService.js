@@ -386,6 +386,14 @@
                             where: {},
                             loading: true,
                             loaded: false,
+                            handleErrors : function(err) {
+                                model.scope.errors = {}
+                                if(err.data && err.data.body) {
+                                    Object.keys(err.data.body).forEach(function(key){
+                                        model.scope.errors[key] = err.data.body[key]
+                                    })
+                                }
+                            },
                             changeSort: function changeSort(item) {
                                 var sort = model.scope.sort;
 
