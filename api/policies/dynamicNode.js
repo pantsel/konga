@@ -13,30 +13,33 @@ module.exports = function dynamicNode(request, response, next) {
   sails.log.debug(__filename + ':' + __line + ' [Policy.dynamicNode() called]',request.headers['kong-admin-url']);
 
 
-  // Get the default node from user
-  sails.models.user.findOne({
-    id:request.token
-  }).populate('node').exec(function(err,user) {
-    if(err) return next(err);
-    if(!user) return response.notFound({
-      message : "user not found"
-    })
 
-    if(user.node) {
-      sails.config.kong_admin_url = user.node.kong_admin_url
-      request.node_id = sails.config.kong_admin_url
-      return  next()
+    // If kong-admin-url is set in headers or qs, use that, else get node from user
+
+    if(request.headers['kong-admin-url'] || request.query.kong_admin_url) {
+        sails.config.kong_admin_url = request.headers['kong-admin-url'] || request.query.kong_admin_url
+        request.node_id = sails.config.kong_admin_url
+        return  next()
     }else{
-      if(!request.headers['kong-admin-url'] && ! request.query.kong_admin_url) return response.badRequest({
-        message : "No connection is selected. Please activate a connection in settings"
-      })
+        // Get the default node from user
+        sails.models.user.findOne({
+            id:request.token
+        }).populate('node').exec(function(err,user) {
+            if(err) return next(err);
+            if(!user) return response.notFound({
+                message : "user not found"
+            })
 
-      sails.config.kong_admin_url = request.headers['kong-admin-url'] || request.query.kong_admin_url
-      request.node_id = sails.config.kong_admin_url
-      return  next()
+            if(user.node) {
+                sails.config.kong_admin_url = user.node.kong_admin_url
+                request.node_id = sails.config.kong_admin_url
+                return  next()
+            }else{
+                return response.badRequest({
+                    message : "No connection is selected. Please activate a connection in settings"
+                })
+            }
+        })
     }
-  })
-
-
 
 };
