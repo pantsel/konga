@@ -1,14 +1,14 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-info">
-            <p>
-                <span data-ng-if="user.admin"><i class="material-icons">add</i> Create one or more connections.<br></span>
-                <i class="material-icons">add</i> Select the connection you want to use by clicking on the corresponding star icon.
-            </p>
-        </div>
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="alert alert-info">-->
+            <!--<p>-->
+                <!--<span data-ng-if="user.admin"><i class="material-icons">add</i> Create one or more connections.<br></span>-->
+                <!--<i class="material-icons">add</i> Select the connection you want to use by clicking on the corresponding star icon.-->
+            <!--</p>-->
+        <!--</div>-->
 
-    </div>
-</div>
+    <!--</div>-->
+<!--</div>-->
 <div class="row">
     <div class="col-md-12 actions">
         <button class="btn btn-primary pull-left" ng-click="createNode()" ng-if="user.admin">
@@ -60,13 +60,23 @@
 
                 </td>
                 <td data-ng-if="user.admin">
-                    <i
-                            uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
-                            class="mdi mdi-heart-pulse"
-                            ng-if="node.health_checks" class="material-icons"
-                            data-ng-class="{'text-danger': node.health_check_details && !node.health_check_details.isHealthy,'text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>
 
-                    <i uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-pulse"></i>
+                    <i
+                            ng-if="node.health_checks"
+                            class="mdi"
+                            uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            data-ng-class="{'mdi-loading mdi-spin': Object.keys(node.health_check_details).length == 0,'mdi-heart-broken text-danger': node.health_check_details && !node.health_check_details.isHealthy,'mdi-heart-pulse text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>
+
+
+                    <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-outline"></i></td>
+
+                    <!--<i-->
+                            <!--uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"-->
+                            <!--class="mdi mdi-heart-pulse"-->
+                            <!--ng-if="node.health_checks" class="material-icons"-->
+                            <!--data-ng-class="{'text-danger': node.health_check_details && !node.health_check_details.isHealthy,'text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>-->
+
+                    <!--<i uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-pulse"></i>-->
                 </td>
                 <td><a  editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
                 <td>

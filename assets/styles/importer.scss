@@ -32,6 +32,7 @@ body {
   overflow-y: auto;
   font-size: $font-size-base;
   background-color: #f9f9f9;
+  color: $gray-darker;
   //padding-bottom: 30px;
 
 }
@@ -55,18 +56,14 @@ body {
 
 }
 
-.container{
-
+.main-container.container{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
 .text-nowrap{
   white-space: nowrap;
-}
-
-
-a:hover{
-  color: $brand-primary;
 }
 
 
@@ -113,6 +110,10 @@ h5 {
   padding-top: 80px;
 
 
+}
+
+dir-pagination-controls{
+  margin-top: 15px;
 }
 
 .form-login {
@@ -674,12 +675,6 @@ tr.disabled{
   background-color: #eaeaea;
 }
 
-//.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
-//  border: none;
-//  -webkit-box-shadow: inset 0 -4px 0 #03A9F4;
-//  box-shadow: inset 0 -4px 0 #03A9F4;
-//  color: #03A9F4;
-//}
 
 @media screen and (max-width: 801px) {
   body {

@@ -254,6 +254,68 @@
                             inTitle: true
                         }
                     ],
+                    plugin: [
+                        {
+                            title: 'Name',
+                            column: 'name',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'API',
+                            column: 'api_id',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'Consumer',
+                            column: 'consumer_id',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'Created',
+                            column: 'created_at',
+                            class: 'col-xs-2',
+                            searchable: false,
+                            sortable: false,
+                            inSearch: false,
+                            inTitle: true
+                        }
+                    ],
+                    certificate: [
+                        {
+                            title: 'id',
+                            column: 'id',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'snis',
+                            column: 'snis',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'Created',
+                            column: 'created_at',
+                            class: 'col-xs-2',
+                            searchable: false,
+                            sortable: false,
+                            inSearch: false,
+                            inTitle: true
+                        }
+                    ],
                     userlogin: [
                         {
                             title: 'IP-address',

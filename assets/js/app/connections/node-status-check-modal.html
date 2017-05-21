@@ -1,4 +1,4 @@
-<div class="modal-header danger">
+<div class="modal-header">
     <h5 class="modal-title" id="modal-title">
         <i class="material-icons text-danger" style="vertical-align: sub">favorite</i>
         Health Checks
@@ -29,7 +29,7 @@
     </div>
 
     <div data-ng-show="!node.health_check_details">
-        <h5>No information available...</h5>
+        <p class="lead no-margin">No information available...</p>
         <p class="help-block" ng-if="!node.health_checks">
             You need to enable health checks for this node
             in order to start getting status information.

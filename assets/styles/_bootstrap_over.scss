@@ -35,6 +35,13 @@
 }
 
 
+.btn-default.btn-link{
+  color: $gray-darker !important;
+}
+
+.btn-info.btn-link{
+  color: $brand-info !important;
+}
 
 .btn-warning.btn-link{
   color: $brand-warning !important;
@@ -327,12 +334,8 @@ input.form-control, select.form-control{
   transition: all 0s;
 }
 
-.well {
-  background-color: #f2f2f2;
-}
-.table tr th{
 
-}
+
 
 .label {
   margin-right: 0.5em;

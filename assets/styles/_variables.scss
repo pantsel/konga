@@ -29,12 +29,12 @@ $gray-darker:            darken($gray-base, 13.5%); // #222
 $gray-dark:              darken($gray-base, 10.5%);;
 $gray:                   #5A738E;
 $gray-light:             lighten($gray-base, 20.5%);
-$gray-lighter:           #EDEDED; // #eee
+$gray-lighter:           #ededed; // #eee
 
 $brand-royal :          #2A3F54;
 $brand-primary:         #1ABB9C;
 $brand-success:         #1ABB9C;
-$brand-info:            rgba(70,191,189,1);
+$brand-info:            #428bca;
 $brand-warning:         rgba(253,180,92,1);
 $brand-danger:          rgba(247,70,74,1);
 
@@ -52,7 +52,7 @@ $body-bg:               #fff;
 $text-color:            $gray;
 
 //** Global textual link color.
-$link-color:            $brand-primary;
+$link-color:            $brand-info;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      darken($link-color, 15%);
 //** Link hover decoration.
@@ -63,13 +63,13 @@ $link-hover-decoration: underline;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Montserrat-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  "Montserrat-Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          15px;
+$font-size-base:          14px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 

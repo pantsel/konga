@@ -8,10 +8,15 @@
 
   angular.module('frontend.certificates')
     .controller('CertificatesController',  [
-        '$scope', '$rootScope','$log', '$state','ApiService','$uibModal','DialogService',
-        'MessageService','SettingsService','$http','Upload','Semver','$timeout',
-        function controller($scope, $rootScope, $log, $state, ApiService, $uibModal,DialogService,
-                            MessageService,SettingsService,$http,Upload, Semver, $timeout) {
+        '$scope', '$rootScope','$log', '$state','ApiService','$uibModal','DialogService','UserService',
+        'MessageService','SettingsService','$http','Upload','Semver','$timeout','CertificateModel','ListConfig',
+        function controller($scope, $rootScope, $log, $state, ApiService, $uibModal,DialogService,UserService,
+                            MessageService,SettingsService,$http,Upload, Semver, $timeout, CertificateModel,ListConfig) {
+
+
+            CertificateModel.setScope($scope, false, 'items', 'itemCount');
+            $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('certificate',CertificateModel)));
+            $scope.user = UserService.user();
 
 
             $scope.openUploadCertsModal = function(certificate) {
@@ -65,7 +70,7 @@
                         modalInstance.result.then(function () {
 
                         }, function (data) {
-                            if(data && data.data) _fetchCertificates()
+                            if(data && data.data) _fetchData()
                         });
 
                         function handleErrors(err) {
@@ -102,55 +107,33 @@
                 });
             }
 
-            $scope.deleteItem = function(item) {
-                DialogService.prompt(
-                    "Delete Certificate","Really want to delete the selected certificate?",
-                    ['No don\'t','Yes! delete it'],
-                    function accept(){
-                        doDeleteItem(item)
-                    },function decline(){})
-            }
-
-
-            function doDeleteItem(item) {
-                $http.delete('api/certificates/' + item.id)
-                    .then(function(resp){
-                        _fetchCertificates()
-                    }).catch(function(err){
-                    // ToDo
-                })
-            }
 
 
 
-
-
-
-
-            function _fetchCertificates() {
+            function _fetchData() {
                 $scope.loading = true;
-                $http.get('kong/certificates')
-                    .then(function(res){
-                        if(res.data && Object.keys(res.data).length) {
-                            $scope.certificates = Semver.cmp($rootScope.Gateway.version,"0.10.1") > 0 ? res.data.data : res.data
-                        }else{
-                            $scope.certificates = []
-                        }
+                CertificateModel.load({
+                    size : $scope.itemsFetchSize
+                }).then(function(response){
+                    console.log(response)
+                    $scope.items = response;
+                    $scope.loading= false;
 
-                        $scope.loading = false;
-                    }).catch(function(err){
-                    $log.error("Fetch API certificates error",err)
-                    $scope.loading = false;
+                    if(response.data && Object.keys(response.data).length) {
+                        $scope.certificates = Semver.cmp($rootScope.Gateway.version,"0.10.1") > 0 ? response.data.data : response.data
+                    }else{
+                        $scope.certificates = []
+                    }
                 })
             }
 
-            _fetchCertificates()
+            _fetchData()
 
 
 
             $scope.$on('user.node.updated',function(node){
                 $timeout(function(){
-                    _fetchCertificates()
+                    _fetchData()
                 })
 
             })

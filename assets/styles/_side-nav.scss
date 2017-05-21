@@ -149,7 +149,7 @@
       margin-right: 10px;
     }
 
-    &:hover, &:active{
+    &:hover, &:active, &:active{
       background-color: lighten($brand-royal,5%) !important;
     }
     border-radius: 0;
@@ -233,7 +233,8 @@
 }
 
 .main-container{
-  margin: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .main-container-wrapper{

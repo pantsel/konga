@@ -1,15 +1,4 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-info">
-            <p>
-                Take a snapshot of the currently active node.<br>
-                All <code>APIs</code>, <code>Plugins</code>, <code>Consumers</code>, <code>Upstreams</code> and <code>Targets</code>
-                will be saved and available for later import.
-            </p>
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12 actions">
         <div class="pull-left">
             <button class="btn btn-primary" data-ng-click="takeSnapshot()">
@@ -71,7 +60,7 @@
                 </td>
                 <td>{{snapshot.createdAt | date : "MMM d, y"}}</td>
                 <td>
-                    <a ui-sref="settings.snapshots.show({id:snapshot.id})" class="btn btn-warning btn-link">
+                    <a ui-sref="snapshots.show({id:snapshot.id})" class="btn btn-info btn-link">
                         <i class="material-icons">edit</i>
                         details
                     </a>

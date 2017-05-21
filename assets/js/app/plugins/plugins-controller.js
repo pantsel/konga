@@ -9,7 +9,7 @@
                           $uibModal, DialogService, PluginModel, ListConfig, UserService ) {
 
           PluginModel.setScope($scope, false, 'items', 'itemCount');
-          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',PluginModel)));
+          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('plugin',PluginModel)));
           $scope.user = UserService.user();
           $scope.onEditPlugin = onEditPlugin
           $scope.updatePlugin = updatePlugin

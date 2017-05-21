@@ -8,25 +8,18 @@
 
     angular.module('frontend.snapshots')
         .controller('SnapshotController', [
-            '_','$scope', '$rootScope','$q','$log','$ngBootbox',
+            '_','$scope', '$stateParams','$rootScope','$q','$log','$ngBootbox',
             'SocketHelperService','MessageService','SnapshotsService',
             '$state','$uibModal','DialogService','Snapshot',
-            '_snapshot',
-            function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,
+            function controller(_,$scope,$stateParams, $rootScope,$q,$log,$ngBootbox,
                                 SocketHelperService, MessageService,SnapshotsService,
-                                $state, $uibModal,DialogService,Snapshot,
-                                _snapshot) {
+                                $state, $uibModal,DialogService,Snapshot) {
 
-                $log.debug("Snapshot",_snapshot)
 
-                $scope.snapshot = angular.copy(_snapshot)
 
-                // Hide the orderlist attribute of upstreams for faster rendering
-                if($scope.snapshot.data.upstreams) {
-                    $scope.snapshot.data.upstreams.forEach(function(item){
-                        item.orderlist = '( Not shown for faster DOM rendering... )'
-                    })
-                }
+
+
+
 
 
                 $scope.downloadSnapshot = function() {
@@ -132,6 +125,51 @@
                     });
 
                 }
+
+
+
+                function _fetchData() {
+
+                    $scope.loading = true;
+
+                    Snapshot.fetch($stateParams.id)
+                        .then(function(result){
+                            $scope.snapshot = result;
+
+
+                            // $scope.snapshotCopy = angular.copy(_snapshot)
+                            // delete $scope.snapshotCopy.data;
+                            // $scope.snapshot = $scope.snapshotCopy
+
+                            // Hide the orderlist attribute of upstreams for faster rendering
+                            if($scope.snapshot.data.upstreams) {
+                                $scope.snapshot.data.upstreams.forEach(function(item){
+                                    item.orderlist = '( Not shown for faster DOM rendering... )'
+                                })
+                            }
+
+
+                            if($scope.snapshot.data.apis) {
+
+                                // $scope.snapshot.data.apis = $scope.snapshot.data.apis.slice(0,25)
+
+                                // $scope.snapshot.data.upstreams.forEach(function(item){
+                                //     item.orderlist = '( Not shown for faster DOM rendering... )'
+                                // })
+                            }
+
+                            $scope.loading = false;
+
+
+                        }).catch(function(err){
+                        $scope.loading = false;
+
+                    })
+
+                }
+
+
+                _fetchData();
 
             }
         ])
