@@ -17,7 +17,7 @@
                         data: {
                             access: 0,
                             pageName: "Settings",
-                            //displayName: "settings",
+                            displayName: "settings",
                             prefix: '<i class="mdi mdi-settings"></i>'
                         },
                         views: {
