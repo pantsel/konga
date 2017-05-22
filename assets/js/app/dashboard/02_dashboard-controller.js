@@ -8,9 +8,9 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage',
+      '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage','HttpTimeout',
         'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService',
-      function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,
+      function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,HttpTimeout,
                           SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService) {
 
 
@@ -18,6 +18,8 @@
               errorCount = 0,
               hasInitiallyLoaded = false,
               loadPromise;
+
+          $scope.HttpTimeout = HttpTimeout;
 
           $scope.closeAlert = function() {
               if($scope.alert) delete $scope.alert

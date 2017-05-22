@@ -10,12 +10,12 @@
   'use strict';
 
   angular.module('frontend.core.interceptors')
-      .factory('timeoutHttpIntercept', function ($rootScope, $q) {
+      .factory('timeoutHttpIntercept', ['HttpTimeout', function (HttpTimeout) {
         return {
           'request': function (config) {
-            config.timeout = 20000;
+            config.timeout = HttpTimeout;
             return config;
           }
         }
-      });
+      }]);
 }());

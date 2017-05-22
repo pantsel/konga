@@ -1,16 +1,29 @@
-<div class="container margin-top" style="width: 600px;max-width: 100%" data-ng-if="!Gateway">
-    <div class="row">
+<div class="container margin-top" style="width: 600px;max-width: 100%">
+    <div class="row" ng-if="!user.node && !Gateway">
         <div class="col-md-12 text-center">
             <img src="images/conn_sync-100.png" class="margin-bottom">
-            <h1>
+            <h2>
                 Welcome!
-            </h1>
+            </h2>
             <p class="lead">First of all, lets setup a connection to Kong Admin.</p>
 
         </div>
         <div class="col-md-12 margin-top">
             <div ng-include="'js/app/connections/partials/create-connection-form-flat.html?r=' + Date.now()"
                  class="margin-top"></div>
+        </div>
+    </div>
+    <div class="row" ng-if="user.node && !Gateway && !loading && error">
+        <div class="col-md-12 text-center">
+            <img src="images/attention.png" class="margin-bottom">
+            <h2>
+                Something went wrong...
+            </h2>
+            <p class="lead">
+                Failed to connect to <strong>{{user.node.name}}</strong> after {{HttpTimeout / 1000}} seconds.<br>
+                Make sure your active <a ui-sref="connections">connection</a> is valid and Kong is up and running.
+            </p>
+
         </div>
     </div>
 </div>

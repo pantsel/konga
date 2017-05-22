@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('frontend.dashboard', [
-        'chart.js',
-        'angular-matchheight'
+        'chart.js'
     ]);
 
     // Module configuration
