@@ -27,7 +27,7 @@
 <div class="row add-plugin" vertilize-container data-ng-repeat="group in pluginGroups | filter : filterGroup">
     <div class="col-md-12">
         <br>
-        <h4><i class="material-icons pull-left">{{group.icon}}</i>&nbsp;{{group.name}}</h4>
+        <h4><i class="mdi {{group.icon}} pull-left"></i>&nbsp;{{group.name}}</h4>
         <p class="help-block">{{group.description}}</p>
         <hr>
     </div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <p class="help-block" data-ng-bind-html="value.description"></p>
+                <p class="help-block" data-ng-bind-html="value.description || 'no description available...'"></p>
             </div>
         </div>
     </div>

@@ -230,12 +230,14 @@ footer {
   .navbar {
     background-color: $gray-lighter;
     border-top: 1px solid #ddd;
+    //height: 30px;
     max-height: 30px;
     min-height: 30px;
     //text-align: right;
 
     .navbar-nav {
       float: none;
+
 
       > li {
         display: inline-block;
@@ -441,12 +443,14 @@ tr.danger{
 }
 
 .modal-close{
-  color: #999;
-  margin-top: -10px;
+  cursor: pointer;
+  color: #313131 !important;
+  opacity: 0.6;
+  margin-top: -2px;
 }
 
 .modal-close:hover, .modal-close:focus{
-  color: #313131;
+  opacity: 1;
 }
 
 

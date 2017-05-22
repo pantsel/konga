@@ -60,26 +60,26 @@
 
                         <li role="menuitem">
                             <a data-ui-sref="users.show({id:user().id})">
-                                <i class="material-icons">perm_identity</i>
+                                <i class="mdi mdi-account-outline"></i>
                                 Profile
                             </a>
                         </li>
                         <li role="menuitem" ng-if="user().admin">
                             <a data-ui-sref="users">
-                                <i class="material-icons">&#xE7FC;</i>
+                                <i class="mdi mdi-account-multiple"></i>
                                 Users
                             </a>
                         </li>
                         <li role="menuitem">
                             <a data-ui-sref="settings">
-                                <i class="material-icons">settings</i>
+                                <i class="mdi mdi-settings"></i>
                                 Settings
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li role="menuitem">
                             <a  data-ng-click="logout()">
-                                <i class="material-icons">&#xE879;</i>
+                                <i class="mdi mdi-logout-variant"></i>
                                 Logout
                             </a>
                         </li>

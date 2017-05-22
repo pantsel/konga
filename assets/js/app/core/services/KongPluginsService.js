@@ -67,7 +67,7 @@
             {
               name : "Authentication",
               description : "Protect your services with an authentication layer",
-              icon : "perm_identity",
+              icon : "mdi-account-outline",
               plugins : {
                 "basic-auth": {
                   description : "Add Basic Authentication to your APIs"
@@ -91,7 +91,7 @@
             },
             {
               name : "Security",
-              icon : "security",
+              icon : "mdi-security",
               description : "Protect your services with additional security layers",
               plugins : {
                 "acl": {
@@ -113,7 +113,7 @@
             },
             {
               name : "Traffic Control",
-              icon : "traffic",
+              icon : "mdi-traffic-light",
               description : "Manage, throttle and restrict inbound and outbound API traffic",
               plugins : {
                 "rate-limiting": {
@@ -130,7 +130,7 @@
               {
                   name : "Serverless",
                   description : "Invoke serverless functions in combination with other plugins:",
-                  icon : "cloud_queue",
+                  icon : "mdi-cloud-sync",
                   plugins : {
                       "aws-lambda" : {
                           description : "Invoke an <a href='https://aws.amazon.com/lambda/' target='_blank'>AWS Lambda</a> function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
@@ -139,7 +139,7 @@
               },
             {
               name : "Analytics & Monitoring",
-              icon : "pie_chart_outlined",
+              icon : "mdi-chart-bar",
               description : "Visualize, inspect and monitor APIs and microservices traffic",
               plugins : {
                 "galileo": {
@@ -156,7 +156,7 @@
             },
             {
               name : "Transformations",
-              icon : "transform",
+              icon : "mdi-nfc-tap",
               description : "Transform request and responses on the fly on Kong",
               plugins : {
                 "request-transformer": {
@@ -172,7 +172,7 @@
             },
             {
               name : "Logging",
-              icon : "content_paste",
+              icon : "mdi-content-paste",
               description : "Log requests and response data using the best transport for your infrastructure",
               plugins : {
                 "tcp-log": {
@@ -202,7 +202,7 @@
             {
                 name: "Custom",
                 description: "Custom Plugins",
-                icon: "perm_identity",
+                icon: "mdi-account-box-outline",
                 plugins : {}
             }
           ]

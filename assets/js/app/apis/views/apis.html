@@ -12,7 +12,7 @@
         <!--<div class="bg-light-grey padding clearfix">-->
             <!--<div class="input-group col-sm-4 pull-left">-->
                 <!--<div class="input-group-addon">-->
-                    <!--<i class="material-icons">&#xE8B6;</i>-->
+                    <!--<i class="mdi mdi-magnify"></i>-->
                 <!--</div>-->
                 <!--<input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">-->
             <!--</div>-->
@@ -73,17 +73,15 @@
                                 uib-tooltip="Strip {{Gateway.version.indexOf('0.9.') > -1 ? 'Request Path' : 'Uri'}}"
                                 ng-click="toggleStripRequestPathOrUri(api)"
                                 data-ng-class="{'text-primary' : isRequestPathOrUriStripped(api),'text-muted' : !isRequestPathOrUriStripped(api)}"
-                                class="material-icons clickable">
-                            font_download
+                                class="mdi mdi-link-off">
                         </i>
                     </td>
                     <td>
                         <i
                                 uib-tooltip="Preserve Host"
                                 ng-click="api.preserve_host=!api.preserve_host;updateApi(api.id,{preserve_host : api.preserve_host})"
-                                data-ng-class="{'text-primary' : api.preserve_host,'text-muted' : !api.preserve_host}"
-                                class="material-icons clickable">
-                            {{api.preserve_host ? 'cloud_done' : 'cloud_off'}}
+                                class="mdi clickable" ng-class="api.preserve_host ? 'mdi-cloud-outline text-primary' : 'mdi-cloud-off-outline text-muted'">
+
                         </i>
 
                     </td>

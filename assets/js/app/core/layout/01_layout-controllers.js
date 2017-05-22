@@ -111,13 +111,9 @@
 
               $scope.alerts = [];
 
-              console.log(node)
-
-
-
-
-              if((UserService.user().node && UserService.user().node.id == node.id ) || node.checkingConnection) return false;
-
+              if((UserService.user().node && UserService.user().node.id == node.id ) || node.checkingConnection) {
+                  return false;
+              }
 
               // Check if the connection is valid
               node.checkingConnection = true;

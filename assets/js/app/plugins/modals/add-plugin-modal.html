@@ -2,7 +2,7 @@
     <h5 class="modal-title" id="modal-title">
         ADD  {{pluginName.split("-").join(" ").toUpperCase()}}
         <a  class="modal-close pull-right" ng-click="close()">
-            <i class="material-icons">clear</i>
+            <i class="mdi mdi-close"></i>
         </a>
 
     </h5>
@@ -151,7 +151,7 @@
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-7">
                 <button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="addPlugin()">
-                    <i class="material-icons" ng-if="!busy">&#xE876;</i>
+                    <i class="mdi mdi-check" ng-if="!busy"></i>
                     <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
                     add plugin
                 </button>

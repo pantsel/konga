@@ -2,7 +2,7 @@
     <h4 class="modal-title" id="modal-title">
         Manage Groups
         <a  class="modal-close pull-right" ng-click="close()">
-            <i class="material-icons ">clear</i>
+            <i class="mdi mdi-close"></i>
         </a>
     </h4>
 </div>
@@ -14,7 +14,7 @@
         <div class="form-group col-md-6 no-padding-left">
             <div class="input-group">
                 <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
+                    <i class="mdi mdi-magnify"></i>
                 </div>
                 <input type="text" data-ng-model="search.value" class="form-control" placeholder="search groups...">
             </div>
@@ -52,7 +52,7 @@
                 <td class="no-wrap">{{group.createdAt | date : format : timezone}}</td>
                 <td>
                     <button class="btn btn-danger btn-link" data-ng-click="deleteGroup(group)">
-                        <i class="material-icons">&#xE872;</i>
+                        <i class="mdi mdi-delete"></i>
                         Delete
                     </button>
                 </td>

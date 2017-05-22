@@ -10,7 +10,7 @@
           item: '='
         },
         replace: true,
-        template : '<i uib-tooltip="Raw view" class="material-icons clickable" data-ng-click="openRawView(item)">remove_red_eye</i>',
+        template : '<i uib-tooltip="Raw view" class="mdi mdi-eye-outline clickable" data-ng-click="openRawView(item)"></i>',
         controller: [
           '$scope','$uibModal',
           function controller($scope,$uibModal) {
@@ -24,7 +24,7 @@
                 ' <h5 class="modal-title" id="modal-title">' +
                 'Raw View' +
                 '<a  class="modal-close pull-right" ng-click="close()">' +
-                '<i class="material-icons">clear</i>' +
+                '<i class="mdi mdi-close"></i>' +
                 '</a>' +
                 '</h5>' +
                 '</div>' +

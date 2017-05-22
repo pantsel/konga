@@ -24,6 +24,13 @@
   }
 }
 
+.navbar-footer{
+  .mdi::before {
+    font-size: 18px;
+    vertical-align: text-top;
+  }
+}
+
 .panel-title .mdi::before{
 
   margin-top: -4px;
@@ -49,7 +56,14 @@
 }
 .btn-sm .mdi::before {
   font-size: 18px;
-  vertical-align: initial;
+  //vertical-align: initial;
+}
+
+
+h1,h2,h3,h4,h5 {
+  .mdi::before {
+    vertical-align: inherit;
+  }
 }
 
 
@@ -57,9 +71,8 @@
   width: 18px;
 }
 .dropdown-menu .mdi::before {
-  position: relative;
   vertical-align: sub;
-  left: -8px;
+  //left: -8px;
 }
 .nav .mdi::before {
   position: relative;

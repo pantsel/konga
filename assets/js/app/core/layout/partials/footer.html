@@ -15,7 +15,7 @@
 
                 <li class="hidden-xs">
                     <a href="https://github.com/pantsel/konga/issues" target="_blank">
-                        <i class="material-icons">bug_report</i>Issues
+                        <i class="mdi mdi-18px mdi-bug"></i>Issues
                     </a>
                 </li>
 
@@ -23,7 +23,7 @@
             <ul class="nav navbar-nav navbar-right" style="margin-right: 5px">
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
-                        <i class="material-icons">cast_connected</i>
+                        <i class="mdi mdi-18px mdi-cast-connected"></i>
                         Connected to
                         <strong>{{user.node ? user.node.name : 'N/A'}}</strong>
                     </a>
@@ -33,7 +33,7 @@
                             <a>
 
                                 Choose connection
-                                <i class="material-icons pull-right clickable" data-ng-click="isOpen = !isOpen">close</i>
+                                <i class="mdi mdi-close pull-right clickable" data-ng-click="isOpen = !isOpen"></i>
                             </a>
                         </li>
                         <li role="menuitem">
@@ -42,12 +42,13 @@
                                     class="clickable"
                                     data-ng-click="activateConnection(connection)"
                                 >
-                                    <td width="1">
+                                    <td>
                                         <div data-ng-if="connection.checkingConnection">
                                             <fading-circle-spinner class="spinner"></fading-circle-spinner>
                                         </div>
                                         <div data-ng-if="!connection.checkingConnection">
-                                            <i class="material-icons text-primary">{{user.node.id == connection.id ? '&#xE834;' : '&#xE835;'}}</i>
+                                            <input type="checkbox" ng-checked="user.node.id == connection.id">
+                                            <!--<i class="mdi text-primary" ng-class="{'mdi-checkbox-marked-outline' : user.node.id == connection.id,'mdi-checkbox-blank-outline' : user.node.id != connection.id}"></i>-->
                                         </div>
                                     </td>
                                     <td><strong>{{connection.name}}</strong></td>
