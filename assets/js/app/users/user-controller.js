@@ -39,11 +39,16 @@
 
               var data = angular.copy($scope.user);
 
+              $scope.errors = {}
+
               // Make actual data update
               var deferred = $q.defer();
 
 
               data.passports.protocol = 'local'; // Make sure the protocol is set
+
+              console.log("data",data)
+              // return false;
 
               UserModel
                   .update(data.id, data)

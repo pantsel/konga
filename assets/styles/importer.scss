@@ -234,6 +234,7 @@ footer {
     max-height: 30px;
     min-height: 30px;
     //text-align: right;
+    z-index: 0;
 
     .navbar-nav {
       float: none;
@@ -699,6 +700,25 @@ tr.disabled{
 
 .modal-body{
   //background-color: $gray-lighter;
+}
+
+.table-clean{
+  > tr, > td, > th{
+    border: none;
+  }
+}
+
+.text-white{
+  color: #fff !important;
+}
+
+.profile-user-icon{
+  height: 180px;
+  border: 3px dotted #ddd;
+  background: #f4f4f4;
+  padding: 9px;
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 

@@ -39,6 +39,7 @@
                           $scope.busy = false;
                           $state.go('users.show', {id: result.data.id});
                       },function(err){
+                          $log.error(err);
                           $scope.busy = false
                           UserModel.handleError($scope,err)
                       }
