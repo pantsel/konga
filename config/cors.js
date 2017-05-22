@@ -52,7 +52,7 @@ module.exports.cors = {
    * Allow cookies to be shared for CORS requests?                            *
    *                                                                          *
    ***************************************************************************/
-  credentials: true,
+  credentials: false,
 
   /***************************************************************************
    *                                                                          *
