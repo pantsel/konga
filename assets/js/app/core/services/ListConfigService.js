@@ -98,11 +98,6 @@
                             column: '',
                             width: 1
                         },
-                        {
-                            title: '',
-                            column: '',
-                            width: 1
-                        },
                     ],
                     kongnode: [
                         {

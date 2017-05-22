@@ -1,6 +1,6 @@
 <div class="modal-header primary">
     <h5 class="modal-title" id="modal-title">
-        <i class="material-icons text-danger" style="vertical-align: sub">favorite</i>
+        <i class="mdi mdi-heart-outline"></i>
         Health Checks
         <a class="modal-close pull-right" ng-click="close()">
             <i class="mdi mdi-close"></i>
@@ -19,7 +19,7 @@
             <input
                     bs-switch
                     ng-model="node.health_checks"
-                    switch-size="small"
+                    switch-size="mini"
                     type="checkbox"
                     switch-on-text="ENABLED"
                     switch-off-text="DISABLED"
@@ -53,11 +53,11 @@
                 <th>Last known status</th>
                 <td>
                     <strong ng-if="node.health_check_details.firstSucceeded" class="text-success">
-                        <i class="material-icons">done</i>
+                        <i class="mdi mdi-check"></i>
                         Healthy
                     </strong>
                     <strong ng-if="!node.health_check_details.firstSucceeded" class="text-danger">
-                        <i class="material-icons">warning</i>
+                        <i class="mdi mdi-alert-outline"></i>
                         Down or unresponsive
                     </strong>
                 </td>

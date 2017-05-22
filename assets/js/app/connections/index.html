@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-12 actions">
         <button class="btn btn-primary pull-left" ng-click="createNode()" ng-if="user.admin">
-            <i class="material-icons">&#xE145;</i>
+            <i class="mdi mdi-plus"></i>
             new connection
         </button>
         <list-search
@@ -41,9 +41,9 @@
                     data-ng-bind-html="item.title.toUpperCase()"
             ></span>
 
-                    <i class="fa"
+                    <i class="mdi"
                        data-ng-show="sort.column == item.column"
-                       data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+                       data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                     ></i>
                 </th>
                 <th width="1" ng-if="user.admin"></th>
@@ -101,7 +101,7 @@
                 </td>
                 <td  width="1" data-ng-if="user.admin">
                     <button class="btn btn-danger btn-link" ng-click="deleteNode(node)">
-                        <i class="material-icons">delete</i>
+                        <i class="mdi mdi-delete"></i>
                         Delete
                     </button>
                 </td>

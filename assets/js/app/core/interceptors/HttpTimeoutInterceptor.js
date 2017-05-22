@@ -13,8 +13,15 @@
       .factory('timeoutHttpIntercept', ['HttpTimeout', function (HttpTimeout) {
         return {
           'request': function (config) {
-            config.timeout = HttpTimeout;
-            return config;
+
+              // Don't hang more that HttpTimeout waiting for response on GET requests.
+              // Setting timeout on POST, PUT, PATCH or DELETE
+              // will result in unwanted interruptions in data-heavy scenarios.
+              if(config.method == 'GET') {
+                  config.timeout = HttpTimeout;
+              }
+
+              return config;
           }
         }
       }]);

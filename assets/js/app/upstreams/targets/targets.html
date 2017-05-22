@@ -3,8 +3,8 @@
         <div class="panel-title pull-left">
             Targets
         </div>
-        <button class="btn btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
-            <i class="material-icons" data-ng-show="!deleting">delete</i>
+        <button class="btn btn-sm btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
+            <i class="mdi mdi-plus"></i>
             Add target
         </button>
         <div class="clearfix"></div>
@@ -34,18 +34,17 @@
                                 class="clickable"
                                 data-ng-show="item.column"
                                 data-ng-click="changeSort(item)"
-                                data-ng-bind-html="item.title"
+                                data-ng-bind-html="item.title.toUpperCase()"
                         ></a>
             <span
                     data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></span>
                         <input data-ng-if="item.checkbox" type="checkbox" data-ng-model="globalCheck.isAllChecked"/>
-                        <i class="material-icons"
+                        <i class="mdi"
                            data-ng-show="sort.column == item.column"
-                           data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         >
-                            {{sort.direction ? '&#xE316;' : '&#xE313;'}}
                         </i>
                     </th>
                 </tr>

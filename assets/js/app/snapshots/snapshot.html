@@ -7,19 +7,19 @@
             <small>
                 Kong {{snapshot.kong_version.split('-').join('.')}}
                 &nbsp;
-                <i class="mdi mdi-calendar-blank"></i>
+                <i class="mdi mdi-calendar-blank mdi-18px"></i>
                 {{snapshot.createdAt | date}}
             </small>
         </h4>
     </div>
     <div class="col-md-6 text-right">
         <button class="btn btn-primary" data-ng-click="showRestoreModal()">
-            <i class="material-icons">&#xE929;</i>
+            <i class="mdi mdi-backup-restore"></i>
             restore
         </button>
         <a id="downloadAnchorElem" style="display:none"></a>
         <button class="btn btn-warning" data-ng-click="downloadSnapshot()">
-            <i class="material-icons">&#xE2C4;</i>
+            <i class="mdi mdi-export"></i>
             export
         </button>
     </div>

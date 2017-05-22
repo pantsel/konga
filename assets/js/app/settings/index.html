@@ -62,17 +62,19 @@
             <p class="help-block">
                 Configure email transports and select the one to use.
             </p>
-            <div class="row">
+            <div class="row" vertilize-container="">
                 <div class="col-md-4" data-ng-repeat="transport in transports">
-                    <div class="panel" ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
+                    <div class="panel"
+                         vertilize
+                         ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
                         <div class="panel-heading">
                             <div class="panel-title" >
                                 <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
-                                    <i class="material-icons">{{KONGA_CONFIG.default_transport == transport.name ? '&#xE834;' : '&#xE835;'}}</i>
+                                    <i class="mdi" ng-class="KONGA_CONFIG.default_transport == transport.name ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
                                     {{transport.name.toUpperCase()}}
                                 </div>
 
-                                <div class="pull-right">
+                                <div class="pull-right" style="margin-top: -6px;">
                                     <button
                                             type="button"
                                             class="btn btn-link btn-sm"
