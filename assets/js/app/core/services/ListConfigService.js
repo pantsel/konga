@@ -215,6 +215,7 @@
                         },
                         {
                             title: '',
+                            hide : !AuthService.hasPermission('users','delete'),
                             column: '',
                             width: 1
                         },

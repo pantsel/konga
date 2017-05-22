@@ -1,6 +1,7 @@
 <table class="table table-hover table-striped">
     <tr>
         <th width="{{item.width}}" class="text-nowrap"
+            ng-if="!item.hide"
             data-ng-repeat="item in titleItems | filter:titleFilter"
         >
             <a
@@ -28,7 +29,7 @@
         <td>{{user.lastName}}</td>
         <td>{{user.createdAt | date : "MMM d, y"}}</td>
         <td>{{user.updatedAt | date : "MMM d, y"}}</td>
-        <td>
+        <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
             <button type="button" ng-click="deleteUser($index,user)" class="btn btn-danger btn-link">
                 <i class="mdi mdi-delete"></i>
                 Delete

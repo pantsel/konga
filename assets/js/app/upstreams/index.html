@@ -1,7 +1,7 @@
 <div class="row actions">
     <div class="col-md-12">
         <div class="pull-left">
-            <button class="btn btn-success" ng-click="openCreateItemModal()">
+            <button ng-if="user.hasPermission($state.name.split('.')[0],'create')" class="btn btn-success" ng-click="openCreateItemModal()">
                 <i class="mdi mdi-plus"></i>
                 Create upstream
             </button>

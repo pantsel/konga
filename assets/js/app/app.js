@@ -166,11 +166,11 @@
     .run([
       '$rootScope', '$state', '$injector',
       'editableOptions','editableThemes','$templateCache','NodesService',
-      'AuthService','cfpLoadingBar',
+      'AuthService','cfpLoadingBar','UserService',
       function run(
         $rootScope, $state, $injector,
         editableOptions,editableThemes,$templateCache,NodesService,
-        AuthService,cfpLoadingBar
+        AuthService,cfpLoadingBar,UserService
       ) {
 
           $rootScope.$on('$routeChangeStart', function(event, next, current) {
@@ -210,20 +210,26 @@
 
 
             // Handle Permissions
+
             var routeNameParts = toState.name.split(".");
             var context = routeNameParts[0];
             var action  = routeNameParts[1];
 
-            if(!AuthService.hasPermission(context,action)) {
-                console.log(fromState)
-                event.preventDefault();
-                cfpLoadingBar.complete();
+            // Special exception that allows a user to edits his/hers own profile
+            if(!(context == 'users' && action == 'show' && params.id == UserService.user().id)) {
+                if(!AuthService.hasPermission(context,action)) {
+                    console.log(fromState)
+                    event.preventDefault();
+                    cfpLoadingBar.complete();
 
-                // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
-                if(!fromState.name) {
-                    $state.go('dashboard', params, {location: 'replace'})
+                    // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
+                    if(!fromState.name) {
+                        $state.go('dashboard', params, {location: 'replace'})
+                    }
                 }
             }
+
+
 
 
             //

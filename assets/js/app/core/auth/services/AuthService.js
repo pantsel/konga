@@ -73,7 +73,7 @@
 
 
                     token: function token() {
-                        return $localStorage.credentials.token;
+                        return $localStorage.credentials ? $localStorage.credentials.token : null;
                     },
 
                     /**

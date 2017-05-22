@@ -81,6 +81,12 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
                         update: false,
                         delete: false
                     },
+                    users: {
+                        create: false,
+                        read: true,
+                        update: false,
+                        delete: false
+                    }
                 }
             }
         },

@@ -9,39 +9,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand">
-                <!--<img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive visible-xs visible-md visible-lg"/>-->
-                <!--<img ng-src="images/konga-logo-small.png" class="konga-nav-icon visible-xs visible-sm"/>-->
-                <!--<span ng-bind-html="$state.data.prefix"></span>-->
-                <!--<span ng-bind-html="$state.data.pageName"></span>-->
             </a>
-            <!--<a class="navbar-brand">-->
-                <!--&lt;!&ndash;<span ng-bind-html="$state.data.prefix"></span>&ndash;&gt;-->
-                <!--<span class="text-uppercase" ng-bind-html="$state.data.pageName"></span>-->
-            <!--</a>-->
 
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--<ul class="nav navbar-nav navbar-left">-->
-                <!--<li class="{{item.class}}"-->
-                    <!--style="position: relative"-->
-                    <!--data-ng-repeat="item in navigationItems"-->
-                    <!--data-ng-show="auth.authorize(item.access) && item.show()"-->
-                    <!--data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"-->
-                    <!--data-ui-sref-active="active"-->
-                <!--&gt;-->
-                    <!--<a-->
-                       <!--data-ui-sref="{{item.state}}"-->
-                    <!--&gt;-->
-                        <!--<span class="visible-md visible-lg">{{item.title.toUpperCase()}}</span>-->
-                        <!--<span class="visible-xs visible-sm text-center">-->
-                            <!--<i class="mdi {{item.icon}}" style="margin-top: -10px"></i>-->
-                            <!--<span class="text-small" style="display: block">{{item.title}}</span>-->
-                        <!--</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-            <!--</ul>-->
             <ul class="nav navbar-nav navbar-right">
                 <li
                         data-ui-sref-active="active"
@@ -71,7 +44,7 @@
                             </a>
                         </li>
                         <li role="menuitem">
-                            <a data-ui-sref="settings">
+                            <a data-ui-sref="settings" ng-if="user().admin">
                                 <i class="mdi mdi-settings"></i>
                                 Settings
                             </a>
