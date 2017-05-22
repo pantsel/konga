@@ -21,16 +21,16 @@
             ></i>
         </th>
     </tr>
-    <tr data-ng-repeat="user in items">
+    <tr data-ng-repeat="item in items">
         <td>
-            <i class="mdi" ng-class="{'text-warning mdi-crown': user.admin,'text-muted mdi-account-outline' : !user.admin}"></i></td>
-        <td><a data-ui-sref="users.show({id: user.id})">{{user.username}}</a></td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.createdAt | date : "MMM d, y"}}</td>
-        <td>{{user.updatedAt | date : "MMM d, y"}}</td>
+            <i class="mdi" ng-class="{'text-warning mdi-crown': item.admin,'text-muted mdi-account-outline' : !item.admin}"></i></td>
+        <td><a data-ui-sref="users.show({id: user.id})">{{item.username}}</a></td>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.createdAt | date : "MMM d, y"}}</td>
+        <td>{{item.updatedAt | date : "MMM d, y"}}</td>
         <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
-            <button type="button" ng-click="deleteUser($index,user)" class="btn btn-danger btn-link">
+            <button type="button" ng-click="deleteUser($index,item)" class="btn btn-danger btn-link">
                 <i class="mdi mdi-delete"></i>
                 Delete
             </button>
