@@ -24,7 +24,7 @@
     <tr data-ng-repeat="item in items">
         <td>
             <i class="mdi" ng-class="{'text-warning mdi-crown': item.admin,'text-muted mdi-account-outline' : !item.admin}"></i></td>
-        <td><a data-ui-sref="users.show({id: user.id})">{{item.username}}</a></td>
+        <td><a data-ui-sref="users.show({id: item.id})">{{item.username}}</a></td>
         <td>{{item.firstName}}</td>
         <td>{{item.lastName}}</td>
         <td>{{item.createdAt | date : "MMM d, y"}}</td>
