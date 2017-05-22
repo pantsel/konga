@@ -10,11 +10,11 @@
         .controller('ConnectionsController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
             'SocketHelperService','AuthService','UserService','SettingsService','MessageService',
-            '$state','$uibModal','DialogService','NodeModel','$localStorage',
+            '$state','$uibModal','DialogService','NodeModel','$localStorage','InfoService',
             'ListConfig',
             function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
                                 SocketHelperService, AuthService,UserService,SettingsService, MessageService,
-                                $state, $uibModal,DialogService,NodeModel,$localStorage,
+                                $state, $uibModal,DialogService,NodeModel,$localStorage,InfoService,
                                 ListConfig ) {
 
 
@@ -202,24 +202,51 @@
                 $scope.toggleActive = function(node) {
 
 
+
+                    if(!isActive(node)) {
+                        console.log("node not active",node)
+
+                        // Check connection before assigning
+                        // the node to the user
+                        node.checkingConnection = true;
+                        InfoService.nodeStatus({
+                            kong_admin_url : node.kong_admin_url
+                        }).then(function(response){
+                            $log.debug("Check connection:success",response)
+                            node.checkingConnection = false;
+
+                            toggleUserNode(node);
+
+                        }).catch(function(error){
+                            $log.debug("Check connection:error",error)
+                            node.checkingConnection = false;
+                            MessageService.error("Oh snap! Can't connect to " + node.kong_admin_url)
+                        })
+
+                    }else{
+                        console.log("node active")
+                        toggleUserNode(node)
+                    }
+
+                }
+
+
+                function toggleUserNode(node) {
+
                     UserModel
                         .update(UserService.user().id, {
                             node : isActive(node) ? null : node
-                        })
-                        .then(
-                            function onSuccess(res) {
-                                var credentials = $localStorage.credentials
+                        }).then(function onSuccess(res) {
+                        var credentials = $localStorage.credentials
+                        var user = res.data[0];
+                        if(!user.node) {
+                            delete credentials.user.node;
+                        } else{
+                            credentials.user.node = node;
+                        }
 
-                                if(!res.data.node) {
-                                    delete credentials.user.node;
-                                } else{
-                                    credentials.user.node = node
-                                }
-
-
-                                $rootScope.$broadcast('user.node.updated',res.data.node)
-                            }
-                        );
+                        $rootScope.$broadcast('user.node.updated',res.data.node)
+                    })
                 }
 
 

@@ -47,8 +47,7 @@
                                             <fading-circle-spinner class="spinner"></fading-circle-spinner>
                                         </div>
                                         <div data-ng-if="!connection.checkingConnection">
-                                            <input type="checkbox" ng-checked="user.node.id == connection.id">
-                                            <!--<i class="mdi text-primary" ng-class="{'mdi-checkbox-marked-outline' : user.node.id == connection.id,'mdi-checkbox-blank-outline' : user.node.id != connection.id}"></i>-->
+                                            <i class="mdi text-primary" ng-class="user.node.id == connection.id ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
                                         </div>
                                     </td>
                                     <td><strong>{{connection.name}}</strong></td>

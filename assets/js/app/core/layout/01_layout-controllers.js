@@ -316,10 +316,10 @@
                         state: 'users',
                         icon : 'mdi-account-multiple-outline',
                         show : function() {
-                            return AuthService.isAuthenticated()
+                            return AuthService.authorize(AccessLevels.admin)
                         },
                         title: 'Users',
-                        access: AccessLevels.anon
+                        access: AccessLevels.admin
                     },
                     {
                         state: 'connections',
@@ -343,10 +343,10 @@
                         state: 'settings',
                         icon : 'mdi-settings',
                         show : function() {
-                            return AuthService.isAuthenticated()
+                            return AuthService.authorize(AccessLevels.admin)
                         },
                         title: 'Settings',
-                        access: AccessLevels.anon
+                        access: AccessLevels.admin
                     },
                 ];
             }

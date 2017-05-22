@@ -40,88 +40,98 @@
  * @todo  Revoke method?
  * @todo  Text localizations?
  */
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular.module('frontend.core.auth.services')
-    .factory('AuthService', [
-      '$http', '$state', '$localStorage','$rootScope',
-      'AccessLevels', 'BackendConfig', 'MessageService',
-      function factory(
-        $http, $state, $localStorage,$rootScope,
-        AccessLevels, BackendConfig, MessageService
-      ) {
-        return {
-          /**
-           * Method to authorize current user with given access level in application.
-           *
-           * @param   {Number}    accessLevel Access level to check
-           *
-           * @returns {Boolean}
-           */
-          authorize: function authorize(accessLevel) {
-            if (accessLevel === AccessLevels.user) {
-              return this.isAuthenticated();
-            } else if (accessLevel === AccessLevels.admin) {
-              return this.isAuthenticated() && Boolean($localStorage.credentials.user.admin);
-            } else {
-              return accessLevel === AccessLevels.anon;
+    angular.module('frontend.core.auth.services')
+        .factory('AuthService', [
+            '$http', '$state', '$localStorage', '$rootScope',
+            'AccessLevels', 'BackendConfig', 'MessageService',
+            function factory($http, $state, $localStorage, $rootScope,
+                             AccessLevels, BackendConfig, MessageService) {
+                return {
+                    /**
+                     * Method to authorize current user with given access level in application.
+                     *
+                     * @param   {Number}    accessLevel Access level to check
+                     *
+                     * @returns {Boolean}
+                     */
+                    authorize: function authorize(accessLevel) {
+
+
+                        if (accessLevel === AccessLevels.user) {
+                            return this.isAuthenticated();
+                        } else if (accessLevel === AccessLevels.admin) {
+                            return this.isAuthenticated() && Boolean($localStorage.credentials.user.admin);
+                        } else {
+                            return accessLevel === AccessLevels.anon;
+                        }
+                    },
+
+                    hasPermission: function (context, action) {
+
+                        if ($localStorage.credentials.user.admin) {
+                            return true;
+                        }
+
+                        return KONGA_CONFIG.user_permissions[context] && KONGA_CONFIG.user_permissions[context][action]
+
+                    },
+
+                    /**
+                     * Method to check if current user is authenticated or not. This will just
+                     * simply call 'Storage' service 'get' method and returns it results.
+                     *
+                     * @returns {Boolean}
+                     */
+                    isAuthenticated: function isAuthenticated() {
+                        return Boolean($localStorage.credentials);
+                    },
+
+
+                    token: function token() {
+                        return $localStorage.credentials.token;
+                    },
+
+                    /**
+                     * Method make login request to backend server. Successfully response from
+                     * server contains user data and JWT token as in JSON object. After successful
+                     * authentication method will store user data and JWT token to local storage
+                     * where those can be used.
+                     *
+                     * @param   {*} credentials
+                     *
+                     * @returns {*|Promise}
+                     */
+                    login: function login(credentials) {
+                        return $http
+                            .post('login', credentials, {withCredentials: true})
+                            .then(
+                                function (response) {
+                                    MessageService.success('You have logged in successfully!');
+                                    $localStorage.credentials = response.data;
+                                    $rootScope.$broadcast('user.login', $localStorage.credentials)
+                                }
+                            )
+                            ;
+                    },
+
+                    /**
+                     * The backend doesn't care about actual user logout, just delete the token
+                     * and you're good to go.
+                     *
+                     * Question still: Should we make logout process to backend side?
+                     */
+                    logout: function logout() {
+                        $localStorage.$reset();
+
+                        MessageService.success('You have logged out.');
+
+                        $state.go('auth.login');
+                    }
+                };
             }
-          },
-
-          /**
-           * Method to check if current user is authenticated or not. This will just
-           * simply call 'Storage' service 'get' method and returns it results.
-           *
-           * @returns {Boolean}
-           */
-          isAuthenticated: function isAuthenticated() {
-            return Boolean($localStorage.credentials);
-          },
-
-
-            token : function token() {
-                return $localStorage.credentials.token;
-            },
-
-          /**
-           * Method make login request to backend server. Successfully response from
-           * server contains user data and JWT token as in JSON object. After successful
-           * authentication method will store user data and JWT token to local storage
-           * where those can be used.
-           *
-           * @param   {*} credentials
-           *
-           * @returns {*|Promise}
-           */
-          login: function login(credentials) {
-            return $http
-              .post('login', credentials, {withCredentials: true})
-              .then(
-                function(response) {
-                    MessageService.success('You have logged in successfully!');
-                    $localStorage.credentials = response.data;
-                    $rootScope.$broadcast('user.login',$localStorage.credentials)
-                }
-              )
-            ;
-          },
-
-          /**
-           * The backend doesn't care about actual user logout, just delete the token
-           * and you're good to go.
-           *
-           * Question still: Should we make logout process to backend side?
-           */
-          logout: function logout() {
-            $localStorage.$reset();
-
-            MessageService.success('You have logged out.');
-
-            $state.go('auth.login');
-          }
-        };
-      }
-    ])
-  ;
+        ])
+    ;
 }());

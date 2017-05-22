@@ -31,7 +31,23 @@
       function factory(_,$localStorage,$rootScope) {
 
           function user() {
-              return $localStorage.credentials ? $localStorage.credentials.user : {};
+
+              var user = $localStorage.credentials ? $localStorage.credentials.user : {};
+
+              if(user.id) {
+                  user.hasPermission =  function (context, action) {
+
+                      if ($localStorage.credentials && $localStorage.credentials.user.admin) {
+                          return true;
+                      }
+
+                      return KONGA_CONFIG.user_permissions[context] && KONGA_CONFIG.user_permissions[context][action]
+
+                  }
+              }
+
+
+              return user;
           }
 
           function updateUser(user,keepNode) {

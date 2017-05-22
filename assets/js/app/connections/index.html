@@ -46,21 +46,24 @@
                        data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                     ></i>
                 </th>
-                <th width="1" ng-if="user.admin"></th>
-                <th width="1" ng-if="user.admin"></th>
+                <th width="1"></th>
+                <th width="1" ng-if="user.hasPermission('connections','delete')"></th>
             </tr>
             <tr data-ng-repeat="node in nodes">
 
                 <td>
                     <i class="mdi clickable"
+                       ng-if="!node.checkingConnection"
                        tooltip-append-to-body="true"
                        uib-tooltip="Toggle active"
                        ng-click="toggleActive(node)"
-                       ng-class="{'mdi-star text-warning' : user.node && user.node.id == node.id,'mdi-star-outline' :  user.node.id != node.id}"
+                       ng-class="user.node && user.node.id == node.id ? 'mdi-star text-warning' : 'mdi-star-outline'"
                     ></i>
 
+                    <i class="mdi mdi-loading mdi-spin text-primary" ng-if="node.checkingConnection"></i>
+
                 </td>
-                <td data-ng-if="user.admin">
+                <td>
 
                     <i
                             ng-if="node.health_checks"
@@ -70,21 +73,14 @@
 
 
                     <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-outline"></i></td>
-
-                    <!--<i-->
-                            <!--uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"-->
-                            <!--class="mdi mdi-heart-pulse"-->
-                            <!--ng-if="node.health_checks" class="material-icons"-->
-                            <!--data-ng-class="{'text-danger': node.health_check_details && !node.health_check_details.isHealthy,'text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>-->
-
-                    <!--<i uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-pulse"></i>-->
                 </td>
-                <td><a  editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
+                <td><a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
                 <td>
-                    <a  editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
+                    <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
                 </td>
                 <td>
                     <a href="#"
+                       edit-disabled="{{!user.hasPermission('connections','update')}}"
                        editable-select="node.kong_version"
                        onaftersave="updateNode(node)"
                        e-ng-options="s.value as s.name for s in kong_versions">
@@ -92,14 +88,14 @@
                     </a>
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
-                <td width="1" data-ng-if="user.admin">
+                <td width="1">
                     <button class="btn btn-default btn-link"
                             ng-click="onShowStatusCheck(node)">
                         <i class="mdi mdi-heart-pulse"></i>
                         health checks
                     </button>
                 </td>
-                <td  width="1" data-ng-if="user.admin">
+                <td  width="1" data-ng-if="user.hasPermission('connections','delete')">
                     <button class="btn btn-danger btn-link" ng-click="deleteNode(node)">
                         <i class="mdi mdi-delete"></i>
                         Delete
