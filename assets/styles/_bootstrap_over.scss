@@ -141,7 +141,6 @@ input.form-control, select.form-control{
 }
 
 .panel {
-  transition: all .2s;
   &.panel-dashed.panel-flat{
     &:hover{
       border: 2px dashed #666;
