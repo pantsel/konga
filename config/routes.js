@@ -45,63 +45,40 @@ module.exports.routes = {
     },
 
     // Authentication routes
-    '/logout': 'AuthController.logout',
-    'POST /login': 'AuthController.callback',
-    'POST /login/:action': 'AuthController.callback',
-    'POST /auth/local': 'AuthController.callback',
+    '/logout'                 : 'AuthController.logout',
+    'POST /login'             : 'AuthController.callback',
+    'POST /login/:action'     : 'AuthController.callback',
+    'POST /auth/local'        : 'AuthController.callback',
     'POST /auth/local/:action': 'AuthController.callback',
-
-    'POST /auth/signup': 'AuthController.signup',
-
-    '/auth/:provider': 'AuthController.provider',
+    'POST /auth/signup'       : 'AuthController.signup',
+    '/auth/:provider'         : 'AuthController.provider',
     '/auth/:provider/callback': 'AuthController.callback',
-    '/auth/:provider/:action': 'AuthController.callback',
+    '/auth/:provider/:action' : 'AuthController.callback',
 
-
-    /**
-     * ------------------------------------------------------------------------
-     * KONG ROUTES
-     * ------------------------------------------------------------------------
-     */
 
     //'POST /consumers/sync'                 : 'ConsumerController.sync',
 
-    // Informational routes
-    // 'GET /kong/info': 'KongInfoController.info',
-    // 'GET /kong/status': 'KongInfoController.status',
-    // 'GET /kong/cluster': 'KongInfoController.cluster',
-    // 'DELETE /kong/cluster': 'KongInfoController.deleteCluster',
-
 
     // Remote Storage routes
-    'GET /remote/adapters': 'RemoteStorageController.loadAdapters',
-    'POST /remote/consumers': 'RemoteStorageController.loadConsumers',
+    'GET /remote/adapters'       : 'RemoteStorageController.loadAdapters',
+    'POST /remote/consumers'     : 'RemoteStorageController.loadConsumers',
     'GET /remote/connection/test': 'RemoteStorageController.testConnection',
 
 
     // Kong 0.10.x certificates routes
     // These must be handled by KONGA
-    'POST /kong/certificates': 'KongCertificatesController.upload',
+    'POST /kong/certificates'     : 'KongCertificatesController.upload',
     'PATCH /kong/certificates/:id': 'KongCertificatesController.update',
 
 
-    // Konga API
-    'GET /api/consumers/:id/credentials': 'KongaApiController.listConsumerCredentials',
-    'PATCH /api/consumers/:id': 'KongaApiController.updateConsumer',
-    'POST /api/consumers': 'KongaApiController.createConsumer',
-    'POST /api/apis': 'KongaApiController.registerApi',
-
-
     // Snapshots
-    'POST /api/snapshots/take': 'SnapshotController.takeSnapShot',
+    'POST /api/snapshots/take'       : 'SnapshotController.takeSnapShot',
     'POST /api/snapshots/:id/restore': 'SnapshotController.restore',
 
     // Socket Subscriptions
     'GET /api/kongnodes/healthchecks/subscribe': 'KongNodeController.subscribeHealthChecks',
-    'GET /api/apis/healthchecks/subscribe': 'ApiHealthCheckController.subscribeHealthChecks',
+    'GET /api/apis/healthchecks/subscribe'     : 'ApiHealthCheckController.subscribeHealthChecks',
 
-    // Upstream routes
-    // 'GET /kong/upstreams': 'KongUpstreamsController.list',
 
 
     'GET /api/settings' : 'SettingsController.find',

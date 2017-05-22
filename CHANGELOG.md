@@ -108,3 +108,11 @@ All notable changes to this project will be documented in this file.
 * User sign up.
 * More configurable application settings.
 
+
+## [0.7.3](https://github.com/pantsel/konga/releases/tag/v0.7.3) - 23-5-2017
+
+* UI/UX revamp.
+* Massive refactoring and logic improvements.
+* Configurable user permissions.
+* Various bug fixes and improvements.
+

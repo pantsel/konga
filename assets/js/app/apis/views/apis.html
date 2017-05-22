@@ -75,7 +75,7 @@
                                 uib-tooltip="Strip {{Gateway.version.indexOf('0.9.') > -1 ? 'Request Path' : 'Uri'}}"
                                 ng-click="toggleStripRequestPathOrUri(api)"
                                 data-ng-class="{'text-primary' : isRequestPathOrUriStripped(api),'text-muted' : !isRequestPathOrUriStripped(api)}"
-                                class="mdi mdi-link-off">
+                                class="mdi mdi-link-off clickable">
                         </i>
                     </td>
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">

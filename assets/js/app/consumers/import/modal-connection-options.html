@@ -105,12 +105,12 @@
         <!--<pre>{{connOptions | json}}</pre>-->
         <div class="modal-footer padding-top">
             <button type="button" data-ng-click="closeModal()" data-ng-disabled="busy" class="btn btn-warning">
-                <i class="material-icons">close</i>
+                <i class="mdi mdi-close"></i>
                 cancel
             </button>
             <button type="submit" data-ng-disabled="busy" class="btn btn-primary">
                 <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
-                <i class="material-icons" ng-if="!busy">storage</i>
+                <i class="mdi mdi-database" ng-if="!busy"></i>
                 load consumers
             </button>
         </div>
