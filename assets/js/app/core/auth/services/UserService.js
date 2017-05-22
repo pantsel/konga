@@ -27,23 +27,15 @@
 
   angular.module('frontend.core.auth.services')
     .factory('UserService', [
-        '_','$localStorage','$rootScope',
-      function factory(_,$localStorage,$rootScope) {
+        '_','$localStorage','$rootScope','AuthService',
+      function factory(_,$localStorage,$rootScope, AuthService) {
 
           function user() {
 
               var user = $localStorage.credentials ? $localStorage.credentials.user : {};
 
               if(user.id) {
-                  user.hasPermission =  function (context, action) {
-
-                      if ($localStorage.credentials && $localStorage.credentials.user.admin) {
-                          return true;
-                      }
-
-                      return KONGA_CONFIG.user_permissions[context] && KONGA_CONFIG.user_permissions[context][action]
-
-                  }
+                  user.hasPermission =  AuthService.hasPermission
               }
 
 

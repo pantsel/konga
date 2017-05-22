@@ -1,7 +1,9 @@
 <div class="row actions">
     <div class="col-md-12">
         <div class="pull-left">
-            <a  class="btn btn-primary" ng-click="openUploadCertsModal()">
+            <a  class="btn btn-primary"
+                ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+                ng-click="openUploadCertsModal()">
                 <i class="mdi mdi-plus"></i>
                 Add Certificate
             </a>

@@ -12,8 +12,8 @@
 
     angular.module('frontend.core.services')
         .factory('ListConfig', [
-            '_', 'DialogService','$log',
-            function factory(_, DialogService,$log) {
+            '_', 'DialogService','$log','AuthService',
+            function factory(_, DialogService,$log, AuthService) {
                 /**
                  * List title item configuration.
                  *
@@ -164,7 +164,8 @@
                         },
                         {
                             title: '',
-                            column: '',
+                            hide : !AuthService.hasPermission('consumers','delete'),
+                            column: false,
                             width: 1
                         },
                     ],

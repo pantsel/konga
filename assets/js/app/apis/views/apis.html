@@ -22,7 +22,9 @@
 <!--</div>-->
 <div class="row actions">
     <div class="col-md-12">
-        <a  class="btn btn-primary pull-left" ng-click="openAddApiModal()">
+        <a  class="btn btn-primary pull-left"
+            ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+            ng-click="openAddApiModal()">
             <i class="mdi mdi-plus"></i>
             Add New Api
         </a>
@@ -40,8 +42,8 @@
         <div class="table-responsive" >
             <table class="table table-hover table-striped">
                 <tr>
-                    <th width="1"></th>
-                    <th width="1"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
                     <th width="1"></th>
                     <th width="1"></th>
                     <th width="{{item.width}}" class="text-nowrap"
@@ -63,11 +65,11 @@
                            data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         ></i>
                     </th>
-                    <th width="1"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
                 </tr>
                 <tr
                         dir-paginate="api in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
-                    <td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
 
                         <i
                                 uib-tooltip="Strip {{Gateway.version.indexOf('0.9.') > -1 ? 'Request Path' : 'Uri'}}"
@@ -76,7 +78,7 @@
                                 class="mdi mdi-link-off">
                         </i>
                     </td>
-                    <td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
                         <i
                                 uib-tooltip="Preserve Host"
                                 ng-click="api.preserve_host=!api.preserve_host;updateApi(api.id,{preserve_host : api.preserve_host})"
@@ -99,7 +101,8 @@
                     </td>
                     <td>
                         <strong>
-                            <a class="clickable" data-ui-sref="apis.edit({api_id:api.id})">{{ api.name || "-" }}</a>
+                            <a class="clickable"
+                               data-ui-sref="apis.edit({api_id:api.id})">{{ api.name || "-" }}</a>
                         </strong>
                     </td>
                     <td>{{ api.upstream_url || "-" }}</td>
@@ -110,7 +113,7 @@
                             <!--edit-->
                         <!--</a>-->
                     <!--</td>-->
-                    <td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
                         <button type="button" ng-click="deleteItem($index,api)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete

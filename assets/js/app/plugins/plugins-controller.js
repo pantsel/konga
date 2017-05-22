@@ -3,9 +3,9 @@
 
   angular.module('frontend.plugins')
     .controller('PluginsController', [
-        '_','$scope', '$log', '$state','ApiService','PluginsService',
+        '_','$scope', '$log', '$state','ApiService','PluginsService','MessageService',
         '$uibModal','DialogService','PluginModel','ListConfig','UserService',
-      function controller(_,$scope, $log, $state, ApiService, PluginsService,
+      function controller(_,$scope, $log, $state, ApiService, PluginsService, MessageService,
                           $uibModal, DialogService, PluginModel, ListConfig, UserService ) {
 
           PluginModel.setScope($scope, false, 'items', 'itemCount');
@@ -22,6 +22,13 @@
            */
 
            function updatePlugin(plugin) {
+
+               if(!$scope.user.hasPermission('plugins','update')){
+
+                   MessageService.error("You don't have permissions to perform this action")
+                   return false;
+               }
+
               PluginsService.update(plugin.id,{
                       enabled : plugin.enabled
                   })
@@ -36,6 +43,11 @@
 
 
           function onEditPlugin(item) {
+
+              if(!$scope.user.hasPermission('plugins','edit')){
+                  return false;
+              }
+
               $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',

@@ -263,7 +263,7 @@
                     {
                         state: 'apis',
                         show : function() {
-                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                            return AuthService.hasPermission('apis','read') && $rootScope.Gateway
                         },
                         title: 'APIs',
                         icon : 'mdi-cloud-outline',
@@ -272,7 +272,7 @@
                     {
                         state: 'consumers',
                         show : function() {
-                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                            return AuthService.hasPermission('consumers','read') && $rootScope.Gateway
                         },
                         title: 'Consumers',
                         icon : 'mdi-account-outline',
@@ -282,7 +282,7 @@
                         state: 'plugins',
                         icon : 'mdi-power-plug',
                         show : function() {
-                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                            return AuthService.hasPermission('plugins','read')  && $rootScope.Gateway
                         },
                         title: 'Plugins',
                         access: AccessLevels.anon
@@ -291,7 +291,7 @@
                         state: 'upstreams',
                         icon : 'mdi-shuffle-variant',
                         show : function() {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('upstreams','read')  && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
                         },
                         title: 'Upstreams',
                         access: AccessLevels.anon
@@ -300,7 +300,7 @@
                         state: 'certificates',
                         icon : 'mdi-certificate',
                         show : function() {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('certificates','read')  && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
                         },
                         title: 'Certificates',
                         access: AccessLevels.anon

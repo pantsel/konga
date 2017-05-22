@@ -1,11 +1,14 @@
 <div class="row actions">
     <div class="col-md-12">
         <div class="pull-left">
-            <button class="btn btn-success" ng-click="openCreateConsumerModal()">
+            <button class="btn btn-success"
+                    ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+                    ng-click="openCreateConsumerModal()">
                 <i class="mdi mdi-plus"></i>
                 Create consumer
             </button>
             <button
+                    ng-if="user.hasPermission($state.name.split('.')[0],'create')"
                     class="btn btn-warning" ng-click="importConsumers()">
                 <i class="mdi mdi-upload"><i class="material-icons"></i></i>
                 Import
@@ -27,7 +30,7 @@
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
-                    <th width="{{item.width}}" class="text-nowrap"
+                    <th width="{{item.width}}" class="text-nowrap" ng-if="!item.hide"
                         data-ng-repeat="item in titleItems | filter:titleFilter"
                     >
                         <a
@@ -56,8 +59,9 @@
                     <td><a data-ui-sref="consumers.edit({'id':consumer.id})"><strong>{{consumer.username || "-"}}</strong></a></td>
                     <td>{{consumer.custom_id || "-"}}</td>
                     <td>{{moment(consumer.created_at).format("MMM DD YYYY @h:mm")}}</td>
-                    <td>
-                        <button type="button" ng-click="deleteItem($index,consumer)" class="btn btn-danger btn-link">
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button"
+                                ng-click="deleteItem($index,consumer)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete
                         </button>

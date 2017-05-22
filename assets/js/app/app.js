@@ -191,7 +191,7 @@
          * Route state change start event, this is needed for following:
          *  1) Check if user is authenticated to access page, and if not redirect user back to login page
          */
-        $rootScope.$on('$stateChangeStart', function stateChangeStart(event, toState, params) {
+        $rootScope.$on('$stateChangeStart', function stateChangeStart(event, toState, params, fromState, fromParams) {
 
             cfpLoadingBar.start();
 
@@ -205,6 +205,26 @@
                 event.preventDefault();
                 $state.go('auth.login', params, {location: 'replace'})
             }
+
+
+
+
+            // Handle Permissions
+            var routeNameParts = toState.name.split(".");
+            var context = routeNameParts[0];
+            var action  = routeNameParts[1];
+
+            if(!AuthService.hasPermission(context,action)) {
+                console.log(fromState)
+                event.preventDefault();
+                cfpLoadingBar.complete();
+
+                // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
+                if(!fromState.name) {
+                    $state.go('dashboard', params, {location: 'replace'})
+                }
+            }
+
 
             //
             //if (!AuthService.authorize(toState.data.access)) {

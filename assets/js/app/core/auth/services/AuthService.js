@@ -1,45 +1,3 @@
-/**
- * AuthService service which is used to authenticate users with backend server and provide simple
- * methods to check if user is authenticated or not.
- *
- * Within successfully login process service will store user data and JWT token to ngStorage where
- * those are accessible in the application.
- *
- * This service provides following methods:
- *
- *  AuthService.authorize(access)
- *  AuthService.isAuthenticated()
- *  AuthService.login(credentials)
- *  AuthService.logout()
- *
- * You can use this service fairly easy on your controllers and views if you like to. It's
- * recommend that you use this service with 'UserService' service in your controllers and
- * views.
- *
- * Usage example in controller:
- *
- *  angular
- *    .module('app')
- *    .controller('SomeController', [
- *      '$scope', 'AuthService', 'UserService',
- *      function ($scope, AuthService, UserService) {
- *        $scope.auth = AuthService;
- *        $scope.user = UserService.user;
- *      }
- *    ])
- *  ;
- *
- * Usage example in view:
- *
- *  <div data-ng-show="auth.isAuthenticated()">
- *      Hello, <strong>{{user().email}}</strong>
- *  </div>
- *
- * Happy coding!
- *
- * @todo  Revoke method?
- * @todo  Text localizations?
- */
 (function () {
     'use strict';
 
@@ -71,11 +29,35 @@
 
                     hasPermission: function (context, action) {
 
-                        if ($localStorage.credentials.user.admin) {
+                        // If user is admin or  context is not a permissions Object key, grant permission
+                        if (($localStorage.credentials && $localStorage.credentials.user.admin)
+                            || Object.keys(KONGA_CONFIG.user_permissions).indexOf(context) < 0) {
                             return true;
                         }
 
-                        return KONGA_CONFIG.user_permissions[context] && KONGA_CONFIG.user_permissions[context][action]
+                        action = action || 'read'; // Default action is 'read'
+
+                        /**
+                         * ======================================================================================
+                         * Monkey patches.
+                         * ======================================================================================
+                         */
+
+                        // Transform 'edit' action to 'update'
+                        // because permissions object complies to CRUD naming.
+                        // ToDo : Change 'edit' route uri segments to 'update'
+                        if(action === 'edit') {
+                            action = 'update'
+                        }
+
+                        /**
+                         * ======================================================================================
+                         * End monkey patches.
+                         * ======================================================================================
+                         */
+
+                        return KONGA_CONFIG.user_permissions[context]
+                            && KONGA_CONFIG.user_permissions[context][action] === true
 
                     },
 
