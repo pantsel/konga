@@ -22,11 +22,11 @@
                       $scope.loading = false
                       MessageService.success('API updated successfully!')
                   }).catch(function(err){
+                      console.log("err",err)
                   $scope.loading = false
                   var errors = {}
-                  Object.keys(err.data.customMessage).forEach(function(key){
-                      errors[key.replace('config.','')] = err.data.customMessage[key]
-                      MessageService.error(key + " : " + err.data.customMessage[key])
+                  Object.keys(err.data.body).forEach(function(key){
+                      MessageService.error(key + " : " + err.data.body[key])
                   })
                   $scope.errors = errors
               })
