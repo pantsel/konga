@@ -77,7 +77,7 @@
                       '$scope','$rootScope','$log','$uibModalInstance','DataModel','MessageService','_upstream',
                       function($scope,$rootScope,$log,$uibModalInstance,DataModel,MessageService,_upstream) {
 
-                          var targetModel = new DataModel('api/upstreams/' + _upstream.id + '/targets')
+                          var targetModel = new DataModel('kong/upstreams/' + _upstream.id + '/targets',true)
 
                           $scope.upstream = _upstream
 
