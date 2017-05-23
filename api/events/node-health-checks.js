@@ -147,7 +147,7 @@ module.exports = {
                     if(!transport) return cb()
 
                     var result = {
-                        transport : settings[0].data.default_transport,
+                        settings : settings[0].data,
                     }
 
                     switch(settings[0].data.default_transport) {
@@ -176,19 +176,20 @@ module.exports = {
             }else{
                 var transporter = result.transporter
                 var html = self.makeNotificationHTML(node)
+                var settings = result.settings
 
                 self.getAdminEmailsList(function(err,receivers){
                     sails.log("health_checks:notify:receivers => ",  receivers)
                     if(!err && receivers.length) {
 
                         var mailOptions = {
-                            from: '"Konga" <noreply@konga.io>', // sender address
+                            from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
                             to: receivers.join(","), // list of receivers
                             subject: 'A node is down or unresponsive', // Subject line
                             html: html
                         };
 
-                        if(result.transport == 'sendmail') {
+                        if(settings.default_transport == 'sendmail') {
                             sendmail(mailOptions, function(err, reply) {
                                 if(err){
                                     sails.log.error("Health_checks:notify:error",err)
