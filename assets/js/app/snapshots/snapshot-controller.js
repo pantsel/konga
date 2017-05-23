@@ -10,25 +10,13 @@
         .controller('SnapshotController', [
             '_','$scope', '$stateParams','$rootScope','$q','$log','$ngBootbox',
             'SocketHelperService','MessageService','SnapshotsService',
-            '$state','$uibModal','DialogService','Snapshot',
+            '$state','$uibModal','DialogService','Snapshot','AuthService',
             function controller(_,$scope,$stateParams, $rootScope,$q,$log,$ngBootbox,
                                 SocketHelperService, MessageService,SnapshotsService,
-                                $state, $uibModal,DialogService,Snapshot) {
+                                $state, $uibModal,DialogService,Snapshot,AuthService) {
 
 
-
-
-
-
-
-
-                $scope.downloadSnapshot = function() {
-                    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(_snapshot));
-                    var dlAnchorElem = document.getElementById('downloadAnchorElem');
-                    dlAnchorElem.setAttribute("href",     dataStr     );
-                    dlAnchorElem.setAttribute("download", "snpsht_" + _snapshot.name + "@" + _snapshot.kong_node_name + ".json");
-                    dlAnchorElem.click();
-                }
+                $scope.token = AuthService.token();
 
 
                 $scope.showRestoreModal = function() {
@@ -113,7 +101,7 @@
                         },
                         resolve : {
                             _snapshot : function() {
-                                return $scope.snapshot
+                                return $scope.originalSnapshot
                             }
                         }
                     });
@@ -134,7 +122,9 @@
 
                     Snapshot.fetch($stateParams.id)
                         .then(function(result){
-                            $scope.snapshot = result;
+
+                            $scope.originalSnapshot = result;
+                            $scope.snapshot = _.cloneDeep(result);
 
 
                             // $scope.snapshotCopy = angular.copy(_snapshot)

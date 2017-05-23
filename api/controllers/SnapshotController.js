@@ -8,6 +8,7 @@
 var KongService = require('../services/KongService')
 var _ = require('lodash')
 var async = require('async');
+var fs = require('fs');
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
@@ -133,11 +134,11 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                         }).exec(function(err,created){
                             if(err) return res.negotiate(err)
                             return res.json(created)
+
+
                         })
                     }
                 })
-
-
 
             });
 
@@ -271,6 +272,37 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 if(err) return res.negotiate(err)
                 return res.ok(responseData)
             })
+
+        })
+    },
+
+    download : function (req,res) {
+        var id = req.param('id');
+        var SkipperDisk = require('skipper-disk');
+        var fileAdapter = SkipperDisk(/* optional opts */);
+
+
+        sails.models.snapshot.findOne({
+            id : id
+        }).exec(function (err,data) {
+            if(err) return res.negotiate(err)
+            if(!data) return res.notFound()
+
+            var location = sails.config.paths.uploads + "snapshot_" + data.id + ".json";
+
+            if (fs.existsSync(location)){
+                fileAdapter.read(location).on('error', function (err) {
+                    return res.negotiate(err);
+                }).pipe(res);
+            }else{
+                fs.writeFile(filePath, JSON.stringify(data), 'utf8',
+                    function(err,file){
+                        if(err) return res.negotiate(err)
+                        fileAdapter.read(location).on('error', function (err) {
+                            return res.negotiate(err);
+                        }).pipe(res);
+                    });
+            }
 
         })
     }

@@ -26,7 +26,7 @@ module.exports = {
         }
 
 
-        sails.log("ApiController",sails.config.kong_admin_url + req.url)
+        sails.log("KongProxyController",sails.config.kong_admin_url + req.url)
         sails.log("req.method",req.method)
 
         var request = unirest[req.method.toLowerCase()](sails.config.kong_admin_url + req.url)

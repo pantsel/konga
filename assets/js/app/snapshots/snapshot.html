@@ -17,11 +17,11 @@
             <i class="mdi mdi-backup-restore"></i>
             restore
         </button>
-        <a id="downloadAnchorElem" style="display:none"></a>
-        <button class="btn btn-warning" data-ng-click="downloadSnapshot()">
+
+        <a target="_self" href="api/snapshots/{{snapshot.id}}/download?token={{token}}" download="snapshot_{{snapshot.id}}.json" class="btn btn-warning">
             <i class="mdi mdi-export"></i>
             export
-        </button>
+        </a>
     </div>
 </div>
 <div class="row">

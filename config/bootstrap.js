@@ -1,7 +1,6 @@
 'use strict';
 
-//var httpProxy = require('http-proxy')
-//global.$proxy
+var fs = require('fs')
 
 module.exports.bootstrap = function bootstrap(next) {
     /**
@@ -9,14 +8,17 @@ module.exports.bootstrap = function bootstrap(next) {
      * (otherwise your server will never lift, since it's waiting on the bootstrap)
      */
     sails.services.passport.loadStrategies();
-    //global.$proxy = httpProxy.createProxyServer({});
-    //
-    //global.$proxy.on('proxyRes', function (proxyRes, req, res) {
-    //    console.log('RAW Response from the target', {
-    //        headers : proxyRes.headers,
-    //        statusCode : proxyRes.statusCode,
-    //    });
-    //});
+
+
+    // Create Konga data directories
+    var dirs = [( process.env.STORAGE_PATH || '/kongadata/' ), ( process.env.STORAGE_PATH || '/kongadata/' )+ 'uploads']
+
+
+    dirs.forEach(function(dir){
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+    })
 
     next();
 };
