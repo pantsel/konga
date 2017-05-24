@@ -83,7 +83,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     },
 
     //model validation messages definitions
-    validationMessages: { //hand for i18n & l10n
+    validationMessages: {
         email: {
             required: 'Email is required',
             email: 'The email address is not valid',
@@ -102,7 +102,8 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             "firstName": "Arnold",
             "lastName": "Administrator",
             "node_id": "http://kong:8001",
-            "admin": true
+            "admin": true,
+            "active" : true
         },
         {
             "username": "demo",
@@ -110,7 +111,8 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             "firstName": "John",
             "lastName": "Doe",
             "node_id": "http://kong:8001",
-            "admin": false
+            "admin": false,
+            "active" : true
         }
     ]
 });
