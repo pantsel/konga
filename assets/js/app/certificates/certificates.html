@@ -45,7 +45,7 @@
                     <th width="1"></th>
                 </tr>
                 <tr
-                        dir-paginate="item in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
+                        dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
 
                     <td>{{item.id}}</td>
                     <td>{{item.snis ? item.snis.join(",") : ''}}</td>

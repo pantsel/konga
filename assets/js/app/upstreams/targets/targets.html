@@ -48,7 +48,7 @@
                         </i>
                     </th>
                 </tr>
-                <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
+                <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td>
                         <raw-view data-item="item"></raw-view>
                     </td>

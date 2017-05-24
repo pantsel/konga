@@ -51,7 +51,7 @@
                         </i>
                     </th>
                 </tr>
-                <tr dir-paginate="consumer in items.data | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord as filteredItems">
+                <tr dir-paginate="consumer in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
 
                     <td>
                         <raw-view data-item="consumer"></raw-view>
