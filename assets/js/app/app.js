@@ -233,10 +233,10 @@
 
 
             //
-            //if (!AuthService.authorize(toState.data.access)) {
+            // if (!AuthService.authorize(toState.data.access)) {
             //    event.preventDefault();
             //    $state.go('auth.login', params)
-            //}
+            // }
             //
             //if (toState.redirectTo) {
             //    event.preventDefault();
@@ -298,12 +298,6 @@
 
               })
 
-
-              if(AuthService.isAuthenticated()) {
-                  _fetchGatewayInfo()
-                  _fetchSettings()
-              }
-
               function _fetchSettings() {
                   Settings.load()
                       .then(function(settings){
@@ -322,6 +316,9 @@
                       $rootScope.Gateway = null;
                   })
               }
+
+              _fetchGatewayInfo()
+              _fetchSettings()
 
           }])
   ;

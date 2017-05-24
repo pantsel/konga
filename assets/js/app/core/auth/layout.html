@@ -7,9 +7,9 @@
                 <div class="panel-heading">
                     <img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive padding"/>
                     <!--<h3 class="text-white">KONGA</h3>-->
-                    <ul class="nav nav-tabs nav-justified" data-ng-if="KONGA_CONFIG.signup_enable">
+                    <ul class="nav nav-tabs nav-justified">
                         <li ui-sref="auth.login" ui-sref-active="active"><a>LOGIN</a></li>
-                        <li ui-sref="auth.signup" ui-sref-active="active"><a>SIGNUP</a></li>
+                        <li ui-sref="auth.signup" data-ng-if="KONGA_CONFIG.signup_enable" ui-sref-active="active"><a>SIGNUP</a></li>
                     </ul>
                 </div>
 

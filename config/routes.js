@@ -28,16 +28,25 @@ module.exports.routes = {
         res.send(200);
     },
 
-    '/': {
-        view: 'homepage',
-        locals: {
+    '/': function (req,res) {
+
+        return res.view('homepage',{
             angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
-            konga_version: require('../package.json').version
-        }
+            konga_version: require('../package.json').version,
+            accountActivated : req.query.activated ? true : false
+        })
+
+        // {
+        //     view: 'homepage',
+        //         locals: {
+        //     angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
+        //         konga_version: require('../package.json').version
+        // }
     },
 
+
     '/404': {
-        view: 'homepage'
+        view: '404'
     },
 
     '/500': {
@@ -45,15 +54,16 @@ module.exports.routes = {
     },
 
     // Authentication routes
-    '/logout'                 : 'AuthController.logout',
-    'POST /login'             : 'AuthController.callback',
-    'POST /login/:action'     : 'AuthController.callback',
-    'POST /auth/local'        : 'AuthController.callback',
-    'POST /auth/local/:action': 'AuthController.callback',
-    'POST /auth/signup'       : 'AuthController.signup',
-    '/auth/:provider'         : 'AuthController.provider',
-    '/auth/:provider/callback': 'AuthController.callback',
-    '/auth/:provider/:action' : 'AuthController.callback',
+    '/logout'                   : 'AuthController.logout',
+    'POST /login'               : 'AuthController.callback',
+    'POST /login/:action'       : 'AuthController.callback',
+    'POST /auth/local'          : 'AuthController.callback',
+    'POST /auth/local/:action'  : 'AuthController.callback',
+    'POST /auth/signup'         : 'AuthController.signup',
+    'GET /auth/activate/:token' : 'AuthController.activate',
+    '/auth/:provider'           : 'AuthController.provider',
+    '/auth/:provider/callback'  : 'AuthController.callback',
+    '/auth/:provider/:action'   : 'AuthController.callback',
 
 
     //'POST /consumers/sync'                 : 'ConsumerController.sync',

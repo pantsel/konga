@@ -66,6 +66,34 @@ var AuthController = {
 
     },
 
+
+
+    activate : function (req,res) {
+
+        return res.redirect('/#!/login?activated=true')
+
+        var token = req.param('token')
+        if(!token) {
+            return res.badRequest('Token is required.')
+        }
+
+        sails.models.user.findOne({
+            activationToken : token
+        }).exec(function (err,user) {
+            if(err) return res.negotiate(err)
+            if(!user) return res.notFound('Invalid token')
+
+            sails.models.user.update({
+                id:user.id
+            },{active:true})
+                .exec(function (err,updated) {
+                    if(err) return res.negotiate(err)
+                    return res.redirect('?activated=true')
+                })
+        })
+
+    },
+
     /**
      * Log out a user and return them to the homepage
      *
@@ -134,9 +162,9 @@ var AuthController = {
         sails.services['passport'].callback(request, response, function callback(error, user) {
 
             // User must be active
-            if(!user.active) {
+            if(user && !user.active) {
                 return response.forbidden({
-                    message : 'Account is not active.'
+                    message : 'Account is not activated.'
                 });
             }
 

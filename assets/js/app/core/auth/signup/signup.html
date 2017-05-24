@@ -1,4 +1,12 @@
-<form name="loginForm" method="post" novalidate="novalidate">
+<div class="alert alert-success text-center" ng-if="showActivationMessage">
+    <i class="mdi mdi-check-circle-outline mdi-48px"></i>
+    <div class="clearfix"></div>
+    <h3 class="">Neat!</h3>
+    <p>We've sent you a message with an activation link at <strong>{{user.email}}</strong></p>
+</div>
+
+
+<form name="loginForm" method="post" novalidate="novalidate" ng-if="!showActivationMessage">
     <div class="form-group "
          data-show-errors
          ng-class="{'has-error' : errors.username}"

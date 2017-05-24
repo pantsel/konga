@@ -42,6 +42,9 @@
               AuthService, FocusOnService, MessageService, UserModel
           ) {
 
+
+              $scope.showActivationMessage = false;
+
               $scope.signup = function() {
                   $scope.busy = true;
                   UserModel
@@ -68,6 +71,8 @@
                                               MessageService.error(err.data.message)
                                           }
                                       )
+                              }else{
+                                  $scope.showActivationMessage = true;
                               }
 
                           },function(err){
