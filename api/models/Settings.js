@@ -26,7 +26,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         {
             "data": {
                 signup_enable: true,
-                signup_require_activation: true,
+                signup_require_activation: false,
                 info_polling_interval: 5000,
                 email_default_sender_name: 'KONGA',
                 email_default_sender: 'konga@konga.test',
