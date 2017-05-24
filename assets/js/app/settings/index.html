@@ -25,19 +25,26 @@
                 <ul class="list-unstyled">
                     <li>
                         <div class="checkbox">
-                            <label>
+                            <label class="pull-left margin-right">
                                 <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_enable">
                             </label>
-                            Allow users to sign up
+                            <p>
+                                Allow users to sign up.
+                                <br>
+                                <span class="help-block">If enabled, users will be allowed to sign up.</span>
+                            </p>
                         </div>
-
                     </li>
                     <li>
                         <div class="checkbox">
-                            <label>
+                            <label class="pull-left margin-right">
                                 <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_require_activation">
                             </label>
-                            Send activation email
+                            <p>
+                                Send activation email.
+                                <br>
+                                <span class="help-block">If enabled, an activation email will be sent to the user. If not, the user will be activated automatically.</span>
+                            </p>
                         </div>
                     </li>
                 </ul>

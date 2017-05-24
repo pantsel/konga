@@ -17,6 +17,7 @@
               firstName : '',
               lastName : '',
               admin : false,
+              active : true,
               passports : {
                   password : '',
                   protocol : 'local'

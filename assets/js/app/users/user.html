@@ -116,6 +116,24 @@
                             <tr ng-if="editableForm.$visible">
                                 <td colspan="2">
                                     <div class="form-group well">
+                                        <label class="col-md-8 control-label no-margin">Is this user active?</label>
+                                        <div class="col-md-4 text-right">
+                                            <input
+                                                    bs-switch
+                                                    ng-model="user.active"
+                                                    switch-size="mini"
+                                                    type="checkbox"
+                                                    switch-on-text="YES"
+                                                    switch-off-text="NO"
+                                            >
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="editableForm.$visible">
+                                <td colspan="2">
+                                    <div class="form-group well">
                                         <label class="col-md-8 control-label no-margin">Is this user an administrator?</label>
                                         <div class="col-md-4 text-right">
                                             <input

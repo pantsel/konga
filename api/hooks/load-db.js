@@ -66,6 +66,24 @@ module.exports = function hook(sails) {
                                 return cb()
                             })
                         })
+                },
+                function activateExistingUsers(cb) {
+
+                    // Assign the same activation token to existing users
+                    // for simplicity and time frame reference.
+                    // After all, it's not like they're
+                    // going to use it again.
+                    var uuid = require('node-uuid');
+
+                    sails.models.user
+                        .update({
+                            updatedAt : {
+                                '<=' : new Date(2017,5,24)
+                            },
+                            activationToken : undefined
+
+                        },{active : true,activationToken : uuid.v4()})
+                        .exec(cb)
                 }
                 //sails.models.settings.seed
             ],next);

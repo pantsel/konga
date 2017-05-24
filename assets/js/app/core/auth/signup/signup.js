@@ -55,18 +55,21 @@
                                   password: $scope.user.passports.password
                               };
 
+                              // If user is activated automatically, sign him/her in.
+                              if(result.data.active) {
+                                  AuthService
+                                      .login(credentials)
+                                      .then(
+                                          function successCallback() {
+                                              $(".login-form-container").hide()
+                                              $state.go('dashboard');
+                                          },
+                                          function errorCallback(err) {
+                                              MessageService.error(err.data.message)
+                                          }
+                                      )
+                              }
 
-                              AuthService
-                                  .login(credentials)
-                                  .then(
-                                      function successCallback() {
-                                          $(".login-form-container").hide()
-                                          $state.go('dashboard');
-                                      },
-                                      function errorCallback(err) {
-                                          MessageService.error(err.data.message)
-                                      }
-                                  )
                           },function(err){
                               console.log(err)
                               $scope.busy = false

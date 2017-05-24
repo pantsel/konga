@@ -2,6 +2,8 @@
 
 var async = require('async');
 var _ = require('lodash');
+var uuid = require('node-uuid');
+var UserSignUp = require("../events/user-events")
 
 /**
  * Authentication Controller
@@ -20,21 +22,48 @@ var AuthController = {
         delete data.password_confirmation
 
 
-        sails.models.user
-            .create(data)
-            .exec(function (err, user) {
-                if (err) return res.negotiate(err)
+        // Assign activation token
+        data.activationToken = uuid.v4();
 
-                sails.models.passport
-                    .create({
-                        protocol: passports.protocol,
-                        password: passports.password,
-                        user: user.id
-                    }).exec(function (err, passport) {
-                    if (err) return res.negotiate(err)
-                    return res.json(user)
-                })
+        // Check settings as to what to do after signup
+        sails.models.settings
+            .find()
+            .limit(1)
+            .exec(function(err,settings){
+                if(err) return res.negotiate(err)
+                var _settings = settings[0].data;
+
+                if(!_settings.signup_require_activation) {
+                    data.active = true; // Activate user automatically
+                }
+
+
+                sails.models.user
+                    .create(data)
+                    .exec(function (err, user) {
+                        if (err) return res.negotiate(err)
+
+                        sails.models.passport
+                            .create({
+                                protocol: passports.protocol,
+                                password: passports.password,
+                                user: user.id
+                            }).exec(function (err, passport) {
+                            if (err) return res.negotiate(err)
+
+                            // Emit signUp event
+                            UserSignUp.emit('user.signUp',{
+                                user : user,
+                                sendActivationEmail : _settings.signup_require_activation
+                            });
+
+                            return res.json(user)
+                        })
+                    })
+
             })
+
+
     },
 
     /**

@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var async = require('async');
+var uuid = require('node-uuid');
 
 /**
  * User.js
@@ -50,6 +51,10 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         active: {
             type: 'boolean',
             defaultsTo: false
+        },
+
+        activationToken : {
+            type : 'string'
         },
 
         node: {
