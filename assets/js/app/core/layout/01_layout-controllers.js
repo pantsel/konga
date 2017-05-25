@@ -85,10 +85,10 @@
   angular.module('frontend.core.layout')
     .controller('FooterController', ['_','$scope','$state','AuthService','InfoService','UserModel','$localStorage',
         'SettingsService','MessageService','UserService','$log',
-        '$rootScope','NodeModel','SocketHelperService','$uibModal',
+        '$rootScope','NodeModel','$http','$uibModal',
       function controller(_,$scope,$state,AuthService,InfoService,UserModel,$localStorage,
                           SettingsService,MessageService,UserService,$log,
-                          $rootScope,NodeModel,SocketHelperService,$uibModal) {
+                          $rootScope,NodeModel,$http,$uibModal) {
 
 
           $scope.user = UserService.user();
@@ -117,8 +117,11 @@
 
               // Check if the connection is valid
               node.checkingConnection = true;
-              InfoService.nodeStatus({
-                  kong_admin_url : node.kong_admin_url
+              $http.get('/kong',{
+                  params : {
+                      kong_admin_url : node.kong_admin_url,
+                      kong_api_key   : node.kong_api_key
+                  }
               }).then(function(response){
                   $log.debug("Check connection:success",response)
                   node.checkingConnection = false;

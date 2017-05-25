@@ -15,6 +15,14 @@
             <p class="help-block">The URL to Kong's admin api.</p>
         </div>
     </div>
+    <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
+        <label class="col-sm-4 control-label">API KEY</label>
+        <div class="col-sm-7">
+            <input ng-model="node.kong_api_key" class="form-control">
+            <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
+            <p class="help-block">The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.</p>
+        </div>
+    </div>
     <div class="form-group" ng-class="{'has-error' : errors.kong_version}">
         <label class="col-sm-4 control-label">Kong version</label>
         <div class="col-sm-7">

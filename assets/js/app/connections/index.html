@@ -46,7 +46,6 @@
                        data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                     ></i>
                 </th>
-                <th width="1"></th>
                 <th width="1" ng-if="user.hasPermission('connections','delete')"></th>
             </tr>
             <tr data-ng-repeat="node in nodes">
@@ -63,7 +62,7 @@
                     <i class="mdi mdi-loading mdi-spin text-primary" ng-if="node.checkingConnection"></i>
 
                 </td>
-                <td>
+                <td ng-click="onShowStatusCheck(node)" class="clickable">
 
                     <i
                             ng-if="node.health_checks"
@@ -79,6 +78,9 @@
                     <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
                 </td>
                 <td>
+                    <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_api_key" onbeforesave="updateNode(node)">{{node.kong_api_key || 'N/A'}}</a>
+                </td>
+                <td>
                     <a href="#"
                        edit-disabled="{{!user.hasPermission('connections','update')}}"
                        editable-select="node.kong_version"
@@ -88,13 +90,6 @@
                     </a>
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
-                <td width="1">
-                    <button class="btn btn-default btn-link"
-                            ng-click="onShowStatusCheck(node)">
-                        <i class="mdi mdi-heart-pulse"></i>
-                        health checks
-                    </button>
-                </td>
                 <td  width="1" data-ng-if="user.hasPermission('connections','delete')">
                     <button class="btn btn-danger btn-link" ng-click="deleteNode(node)">
                         <i class="mdi mdi-delete"></i>
@@ -110,8 +105,11 @@
             </tr>
         </table>
 
+
+    </div>
+    <div class="col-md-12">
         <ul uib-pagination
-            class="pagination"
+            class="pagination margin-top"
             data-total-items="itemCount"
             data-ng-model="paging.currentPage"
             data-ng-change="pageChanged()"
@@ -121,4 +119,5 @@
             data-rotate="false"
         ></ul>
     </div>
+
 </div>

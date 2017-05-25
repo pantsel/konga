@@ -8,11 +8,11 @@
 
     angular.module('frontend.connections')
         .controller('ConnectionsController', [
-            '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
+            '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel','$http',
             'SocketHelperService','AuthService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','NodeModel','$localStorage','InfoService',
             'ListConfig',
-            function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,
+            function controller(_,$scope, $rootScope,$q,$log,$ngBootbox,UserModel,$http,
                                 SocketHelperService, AuthService,UserService,SettingsService, MessageService,
                                 $state, $uibModal,DialogService,NodeModel,$localStorage,InfoService,
                                 ListConfig ) {
@@ -209,8 +209,11 @@
                         // Check connection before assigning
                         // the node to the user
                         node.checkingConnection = true;
-                        InfoService.getInfo({
-                            kong_admin_url : node.kong_admin_url
+                        $http.get('/kong',{
+                            params : {
+                                kong_admin_url : node.kong_admin_url,
+                                kong_api_key   : node.kong_api_key
+                            }
                         }).then(function(response){
                             $log.debug("Check connection:success",response)
                             node.checkingConnection = false;

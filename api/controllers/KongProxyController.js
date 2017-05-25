@@ -29,8 +29,14 @@ module.exports = {
         sails.log("KongProxyController",sails.config.kong_admin_url + req.url)
         sails.log("req.method",req.method)
 
+        var headers = {'Content-Type': 'application/json'}
+
+        if(req.kong_api_key) {
+            headers['apikey'] = req.kong_api_key
+        }
+
         var request = unirest[req.method.toLowerCase()](sails.config.kong_admin_url + req.url)
-        request.headers({'Content-Type': 'application/json'})
+        request.headers(headers)
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
 

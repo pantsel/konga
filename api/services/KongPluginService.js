@@ -44,21 +44,26 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
     },
 
     addCertificates : function(fds,req, res) {
-        return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .headers({'Content-Type': 'multipart/form-data'})
-            .field('snis', req.body['snis'] || '')
-            .attach('cert', fds[0])
-            .attach('key', fds[1])
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+
+        if(req.kong_api_key) {
+            request.headers({'apikey': req.kong_api_key})
+        }
+        request.field('snis', req.body['snis'] || '')
+        request.attach('cert', fds[0])
+        request.attach('key', fds[1])
+        return  request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             });
     },
 
     updateCertificates : function(fds,req, res) {
-
         var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-        request.headers({'Content-Type': 'multipart/form-data'})
+        if(req.kong_api_key) {
+            request.headers({'apikey': req.kong_api_key})
+        }
+
         request.field('snis', req.body['snis'] || '')
         if(fds[0]) request.attach('cert', fds[0])
         if(fds[1]) request.attach('key', fds[1])

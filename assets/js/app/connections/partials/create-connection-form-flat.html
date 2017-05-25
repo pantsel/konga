@@ -9,6 +9,12 @@
         <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's admin api" required="required">
         <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
     </div>
+    <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
+        <label class="control-label">API KEY</label>
+        <input ng-model="node.kong_api_key" class="form-control">
+        <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
+        <p class="help-block">The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.</p>
+    </div>
     <!--<div class="form-group" ng-class="{'has-error' : errors.kong_version}">-->
         <!--<label class="control-label">Kong version</label>-->
         <!--<select-->
