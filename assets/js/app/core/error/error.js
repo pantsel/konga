@@ -17,7 +17,6 @@
                 access: 0,
                 pageName : "Error",
                 displayName : "error",
-                prefix : '<i class="material-icons">&#xE002;</i>'
             },
             views: {
               'content@': {
