@@ -180,6 +180,12 @@ login: demo | password: demodemodemo
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
 - [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
 
+## Enabling user auth in Konga DashBoard
+Please enable basic auth in the nginx admin url and then 
+add KONG_ADMIN_USERNAME,KONG_ADMIN_PASSWORD,KONG_ADMIN_BASIC_AUTH_ENABLED env variables 
+or in config/env/development.js for development purpose,
+TODO 
+Adding multiple username and password for different url's
 
 ## Author
 Panagis Tselentis

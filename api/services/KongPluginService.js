@@ -30,26 +30,37 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
     },
 
     addDynamicSSLPlugin : function(fds,req, res) {
-        return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .headers({'Content-Type': 'multipart/form-data'})
-            .field('name', req.body.name)
-            .field('config.only_https', req.body['config.only_https'] || false)
-            .field('config.accept_http_if_already_terminated', req.body['config.accept_http_if_already_terminated'] || false)
-            .attach('config.cert', fds[0])
-            .attach('config.key', fds[1])
-            .end(function (response) {
+        var request =  unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+             if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            
+            request.field('name', req.body.name)
+            request.field('config.only_https', req.body['config.only_https'] || false)
+            request.field('config.accept_http_if_already_terminated', req.body['config.accept_http_if_already_terminated'] || false)
+            request.attach('config.cert', fds[0])
+            request.attach('config.key', fds[1])
+            return request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             });
     },
 
     addCertificates : function(fds,req, res) {
-        return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .headers({'Content-Type': 'multipart/form-data'})
-            .field('snis', req.body['snis'] || '')
-            .attach('cert', fds[0])
-            .attach('key', fds[1])
-            .end(function (response) {
+        var request =  unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+             if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.field('snis', req.body['snis'] || '')
+            request.attach('cert', fds[0])
+            request.attach('key', fds[1])
+            return request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             });
@@ -58,7 +69,12 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
     updateCertificates : function(fds,req, res) {
 
         var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-        request.headers({'Content-Type': 'multipart/form-data'})
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
         request.field('snis', req.body['snis'] || '')
         if(fds[0]) request.attach('cert', fds[0])
         if(fds[1]) request.attach('key', fds[1])
@@ -71,9 +87,15 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
     },
 
     addPlugin : function(req,res) {
-        return unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+       request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.send(req.body)
+           return  request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             })
@@ -81,9 +103,15 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
 
     createCb: function (req, res, cb) {
 
-        unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.send(req.body)
+            request.end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
             })
@@ -116,59 +144,101 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
     },
 
     retrieve: function (req, res) {
-        unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .end(function (response) {
+        var request = unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''));
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     list: function (req, res) {
-        unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .end(function (response) {
+        var request = unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     update: function (req, res) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.send(req.body)
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     updateCb: function (req, res,cb) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.send(req.body);
+            request.end(function (response) {
                 if (response.error) return cb(response)
                 return cb(null,response.body)
             })
     },
 
     updateOrCreate: function (req, res) {
-        unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''));
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.send(req.body);
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     delete: function (req, res) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .end(function (response) {
+        var request = unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''));
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     deleteCb: function (req, res,cb) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .end(function (response) {
+        var request = unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        request.headers({'Content-Type': 'multipart/form-data'});
+        
+            request.end(function (response) {
                 if (response.error) return cb(response)
                 return cb(null,response.body)
             })

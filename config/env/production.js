@@ -19,6 +19,9 @@ module.exports = {
   hookTimeout: 60000,
 
   kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
+  kong_admin_username : process.env.KONG_ADMIN_USERNAME || '',
+  kong_admin_password : process.env.KONG_ADMIN_PASSWORD || '',
+  kong_admin_basic_auth_enabled : process.env.KONG_ADMIN_BASIC_AUTH_ENABLED || true,
 
   // models: {
   //   connection: 'someMysqlServer'
