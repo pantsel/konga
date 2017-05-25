@@ -209,7 +209,7 @@
                         // Check connection before assigning
                         // the node to the user
                         node.checkingConnection = true;
-                        InfoService.nodeStatus({
+                        InfoService.getInfo({
                             kong_admin_url : node.kong_admin_url
                         }).then(function(response){
                             $log.debug("Check connection:success",response)
