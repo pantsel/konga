@@ -5,78 +5,81 @@
  *
  * All of these are wrapped to 'frontend.auth.login' angular module.
  */
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  // Define frontend.auth.login angular module
-  angular.module('frontend.core.auth.login', []);
+    // Define frontend.auth.login angular module
+    angular.module('frontend.core.auth.login', []);
 
-  // Module configuration
-  angular.module('frontend.core.auth.login')
-    .config([
-      '$stateProvider',
-      function config($stateProvider) {
-        $stateProvider
-          // Login
-          .state('auth.login', {
-            url: '/login',
-            data: {
-              access: 0
-            },
-            views: {
-              'authContent': {
-                templateUrl: 'js/app/core/auth/login/login.html',
-                controller: 'LoginController'
-              }
+    // Module configuration
+    angular.module('frontend.core.auth.login')
+        .config([
+            '$stateProvider',
+            function config($stateProvider) {
+                $stateProvider
+                    // Login
+                    .state('auth.login', {
+                        url: '/login?activated',
+                        data: {
+                            access: 0
+                        },
+                        params: {
+                            activated: null
+                        },
+                        views: {
+                            'authContent': {
+                                templateUrl: 'js/app/core/auth/login/login.html',
+                                controller: 'LoginController'
+                            },
+
+                        }
+                    })
+                ;
             }
-          })
-        ;
-      }
-    ])
-    .controller('LoginController', [
-          '$scope', '$state',
-          'AuthService', 'FocusOnService','MessageService',
-          function controller(
-              $scope, $state,
-              AuthService, FocusOnService, MessageService
-          ) {
+        ])
+        .controller('LoginController', [
+            '$scope', '$state', '$stateParams',
+            'AuthService', 'FocusOnService', 'MessageService',
+            function controller($scope, $state, $stateParams,
+                                AuthService, FocusOnService, MessageService) {
 
-              // Scope function to perform actual login request to server
-              $scope.login = function login() {
-                  $scope.busy = true;
-                  AuthService
-                      .login($scope.credentials)
-                      .then(
-                          function successCallback() {
-                              $(".login-form-container").hide()
-                              $state.go('dashboard');
-                              $scope.busy = false;
-                          },
-                          function errorCallback(err) {
-                              MessageService.error(err.data.message)
-                              $scope.busy = false;
-                          }
-                      )
-                  ;
-              };
 
-              /**
-               * Private helper function to reset credentials and set focus to username input.
-               *
-               * @private
-               */
-              function _reset() {
-                  FocusOnService.focus('username');
+                // Scope function to perform actual login request to server
+                $scope.login = function login() {
+                    $scope.busy = true;
+                    AuthService
+                        .login($scope.credentials)
+                        .then(
+                            function successCallback() {
+                                $(".login-form-container").hide()
+                                $state.go('dashboard');
+                                $scope.busy = false;
+                            },
+                            function errorCallback(err) {
+                                MessageService.error(err.data.message)
+                                $scope.busy = false;
+                            }
+                        )
+                    ;
+                };
 
-                  // Initialize credentials
-                  $scope.credentials = {
-                      identifier: '',
-                      password: ''
-                  };
-              }
+                /**
+                 * Private helper function to reset credentials and set focus to username input.
+                 *
+                 * @private
+                 */
+                function _reset() {
+                    FocusOnService.focus('username');
 
-              _reset();
-          }
-      ])
-  ;
+                    // Initialize credentials
+                    $scope.credentials = {
+                        identifier: '',
+                        password: ''
+                    };
+                }
+
+                _reset();
+            }
+        ])
+    ;
 }());

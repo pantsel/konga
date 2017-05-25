@@ -27,6 +27,9 @@ module.exports = function hook(sails) {
 
             var user = data.user;
             var sendActivationEmail = data.sendActivationEmail;
+            if(sendActivationEmail) {
+                userEvents.notify(user)
+            }
 
         });
 

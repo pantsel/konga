@@ -165,11 +165,11 @@
    */
   angular.module('frontend')
     .run([
-      '$rootScope', '$state', '$injector',
+      '$rootScope', '$state', '$stateParams','$injector',
       'editableOptions','editableThemes','$templateCache','NodesService',
       'AuthService','cfpLoadingBar','UserService',
       function run(
-        $rootScope, $state, $injector,
+        $rootScope, $state,$stateParams, $injector,
         editableOptions,editableThemes,$templateCache,NodesService,
         AuthService,cfpLoadingBar,UserService
       ) {
@@ -182,8 +182,10 @@
 
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
-          $rootScope.moment = window.moment
-          $rootScope.KONGA_CONFIG = window.KONGA_CONFIG
+          $rootScope.moment = window.moment;
+          $rootScope.KONGA_CONFIG = window.KONGA_CONFIG;
+          $rootScope.$stateParams = $stateParams;
+
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
           editableOptions.theme = 'bs3';
@@ -316,8 +318,12 @@
                   })
               }
 
-              _fetchGatewayInfo()
-              _fetchSettings()
+              if(AuthService.isAuthenticated()) {
+                  _fetchGatewayInfo()
+                  _fetchSettings()
+              }
+
+
 
           }])
   ;

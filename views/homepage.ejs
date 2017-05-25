@@ -1,6 +1,10 @@
 <div data-ui-view="sidenav" ng-if="$state.name.indexOf('auth') < 0"></div>
 <div class="main-container-wrapper" ng-class="{'full-width no-margin clear-left':$state.name.indexOf('auth') > -1}">
   <div data-ui-view="header"></div>
+  <div class="alert alert-fixed-top alert-success alert-dismissible" ng-if="$stateParams.activated">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Neat!</strong> Your account is activated.
+  </div>
   <div class="main-container-wrapper-static">
     <div class="container-fluid">
 

@@ -5,12 +5,26 @@
                 General settings
             </h4>
             <hr>
-            <div class="form-group row col-md-4">
-                <label>
-                    Dashboard refresh interval
-                </label>
-                <input type="number" class="form-control" data-ng-model="KONGA_CONFIG.info_polling_interval">
-                <p class="help-block">The interval in milliseconds at which the Dashboard data will refresh. If set to 0, polling will be disabled.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Dashboard refresh interval
+                        </label>
+                        <input type="number" class="form-control" data-ng-model="KONGA_CONFIG.info_polling_interval">
+                        <p class="help-block">The interval in milliseconds at which the Dashboard data will refresh. If set to 0, polling will be disabled.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Base URL
+                        </label>
+                        <input type="text" class="form-control" data-ng-model="KONGA_CONFIG.baseUrl" placeholder="ex. http://my-konga.io">
+                        <p class="help-block">Konga uses the <code>baseUrl</code> for generating links (ex. Account activation link). If left blank, the server's <code>ip:port</code> will be used.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

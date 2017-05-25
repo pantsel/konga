@@ -70,7 +70,7 @@ var AuthController = {
 
     activate : function (req,res) {
 
-        return res.redirect('/#!/login?activated=true')
+
 
         var token = req.param('token')
         if(!token) {
@@ -88,7 +88,7 @@ var AuthController = {
             },{active:true})
                 .exec(function (err,updated) {
                     if(err) return res.negotiate(err)
-                    return res.redirect('?activated=true')
+                    return res.redirect('/#!/login?activated=' + req.param('token'))
                 })
         })
 
