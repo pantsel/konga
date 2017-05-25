@@ -129,6 +129,7 @@
 
         // Main state provider for frontend application
         $stateProvider
+
           .state('frontend', {
             abstract: true,
               data: {
@@ -152,7 +153,7 @@
         ;
 
         // For any unmatched url, redirect to /dashboard
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/error');
       }
     ])
   ;
@@ -195,6 +196,11 @@
 
             cfpLoadingBar.start();
 
+            if (!AuthService.authorize(toState.data.access)) {
+                event.preventDefault();
+                $state.go('auth.login', params)
+            }
+
             if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
                 event.preventDefault();
                 $state.go('dashboard', params, {location: 'replace'})
@@ -230,13 +236,6 @@
             }
 
 
-
-
-            //
-            // if (!AuthService.authorize(toState.data.access)) {
-            //    event.preventDefault();
-            //    $state.go('auth.login', params)
-            // }
             //
             //if (toState.redirectTo) {
             //    event.preventDefault();
