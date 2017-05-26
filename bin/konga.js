@@ -103,7 +103,7 @@ else if (argv._[0] === 'create')
                         custom_id : uuid.v4(),
                     }
 
-                    KongService.createFromEndpointCb('/' + argv._[1],data,callback);
+                    KongService.createFromEndpointCb('/' + argv._[1],data,{},callback);
 
                 })
 

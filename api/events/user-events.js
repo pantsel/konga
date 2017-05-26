@@ -1,10 +1,9 @@
-/**
- * Created by pang on 22/4/2017.
- */
+'use strict';
 
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var nodemailer = require('nodemailer');
+var mg = require('nodemailer-mailgun-transport');
 var sendmail = require('sendmail')({
     logger: {
         debug: console.log,
@@ -14,6 +13,7 @@ var sendmail = require('sendmail')({
     },
     silent: false
 });
+
 
 module.exports = {
     emit : function(event,data) {

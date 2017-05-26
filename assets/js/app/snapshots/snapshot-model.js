@@ -9,6 +9,7 @@
             'DataModel',
             function(DataModel) {
 
+
                 var model = new DataModel('snapshot');
 
                 model.handleError = function($scope,err) {

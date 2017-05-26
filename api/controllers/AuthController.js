@@ -78,7 +78,8 @@ var AuthController = {
         }
 
         sails.models.user.findOne({
-            activationToken : token
+            activationToken : token,
+            activated       : false
         }).exec(function (err,user) {
             if(err) return res.negotiate(err)
             if(!user) return res.notFound('Invalid token')
@@ -120,7 +121,7 @@ var AuthController = {
      * @param   {Response}  response    Response object
      */
     provider: function provider(request, response) {
-        sails.services['passport'].endpoint(request, response);
+        sails.services.passport.endpoint(request, response);
     },
 
     /**
@@ -159,7 +160,7 @@ var AuthController = {
      * @param   {Response}  response    Response object
      */
     callback: function callback(request, response) {
-        sails.services['passport'].callback(request, response, function callback(error, user) {
+        sails.services.passport.callback(request, response, function callback(error, user) {
 
             // User must be active
             if(user && !user.active) {
@@ -182,7 +183,7 @@ var AuthController = {
 
                     response.json(200, {
                         user: user,
-                        token: sails.services['token'].issue(_.isObject(user.id) ? JSON.stringify(user.id) : user.id)
+                        token: sails.services.token.issue(_.isObject(user.id) ? JSON.stringify(user.id) : user.id)
                     });
                 }
             });
@@ -210,7 +211,7 @@ var AuthController = {
                 protocol: 'local'
             };
 
-            sails.models['passport']
+            sails.models.passport
                 .findOne(where)
                 .exec(function callback(error, passport) {
                     if (error) {

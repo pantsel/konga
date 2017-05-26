@@ -119,8 +119,11 @@
                                 $scope.submitting = true;
                                 SnapshotsService.takeSnapshot($scope.snapshot.name,$scope.node.id)
                                     .then(function(response){
-                                        MessageService.success('Snapshot created!');
+                                        MessageService.success('Snapshot creation may take some time. You will get notified when the job is done!');
                                         $scope.submitting = false;
+                                        // $uibModalInstance.dismiss({
+                                        //     result : response.data
+                                        // })
                                         $uibModalInstance.dismiss({
                                             result : response.data
                                         })
@@ -280,6 +283,12 @@
                     })
 
                 }
+
+
+                $scope.$on('snapshots.created',function(ev,message){
+                    // MessageService.success("Snapshot created!")
+                    _triggerFetchData();
+                })
 
 
 

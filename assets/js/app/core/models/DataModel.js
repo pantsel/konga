@@ -9,11 +9,11 @@
   angular.module('frontend.core.models')
     .factory('DataModel', [
       '$sailsSocket', '$log',
-      '_',
+      '_','$rootScope',
       'DataService','MessageService',
       function(
         $sailsSocket, $log,
-        _,
+        _,$rootScope,
         DataService,MessageService
       ) {
         /**
@@ -437,11 +437,14 @@
          * @private
          */
         DataModel.prototype._subscribe = function subscribe() {
+
           var self = this;
+
+            // $log.log('Subscribing to => ' + self.endpoint.replace('api/',''))
 
           // Actual subscribe
           $sailsSocket
-            .subscribe(self.endpoint, function modelEvent(message) {
+            .subscribe(self.endpoint.replace('api/',''), function modelEvent(message) {
 
               // Handle socket event
               self._handleEvent(message);
@@ -462,8 +465,13 @@
          * @private
          */
         DataModel.prototype._handleEvent = function handleEvent(message) {
+
           var self = this;
           var method = 'handler' + message.verb[0].toUpperCase() + message.verb.slice(1);
+
+            // $log.log('Broadcasting => ' + self.endpoint.replace("api/","") + "." + message.verb,message)
+
+          // $rootScope.$broadcast(self.endpoint.replace("api/","") + "." + message.verb,message)
 
           if (_.isFunction(self[method])) {
             self[method](message);

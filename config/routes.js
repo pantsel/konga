@@ -83,12 +83,14 @@ module.exports.routes = {
 
     // Snapshots
     'POST /api/snapshots/take'        : 'SnapshotController.takeSnapShot',
+    'GET /api/snapshots/subscribe'     : 'SnapshotController.subscribe',
     'POST /api/snapshots/:id/restore' : 'SnapshotController.restore',
     'GET /api/snapshots/:id/download': 'SnapshotController.download',
 
     // Socket Subscriptions
     'GET /api/kongnodes/healthchecks/subscribe': 'KongNodeController.subscribeHealthChecks',
     'GET /api/apis/healthchecks/subscribe'     : 'ApiHealthCheckController.subscribeHealthChecks',
+
 
 
 

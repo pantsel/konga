@@ -22,6 +22,35 @@
                 >
                     <a  data-ui-sref="auth.login">Login</a>
                 </li>
+
+                <!-- NOTIFICATIONS DROPDOWN -->
+                <li data-ng-show="auth.isAuthenticated()" uib-dropdown auto-close="outsideClick" keyboard-nav>
+                    <a href uib-dropdown-toggle>
+                        <i class="mdi mdi-bell-outline"></i>
+                        <span class="badge badge-danger" ng-show="notifications && notifications.length">{{notifications.length}}</span>
+                    </a>
+                    <ul class="dropdown-menu notifications-dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+
+                        <li role="menuitem" ng-if="!notifications.length">
+                            <a>
+                                There are no notifications at this point...
+                            </a>
+                        </li>
+                        <li role="menuitem" ng-repeat="notification in notifications">
+                            <a>
+                                <i class="mdi mdi-close pull-right clickable" ng-click="removeNotification($index)"></i>
+                                <i class="mdi mdi-18px text-info {{notification.icon || 'mdi-message'}}"></i>&nbsp;
+                                <span style="margin-right: 26px">{{notification.message}}</span>
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <!-- END NOTIFICATIONS DROPDOWN -->
+
+                <!-- PROFILE DROPDOWN -->
                 <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
@@ -59,6 +88,7 @@
                     </ul>
 
                 </li>
+                <!-- END PROFILE DROPDOWN -->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

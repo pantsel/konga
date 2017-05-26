@@ -278,9 +278,9 @@
       }
     ])
       .controller('MainController',['$log','$scope','$rootScope','Settings','NodeModel',
-          'UserService','InfoService','AuthService',
+          'UserService','InfoService','AuthService','SubscriptionsService','NotificationsService',
           function($log,$scope,$rootScope,Settings,NodeModel,
-                   UserService,InfoService,AuthService){
+                   UserService,InfoService,AuthService,SubscriptionsService,NotificationsService){
 
               $rootScope.user = UserService.user()
               $rootScope.konga_version = window.konga_version
@@ -321,10 +321,10 @@
               if(AuthService.isAuthenticated()) {
                   _fetchGatewayInfo()
                   _fetchSettings()
+
               }
 
-
-
+              SubscriptionsService.init()
           }])
   ;
 }());

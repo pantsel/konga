@@ -12,6 +12,11 @@
   .navbar-brand{
     font-size: 2em !important;
   }
+
+  .navbar-nav > li > a{
+
+    padding : 20px;
+  }
   
 
   @media (min-width: 768px) {

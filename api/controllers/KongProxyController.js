@@ -31,6 +31,7 @@ module.exports = {
 
         var headers = {'Content-Type': 'application/json'}
 
+        // If apikey is set in headers, use it
         if(req.kong_api_key) {
             headers['apikey'] = req.kong_api_key
         }
@@ -62,14 +63,5 @@ module.exports = {
             if (response.error)  return res.negotiate(response)
             return res.json(response.body)
         })
-
-
-        //if(req.body) {
-        //    req.body = JSON.stringify(req.body)
-        //}
-        //
-        //global.$proxy.web(req, res, {
-        //    target: sails.config.kong_admin_url
-        //});
     }
 };

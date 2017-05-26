@@ -29,10 +29,17 @@ var KongService = {
             })
     },
 
-    createFromEndpointCb: function (endpoint,data, cb) {
+    createFromEndpointCb: function (endpoint,data, req, cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        // If apikey is set in headers, use it
+        if(req.kong_api_key) {
+            headers['apikey'] = req.kong_api_key
+        }
 
         unirest.post(sails.config.kong_admin_url + endpoint)
-            .header('Content-Type', 'application/json')
+            .headers(headers)
             .send(data)
             .end(function (response) {
                 //if(data.name == "request-transformer") {
@@ -54,8 +61,15 @@ var KongService = {
     },
 
     nodeStatus : function(node,cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        if(node.kong_api_key) {
+            headers.apikey = node.kong_api_key
+        }
+
         unirest.get(node.kong_admin_url + "/status")
-            .header('Content-Type', 'application/json')
+            .headers(headers)
             .end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
@@ -63,9 +77,17 @@ var KongService = {
     },
 
     listAllCb: function (req, endpoint, cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        // If apikey is set in headers, use it
+        if(req.kong_api_key) {
+            headers['apikey'] = req.kong_api_key
+        }
+
         var getData = function (previousData,url) {
             unirest.get(url)
-                .header('Content-Type', 'application/json')
+                .headers(headers)
                 .end(function (response) {
                     if (response.error) return cb(response)
                     var data = previousData.concat(response.body.data);
