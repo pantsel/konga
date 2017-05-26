@@ -72,15 +72,20 @@
                 Email settings
             </h4>
             <hr>
-            <div class="form-group row col-md-4">
-                <label>Default sender name</label>
-                <input required="required" type="text" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender_name">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Default sender name</label>
+                        <input required="required" type="text" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender_name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Default sender address</label>
+                        <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
+                    </div>
+                </div>
             </div>
-            <div class="form-group row col-md-4">
-                <label>Default sender address</label>
-                <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
-            </div>
-            <div class="clearfix"></div>
 
             <br>
             <h5>Transports</h5>
