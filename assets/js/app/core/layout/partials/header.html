@@ -55,7 +55,7 @@
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
                         &nbsp;
-                        <span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().username}}</span>
+                        <span class="greeting visible-md-inline visible-lg-inline">{{user().firstName ? "Hello, " + user().firstName : "Hello, " + user().username}}</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
