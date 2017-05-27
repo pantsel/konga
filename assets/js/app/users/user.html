@@ -83,7 +83,7 @@
                                     <span
                                             data-editable-text="user.firstName"
                                             data-e-name="user.firstName"
-                                            data-e-required>
+                                            >
                                         {{user.firstName}}
                                     </span>
                                 </td>
@@ -94,7 +94,7 @@
                                     <span
                                             data-editable-text="user.lastName"
                                             data-e-name="user.lastName"
-                                            data-e-required>
+                                            >
                                         {{user.lastName}}
                                     </span>
                                 </td>
@@ -113,7 +113,7 @@
 
                                 </td>
                             </tr>
-                            <tr ng-if="editableForm.$visible">
+                            <tr ng-if="editableForm.$visible && authUser.admin">
                                 <td colspan="2">
                                     <div class="form-group well">
                                         <label class="col-md-8 control-label no-margin">Is this user active?</label>
@@ -131,7 +131,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr ng-if="editableForm.$visible">
+                            <tr ng-if="editableForm.$visible && authUser.admin">
                                 <td colspan="2">
                                     <div class="form-group well">
                                         <label class="col-md-8 control-label no-margin">Is this user an administrator?</label>
