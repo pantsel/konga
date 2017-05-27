@@ -13,7 +13,10 @@
         <label class="control-label">API KEY</label>
         <input ng-model="node.kong_api_key" class="form-control">
         <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
-        <p class="help-block">The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.</p>
+        <p class="help-block">
+            The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.
+            See <a href="https://docs.gelato.io/guides/advanced-kong-integration" target="_blank">here</a> for details.
+        </p>
     </div>
     <!--<div class="form-group" ng-class="{'has-error' : errors.kong_version}">-->
         <!--<label class="control-label">Kong version</label>-->
