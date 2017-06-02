@@ -23,9 +23,10 @@
 
 
           function createApiKey() {
-              ConsumerService.addCredential($scope.consumer.id,'key-auth',{
-                  key : $scope.key.value
-              }).then(function(resp){
+
+              var body = $scope.key.value ? {key : $scope.key.value} : {}
+
+              ConsumerService.addCredential($scope.consumer.id,'key-auth',body).then(function(resp){
                   $log.debug("Key generated",resp)
                   $rootScope.$broadcast('consumer.key.created')
                   $uibModalInstance.dismiss()
