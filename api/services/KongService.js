@@ -9,10 +9,15 @@ var KongService = {
 
     create: function (req, res) {
 
-        unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''));
+            
+           if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        
+          request.send(req.body);
+            request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             })
@@ -20,10 +25,14 @@ var KongService = {
 
     createCb: function (req, res, cb) {
 
-        unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+           if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+           
+            request.send(req.body);
+            request.end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
             })
@@ -31,10 +40,14 @@ var KongService = {
 
     createFromEndpointCb: function (endpoint,data, cb) {
 
-        unirest.post(sails.config.kong_admin_url + endpoint)
-            .header('Content-Type', 'application/json')
-            .send(data)
-            .end(function (response) {
+        var request = unirest.post(sails.config.kong_admin_url + endpoint);
+              if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        
+            request.send(data);
+            request.end(function (response) {
                 //if(data.name == "request-transformer") {
                 //    console.log(response.error)
                 //}
@@ -45,18 +58,26 @@ var KongService = {
 
 
     retrieve: function (req, res) {
-        unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .end(function (response) {
+        var request = unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''));
+            if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+          
+            request.end(function (response) {
                 if (response.error)  return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     nodeStatus : function(node,cb) {
-        unirest.get(node.kong_admin_url + "/status")
-            .header('Content-Type', 'application/json')
-            .end(function (response) {
+        var request = unirest.get(node.kong_admin_url + "/status");
+            if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+          
+            request.end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
             })
@@ -64,9 +85,13 @@ var KongService = {
 
     listAllCb: function (req, endpoint, cb) {
         var getData = function (previousData,url) {
-            unirest.get(url)
-                .header('Content-Type', 'application/json')
-                .end(function (response) {
+            var request =unirest.get(url)
+               if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        
+                request.end(function (response) {
                     if (response.error) return cb(response)
                     var data = previousData.concat(response.body.data);
                     if (response.body.next) {
@@ -84,9 +109,12 @@ var KongService = {
 
     list: function (req, res) {
         var getData = function (previousData,url) {
-            unirest.get(url)
-                .header('Content-Type', 'application/json')
-                .end(function (response) {
+            var request = unirest.get(url)
+            if (sails.config.kong_admin_basic_auth_enabled) {
+                request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+            }
+        
+           request.end(function (response) {
                     if (response.error) return res.kongError(response)
                     var apis = previousData.concat(response.body.data);
                     if (response.body.next) {
@@ -102,10 +130,14 @@ var KongService = {
     },
 
     update: function (req, res) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''));
+             if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+         
+            request.send(req.body)
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
 
                 if(req.url.indexOf("/kong/apis") > -1) {
@@ -120,10 +152,14 @@ var KongService = {
     },
 
     updateCb: function (req, res,cb) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''));
+             if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+         
+            request.send(req.body);
+            request.end(function (response) {
                 if (response.error) return cb(response)
 
                 if(req.url.indexOf("/kong/apis") > -1) {
@@ -139,19 +175,27 @@ var KongService = {
     },
 
     updateOrCreate: function (req, res) {
-        unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .send(req.body)
-            .end(function (response) {
+        var request = unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''));
+             if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+         
+            request.send(req.body)
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
                 return res.json(response.body)
             })
     },
 
     delete: function (req, res) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .end(function (response) {
+        var request = unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''));
+               if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        
+            request.end(function (response) {
                 if (response.error) return res.kongError(response)
 
                 if(req.url.indexOf("/kong/apis") > -1) {
@@ -169,9 +213,13 @@ var KongService = {
     },
 
     deleteCb: function (req, res,cb) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
-            .header('Content-Type', 'application/json')
-            .end(function (response) {
+        var request = unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''));
+                if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true);
+        }
+        
+        
+            request.end(function (response) {
                 if (response.error) return cb(response)
 
                 if(req.url.indexOf("/kong/apis") > -1) {

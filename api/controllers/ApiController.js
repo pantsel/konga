@@ -31,6 +31,9 @@ module.exports = {
 
         var request = unirest[req.method.toLowerCase()](sails.config.kong_admin_url + req.url)
         request.headers({'Content-Type': 'application/json'})
+         if (sails.config.kong_admin_basic_auth_enabled) {
+            request.auth(sails.config.kong_admin_username, sails.config.kong_admin_password, true)
+        }   
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
 
