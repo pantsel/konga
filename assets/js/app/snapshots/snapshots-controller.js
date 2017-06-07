@@ -260,7 +260,7 @@
                     var importedSnapshot;
 
                     try{
-                        importedSnapshot = JSON.parse($base64.decode($scope.file.data.replace("data:;base64,","")))
+                        importedSnapshot = JSON.parse($base64.decode($scope.file.data.split(",")[1]))
                     }catch(err){
                         MessageService.error(err)
                     }
