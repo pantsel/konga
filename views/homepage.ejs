@@ -1,4 +1,4 @@
-<div data-ui-view="sidenav" ng-if="$state.name.indexOf('auth') < 0"></div>
+<div data-ui-view="sidenav" ng-if="$state.name.indexOf('auth') < 0 && $state.name.indexOf('error') < 0"></div>
 <div class="main-container-wrapper" ng-class="{'full-width no-margin clear-left':$state.name.indexOf('auth') > -1}">
   <div data-ui-view="header"></div>
   <div class="alert alert-fixed-top alert-success alert-dismissible" ng-if="$stateParams.activated">

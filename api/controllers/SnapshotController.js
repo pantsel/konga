@@ -309,6 +309,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
         var fileAdapter = SkipperDisk(/* optional opts */);
 
 
+
         sails.models.snapshot.findOne({
             id : id
         }).exec(function (err,data) {
@@ -322,7 +323,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     return res.negotiate(err);
                 }).pipe(res);
             }else{
-                fs.writeFile(filePath, JSON.stringify(data), 'utf8',
+                fs.writeFile(location, JSON.stringify(data), 'utf8',
                     function(err,file){
                         if(err) return res.negotiate(err)
                         fileAdapter.read(location).on('error', function (err) {
