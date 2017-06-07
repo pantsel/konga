@@ -446,7 +446,7 @@
 
                                                 model.scope.items.data.splice(model.scope.items.data.indexOf(item), 1);
                                             },function(err){
-                                                $log.error("ListConfigService : Model delete failed => " + c,err)
+                                                $log.error("ListConfigService : Model delete failed => ",err)
                                             })
                                     }, function decline() {
                                     })

@@ -47,6 +47,7 @@
                         >
                         </i>
                     </th>
+                    <th width="1"></th>
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td>
@@ -55,6 +56,12 @@
                     <td>{{item.target || "-"}}</td>
                     <td>{{item.weight || "-"}}</td>
                     <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                    <td>
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
                 </tr>
 
                 <tr data-ng-if="items.length === 0 && !loading">

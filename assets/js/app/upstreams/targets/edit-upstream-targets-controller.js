@@ -9,16 +9,17 @@
   angular.module('frontend.upstreams')
     .controller('EditUpstreamTargetsController', [
       '$scope', '$rootScope','$stateParams',
-        '$log', '$state','Upstream','MessageService','$uibModal','DataModel','ListConfig',
+        '$log', '$state','Upstream','MessageService','$uibModal','DataModel','ListConfig','$http','DialogService',
       function controller($scope,$rootScope,$stateParams,
-                          $log, $state,Upstream, MessageService, $uibModal, DataModel, ListConfig ) {
+                          $log, $state,Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService ) {
 
 
-          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets',true)
+          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets/active',true)
           Target.setScope($scope, false, 'items', 'itemCount');
 
+
           // Add default list configuration variable to current scope
-          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('target',Target)));
 
           // Set initial data
           $scope.loading = false
@@ -126,6 +127,22 @@
               });
           }
 
+          // Overwrite deleteItem method
+          $scope.deleteItem = function (index,item) {
+              DialogService.prompt(
+                  "Confirm", "Really want to delete the selected item?",
+                  ['No don\'t', 'Yes! delete it'],
+                  function accept() {
+
+                      $http.delete('kong/upstreams/' + $stateParams.id + '/targets/' + item.id)
+                          .then(function(deleted){
+                              _fetchData()
+                          }).catch(function (err) {
+
+                      })
+                  }, function decline() {
+                  })
+          }
 
           function _fetchData(){
               var config = ListConfig.getConfig();
@@ -135,7 +152,8 @@
               };
 
               Target.load(_.merge({}, parameters)).then(function(response){
-                  $scope.items = response.data
+                  console.log("####",response)
+                  $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data
               });
           }
 
