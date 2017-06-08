@@ -73,8 +73,8 @@
   },
   "scripts": {
     "postinstall": "bower --allow-root install",
-    "start": "node app.js",
-    "production": "node app.js --prod",
+    "start": "node --harmony app.js",
+    "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha"
   },
