@@ -1,7 +1,7 @@
 <footer ng-if="isAuthenticated()">
     <div class="navbar navbar-footer navbar-fixed-bottom">
         <div class="container-fluid">
-            <ul class="nav navbar-nav navbar-left">
+            <ul class="nav navbar-nav navbar-left no-margin">
                 <li>
                     <a>
                         <strong class="text-success">KONGA {{konga_version}}</strong>
@@ -20,7 +20,7 @@
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-right: 5px">
+            <ul class="nav navbar-nav navbar-right hidden-xs" style="margin-right: 5px">
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
                         <i class="mdi mdi-18px mdi-cast-connected"></i>
