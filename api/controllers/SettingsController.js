@@ -12,12 +12,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     find : function(req,res) {
 
-        // ToDo cache settings to memory
-        //if(sails.KONGA_CONFIG) {
-        //    console.log("Serving KONGA_CONFIG from memory")
-        //    return res.json(sails.KONGA_CONFIG)
-        //}
-
         sails.models.settings.find().limit(1)
             .exec(function(err,settings){
 

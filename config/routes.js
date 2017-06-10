@@ -35,13 +35,6 @@ module.exports.routes = {
             konga_version: require('../package.json').version,
             accountActivated : req.query.activated ? true : false
         })
-
-        // {
-        //     view: 'homepage',
-        //         locals: {
-        //     angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
-        //         konga_version: require('../package.json').version
-        // }
     },
 
 

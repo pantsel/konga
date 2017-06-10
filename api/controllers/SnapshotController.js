@@ -193,7 +193,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     snapshot.data[key].forEach(function(item){
                         fns.push(function(cb){
 
-                            // For consumers, we need to import their acls and credentials as well
+                            // For consumers, we need to import their ACLSs and credentials as well
 
                             var consumerAcls = []
                             var consumerCredentials = []

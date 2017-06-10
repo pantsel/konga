@@ -12,8 +12,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     update : function(req,res) {
 
-        console.log("####################################################")
-
         console.log(req.body)
 
         var user = req.body;
