@@ -90,6 +90,7 @@ module.exports.routes = {
     // Socket Subscriptions
     'GET /api/kongnodes/healthchecks/subscribe': 'KongNodeController.subscribeHealthChecks',
     'GET /api/apis/healthchecks/subscribe'     : 'ApiHealthCheckController.subscribeHealthChecks',
+    'GET /api/user/:id/subscribe'              : 'UserController.subscribe',
 
 
 
