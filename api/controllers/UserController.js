@@ -10,9 +10,23 @@ var _ = require('lodash');
  */
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
-    update : function(req,res) {
 
-        console.log("####################################################")
+
+    subscribe: function(req, res) {
+
+        if (!req.isSocket) {
+            sails.log.error("UserController:subscribe failed")
+            return res.badRequest('Only a client socket can subscribe.');
+        }
+
+        var roomName = 'user.' + req.param("id") + '.updated';
+        sails.sockets.join(req.socket, roomName);
+        res.json({
+            room: roomName
+        });
+    },
+
+    update : function(req,res) {
 
         console.log(req.body)
 
