@@ -87,26 +87,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
     },
 
-    afterUpdate : function(values,cb) {
-
-        if(values.node) {
-            sails.models.kongnode.findOne({
-                id : values.node
-            }).exec(function(err,node){
-
-                if(!err) {
-                    values.node = node;
-                    sails.sockets.blast('user.' + values.id + '.updated', values);
-                }
-            })
-        }else{
-            sails.sockets.blast('user.' + values.id + '.updated', values);
-        }
-
-
-        cb()
-    },
-
     //model validation messages definitions
     validationMessages: {
         email: {

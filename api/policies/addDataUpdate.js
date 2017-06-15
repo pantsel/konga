@@ -11,8 +11,6 @@ var _ = require('lodash');
  */
 module.exports = function addDataUpdate(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.addDataUpdate() called]');
-
-  console.log('[Policy.addDataUpdate()] -> body : ',request.body);
   if (request.token) {
     var itemsToRemove = [
       'id',

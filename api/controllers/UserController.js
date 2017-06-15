@@ -40,16 +40,31 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
         sails.models.user
             .update({id : req.param('id')},user)
-            .exec(function(err,updatedUser){
+            .exec(function(err,updated){
                 if(err) return res.negotiate(err);
 
-                if(!passports) return res.json(updatedUser)
+                var user = updated[0];
+
+                if(user.node) {
+                    sails.models.kongnode
+                        .findOne({id : user.node})
+                        .exec(function(err,node){
+                            if(err) return res.negotiate(err)
+                            user.node = node;
+                            sails.sockets.blast('user.' + user.id + '.updated', user);
+                        })
+                }else{
+                    sails.sockets.blast('user.' + user.id + '.updated', user);
+                }
+
+
+                if(!passports) return res.json(updated)
 
                 sails.models.passport
                     .update({user:req.param('id')},{password:passports.password})
                     .exec(function(err,updatedPassport){
                         if(err) return res.negotiate(err);
-                        return  res.json(updatedUser)
+                        return  res.json(updated)
                     })
 
 
