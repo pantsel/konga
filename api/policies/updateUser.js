@@ -7,15 +7,11 @@
  * @param   {Response}  response    Response object
  * @param   {Function}  next        Callback function
  */
-module.exports = function addDataCreate(request, response, next) {
+module.exports = function updateUser(request, response, next) {
     sails.log.verbose(__filename + ':' + __line + ' [Policy.updateUser() called]');
-    console.log('[Policy.updateUser()] -> body : ', request.body);
 
     var password = request.body.passports ? request.body.passports.password : null
     var confirmation = request.body.password_confirmation
-
-    console.log('[Policy.updateUser()] -> password : ' + password);
-    console.log('[Policy.updateUser()] -> confirmation : ' + confirmation);
 
     if (password && password != "") {
         if (password != confirmation) {
