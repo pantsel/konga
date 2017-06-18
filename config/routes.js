@@ -86,6 +86,10 @@ module.exports.routes = {
     'GET /api/user/:id/subscribe'              : 'UserController.subscribe',
 
 
+    // Rich Plugins List
+    'GET /api/kong_plugins/list' : 'KongPluginsController.list',
+
+
 
 
     'GET /api/settings' : 'SettingsController.find',

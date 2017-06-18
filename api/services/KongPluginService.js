@@ -136,6 +136,22 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
             })
     },
 
+
+    richList : function(req,res) {
+        var _this = this;
+        unirest.get(req.node_id + '/plugins/enabled')
+            .end(function (response) {
+                if (response.error) return res.kongError(response)
+
+                console.log("*******************************",response.body)
+                var enabledPlugins = response.body.enabled_plugins;
+
+                return res.json(_this.makeGroups(enabledPlugins))
+
+            })
+
+    },
+
     update: function (req, res) {
         unirest.patch(req.node_id + req.url.replace('/kong',''))
             .send(req.body)
@@ -177,6 +193,184 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
                 if (response.error) return cb(response)
                 return cb(null,response.body)
             })
+    },
+
+    makeGroups : function(_enabledPlugins) {
+
+        var _groups = this.groups();
+        var enabledPlugins = _.clone(_enabledPlugins);
+
+        _groups.forEach(function(group) {
+            Object.keys(group.plugins).forEach(function (key) {
+                var index = enabledPlugins.indexOf(key);
+                if(index > -1) {
+                    group.plugins[key].enabled = true; // Mark plugin as enabled so it will be shown in the list
+                    enabledPlugins.splice(index, 1); // Remove found plugin from array
+
+                }
+            })
+
+        })
+
+        // If there are any enabledPlugins left,
+        // add them to the custom plugins group
+        if(enabledPlugins.length) {
+            enabledPlugins.forEach(function(plugin) {
+                _groups[_groups.length - 1].plugins[plugin] = {}
+            })
+        }
+
+        return _groups;
+
+    },
+
+    groups : function() {
+        return [
+            {
+                name: "Authentication",
+                description: "Protect your services with an authentication layer",
+                icon: "mdi-account-outline",
+                plugins: {
+                    "basic-auth": {
+                        description: "Add Basic Authentication to your APIs"
+                    },
+                    "key-auth": {
+                        description: "Add a key authentication to your APIs"
+                    },
+                    "oauth2": {
+                        description: "Add an OAuth 2.0 authentication to your APIs"
+                    },
+                    "hmac-auth": {
+                        description: "Add HMAC Authentication to your APIs"
+                    },
+                    "jwt": {
+                        description: "Verify and authenticate JSON Web Tokens"
+                    },
+                    "ldap-auth": {
+                        description: "Integrate Kong with a LDAP server"
+                    },
+                }
+            },
+            {
+                name: "Security",
+                icon: "mdi-security",
+                description: "Protect your services with additional security layers",
+                plugins: {
+                    "acl": {
+                        description: "Control which consumers can access APIs"
+                    },
+                    "cors": {
+                        description: "Allow developers to make requests from the browser"
+                    },
+                    "ssl": {
+                        description: "Add an SSL certificate for an underlying service"
+                    },
+                    "ip-restriction": {
+                        description: "Whitelist or blacklist IPs that can make requests"
+                    },
+                    "bot-detection": {
+                        description: "Detects and blocks bots or custom clients"
+                    }
+                }
+            },
+            {
+                name: "Traffic Control",
+                icon: "mdi-traffic-light",
+                description: "Manage, throttle and restrict inbound and outbound API traffic",
+                plugins: {
+                    "rate-limiting": {
+                        description: "Rate-limit how many HTTP requests a developer can make"
+                    },
+                    "response-ratelimiting": {
+                        description: "Rate-Limiting based on a custom response header value"
+                    },
+                    "request-size-limiting": {
+                        description: "Block requests with bodies greater than a specific size"
+                    },
+                    "request-termination": {
+                        description: "This plugin terminates incoming requests with a specified status code and message. This allows to (temporarily) block an API or Consumer."
+                    },
+                }
+            },
+            {
+                name: "Serverless",
+                description: "Invoke serverless functions in combination with other plugins:",
+                icon: "mdi-cloud-sync",
+                plugins: {
+                    "aws-lambda": {
+                        description: "Invoke an AWS Lambda function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
+                    }
+                }
+            },
+            {
+                name: "Analytics & Monitoring",
+                icon: "mdi-chart-bar",
+                description: "Visualize, inspect and monitor APIs and microservices traffic",
+                plugins: {
+                    "galileo": {
+                        description: "Business Intelligence Platform for APIs"
+                    },
+                    "datadog": {
+                        description: "Visualize API metrics on Datadog"
+                    },
+                    "runscope": {
+                        description: "API Performance Testing and Monitoring"
+                    },
+
+                }
+            },
+            {
+                name: "Transformations",
+                icon: "mdi-nfc-tap",
+                description: "Transform request and responses on the fly on Kong",
+                plugins: {
+                    "request-transformer": {
+                        description: "Modify the request before hitting the upstream server"
+                    },
+                    "response-transformer": {
+                        description: "Modify the upstream response before returning it to the client"
+                    },
+                    "correlation-id": {
+                        description: "Correlate requests and responses using a unique ID"
+                    },
+                }
+            },
+            {
+                name: "Logging",
+                icon: "mdi-content-paste",
+                description: "Log requests and response data using the best transport for your infrastructure",
+                plugins: {
+                    "tcp-log": {
+                        description: "Send request and response logs to a TCP server"
+                    },
+                    "udp-log": {
+                        description: "Send request and response logs to an UDP server"
+                    },
+                    "http-log": {
+                        description: "Send request and response logs to an HTTP server"
+                    },
+                    "file-log": {
+                        description: "Append request and response data to a log file on disk"
+                    },
+                    "syslog": {
+                        description: "Send request and response logs to Syslog"
+                    },
+                    "statsd": {
+                        description: "Send request and response logs to StatsD"
+                    },
+                    "loggly": {
+                        description: "Send request and response logs to Loggly"
+                    },
+
+                }
+            },
+            {
+                name: "Custom",
+                description: "Custom Plugins",
+                icon: "mdi-account-box-outline",
+                plugins: {}
+            }
+        ]
     }
 })
 
