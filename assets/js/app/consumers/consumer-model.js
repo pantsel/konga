@@ -9,45 +9,8 @@
             'DataModel','DataService','$q','$log',
             function(DataModel,DataService,$q,$log) {
 
-                var model = new DataModel('api/consumers');
+                var model = new DataModel('kong/consumers',true);
 
-
-                model.load = function load(parameters, fromCache) {
-                    var self = this;
-
-                    // Normalize parameters
-                    parameters = parameters || {};
-                    fromCache = fromCache || false;
-
-                    if (fromCache) {
-                        parameters = self.cache.load.parameters;
-                    } else {
-                        // Store used parameters
-                        self.cache.load = {
-                            parameters: parameters
-                        };
-                    }
-
-                    console.log("################",self.endpoint)
-
-                    return DataService
-                        .collection(self.endpoint, parameters)
-                        .then(
-                            function onSuccess(response) {
-                                self.objects = response.data;
-
-                                if (fromCache && self.scope && self.itemNames.objects) {
-                                    self.scope[self.itemNames.objects] = self.objects;
-                                }
-
-                                return self.objects;
-                            },
-                            function onError(error) {
-                                $log.error('DataModel.load() failed.', error, self.endpoint, parameters);
-                            }
-                        )
-                        ;
-                };
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}
@@ -67,6 +30,7 @@
                         }
                     }
                 }
+
                 return model;
             }
         ])

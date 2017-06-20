@@ -1,63 +1,76 @@
-<div class="row">
-    <div class="col-md-12 actions">
-        <a  class="btn btn-primary" ng-click="openUploadCertsModal()">
-            <i class="material-icons">&#xE145;</i>
-            Add Certificate
-        </a>
-    </div>
-</div>
-<div class="row">
+<div class="row actions">
     <div class="col-md-12">
-        <div class="bg-light-grey padding clearfix">
-            <div class="input-group col-sm-4 pull-left">
-                <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
-                </div>
-                <input type="text" data-ng-model="search" class="form-control" placeholder="search certificates...">
-            </div>
-            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+        <div class="pull-left">
+            <a  class="btn btn-primary"
+                ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+                ng-click="openUploadCertsModal()">
+                <i class="mdi mdi-plus"></i>
+                Add Certificate
+            </a>
         </div>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
     </div>
 </div>
-<konga-loader ng-if="loading && !certificates.length"></konga-loader>
-<div class="row" ng-if="!loading || certificates.length">
+
+<konga-loader ng-if="loading && !items.length"></konga-loader>
+<div class="row" ng-if="!loading || items.length">
     <div class="col-md-12">
         <div class="table-responsive">
-            <table class="table table-align-top table-striped table-hover">
+            <table class="table table-striped table-hover">
                 <tr>
-                    <th>id</th>
-                    <th>SNIs</th>
-                    <th>Created at</th>
-                    <td width="1"><!-- show --></td>
-                    <td width="1"><!-- delete --></td>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1"></th>
                 </tr>
                 <tr
-                        dir-paginate="item in certificates | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+                        dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
 
                     <td>{{item.id}}</td>
                     <td>{{item.snis ? item.snis.join(",") : ''}}</td>
                     <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
                     <td>
                         <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
-                            <i class="material-icons">info_outline</i>
+                            <i class="mdi mdi-information-outline"></i>
                             details
                         </button>
                     </td>
-                    <td>
-                        <button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">
-                            <i class="material-icons">&#xE872;</i>
-                            Delete
-                        </button>
-                    </td>
+                    <!--<td>-->
+                        <!--<button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">-->
+                            <!--<i class="mdi mdi-delete"></i>-->
+                            <!--Delete-->
+                        <!--</button>-->
+                    <!--</td>-->
                 </tr>
-                <tr data-ng-if="(certificates == {} || !certificates.length) && !loading">
+                <tr data-ng-if="(items.data == {} || !items.data.length) && !loading">
                     <td colspan="100%" class="text-center text-muted">
                         <em>No data found...</em>
                     </td>
                 </tr>
                 <tr data-ng-if="loading">
                     <td colspan="100%" class="text-center text-muted">
-                        <em>Loading certificates...</em>
+                        <em>Loading items...</em>
                     </td>
                 </tr>
             </table>

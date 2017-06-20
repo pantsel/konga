@@ -1,8 +1,10 @@
 
 <div class="row">
     <div class="col-md-12 actions">
-        <a data-ui-sref="users.create" class="btn btn-primary pull-left">
-            <i class="material-icons">&#xE145;</i>
+        <a data-ui-sref="users.create"
+           ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+           class="btn btn-primary pull-left">
+            <i class="mdi mdi-plus"></i>
             Create User
         </a>
         <list-search

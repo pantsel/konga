@@ -8,8 +8,23 @@
 var KongService = require('../services/KongService')
 var _ = require('lodash')
 var async = require('async');
+var fs = require('fs');
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
+
+    subscribe: function(req, res) {
+
+        if (!req.isSocket) {
+            sails.log.error("SnapshotsController:subscribe failed")
+            return res.badRequest('Only a client socket can subscribe.');
+        }
+
+        var roomName = 'events.snapshots';
+        sails.sockets.join(req.socket, roomName);
+        res.json({
+            room: roomName
+        });
+    },
 
     takeSnapShot : function(req,res) {
 
@@ -24,6 +39,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             })
 
 
+            res.ok() // Reply directly because snapshot creation may take some time
 
             var result = {}
 
@@ -49,7 +65,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
             async.series(fns,function(err,data){
                 if(err) return res.negotiate(err)
-
 
                 // Foreach consumer get it's acls
                 var consumerFns = []
@@ -120,8 +135,15 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 kong_version : node.kong_version,
                                 data : result
                             }).exec(function(err,created){
-                                if(err) return res.negotiate(err)
-                                return res.json(created)
+                                if(err) {
+                                    sails.sockets.blast('events.snapshots', {
+                                        verb : 'failed',
+                                        data : {
+                                            name : req.param("name")
+                                        }
+                                    });
+                                }
+
                             })
                         })
                     }else{
@@ -131,13 +153,18 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             kong_version : node.kong_version,
                             data : result
                         }).exec(function(err,created){
-                            if(err) return res.negotiate(err)
-                            return res.json(created)
+                            if(err) {
+                                sails.sockets.blast('events.snapshots', {
+                                    verb : 'failed',
+                                    data : {
+                                        name : req.param("name")
+                                    }
+                                });
+                            }
+
                         })
                     }
                 })
-
-
 
             });
 
@@ -166,7 +193,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     snapshot.data[key].forEach(function(item){
                         fns.push(function(cb){
 
-                            // For consumers, we need to import their acls and credentials as well
+                            // For consumers, we need to import their ACLSs and credentials as well
 
                             var consumerAcls = []
                             var consumerCredentials = []
@@ -185,7 +212,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             }
 
 
-                            KongService.createFromEndpointCb("/" + key,item,function(err,created){
+                            KongService.createFromEndpointCb("/" + key,item,req,function(err,created){
 
                                 if(!responseData[key]) {
                                     responseData[key] = {
@@ -211,7 +238,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                     // Import acls
                                     consumerAcls.forEach(function(acl){
                                         consumerFns.push(function(cb){
-                                            KongService.createFromEndpointCb("/" + key + "/" + item.id + "/acls",acl,function(err,created){
+                                            KongService.createFromEndpointCb("/" + key + "/" + item.id + "/acls",acl,req,function(err,created){
 
                                                 if(err) {
                                                     responseData[key].failed.count++
@@ -231,8 +258,9 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                     Object.keys(consumerCredentials).forEach(function(credentialKey){
 
                                         credentialKey,consumerCredentials[credentialKey].forEach(function(credentialData){
+
                                             consumerFns.push(function(cb){
-                                                KongService.createFromEndpointCb("/" + key + "/" + item.id + "/" + credentialKey,credentialData,function(err,created){
+                                                KongService.createFromEndpointCb("/" + key + "/" + item.id + "/" + credentialKey,credentialData,req,function(err,created){
 
                                                     if(err) {
                                                         responseData[key].failed.count++
@@ -271,6 +299,38 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 if(err) return res.negotiate(err)
                 return res.ok(responseData)
             })
+
+        })
+    },
+
+    download : function (req,res) {
+        var id = req.param('id');
+        var SkipperDisk = require('skipper-disk');
+        var fileAdapter = SkipperDisk(/* optional opts */);
+
+
+
+        sails.models.snapshot.findOne({
+            id : id
+        }).exec(function (err,data) {
+            if(err) return res.negotiate(err)
+            if(!data) return res.notFound()
+
+            var location = sails.config.paths.uploads + "snapshot_" + data.id + ".json";
+
+            if (fs.existsSync(location)){
+                fileAdapter.read(location).on('error', function (err) {
+                    return res.negotiate(err);
+                }).pipe(res);
+            }else{
+                fs.writeFile(location, JSON.stringify(data), 'utf8',
+                    function(err,file){
+                        if(err) return res.negotiate(err)
+                        fileAdapter.read(location).on('error', function (err) {
+                            return res.negotiate(err);
+                        }).pipe(res);
+                    });
+            }
 
         })
     }

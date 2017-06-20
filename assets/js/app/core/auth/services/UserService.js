@@ -27,11 +27,19 @@
 
   angular.module('frontend.core.auth.services')
     .factory('UserService', [
-        '_','$localStorage','$rootScope',
-      function factory(_,$localStorage,$rootScope) {
+        '_','$localStorage','$rootScope','AuthService',
+      function factory(_,$localStorage,$rootScope, AuthService) {
 
           function user() {
-              return $localStorage.credentials ? $localStorage.credentials.user : {};
+
+              var user = $localStorage.credentials ? $localStorage.credentials.user : {};
+
+              if(user.id) {
+                  user.hasPermission =  AuthService.hasPermission
+              }
+
+
+              return user;
           }
 
           function updateUser(user,keepNode) {

@@ -17,11 +17,11 @@
           $scope.sections = [
               {
                   name : 'Details',
-                  icon : '&#xE88F;'
+                  icon : 'mdi-information-outline'
               },
               {
                   name : 'Targets',
-                  icon : '&#xE1B3;'
+                  icon : 'mdi-target'
               }
           ]
           $scope.activeSection = 0;

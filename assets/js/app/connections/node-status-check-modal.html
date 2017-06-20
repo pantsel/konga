@@ -1,0 +1,97 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        <i class="mdi mdi-heart-outline"></i>
+        Health Checks
+        <a class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="row margin-bottom">
+        <div class="col-md-8">
+            <h4 class="no-margin text-uppercase">
+                {{node.name}}
+            </h4>
+        </div>
+        <div class="col-md-4 text-right">
+            <input
+                    bs-switch
+                    ng-model="node.health_checks"
+                    switch-size="mini"
+                    type="checkbox"
+                    switch-on-text="ENABLED"
+                    switch-off-text="DISABLED"
+                    ng-change="toggleHealthChecks(node)"
+            >
+        </div>
+    </div>
+
+    <div data-ng-show="!node.health_check_details">
+        <p class="lead no-margin">No information available...</p>
+        <p class="help-block" ng-if="!node.health_checks">
+            You need to enable health checks for this node
+            in order to start getting status information.
+        </p>
+        <p class="help-block" ng-if="node.health_checks">
+            Try again later...
+        </p>
+    </div>
+    <p class="help-block" ng-if="node.health_checks">
+        <strong class="text-danger">
+            Tip:</strong> Administrators can also be notified via email
+            when a connection is down or unresponsive
+            by enabling <code>Email Notifications</code> in <code>settings</code>.
+    </p>
+</div>
+
+
+    <div data-ng-show="node.health_check_details" class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Last known status</th>
+                <td>
+                    <strong ng-if="node.health_check_details.firstSucceeded" class="text-success">
+                        <i class="mdi mdi-check"></i>
+                        Healthy
+                    </strong>
+                    <strong ng-if="!node.health_check_details.firstSucceeded" class="text-danger">
+                        <i class="mdi mdi-alert-outline"></i>
+                        Down or unresponsive
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <th>Last checked</th>
+                <th>{{moment(node.health_check_details.lastChecked).fromNow()}}</th>
+            </tr>
+            <tr>
+                <th>Last failed</th>
+                <td>{{node.health_check_details.lastFailed ? moment(node.health_check_details.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss") : "Never"}}</td>
+            </tr>
+            <tr>
+                <th>Last notified</th>
+                <td>{{node.health_check_details.lastNotified ? moment(node.health_check_details.lastNotified).fromNow() : 'Never'}}</td>
+            </tr>
+            <tr>
+                <th>
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) > moment(node.health_check_details.lastFailed || 0)">
+                        Uptime
+                    </span>
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) <= moment(node.health_check_details.lastFailed || 0)">
+                        Downtime
+                    </span>
+                </th>
+                <td>
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) > moment(node.health_check_details.lastFailed || 0)">
+                        {{moment.duration(moment().diff(moment(node.health_check_details.firstSucceeded))).humanize()}}
+                    </span>
+                    <span data-ng-if="moment(node.health_check_details.lastSucceeded || 0) <= moment(node.health_check_details.lastFailed || 0)">
+                        {{moment.duration(moment().diff(moment(node.health_check_details.firstFailed))).humanize()}}
+                    </span>
+                </td>
+
+            </tr>
+        </table>
+    </div>

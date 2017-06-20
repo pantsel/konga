@@ -17,6 +17,7 @@
               firstName : '',
               lastName : '',
               admin : false,
+              active : true,
               passports : {
                   password : '',
                   protocol : 'local'
@@ -32,13 +33,14 @@
           $scope.createUser = function createUser() {
               $scope.busy = true;
               UserModel
-                  .create(angular.copy($scope.user))
+                  .signup(angular.copy($scope.user))
                   .then(
                       function onSuccess(result) {
                           MessageService.success('New user created successfully');
                           $scope.busy = false;
                           $state.go('users.show', {id: result.data.id});
                       },function(err){
+                          $log.error(err);
                           $scope.busy = false
                           UserModel.handleError($scope,err)
                       }

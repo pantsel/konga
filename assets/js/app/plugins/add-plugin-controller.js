@@ -8,10 +8,10 @@
 
   angular.module('frontend.plugins')
     .controller('AddPluginController', [
-        '_','$scope','$rootScope','$log','$state','ListConfig',
+        '_','$scope','$rootScope','$log','$state','ListConfig','ApiService',
         'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
         'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema','_api',
-      function controller(_,$scope,$rootScope,$log,$state,ListConfig,
+      function controller(_,$scope,$rootScope,$log,$state,ListConfig,ApiService,
                           MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
                           KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema,_api ) {
 
@@ -114,16 +114,26 @@
                       $scope.busy = false;
                       $rootScope.$broadcast('plugin.added',res.data)
                       MessageService.success('Plugin added successfully!')
-                      $uibModalInstance.dismiss()
+                      $uibModalInstance.dismiss(res.data)
                       if(back) $state.go('plugins') // return to plugins page if specified
                   },function(err){
                       $scope.busy = false;
                       $log.error("create plugin",err)
                       var errors = {}
-                      Object.keys(err.data.customMessage).forEach(function(key){
-                          errors[key.replace('config.','')] = err.data.customMessage[key]
-                          MessageService.error(key + " : " + err.data.customMessage[key])
-                      })
+
+                      if(err.data.customMessage) {
+                          Object.keys(err.data.customMessage).forEach(function(key){
+                              errors[key.replace('config.','')] = err.data.customMessage[key]
+                              MessageService.error(key + " : " + err.data.customMessage[key])
+                          })
+                      }
+
+                      if(err.data.body) {
+                          Object.keys(err.data.body).forEach(function(key){
+                              errors[key] = err.data.body[key]
+                              MessageService.error(key + " : " + err.data.body[key])
+                          })
+                      }
                       $scope.errors = errors
                   },function evt(event){
                       // Only used for ssl plugin certs upload

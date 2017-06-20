@@ -1,0 +1,37 @@
+<div class="modal-header success">
+    <h5 class="modal-title" id="modal-title">
+        Choose connection
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+    </h5>
+</div>
+<div class="modal-body" ng-if="alerts.length">
+    <!--<p>Choose a connection</p>-->
+    <div class="no-margin" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+</div>
+<table class="table table-hover">
+    <tr>
+        <th width="1"></th>
+        <th>name</th>
+        <th>Kong admin URL</th>
+        <th>Kong version</th>
+    </tr>
+    <tr data-ng-repeat="connection in connections"
+        class="clickable"
+        data-ng-click="activateConnection(connection)"
+    >
+        <td width="1">
+            <div data-ng-if="connection.checkingConnection">
+                <fading-circle-spinner class="spinner"></fading-circle-spinner>
+            </div>
+            <div data-ng-if="!connection.checkingConnection">
+                <input type="checkbox" ng-checked="user.node.id == connection.id">
+                <!--<i class="material-icons text-primary">{{user.node.id == connection.id ? '&#xE834;' : '&#xE835;'}}</i>-->
+            </div>
+        </td>
+        <td><strong>{{connection.name}}</strong></td>
+        <td>{{connection.kong_admin_url}}</td>
+        <td>{{connection.kong_version.split("-").join(".")}}</td>
+    </tr>
+</table>

@@ -1,0 +1,16 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+       CREATE A CONNECTION TO KONG ADMIN
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<div class="col-md-12 bg-light-grey padding">
+    <p class="text-muted no-margin">
+        After creating a connection, you will need to <strong>mark it as active</strong> in order to be able to use the admin API.<br>
+        <strong>There can be only one active connection.</strong>
+    </p>
+</div>
+<div class="modal-body" ng-include="'js/app/connections/partials/create-connection-form.html'"></div>

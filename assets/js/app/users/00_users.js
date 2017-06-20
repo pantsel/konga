@@ -16,9 +16,9 @@
                         parent : 'frontend',
                         cache : false,
                         data : {
-                            pageName : "Konga Users",
-                            displayName : "konga users",
-                            prefix : '<i class="material-icons">&#xE7FC;</i>'
+                            pageName : "Users",
+                            //displayName : "konga users",
+                            pageDescription : "Manage Konga users and user roles"
                         },
                         views: {
                             'content@': {
@@ -55,9 +55,9 @@
                     .state('users.create', {
                         url: '/create',
                         data : {
-                            pageName : "Create Konga user",
+                            pageName : "Create User",
                             displayName : "create",
-                            prefix : '<i class="material-icons">&#xE55A;</i>'
+                            pageDescription : null
                         },
                         views: {
                             'content@': {
@@ -71,7 +71,7 @@
                         data : {
                             pageName : "User profile",
                             displayName : "profile",
-                            prefix : '<i class="material-icons">&#xE55A;</i>'
+                            pageDescription : null
                         },
                         views: {
                             'content@': {

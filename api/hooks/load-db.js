@@ -1,6 +1,7 @@
 'use strict';
 
 var async = require('async');
+var _ = require('lodash')
 
 /**
  * load-db.js
@@ -45,12 +46,43 @@ module.exports = function hook(sails) {
                     })
             }
 
+
+
             async.series([
                 sails.models.user.seed,
                 seedPassports,
                 sails.models.kongnode.seed,
                 sails.models.emailtransport.seed,
-                sails.models.settings.seed
+                function seedOrMergeSettings(cb) {
+                    var seeds = sails.models.settings.seedData[0]
+                    sails.models.settings.find().limit(1)
+                        .exec(function(err,data){
+                            if(err) return cb(err)
+                            var _data = _.merge(seeds,data[0] || {})
+                            sails.models.settings.updateOrCreate({
+                                id : _data.id
+                            },_data,function(err,coa){
+                                if(err) return cb(err)
+                                return cb()
+                            })
+                        })
+                },
+                function activateExistingUsers(cb) {
+
+                    // Assign the same activation token to existing users
+                    // for simplicity.
+                    // After all, it's not like they're
+                    // going to use it again.
+                    var uuid = require('node-uuid');
+
+                    sails.models.user
+                        .update({
+                            activationToken : undefined
+
+                        },{active : true,activationToken : uuid.v4()})
+                        .exec(cb)
+                }
+                //sails.models.settings.seed
             ],next);
         }else{
             sails.models.user

@@ -19,8 +19,13 @@
       'frontend.certificates',
       'frontend.users',
       'frontend.consumers',
-      'frontend.apis'
+      'frontend.apis',
+      'frontend.connections',
+      'frontend.snapshots',
+      'frontend.cluster'
+
   ]);
+
 
   /**
    * Configuration for frontend application, this contains following main sections:
@@ -34,6 +39,30 @@
       .config(function($logProvider){
           $logProvider.debugEnabled(window.enableLogs);
       })
+
+      .value('HttpTimeout',20000)
+
+      // Provider to disable UI routers template caching
+      .config(['$provide', function($provide){
+          // Set a suffix outside the decorator function
+          var cacheBuster = Date.now().toString();
+
+          function templateFactoryDecorator($delegate) {
+              var fromUrl = angular.bind($delegate, $delegate.fromUrl);
+              $delegate.fromUrl = function (url, params) {
+                  if (url !== null && angular.isDefined(url) && angular.isString(url)) {
+                      url += (url.indexOf("?") === -1 ? "?" : "&");
+                      url += "v=" + cacheBuster;
+                  }
+
+                  return fromUrl(url, params);
+              };
+
+              return $delegate;
+          }
+
+          $provide.decorator('$templateFactory', ['$delegate', templateFactoryDecorator]);
+      }])
       .config(['$provide',function($provide) {
           $provide.decorator('$state', function($delegate) {
               var originalTransitionTo = $delegate.transitionTo;
@@ -64,9 +93,10 @@
         $httpProvider.interceptors.push('AuthInterceptor');
         $httpProvider.interceptors.push('ErrorInterceptor');
         $httpProvider.interceptors.push('timeoutHttpIntercept');
+        //$httpProvider.interceptors.push('CsrfInterceptor');
 
-        // $httpProvider.interceptors.push('TemplateCacheInterceptor');
-        $httpProvider.interceptors.push('KongaInterceptor');
+        //$httpProvider.interceptors.push('TemplateCacheInterceptor');
+        // $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
@@ -97,24 +127,9 @@
           })
           .hashPrefix('!');
 
-        // Routes that needs authenticated user
-        //$stateProvider
-        //  .state('profile', {
-        //    abstract: true,
-        //    template: '<ui-view/>',
-        //    data: {
-        //      access: AccessLevels.user
-        //    }
-        //  })
-        //  .state('profile.edit', {
-        //    url: '/profile',
-        //    templateUrl: 'js/app/profile/profile.html',
-        //    controller: 'ProfileController'
-        //  })
-        //;
-
         // Main state provider for frontend application
         $stateProvider
+
           .state('frontend', {
             abstract: true,
               data: {
@@ -125,6 +140,10 @@
                 templateUrl: 'js/app/core/layout/partials/header.html',
                 controller: 'HeaderController'
               },
+                sidenav: {
+                    templateUrl: 'js/app/core/layout/partials/sidenav.html',
+                    controller: 'SidenavController'
+                },
               footer: {
                 templateUrl: 'js/app/core/layout/partials/footer.html',
                 controller: 'FooterController'
@@ -134,7 +153,7 @@
         ;
 
         // For any unmatched url, redirect to /dashboard
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/error');
       }
     ])
   ;
@@ -146,18 +165,27 @@
    */
   angular.module('frontend')
     .run([
-      '$rootScope', '$state', '$injector',
+      '$rootScope', '$state', '$stateParams','$injector',
       'editableOptions','editableThemes','$templateCache','NodesService',
-      'AuthService','cfpLoadingBar',
+      'AuthService','cfpLoadingBar','UserService',
       function run(
-        $rootScope, $state, $injector,
+        $rootScope, $state,$stateParams, $injector,
         editableOptions,editableThemes,$templateCache,NodesService,
-        AuthService,cfpLoadingBar
+        AuthService,cfpLoadingBar,UserService
       ) {
+
+          $rootScope.$on('$routeChangeStart', function(event, next, current) {
+              if (typeof(current) !== 'undefined'){
+                  $templateCache.remove(current.templateUrl);
+              }
+          });
 
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
-          $rootScope.moment = window.moment
+          $rootScope.moment = window.moment;
+          $rootScope.KONGA_CONFIG = window.KONGA_CONFIG;
+          $rootScope.$stateParams = $stateParams;
+
 
           // Set usage of Bootstrap 3 CSS with angular-xeditable
           editableOptions.theme = 'bs3';
@@ -166,19 +194,50 @@
          * Route state change start event, this is needed for following:
          *  1) Check if user is authenticated to access page, and if not redirect user back to login page
          */
-        $rootScope.$on('$stateChangeStart', function stateChangeStart(event, toState, params) {
+        $rootScope.$on('$stateChangeStart', function stateChangeStart(event, toState, params, fromState, fromParams) {
 
             cfpLoadingBar.start();
+
+            if (!AuthService.authorize(toState.data.access)) {
+                event.preventDefault();
+                $state.go('auth.login', params)
+            }
 
             if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
                 event.preventDefault();
                 $state.go('dashboard', params, {location: 'replace'})
             }
-            //
-            //if (!AuthService.authorize(toState.data.access)) {
-            //    event.preventDefault();
-            //    $state.go('auth.login', params)
-            //}
+
+
+            if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup_enable) {
+                event.preventDefault();
+                $state.go('auth.login', params, {location: 'replace'})
+            }
+
+
+
+
+            // Handle Permissions
+
+            var routeNameParts = toState.name.split(".");
+            var context = routeNameParts[0];
+            var action  = routeNameParts[1];
+
+            // Special exception that allows a user to edits his/hers own profile
+            if(!(context == 'users' && action == 'show' && params.id == UserService.user().id)) {
+                if(!AuthService.hasPermission(context,action)) {
+                    console.log(fromState)
+                    event.preventDefault();
+                    cfpLoadingBar.complete();
+
+                    // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
+                    if(!fromState.name) {
+                        $state.go('dashboard', params, {location: 'replace'})
+                    }
+                }
+            }
+
+
             //
             //if (toState.redirectTo) {
             //    event.preventDefault();
@@ -219,9 +278,9 @@
       }
     ])
       .controller('MainController',['$log','$scope','$rootScope','Settings','NodeModel',
-          'UserService','InfoService','AuthService',
+          'UserService','InfoService','AuthService','SubscriptionsService','NotificationsService',
           function($log,$scope,$rootScope,Settings,NodeModel,
-                   UserService,InfoService,AuthService){
+                   UserService,InfoService,AuthService,SubscriptionsService,NotificationsService){
 
               $rootScope.user = UserService.user()
               $rootScope.konga_version = window.konga_version
@@ -240,12 +299,6 @@
 
               })
 
-
-              if(AuthService.isAuthenticated()) {
-                  _fetchGatewayInfo()
-                  _fetchSettings()
-              }
-
               function _fetchSettings() {
                   Settings.load()
                       .then(function(settings){
@@ -260,9 +313,18 @@
                       .then(function(response){
                         $rootScope.Gateway = response.data
                         $log.debug("MainController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway)
+                  }).catch(function(err){
+                      $rootScope.Gateway = null;
                   })
               }
 
+              if(AuthService.isAuthenticated()) {
+                  _fetchGatewayInfo()
+                  _fetchSettings()
+
+              }
+
+              SubscriptionsService.init()
           }])
   ;
 }());

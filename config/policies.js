@@ -22,8 +22,10 @@ module.exports.policies = {
   '*': ['authenticated'],
 
   AuthController: {
+    'checkPassword':  ['authenticated'],
+    'signup':         ['signup','createUser'],
     '*':              ['passport'],
-    'checkPassword':  ['authenticated']
+
   },
 
   KongInfoController : {
@@ -42,7 +44,7 @@ module.exports.policies = {
     '*':              ['authenticated'],
   },
 
-  KongPluginController : {
+  KongPluginsController : {
     '*':              ['authenticated','dynamicNode'],
   },
 
@@ -114,7 +116,17 @@ module.exports.policies = {
 
   SnapshotController : {
     '*': ['authenticated'],
-    'takeSnapShot' : ['authenticated','dynamicNode'],
+    'takeSnapShot' : ['authenticated','dynamicNode','createUser'],
+  },
+
+  SettingsController : {
+    'find' : true,
+    '*':        ['authenticated','isAdmin'],
+  },
+
+
+  KongProxyController : {
+    "*" : ['authenticated','dynamicNode']
   }
 
 

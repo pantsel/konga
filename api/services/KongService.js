@@ -9,7 +9,7 @@ var KongService = {
 
     create: function (req, res) {
 
-        unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.post(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
@@ -20,7 +20,7 @@ var KongService = {
 
     createCb: function (req, res, cb) {
 
-        unirest.post(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.post(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
@@ -29,10 +29,17 @@ var KongService = {
             })
     },
 
-    createFromEndpointCb: function (endpoint,data, cb) {
+    createFromEndpointCb: function (endpoint,data, req, cb) {
 
-        unirest.post(sails.config.kong_admin_url + endpoint)
-            .header('Content-Type', 'application/json')
+        var headers = {'Content-Type': 'application/json'}
+
+        // If apikey is set in headers, use it
+        if(req.kong_api_key) {
+            headers['apikey'] = req.kong_api_key
+        }
+
+        unirest.post(req.node_id + endpoint)
+            .headers(headers)
             .send(data)
             .end(function (response) {
                 //if(data.name == "request-transformer") {
@@ -45,7 +52,7 @@ var KongService = {
 
 
     retrieve: function (req, res) {
-        unirest.get(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.get(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error)  return res.kongError(response)
@@ -54,8 +61,15 @@ var KongService = {
     },
 
     nodeStatus : function(node,cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        if(node.kong_api_key) {
+            headers.apikey = node.kong_api_key
+        }
+
         unirest.get(node.kong_admin_url + "/status")
-            .header('Content-Type', 'application/json')
+            .headers(headers)
             .end(function (response) {
                 if (response.error)  return cb(response)
                 return cb(null,response.body)
@@ -63,9 +77,17 @@ var KongService = {
     },
 
     listAllCb: function (req, endpoint, cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        // If apikey is set in headers, use it
+        if(req.kong_api_key) {
+            headers['apikey'] = req.kong_api_key
+        }
+
         var getData = function (previousData,url) {
             unirest.get(url)
-                .header('Content-Type', 'application/json')
+                .headers(headers)
                 .end(function (response) {
                     if (response.error) return cb(response)
                     var data = previousData.concat(response.body.data);
@@ -78,7 +100,7 @@ var KongService = {
                     }
                 })
         };
-        getData([],sails.config.kong_admin_url  + endpoint);
+        getData([],req.node_id  + endpoint);
     },
 
 
@@ -98,11 +120,11 @@ var KongService = {
                     }
                 })
         };
-        getData([],sails.config.kong_admin_url + req.url.replace('/kong',''));
+        getData([],req.node_id + req.url.replace('/kong',''));
     },
 
     update: function (req, res) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.patch(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
@@ -120,7 +142,7 @@ var KongService = {
     },
 
     updateCb: function (req, res,cb) {
-        unirest.patch(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.patch(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
@@ -139,7 +161,7 @@ var KongService = {
     },
 
     updateOrCreate: function (req, res) {
-        unirest.put(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.put(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .send(req.body)
             .end(function (response) {
@@ -149,7 +171,7 @@ var KongService = {
     },
 
     delete: function (req, res) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.delete(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error) return res.kongError(response)
@@ -169,7 +191,7 @@ var KongService = {
     },
 
     deleteCb: function (req, res,cb) {
-        unirest.delete(sails.config.kong_admin_url + req.url.replace('/kong',''))
+        unirest.delete(req.node_id + req.url.replace('/kong',''))
             .header('Content-Type', 'application/json')
             .end(function (response) {
                 if (response.error) return cb(response)

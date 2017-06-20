@@ -8,6 +8,14 @@
 @import 'angular';
 @import "animloader";
 @import "mdi";
+@import "login";
+@import "panels";
+@import "scrollbars";
+@import "top_nav";
+@import "side-nav";
+@import "animations";
+@import "tables";
+@import "bootbox";
 
 
 $color-footer-text: #999;
@@ -16,15 +24,58 @@ $color-footer-hover-icons: #337bd5;
 $color-tooltip-title: #fff;
 $color-tooltip-title-border: #9b9b9b;
 
+
+html,body {}
+
 body {
   cursor: default;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font-family-base;
   overflow-y: auto;
-  font-size: 1.4em;
+  font-size: $font-size-base;
   background-color: #f9f9f9;
-  padding-bottom: 30px;
+  color: $gray-darker;
+  //padding-bottom: 30px;
 
 }
+
+.control-label{
+  em{
+    small{
+      color: $gray-light;
+      &:before{
+        content : "("
+      }
+
+      &:after{
+        content : ")"
+      }
+    }
+  }
+}
+
+.alert-fixed-top{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.container-fluid{
+
+}
+
+.main-container.container{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+
+.text-nowrap{
+  white-space: nowrap;
+}
+
+
 
 
 input:disabled {
@@ -39,7 +90,11 @@ h3,
 h4,
 h5,
 h5 {
-  color: #414141;
+  //color: #414141;
+
+
+  font-family: $headings-font-family;
+
   &:first-of-type {
     margin-top: 10px;
   }
@@ -55,15 +110,19 @@ h5 {
 }
 
 .main-container {
-  margin-bottom: 30px;
+  //margin-bottom: 30px;
   //margin-top: 65px;
-  padding-top: 20px;
+  //padding-top: 20px;
 }
 
 .home{
   padding-top: 80px;
 
 
+}
+
+dir-pagination-controls{
+  margin-top: 15px;
 }
 
 .form-login {
@@ -121,6 +180,11 @@ h5 {
 }
 
 
+.modal-title{
+  text-transform: uppercase;
+  font-size: 1.3em;
+}
+
 
 header .navbar-nav {
 
@@ -129,6 +193,7 @@ header .navbar-nav {
 
 .page-title {
   font-size: 2em;
+  text-transform: uppercase;
   //color : $brand-primary
   i{
     color : $brand-primary
@@ -136,9 +201,11 @@ header .navbar-nav {
 }
 
 .page-head{
-  margin-top: 65px;
-  padding: 1em;
-  background-color: #f2f2f2;
+  //margin-top: 65px;
+  padding: 15px;
+  //margin-left: -15px;
+  //margin-right: -15px;
+  background-color: #ededed;
 
   .breadcrumb {
     padding: 0;
@@ -170,12 +237,15 @@ footer {
   .navbar {
     background-color: $gray-lighter;
     border-top: 1px solid #ddd;
+    //height: 30px;
     max-height: 30px;
     min-height: 30px;
     //text-align: right;
+    z-index: 0;
 
     .navbar-nav {
       float: none;
+
 
       > li {
         display: inline-block;
@@ -184,7 +254,7 @@ footer {
         > a {
           font-size: 0.9em;
           line-height: 1;
-          padding: 0 10px;
+          padding: 6px;
           color : $gray;
 
           .material-icons {
@@ -216,10 +286,15 @@ footer {
 
 .label{
   font-size: 0.9em;
+  margin-bottom: 6px;
 }
 
 .no-margin {
   margin:0 !important;
+}
+
+.clear-left{
+  left: 0 !important;
 }
 
 .no-padding{
@@ -306,8 +381,7 @@ footer {
 }
 
 .actions{
-  //margin-top: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   text-align: right;
 
   .pagination-sm {
@@ -364,13 +438,8 @@ tr.danger{
 .elevate-5 {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
-.table {
-  tr{
-    th,td{
-      vertical-align: middle !important;
-    }
-  }
-}
+
+
 
 .page-title-prefix{
   .material-icons {
@@ -382,12 +451,14 @@ tr.danger{
 }
 
 .modal-close{
-  color: #999;
-  margin-top: -10px;
+  cursor: pointer;
+  color: #313131 !important;
+  opacity: 0.6;
+  margin-top: -2px;
 }
 
 .modal-close:hover, .modal-close:focus{
-  color: #313131;
+  opacity: 1;
 }
 
 
@@ -448,7 +519,7 @@ label {
       margin-top: -4px;
     }
     .btn-icon {
-      margin-top: -5px;
+      margin-top: -8px;
       i{
         font-size: 2em !important;
         vertical-align: top !important;
@@ -571,12 +642,11 @@ pre {
 
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
-  background-color: #f2f2f2;
-
+.full-width{
+  width: 100% !important;
 }
+
 .nav-auth-img-container {
-  margin-top: 2px;
   padding:12px !important;
   cursor: pointer;
   img{
@@ -619,3 +689,57 @@ tr.disabled{
   opacity: .7;
   background-color: #eaeaea;
 }
+
+
+@media screen and (max-width: 801px) {
+  body {
+    .navbar-main{
+      .navbar-collapse{
+        .navbar-left{
+          a{
+            padding:10px 15px
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-body{
+  //background-color: $gray-lighter;
+}
+
+.table-clean{
+  > tr, > td, > th{
+    border: none;
+  }
+}
+
+.text-white{
+  color: #fff !important;
+}
+
+.profile-user-icon{
+  height: 180px;
+  border: 3px dotted #ddd;
+  background: #f4f4f4;
+  padding: 9px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.badge.badge-danger{
+  background-color: $brand-danger;
+}
+
+
+//.iln-match-height  .panel {
+//  height: 100%; !important;
+//}
+
+
+//.padding{
+//  padding: 15px;
+//}
+
+

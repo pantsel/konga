@@ -1,11 +1,11 @@
-<div class="modal-header success">
-    <h4 class="modal-title" id="modal-title">
-        Create new Upstream
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        Create Upstream
         <a  class="modal-close pull-right" ng-click="close()">
-            <i class="material-icons ">clear</i>
+            <i class="mdi mdi-close"></i>
         </a>
 
-    </h4>
+    </h5>
 </div>
 
 <div class="modal-body" id="modal-body">
@@ -45,7 +45,7 @@
                     <chip-tmpl>
                         <div class="default-chip">
                             {{chip}}
-                            <i class="material-icons" remove-chip>clear</i>
+                            <i class="mdi mdi-close" remove-chip></i>
                         </div>
                     </chip-tmpl>
                     <input chip-control/>
@@ -59,8 +59,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-7">
-                <button type="submit" class="btn btn-primary" ng-click="submit()">
-                    <i class="material-icons">&#xE876;</i>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="submit()">
+                    <i class="mdi mdi-check"></i>
                     Submit Upstream
                 </button>
             </div>

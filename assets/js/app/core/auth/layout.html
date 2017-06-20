@@ -1,0 +1,24 @@
+<div class="row page-login">
+    <div class="col-md-12">
+
+        <div class="login-form-container">
+
+            <div class="panel panel-default no-margin">
+                <div class="panel-heading">
+                    <img ng-src="images/konga-logo-white-no-icon.png" class="img-responsive padding"/>
+                    <!--<h3 class="text-white">KONGA</h3>-->
+                    <ul class="nav nav-tabs nav-justified">
+                        <li ui-sref="auth.login" ui-sref-active="active"><a>LOGIN</a></li>
+                        <li ui-sref="auth.signup" data-ng-if="KONGA_CONFIG.signup_enable" ui-sref-active="active"><a>SIGNUP</a></li>
+                    </ul>
+                </div>
+
+                <div class="panel-body">
+                    <div data-ui-view="authContent"></div>
+                    <p class="help-block text-center">KONGA {{konga_version}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -29,6 +29,7 @@
     'cfp.loadingBar',
     'frapontillo.bootstrap-switch',
     'ngFileUpload',
-    'base64'
+    'base64',
+    'angular.vertilize'
   ]);
 }());

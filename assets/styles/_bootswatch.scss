@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+
 /*!
  * bootswatch v3.3.6
  * Homepage: http://bootswatch.com
@@ -13,7 +13,7 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: $font-family-base;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -1085,13 +1085,7 @@ html {
   font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-body {
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 1.846;
-  color: #666666;
-  background-color: #ffffff;
-}
+
 input,
 button,
 select,
@@ -1101,7 +1095,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: $brand-primary;
+  color: $link-color;
   text-decoration: none;
 }
 a:hover,
@@ -2276,9 +2270,9 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.846;
-  vertical-align: top;
+  padding: $table-cell-padding;
+  line-height: $line-height-base;
+  vertical-align: middle;
   border-top: 1px solid #dddddd;
 }
 .table > thead > tr > th {
@@ -3019,7 +3013,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 6px 16px;
-  font-size: 13px;
+  font-size: inherit;
   line-height: 1.846;
   border-radius: 3px;
   -webkit-user-select: none;
@@ -5827,7 +5821,7 @@ button.list-group-item-danger.active:focus {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #f9f9f9;
+  background-color: $gray-lighter;
   border: 1px solid transparent;
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5997,7 +5991,6 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -6115,7 +6108,6 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;

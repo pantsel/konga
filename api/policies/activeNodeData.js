@@ -14,14 +14,14 @@ module.exports = function activeNodeData(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.activeNodeData() called]');
 
 
-  sails.config.kong_admin_url = request.headers['kong-admin-url'] || sails.config.kong_admin_url
+  // sails.config.kong_admin_url = request.headers['kong-admin-url'] || sails.config.kong_admin_url
 
   var c = actionUtil.parseCriteria(request)
 
   if(c.hasOwnProperty('or')){
-    c['and'] = [{node_id : sails.config.kong_admin_url}]
+    c['and'] = [{node_id : request.node_id}]
   }else{
-    c['node_id'] = sails.config.kong_admin_url
+    c['node_id'] = request.node_id
   }
 
   request.query.where = JSON.stringify(c)

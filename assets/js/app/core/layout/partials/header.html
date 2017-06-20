@@ -1,32 +1,20 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+<nav class="navbar navbar-default navbar-main no-margin" data-ng-if="isAuthenticated()">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" ng-click="toggleSideNav()" class="navbar-toggle hidden-md hidden-lg" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" data-ui-sref-active="active" data-ui-sref="dashboard">
-                <img ng-src="images/konga-logo-small.png" class="konga-nav-icon"/>
+            <a class="navbar-brand">
             </a>
+
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color: white">
-            <ul class="nav navbar-nav">
-                <li class="{{item.class}}"
-                    data-ng-repeat="item in navigationItems"
-                    data-ng-show="auth.authorize(item.access) && item.show()"
-                    data-ng-class="{'not-active': isNotActive(item), 'active': isActive(item)}"
-                    data-ui-sref-active="active"
-                >
-                    <a
-                       data-ui-sref="{{item.state}}"
-                    >{{item.title}}</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li
                         data-ui-sref-active="active"
@@ -34,43 +22,72 @@
                 >
                     <a  data-ui-sref="auth.login">Login</a>
                 </li>
+
+                <!-- NOTIFICATIONS DROPDOWN -->
+                <li data-ng-show="auth.isAuthenticated()" uib-dropdown auto-close="outsideClick" keyboard-nav>
+                    <a href uib-dropdown-toggle>
+                        <i class="mdi mdi-bell-outline"></i>
+                        <span class="badge badge-danger" ng-show="notifications && notifications.length">{{notifications.length}}</span>
+                    </a>
+                    <ul class="dropdown-menu notifications-dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+
+                        <li role="menuitem" ng-if="!notifications.length">
+                            <a>
+                                There are no notifications at this point...
+                            </a>
+                        </li>
+                        <li role="menuitem" ng-repeat="notification in notifications">
+                            <a>
+                                <i class="mdi mdi-close pull-right clickable" ng-click="removeNotification($index)"></i>
+                                <i class="mdi mdi-18px text-info {{notification.icon || 'mdi-message'}}"></i>&nbsp;
+                                <span style="margin-right: 26px">{{notification.message}}</span>
+
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!-- END NOTIFICATIONS DROPDOWN -->
+
+                <!-- PROFILE DROPDOWN -->
                 <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
                         &nbsp;
-                        <span class="greeting">{{user().firstName}} {{user().lastName}}</span>
+                        <span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().firstName || user().username}}</span>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                         <li role="menuitem">
                             <a data-ui-sref="users.show({id:user().id})">
-                                <i class="material-icons">perm_identity</i>
+                                <i class="mdi mdi-account-outline"></i>
                                 Profile
                             </a>
                         </li>
                         <li role="menuitem" ng-if="user().admin">
                             <a data-ui-sref="users">
-                                <i class="material-icons">&#xE7FC;</i>
+                                <i class="mdi mdi-account-multiple"></i>
                                 Users
                             </a>
                         </li>
                         <li role="menuitem">
-                            <a data-ui-sref="settings.connections">
-                                <i class="material-icons">settings</i>
+                            <a data-ui-sref="settings" ng-if="user().admin">
+                                <i class="mdi mdi-settings"></i>
                                 Settings
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li role="menuitem">
                             <a  data-ng-click="logout()">
-                                <i class="material-icons">&#xE879;</i>
+                                <i class="mdi mdi-logout-variant"></i>
                                 Logout
                             </a>
                         </li>
                     </ul>
 
                 </li>
+                <!-- END PROFILE DROPDOWN -->
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

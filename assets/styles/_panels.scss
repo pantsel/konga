@@ -1,0 +1,9 @@
+$pbrands: primary $brand-primary, success $brand-success, warning $brand-warning, danger $brand-danger, info $brand-info;
+
+@each $brand in $pbrands {
+  $key: nth($brand, 1);
+  $value: nth($brand, 2);
+  .panel-#{$key} {
+    border: 1px solid $value;
+  }
+}

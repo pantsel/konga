@@ -1,20 +1,32 @@
-<div data-ui-view="header"></div>
-<div ng-if="isAuthenticated() && $state.name != 'admin'" class="page-head container-fluid">
-  <div class="container">
-    <h3 class="page-title">
-      <span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>
-      <span ng-bind-html="$state.data.pageName"></span>&nbsp;
-      <div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>
-    </h3>
-    <p ng-if="$state.data.pageDescription" class="help-block" ng-bind-html="$state.data.pageDescription"></p>
-    <ui-breadcrumbs ng-if="$state.data.displayName" displayname-property="data.displayName" template-url="js/app/core/layout/partials/uiBreadcrumbs.tpl.html">
-    </ui-breadcrumbs>
+<div data-ui-view="sidenav" ng-if="$state.name.indexOf('auth') < 0 && $state.name.indexOf('error') < 0"></div>
+<div class="main-container-wrapper" ng-class="{'full-width no-margin clear-left':$state.name.indexOf('auth') > -1}">
+  <div data-ui-view="header"></div>
+  <div class="alert alert-fixed-top alert-success alert-dismissible" ng-if="$stateParams.activated">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Neat!</strong> Your account is activated.
   </div>
+  <div class="main-container-wrapper-static">
+    <div class="container-fluid">
+
+      <div class="main-container container">
+        <div ng-if="isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard'" class="page-head">
+          <h3 class="page-title">
+            <!--<span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>-->
+            <span ng-bind-html="$state.data.pageName"></span>&nbsp;
+            <div ng-show="loading" id="spinner" data-spinner='{"radius": 15,"strokeWidth":3}' style="display: inline-block;"></div>
+          </h3>
+          <p ng-if="$state.data.pageDescription" class="help-block" ng-bind-html="$state.data.pageDescription"></p>
+          <ui-breadcrumbs ng-if="$state.data.displayName" displayname-property="data.displayName" template-url="js/app/core/layout/partials/uiBreadcrumbs.tpl.html">
+          </ui-breadcrumbs>
+        </div>
+        <br><br>
+        <div data-ui-view="content" class="main-container-inner"></div>
+      </div>
+    </div>
+
+  </div>
+  <div data-ui-view="footer"></div>
 </div>
-<div class="container main-container">
-  <div data-ui-view="content"></div>
-</div>
-<div data-ui-view="footer"></div>
 <script>
   window.enableLogs = <%=angularDebugEnabled%>;
   window.konga_version = "<%=konga_version%>";

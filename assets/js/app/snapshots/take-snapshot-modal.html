@@ -1,0 +1,48 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        Snapshot
+        <a  data-ng-show="!connecting" class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<table class="table table-bordered table-condensed no-margin">
+    <tr>
+        <th colspan="2" style="background-color: #f4f4f4">
+            ACTIVE NODE
+        </th>
+    </tr>
+    <tr>
+        <th>name</th>
+        <td><strong class="text-primary">{{node.name}}</strong></td>
+    </tr>
+    <tr>
+        <th>URL</th>
+        <td>{{node.kong_admin_url}}</td>
+    </tr>
+    <tr>
+        <th>Kong version</th>
+        <td>{{node.kong_version.split("-").join(".")}}</td>
+    </tr>
+</table>
+<div class="modal-body">
+
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+    <div class="form-group" ng-class="{'has-error' : error}">
+        <input data-ng-model="snapshot.name" class="form-control" placeholder="Give the snapshot a unique name...">
+        <p data-ng-show="error" class="help-block">
+            {{error}}
+        </p>
+    </div>
+    <div class="form-group">
+        <button type="button"
+                data-ng-disabled="submitting"
+                data-ng-click="submit()"
+                class="btn btn-primary btn-block">
+            <fading-circle-spinner class="spinner spinner-invert pull-left" data-ng-show="submitting"></fading-circle-spinner>
+            go!
+        </button>
+    </div>
+
+</div>

@@ -1,10 +1,10 @@
-<div class="modal-header warning">
+<div class="modal-header primary">
     <h5 class="modal-title" id="modal-title">
-        Edit <span class="capitalize">
-            {{plugin.name.split("-").join(" ")}}
+        EDIT <span class="capitalize">
+            {{plugin.name.split("-").join(" ").toUpperCase()}}
         </span>
         <a  class="modal-close pull-right" ng-click="close()">
-            <i class="material-icons">clear</i>
+            <i class="mdi mdi-close"></i>
         </a>
 
     </h5>
@@ -80,7 +80,7 @@
                                             <chip-tmpl>
                                                 <div class="default-chip">
                                                     {{chip}}
-                                                    <i class="material-icons" remove-chip>clear</i>
+                                                    <i class="mdi mdi-close" remove-chip></i>
                                                 </div>
                                             </chip-tmpl>
                                             <input chip-control/>
@@ -125,7 +125,7 @@
                             <chip-tmpl>
                                 <div class="default-chip">
                                     {{chip}}
-                                    <i class="material-icons" remove-chip>clear</i>
+                                    <i class="mdi mdi-close" remove-chip></i>
                                 </div>
                             </chip-tmpl>
                             <input chip-control/>
@@ -170,8 +170,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-7">
-                <button type="button" data-ng-disabled="busy" class="btn btn-primary" ng-click="updatePlugin()">
-                    <i class="material-icons" ng-if="!busy">&#xE876;</i>
+                <button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="updatePlugin()">
+                    <i class="mdi mdi-check" ng-if="!busy"></i>
                     <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
                     submit changes
                 </button>

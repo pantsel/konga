@@ -1,49 +1,190 @@
-<div class="row margin-bottom">
-    <div class="col-md-12">
-        <!--<div class="list-group">-->
-            <!--<a href="#" class="list-group-item">-->
-                <!--<h4 class="list-group-item-heading">Connections</h4>-->
-                <!--<p class="list-group-item-text">Define Kong Node connections and select the one to use.</p>-->
-            <!--</a>-->
-            <!--<a href="#" class="list-group-item">-->
-                <!--<h4 class="list-group-item-heading">Snapshots</h4>-->
-                <!--<p class="list-group-item-text">Take Node Snapshots and restore them a later time.</p>-->
-            <!--</a>-->
-            <!--<a href="#" class="list-group-item">-->
-                <!--<h4 class="list-group-item-heading">General</h4>-->
-                <!--<p class="list-group-item-text">General application settings.</p>-->
-            <!--</a>-->
-        <!--</div>-->
-        <ul class="nav nav-tabs">
-            <li ui-sref=".connections" ui-sref-active="active"><a>Connections</a></li>
-            <li ui-sref=".snapshots" ui-sref-active="active"><a>Snapshots <span class="badge">Beta</span></a></li>
-            <li ui-sref=".notifications" ui-sref-active="active"><a>Notifications</a></li>
-        </ul>
+<form name="applicationSettingsForm" ng-submit="updateKongaSettings()">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>
+                General settings
+            </h4>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Dashboard refresh interval
+                        </label>
+                        <input type="number" class="form-control" data-ng-model="KONGA_CONFIG.info_polling_interval">
+                        <p class="help-block">The interval in milliseconds at which the Dashboard data will refresh. If set to 0, polling will be disabled.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Base URL
+                        </label>
+                        <input type="text" class="form-control" data-ng-model="KONGA_CONFIG.baseUrl" placeholder="ex. http://my-konga.io">
+                        <p class="help-block">Konga uses the <code>baseUrl</code> for generating links (ex. Account activation link). If left blank, the server's <code>ip:port</code> will be used.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>
+                Sign up restrictions
+            </h4>
+            <hr>
+            <div class="form-group">
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="checkbox">
+                            <label class="pull-left margin-right">
+                                <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_enable">
+                            </label>
+                            <p>
+                                Allow users to sign up.
+                                <br>
+                                <span class="help-block">If enabled, users will be allowed to sign up.</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label class="pull-left margin-right">
+                                <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.signup_require_activation">
+                            </label>
+                            <p>
+                                Send activation email.
+                                <br>
+                                <span class="help-block">If enabled, an activation email will be sent to the user. If not, the user will be activated automatically.</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>
+                Email settings
+            </h4>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Default sender name</label>
+                        <input required="required" type="text" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender_name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Default sender address</label>
+                        <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
+                    </div>
+                </div>
+            </div>
 
-</div>
+            <br>
+            <h5>Transports</h5>
+            <p class="help-block">
+                Configure email transports and select the one to use.
+            </p>
+            <div class="row" vertilize-container="">
+                <div class="col-md-4" data-ng-repeat="transport in transports">
+                    <div class="panel"
+                         vertilize
+                         ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
+                        <div class="panel-heading">
+                            <div class="panel-title" >
+                                <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
+                                    <i class="mdi" ng-class="KONGA_CONFIG.default_transport == transport.name ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
+                                    {{transport.name.toUpperCase()}}
+                                </div>
 
-<div data-ui-view="settingsContent"></div>
+                                <div class="pull-right" style="margin-top: -6px;">
+                                    <button
+                                            type="button"
+                                            class="btn btn-link btn-sm"
+                                            data-ng-show="transport.name != 'sendmail'"
+                                            data-ng-click="configureTransport(transport)"
+                                            data-ng-class="{'text-white':KONGA_CONFIG.default_transport == transport.name}"
+                                    >
+                                        <i class="mdi mdi-settings"></i>
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
 
-<!--<div class="row">-->
-    <!--<uib-tabset active="active">-->
-        <!--<uib-tab index="0">-->
-            <!--<uib-tab-heading>-->
-                <!--Connections-->
-            <!--</uib-tab-heading>-->
-            <!--<br>-->
-            <!--<div data-ui-view="nodes"></div>-->
-        <!--</uib-tab>-->
-        <!--<uib-tab index="1" ng-show="user.node && user.admin">-->
-            <!--<uib-tab-heading>-->
-                <!--Snapshots <span class="badge">Beta</span>-->
-            <!--</uib-tab-heading>-->
-            <!--<br>-->
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="help-block elipsize">{{transport.description}}</p>
+                        </div>
 
-            <!--<div data-ui-view="snapshots"></div>-->
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Notify administrators when</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tr
+                                    data-ng-repeat="(key,value) in KONGA_CONFIG.notify_when">
+                                <td width="1">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-change="updateKongaSettings()" ng-model="value.active">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h6 class="no-margin">{{value.title}}</h6>
+                                    <p class="help-block no-margin">{{value.description}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
 
 
-        <!--</uib-tab>-->
-    <!--</uib-tabset>-->
 
-<!--</div>-->
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+
+            <h4>
+                User permissions
+            </h4>
+            <hr>
+            <div class="row" data-ng-repeat="(context,permissions) in KONGA_CONFIG.user_permissions">
+                <div class="col-md-12">
+                    <h6>{{context.toUpperCase()}}</h6>
+                    <div class="well">
+                        <label class="checkbox-inline margin-right" data-ng-repeat="(key,value) in permissions">
+                            <input type="checkbox" ng-change="updateKongaSettings()" ng-model="KONGA_CONFIG.user_permissions[context][key]">
+                            {{key}}
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block">
+                save settings
+            </button>
+        </div>
+    </div>
+</form>

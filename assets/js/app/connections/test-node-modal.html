@@ -1,0 +1,29 @@
+<div class="modal-header warning">
+    <h5 class="modal-title" id="modal-title">
+        Testing node
+        <a  data-ng-show="!connecting" class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+
+    <div data-ng-show="connecting">
+        <fading-circle-spinner class="spinner"></fading-circle-spinner>
+        <span>Connecting to {{url}}</span>
+    </div>
+    <div data-ng-show="!connecting">
+        <div data-ng-show="connectionSucceeded" class="text-success">
+            <i class="material-icons">done</i> Successfully connected to node!
+        </div>
+        <div data-ng-show="!connectionSucceeded">
+            <span class="text-danger">
+                <i class="material-icons">warning</i>
+                Connection failed!
+            </span><br>
+            It seems that the node is not accessible.
+        </div>
+    </div>
+
+</div>

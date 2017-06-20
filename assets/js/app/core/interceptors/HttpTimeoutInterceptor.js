@@ -10,12 +10,19 @@
   'use strict';
 
   angular.module('frontend.core.interceptors')
-      .factory('timeoutHttpIntercept', function ($rootScope, $q) {
+      .factory('timeoutHttpIntercept', ['HttpTimeout', function (HttpTimeout) {
         return {
           'request': function (config) {
-            config.timeout = 10000;
-            return config;
+
+              // Don't hang more that HttpTimeout waiting for response on GET requests.
+              // Setting timeout on POST, PUT, PATCH or DELETE
+              // will result in unwanted interruptions in data-heavy scenarios.
+              if(config.method == 'GET') {
+                  config.timeout = HttpTimeout;
+              }
+
+              return config;
           }
         }
-      });
+      }]);
 }());

@@ -1,39 +1,39 @@
-<footer>
+<footer ng-if="isAuthenticated()">
     <div class="navbar navbar-footer navbar-fixed-bottom">
-        <div class="container">
-            <ul class="nav navbar-nav navbar-left">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-left no-margin">
                 <li>
                     <a>
                         <strong class="text-success">KONGA {{konga_version}}</strong>
                     </a>
                 </li>
-                <li>
+                <li class="hidden-xs">
                     <a href="https://github.com/pantsel/konga" target="_blank">
                         <i class="fa fa-github"></i>GitHub
                     </a>
                 </li>
 
-                <li>
+                <li class="hidden-xs">
                     <a href="https://github.com/pantsel/konga/issues" target="_blank">
-                        <i class="material-icons">bug_report</i>Issues
+                        <i class="mdi mdi-18px mdi-bug"></i>Issues
                     </a>
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right hidden-xs" style="margin-right: 5px">
                 <li  data-ng-show="isAuthenticated()" uib-dropdown is-open="isOpen" auto-close="disabled" keyboard-nav>
                     <a class="clickable" uib-dropdown-toggle>
-                        <i class="material-icons">cast_connected</i>
+                        <i class="mdi mdi-18px mdi-cast-connected"></i>
                         Connected to
                         <strong>{{user.node ? user.node.name : 'N/A'}}</strong>
                     </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu animated fadeInUpShort go panel panel-primary" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
                         <li role="menuitem" style="background-color: #f4f4f4">
 
                             <a>
 
-                                Choose connetion
-                                <i class="material-icons pull-right clickable" data-ng-click="closeDropdown()">close</i>
+                                Choose connection
+                                <i class="mdi mdi-close pull-right clickable" data-ng-click="isOpen = !isOpen"></i>
                             </a>
                         </li>
                         <li role="menuitem">
@@ -42,12 +42,12 @@
                                     class="clickable"
                                     data-ng-click="activateConnection(connection)"
                                 >
-                                    <td width="1">
+                                    <td>
                                         <div data-ng-if="connection.checkingConnection">
                                             <fading-circle-spinner class="spinner"></fading-circle-spinner>
                                         </div>
                                         <div data-ng-if="!connection.checkingConnection">
-                                            <i class="material-icons text-primary">{{user.node.id == connection.id ? '&#xE834;' : '&#xE835;'}}</i>
+                                            <i class="mdi text-primary" ng-class="user.node.id == connection.id ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
                                         </div>
                                     </td>
                                     <td><strong>{{connection.name}}</strong></td>

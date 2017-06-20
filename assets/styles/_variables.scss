@@ -3,23 +3,44 @@
 // --------------------------------------------------
 
 
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("/fonts/proximanova-regular.woff") format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("/fonts/Montserrat-Light.otf") format("opentype");
+}
+
+
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("/fonts/Montserrat-SemiBold.otf") format("opentype");
+}
+
+
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-base:              rgba(77,83,96,1);
+$gray-base:              #607D8B;
 $gray-darker:            darken($gray-base, 13.5%); // #222
 $gray-dark:              darken($gray-base, 10.5%);;
-$gray:                   #666;
-$gray-light:             #bbb;
-$gray-lighter:           lighten($gray-base, 62.5%); // #eee
+$gray:                   #5A738E;
+$gray-light:             lighten($gray-base, 20.5%);
+$gray-lighter:           #ededed; // #eee
 
-$brand-primary:         #03A9F4;
-$brand-success:         #26C281;
-$brand-info:            rgba(70,191,189,1);
+$brand-royal :          #2A3F54;
+$brand-primary:         #1ABB9C;
+$brand-success:         #1ABB9C;
+$brand-info:            #428bca;
 $brand-warning:         rgba(253,180,92,1);
 $brand-danger:          rgba(247,70,74,1);
 
+
+
+$sidenav-width : 230px;
 
 //== Scaffolding
 //
@@ -31,7 +52,7 @@ $body-bg:               #fff;
 $text-color:            $gray;
 
 //** Global textual link color.
-$link-color:            $brand-primary;
+$link-color:            $brand-info;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      darken($link-color, 15%);
 //** Link hover decoration.
@@ -42,13 +63,13 @@ $link-hover-decoration: underline;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  "Montserrat-Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          13px;
+$font-size-base:          14px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
@@ -65,7 +86,7 @@ $line-height-base:        1.846; // 20/14
 $line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
-$headings-font-family:    inherit;
+$headings-font-family:    "Montserrat-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;;
 $headings-font-weight:    400;
 $headings-line-height:    1.1;
 $headings-color:          #444;
@@ -122,7 +143,7 @@ $caret-width-large:         5px;
 //## Customizes the `.table` component with basic values, each used across all table variations.
 
 //** Padding for `<th>`s and `<td>`s.
-$table-cell-padding:            8px;
+$table-cell-padding:            12px;
 //** Padding for cells in `.table-condensed`.
 $table-condensed-cell-padding:  5px;
 
@@ -490,7 +511,7 @@ $state-success-bg:               lighten($brand-success,24%);
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
 
 $state-info-text:                darken($brand-info,15%);
-$state-info-bg:                  lighten($brand-info,37%);
+$state-info-bg:                  lighten($brand-info,40%);
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
 
 $state-warning-text:             $brand-warning;

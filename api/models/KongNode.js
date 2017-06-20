@@ -27,6 +27,10 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       type: 'string',
       required : true
     },
+    kong_api_key: {
+        type: 'string',
+        defaultsTo : ''
+    },
     kong_version: {
       type: 'string',
       required : true,
@@ -45,6 +49,20 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       defaultsTo : false
     }
   },
+
+  afterDestroy: function (values, cb) {
+
+    sails.log("KongNode:afterDestroy:called => ",values);
+
+    // Stop health checks
+    values.forEach(function(node){
+      HealthCheckEvents.emit('health_checks.stop',node);
+    })
+
+    cb();
+
+  },
+
   afterUpdate: function (values, cb) {
 
     sails.log("KongNode:afterUpdate:called()")

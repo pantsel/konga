@@ -3,8 +3,8 @@
         <div class="panel-title pull-left">
             Targets
         </div>
-        <button class="btn btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
-            <i class="material-icons" data-ng-show="!deleting">delete</i>
+        <button class="btn btn-sm btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
+            <i class="mdi mdi-plus"></i>
             Add target
         </button>
         <div class="clearfix"></div>
@@ -34,28 +34,34 @@
                                 class="clickable"
                                 data-ng-show="item.column"
                                 data-ng-click="changeSort(item)"
-                                data-ng-bind-html="item.title"
+                                data-ng-bind-html="item.title.toUpperCase()"
                         ></a>
             <span
                     data-ng-show="!item.column"
-                    data-ng-bind-html="item.title"
+                    data-ng-bind-html="item.title.toUpperCase()"
             ></span>
                         <input data-ng-if="item.checkbox" type="checkbox" data-ng-model="globalCheck.isAllChecked"/>
-                        <i class="material-icons"
+                        <i class="mdi"
                            data-ng-show="sort.column == item.column"
-                           data-ng-class="{'fa-angle-down': !sort.direction, 'fa-angle-up': sort.direction}"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         >
-                            {{sort.direction ? '&#xE316;' : '&#xE313;'}}
                         </i>
                     </th>
+                    <th width="1"></th>
                 </tr>
-                <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | itemsPerPage: itemsPerPage | filter : filters.searchWord">
+                <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td>
                         <raw-view data-item="item"></raw-view>
                     </td>
                     <td>{{item.target || "-"}}</td>
                     <td>{{item.weight || "-"}}</td>
                     <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                    <td>
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
                 </tr>
 
                 <tr data-ng-if="items.length === 0 && !loading">

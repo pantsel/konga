@@ -33,14 +33,14 @@ module.exports = function hook(sails) {
             })
 
         HealthCheckEvents.addListener('health_checks.start', function(node){
-            sails.log("Hook:health_checks:on:health_checks.start",node)
+            //sails.log("Hook:health_checks:on:health_checks.start",node)
             HealthCheckEvents.start(node)
 
         });
 
 
         HealthCheckEvents.addListener('health_checks.stop', function(node){
-            sails.log("Hook:health_checks:on:health_checks.stop",node)
+            //sails.log("Hook:health_checks:on:health_checks.stop",node)
             HealthCheckEvents.stop(node)
         });
 

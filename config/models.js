@@ -20,6 +20,22 @@ module.exports.models = {
     connection: process.env.DB_ADAPTER || 'localDiskDb',
     migrate: 'alter',
 
+    updateOrCreate: function(criteria, values, cb){
+        var self = this; // reference for use by callbacks
+        // If no values were specified, use criteria
+        if (!values) values = criteria.where ? criteria.where : criteria;
+
+        this.findOne(criteria, function (err, result){
+            if(err) return cb(err, false);
+
+            if(result){
+                self.update(criteria, values, cb);
+            }else{
+                self.create(values, cb);
+            }
+        });
+    },
+
     /**
      * This method adds records to the database
      *

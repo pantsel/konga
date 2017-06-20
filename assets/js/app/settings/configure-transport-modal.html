@@ -1,0 +1,33 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        Configure <span class="capitalize">
+            {{transport.name.toUpperCase()}}
+        </span>
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="item in transport.schema">
+            <label>{{item.name}}</label>
+            <div ng-switch on="item.type">
+                <div ng-switch-when="text">
+                    <input type="text"
+                           placeholder="{{item.description}}"
+                           ng-model="getModelParent(item.model || item.name)[ getModelLeaf(item.model || item.name) ]"
+                           class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="submit()">
+                <i class="mdi mdi-check" ng-if="!busy"></i>
+                <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                submit changes
+            </button>
+        </div>
+    </form>
+</div>

@@ -35,6 +35,13 @@
 }
 
 
+.btn-default.btn-link{
+  color: $gray-darker !important;
+}
+
+.btn-info.btn-link{
+  color: $brand-info !important;
+}
 
 .btn-warning.btn-link{
   color: $brand-warning !important;
@@ -56,9 +63,6 @@
   overflow-y: auto !important;
 }
 
-.help-block{
-  font-size: 0.9em;
-}
 
 input.form-control, select.form-control{
   border-bottom: 1px solid #bbb !important;
@@ -137,7 +141,6 @@ input.form-control, select.form-control{
 }
 
 .panel {
-  transition: all .2s;
   &.panel-dashed.panel-flat{
     &:hover{
       border: 2px dashed #666;
@@ -178,12 +181,7 @@ input.form-control, select.form-control{
 
 
 
-.navbar-default {
-  background: #fff;
-  height: 68px;
-  border-bottom: 1px solid #eaeaea;
-  box-shadow: none;
-}
+
 
 .navbar-default .navbar-nav > li > a {
   color: $brand-success;
@@ -335,14 +333,17 @@ input.form-control, select.form-control{
   transition: all 0s;
 }
 
-.well {
-  background-color: #f2f2f2;
-}
-.table tr th{
 
-}
+
 
 .label {
   margin-right: 0.5em;
   display: inline-block;
+}
+
+.badge-lg{
+  padding: 6px 8px 6px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: 1em;
 }

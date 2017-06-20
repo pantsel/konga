@@ -1,0 +1,60 @@
+.page-login{
+  //position: fixed;
+  //background-color: $brand-primary;
+  //top:50px;
+  //left: 0;
+  //right: 0;
+  //bottom: 0;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+  margin-top: 5%;
+
+  .login-form-container{
+    margin: auto;
+    width: 350px;
+    max-width: 90%;
+    transition: all 0.5s;
+
+    .panel{
+      .panel-heading{
+        background-color: $brand-royal;
+        padding-top: 15px;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+
+        img{
+          width: 50%;
+          margin: auto;
+
+        }
+        .nav-tabs > li > a {
+          font-weight: bold;
+          color: #fff;
+        }
+
+        .nav-tabs > li:hover > a{
+          -webkit-box-shadow: inset 0 -2px 0 #fff;
+          box-shadow: inset 0 -2px 0 #fff;
+        }
+
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
+          border: none;
+          -webkit-box-shadow: inset 0 -4px 0 #fff;
+          box-shadow: inset 0 -4px 0 #fff;
+          color: #fff;
+        }
+      }
+    }
+
+
+    .form-group{
+      &.has-error{
+        background-color: transparent !important;
+        padding: 0 !important;
+      }
+    }
+  }
+}

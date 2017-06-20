@@ -1,0 +1,54 @@
+<konga-loader ng-if="loading"></konga-loader>
+
+<div class="row" ng-if="!loading">
+    <div class="col-md-6">
+        <h4>
+            {{snapshot.name}}@{{snapshot.kong_node_name}}<br>
+            <small>
+                Kong {{snapshot.kong_version.split('-').join('.')}}
+                &nbsp;
+                <i class="mdi mdi-calendar-blank mdi-18px"></i>
+                {{snapshot.createdAt | date}}
+            </small>
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-primary" data-ng-click="showRestoreModal()">
+            <i class="mdi mdi-backup-restore"></i>
+            restore
+        </button>
+
+        <a target="_self" href="api/snapshots/{{snapshot.id}}/download?token={{token}}" download="snapshot_{{snapshot.id}}.json" class="btn btn-warning">
+            <i class="mdi mdi-export"></i>
+            export
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <uib-tabset active="active">
+            <uib-tab index="$index" data-ng-repeat="(key,value) in snapshot.data">
+                <uib-tab-heading>
+                    <strong>{{key.toUpperCase().split("_").join(" ")}}</strong>
+                </uib-tab-heading>
+                <br>
+                <div class="form-group well">
+                    <div class="input-group">
+                    <span class="input-group-addon" uib-dropdown-toggle>
+                        <i class="mdi mdi-magnify"></i>
+                    </span>
+                        <input type="text" class="form-control" placeholder="Search items..." ng-model="filters[key]">
+                    </div>
+                </div>
+
+                <div pagination-id="key" dir-paginate="item in snapshot.data[key] | itemsPerPage: 20 | filter : filters[key]">
+                    <div json-human="item"></div>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <dir-pagination-controls pagination-id="key"></dir-pagination-controls>
+
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

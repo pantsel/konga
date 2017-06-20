@@ -16,6 +16,95 @@
           });
         };
       })
+
+    .directive('sidenav', ['$window','$rootScope', function ($window,$rootScope) {
+
+        return {
+            link: link,
+            restrict: 'A'
+        };
+
+        function link(scope, element, attrs){
+
+            var sideNavEl = document.querySelector('.js-side-nav');
+            var bodyEl = document.querySelector('.body');
+            var mainContainerEl = document.querySelector('.main-container-wrapper');
+            var sideNavContentEl = document.querySelector('.side-nav__content')
+            scope.width = $window.innerWidth;
+            var isSideNavShown = false;
+
+            sideNavEl.addEventListener('click', function (e) {
+                if (e.offsetX > sideNavContentEl.offsetWidth) {
+                    hideSideNav()
+                }
+            });
+
+
+
+
+
+            function onResize(){
+                // uncomment for only fire when $window.innerWidth change
+                // if (scope.width !== $window.innerWidth)
+                {
+                    scope.width = $window.innerWidth;
+
+                    showOrHideSidenav()
+
+                    scope.$digest();
+                }
+            }
+
+            function showOrHideSidenav() {
+                if(scope.width >= 992){
+                    showSideNav()
+                }else{
+                    hideSideNav()
+                }
+            }
+
+
+            function showSideNav() {
+                sideNavEl.classList.add('side-nav--animatable');
+                mainContainerEl.classList.add('side-nav--animatable');
+                sideNavEl.classList.add('side-nav--visible');
+                bodyEl.classList.add('_expose-aside');
+                if(scope.width < 992){
+                    bodyEl.classList.add('w-sm');
+                }
+                isSideNavShown = true;
+            }
+
+
+            function hideSideNav() {
+                sideNavEl.classList.add('side-nav--animatable');
+                mainContainerEl.classList.add('side-nav--animatable');
+                sideNavEl.classList.remove('side-nav--visible');
+                bodyEl.classList.remove('_expose-aside');
+                bodyEl.classList.remove('w-sm');
+                isSideNavShown = false;
+            }
+
+            function cleanUp() {
+                angular.element($window).off('resize', onResize);
+            }
+
+            showOrHideSidenav()
+
+            angular.element($window).on('resize', onResize);
+            scope.$on('$destroy', cleanUp);
+
+            $rootScope.$on('sidenav-toggle',function(){
+                if(isSideNavShown) {
+                    hideSideNav()
+                }else{
+                    showSideNav()
+                }
+            })
+
+        }
+
+    }])
       .directive('fileSelect', ['$window', function ($window) {
           return {
               restrict: 'A',

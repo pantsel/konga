@@ -12,7 +12,7 @@
                         ng-class="{'active' : sections[activeSection].name == section.name }"
                         data-ng-click="showSection($index)"
                         data-ng-repeat="section in sections">
-                    <i class="material-icons" data-ng-bind-html="section.icon"></i>
+                    <i class="mdi {{section.icon}}"></i>
                     {{section.name}}
                 </a>
             </div>

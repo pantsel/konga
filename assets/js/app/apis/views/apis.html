@@ -1,0 +1,128 @@
+
+<!--<div class="row">-->
+    <!--<div class="col-md-12 actions">-->
+        <!--<a  class="btn btn-primary" ng-click="openAddApiModal()">-->
+            <!--<i class="mdi mdi-plus"></i>-->
+            <!--Add New Api-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="bg-light-grey padding clearfix">-->
+            <!--<div class="input-group col-sm-4 pull-left">-->
+                <!--<div class="input-group-addon">-->
+                    <!--<i class="mdi mdi-magnify"></i>-->
+                <!--</div>-->
+                <!--<input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">-->
+            <!--</div>-->
+            <!--<dir-pagination-controls class="pull-right"></dir-pagination-controls>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="row actions">
+    <div class="col-md-12">
+        <a  class="btn btn-primary pull-left"
+            ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+            ng-click="openAddApiModal()">
+            <i class="mdi mdi-plus"></i>
+            Add New Api
+        </a>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
+<div class="row" ng-show="!loading || items.data.length">
+    <div class="col-md-12">
+        <div class="table-responsive" >
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1"></th>
+                    <th width="1"></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
+                </tr>
+                <tr
+                        dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
+
+                        <i
+                                uib-tooltip="Strip {{Gateway.version.indexOf('0.9.') > -1 ? 'Request Path' : 'Uri'}}"
+                                ng-click="toggleStripRequestPathOrUri(api)"
+                                data-ng-class="{'text-primary' : isRequestPathOrUriStripped(api),'text-muted' : !isRequestPathOrUriStripped(api)}"
+                                class="mdi mdi-link-off clickable">
+                        </i>
+                    </td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
+                        <i
+                                uib-tooltip="Preserve Host"
+                                ng-click="api.preserve_host=!api.preserve_host;updateApi(api.id,{preserve_host : api.preserve_host})"
+                                class="mdi clickable" ng-class="api.preserve_host ? 'mdi-cloud-outline text-primary' : 'mdi-cloud-off-outline text-muted'">
+
+                        </i>
+
+                    </td>
+                    <td>
+                        <i
+                            ng-if="api.health_checks && api.health_checks.active"
+                            class="mdi"
+                            uib-tooltip="{{api.health_checks.data ? ( api.health_checks.data.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            data-ng-class="{'mdi-loading mdi-spin': !api.health_checks.data,'mdi-heart-broken text-danger': api.health_checks.data && !api.health_checks.data.isHealthy,'mdi-heart-pulse text-success': api.health_checks.data && api.health_checks.data.isHealthy}"></i>
+
+
+                        <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!api.health_checks || !api.health_checks.active" class="mdi mdi-heart-outline"></i></td>
+                    <td>
+                        <raw-view data-item="api"></raw-view>
+                    </td>
+                    <td>
+                        <strong>
+                            <a class="clickable"
+                               data-ui-sref="apis.edit({api_id:api.id})">{{ api.name || "-" }}</a>
+                        </strong>
+                    </td>
+                    <td>{{ api.upstream_url || "-" }}</td>
+                    <td>{{api.created_at | date : format : timezone}}</td>
+                    <!--<td>-->
+                        <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
+
+                            <!--edit-->
+                        <!--</a>-->
+                    <!--</td>-->
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button" ng-click="deleteItem($index,api)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+

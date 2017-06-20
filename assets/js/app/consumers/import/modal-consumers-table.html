@@ -8,7 +8,7 @@
     </div>
 
     <a  class="modal-close pull-right" style="margin-top: 10px" ng-click="closeModal()">
-        <i class="material-icons ">clear</i>
+        <i class="mdi mdi-close"></i>
     </a>
 </div>
 <div class="modal-body">
@@ -18,11 +18,11 @@
             <input type="text" data-ng-model="searchText" class="form-control" placeholder="search consumers...">
         </div>
         <button type="submit" data-ng-disabled="busy" class="btn btn-sm btn-warning btn-link" data-ng-click="importChecked()">
-            <i class="material-icons">file_download</i>
+            <i class="mdi mdi-download"></i>
             import selected
         </button>
         <button type="submit" data-ng-disabled="busy" class="btn btn-sm btn-primary  btn-link" data-ng-click="importAll()">
-            <i class="material-icons">file_download</i>
+            <i class="mdi mdi-download"></i>
             import all
         </button>
     </div>
@@ -32,9 +32,9 @@
     </div>
     <div class="clearfix"></div>
     <div class="padding-top">
-        <i class="material-icons text-success">fiber_manual_record</i> Eligible for import
+        <i class="mdi mdi-circle text-success"></i> Eligible for import
         &nbsp;&nbsp;
-        <i class="material-icons text-warning">fiber_manual_record</i> Already exists and won't be imported
+        <i class="mdi mdi-circle text-warning"></i> Already exists and won't be imported
     </div>
 
 
@@ -67,14 +67,14 @@
                 data-ng-disabled="busy"
                 data-ng-click="importChecked()"
                 class="btn btn-warning">
-            <i class="material-icons">file_download</i>
+            <i class="mdi mdi-download"></i>
             import selected
         </button>
         <button type="submit"
                 data-ng-disabled="busy"
                 data-ng-click="importAll()"
                 class="btn btn-primary">
-            <i class="material-icons">file_download</i>
+            <i class="mdi mdi-download"></i>
             import all
         </button>
     </div>

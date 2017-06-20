@@ -1,91 +1,94 @@
-<div class="row">
-    <div class="col-md-12 actions">
-        <a data-ui-sref="plugins.add" class="btn btn-primary">
-            <i class="material-icons">add</i>
-            Add global plugins
-        </a>
-    </div>
-</div>
-<div class="row">
+
+<div class="row actions">
     <div class="col-md-12">
-        <div class="bg-light-grey padding clearfix">
-            <div class="input-group col-sm-4 pull-left">
-                <div class="input-group-addon">
-                    <i class="material-icons">&#xE8B6;</i>
-                </div>
-                <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
-            </div>
-            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+        <div class="pull-left">
+            <a data-ui-sref="plugins.add"
+               ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+               class="btn btn-primary">
+                <i class="mdi mdi-plus"></i>
+                Add global plugins
+            </a>
         </div>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
     </div>
 </div>
 
 
-<konga-loader ng-if="loading && !plugins.data.length"></konga-loader>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
 
-<div class="row" ng-if="!loading || plugins.data.length">
+<div class="row" ng-if="!loading || items.data.length">
 
-    <div class="table-responsive col-md-12">
-        <table class="table table-hover table-striped">
-            <tr>
-                <th width="1"></th>
-                <th width="1"></th>
-                <th>Name</th>
-                <th>API</th>
-                <th>Consumer</th>
-                <th>Created</th>
-                <th width="1"></th>
-                <th width="1"></th>
-            </tr>
-            <tr
-                    dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
-                <td>
-                    <!--<input-->
-                            <!--uib-tooltip="{{item.enabled ? 'Enabled' : 'Disabled'}}"-->
-                            <!--ng-change="updatePlugin(item)"-->
-                            <!--ng-model="item.enabled"-->
-                            <!--type="checkbox"/>-->
-                    <input
-                            bs-switch
-                            switch-on-color="primary"
-                            ng-change="updatePlugin(item)"
-                            ng-model="item.enabled"
-                            type="checkbox"
-                            switch-size="mini">
-                </td>
-                <td>
-                    <raw-view data-item="item"></raw-view>
-                </td>
-                <th>{{item.name}}</th>
-                <td>
-                    <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
-                    <span data-ng-if="!item.api_id" >All APIs</span>
-                </td>
-                <td>
-                    <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
-                    <span data-ng-if="!item.consumer_id" >All consumers</span>
-                </td>
-                <td>{{item.created_at | date : format : timezone}}</td>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'update')"></th>
+                    <th width="1"></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
 
-                <td>
-                    <button type="button" ng-click="onEditPlugin(item)" class="btn btn-primary btn-link">
-                        <i class="mdi mdi-settings"></i>
-                        configuration
-                    </button>
-                </td>
-                <td>
-                    <button type="button" ng-click="deletePlugin(item)" class="btn btn-danger btn-link">
-                        <i class="material-icons">&#xE872;</i>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <tr data-ng-if="plugins.data.length === 0">
-                <td colspan="100%" class="text-center text-muted">
-                    <em>no data found...</em>
-                </td>
-            </tr>
-        </table>
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
+                </tr>
+                <tr
+                        dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
+                        <input
+                                bs-switch
+                                switch-on-color="primary"
+                                ng-change="updatePlugin(item)"
+                                ng-model="item.enabled"
+                                type="checkbox"
+                                switch-size="mini">
+                    </td>
+                    <td>
+                        <raw-view data-item="item"></raw-view>
+                    </td>
+                    <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
+                    <td>
+                        <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
+                        <span data-ng-if="!item.api_id" >All APIs</span>
+                    </td>
+                    <td>
+                        <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
+                        <span data-ng-if="!item.consumer_id" >All consumers</span>
+                    </td>
+                    <td>{{item.created_at | date : format : timezone}}</td>
+
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr data-ng-if="items.data.length === 0">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>no data found...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <dir-pagination-controls></dir-pagination-controls>
     </div>
 

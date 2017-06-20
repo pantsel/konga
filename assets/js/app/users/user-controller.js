@@ -39,11 +39,16 @@
 
               var data = angular.copy($scope.user);
 
+              $scope.errors = {}
+
               // Make actual data update
               var deferred = $q.defer();
 
 
               data.passports.protocol = 'local'; // Make sure the protocol is set
+
+              console.log("data",data)
+              // return false;
 
               UserModel
                   .update(data.id, data)
@@ -52,7 +57,7 @@
                           $scope.showForm = false;
                           MessageService.success('User "' + $scope.user.username + '" updated successfully');
                           initUserPassports()
-                          UserService.updateUser(data.data,true)
+                          UserService.updateUser(data.data[0],true)
                           deferred.resolve(true);
                       },function(err){
                           console.log("Err",err)

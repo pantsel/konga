@@ -1,0 +1,71 @@
+<div class="modal-header success">
+    <h5 class="modal-title" id="modal-title">
+        Restore Snapshot {{snapshot.name}}
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="row" data-ng-if="!ready">
+        <div class="col-md-12">
+            <h5>Select objects to import</h5>
+            <p class="help-block">
+                Select the Objects you want to import to <code>{{user.node.name}}</code>
+                or <a data-ng-click="selectNode()" class="clickable">select another node</a>.
+            </p>
+            <div class="form-group well">
+                <label class="checkbox-inline" data-ng-repeat="(object,value) in objects">
+                    <input type="checkbox"
+                           data-ng-change="updateImports()"
+                           data-ng-model="value.isChecked">{{object}}&nbsp;
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" data-ng-click="restore()" data-ng-disabled="!imports.length">
+                    <i class="mdi mdi-import"></i>
+                    import objects
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="ready && restoring">
+        <div class="col-md-12 text-center margin-bottom">
+            <h5>Applying snapshot to "{{user.node.name}}". Please wait...</h5>
+            <br>
+            <div class="anim-loader">
+                <span class="dot dot_1"></span>
+                <span class="dot dot_2"></span>
+                <span class="dot dot_3"></span>
+                <span class="dot dot_4"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-if="ready && !restoring">
+        <div class="col-md-12 margin-bottom">
+            <table class="table table-striped table-condensed table-bordered">
+                <tr>
+                    <th colspan="3" style="background-color: #f4f4f4">
+                        Import results
+                    </th>
+                </tr>
+                <tr>
+                    <th>Object</th>
+                    <th>Imported</th>
+                    <th>Failed</th>
+                </tr>
+                <tr data-ng-repeat="(key,value) in results">
+                    <td>{{key}}</td>
+                    <td><strong class="text-success">{{value.imported}}</strong></td>
+                    <td>
+                        <strong class="text-danger">{{value.failed.count}}</strong>
+                        <br>
+                        <p class="help-block">{{value.failed.items.join(", ")}}</p>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

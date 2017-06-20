@@ -14,7 +14,7 @@
           return {
 
               getInfo : function() {
-                  return $http.get('kong/info')
+                  return $http.get('kong')
               },
               nodeStatus : function(params) {
                   return $http.get('kong/status',{

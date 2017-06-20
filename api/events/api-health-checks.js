@@ -155,7 +155,7 @@ module.exports = {
                 sails.log("helath_checks:createTransporter:settings =>",settings)
                 if(!settings.length
                     || !settings[0].data
-                    || !settings[0].data.email_notifications
+                    //|| !settings[0].data.email_notifications
                     || !settings[0].data.notify_when.api_down.active) return cb()
                 sails.log("health_checks:createTransporter => trying to get transport",{
                     "notifications_enabled" : settings[0].data.email_notifications,
@@ -170,7 +170,7 @@ module.exports = {
                     if(!transport) return cb()
 
                     var result = {
-                        transport : settings[0].data.default_transport,
+                        settings : settings[0].data,
                     }
 
                     switch(settings[0].data.default_transport) {
@@ -200,6 +200,7 @@ module.exports = {
                 sails.log("health_check:failed to create transporter. No notification will be sent.",err)
             }else{
                 var transporter = result.transporter
+                var settings = result.settings
                 var html = self.makeNotificationHTML(hc)
 
                 self.getAdminEmailsList(function(err,receivers){
@@ -207,13 +208,13 @@ module.exports = {
                     if(!err && receivers.length) {
 
                         var mailOptions = {
-                            from: '"Konga" <noreply@konga.io>', // sender address
+                            from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
                             to: receivers.join(","), // list of receivers
                             subject: 'An API is down or unresponsive', // Subject line
                             html: html
                         };
 
-                        if(result.transport == 'sendmail') {
+                        if(settings.default_transport == 'sendmail') {
                             sendmail(mailOptions, function(err, reply) {
                                 if(err){
                                     sails.log.error("Health_checks:notify:error",err)

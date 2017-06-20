@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('frontend.dashboard', [
-        'chart.js',
-        'angular-matchheight'
+        'chart.js'
     ]);
 
     // Module configuration
@@ -20,7 +19,7 @@
                             //activeNode : true,
                             //access: 1,
                             pageName : "Dashboard",
-                            displayName : "dashboard",
+                            //displayName : "dashboard",
                             prefix : '<i class="material-icons text-primary">dashboard</i>'
                         },
 

@@ -16,7 +16,8 @@
                         data : {
                             activeNode : true,
                             pageName : "Node Info",
-                            displayName : "node info",
+                            // displayName : "node info",
+                            pageDescription : "Generic details about the node",
                             prefix : '<i class="material-icons text-primary">&#xE88F;</i>'
                         },
 

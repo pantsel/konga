@@ -9,12 +9,12 @@
   angular.module('frontend.core.models')
     .factory('DataModel', [
       '$sailsSocket', '$log',
-      '_',
-      'DataService',
+      '_','$rootScope',
+      'DataService','MessageService',
       function(
         $sailsSocket, $log,
-        _,
-        DataService
+        _,$rootScope,
+        DataService,MessageService
       ) {
         /**
          * Constructor for actual data model.
@@ -22,7 +22,7 @@
          * @param   {string}  [endpoint]  Name of the API endpoint
          * @constructor
          */
-        var DataModel = function(endpoint) {
+        var DataModel = function(endpoint,dontAppend) {
           // Initialize default values.
           this.object = {};
           this.objects = [];
@@ -46,7 +46,7 @@
 
           // Subscribe to specified endpoint
           if (endpoint) {
-            this.endpoint = endpoint;
+            this.endpoint = dontAppend ?  endpoint : 'api/' + endpoint;
 
             this._subscribe();
           } else {
@@ -298,6 +298,9 @@
               },
               function onError(error) {
                 $log.error('DataModel.load() failed.', error, self.endpoint, parameters);
+                if(error.data && error.data.body && error.data.body.message) {
+                  MessageService.error(error.data.body.message)
+                }
               }
             )
           ;
@@ -408,15 +411,15 @@
 
           return DataService
             .delete(self.endpoint, identifier)
-            .then(
-              function onSuccess(result) {
-                return result;
-              },
-              function onError(error) {
-                $log.error('DataModel.delete() failed.', error, self.endpoint, identifier);
-                return error;
-              }
-            )
+            // .then(
+            //   function onSuccess(result) {
+            //     return result;
+            //   },
+            //   function onError(error) {
+            //     $log.error('DataModel.delete() failed.', error, self.endpoint, identifier);
+            //     return error;
+            //   }
+            // )
           ;
         };
 
@@ -434,11 +437,14 @@
          * @private
          */
         DataModel.prototype._subscribe = function subscribe() {
+
           var self = this;
+
+            // $log.log('Subscribing to => ' + self.endpoint.replace('api/',''))
 
           // Actual subscribe
           $sailsSocket
-            .subscribe(self.endpoint, function modelEvent(message) {
+            .subscribe(self.endpoint.replace('api/',''), function modelEvent(message) {
 
               // Handle socket event
               self._handleEvent(message);
@@ -459,8 +465,13 @@
          * @private
          */
         DataModel.prototype._handleEvent = function handleEvent(message) {
+
           var self = this;
           var method = 'handler' + message.verb[0].toUpperCase() + message.verb.slice(1);
+
+            // $log.log('Broadcasting => ' + self.endpoint.replace("api/","") + "." + message.verb,message)
+
+          // $rootScope.$broadcast(self.endpoint.replace("api/","") + "." + message.verb,message)
 
           if (_.isFunction(self[method])) {
             self[method](message);

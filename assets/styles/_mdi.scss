@@ -1,30 +1,85 @@
 .mdi::before {
   font-size: 24px;
-  top:1px;
+  //top:1px;
   line-height: 1;
   vertical-align: sub;
 }
 .btn .mdi::before {
+   position: relative;
+   vertical-align: sub;
+   line-height: 0.6;
+ }
+
+
+.btn-lg .mdi::before {
   position: relative;
-  top: 1px;
-  vertical-align: sub;
+  //vertical-align: initial;
   line-height: 0.6;
 }
+
+
+.table {
+  .mdi::before {
+    vertical-align: middle;
+  }
+}
+
+.navbar-footer{
+  .mdi::before {
+    font-size: 18px;
+    vertical-align: text-top;
+  }
+}
+
+.panel-title .mdi::before{
+
+  margin-top: -4px;
+}
+
+.panel-title .btn-icon{
+  .mdi::before {
+    vertical-align: initial;
+    line-height: 1.6;
+  }
+}
+
+
+//.page-title{
+//  .mdi::before {
+//    vertical-align: text-bottom;
+//  }
+//}
+
 .btn-xs .mdi::before {
   font-size: 18px;
   vertical-align: sub;
 }
 .btn-sm .mdi::before {
   font-size: 18px;
-  vertical-align: sub;
+  //vertical-align: initial;
 }
+
+
+h1,h2,h3,h4,h5 {
+  .mdi::before {
+    vertical-align: inherit;
+  }
+}
+
+
+h5.modal-title{
+  .mdi::before {
+    vertical-align: text-bottom;
+  }
+}
+
+
 .dropdown-menu .mdi {
   width: 18px;
 }
 .dropdown-menu .mdi::before {
-  position: relative;
   vertical-align: sub;
-  left: -8px;
+  //left: -8px;
 }
 .nav .mdi::before {
   position: relative;
@@ -56,7 +111,7 @@
 }
 .navbar-brand .mdi::before {
   position: relative;
-  vertical-align: sub;
+  vertical-align: top;
   margin-right: 2px;
 }
 .list-group-item .mdi::before {
