@@ -44,6 +44,10 @@ module.exports.policies = {
     '*':              ['authenticated'],
   },
 
+  KongSchemasController : {
+      '*':              ['authenticated'],
+  },
+
   KongPluginsController : {
     '*':              ['authenticated','dynamicNode'],
   },

@@ -88,6 +88,7 @@ module.exports.routes = {
 
     // Rich Plugins List
     'GET /api/kong_plugins/list' : 'KongPluginsController.list',
+    'GET /api/schemas/authentication' : 'KongSchemasController.authentication',
 
 
 
