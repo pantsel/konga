@@ -57,6 +57,7 @@ module.exports = {
                     },
                     {
                         name : "redirect_uri",
+                        required : true,
                         description : "The URL in your app where users will be sent after authorization.",
                         type : "url"
                     }
