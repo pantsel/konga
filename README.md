@@ -175,6 +175,11 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
+### Upgrading
+In some cases a newer version of Konga may introduce new db tables, collections or changed in schemas.
+The only thing you need to do is to start Konga in dev mode once sto that the migrations may be applied.
+Then stop the app and run it again on production mode.
+
 ## More Kong related stuff
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
 - [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
