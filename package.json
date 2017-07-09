@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
@@ -53,7 +53,7 @@
     "passport": "0.3.0",
     "passport-local": "1.0.0",
     "rc": "1.0.1",
-    "sails": "~0.12.11",
+    "sails": "~0.12.13",
     "sails-disk": "^0.10.10",
     "sails-hook-validation": "^0.4.6",
     "sails-mongo": "^0.12.2",

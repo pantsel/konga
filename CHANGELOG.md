@@ -109,10 +109,12 @@ All notable changes to this project will be documented in this file.
 * More configurable application settings.
 
 
-## [0.7.3](https://github.com/pantsel/konga/releases/tag/v0.7.3) - 23-5-2017
+## [0.8.0](https://github.com/pantsel/konga/releases/tag/v0.8.0) - 23-5-2017
 
 * UI/UX revamp.
 * Massive refactoring and logic improvements.
 * Configurable user permissions.
 * Various bug fixes and improvements.
+
+## [0.8.1](https://github.com/pantsel/konga/releases/tag/v0.8.1) - 3-7-2017
 
