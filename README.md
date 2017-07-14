@@ -3,7 +3,7 @@
 [![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
 
 
-[![Dashboard](screenshots/bc.png)](screenshots/bc.png?raw=true)
+[![Dashboard](screenshots/bc2.png)](screenshots/bc2.png?raw=true)
 
 <em>Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/).</em>
 
