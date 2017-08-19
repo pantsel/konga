@@ -78,7 +78,10 @@
                   controller: 'AddPluginController',
                   resolve: {
                       _api : function() {
-                        return null
+                        return null;
+                      },
+                      _consumer : function() {
+                          return null;
                       },
                       _pluginName: function () {
                           return name
