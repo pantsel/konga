@@ -21,10 +21,10 @@
 
           $scope.HttpTimeout = HttpTimeout;
 
-          $scope.showCluster = Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0;
+          $scope.showCluster = $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0 : false;
 
           $scope.isKongVersionGreater = function (version) {
-              return Semver.cmp($rootScope.Gateway.version,version) >= 0;
+              return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version,version) >= 0 : false;
           }
 
           $scope.closeAlert = function() {
