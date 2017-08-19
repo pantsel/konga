@@ -121,5 +121,5 @@ All notable changes to this project will be documented in this file.
 ## [0.8.2](https://github.com/pantsel/konga/releases/tag/v0.8.2) - 20-8-2017
 
 * Kong 0.11.x compatibility.
-* Added ability to manage consumer plugins directly from the consumer edit page
-* Better backwards compatibility logic.
+* Added the ability to manage consumer plugins directly from the consumer edit page.
+* More dynamic backwards compatibility logic.
