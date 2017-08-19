@@ -73,6 +73,10 @@
                   return $http.get('kong/consumers/' + consumerId + '/' + credential)
               },
 
+              listPlugins : function(consumerId) {
+                  return $http.get('kong/consumers/' + consumerId + '/plugins');
+              },
+
               listCredentials : function(consumerId) {
                   return $http.get('kong/consumers/' + consumerId + '/credentials')
               },

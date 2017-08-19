@@ -10,7 +10,7 @@
 
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal">
-        <div data-ng-include="'js/app/apis/partials/form-api-' + Gateway.version.split('.').slice(0, -1).join('') + '.html?r=' + Date.now()"></div>
+        <div data-ng-include="partial"></div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-7">
                 <button type="submit" class="btn btn-primary btn-block" ng-click="submit()">

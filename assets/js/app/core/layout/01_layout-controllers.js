@@ -195,14 +195,15 @@
     angular.module('frontend.core.layout')
         .controller('SidenavController', ['_', '$scope', '$state', 'AuthService', 'InfoService', 'UserModel', '$localStorage',
             'SettingsService', 'MessageService', 'UserService', '$log',
-            '$rootScope', 'AccessLevels', 'SocketHelperService', '$uibModal',
+            '$rootScope', 'AccessLevels', 'SocketHelperService', '$uibModal','Semver',
             function controller(_, $scope, $state, AuthService, InfoService, UserModel, $localStorage,
                                 SettingsService, MessageService, UserService, $log,
-                                $rootScope, AccessLevels, SocketHelperService, $uibModal) {
+                                $rootScope, AccessLevels, SocketHelperService, $uibModal, Semver) {
 
 
                 $scope.auth = AuthService;
                 $scope.user = UserService.user();
+                $scope.showCluster = Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0;
 
                 $scope.items = [
                     {
@@ -233,7 +234,7 @@
                     {
                         state: 'cluster',
                         show: function () {
-                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                            return AuthService.isAuthenticated() && $rootScope.Gateway && $scope.showCluster;
                         },
                         title: 'Cluster',
                         icon: 'mdi-server-network',

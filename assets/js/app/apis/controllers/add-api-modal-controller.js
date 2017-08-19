@@ -14,7 +14,10 @@
                           $uibModalInstance, MessageService ) {
 
 
-          $scope.api = angular.copy(ApiService.getProperties($rootScope.Gateway.version.split('.').slice(0, -1).join('')))
+          var availableFormattedVersion = ApiService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
+          $scope.api = angular.copy(ApiService.getProperties($rootScope.Gateway.version));
+
+          $scope.partial = 'js/app/apis/partials/form-api-' + availableFormattedVersion + '.html?r=' + Date.now();
 
           $log.debug("$scope.api",$scope.api)
 
@@ -27,6 +30,7 @@
           $scope.submit = function() {
 
               clearApi()
+
 
               ApiService.add($scope.api)
                   .then(function(res){

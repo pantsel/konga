@@ -46,14 +46,14 @@
 
                         Object.keys(plugins_available).forEach(function (plugin_name) {
                             if (!inGroups(plugin_name)) {
-                                pluginGroups[pluginGroups.length - 1].plugins[plugin_name] = {}
+                                pluginGroups[pluginGroups.length - 1].plugins[plugin_name] = {};
                             }
                         })
 
                         return pluginGroups;
 
 
-                    })
+                    });
                 },
 
 
@@ -67,6 +67,7 @@
                                 name: "Authentication",
                                 description: "Protect your services with an authentication layer",
                                 icon: "mdi-account-outline",
+                                hasConsumerPlugins : false,
                                 plugins: {
                                     "basic-auth": {
                                         description: "Add Basic Authentication to your APIs"
@@ -91,21 +92,26 @@
                             {
                                 name: "Security",
                                 icon: "mdi-security",
+                                hasConsumerPlugins : true,
                                 description: "Protect your services with additional security layers",
                                 plugins: {
                                     "acl": {
+                                        hideIfNotInConsumerContext : true,
                                         description: "Control which consumers can access APIs"
                                     },
                                     "cors": {
+                                        hideIfNotInConsumerContext : true,
                                         description: "Allow developers to make requests from the browser"
                                     },
                                     "ssl": {
+                                        hideIfNotInConsumerContext : true,
                                         description: "Add an SSL certificate for an underlying service"
                                     },
                                     "ip-restriction": {
                                         description: "Whitelist or blacklist IPs that can make requests"
                                     },
                                     "bot-detection": {
+                                        hideIfNotInConsumerContext : true,
                                         description: "Detects and blocks bots or custom clients"
                                     }
                                 }
@@ -113,6 +119,7 @@
                             {
                                 name: "Traffic Control",
                                 icon: "mdi-traffic-light",
+                                hasConsumerPlugins : true,
                                 description: "Manage, throttle and restrict inbound and outbound API traffic",
                                 plugins: {
                                     "rate-limiting": {
@@ -131,6 +138,7 @@
                             },
                             {
                                 name: "Serverless",
+                                hasConsumerPlugins : true,
                                 description: "Invoke serverless functions in combination with other plugins:",
                                 icon: "mdi-cloud-sync",
                                 plugins: {
@@ -141,6 +149,7 @@
                             },
                             {
                                 name: "Analytics & Monitoring",
+                                hasConsumerPlugins : true,
                                 icon: "mdi-chart-bar",
                                 description: "Visualize, inspect and monitor APIs and microservices traffic",
                                 plugins: {
@@ -158,6 +167,7 @@
                             },
                             {
                                 name: "Transformations",
+                                hasConsumerPlugins : true,
                                 icon: "mdi-nfc-tap",
                                 description: "Transform request and responses on the fly on Kong",
                                 plugins: {
@@ -174,6 +184,7 @@
                             },
                             {
                                 name: "Logging",
+                                hasConsumerPlugins : true,
                                 icon: "mdi-content-paste",
                                 description: "Log requests and response data using the best transport for your infrastructure",
                                 plugins: {

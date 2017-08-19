@@ -34,17 +34,17 @@
                       _fetchData()
                   }).catch(function(err){
                   $log.error("Update Api: ",err)
-                  $scope.loading = false
-              })
+                  $scope.loading = false;
+              });
 
           }
 
           function toggleStripRequestPathOrUri(api) {
 
               if($rootScope.Gateway.version.indexOf("0.9.") > -1){
-                  api.strip_request_path=!api.strip_request_path
+                  api.strip_request_path=!api.strip_request_path;
               }else{
-                  api.strip_uri=!api.strip_uri
+                  api.strip_uri=!api.strip_uri;
               }
 
               $scope.updateApi(api.id,{
@@ -55,7 +55,7 @@
 
           function isRequestPathOrUriStripped(api) {
               if($rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.9.") > -1){
-                  return api.strip_request_path
+                  return api.strip_request_path;
               }
 
               return api.strip_uri

@@ -8,11 +8,13 @@
 
   angular.module('frontend.apis')
     .controller('ApiDetailsController', [
-      '$scope', '$log', '$state','ApiService','$uibModal','MessageService','SettingsService',
-      function controller($scope, $log, $state, ApiService, $uibModal,MessageService,SettingsService) {
+      '$scope', '$rootScope','$log', '$state','ApiService','$uibModal','MessageService','SettingsService',
+      function controller($scope,$rootScope, $log, $state, ApiService, $uibModal,MessageService,SettingsService) {
 
+          var availableFormattedVersion = ApiService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
+          $scope.settings = SettingsService.getSettings();
+          $scope.partial = 'js/app/apis/partials/form-api-' + availableFormattedVersion + '.html?r=' + Date.now();
 
-          $scope.settings = SettingsService.getSettings()
           $scope.updateApi = function() {
 
               $scope.loading = true

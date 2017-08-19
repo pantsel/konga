@@ -9,9 +9,9 @@
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
       '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage','HttpTimeout',
-        'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService',
+        'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService','Semver',
       function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,HttpTimeout,
-                          SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService) {
+                          SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService, Semver) {
 
 
           var loadTime = $rootScope.KONGA_CONFIG.info_polling_interval,
@@ -21,8 +21,12 @@
 
           $scope.HttpTimeout = HttpTimeout;
 
+          $scope.showCluster = Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0;
+
           $scope.closeAlert = function() {
-              if($scope.alert) delete $scope.alert
+              if($scope.alert) {
+                  delete $scope.alert;
+              }
           }
 
           $scope.isEnabled = function(name) {

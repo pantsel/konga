@@ -200,18 +200,18 @@
 
             if (!AuthService.authorize(toState.data.access)) {
                 event.preventDefault();
-                $state.go('auth.login', params)
+                $state.go('auth.login', params);
             }
 
             if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
                 event.preventDefault();
-                $state.go('dashboard', params, {location: 'replace'})
+                $state.go('dashboard', params, {location: 'replace'});
             }
 
 
             if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup_enable) {
                 event.preventDefault();
-                $state.go('auth.login', params, {location: 'replace'})
+                $state.go('auth.login', params, {location: 'replace'});
             }
 
 
@@ -248,7 +248,7 @@
 
           $rootScope.$on('$stateChangeSuccess', function stateChangeStart(event, toState) {
               $rootScope.$state = toState
-              cfpLoadingBar.complete()
+              cfpLoadingBar.complete();
 
           });
 
