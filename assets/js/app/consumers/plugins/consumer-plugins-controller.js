@@ -8,18 +8,16 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerPluginsController', [
-      '_','$scope', '$stateParams','$log', '$state','$uibModal','ConsumerService','PluginsService','MessageService','DialogService','_plugins',
-      function controller(_,$scope,$stateParams, $log, $state, $uibModal,ConsumerService,PluginsService, MessageService,DialogService,_plugins) {
+      '_','$scope', '$stateParams','$log', '$state','$uibModal','ConsumerService','PluginsService','MessageService','DialogService',
+      function controller(_,$scope,$stateParams, $log, $state, $uibModal,ConsumerService,PluginsService, MessageService,DialogService) {
 
 
-          $scope.plugins = _plugins.data
           $scope.onAddPlugin = onAddPlugin
           $scope.onEditPlugin = onEditPlugin
           $scope.deletePlugin = deletePlugin
           $scope.updatePlugin = updatePlugin
           $scope.search = ''
 
-          $log.debug("Plugins",$scope.plugins.data)
 
           /**
            * ----------------------------------------------------------------------
@@ -115,6 +113,8 @@
                       $scope.plugins = res.data;
                   });
           }
+
+          fetchPlugins();
 
 
           /**

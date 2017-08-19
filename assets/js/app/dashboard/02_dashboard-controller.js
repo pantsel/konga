@@ -23,6 +23,10 @@
 
           $scope.showCluster = Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0;
 
+          $scope.isKongVersionGreater = function (version) {
+              return Semver.cmp($rootScope.Gateway.version,version) >= 0;
+          }
+
           $scope.closeAlert = function() {
               if($scope.alert) {
                   delete $scope.alert;

@@ -106,17 +106,7 @@
                             },
                             'plugins@consumers.edit': {
                                 templateUrl: 'js/app/consumers/plugins/consumer-plugins.html',
-                                controller: 'ConsumerPluginsController',
-                                resolve : {
-                                    _plugins : [
-                                        'ConsumerService',
-                                        '$stateParams',
-                                        function(ConsumerService,$stateParams){
-                                            return ConsumerService.listPlugins($stateParams.id);
-                                        }
-                                    ]
-
-                                }
+                                controller: 'ConsumerPluginsController'
                             }
                         },
                         resolve : {

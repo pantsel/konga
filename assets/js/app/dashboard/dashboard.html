@@ -77,7 +77,7 @@
         </div>
         <!-- END -->
     </div>
-    <div class="row">
+    <div class="row" ng-if="!isKongVersionGreater('0.11.0')">
         <!-- DATABASE -->
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -138,6 +138,11 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i class="mdi mdi-information-outline"></i>&nbsp;DATABASE INFO
+                        <span ng-if="isKongVersionGreater('0.11.0')"
+                              ng-class="{'text-success' : status.database.reachable, 'text-danger' : !status.database.reachable}"
+                              class="pull-right">
+                            {{status.database.reachable ? 'Reachable' : 'Unreachable'}}
+                        </span>
                     </div>
                 </div>
                 <table class="table no-margin">

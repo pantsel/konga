@@ -203,7 +203,14 @@
 
                 $scope.auth = AuthService;
                 $scope.user = UserService.user();
-                $scope.showCluster = Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0;
+                $scope.showCluster = false;
+
+                $rootScope.$watch('Gateway',function(newValue,oldValue){
+
+                    if(newValue && newValue.version) {
+                        $scope.showCluster = Semver.cmp(newValue.version,"0.11.0") < 0;
+                    }
+                });
 
                 $scope.items = [
                     {
@@ -271,7 +278,7 @@
                         state: 'upstreams',
                         icon: 'mdi-shuffle-variant',
                         show: function () {
-                            return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version,"0.10.0") >=0;
                         },
                         title: 'Upstreams',
                         access: AccessLevels.anon
@@ -280,7 +287,7 @@
                         state: 'certificates',
                         icon: 'mdi-certificate',
                         show: function () {
-                            return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version,"0.10.0") >=0;
                         },
                         title: 'Certificates',
                         access: AccessLevels.anon
