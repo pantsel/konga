@@ -178,12 +178,12 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
-### Upgrading
+## Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
 Then stop the app and run it again in production mode.
 
-### FAQ
+## FAQ
 
 ##### 1. Getting blank page with <code>Uncaught ReferenceError: angular is not defined</code>
 
