@@ -156,7 +156,11 @@
                                 function onSuccess(res) {
                                     var credentials = $localStorage.credentials
                                     credentials.user.node = node
-                                    $rootScope.$broadcast('user.node.updated', node)
+
+
+                                    // Update $rootScope.Gateway
+                                    _fetchGatewayInfo(node);
+
                                 }, function (err) {
                                     $scope.busy = false
                                     UserModel.handleError($scope, err)
@@ -185,6 +189,18 @@
 
                 if(AuthService.isAuthenticated()) {
                     _fetchConnections()
+                }
+
+
+                function _fetchGatewayInfo(node) {
+                    InfoService.getInfo()
+                        .then(function(response){
+                            $rootScope.Gateway = response.data
+                            $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
+                            $rootScope.$broadcast('user.node.updated', node);
+                        }).catch(function(err){
+                        $rootScope.Gateway = null;
+                    });
                 }
 
             }

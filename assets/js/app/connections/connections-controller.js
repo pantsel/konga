@@ -248,8 +248,21 @@
                             credentials.user.node = node;
                         }
 
-                        $rootScope.$broadcast('user.node.updated',res.data.node)
+                        _fetchGatewayInfo(res.data.node);
+
+
                     })
+                }
+
+                function _fetchGatewayInfo(node) {
+                    InfoService.getInfo()
+                        .then(function(response){
+                            $rootScope.Gateway = response.data
+                            $log.debug("ConnectionsController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
+                            $rootScope.$broadcast('user.node.updated',node);
+                        }).catch(function(err){
+                        $rootScope.Gateway = null;
+                    });
                 }
 
 
