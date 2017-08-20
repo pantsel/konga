@@ -7,6 +7,7 @@
 
 <em>Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/).</em>
 
+
 [Site and working demo here](https://pantsel.github.io/konga/)
 
 
@@ -20,6 +21,8 @@
 - [**Installation**](#installation)
 - [**Configuration**](#configuration)
 - [**Running Konga**](#running-konga)
+- [**Upgrading**](#upgrading)
+- [**FAQ**](#faq)
 - [**More Kong related stuff**](#more-kong-related-stuff)
 - [**License**](#license)
 
@@ -178,7 +181,7 @@ login: demo | password: demodemodemo
 ### Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
-Then stop the app and run it again on production mode.
+Then stop the app and run it again in production mode.
 
 ### FAQ
 
@@ -189,12 +192,12 @@ You will need to cd into your project's root directory and install them manually
 <pre>$ bower --allow-root install</pre>
 
 ##### 2. Can't add/edit some plugin properties.
-When a property is an array, the input is handled by a chip component.
+When a plugin property is an array, the input is handled by a chip component.
 You will need to press <code>enter</code> after every value you type in
 so that the component assigns it to an array index.
 See issue [#48](https://github.com/pantsel/konga/issues/48) for reference.
     
-##### 3. Konga's database migrations do not run automatically when starting the app.
+##### 3. Database migrations do not run automatically when starting the app.
 See issue [#40](https://github.com/pantsel/konga/issues/40) for reference.
 
 
