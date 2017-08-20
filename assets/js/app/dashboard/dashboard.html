@@ -141,7 +141,7 @@
                         <span ng-if="isKongVersionGreater('0.11.0')"
                               ng-class="{'text-success' : status.database.reachable, 'text-danger' : !status.database.reachable}"
                               class="pull-right">
-                            {{status.database.reachable ? 'Reachable' : 'Unreachable'}}
+                            <small>{{status.database.reachable ? 'Reachable' : 'Unreachable'}}</small>
                         </span>
                     </div>
                 </div>
