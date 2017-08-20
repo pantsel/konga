@@ -218,7 +218,7 @@
                             $log.debug("Check connection:success",response)
                             node.checkingConnection = false;
 
-                            updateUserNode(node);
+                            toggleUserNode(node);
 
                         }).catch(function(error){
                             $log.debug("Check connection:error",error)
@@ -228,13 +228,13 @@
 
                     }else{
                         console.log("node active")
-                        updateUserNode(node)
+                        toggleUserNode(node)
                     }
 
                 }
 
 
-                function updateUserNode(node) {
+                function toggleUserNode(node) {
 
                     UserModel
                         .update(UserService.user().id, {
@@ -248,21 +248,8 @@
                             credentials.user.node = node;
                         }
 
-                        _fetchGatewayInfo(res.data.node);
-
-
+                        $rootScope.$broadcast('user.node.updated',res.data.node)
                     })
-                }
-
-                function _fetchGatewayInfo(node) {
-                    InfoService.getInfo()
-                        .then(function(response){
-                            $rootScope.Gateway = response.data
-                            $log.debug("ConnectionsController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
-                            $rootScope.$broadcast('user.node.updated',node);
-                        }).catch(function(err){
-                        $rootScope.Gateway = null;
-                    });
                 }
 
 
@@ -273,15 +260,44 @@
                         .then(
                             function onSuccess(result) {
                                 $rootScope.$broadcast('kong.node.updated',result.data)
+                                //if(!node.active) showTestNodeModal(node)
 
                                 // Update User node if it is the same as the updated node
-                                updateUserNode(result.data);
+                                var user = UserService.user();
+                                if(user.node && user.node.id === node.id) {
+                                    UserModel
+                                        .update(user.id, {
+                                            node : result.data
+                                        }).then(function onSuccess(res) {
+                                        var credentials = $localStorage.credentials
+                                        var user = res.data[0];
+                                        if(!user.node) {
+                                            delete credentials.user.node;
+                                        } else{
+                                            credentials.user.node = node;
+                                        }
+
+                                        _fetchGatewayInfo(credentials.user.node);
+                                    });
+                                }
                             },function(err){
                                 $scope.busy = false
                                 NodeModel.handleError($scope,err)
                             }
                         )
                     ;
+                }
+
+
+                function _fetchGatewayInfo(node) {
+                    InfoService.getInfo()
+                        .then(function(response){
+                            $rootScope.Gateway = response.data
+                            $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
+                            $rootScope.$broadcast('user.node.updated', node);
+                        }).catch(function(err){
+                        $rootScope.Gateway = null;
+                    });
                 }
 
 
