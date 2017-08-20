@@ -26,7 +26,7 @@
                 // Set initial data
                 $scope.createNode = createNode
                 $scope.user = UserService.user();
-                $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
+                $scope.kong_versions = SettingsService.getKongVersions();
                 $scope.general_settings = SettingsService.getSettings()
 
 
@@ -218,7 +218,7 @@
                             $log.debug("Check connection:success",response)
                             node.checkingConnection = false;
 
-                            toggleUserNode(node);
+                            updateUserNode(node);
 
                         }).catch(function(error){
                             $log.debug("Check connection:error",error)
@@ -228,13 +228,13 @@
 
                     }else{
                         console.log("node active")
-                        toggleUserNode(node)
+                        updateUserNode(node)
                     }
 
                 }
 
 
-                function toggleUserNode(node) {
+                function updateUserNode(node) {
 
                     UserModel
                         .update(UserService.user().id, {
@@ -260,7 +260,9 @@
                         .then(
                             function onSuccess(result) {
                                 $rootScope.$broadcast('kong.node.updated',result.data)
-                                //if(!node.active) showTestNodeModal(node)
+
+                                // Update User node if it is the same as the updated node
+                                updateUserNode(result.data);
                             },function(err){
                                 $scope.busy = false
                                 NodeModel.handleError($scope,err)
