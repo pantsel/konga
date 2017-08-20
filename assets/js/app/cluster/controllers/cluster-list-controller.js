@@ -6,7 +6,8 @@
      */
     angular.module('frontend.cluster')
         .controller('ClusterListController', [
-            '$scope','Cluster', 'ListConfig', function($scope,Cluster,ListConfig) {
+            '$scope','Cluster', 'ListConfig','$state','Semver','$rootScope',
+            function($scope,Cluster,ListConfig, $state, Semver, $rootScope) {
 
                 Cluster.setScope($scope, false, 'items', 'itemCount');
                 $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('cluster.nodes',Cluster)));
@@ -26,7 +27,7 @@
 
 
                 $scope.$on('user.node.updated',function(node){
-                    fetchData();
+                    _fetchData();
                 })
 
             }
