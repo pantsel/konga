@@ -42,7 +42,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-Konga is compatible with Kong 0.9.x,0.10.x
+Konga is compatible with Kong 0.9.x,0.10.x,0.11.x
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
