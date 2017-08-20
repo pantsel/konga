@@ -117,3 +117,4 @@ All notable changes to this project will be documented in this file.
 * Kong 0.11.x compatibility.
 * Added the ability to manage consumer plugins directly from the consumer edit page.
 * More dynamic backwards compatibility logic.
+* Other minor fixes and improvements.
