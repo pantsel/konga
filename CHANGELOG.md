@@ -112,7 +112,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.1](https://github.com/pantsel/konga/releases/tag/v0.8.1) - 3-7-2017
 
-## [0.8.2](https://github.com/pantsel/konga/releases/tag/v0.8.2) - 20-8-2017
+## [0.8.3](https://github.com/pantsel/konga/releases/tag/v0.8.2) - 20-8-2017
 
 * Kong 0.11.x compatibility.
 * Added the ability to manage consumer plugins directly from the consumer edit page.
