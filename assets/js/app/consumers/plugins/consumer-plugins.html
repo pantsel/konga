@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <div class="panel-heading primary">
+        <div class="panel-title">
+            <i class="mdi mdi-plug"></i>
+            Consumer plugins
+            <button class="btn btn-sm btn-link pull-right btn-primary" ng-click="onAddPlugin()">
+                <i class="mdi mdi-plus"></i>
+                add plugin
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12 bg-light-grey padding">
+        <div class="input-group col-sm-4 pull-left">
+            <div class="input-group-addon">
+                <i class="mdi mdi-magnify"></i>
+            </div>
+            <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+    <table class="table">
+        <tr>
+            <th width="1"></th>
+            <th width="1"></th>
+            <th>Name</th>
+            <th>Created</th>
+            <th width="1"></th>
+        </tr>
+        <tr
+                dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+            <td>
+
+                <input
+                        bs-switch
+                        switch-on-color="primary"
+                        ng-change="updatePlugin(item)"
+                        ng-model="item.enabled"
+                        type="checkbox"
+                        switch-size="mini">
+            </td>
+            <td>
+                <raw-view data-item="item"></raw-view>
+            </td>
+            <th>
+                <a href  ng-click="onEditPlugin(item)">
+                    {{item.name}}
+                </a>
+            </th>
+            <td>{{item.created_at | date : format : timezone}}</td>
+
+            <td>
+                <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
+                    <i class="mdi mdi-delete"></i>
+                    delete
+                </button>
+            </td>
+        </tr>
+        <tr data-ng-if="plugins.data.length === 0">
+            <td colspan="100%" class="text-center text-muted">
+                <em>no data found...</em>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -10,13 +10,14 @@
     .controller('AddPluginController', [
         '_','$scope','$rootScope','$log','$state','ListConfig','ApiService',
         'MessageService','ConsumerModel','SocketHelperService','PluginHelperService',
-        'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema','_api',
+        'KongPluginsService','$uibModalInstance','PluginsService','_pluginName','_schema','_api','_consumer',
       function controller(_,$scope,$rootScope,$log,$state,ListConfig,ApiService,
                           MessageService,ConsumerModel,SocketHelperService,PluginHelperService,
-                          KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema,_api ) {
+                          KongPluginsService,$uibModalInstance,PluginsService,_pluginName,_schema,_api,_consumer ) {
 
 
           $scope.api = _api
+          $scope.consumer = _consumer;
           $log.debug("API",$scope.api)
 
           //var pluginOptions = new KongPluginsService().pluginOptions()
@@ -38,6 +39,7 @@
               // Initialize plugin fields data
               $scope.data = _.merge(options.fields,$scope.schema)
 
+
               // Define general modal window content
               $scope.description = $scope.data.meta ? $scope.data.meta.description
                   : 'Configure the Plugin.'
@@ -51,20 +53,23 @@
               PluginHelperService.customizeDataFieldsForPlugin(_pluginName,$scope.data.fields)
 
               // Assign extra properties from options to data fields
-              PluginHelperService.assignExtraProperties(options,$scope.data.fields)
-              $log.debug("Extra properties added to fields =>",$scope.data.fields)
+              PluginHelperService.assignExtraProperties(options,$scope.data.fields);
+
+              console.log("Extra properties added to fields =>",$scope.data.fields);
           }
 
 
 
           $scope.addCustomField = function(obj) {
-              if(!obj.custom_field) return;
+              if(!obj.custom_field) {
+                  return;
+              }
               if(!obj.custom_fields) {
-                  obj.custom_fields = {}
+                  obj.custom_fields = {};
               }
 
               obj.custom_fields[obj.custom_field] = _.cloneDeep(obj.schema.fields)
-              obj.custom_field = ""
+              obj.custom_field = "";
           }
 
           $scope.removeCustomField = function(object,key) {
@@ -81,15 +86,17 @@
               }
 
               // Add api_id to request_data if defined
-              if($scope.api) request_data.api_id = $scope.api.id
+              if($scope.api) {
+                  request_data.api_id = $scope.api.id;
+              }
 
               // If a consumer is defined, add consumer_id to request data
-              //if($scope.data.consumer instanceof Object) {
-              //    request_data.consumer_id = $scope.data.consumer.id
-              //}
+              if($scope.consumer) {
+                  request_data.consumer_id = $scope.consumer.id;
+              }
 
-              if($scope.data.consumer_id) {
-                  request_data.consumer_id = $scope.data.consumer_id
+              if($scope.data.consumer_id) { // Overwrite consumer if explicitly set
+                  request_data.consumer_id = $scope.data.consumer_id;
               }
 
               // Apply monkey patches to request data if needed
@@ -110,7 +117,7 @@
               PluginHelperService.addPlugin(
                   request_data,
                   function success(res){
-                      $log.debug("create plugin",res)
+                      console.log("create plugin",res)
                       $scope.busy = false;
                       $rootScope.$broadcast('plugin.added',res.data)
                       MessageService.success('Plugin added successfully!')

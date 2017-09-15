@@ -44,14 +44,7 @@ All notable changes to this project will be documented in this file.
 * Fixed bower dependencies
 * Various fixes and improvements
 
-## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 25-4-2017
-* Kong nodes & API health checks
-* Email notifications
-* Export consumers in .json file
-* New consumers import adapter : Konga JSON
-* Various fixes and improvements
 
-### Note: This version introduces changes in Konga's database. See issue #40 on how they can be implemented.
 
 ## [0.6.5](https://github.com/pantsel/konga/releases/tag/v0.6.5) - 13-4-2017
 
@@ -87,6 +80,7 @@ All notable changes to this project will be documented in this file.
 * Various minor fixes and improvements
 
 
+
 ## [0.7.0](https://github.com/pantsel/konga/releases/tag/v0.7.0) - 14-5-2017
 
 * Node and API health checks.
@@ -118,3 +112,9 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.1](https://github.com/pantsel/konga/releases/tag/v0.8.1) - 3-7-2017
 
+## [0.8.3](https://github.com/pantsel/konga/releases/tag/v0.8.2) - 20-8-2017
+
+* Kong 0.11.x compatibility.
+* Added the ability to manage consumer plugins directly from the consumer edit page.
+* More dynamic backwards compatibility logic.
+* Other minor fixes and improvements.

@@ -15,7 +15,11 @@
                     kong_version : "0-10-x"
                 }
 
-                var kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
+                var kong_versions = [
+                        {'name' : "0.9.x",'value' :"0-9-x"},
+                        {'name' : "0.10.x",value :"0-10-x"},
+                        {'name' : "0.11.x",value :"0-11-x"}
+                    ]
 
                 return {
                     getKongVersions : function(){

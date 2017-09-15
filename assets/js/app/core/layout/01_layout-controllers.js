@@ -156,7 +156,11 @@
                                 function onSuccess(res) {
                                     var credentials = $localStorage.credentials
                                     credentials.user.node = node
-                                    $rootScope.$broadcast('user.node.updated', node)
+
+
+                                    // Update $rootScope.Gateway
+                                    _fetchGatewayInfo(node);
+
                                 }, function (err) {
                                     $scope.busy = false
                                     UserModel.handleError($scope, err)
@@ -187,6 +191,18 @@
                     _fetchConnections()
                 }
 
+
+                function _fetchGatewayInfo(node) {
+                    InfoService.getInfo()
+                        .then(function(response){
+                            $rootScope.Gateway = response.data
+                            $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
+                            $rootScope.$broadcast('user.node.updated', node);
+                        }).catch(function(err){
+                        $rootScope.Gateway = null;
+                    });
+                }
+
             }
         ])
     ;
@@ -195,14 +211,22 @@
     angular.module('frontend.core.layout')
         .controller('SidenavController', ['_', '$scope', '$state', 'AuthService', 'InfoService', 'UserModel', '$localStorage',
             'SettingsService', 'MessageService', 'UserService', '$log',
-            '$rootScope', 'AccessLevels', 'SocketHelperService', '$uibModal',
+            '$rootScope', 'AccessLevels', 'SocketHelperService', '$uibModal','Semver',
             function controller(_, $scope, $state, AuthService, InfoService, UserModel, $localStorage,
                                 SettingsService, MessageService, UserService, $log,
-                                $rootScope, AccessLevels, SocketHelperService, $uibModal) {
+                                $rootScope, AccessLevels, SocketHelperService, $uibModal, Semver) {
 
 
                 $scope.auth = AuthService;
                 $scope.user = UserService.user();
+                $scope.showCluster = false;
+
+                $rootScope.$watch('Gateway',function(newValue,oldValue){
+
+                    if(newValue && newValue.version) {
+                        $scope.showCluster = Semver.cmp(newValue.version,"0.11.0") < 0;
+                    }
+                });
 
                 $scope.items = [
                     {
@@ -233,7 +257,7 @@
                     {
                         state: 'cluster',
                         show: function () {
-                            return AuthService.isAuthenticated() && $rootScope.Gateway
+                            return AuthService.isAuthenticated() && $rootScope.Gateway && $scope.showCluster;
                         },
                         title: 'Cluster',
                         icon: 'mdi-server-network',
@@ -270,7 +294,7 @@
                         state: 'upstreams',
                         icon: 'mdi-shuffle-variant',
                         show: function () {
-                            return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version,"0.10.0") >=0;
                         },
                         title: 'Upstreams',
                         access: AccessLevels.anon
@@ -279,7 +303,7 @@
                         state: 'certificates',
                         icon: 'mdi-certificate',
                         show: function () {
-                            return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.10.") > -1
+                            return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version,"0.10.0") >=0;
                         },
                         title: 'Certificates',
                         access: AccessLevels.anon

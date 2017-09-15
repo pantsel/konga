@@ -8,8 +8,9 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerController', [
-      '_','$scope', '$log', '$state','_consumer',
-      function controller(_,$scope, $log, $state,_consumer) {
+      '_','$scope', '$log', '$state','_consumer','$rootScope','Semver',
+      function controller(_,$scope, $log, $state,_consumer, $rootScope, Semver) {
+
 
           $scope.consumer = _consumer.data
           $scope.activeSection = 0;
@@ -28,14 +29,23 @@
               },
           ]
 
+          if(Semver.cmp($rootScope.Gateway.version,"0.11.0") >=0) {
+              $scope.sections.push({
+                  name : 'Plugins',
+                  icon : 'mdi-power-plug'
+              });
+          }
+
+          $scope.showPluginsSection = Semver.cmp($rootScope.Gateway.version,"0.11.0") >=0;
+
           $scope.showSection = function(index) {
-              $scope.activeSection = index
+              $scope.activeSection = index;
           }
 
 
           $scope.$on('user.node.updated',function(node){
-              $state.go('consumers')
-          })
+              $state.go('consumers');
+          });
 
       }
     ])

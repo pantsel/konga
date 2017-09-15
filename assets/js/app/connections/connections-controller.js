@@ -26,7 +26,7 @@
                 // Set initial data
                 $scope.createNode = createNode
                 $scope.user = UserService.user();
-                $scope.kong_versions = [{'name' : "0.9.x",'value' :"0-9-x"},{'name' : "0.10.x",value :"0-10-x"}]
+                $scope.kong_versions = SettingsService.getKongVersions();
                 $scope.general_settings = SettingsService.getSettings()
 
 
@@ -261,12 +261,43 @@
                             function onSuccess(result) {
                                 $rootScope.$broadcast('kong.node.updated',result.data)
                                 //if(!node.active) showTestNodeModal(node)
+
+                                // Update User node if it is the same as the updated node
+                                var user = UserService.user();
+                                if(user.node && user.node.id === node.id) {
+                                    UserModel
+                                        .update(user.id, {
+                                            node : result.data
+                                        }).then(function onSuccess(res) {
+                                        var credentials = $localStorage.credentials
+                                        var user = res.data[0];
+                                        if(!user.node) {
+                                            delete credentials.user.node;
+                                        } else{
+                                            credentials.user.node = node;
+                                        }
+
+                                        _fetchGatewayInfo(credentials.user.node);
+                                    });
+                                }
                             },function(err){
                                 $scope.busy = false
                                 NodeModel.handleError($scope,err)
                             }
                         )
                     ;
+                }
+
+
+                function _fetchGatewayInfo(node) {
+                    InfoService.getInfo()
+                        .then(function(response){
+                            $rootScope.Gateway = response.data
+                            $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway);
+                            $rootScope.$broadcast('user.node.updated', node);
+                        }).catch(function(err){
+                        $rootScope.Gateway = null;
+                    });
                 }
 
 

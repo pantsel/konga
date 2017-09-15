@@ -7,38 +7,60 @@
     'use strict';
 
     angular.module('frontend.apis')
-        .controller('AddApiPluginModalController', [
+        .controller('AddPluginModalController', [
             '_','$scope', '$rootScope','$log',
-            '$state','ApiService','MessageService','DialogService',
+            '$state','ApiService','ConsumerService','MessageService','DialogService','Semver',
             'KongPluginsService','PluginsService','$uibModal','$uibModalInstance',
-            '_api',
+            '_consumer','_api',
             function controller(_,$scope,$rootScope, $log,
-                                $state, ApiService, MessageService, DialogService,
+                                $state, ApiService,ConsumerService, MessageService, DialogService, Semver,
                                 KongPluginsService,PluginsService, $uibModal,$uibModalInstance,
-                                _api ) {
+                                _consumer,_api ) {
 
 
                 var pluginOptions = new KongPluginsService().pluginOptions()
 
-                $scope.api = _api
+                $scope.consumer = _consumer;
+                $scope.api = _api;
                 $scope.pluginOptions = pluginOptions
 
                 new KongPluginsService().makePluginGroups().then(function(groups){
                     $scope.pluginGroups = groups
 
                     // Remove ssl plugin if Kong > 0.9.x
-                    if($rootScope.Gateway.version.indexOf('0.9.') < 0){
+                    if(Semver.cmp($rootScope.Gateway.version,"0.10.0") >= 0){
                         $scope.pluginGroups.forEach(function(group){
                             Object.keys(group.plugins).forEach(function(key){
-                                if(key == 'ssl')  delete group.plugins[key]
-                            })
-                        })
+                                if(key === 'ssl')  {
+                                    delete group.plugins[key];
+                                }
+                            });
+                        });
                     }
 
-                    $log.debug("Plugin Groups",$scope.pluginGroups)
-                })
+                    // Remove non consumer plugins if this is a consumer plugins context
+                    if($scope.consumer) {
+                        var remainingPluginGroups = []
+                        $scope.pluginGroups.forEach(function(group){
 
-                $scope.activeGroup = 'Authentication'
+                            if(group.hasConsumerPlugins) {
+                                Object.keys(group.plugins).forEach(function(key){
+                                    if(group.plugins[key].hideIfNotInConsumerContext) {
+                                        delete group.plugins[key];
+                                    }
+                                });
+                                remainingPluginGroups.push(group);
+                            }
+
+                        });
+
+                        $scope.pluginGroups = remainingPluginGroups;
+                    }
+
+                    $scope.activeGroup = $scope.pluginGroups[0].name;
+                });
+
+
                 $scope.setActiveGroup = setActiveGroup
                 $scope.filterGroup = filterGroup
                 $scope.onAddPlugin = onAddPlugin
@@ -54,11 +76,11 @@
                  */
 
                 function setActiveGroup(name) {
-                    $scope.activeGroup = name
+                    $scope.activeGroup = name;
                 }
 
                 function filterGroup(group) {
-                    return group.name == $scope.activeGroup
+                    return group.name === $scope.activeGroup;
                 }
 
                 function onAddPlugin(name) {
@@ -70,17 +92,17 @@
                         size : 'lg',
                         controller: 'AddPluginController',
                         resolve: {
+                            _consumer : function() {
+                                return $scope.consumer;
+                            },
                             _api : function() {
                                 return $scope.api;
                             },
-                            _consumer : function() {
-                                return null;
-                            },
                             _pluginName: function () {
-                                return name
+                                return name;
                             },
                             _schema: function () {
-                                return PluginsService.schema(name)
+                                return PluginsService.schema(name);
                             }
                         }
                     });
@@ -90,7 +112,7 @@
 
                     }, function (data) {
                         if(data && data.name && $scope.existingPlugins.indexOf(data.name) < 0) {
-                            $scope.existingPlugins.push(data.name)
+                            $scope.existingPlugins.push(data.name);
                         }
                     });
                 }
@@ -100,7 +122,7 @@
 
                 // Listeners
                 $scope.$on('plugin.added',function(){
-                    fetchPlugins()
+                    fetchPlugins();
                 })
 
                 /**
@@ -109,11 +131,11 @@
                  * ------------------------------------------------------------
                  */
                 $scope.$on("plugin.added",function(){
-                    fetchPlugins()
+                    fetchPlugins();
                 })
 
                 $scope.$on("plugin.updated",function(ev,plugin){
-                    fetchPlugins()
+                    fetchPlugins();
                 })
 
 
@@ -121,23 +143,40 @@
                     PluginsService.load()
                         .then(function(res){
 
-                        })
+                        });
                 }
 
-                function getApiPlugins() {
-                    ApiService.plugins($scope.api.id)
-                        .then(function(response){
-                            $scope.existingPlugins = response.data.data.map(function(item){
-                                return item.name
+                function getExistingPlugins() {
+
+                    if($scope.api) {
+                        ApiService.plugins($scope.api.id)
+                            .then(function(response){
+                                $scope.existingPlugins = response.data.data.map(function(item){
+                                    return item.name;
+                                });
                             })
-                        })
-                        .catch(function(err){
+                            .catch(function(err){
 
-                        })
+                            });
+                    }
+
+                    if($scope.consumer) {
+                        ConsumerService.listPlugins($scope.consumer.id)
+                            .then(function(response){
+                                $scope.existingPlugins = response.data.data.map(function(item){
+                                    return item.name;
+                                });
+                            })
+                            .catch(function(err){
+
+                            });
+                    }
+
+
                 }
 
 
-                getApiPlugins();
+                getExistingPlugins();
 
             }
         ])

@@ -103,6 +103,10 @@
                                         }
                                     ]
                                 }
+                            },
+                            'plugins@consumers.edit': {
+                                templateUrl: 'js/app/consumers/plugins/consumer-plugins.html',
+                                controller: 'ConsumerPluginsController'
                             }
                         },
                         resolve : {
