@@ -118,3 +118,8 @@ All notable changes to this project will be documented in this file.
 * Added the ability to manage consumer plugins directly from the consumer edit page.
 * More dynamic backwards compatibility logic.
 * Other minor fixes and improvements.
+
+## [0.8.4](https://github.com/pantsel/konga/releases/tag/v0.8.4) - 19-9-2017
+
+* Fix bug where a new user could not be created when users where not allowed to sign up.
+* Hide API keys in connections when logged in as a simple user.
