@@ -1,0 +1,146 @@
+<div class="form-group" ng-class="{'has-error' : errors.name}">
+    <label class="col-sm-4 control-label">Name <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.name" class="form-control">
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+        <p class="help-block">The API name. If none is specified, will default to the <code>request_host</code> or <code>request_path</code>.</p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.hosts}">
+    <label class="col-sm-4 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.hosts" class="form-control">
+        <div class="text-danger" ng-if="errors.hosts" data-ng-bind="errors.hosts"></div>
+        <p class="help-block">A comma-separated list of domain names that point to your API. For example: <code>example.com</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.uris}">
+    <label class="col-sm-4 control-label">Uris <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.uris" class="form-control">
+        <div class="text-danger" ng-if="errors.uris" data-ng-bind="errors.uris"></div>
+        <p class="help-block">A comma-separated list of URIs prefixes that point to your API. For example: <code>/my-path</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.methods}">
+    <label class="col-sm-4 control-label">Methods <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-7">
+        <input ng-model="api.methods" class="form-control">
+        <div class="text-danger" ng-if="errors.methods" data-ng-bind="errors.methods"></div>
+        <p class="help-block">A comma-separated list of HTTP methods that point to your API. For example: <code>GET</code>,<code>POST</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
+    </div>
+</div>
+<div class="form-group " ng-class="{'has-error' : errors.upstream_url}">
+    <label class="col-sm-4 control-label">Upstream URL</label>
+    <div class="col-sm-7">
+        <input type="url" ng-model="api.upstream_url" class="form-control">
+        <div class="text-danger" ng-if="errors.upstream_url" data-ng-bind="errors.upstream_url"></div>
+        <p class="help-block">
+            The base target URL that points to your API server, this URL will be used for proxying requests. For example, <code>https://mockbin.com</code>.
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Strip uri
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.strip_uri"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            When matching an API via one of the <code>uris</code> prefixes, strip that matching prefix from the upstream URI to be requested. Default: <code>true</code>.
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Preserve Host
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.preserve_host"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            When matching an API via one of the <code>hosts</code> domain names, make sure the request <code>Host</code> header is forwarded to the upstream service. By default, this is <code>false</code>, and the upstream <code>Host</code> header will be extracted from the configured <code>upstream_url</code>.
+        </p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.retries}">
+    <label class="col-sm-4 control-label">Retries <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input type="number" ng-model="api.retries" class="form-control">
+        <div class="text-danger" ng-if="errors.retries" data-ng-bind="errors.retries"></div>
+        <p class="help-block">The number of retries to execute upon failure to proxy. The default is <code>5</code>.</p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.upstream_connect_timeout}">
+    <label class="col-sm-4 control-label">Upstream connect timeout <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input type="number" ng-model="api.upstream_connect_timeout" class="form-control">
+        <div class="text-danger" ng-if="errors.upstream_connect_timeout" data-ng-bind="errors.upstream_connect_timeout"></div>
+        <p class="help-block">The timeout in milliseconds for establishing a connection to your upstream service. Defaults to <code>60000</code></p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.upstream_send_timeout}">
+    <label class="col-sm-4 control-label">Upstream send timeout <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input type="number" ng-model="api.upstream_send_timeout" class="form-control">
+        <div class="text-danger" ng-if="errors.upstream_send_timeout" data-ng-bind="errors.upstream_send_timeout"></div>
+        <p class="help-block">The timeout in milliseconds between two successive write operations for transmitting a request to your upstream service. Defaults to <code>60000</code></p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.upstream_read_timeout}">
+    <label class="col-sm-4 control-label">Upstream read timeout <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input type="number" ng-model="api.upstream_read_timeout" class="form-control">
+        <div class="text-danger" ng-if="errors.upstream_read_timeout" data-ng-bind="errors.upstream_read_timeout"></div>
+        <p class="help-block">The timeout in milliseconds between two successive read operations for transmitting a request to your upstream service. Defaults to <code>60000</code></p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Https only
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.https_only"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            To be enabled if you wish to only serve an API through HTTPS, on the appropriate port (<code>8443</code> by default). Default: <code>false</code>.
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Http if terminated
+        <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input
+
+                bs-switch
+                ng-model="api.http_if_terminated"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            Consider the <code>X-Forwarded-Proto</code> header when enforcing HTTPS only traffic. Default: <code>true</code>.
+        </p>
+    </div>
+</div>
