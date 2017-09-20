@@ -16,7 +16,7 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  hookTimeout: 60000,
+  hookTimeout: process.env.KONGA_HOOK_TIMEOUT || 60000,
 
   port: process.env.KONGA_BACKEND_PORT || 1337,
 
