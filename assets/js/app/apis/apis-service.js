@@ -34,6 +34,21 @@
                   https_only:false,
                   http_if_terminated:true,
                   upstream_url : ''
+              },
+              '011' : {
+                  name : '',
+                  hosts : '',
+                  uris : '',
+                  methods : '',
+                  strip_uri : true,
+                  preserve_host: false,
+                  retries : 5,
+                  upstream_connect_timeout : 6000,
+                  upstream_send_timeout : 6000,
+                  upstream_read_timeout : 6000,
+                  https_only:false,
+                  http_if_terminated:true,
+                  upstream_url : ''
               }
           }
 
