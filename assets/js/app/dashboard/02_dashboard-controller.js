@@ -49,11 +49,7 @@
                   server : {
                       labels : [
                           'Accepted',
-                          'Active',
                           'Handled',
-                          'Reading',
-                          'Waiting',
-                          'Writing',
                           'Total Requests'
                       ],
                       options: {
@@ -64,19 +60,53 @@
                                       maxRotation: 0,
                                       minRotation: 0
                                   }
+                              }],
+                              yAxes: [{
+                                  ticks: {
+                                      min: 0
+                                  }
                               }]
                           }
                       },
                       series : ['Connections'],
                       data : [
                           $scope.status.server.connections_accepted,
-                          $scope.status.server.connections_active,
                           $scope.status.server.connections_handled,
+                          $scope.status.server.total_requests
+                      ]
+                  },
+                  activity : {
+                      labels : [
+                          'Active',
+                          'Reading',
+                          'Waiting',
+                          'Writing',
+                      ],
+                      options: {
+                          scales: {
+                              xAxes: [{
+                                  ticks: {
+                                      autoSkip: false,
+                                      maxRotation: 0,
+                                      minRotation: 0
+                                  }
+                              }],
+                              yAxes: [{
+                                  ticks: {
+                                      min: 0
+                                  }
+                              }]
+                          }
+                      },
+                      series : ['Connections'],
+                      data : [
+                          $scope.status.server.connections_active,
                           $scope.status.server.connections_reading,
                           $scope.status.server.connections_waiting,
-                          $scope.status.server.connections_writing,
-                          $scope.status.server.total_requests,
+                          $scope.status.server.connections_writing
                       ]
+
+
                   },
                   timers : {
                       labels : [
@@ -84,10 +114,11 @@
                           'Running'
                       ],
                       options : {
-                          //title: {
-                          //    display: true,
-                          //    text: 'timers'
-                          //},
+                          yAxes: [{
+                            ticks: {
+                              min: 0
+                          }
+                        }]
                       },
                       series : ['Timers'],
                       data : [

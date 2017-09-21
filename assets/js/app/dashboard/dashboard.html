@@ -32,18 +32,17 @@
 
 <div data-ng-if="!loading && !error && info">
     <div class="row" vertilize-container>
-        <!-- CONNECTIONS -->
-        <div class="col-md-8">
+        <!-- REQUESTS -->
+        <div class="col-md-4">
             <div class="panel panel-default" vertilize>
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i class="mdi mdi-cast-connected"></i>&nbsp;
-                        CONNECTIONS
+                        REQUESTS
                     </div>
                 </div>
                 <div class="panel-body">
                     <canvas id="server"
-                            height="75"
                             class="chart chart-bar"
                             chart-data="data.server.data"
                             chart-labels="data.server.labels"
@@ -53,8 +52,28 @@
                 </div>
             </div>
         </div>
+        <!-- END REQUESTS -->
+        <!-- CONNECTIONS -->
+        <div class="col-md-4">
+            <div class="panel panel-default" vertilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="mdi mdi-cast-connected"></i>&nbsp;
+                        CONNECTIONS
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <canvas id="activity"
+                            class="chart chart-bar"
+                            chart-data="data.activity.data"
+                            chart-labels="data.activity.labels"
+                            chart-options="data.activity.options"
+                            chart-series="data.activity.series">
+                    </canvas>
+                </div>
+            </div>
+        </div>
         <!-- END CONNECTIONS -->
-
         <!-- TIMERS -->
         <div class="col-md-4">
             <div class="panel panel-default" vertilize>
