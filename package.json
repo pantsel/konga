@@ -55,7 +55,6 @@
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "^0.10.10",
-    "sails-hook-grunt": "^2.1.0",
     "sails-hook-validation": "^0.4.6",
     "sails-mongo": "^0.12.2",
     "sails-mysql": "^0.11.5",
