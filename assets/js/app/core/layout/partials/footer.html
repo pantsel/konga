@@ -37,7 +37,7 @@
                             </a>
                         </li>
                         <li role="menuitem">
-                            <table class="table table-hover no-margin">
+                            <table class="table table-hover no-margin" style="width:300px">
                                 <tr data-ng-repeat="connection in connections"
                                     class="clickable"
                                     data-ng-click="activateConnection(connection)"
@@ -51,8 +51,7 @@
                                         </div>
                                     </td>
                                     <td><strong>{{connection.name}}</strong></td>
-                                    <td>{{connection.kong_admin_url}}</td>
-                                    <td>v.{{connection.kong_version.split("-").join(".")}}</td>
+                                    <td>v{{connection.kong_version.split("-").join(".")}}</td>
                                 </tr>
                             </table>
                         </li>
