@@ -124,8 +124,12 @@ All notable changes to this project will be documented in this file.
 * Fix bug where a new user could not be created when users where not allowed to sign up.
 * Hide API keys in connections when logged in as a simple user.
 
-## [0.8.4](https://github.com/pantsel/konga/releases/tag/v0.8.5) - 23-9-2017
+## [0.8.5](https://github.com/pantsel/konga/releases/tag/v0.8.5) - 23-9-2017
 
 * Fix docker automated builds failure.
 * Removed kong admin url from connections chooser.
 * Sails js hookTimeout is now configurable via env var <code>KONGA_HOOK_TIMEOUT</code>. 
+
+## [0.8.6](https://github.com/pantsel/konga/releases/tag/v0.8.6) - 24-9-2017
+
+* Fix broken dependencies.
