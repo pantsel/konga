@@ -144,6 +144,7 @@ $ docker run -p 1337:1337
              --name konga
              -v [host-dir]:kongadata \  // map the kongadata directory to a dir in the host machine when using the default filesystem db
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
+             -e "KONGA_HOOK_TIMEOUT=60000" \ // The number of milliseconds sails wait for the hooks to be loaded before timing out. Defaults to 60000.
              pantsel/konga
 </pre>
 
@@ -162,6 +163,7 @@ $ docker run -p 1337:1337
              -e "DB_USER=your-db-user" \ // Omit if not relevant
              -e "DB_PASSWORD=your-db-password" \ // Omit if not relevant
              -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
+             -e "KONGA_HOOK_TIMEOUT=60000" \ // The number of milliseconds sails wait for the hooks to be loaded before timing out. Defaults to 60000.
              -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
              --name konga \
              pantsel/konga
