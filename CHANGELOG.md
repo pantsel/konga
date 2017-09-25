@@ -130,6 +130,9 @@ All notable changes to this project will be documented in this file.
 * Removed kong admin url from connections chooser.
 * Sails js hookTimeout is now configurable via env var <code>KONGA_HOOK_TIMEOUT</code>. 
 
-## [0.8.6](https://github.com/pantsel/konga/releases/tag/v0.8.6) - 24-9-2017
+## [0.9.0](https://github.com/pantsel/konga/releases/tag/v0.9.0) - 25-9-2017
 
-* Fix broken dependencies.
+* [FIX] Fix broken dependencies.
+* [BREAKING CHANGE] Changed docker volume implementation. Everyone using the default filesystem db, 
+will have to migrate their data from the previous <code>/kongadata</code> dir to the newly defined one with <code>-v [host-dir]:kongadata</code>.
+Check the <code>Running Konga</code> section of <code>README.md</code> for more details.
