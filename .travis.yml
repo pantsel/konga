@@ -16,4 +16,4 @@ notifications:
 branches:
   only:
     - master
-    - dev
+    - next
