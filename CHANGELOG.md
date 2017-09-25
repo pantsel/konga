@@ -134,5 +134,6 @@ All notable changes to this project will be documented in this file.
 
 * [FIX] Fix broken dependencies.
 * [BREAKING CHANGE] Changed docker volume implementation. Everyone using the default filesystem db, 
-will have to migrate their data from the previous <code>/kongadata</code> dir to the newly defined one with <code>-v [host-dir]:kongadata</code>.
+will have to migrate their data from the previous <code>/kongadata</code> dir to the dir that can be mapped at startup.
+You can define a data dir mapping by issuing <code>-v [host-dir]:kongadata</code> when starting the container.
 Check the <code>Running Konga</code> section of <code>README.md</code> for more details.
