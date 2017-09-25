@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.8.4",
+  "version": "0.8.6",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
@@ -54,7 +54,7 @@
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "^0.10.10",
-    "sails-hook-validation": "^0.4.6",
+    "sails-hook-validation": "0.4.6",
     "sails-mongo": "^0.12.2",
     "sails-mysql": "^0.11.5",
     "sails-postgresql": "^0.11.4",
