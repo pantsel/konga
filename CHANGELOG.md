@@ -135,4 +135,5 @@ All notable changes to this project will be documented in this file.
 ## [0.8.7](https://github.com/pantsel/konga/releases/tag/v0.8.7) - 29-9-2017
 
 * [FIX] Tests are working again.
+* [FIX] Better error handling when adding groups and credentials to consumers.
 * [FIX] <code>kongadata</code> dir is now created inside the project folder by default. The docker volume now becomes <code>/app/kongadata</code>
