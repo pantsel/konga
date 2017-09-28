@@ -28,7 +28,7 @@ module.exports.connections = {
    */
   localDiskDb: {
     adapter: 'sails-disk',
-    filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || '/kongadata/' ),
+    filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || './kongadata/' ),
     fileName: process.env.NODE_ENV == 'test' ? 'localDiskDb.db' : 'konga.db'
   },
 

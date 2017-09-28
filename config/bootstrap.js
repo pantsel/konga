@@ -11,7 +11,7 @@ module.exports.bootstrap = function bootstrap(next) {
 
 
     // Create Konga data directories
-    var dirs = [( process.env.STORAGE_PATH || '/kongadata/' ), ( process.env.STORAGE_PATH || '/kongadata/' )+ 'uploads']
+    var dirs = [( process.env.STORAGE_PATH || './kongadata/' ), ( process.env.STORAGE_PATH || './kongadata/' )+ 'uploads']
 
 
     dirs.forEach(function(dir){
