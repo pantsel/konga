@@ -31,7 +31,7 @@
                   $uibModalInstance.dismiss()
               }).catch(function(err){
                   $log.error(err)
-                  $scope.errors = err.data.customMessage || {}
+                  $scope.errors = err.data.body || err.data.customMessage || {}
               })
           }
 
