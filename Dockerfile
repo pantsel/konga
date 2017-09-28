@@ -16,7 +16,7 @@ RUN npm --unsafe-perm --verbose install --production
 
 EXPOSE 1337
 
-VOLUME /kongadata
+VOLUME /app/kongadata
 
 RUN chmod 777 ./start.sh
 
