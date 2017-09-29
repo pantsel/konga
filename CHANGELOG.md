@@ -132,7 +132,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.6](https://github.com/pantsel/konga/releases/tag/v0.8.6) - 24-9-2017
 
-## [0.8.7](https://github.com/pantsel/konga/releases/tag/v0.8.7) - 29-9-2017
+## [0.8.7](https://github.com/pantsel/konga/releases/tag/0.8.7) - 29-9-2017
 
 * [FIX] Tests are working again.
 * [FIX] Better error handling when adding groups and credentials to consumers.
