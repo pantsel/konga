@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
