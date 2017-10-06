@@ -48,8 +48,6 @@ Konga is compatible with Kong 0.9.x,0.10.x,0.11.x
 - A running [Kong installation](https://getkong.org/) 
 - Nodejs
 - Npm
-- Gulp
-- Bower
 
 ## Used libraries
 * Sails.js, http://sailsjs.org/
@@ -62,7 +60,6 @@ Install <code>npm</code> and <code>node.js</code>. Instructions can be found [he
 
 Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.
 <pre>
-$ npm install bower gulp sails -g
 $ git clone https://github.com/pantsel/konga.git
 $ cd konga
 $ npm install
@@ -189,7 +186,7 @@ Then stop the app and run it again in production mode.
 
 In some cases when running <code>npm install</code>, the bower dependencies are not installed properly.
 You will need to cd into your project's root directory and install them manually by typing
-<pre>$ bower --allow-root install</pre>
+<pre>$ npm run bower-deps</pre>
 
 ##### 2. Can't add/edit some plugin properties.
 When a plugin property is an array, the input is handled by a chip component.
