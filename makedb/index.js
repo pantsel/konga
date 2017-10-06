@@ -5,6 +5,9 @@
 
 
 module.exports = function (next) {
+
+    if(process.env.NODE_ENV == 'production') return next();
+
     switch (process.env.DB_ADAPTER) {
         case("postgres"):
             return require("./dbs/pg").run(next);
