@@ -5,6 +5,7 @@
     "email": "admin@some.domain",
     "firstName": "Arnold",
     "lastName": "Administrator",
+    "active": true,
     "admin": true
   },
   {
@@ -14,6 +15,7 @@
     "firstName": "John",
     "lastName": "Doe",
     "admin": false,
+    "active": true,
     "createdUser": 1,
     "updatedUser": 1
   }

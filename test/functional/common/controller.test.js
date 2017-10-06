@@ -10,7 +10,7 @@ describe('Generic controller test', function controllerTest() {
     [
         {
             controller: 'UserController',
-            url: '/user/',
+            url: '/api/user/',
             identifier: 1,
             count: 2,
             data: {
@@ -19,6 +19,7 @@ describe('Generic controller test', function controllerTest() {
                     email: "admin@some.domain",
                     firstName: "Arnold",
                     lastName: "Administrator",
+                    active: true,
                     admin: true
                 },
                 newRecord: {
@@ -26,6 +27,7 @@ describe('Generic controller test', function controllerTest() {
                     email: "schwarzenegger@some.domain",
                     firstName: "Arnold",
                     lastName: "Schwarzenegger",
+                    active: true,
                     admin: false
                 },
                 updateRecord: {
@@ -33,6 +35,7 @@ describe('Generic controller test', function controllerTest() {
                     email: "stallone@some.domain",
                     firstName: "Sylvester",
                     lastName: "Stallone",
+                    active: true,
                     admin: false
                 }
 
@@ -40,7 +43,7 @@ describe('Generic controller test', function controllerTest() {
         },
         {
             controller: 'KongNodeController',
-            url: '/kongnode/',
+            url: '/api/kongnode/',
             identifier: 1,
             count: 1,
             data: {

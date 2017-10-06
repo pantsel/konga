@@ -241,7 +241,7 @@
                             node : isActive(node) ? null : node
                         }).then(function onSuccess(res) {
                         var credentials = $localStorage.credentials
-                        var user = res.data[0];
+                        var user = res.data;
                         if(!user.node) {
                             delete credentials.user.node;
                         } else{
@@ -270,7 +270,7 @@
                                             node : result.data
                                         }).then(function onSuccess(res) {
                                         var credentials = $localStorage.credentials
-                                        var user = res.data[0];
+                                        var user = res.data;
                                         if(!user.node) {
                                             delete credentials.user.node;
                                         } else{

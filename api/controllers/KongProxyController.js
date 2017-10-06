@@ -55,8 +55,10 @@ module.exports = {
                 }
             }
 
-            request.send(req.body)
+
         }
+
+        request.send(req.body);
 
 
         request.end(function (response) {

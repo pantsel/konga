@@ -23,8 +23,8 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'js/app/consumers/groups/create-group-modal.html',
-                  controller: ['$scope','$rootScope','$uibModalInstance','ConsumerService','_consumer',
-                      function($scope,$rootScope, $uibModalInstance,ConsumerService,_consumer){
+                  controller: ['$scope','$log','$rootScope','$uibModalInstance','ConsumerService','_consumer',
+                      function($scope,$log,$rootScope, $uibModalInstance,ConsumerService,_consumer){
 
                           $scope.close = close
                           $scope.createGroup = createGroup
@@ -37,10 +37,9 @@
                                   fetcAcls()
                                   close()
                               }).catch(function(err){
-                                  console.error(err)
-                                  $scope.errors = {
-                                      group : err.data.customMessage.group
-                                  }
+                                  $log.error(err)
+
+                                  $scope.errors = err.data.body || err.data.customMessage || {}
                               })
 
                           }

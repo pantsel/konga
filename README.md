@@ -200,6 +200,11 @@ See issue [#48](https://github.com/pantsel/konga/issues/48) for reference.
 ##### 3. Database migrations do not run automatically when starting the app.
 See issue [#40](https://github.com/pantsel/konga/issues/40) for reference.
 
+##### 4. EACCES permission denied, mkdir '/kongadata/'.
+If you see this error while trying to run Konga, it means that konga has no write permissions to
+it's default data dir <code>/kongadata</code>.  You will just have to define the storage path yourself to 
+a directory Konga will have access permissions via the env var <code>STORAGE_PATH</code>.
+
 
 ## More Kong related stuff
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
