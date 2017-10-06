@@ -118,51 +118,42 @@ module.exports = {
             if(err) {
                 sails.log("health_checks:updateNodeHealthCheckDetails:failed",err)
             }else{
-                sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
+                // sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
             }
         })
     },
 
-    createTransporter : function(cb) {
+    createTransporter : function(settings,cb) {
 
         // Get active transport
-        sails.models.settings.find().limit(1)
-            .exec(function(err,settings){
-                if(err) return cb(err)
-                sails.log("helath_checks:createTransporter:settings =>",settings)
-                if(!settings.length
-                    || !settings[0].data
-                    //|| !settings[0].data.email_notifications
-                    || !settings[0].data.notify_when.node_down.active) return cb()
-                sails.log("health_checks:createTransporter => trying to get transport",{
-                    "notifications_enabled" : settings[0].data.email_notifications,
-                    "transport_name" : settings[0].data.default_transport
-                })
-                sails.models.emailtransport.findOne({
-                    name : settings[0].data.default_transport
-                }).exec(function(err,transport){
-                    if(err) return cb(err)
+        sails.log("health_checks:createTransporter => trying to get transport",{
+            "notifications_enabled" : settings.data.email_notifications,
+            "transport_name" : settings.data.default_transport
+        })
+        sails.models.emailtransport.findOne({
+            name : settings.data.default_transport
+        }).exec(function(err,transport){
+            if(err) return cb(err)
 
-                    sails.log("health_checks:createTransporter:transport =>",transport)
-                    if(!transport) return cb()
+            sails.log("health_checks:createTransporter:transport =>",transport)
+            if(!transport) return cb()
 
-                    var result = {
-                        settings : settings[0].data,
-                    }
+            var result = {
+                settings : settings.data,
+            }
 
-                    switch(settings[0].data.default_transport) {
-                        case "smtp":
-                            result.transporter = nodemailer.createTransport(transport.settings)
-                            break;
-                        case "mailgun":
-                            result.transporter = nodemailer.createTransport(mg(transport.settings))
-                            break;
-                    }
+            switch(settings.data.default_transport) {
+                case "smtp":
+                    result.transporter = nodemailer.createTransport(transport.settings)
+                    break;
+                case "mailgun":
+                    result.transporter = nodemailer.createTransport(mg(transport.settings))
+                    break;
+            }
 
-                    return cb(null,result);
+            return cb(null,result);
 
-                })
-            })
+        })
 
     },
 
@@ -170,53 +161,104 @@ module.exports = {
 
         var self = this
 
-        self.createTransporter(function(err,result){
-            if(err || !result) {
-                sails.log("health_check:failed to create transporter. No notification will be sent.",err)
-            }else{
-                var transporter = result.transporter
-                var html = self.makeNotificationHTML(node)
-                var settings = result.settings
+        sails.models.settings.find().limit(1)
+            .exec(function(err,settings) {
+                if (err) return cb(err)
+                sails.log("helath_checks:settings =>", settings)
+                if (!settings.length
+                    || !settings[0].data
+                    || !settings[0].data.notify_when.node_down.active) return false;
 
-                self.getAdminEmailsList(function(err,receivers){
-                    sails.log("health_checks:notify:receivers => ",  receivers)
-                    if(!err && receivers.length) {
 
-                        var mailOptions = {
-                            from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
-                            to: receivers.join(","), // list of receivers
-                            subject: 'A node is down or unresponsive', // Subject line
-                            html: html
-                        };
+                self.sendSlackNotification(settings[0],node);
+                self.createTransporter(settings[0],function(err,result){
+                    if(err || !result) {
+                        sails.log("health_check:failed to create transporter. No notification will be sent.",err)
+                    }else{
+                        var transporter = result.transporter
+                        var html = self.makeNotificationHTML(node)
+                        var settings = result.settings
 
-                        if(settings.default_transport == 'sendmail') {
-                            sendmail(mailOptions, function(err, reply) {
-                                if(err){
-                                    sails.log.error("Health_checks:notify:error",err)
+                        self.getAdminEmailsList(function(err,receivers){
+                            sails.log("health_checks:notify:receivers => ",  receivers)
+                            if(!err && receivers.length) {
+
+                                var mailOptions = {
+                                    from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
+                                    to: receivers.join(","), // list of receivers
+                                    subject: 'A node is down or unresponsive', // Subject line
+                                    html: html
+                                };
+
+                                if(settings.default_transport == 'sendmail') {
+                                    sendmail(mailOptions, function(err, reply) {
+                                        if(err){
+                                            sails.log.error("Health_checks:notify:error",err)
+                                        }else{
+                                            sails.log.info("Health_checks:notify:success",reply)
+                                            tasks[node.id].lastNotified = new Date();
+                                            self.updateNodeHealthCheckDetails(node.id)
+
+                                        }
+                                    });
                                 }else{
-                                    sails.log.info("Health_checks:notify:success",reply)
-                                    tasks[node.id].lastNotified = new Date();
-                                    self.updateNodeHealthCheckDetails(node.id)
+                                    transporter.sendMail(mailOptions, function(error, info){
+                                        if(error){
+                                            sails.log.error("Health_checks:notify:error",error)
+
+                                        }else{
+                                            sails.log.info("Health_checks:notify:success",info)
+                                            tasks[node.id].lastNotified = new Date();
+                                            self.updateNodeHealthCheckDetails(node.id)
+
+                                        }
+                                    });
 
                                 }
-                            });
-                        }else{
-                            transporter.sendMail(mailOptions, function(error, info){
-                                if(error){
-                                    sails.log.error("Health_checks:notify:error",error)
-
-                                }else{
-                                    sails.log.info("Health_checks:notify:success",info)
-                                    tasks[node.id].lastNotified = new Date();
-                                    self.updateNodeHealthCheckDetails(node.id)
-
-                                }
-                            });
-                        }
+                            }
+                        })
                     }
                 })
-            }
+
+            });
+
+
+    },
+
+
+    sendSlackNotification : function(settings,node) {
+
+        var slack = _.find(settings.data.integrations,function(item){
+            return item.id == 'slack'
         })
+
+        if(!slack || !slack.config.enabled) return;
+
+        // Send notification to slack
+        var IncomingWebhook = require('@slack/client').IncomingWebhook;
+
+        var url = slack.config.slack_webhook_url;
+
+        var webhook = new IncomingWebhook(url);
+
+        webhook.send(this.makePlainTextNotification(node), function(err, header, statusCode, body) {
+            if (err) {
+                console.log('Error:', err);
+            } else {
+                console.log('Received', statusCode, 'from Slack');
+            }
+        });
+    },
+
+
+    makePlainTextNotification : function makePlainTextNotification(node) {
+
+        var duration = moment.duration(moment().diff(moment(tasks[node.id].lastSucceeded))).humanize()
+
+        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] A Kong Node is down or unresponsive for more than '
+            + duration + '. ID: ' + node.id + ' | Name: ' + node.name + " | Kong Admin URL: " + node.kong_admin_url + '.';
+
+        return text;
     },
 
     makeNotificationHTML : function makeNotificationHTML(node) {

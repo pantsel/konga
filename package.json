@@ -12,6 +12,7 @@
     "Passport.js"
   ],
   "dependencies": {
+    "@slack/client": "^3.14.0",
     "async": "1.5.0",
     "barrels": "1.6.0",
     "bcryptjs": "2.3.0",
