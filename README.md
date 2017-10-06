@@ -112,7 +112,7 @@ See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/a
 ***************************************************************************************** 
 ##### Note : 
 In case of <code>MySQL</code>, <code>PostgresSQL</code> or <code>SQL Server</code> adapters, 
-you will need to create a database named <code>konga_database</code> manually and run the app in development mode the first time. 
+you will need to start the app in development mode the first time. 
 <pre>npm start</pre>
 Then kill the process and start Konga as you would in production mode.
 Konga **will not** create the database or tables in production mode. 
@@ -149,8 +149,7 @@ $ docker run -p 1337:1337
 #### To use one of the supported databases
 <pre>
 // As stated before, in case of 'postgres','sqlserver'  or 'mysql' adapters,
-// the database defined in DB_DATABASE must be created manually and the app must 
-// start in development mode the first time in order to be able to create the tables.
+// the app must be started in development mode the first time in order to be able to apply migrations.
 // You can do that by bashing into Konga's container and running 'node app.js --dev'.
 // You may also need to add an extra link that points to your database container.
 $ docker run -p 1337:1337 
