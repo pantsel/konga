@@ -33,11 +33,12 @@ module.exports = {
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
+  log: {
+      level: "silent"
+  },
 
   // Keep data of response errors in production mode
-  keepResponseErrors : true,
+  keepResponseErrors : true
 
-  log: {
-    level: "info"
-  }
+
 };
