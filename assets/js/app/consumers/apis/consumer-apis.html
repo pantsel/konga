@@ -1,13 +1,18 @@
 <div class="panel panel-default">
-    <div class="panel-heading primary">
-        <div class="panel-title">
-            <i class="mdi mdi-plug"></i>
-            Consumer APIs
-            <!--<button class="btn btn-sm btn-link pull-right btn-primary" ng-click="onAddPlugin()">-->
-                <!--<i class="mdi mdi-plus"></i>-->
-                <!--add plugin-->
-            <!--</button>-->
-        </div>
+    <!--<div class="panel-heading primary">-->
+        <!--<div class="panel-title">-->
+            <!--<i class="mdi mdi-plug"></i>-->
+            <!--Consumer APIs-->
+            <!--&lt;!&ndash;<button class="btn btn-sm btn-link pull-right btn-primary" ng-click="onAddPlugin()">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="mdi mdi-plus"></i>&ndash;&gt;-->
+                <!--&lt;!&ndash;add plugin&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="panel-body">
+        <h4>Accessible APIs</h4>
+        <p class="text-muted">A list of APIs this consumer can access depending on assigned Groups.</p>
+
     </div>
     <div class="col-md-12 bg-light-grey padding">
         <list-search
@@ -17,6 +22,7 @@
                 data-items="itemsPerPage"
         ></list-search>
     </div>
+
     <div class="clearfix"></div>
 
     <div class="row">
@@ -44,6 +50,7 @@
                                data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                             ></i>
                         </th>
+                        <th>PLUGINS</th>
                     </tr>
                     <tr
                             dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
@@ -59,6 +66,7 @@
                         </td>
                         <td>{{ api.upstream_url || "-" }}</td>
                         <td>{{api.created_at | date : format : timezone}}</td>
+                        <td>{{getPlugins(api)}}</td>
                         <!--<td>-->
                         <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
 

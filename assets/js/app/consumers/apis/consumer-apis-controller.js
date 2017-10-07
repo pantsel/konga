@@ -15,7 +15,15 @@
           ApiModel.setScope($scope, false, 'items', 'itemCount');
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('api',ApiModel)));
           $scope.user = UserService.user();
+          $scope.getPlugins = getPlugins;
 
+
+          function getPlugins(api) {
+
+              return _.map(api.plugins.data,function(item){
+                  return item.name;
+              }).join(", ") || "N/A";
+          }
 
           function fetchApis() {
               ConsumerService.listApis($stateParams.id)
