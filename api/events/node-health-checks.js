@@ -23,6 +23,8 @@ var sendmail = require('sendmail')({
     silent: false
 })
 
+var Utils = require("../helpers/utils");
+
 module.exports = {
     emit : function(event,data) {
         eventEmitter.emit(event,data)
@@ -85,7 +87,7 @@ module.exports = {
                     tasks[node.id].timesFailed++;
                     sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
 
-                    var timeDiff = self.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
+                    var timeDiff = Utils.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
                     sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[node.id].lastNotified);
                     sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
                     if(!tasks[node.id].lastNotified || timeDiff > notificationsInterval) {
@@ -118,7 +120,7 @@ module.exports = {
             if(err) {
                 sails.log("health_checks:updateNodeHealthCheckDetails:failed",err)
             }else{
-                sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
+                // sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
             }
         })
     },
@@ -170,16 +172,17 @@ module.exports = {
                     || !settings[0].data.notify_when.node_down.active) return false;
 
 
-                self.sendSlackNotification(settings[0],node);
+                Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(node));
+
                 self.createTransporter(settings[0],function(err,result){
                     if(err || !result) {
                         sails.log("health_check:failed to create transporter. No notification will be sent.",err)
                     }else{
                         var transporter = result.transporter
-                        var html = self.makeNotificationHTML(node)
+                        var html = self.makeHTMLNotification(node)
                         var settings = result.settings
 
-                        self.getAdminEmailsList(function(err,receivers){
+                        Utils.getAdminEmailList(function(err,receivers){
                             sails.log("health_checks:notify:receivers => ",  receivers)
                             if(!err && receivers.length) {
 
@@ -196,8 +199,6 @@ module.exports = {
                                             sails.log.error("Health_checks:notify:error",err)
                                         }else{
                                             sails.log.info("Health_checks:notify:success",reply)
-                                            tasks[node.id].lastNotified = new Date();
-                                            self.updateNodeHealthCheckDetails(node.id)
 
                                         }
                                     });
@@ -208,8 +209,6 @@ module.exports = {
 
                                         }else{
                                             sails.log.info("Health_checks:notify:success",info)
-                                            tasks[node.id].lastNotified = new Date();
-                                            self.updateNodeHealthCheckDetails(node.id)
 
                                         }
                                     });
@@ -220,40 +219,13 @@ module.exports = {
                     }
                 })
 
+                tasks[node.id].lastNotified = new Date();
+                self.updateNodeHealthCheckDetails(node.id)
+
             });
 
 
     },
-
-
-    sendSlackNotification : function(settings,node) {
-
-        var slack = _.find(settings.data.integrations,function(item){
-            return item.id == 'slack'
-        })
-
-        if(!slack || !slack.config.enabled) return;
-
-        // Send notification to slack
-        var IncomingWebhook = require('@slack/client').IncomingWebhook;
-
-        var field = _.find(slack.config.fields,function(item){
-            return item.id == 'slack_webhook_url'
-        })
-
-        var url = field ? field.value : "";
-
-        var webhook = new IncomingWebhook(url);
-
-        webhook.send(this.makePlainTextNotification(node), function(err, header, statusCode, body) {
-            if (err) {
-                console.log('Error:', err);
-            } else {
-                console.log('Received', statusCode, 'from Slack');
-            }
-        });
-    },
-
 
     makePlainTextNotification : function makePlainTextNotification(node) {
 
@@ -265,7 +237,7 @@ module.exports = {
         return text;
     },
 
-    makeNotificationHTML : function makeNotificationHTML(node) {
+    makeHTMLNotification : function makeHTMLNotification(node) {
 
         var duration = moment.duration(moment().diff(moment(tasks[node.id].lastSucceeded))).humanize()
 
@@ -286,22 +258,5 @@ module.exports = {
             '</table>';
 
         return html;
-    },
-
-    getMinutesDiff : function(start,end) {
-        var duration = moment.duration(moment(start).diff(moment(end)));
-        return duration.asMinutes();
-    },
-
-    getAdminEmailsList : function(cb) {
-        sails.models.user.find({
-            admin : true
-        }).exec(function(err,admins){
-            if(err) return cb(err)
-            if(!admins.length) return cb([])
-            return cb(null,admins.map(function(item){
-                return item.email;
-            }))
-        })
     }
 }
