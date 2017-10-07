@@ -27,6 +27,10 @@
                   name : 'Credentials',
                   icon : 'mdi-security'
               },
+              {
+                  name : 'APIs',
+                  icon : 'mdi-cloud-outline'
+              },
           ]
 
           if(Semver.cmp($rootScope.Gateway.version,"0.11.0") >=0) {
