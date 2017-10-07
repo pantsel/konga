@@ -10,10 +10,10 @@
     .controller('ConsumersController', [
       '_','$scope', '$log', '$state','ConsumerService','$q','MessageService',
         'RemoteStorageService','UserService','SocketHelperService',
-        '$uibModal','DialogService','ConsumerModel','ListConfig',
+        '$uibModal','DialogService','ListConfig','ConsumerModel',
       function controller(_,$scope, $log, $state, ConsumerService,$q,MessageService,
                           RemoteStorageService,UserService,SocketHelperService,
-                          $uibModal,DialogService,ConsumerModel,ListConfig ) {
+                          $uibModal,DialogService,ListConfig,ConsumerModel ) {
 
           ConsumerModel.setScope($scope, false, 'items', 'itemCount');
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
@@ -45,10 +45,7 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'js/app/consumers/create-consumer-modal.html',
-                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel,ListConfig){
-
-                      ConsumerModel.setScope($scope, false, 'items', 'itemCount');
-                      $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
+                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel){
 
                       $scope.consumer = {
                           username  : '',
