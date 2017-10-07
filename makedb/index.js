@@ -13,6 +13,10 @@ module.exports = function (next) {
             return require("./dbs/pg").run(next);
         case("mysql"):
             return require("./dbs/mysql").run(next);
+        case("mongo"):
+            return next();
+        case("sqlserver"):
+            return next();
         default:
             console.log("No DB Adapter defined. Using localDB...");
             return next();
