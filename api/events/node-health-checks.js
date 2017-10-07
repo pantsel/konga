@@ -237,7 +237,11 @@ module.exports = {
         // Send notification to slack
         var IncomingWebhook = require('@slack/client').IncomingWebhook;
 
-        var url = slack.config.slack_webhook_url;
+        var field = _.find(slack.config.fields,function(item){
+            return item.id == 'slack_webhook_url'
+        })
+
+        var url = field ? field.value : "";
 
         var webhook = new IncomingWebhook(url);
 

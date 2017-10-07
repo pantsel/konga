@@ -31,6 +31,42 @@
 
                 }
 
+
+                $scope.configureIntegration = function(item) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        size : 'sm',
+                        templateUrl: 'js/app/settings/configure-integration-modal.html',
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,MessageService,_item){
+
+                            $scope.integration = _item;
+
+                            $scope.close = function() {
+                                $uibModalInstance.dismiss();
+                            }
+
+
+                            $scope.submit = function() {
+                                updateKongaSettings();
+                                $uibModalInstance.dismiss();
+                            }
+
+
+
+
+
+                        },
+                        resolve: {
+                            _item: function () {
+                                return item;
+                            }
+                        }
+                    });
+                }
+
+
                 $scope.configureTransport = function(transport) {
                     $uibModal.open({
                         animation: true,
@@ -84,8 +120,6 @@
                             }
 
                             $scope.setItemValue = function(item,path,value) {
-                                console.log("#############",item)
-                                console.log("#############",path)
                                 return _.set(item, path, value)
                             }
 

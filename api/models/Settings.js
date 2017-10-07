@@ -51,6 +51,14 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
                         name : "Slack",
                         image : "slack_rbg.png",
                         config : {
+                            enabled : false,
+                            fields : [{
+                                id : "slack_webhook_url",
+                                name : "Slack Webhook URL",
+                                type : "text",
+                                required : true,
+                                value : ""
+                            }],
                             slack_webhook_url : ""
                         }
                     }

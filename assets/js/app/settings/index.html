@@ -135,30 +135,38 @@
                     <div class="row">
                         <div class="col-md-4" ng-repeat="item in KONGA_CONFIG.integrations">
 
-                            <div class="thumbnail">
+                            <div
+                                    ng-class="{'panel-primary' : item.config.enabled}"
+                                    class="thumbnail">
                                 <div class="integration-switch" style="position: absolute;right: 30px;top: 10px;">
                                     <input
-                                            bs-switch
-                                            ng-model="item.config.enabled"
-                                            switch-size="mini"
-                                            type="checkbox"
-                                            switch-on-text="ON"
-                                            switch-off-text="OFF"
-                                            ng-change="updateKongaSettings()"
+                                    bs-switch
+                                    ng-model="item.config.enabled"
+                                    switch-size="mini"
+                                    type="checkbox"
+                                    switch-on-text="ON"
+                                    switch-off-text="OFF"
+                                    ng-change="updateKongaSettings()"
                                     >
                                 </div>
 
                                 <img style="width: 100%;height: auto;background: #f2f2f2" src="images/{{item.image}}" alt="slack">
                                 <div class="caption">
-                                    <!--<p class="text-muted">Send notifications to Slack using webhooks</p>-->
-
-
-                                    <div class="form-group">
-                                        <label>
-                                            Slack Webhook URL
-                                        </label>
-                                        <input class="form-control" data-ng-model="item.config.slack_webhook_url">
-                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label>-->
+                                            <!--Slack Webhook URL-->
+                                        <!--</label>-->
+                                        <!--<input class="form-control" data-ng-model="item.config.slack_webhook_url">-->
+                                    <!--</div>-->
+                                    <p class="text-muted">Send notifications to Slack using Webhooks.</p>
+                                    <button
+                                            type="button"
+                                            ng-click="configureIntegration(item)"
+                                            class="btn btn-block btn-primary btn-inverse btn-flat"
+                                    >
+                                        <i class="mdi mdi-settings"></i>
+                                        CONFIGURE
+                                    </button>
 
                                 </div>
                             </div>
