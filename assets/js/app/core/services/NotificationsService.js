@@ -62,11 +62,11 @@
 
                     if(!data.isHealthy) {
 
-                        var message = 'A Kong node is down, unresponsive or unreachable.'
-
-                        add({
-                            message : message
-                        })
+                        // var message = 'A Kong node is down, unresponsive or unreachable.'
+                        //
+                        // add({
+                        //     message : message
+                        // })
 
                         MessageService.warning('A Kong node is down, unresponsive or unreachable.')
                     }
