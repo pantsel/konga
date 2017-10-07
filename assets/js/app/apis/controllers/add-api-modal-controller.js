@@ -52,7 +52,7 @@
 
           function clearApi() {
               for(var key in $scope.api) {
-                  if($scope.api[key] == '') {
+                  if($scope.api[key] === '') {
                       delete($scope.api[key])
                   }
               }
