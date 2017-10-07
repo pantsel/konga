@@ -120,7 +120,7 @@ module.exports = {
             if(err) {
                 sails.log("health_checks:updateNodeHealthCheckDetails:failed",err)
             }else{
-                // sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
+                sails.sockets.blast('node.health_checks', _.merge({node_id:nodeId},data));
             }
         })
     },
