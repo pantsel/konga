@@ -45,7 +45,7 @@
                                 <p class="no-margin">
                                     <strong class="pull-left">{{cf_key}}</strong>
                                     <button data-ng-click="removeCustomField(value,cf_key)" class="btn btn-sm btn-flat btn-danger pull-right" style="margin-top: -15px">
-                                        <i class="material-icons no-margin">clear</i>
+                                        <i class="mdi mdi-close"></i>
                                     </button>
                                 </p>
                                 <div class="clearfix"></div>
@@ -65,7 +65,9 @@
                                        my-enter="doSomething()"
                                        placeholder="add an object to limit...">
                                 <span class="input-group-btn">
-                                    <button data-ng-click="addCustomField(value)" class="btn btn-primary" type="button">add</button>
+                                    <button data-ng-click="addCustomField(value)" class="btn btn-primary" type="button">
+                                        <i class="mdi mdi-plus"></i>
+                                    </button>
                                 </span>
                             </div>
                             <!--<pre>{{value.custom_fields | json}}</pre>-->
