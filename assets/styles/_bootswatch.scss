@@ -4018,6 +4018,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs {
   border-bottom: 1px solid transparent;
+  font-weight: bold;
 }
 .nav-tabs > li {
   float: left;
@@ -4090,6 +4091,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-pills > li > a {
   border-radius: 3px;
+  color: $gray;
 }
 .nav-pills > li + li {
   margin-left: 2px;

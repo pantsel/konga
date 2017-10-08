@@ -23,6 +23,35 @@
           $scope.basic_auth_credentials = _basic_auth_credentials.data
           $scope.hmac_auth_credentials = _hmac_auth_credentials.data
           $scope.oauth2_credentials = _oauth2_credentials.data
+          $scope.credentialGroups = [
+              {
+                  id: 'basic-auth',
+                  name : 'BASIC',
+                  icon : 'mdi-account-outline'
+              },
+              {
+                  id: 'key-auth',
+                  name : 'API KEYS',
+                  icon : 'mdi-key'
+              },
+              {
+                  id: 'hmac',
+                  name : 'HMAC',
+                  icon : 'mdi-code-tags'
+              },
+              {
+                  id: 'oauth2',
+                  name : 'OAUTH2',
+                  icon : 'mdi-security'
+              },
+              {
+                  id: 'jwt',
+                  name : 'JWT',
+                  icon : 'mdi-fingerprint'
+              },
+          ]
+
+          $scope.activeGroup = 'basic-auth';
 
 
           $scope.updateConsumerDetails = updateConsumerDetails
@@ -36,6 +65,17 @@
           $scope.deleteOAuth2 = deleteOAuth2
           $scope.deleteBasicAuthCredentials = deleteBasicAuthCredentials
           $scope.deleteHMACAuthCredentials = deleteHMACAuthCredentials
+          $scope.setActiveGroup = setActiveGroup;
+          $scope.filterGroup = filterGroup;
+
+
+          function setActiveGroup(id) {
+              $scope.activeGroup = id;
+          }
+
+          function filterGroup(group) {
+              return group.id === $scope.activeGroup;
+          }
 
 
           function deleteHMACAuthCredentials($index,credentials) {

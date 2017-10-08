@@ -1,82 +1,104 @@
-<div class="panel panel-default">
-    <!--<div class="panel-heading primary">-->
-        <!--<div class="panel-title">-->
-            <!--<i class="mdi mdi-plug"></i>-->
-            <!--Consumer APIs-->
-            <!--&lt;!&ndash;<button class="btn btn-sm btn-link pull-right btn-primary" ng-click="onAddPlugin()">&ndash;&gt;-->
-                <!--&lt;!&ndash;<i class="mdi mdi-plus"></i>&ndash;&gt;-->
-                <!--&lt;!&ndash;add plugin&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-        <!--</div>-->
-    <!--</div>-->
-    <div class="panel-body">
-        <h4>APIs</h4>
-        <p class="text-muted">A list of APIs this consumer can access depending on assigned Groups.</p>
+<div class="col-md-12 bg-light-grey padding">
+    <list-search
+            class="pull-right"
+            data-filters="filters"
+            data-options="itemsPerPageOptions"
+            data-items="itemsPerPage"
+    ></list-search>
+</div>
 
-    </div>
-    <div class="col-md-12 bg-light-grey padding">
-        <list-search
-                class="pull-right"
-                data-filters="filters"
-                data-options="itemsPerPageOptions"
-                data-items="itemsPerPage"
-        ></list-search>
-    </div>
+<div class="clearfix"></div>
 
-    <div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <th width="1"></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <tr>
-                        <th width="1"></th>
-                        <th width="{{item.width}}" class="text-nowrap"
-                            data-ng-repeat="item in titleItems | filter:titleFilter"
-                        >
-                            <a
-                                    data-ng-show="item.column"
-                                    class="clickable"
-                                    data-ng-click="changeSort(item)"
-                                    data-ng-bind-html="item.title.toUpperCase()"
-                            ></a>
-                            <span
-                                    data-ng-show="!item.column"
-                                    data-ng-bind-html="item.title.toUpperCase()"
-                            ></span>
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th class="no-wrap">GENERAL PLUGINS</th>
+                    <th class="no-wrap">CONSUMER PLUGINS</th>
+                    <td width="1"></td>
+                </tr>
+                <tr
+                        dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
 
-                            <i class="mdi"
-                               data-ng-show="sort.column == item.column"
-                               data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
-                            ></i>
-                        </th>
-                        <th>PLUGINS</th>
-                    </tr>
-                    <tr
-                            dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+                    <td>
+                        <raw-view data-item="api"></raw-view>
+                    </td>
+                    <td>
+                        <strong class="no-margin">
+                            {{ api.name || "-" }}
+                        </strong>
+                    </td>
+                    <!--<td>{{ api.upstream_url || "-" }}</td>-->
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getGeneralPlugins(api)">
+                                {{item.name.toUpperCase().split("-").join(" ")}}
+                            </span>
+                    </td>
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getConsumerPlugins(api)">
+                                <span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>
+                                <raw-view data-item="item"></raw-view>
+                                <i class="mdi mdi-18px mdi-pencil clickable"
+                                   uib-tooltip="Edit"
+                                   ng-click="onEditPlugin(item)"></i>&nbsp;
+                                <i class="mdi mdi-18px mdi-delete clickable"
+                                   uib-tooltip="Delete"
+                                   ng-click="deletePlugin(api,item)"></i>
 
-                        <td>
-                            <raw-view data-item="api"></raw-view>
-                        </td>
-                        <td>
-                            <strong>
-                                <a class="clickable"
-                                   data-ui-sref="apis.edit({api_id:api.id})">{{ api.name || "-" }}</a>
-                            </strong>
-                        </td>
-                        <td>{{ api.upstream_url || "-" }}</td>
-                        <td>{{api.created_at | date : format : timezone}}</td>
-                        <td>{{getPlugins(api)}}</td>
-                        <!--<td>-->
-                        <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
+                            </span>
+                            <button class="btn btn-sm btn-link" ng-click="onAddPlugin(api)">
+                                <i class="mdi mdi-18px mdi-plus"
+                                >ADD PLUGINS</i>
+                            </button>
+                    </td>
+                    <td>
+                        <div class="btn-group" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
+                            <button id="single-button" type="button" class="btn btn-primary btn-link" uib-dropdown-toggle>
+                                MORE... <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ui-sref="apis.edit({ api_id: api.id })">View API</a></li>
+                                <!--<li role="menuitem"><a href="#">Another action</a></li>-->
+                                <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+                                <!--<li class="divider"></li>-->
+                                <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
+                            </ul>
+                        </div>
+                    </td>
+                    <!--<td>-->
+                    <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
 
-                        <!--edit-->
-                        <!--</a>-->
-                        <!--</td>-->
-                    </tr>
-                </table>
-            </div>
-            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+                    <!--edit-->
+                    <!--</a>-->
+                    <!--</td>-->
+                </tr>
+            </table>
         </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
     </div>
 </div>

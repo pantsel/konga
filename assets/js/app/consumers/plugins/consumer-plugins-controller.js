@@ -107,6 +107,9 @@
               });
           }
 
+
+
+
           function fetchPlugins() {
               ConsumerService.listPlugins($stateParams.id)
                   .then(function(res){

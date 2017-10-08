@@ -617,7 +617,7 @@ pre {
 }
 
 .bg-light-grey{
-  background-color: #f4f4f4;
+  background-color: #ededed;
 }
 
 .default-chip{
@@ -732,6 +732,46 @@ tr.disabled{
   background-color: $brand-danger;
 }
 
+.badge {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 5px 8px 6px;
+
+  &.badge-success{
+    background-color: $brand-success;
+    &.badge-inverse{
+      background-color: transparent !important;
+      color: $brand-success;
+      border: 1px solid $brand-success;
+    }
+
+  }
+
+  &.badge-api-plugin {
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    .text{
+      padding-right: 5px;
+      padding-left: 5px;
+      vertical-align: inherit;
+    }
+
+    // Raw view icon
+    .mdi-eye-outline{
+      .mdi:before{
+        font-size: 16px;
+      }
+      margin-right: 5px;
+    }
+
+    .mdi:before{
+      font-size: 16px;
+    }
+  }
+
+}
 
 //.iln-match-height  .panel {
 //  height: 100%; !important;
