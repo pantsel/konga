@@ -49,7 +49,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
                     {
                         id   : "slack",
                         name : "Slack",
-                        image : "slack_rbg.png",
+                        image : "slack_rgb.png",
                         config : {
                             enabled : false,
                             fields : [{
