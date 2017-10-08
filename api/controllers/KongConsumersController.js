@@ -11,15 +11,16 @@ var KongConsumersController  =  {
 
         var consumerId = req.param("id");
 
-        console.log(req.node_id);
-
+        // Fetch all acls of the specified consumer
         Kong.listAllCb(req,'/consumers/' + consumerId + '/acls', function (err,_acls) {
             if(err) return res.negotiate(err);
 
+            // Make an array of group names
             var consumerGroups = _.map(_acls.data,function(item){
                 return item.group;
-            })
+            });
 
+            // Fetch all apis
             Kong.listAllCb(req,'/apis',function (err,data) {
                 if(err) return res.negotiate(err);
 
@@ -27,8 +28,8 @@ var KongConsumersController  =  {
 
                 var apiPluginsFns = [];
 
+                // Prepare apis
                 apis.forEach(function(api){
-
                     // Add consumer id
                     api.consumer_id = consumerId;
 
@@ -38,11 +39,13 @@ var KongConsumersController  =  {
                 });
 
 
+                // Foreach api, fetch it's assigned plugins
                 async.series(apiPluginsFns,function (err,data) {
                     if(err) return res.negotiate(err);
 
                     data.forEach(function(plugins,index){
 
+                        // Separate acl plugins in an acl property
                         var acl = _.find(plugins.data,function(item){
                             return item.name === "acl" && item.enabled === true;
                         });
@@ -51,15 +54,18 @@ var KongConsumersController  =  {
                             apis[index].acl = acl;
                         }
 
+                        // Add plugins to their respective api
                         apis[index].plugins = plugins;
                     });
 
 
+                    // Gather apis with no access control restrictions whatsoever
                     var open =  _.filter(apis,function (api) {
                         return !api.acl;
                     })
 
 
+                    // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
                     var whitelisted = _.filter(apis,function (api) {
                         return api.acl && _.intersection(api.acl.config.whitelist,consumerGroups).length > 0;
                     });
