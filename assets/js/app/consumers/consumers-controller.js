@@ -59,7 +59,16 @@
 
                           $scope.errors = {}
 
-                          ConsumerModel.create($scope.consumer)
+                          var data = _.cloneDeep($scope.consumer)
+                          if(!data.custom_id) {
+                              delete data.custom_id;
+                          }
+
+                          if(!data.username) {
+                              delete data.username;
+                          }
+
+                          ConsumerModel.create(data)
                               .then(function(res){
                                   MessageService.success("Consumer created successfully!")
                                   $rootScope.$broadcast('consumer.created',res.data)
