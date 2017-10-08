@@ -10,6 +10,8 @@
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
+> Notice: Upgrade your Kong installations to v0.11.x so you can use Konga to it's maximum capacity. Support for older
+versions of Kong will be discontinued.
 
 ## Summary
 
