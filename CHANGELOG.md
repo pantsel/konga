@@ -137,3 +137,11 @@ All notable changes to this project will be documented in this file.
 * [FIX] Tests are working again.
 * [FIX] Better error handling when adding groups and credentials to consumers.
 * [FIX] <code>kongadata</code> dir is now created inside the project folder by default. The docker volume now becomes <code>/app/kongadata</code>
+
+## [0.8.8](https://github.com/pantsel/konga/releases/tag/0.8.8) - 8-10-2017
+
+* When starting the app for the first time using postgres or MySQL adapters, Konga will now create the databases automatically.
+* Parts of UI are redesigned in a cleaner way.
+* Consumer page now also displays the APIs a consumer can access based on his ACLs.
+* Slack integration. You can now configure Konga to send notifications to slack.
+* Other minor bug fixes and improvements.
