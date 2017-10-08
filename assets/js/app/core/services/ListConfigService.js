@@ -48,7 +48,8 @@
                     ],
                     consumerApi: [
                         {
-                            title: 'api name',
+                            title: 'name',
+                            width: 200,
                             column: 'name',
                             searchable: true,
                             sortable: true,
