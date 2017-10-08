@@ -24,7 +24,13 @@
           $scope.onAddPlugin = onAddPlugin;
           $scope.isAccessControlled = isAccessControlled;
           $scope.needsAuth = needsAuth;
+          $scope.isOpen = isOpen;
 
+
+
+          function isOpen(api) {
+              return !isAccessControlled(api) && !needsAuth(api);
+          }
 
           function isAccessControlled(api) {
               return _.filter(api.plugins.data,function(item){

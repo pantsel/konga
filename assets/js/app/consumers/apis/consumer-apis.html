@@ -64,7 +64,7 @@
                             {{ api.name || "-" }}
                         </strong>
                         <div class="clearfix"></div>
-                        <span class="label label-success" ng-if="!api.acl" uib-tooltip="This api is public. Anyone can consume it.">PUBLIC</span>
+                        <span class="label label-success" ng-if="isOpen(api)" uib-tooltip="This api is public. Anyone can consume it.">PUBLIC</span>
                         <span class="label label-warning" ng-if="isAccessControlled(api)"
                               uib-tooltip="This api is access controlled">AC</span>
                         <span class="label label-danger" ng-if="needsAuth(api)"
