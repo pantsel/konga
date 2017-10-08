@@ -28,7 +28,7 @@ var KongConsumersController  =  {
 
                 var apiPluginsFns = [];
 
-                // Prepare apis
+                // Prepare api objects
                 apis.forEach(function(api){
                     // Add consumer id
                     api.consumer_id = consumerId;
