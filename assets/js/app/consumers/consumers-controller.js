@@ -67,9 +67,19 @@
                               }).catch(function(err){
                                 $log.error("Failed to create consumer", err)
 
-                                $scope.handleErrors(err)
+                              handleErrors(err);
 
-                          })
+                          });
+                      }
+
+                      function handleErrors(err) {
+                          $scope.errors = {}
+                          if(err.data){
+
+                              for(var key in err.data.body){
+                                  $scope.errors[key] = err.data.body[key]
+                              }
+                          }
                       }
 
                       function close() {
