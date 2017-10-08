@@ -14,7 +14,6 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <tr>
-                    <th width="1"></th>
                     <th width="{{item.width}}" class="text-nowrap"
                         data-ng-repeat="item in titleItems | filter:titleFilter"
                     >
@@ -34,22 +33,45 @@
                            data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         ></i>
                     </th>
-                    <th width="250" class="no-wrap">API PLUGINS</th>
-                    <th class="no-wrap">CONSUMER PLUGINS</th>
+                    <th width="250" class="no-wrap">
+                        API PLUGINS
+                    </th>
+                    <th class="no-wrap">
+                        CONSUMER PLUGINS
+
+                    </th>
                     <td width="1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            Plugins targeting all consumers
+                        </p>
+                    </td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            Plugins targeting this consumer
+                        </p>
+                    </td>
+                    <td></td>
                 </tr>
                 <tr
                         dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
 
                     <td>
-                        <raw-view data-item="api"></raw-view>
-                    </td>
-                    <td>
                         <strong class="no-margin">
                             {{ api.name || "-" }}
                         </strong>
+                        <div class="clearfix"></div>
+                        <span class="label label-success" ng-if="!api.acl" uib-tooltip="This api is public. Anyone can consume it.">PUBLIC</span>
+                        <span class="label label-warning" ng-if="isAccessControlled(api)"
+                              uib-tooltip="This api is access controlled">AC</span>
+                        <span class="label label-danger" ng-if="needsAuth(api)"
+                              uib-tooltip="This api is secured with at least one authentication mechanism"
+                        >SECURE</span>
                     </td>
-                    <!--<td>{{ api.upstream_url || "-" }}</td>-->
+
                     <td>
                             <span class="badge badge-api-plugin"
                                   ng-class="{'badge-success badge-inverse' : item.enabled}"
@@ -82,8 +104,14 @@
                                 MORE... <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a ui-sref="apis.edit({ api_id: api.id })">View API</a></li>
-                                <!--<li role="menuitem"><a href="#">Another action</a></li>-->
+                                <li role="menuitem"><a href><raw-view data-item="api" data-text="'Raw View'"></raw-view></a></li>
+                                <li role="menuitem">
+                                    <a ui-sref="apis.edit({ api_id: api.id })">
+                                        <i class="mdi mdi-pencil"></i>&nbsp;&nbsp;
+                                        Edit API
+                                    </a>
+                                </li>
+
                                 <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
                                 <!--<li class="divider"></li>-->
                                 <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
