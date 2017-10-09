@@ -144,4 +144,5 @@ All notable changes to this project will be documented in this file.
 * Parts of UI are redesigned in a cleaner way.
 * Consumer page now also displays the APIs a consumer can access based on his ACLs.
 * Slack integration. You can now configure Konga to send notifications to slack.
+* Fix issue which prevented consumer creation with empty `username` or `custom_id`.
 * Other minor bug fixes and improvements.
