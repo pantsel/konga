@@ -77,7 +77,8 @@
     "start": "node --harmony app.js",
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
-    "test": "mocha"
+    "test": "mocha",
+    "bower-deps": "bower --allow-root install"
   },
   "main": "app.js",
   "repository": {
