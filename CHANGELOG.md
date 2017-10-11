@@ -146,3 +146,7 @@ All notable changes to this project will be documented in this file.
 * Slack integration. You can now configure Konga to send notifications to slack.
 * Fix issue which prevented consumer creation with empty `username` or `custom_id`.
 * Other minor bug fixes and improvements.
+
+## [0.8.9](https://github.com/pantsel/konga/releases/tag/0.8.9) - 8-11-2017
+* Allow certificates deletion.
+* Manage SNIs from certificates detail modal.
