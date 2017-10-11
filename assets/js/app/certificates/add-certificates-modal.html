@@ -31,7 +31,7 @@
         <div class="text-danger" ng-if="errors.key" data-ng-bind="errors.key"></div>
     </div>
     <hr>
-    <div class="form-group" ng-class="{'has-error' : errors.snis}">
+    <div class="form-group" ng-class="{'has-error' : errors.snis}" ng-if="!data.id">
         <label class="control-label">Server Name Indications</label>
         <p class="help-block">A comma separated list of Server Name Indications. ex: <code>ssl-example.com,other-ssl-example.com</code></p>
         <input type="text"
@@ -41,7 +41,18 @@
         />
         <div class="text-danger" ng-if="errors.snis" data-ng-bind="errors.snis"></div>
     </div>
-    <hr>
+    <div class="form-group" ng-if="data.id">
+        <label class="control-label">Server Name Indications</label>
+        <p class="help-block">A comma separated list of Server Name Indications. ex: <code>ssl-example.com,other-ssl-example.com</code></p>
+        <span ng-repeat="sni in data.snis" class="label label-default">
+            <span style="vertical-align: text-top">{{sni}}</span>&nbsp;
+            <i class="mdi mdi-close clickable" ng-click="deleteSNI(sni)"></i>
+        </span>
+        <button type="button" class="btn btn-sm btn-link" ng-click="openAddSniModal()">
+            <i class="mdi mdi-plus" style="vertical-align: super"></i>&nbsp;
+            <span style="vertical-align: super">ADD SNI</span>
+        </button>
+    </div>
     <div class="form-group">
         <button type="text"
                 ng-if="!data.id"
