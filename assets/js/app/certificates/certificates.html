@@ -48,7 +48,11 @@
                         dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
 
                     <td>{{item.id}}</td>
-                    <td>{{item.snis ? item.snis.join(",") : ''}}</td>
+                    <td>
+                        <span class="badge" style="margin-right: 3px;margin-bottom: 3px" ng-repeat="sni in item.snis">
+                            {{sni}}
+                        </span>
+                    </td>
                     <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
                     <td>
                         <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
