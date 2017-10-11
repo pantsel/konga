@@ -42,7 +42,8 @@
                            data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         ></i>
                     </th>
-                    <th width="1"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'update')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
                 </tr>
                 <tr
                         dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
@@ -54,13 +55,13 @@
                         </span>
                     </td>
                     <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
-                    <td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
                         <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
                             <i class="mdi mdi-information-outline"></i>
                             details
                         </button>
                     </td>
-                    <td width="1">
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
                         <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete
