@@ -56,12 +56,12 @@
                             details
                         </button>
                     </td>
-                    <!--<td>-->
-                        <!--<button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">-->
-                            <!--<i class="mdi mdi-delete"></i>-->
-                            <!--Delete-->
-                        <!--</button>-->
-                    <!--</td>-->
+                    <td width="1">
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
                 </tr>
                 <tr data-ng-if="(items.data == {} || !items.data.length) && !loading">
                     <td colspan="100%" class="text-center text-muted">
