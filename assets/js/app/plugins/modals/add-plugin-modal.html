@@ -74,7 +74,7 @@
                         </div>
                         <div ng-if="!value.schema.flexible" class="plugin-field-table">
                             <div data-ng-repeat="(key,data) in value.schema.fields">
-                                <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
+                                <label><i class="mdi mdi-chevron-right"></i>{{humanizeLabel(key)}}</label>
                                 <div ng-switch on="data.type">
                                     <div ng-switch-when="array">
                                         <chips ng-model="data.value">
