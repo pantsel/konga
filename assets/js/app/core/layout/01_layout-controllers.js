@@ -337,7 +337,7 @@
                         state: 'snapshots',
                         icon: 'mdi-camera',
                         show: function () {
-                            return AuthService.isAuthenticated() && UserService.user().node && $rootScope.Gateway
+                            return AuthService.authorize(AccessLevels.admin)
                         },
                         title: 'Snapshots',
                         access: AccessLevels.anon
