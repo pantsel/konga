@@ -36,8 +36,8 @@ module.exports.policies = {
     '*':              ['authenticated','dynamicNode'],
   },
 
-  KongConsumerController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongConsumersController : {
+    '*':              ['authenticated','dynamicNode']
   },
 
   RemoteStorageController : {

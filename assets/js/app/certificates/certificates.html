@@ -42,26 +42,31 @@
                            data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                         ></i>
                     </th>
-                    <th width="1"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'update')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
                 </tr>
                 <tr
                         dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
 
                     <td>{{item.id}}</td>
-                    <td>{{item.snis ? item.snis.join(",") : ''}}</td>
-                    <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
                     <td>
+                        <span class="badge" style="margin-right: 3px;margin-bottom: 3px" ng-repeat="sni in item.snis">
+                            {{sni}}
+                        </span>
+                    </td>
+                    <td>{{moment().format("MMM DD YYYY @h:mm")}}</td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
                         <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
                             <i class="mdi mdi-information-outline"></i>
                             details
                         </button>
                     </td>
-                    <!--<td>-->
-                        <!--<button type="button" ng-click="deleteItem(item)" class="btn btn-danger btn-link">-->
-                            <!--<i class="mdi mdi-delete"></i>-->
-                            <!--Delete-->
-                        <!--</button>-->
-                    <!--</td>-->
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
                 </tr>
                 <tr data-ng-if="(items.data == {} || !items.data.length) && !loading">
                     <td colspan="100%" class="text-center text-muted">

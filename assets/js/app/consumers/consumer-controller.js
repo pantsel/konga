@@ -13,25 +13,35 @@
 
 
           $scope.consumer = _consumer.data
+          $state.current.data.pageName = "CONSUMER: " + ( $scope.consumer.username || $scope.consumer.id )
           $scope.activeSection = 0;
           $scope.sections = [
               {
-                  name : 'Details',
+                  id   : 'details',
+                  name : 'DETAILS',
                   icon : 'mdi-information-outline'
               },
               {
-                  name : 'ACL Groups',
+                  id   : 'groups',
+                  name : 'ACL GROUPS',
                   icon : 'mdi-account-multiple-outline'
               },
               {
-                  name : 'Credentials',
+                  id   : 'credentials',
+                  name : 'CREDENTIALS',
                   icon : 'mdi-security'
+              },
+              {
+                  id   : 'apis',
+                  name : 'APIs',
+                  icon : 'mdi-cloud-outline'
               },
           ]
 
           if(Semver.cmp($rootScope.Gateway.version,"0.11.0") >=0) {
               $scope.sections.push({
-                  name : 'Plugins',
+                  id   : 'plugins',
+                  name : 'PLUGINS',
                   icon : 'mdi-power-plug'
               });
           }
@@ -46,6 +56,9 @@
           $scope.$on('user.node.updated',function(node){
               $state.go('consumers');
           });
+
+
+
 
       }
     ])

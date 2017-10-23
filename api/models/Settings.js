@@ -45,6 +45,25 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
                     }
                 },
 
+                integrations : [
+                    {
+                        id   : "slack",
+                        name : "Slack",
+                        image : "slack_rgb.png",
+                        config : {
+                            enabled : false,
+                            fields : [{
+                                id : "slack_webhook_url",
+                                name : "Slack Webhook URL",
+                                type : "text",
+                                required : true,
+                                value : ""
+                            }],
+                            slack_webhook_url : ""
+                        }
+                    }
+                ],
+
                 user_permissions: {
                     apis: {
                         create: false,

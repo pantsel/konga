@@ -38,6 +38,7 @@
             <label class="col-sm-4 control-label"><strong>consumer</strong></label>
             <div class="col-sm-7">
                 <input
+                        ng-disabled="data.consumer_id"
                         type="text"
                         ng-model="data.consumer_id"
                         class="form-control">
@@ -60,7 +61,7 @@
                             <label>{{key}}</label>
                             <div data-ng-if="value.schema.flexible">
                                 <button data-ng-click="removeField(value.schema.fields,key)" class="btn btn-sm btn-flat btn-danger" style="position: absolute;top: 0px;right: 15px">
-                                    <i class="material-icons no-margin">clear</i>
+                                    <i class="mdi mdi-close"></i>
                                 </button>
                                 <div class="row margin-top">
 
@@ -105,7 +106,9 @@
                                        my-enter="doSomething()"
                                        placeholder="add an object to limit...">
                                 <span class="input-group-btn">
-                                    <button data-ng-click="addFlexField(value.schema.fields,value)" class="btn btn-primary" type="button">add</button>
+                                    <button data-ng-click="addFlexField(value.schema.fields,value)" class="btn btn-primary" type="button">
+                                        <i class="mdi mdi-plus"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>

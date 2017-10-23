@@ -10,10 +10,10 @@
     .controller('ConsumersController', [
       '_','$scope', '$log', '$state','ConsumerService','$q','MessageService',
         'RemoteStorageService','UserService','SocketHelperService',
-        '$uibModal','DialogService','ConsumerModel','ListConfig',
+        '$uibModal','DialogService','ListConfig','ConsumerModel',
       function controller(_,$scope, $log, $state, ConsumerService,$q,MessageService,
                           RemoteStorageService,UserService,SocketHelperService,
-                          $uibModal,DialogService,ConsumerModel,ListConfig ) {
+                          $uibModal,DialogService,ListConfig,ConsumerModel ) {
 
           ConsumerModel.setScope($scope, false, 'items', 'itemCount');
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
@@ -45,10 +45,7 @@
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
                   templateUrl: 'js/app/consumers/create-consumer-modal.html',
-                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel,ListConfig){
-
-                      ConsumerModel.setScope($scope, false, 'items', 'itemCount');
-                      $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
+                  controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel){
 
                       $scope.consumer = {
                           username  : '',
@@ -62,7 +59,16 @@
 
                           $scope.errors = {}
 
-                          ConsumerModel.create($scope.consumer)
+                          var data = _.cloneDeep($scope.consumer)
+                          if(!data.custom_id) {
+                              delete data.custom_id;
+                          }
+
+                          if(!data.username) {
+                              delete data.username;
+                          }
+
+                          ConsumerModel.create(data)
                               .then(function(res){
                                   MessageService.success("Consumer created successfully!")
                                   $rootScope.$broadcast('consumer.created',res.data)
@@ -70,9 +76,19 @@
                               }).catch(function(err){
                                 $log.error("Failed to create consumer", err)
 
-                                $scope.handleErrors(err)
+                              handleErrors(err);
 
-                          })
+                          });
+                      }
+
+                      function handleErrors(err) {
+                          $scope.errors = {}
+                          if(err.data){
+
+                              for(var key in err.data.body){
+                                  $scope.errors[key] = err.data.body[key]
+                              }
+                          }
                       }
 
                       function close() {

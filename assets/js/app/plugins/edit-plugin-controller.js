@@ -193,7 +193,9 @@
                       $scope.busy = false;
                       $rootScope.$broadcast('plugin.updated',res.data)
                       MessageService.success('"' + _plugin.name + '" plugin updated successfully!')
-                      $uibModalInstance.dismiss()
+                      $uibModalInstance.close({
+                          data : res.data
+                      });
                   }).catch(function(err){
                   $scope.busy = false;
                   $log.error("update plugin",err)

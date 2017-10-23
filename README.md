@@ -10,6 +10,8 @@
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
+> Notice: Upgrade your Kong installations to v0.11.x so you can use Konga to it's full capacity. Support for older
+versions of Kong will be discontinued.
 
 ## Summary
 
@@ -48,8 +50,6 @@ Konga is compatible with Kong 0.9.x,0.10.x,0.11.x
 - A running [Kong installation](https://getkong.org/) 
 - Nodejs
 - Npm
-- Gulp
-- Bower
 
 ## Used libraries
 * Sails.js, http://sailsjs.org/
@@ -62,7 +62,6 @@ Install <code>npm</code> and <code>node.js</code>. Instructions can be found [he
 
 Install <code>bower</code>, <code>gulp</code> and <code>sails</code> packages.
 <pre>
-$ npm install bower gulp sails -g
 $ git clone https://github.com/pantsel/konga.git
 $ cd konga
 $ npm install
@@ -112,7 +111,7 @@ See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/a
 ***************************************************************************************** 
 ##### Note : 
 In case of <code>MySQL</code>, <code>PostgresSQL</code> or <code>SQL Server</code> adapters, 
-you will need to create a database named <code>konga_database</code> manually and run the app in development mode the first time. 
+you will need to start the app in development mode the first time. 
 <pre>npm start</pre>
 Then kill the process and start Konga as you would in production mode.
 Konga **will not** create the database or tables in production mode. 
@@ -149,8 +148,7 @@ $ docker run -p 1337:1337
 #### To use one of the supported databases
 <pre>
 // As stated before, in case of 'postgres','sqlserver'  or 'mysql' adapters,
-// the database defined in DB_DATABASE must be created manually and the app must 
-// start in development mode the first time in order to be able to create the tables.
+// the app must be started in development mode the first time in order to be able to apply migrations.
 // You can do that by bashing into Konga's container and running 'node app.js --dev'.
 // You may also need to add an extra link that points to your database container.
 $ docker run -p 1337:1337 
@@ -189,7 +187,7 @@ Then stop the app and run it again in production mode.
 
 In some cases when running <code>npm install</code>, the bower dependencies are not installed properly.
 You will need to cd into your project's root directory and install them manually by typing
-<pre>$ bower --allow-root install</pre>
+<pre>$ npm run bower-deps</pre>
 
 ##### 2. Can't add/edit some plugin properties.
 When a plugin property is an array, the input is handled by a chip component.

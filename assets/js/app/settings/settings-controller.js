@@ -13,16 +13,59 @@
             function controller(_,$scope, $rootScope,$log,EmailTransport,
                                 Settings,MessageService,$uibModal) {
 
+                $log.info("#####################",$rootScope.KONGA_CONFIG)
+
 
                 $scope.updateKongaSettings = function() {
                     updateKongaSettings()
                 }
 
                 $scope.setDefaultTransport = function(name) {
-                    $rootScope.KONGA_CONFIG.default_transport = name;
-                    updateKongaSettings()
+                    if($rootScope.KONGA_CONFIG.default_transport === name) {
+                        $rootScope.KONGA_CONFIG.default_transport = null;
+                    }else{
+                        $rootScope.KONGA_CONFIG.default_transport = name;
+                    }
+
+                    updateKongaSettings();
 
                 }
+
+
+                $scope.configureIntegration = function(item) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        size : 'sm',
+                        templateUrl: 'js/app/settings/configure-integration-modal.html',
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance,MessageService,_item){
+
+                            $scope.integration = _item;
+
+                            $scope.close = function() {
+                                $uibModalInstance.dismiss();
+                            }
+
+
+                            $scope.submit = function() {
+                                updateKongaSettings();
+                                $uibModalInstance.dismiss();
+                            }
+
+
+
+
+
+                        },
+                        resolve: {
+                            _item: function () {
+                                return item;
+                            }
+                        }
+                    });
+                }
+
 
                 $scope.configureTransport = function(transport) {
                     $uibModal.open({
@@ -77,8 +120,6 @@
                             }
 
                             $scope.setItemValue = function(item,path,value) {
-                                console.log("#############",item)
-                                console.log("#############",path)
                                 return _.set(item, path, value)
                             }
 

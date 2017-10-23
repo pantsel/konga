@@ -45,7 +45,7 @@
                                 <p class="no-margin">
                                     <strong class="pull-left">{{cf_key}}</strong>
                                     <button data-ng-click="removeCustomField(value,cf_key)" class="btn btn-sm btn-flat btn-danger pull-right" style="margin-top: -15px">
-                                        <i class="material-icons no-margin">clear</i>
+                                        <i class="mdi mdi-close"></i>
                                     </button>
                                 </p>
                                 <div class="clearfix"></div>
@@ -65,14 +65,16 @@
                                        my-enter="doSomething()"
                                        placeholder="add an object to limit...">
                                 <span class="input-group-btn">
-                                    <button data-ng-click="addCustomField(value)" class="btn btn-primary" type="button">add</button>
+                                    <button data-ng-click="addCustomField(value)" class="btn btn-primary" type="button">
+                                        <i class="mdi mdi-plus"></i>
+                                    </button>
                                 </span>
                             </div>
                             <!--<pre>{{value.custom_fields | json}}</pre>-->
                         </div>
                         <div ng-if="!value.schema.flexible" class="plugin-field-table">
                             <div data-ng-repeat="(key,data) in value.schema.fields">
-                                <label><i class="material-icons">keyboard_arrow_right</i>{{humanizeLabel(key)}}</label>
+                                <label><i class="mdi mdi-chevron-right"></i>{{humanizeLabel(key)}}</label>
                                 <div ng-switch on="data.type">
                                     <div ng-switch-when="array">
                                         <chips ng-model="data.value">

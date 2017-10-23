@@ -1,9 +1,11 @@
 <form name="applicationSettingsForm" ng-submit="updateKongaSettings()">
+    <!-- GENERAL SETTINGS -->
     <div class="row">
         <div class="col-md-12">
-            <h4>
+            <hr>
+            <h3>
                 General settings
-            </h4>
+            </h3>
             <hr>
             <div class="row">
                 <div class="col-md-4">
@@ -29,11 +31,14 @@
         </div>
     </div>
     <br>
+
+    <!-- SIGN UP RESTRICTIONS -->
     <div class="row">
         <div class="col-md-12">
-            <h4>
+            <hr>
+            <h3>
                 Sign up restrictions
-            </h4>
+            </h3>
             <hr>
             <div class="form-group">
                 <ul class="list-unstyled">
@@ -66,70 +71,142 @@
         </div>
     </div>
     <br>
+
+    <!-- NOTIFICATIONS -->
     <div class="row">
         <div class="col-md-12">
-            <h4>
-                Email settings
-            </h4>
             <hr>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Default sender name</label>
-                        <input required="required" type="text" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender_name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Default sender address</label>
-                        <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
-                    </div>
-                </div>
-            </div>
+            <h3>Notifications</h3>
+            <hr>
 
-            <br>
-            <h5>Transports</h5>
-            <p class="help-block">
-                Configure email transports and select the one to use.
-            </p>
-            <div class="row" vertilize-container="">
-                <div class="col-md-4" data-ng-repeat="transport in transports">
-                    <div class="panel"
-                         vertilize
-                         ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
-                        <div class="panel-heading">
-                            <div class="panel-title" >
-                                <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
-                                    <i class="mdi" ng-class="KONGA_CONFIG.default_transport == transport.name ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
-                                    {{transport.name.toUpperCase()}}
-                                </div>
 
-                                <div class="pull-right" style="margin-top: -6px;">
-                                    <button
-                                            type="button"
-                                            class="btn btn-link btn-sm"
-                                            data-ng-show="transport.name != 'sendmail'"
-                                            data-ng-click="configureTransport(transport)"
-                                            data-ng-class="{'text-white':KONGA_CONFIG.default_transport == transport.name}"
-                                    >
-                                        <i class="mdi mdi-settings"></i>
-                                    </button>
+
+            <uib-tabset active="active">
+                <uib-tab index="0">
+                    <uib-tab-heading>
+                        EMAIL
+                    </uib-tab-heading>
+                    <br>
+                    <p class="help-block">
+                        Setup Email notifications.
+                    </p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Default sender name</label>
+                                <input required="required" type="text" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender_name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Default sender address</label>
+                                <input required="required" type="email" class="form-control" data-ng-model="KONGA_CONFIG.email_default_sender">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h5>Transports</h5>
+                    <p class="help-block">
+                        Configure email transports and select the one to use. You can disable email notifations by disabling all transports.
+                    </p>
+                    <div class="row" vertilize-container="">
+                        <div class="col-md-4" data-ng-repeat="transport in transports">
+                            <div class="panel"
+                                 vertilize
+                                 ng-class="{'panel-primary' : KONGA_CONFIG.default_transport == transport.name,'panel-default' : KONGA_CONFIG.default_transport != transport.name}">
+                                <div class="panel-heading">
+                                    <div class="panel-title" >
+                                        <div class="pull-left clickable" data-ng-click="setDefaultTransport(transport.name)">
+                                            <i class="mdi" ng-class="KONGA_CONFIG.default_transport == transport.name ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
+                                            {{transport.name.toUpperCase()}}
+                                        </div>
+
+                                        <div class="pull-right" style="margin-top: -6px;">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-link btn-sm"
+                                                    data-ng-show="transport.name != 'sendmail'"
+                                                    data-ng-click="configureTransport(transport)"
+                                                    data-ng-class="{'text-white':KONGA_CONFIG.default_transport == transport.name}"
+                                            >
+                                                <i class="mdi mdi-settings"></i>
+                                            </button>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="panel-body">
+                                    <p class="help-block elipsize">{{transport.description}}</p>
+                                </div>
 
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <p class="help-block elipsize">{{transport.description}}</p>
-                        </div>
-
                     </div>
-                </div>
-            </div>
+                </uib-tab>
+                <uib-tab index="1">
+                    <uib-tab-heading>
+                        APPLICATIONS
+                    </uib-tab-heading>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="help-block">
+                                Integrate Konga with 3rd party applications.
+                            </p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4" ng-repeat="item in KONGA_CONFIG.integrations">
+
+                                    <div
+                                            ng-class="{'panel-primary' : item.config.enabled}"
+                                            class="thumbnail">
+                                        <div class="integration-switch" style="position: absolute;right: 30px;top: 10px;">
+                                            <input
+                                                    bs-switch
+                                                    ng-model="item.config.enabled"
+                                                    switch-size="mini"
+                                                    type="checkbox"
+                                                    switch-on-text="ON"
+                                                    switch-off-text="OFF"
+                                                    ng-change="updateKongaSettings()"
+                                            >
+                                        </div>
+
+                                        <img style="width: 100%;height: auto;background: #f2f2f2" src="images/{{item.image}}" alt="slack">
+                                        <div class="caption">
+                                            <!--<div class="form-group">-->
+                                            <!--<label>-->
+                                            <!--Slack Webhook URL-->
+                                            <!--</label>-->
+                                            <!--<input class="form-control" data-ng-model="item.config.slack_webhook_url">-->
+                                            <!--</div>-->
+                                            <p class="text-muted">Send notifications to Slack using Webhooks.</p>
+                                            <button
+                                                    type="button"
+                                                    ng-click="configureIntegration(item)"
+                                                    class="btn btn-block btn-primary btn-inverse btn-flat"
+                                            >
+                                                <i class="mdi mdi-settings"></i>
+                                                CONFIGURE
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Notify administrators when</h5>
+                    <h5>Notify Administrators when</h5>
+                    <p class="text-muted">Notifications will be sent to emails and integrated applications.</p>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <tr
@@ -152,18 +229,17 @@
                 </div>
             </div>
 
-
-
-
         </div>
     </div>
     <br>
+
+    <!-- USER PERMISSIONS -->
     <div class="row">
         <div class="col-md-12">
-
-            <h4>
+            <hr>
+            <h3>
                 User permissions
-            </h4>
+            </h3>
             <hr>
             <div class="row" data-ng-repeat="(context,permissions) in KONGA_CONFIG.user_permissions">
                 <div class="col-md-12">

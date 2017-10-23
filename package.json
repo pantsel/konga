@@ -1,6 +1,6 @@
 {
   "name": "kongadmin",
-  "version": "0.8.7",
+  "version": "0.8.9",
   "description": "Kong admin GUI",
   "keywords": [
     "sails.js",
@@ -12,6 +12,7 @@
     "Passport.js"
   ],
   "dependencies": {
+    "@slack/client": "^3.14.0",
     "async": "1.5.0",
     "barrels": "1.6.0",
     "bcryptjs": "2.3.0",
@@ -52,10 +53,10 @@
     "passport": "0.3.0",
     "passport-local": "1.0.0",
     "rc": "1.0.1",
-    "sails": "~0.12.13",
+    "sails": "~0.12.14",
     "sails-disk": "^0.10.10",
     "sails-hook-validation": "0.4.6",
-    "sails-mongo": "^0.12.2",
+    "sails-mongo": "^0.12.3",
     "sails-mysql": "^0.11.5",
     "sails-postgresql": "^0.11.4",
     "sails-sqlserver": "^0.10.8",
@@ -75,7 +76,8 @@
     "start": "node --harmony app.js",
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
-    "test": "mocha"
+    "test": "mocha",
+    "bower-deps": "bower --allow-root install"
   },
   "main": "app.js",
   "repository": {

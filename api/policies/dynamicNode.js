@@ -10,9 +10,6 @@ var _ = require('lodash');
  * @param   {Function}  next        Callback function
  */
 module.exports = function dynamicNode(request, response, next) {
-  sails.log.debug(__filename + ':' + __line + ' [Policy.dynamicNode() called]',request.headers['kong-admin-url']);
-
-
 
     // If kong-admin-url is set in headers or qs, use that, else get node from user
 

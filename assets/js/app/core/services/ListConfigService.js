@@ -46,6 +46,25 @@
                             sortable: true,
                         }
                     ],
+                    consumerApi: [
+                        {
+                            title: 'name',
+                            width: 200,
+                            column: 'name',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        // {
+                        //     title: 'upstream url',
+                        //     column: 'upstream_url',
+                        //     searchable: true,
+                        //     sortable: true,
+                        //     inSearch: true,
+                        //     inTitle: true
+                        // }
+                    ],
                     target: [
                         {
                             title: '',

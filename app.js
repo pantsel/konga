@@ -54,5 +54,14 @@ try {
     }
 }
 
-// Start server
-sails.lift(rc('sails'));
+require("./makedb")(function(err) {
+    if(err) {
+        process.exit();
+    }
+
+    // Start server
+    sails.lift(rc('sails'));
+});
+
+
+
