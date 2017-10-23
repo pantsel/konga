@@ -147,6 +147,9 @@ All notable changes to this project will be documented in this file.
 * Fix issue which prevented consumer creation with empty `username` or `custom_id`.
 * Other minor bug fixes and improvements.
 
-## [0.8.9](https://github.com/pantsel/konga/releases/tag/0.8.9) - 8-11-2017
+## [0.8.9](https://github.com/pantsel/konga/releases/tag/0.8.9) - 8-10-2017
 * Allow certificates deletion.
 * Manage SNIs from certificates detail modal.
+
+## [0.8.10](https://github.com/pantsel/konga/releases/tag/0.8.10) - 23-10-2017
+* Only admin users can access snapshots.
