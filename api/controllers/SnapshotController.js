@@ -42,97 +42,125 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
             res.ok() // Reply directly because snapshot creation may take some time
 
-            var result = {}
+            KongService.nodeInfo(node,function (err,status) {
+                if(err) {
+                    sails.sockets.blast('events.snapshots', {
+                        verb : 'failed',
+                        data : {
+                            name : req.param("name")
+                        }
+                    });
+                }
 
-            var endpoints = ['/apis','/plugins','/consumers']
+                var result = {}
 
-            if(semver.gte(node.kong_version, '0.10.0')) {
-                endpoints = endpoints.concat(['/upstreams'])
-            }
+                var endpoints = ['/apis','/plugins','/consumers']
 
-            var fns = []
+                if(semver.gte(status.version, '0.10.0')) {
+                    endpoints = endpoints.concat(['/upstreams'])
+                }
 
-            endpoints.forEach(function(endpoint){
-                fns.push(function(cb){
-                    KongService.listAllCb(req,endpoint,function(err,data){
-                        if(err) return cb(err)
-                        console.log(data.data)
-                        result[endpoint.replace("/","")] = data.data
-                        return cb()
-                    })
-                })
-            })
+                var fns = []
 
-
-            async.series(fns,function(err,data){
-                if(err) return res.negotiate(err)
-
-                // Foreach consumer get it's acls
-                var consumerFns = []
-                result.consumers.forEach(function(consumer){
-                    consumerFns.push(function(cb){
-                        KongService.listAllCb(req,'/consumers/' + consumer.id + '/acls',function(err,data){
-                            if(err) return cb()
-                            console.log(data)
-                            if(!consumer.acls) consumer.acls = []
-                            data.data.forEach(function(item){
-                                consumer.acls.push(item)
-                            })
-
+                endpoints.forEach(function(endpoint){
+                    fns.push(function(cb){
+                        KongService.listAllCb(req,endpoint,function(err,data){
+                            if(err) return cb(err)
+                            console.log(data.data)
+                            result[endpoint.replace("/","")] = data.data
                             return cb()
                         })
                     })
+                })
 
 
-                    var credentials = ["basic-auth","key-auth","hmac-auth","jwt","oauth2"]
-                    credentials.forEach(function(credential){
+                async.series(fns,function(err,data){
+                    if(err) return res.negotiate(err)
+
+                    // Foreach consumer get it's acls
+                    var consumerFns = []
+                    result.consumers.forEach(function(consumer){
                         consumerFns.push(function(cb){
-                            KongService.listAllCb(req,'/consumers/' + consumer.id + '/' + credential,function(err,data){
+                            KongService.listAllCb(req,'/consumers/' + consumer.id + '/acls',function(err,data){
                                 if(err) return cb()
                                 console.log(data)
-                                if(!consumer.credentials) consumer.credentials = {}
-                                if(!consumer.credentials[credential]) consumer.credentials[credential] = []
+                                if(!consumer.acls) consumer.acls = []
                                 data.data.forEach(function(item){
-                                    consumer.credentials[credential].push(item)
+                                    consumer.acls.push(item)
                                 })
 
                                 return cb()
                             })
                         })
-                    })
-                })
 
-                async.series(consumerFns,function(err,data) {
-                    if (err) return res.negotiate(err)
 
-                    if(semver.gte(node.kong_version, '0.10.0')) {
-                        // Foreach upstream get its targets
-                        var fns = []
-                        result.upstreams.forEach(function(upstream){
-                            fns.push(function(cb){
-                                KongService.listAllCb(req,'/upstreams/' + upstream.id + '/targets',function(err,data){
+                        var credentials = ["basic-auth","key-auth","hmac-auth","jwt","oauth2"]
+                        credentials.forEach(function(credential){
+                            consumerFns.push(function(cb){
+                                KongService.listAllCb(req,'/consumers/' + consumer.id + '/' + credential,function(err,data){
                                     if(err) return cb()
-                                    console.log(data.data)
-                                    if(!result.upstream_targets) result.upstream_targets = []
+                                    console.log(data)
+                                    if(!consumer.credentials) consumer.credentials = {}
+                                    if(!consumer.credentials[credential]) consumer.credentials[credential] = []
                                     data.data.forEach(function(item){
-                                        result.upstream_targets.push(item)
+                                        consumer.credentials[credential].push(item)
                                     })
 
                                     return cb()
                                 })
                             })
                         })
+                    })
+
+                    async.series(consumerFns,function(err,data) {
+                        if (err) return res.negotiate(err)
+
+                        if(semver.gte(status.version, '0.10.0')) {
+                            // Foreach upstream get its targets
+                            var fns = []
+                            result.upstreams.forEach(function(upstream){
+                                fns.push(function(cb){
+                                    KongService.listAllCb(req,'/upstreams/' + upstream.id + '/targets',function(err,data){
+                                        if(err) return cb()
+                                        console.log(data.data)
+                                        if(!result.upstream_targets) result.upstream_targets = []
+                                        data.data.forEach(function(item){
+                                            result.upstream_targets.push(item)
+                                        })
+
+                                        return cb()
+                                    })
+                                })
+                            })
 
 
 
-                        async.series(fns,function(err,data){
-                            if(err) return res.negotiate(err)
+                            async.series(fns,function(err,data){
+                                if(err) return res.negotiate(err)
 
 
+                                sails.models.snapshot.create({
+                                    name : req.param("name"),
+                                    kong_node_name :  node.name,
+                                    kong_node_url : node.kong_admin_url,
+                                    kong_version : status.version,
+                                    data : result
+                                }).exec(function(err,created){
+                                    if(err) {
+                                        sails.sockets.blast('events.snapshots', {
+                                            verb : 'failed',
+                                            data : {
+                                                name : req.param("name")
+                                            }
+                                        });
+                                    }
+
+                                })
+                            })
+                        }else{
                             sails.models.snapshot.create({
                                 name : req.param("name"),
                                 kong_node_name :  node.name,
-                                kong_node_url : node.kong_admin_url,
                                 kong_version : node.kong_version,
                                 data : result
                             }).exec(function(err,created){
@@ -146,27 +174,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 }
 
                             })
-                        })
-                    }else{
-                        sails.models.snapshot.create({
-                            name : req.param("name"),
-                            kong_node_name :  node.name,
-                            kong_version : node.kong_version,
-                            data : result
-                        }).exec(function(err,created){
-                            if(err) {
-                                sails.sockets.blast('events.snapshots', {
-                                    verb : 'failed',
-                                    data : {
-                                        name : req.param("name")
-                                    }
-                                });
-                            }
+                        }
+                    })
+                });
 
-                        })
-                    }
-                })
-            });
+            })
+
 
         })
     },

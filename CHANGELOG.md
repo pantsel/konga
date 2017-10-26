@@ -153,3 +153,4 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.10](https://github.com/pantsel/konga/releases/tag/0.8.10) - 23-10-2017
 * Only admin users can access snapshots.
+* Kong version is now retrieved automatically throughout the application.

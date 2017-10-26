@@ -76,6 +76,23 @@ var KongService = {
             })
     },
 
+
+    nodeInfo : function(node,cb) {
+
+        var headers = {'Content-Type': 'application/json'}
+
+        if(node.kong_api_key) {
+            headers.apikey = node.kong_api_key
+        }
+
+        unirest.get(node.kong_admin_url)
+            .headers(headers)
+            .end(function (response) {
+                if (response.error)  return cb(response)
+                return cb(null,response.body)
+            })
+    },
+
     listAllCb: function (req, endpoint, cb) {
 
         var headers = {'Content-Type': 'application/json'}
