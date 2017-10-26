@@ -65,10 +65,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 return res.negotiate(err);
                             }
 
-                            return res.json(_node);
+                            return res.created(_node);
                         })
                     }else{
-                        return res.json(node);
+                        return res.created(node);
                     }
                 })
 
