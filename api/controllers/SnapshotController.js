@@ -9,6 +9,7 @@ var KongService = require('../services/KongService')
 var _ = require('lodash')
 var async = require('async');
 var fs = require('fs');
+var semver = require('semver');
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
@@ -45,7 +46,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
             var endpoints = ['/apis','/plugins','/consumers']
 
-            if(node.kong_version == '0-10-x') {
+            if(semver.gte(node.kong_version, '0.10.0')) {
                 endpoints = endpoints.concat(['/upstreams'])
             }
 
@@ -104,7 +105,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 async.series(consumerFns,function(err,data) {
                     if (err) return res.negotiate(err)
 
-                    if(node.kong_version == '0-10-x') {
+                    if(semver.gte(node.kong_version, '0.10.0')) {
                         // Foreach upstream get its targets
                         var fns = []
                         result.upstreams.forEach(function(upstream){
@@ -165,7 +166,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                         })
                     }
                 })
-
             });
 
         })
