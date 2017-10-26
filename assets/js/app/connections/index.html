@@ -82,13 +82,7 @@
                     <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_api_key" onbeforesave="updateNode(node)">{{node.kong_api_key ?  user.hasPermission('connections','update')? node.kong_api_key : '********' : 'N/A'}}</a>
                 </td>
                 <td>
-                    <a href="#"
-                       edit-disabled="{{!user.hasPermission('connections','update')}}"
-                       editable-select="node.kong_version"
-                       onaftersave="updateNode(node)"
-                       e-ng-options="s.value as s.name for s in kong_versions">
-                        {{ node.kong_version.split("-").join(".") }}
-                    </a>
+                    {{node.kong_version}}
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
                 <td  width="1" data-ng-if="user.hasPermission('connections','delete')">

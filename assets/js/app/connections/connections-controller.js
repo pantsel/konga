@@ -217,6 +217,9 @@
                         }).then(function(response){
                             $log.debug("Check connection:success",response)
                             node.checkingConnection = false;
+                            if(node.kong_version !== response.data.version) {
+                                node.kong_version = response.data.version;
+                            }
 
                             toggleUserNode(node);
 

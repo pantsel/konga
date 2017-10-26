@@ -26,16 +26,6 @@
             </p>
         </div>
     </div>
-    <div class="form-group" ng-class="{'has-error' : errors.kong_version}">
-        <label class="col-sm-4 control-label">Kong version</label>
-        <div class="col-sm-7">
-            <select
-                    class="form-control" ng-model="node.kong_version" ng-options="item.value as item.name for item in kong_versions">
-            </select>
-            <div class="text-danger" ng-if="errors.kong_version" data-ng-bind="errors.kong_version"></div>
-            <p class="help-block">The version of Kong running on the node.</p>
-        </div>
-    </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-7">
             <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="create()">

@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var Kong = require("../services/KongService");
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
@@ -39,5 +40,40 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             });
         });
 
+    },
+
+
+    create : function(req,res) {
+
+        sails.models.kongnode.create(req.body)
+            .exec(function(err, node){
+                if(err) {
+                    return res.negotiate(err);
+                }
+
+                Kong.nodeInfo(node, function(err,info){
+
+                    if(err) {
+                        sails.log.error("KongNodeController:create","Failed to get node info",err)
+                    }
+
+                    if(info) {
+                        sails.models.kongnode.update(node.id,{
+                            kong_version : info.version
+                        }).exec(function (err, _node) {
+                            if(err) {
+                                return res.negotiate(err);
+                            }
+
+                            return res.json(_node);
+                        })
+                    }else{
+                        return res.json(node);
+                    }
+                })
+
+
+
+            })
     }
 });
