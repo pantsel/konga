@@ -51,6 +51,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     return res.negotiate(err);
                 }
 
+                if(process.env.NODE_ENV == 'test') {
+                    return res.created(node);
+                }
+
                 Kong.nodeInfo(node, function(err,info){
 
                     if(err) {
