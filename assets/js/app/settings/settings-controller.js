@@ -13,9 +13,6 @@
             function controller(_,$scope, $rootScope,$log,EmailTransport,
                                 Settings,MessageService,$uibModal) {
 
-                $log.info("#####################",$rootScope.KONGA_CONFIG)
-
-
                 $scope.updateKongaSettings = function() {
                     updateKongaSettings()
                 }
@@ -135,9 +132,6 @@
                 }
 
                 function updateKongaSettings() {
-
-
-                    console.log("#####################",$rootScope.KONGA_CONFIG)
 
                     Settings.update(window.KONGA_CONFIG_ID,{
                             data : $rootScope.KONGA_CONFIG
