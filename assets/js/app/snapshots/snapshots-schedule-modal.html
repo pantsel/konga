@@ -1,11 +1,102 @@
 <div class="modal-header success">
     <h5 class="modal-title" id="modal-title">
-        Schedule snapshots
-        <a  class="modal-close pull-right" ng-click="close()">
+        New Schedule
+        <a class="modal-close pull-right" ng-click="close()">
             <i class="mdi mdi-close"></i>
         </a>
 
     </h5>
 </div>
 <div class="modal-body">
+
+    <h5>Cron</h5>
+    <p class="text-muted">
+        Schedule your snapshots by defining cron parameters
+        <i class="mdi mdi-information-outline clickable" uib-popover-template="'myPopoverTemplate.html'"
+           popover-append-to-body="true"></i>
+
+        <script type="text/ng-template" id="myPopoverTemplate.html">
+            <h5 id="allowed-values">Allowed values</h5>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                    <th>Default</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>second</td>
+                    <td>0-59</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td>minute</td>
+                    <td>0-59</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td>hour</td>
+                    <td>0-23</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td>day of month</td>
+                    <td>1-31</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td>month</td>
+                    <td class="no-wrap">1-12 (or names)</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td>day of week</td>
+                    <td class="no-wrap">0-7 (or names, 0 or 7 are sunday)</td>
+                    <td>*</td>
+                </tr>
+                </tbody>
+            </table>
+        </script>
+    </p>
+
+    <form class="form-inline form-group" style="padding: 10px;background: #f2f2f2">
+        <div class="form-group">
+            <input ng-model="cron.minute" class="form-control" placeholder="Minute*">
+        </div>
+        <div class="form-group">
+            <input ng-model="cron.hour" class="form-control" placeholder="Hour*">
+        </div>
+        <div class="form-group">
+            <input ng-model="cron.dayOfMonth" class="form-control" placeholder="Day of Month*">
+        </div>
+        <div class="form-group">
+            <input ng-model="cron.month" class="form-control" placeholder="Month*">
+        </div>
+        <div class="form-group">
+            <input ng-model="cron.dayOfWeek" class="form-control" placeholder="Day of Week*">
+        </div>
+    </form>
+
+    <h5>Kong Node</h5>
+    <p class="text-muted">
+        Select the Kong Node / Connection to target
+    </p>
+    <div class="form-group">
+        <select name="mySelect" id="mySelect"
+                class="form-control"
+                ng-model="connection">
+            <option value="">--- Please select a connection ---</option> <!-- not selected / blank option -->
+            <option value="{{item.id}}" ng-repeat="item in connections">{{item.name}}</option>
+
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-block btn-primary">
+            Create schedule
+        </button>
+    </div>
+
 </div>

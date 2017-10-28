@@ -161,6 +161,54 @@
                 }
 
 
+                $scope.schedule = function(){
+
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/snapshots/snapshots-schedule-modal.html',
+                        // size : 'sm',
+                        backdrop: 'static',
+                        keyboard: false,
+                        controller: function($scope,$rootScope,$log,$uibModalInstance, NodeModel) {
+
+
+                            $scope.cron = {
+                                minute     : '',
+                                hour       : '',
+                                dayOfMonth : '',
+                                month      : '',
+                                dayOfWeek  : '',
+                            };
+
+                            $scope.connection = null;
+
+                            $scope.connections = [];
+
+                            $scope.close = function(){
+                                $uibModalInstance.dismiss();
+                            };
+
+                            NodeModel.fetch().then(function (connections) {
+                                $scope.connections = connections;
+                            }).catch(function (err) {
+
+                            });
+                        }
+                    });
+
+
+                    modalInstance.result.then(function (data) {
+                    }, function (data) {
+                        if(data && data.result){
+                            _triggerFetchData();
+                        }
+                    });
+
+                };
+
+
 
                 _triggerFetchData();
             }
