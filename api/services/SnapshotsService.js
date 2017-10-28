@@ -10,7 +10,7 @@ module.exports = {
 
 
 
-    takeSnapShot : function(node, cb) {
+    takeSnapShot : function(name, node, cb) {
 
 
         // Get node
@@ -123,7 +123,7 @@ module.exports = {
 
 
                             sails.models.snapshot.create({
-                                name : node.name + "@" + Date.now(),
+                                name : name || node.name + "@" + Date.now(),
                                 kong_node_name :  node.name,
                                 kong_node_url : node.kong_admin_url,
                                 kong_version : status.version,
@@ -142,7 +142,7 @@ module.exports = {
                         })
                     }else{
                         sails.models.snapshot.create({
-                            name : node.name + "@" + Date.now(),
+                            name : name || node.name + "@" + Date.now(),
                             kong_node_name :  node.name,
                             kong_version : node.kong_version,
                             data : result
