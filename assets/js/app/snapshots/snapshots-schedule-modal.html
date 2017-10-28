@@ -9,6 +9,8 @@
 </div>
 <div class="modal-body">
 
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+
     <h5>Cron</h5>
     <p class="text-muted">
         Schedule your snapshots by defining cron parameters
@@ -61,21 +63,28 @@
         </script>
     </p>
 
-    <form class="form-inline form-group" style="padding: 10px;background: #f2f2f2">
-        <div class="form-group">
-            <input ng-model="cron.minute" class="form-control" placeholder="Minute*">
-        </div>
-        <div class="form-group">
-            <input ng-model="cron.hour" class="form-control" placeholder="Hour*">
-        </div>
-        <div class="form-group">
-            <input ng-model="cron.dayOfMonth" class="form-control" placeholder="Day of Month*">
-        </div>
-        <div class="form-group">
-            <input ng-model="cron.month" class="form-control" placeholder="Month*">
-        </div>
-        <div class="form-group">
-            <input ng-model="cron.dayOfWeek" class="form-control" placeholder="Day of Week*">
+    <form class="form form-group" style="padding: 10px;background: #f2f2f2">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <input ng-model="data.cron.minute" class="form-control" placeholder="Minute*">
+                <p class="small no-margin-bottom">Minute</p>
+            </div>
+            <div class="form-group col-md-4">
+                <input ng-model="data.cron.hour" class="form-control" placeholder="Hour*">
+                <p class="small no-margin-bottom">Hour</p>
+            </div>
+            <div class="form-group col-md-4">
+                <input ng-model="data.cron.dayOfMonth" class="form-control" placeholder="Day of Month*">
+                <p class="small no-margin-bottom">Day of Month</p>
+            </div>
+            <div class="form-group col-md-4">
+                <input ng-model="data.cron.month" class="form-control" placeholder="Month*">
+                <p class="small no-margin-bottom">Month</p>
+            </div>
+            <div class="form-group col-md-4">
+                <input ng-model="data.cron.dayOfWeek" class="form-control" placeholder="Day of Week*">
+                <p class="small no-margin-bottom">Day of Week</p>
+            </div>
         </div>
     </form>
 
@@ -86,15 +95,21 @@
     <div class="form-group">
         <select name="mySelect" id="mySelect"
                 class="form-control"
-                ng-model="connection">
+                ng-model="data.connection">
             <option value="">--- Please select a connection ---</option> <!-- not selected / blank option -->
             <option value="{{item.id}}" ng-repeat="item in connections">{{item.name}}</option>
 
         </select>
     </div>
-
     <div class="form-group">
-        <button class="btn btn-block btn-primary">
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="data.active">Run immediately</label>
+        </div>
+    </div>
+
+    <br>
+    <div class="form-group">
+        <button class="btn btn-block btn-primary" ng-click="submit()">
             Create schedule
         </button>
     </div>

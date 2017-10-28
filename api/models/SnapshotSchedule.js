@@ -12,13 +12,17 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             unique: true,
             autoIncrement: true
         },
-        name: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
+        // name: {
+        //     type: 'string',
+        //     required: true,
+        //     unique: true
+        // },
         connection: {
             model: 'kongnode'
+        },
+        active : {
+            type : 'boolean',
+            defaultsTo : true
         },
         cron : {
             type : 'string',

@@ -171,24 +171,75 @@
                         // size : 'sm',
                         backdrop: 'static',
                         keyboard: false,
-                        controller: function($scope,$rootScope,$log,$uibModalInstance, NodeModel) {
+                        controller: function(_,$scope,$rootScope,$log,$uibModalInstance, NodeModel, SnapshotSchedule) {
+
+                            $scope.data = {
+                                cron : {
+                                    minute     : '*',
+                                    hour       : '*',
+                                    dayOfMonth : '*',
+                                    month      : '*',
+                                    dayOfWeek  : '*',
+                                },
+                                connection : null,
+                                active : true
+                            }
 
 
-                            $scope.cron = {
-                                minute     : '',
-                                hour       : '',
-                                dayOfMonth : '',
-                                month      : '',
-                                dayOfWeek  : '',
-                            };
 
-                            $scope.connection = null;
+
+                            $scope.alerts = [];
+
 
                             $scope.connections = [];
 
                             $scope.close = function(){
                                 $uibModalInstance.dismiss();
                             };
+
+                            $scope.closeAlert = function(index) {
+                                $scope.alerts.splice(index, 1);
+                            };
+
+
+                            $scope.submit = function () {
+
+                                $scope.errorMessage = "";
+
+
+                                if(!$scope.data.connection) {
+                                    $scope.alerts.push({ type: 'danger', msg: 'You need to select a connection.' });
+                                    return false;
+                                }
+
+
+
+                                // Fill in defaults
+                                var cron = []
+                                Object.keys($scope.data.cron).forEach(function (key) {
+
+                                    cron.push($scope.data.cron[key] || '*');
+                                });
+
+                                var data = {
+                                    cron : cron.join(" "),
+                                    connection : $scope.data.connection,
+                                    active : $scope.data.active
+                                };
+
+
+                                SnapshotSchedule.create(data)
+                                    .then(function(created){
+                                        console.log("SNAPSHOT SCHEDULE CREATED", created);
+                                }).catch(function(err){
+                                    console.log("FAILED TO CREATE SNAPSHOT SCHEDULE", err);
+                                    if(err.data && err.data.message) {
+                                        $scope.alerts.push({ type: 'danger', msg: err.data.message });
+                                    }
+                                });
+
+
+                            }
 
                             NodeModel.fetch().then(function (connections) {
                                 $scope.connections = connections;
