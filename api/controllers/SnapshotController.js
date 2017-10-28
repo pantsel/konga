@@ -40,7 +40,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             })
 
 
-            res.ok() // Reply directly because snapshot creation may take some time
+            res.ok(); // Reply directly because snapshot creation may take some time
 
             KongService.nodeInfo(node,function (err,status) {
                 if(err) {

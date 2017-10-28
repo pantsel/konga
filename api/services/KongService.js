@@ -99,7 +99,7 @@ var KongService = {
 
         // If apikey is set in headers, use it
         if(req.kong_api_key) {
-            headers['apikey'] = req.kong_api_key
+            headers['apikey'] = req.kong_api_key;
         }
 
         var getData = function (previousData,url) {
@@ -115,9 +115,9 @@ var KongService = {
                         response.body.data = data;
                         return cb(null,response.body)
                     }
-                })
+                });
         };
-        getData([],req.node_id  + endpoint);
+        getData([],( req.node_id || req.kong_admin_url )  + endpoint);
     },
 
 

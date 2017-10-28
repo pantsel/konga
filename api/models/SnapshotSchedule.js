@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var Scheduler = require("../services/SnapshotsScheduler");
 
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     tableName: "konga_kong_snapshot_schedules",
@@ -27,6 +28,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         cron : {
             type : 'string',
             required : true
+        },
+
+        lastRunAt : {
+            type : 'date',
+            defaultsTo : null
         }
     },
 
@@ -41,14 +47,15 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         sails.log("SnapshotSchedule:afterUpdate", values);
 
 
-        if(values.active === false) {
+        if(!values.active) {
             // Stop cron job
+            Scheduler.remove(values);
 
-        }
-
-        if(values.active === true) {
+        }else{
             // Start cron job
+            Scheduler.add(values);
         }
+
 
         cb();
     }

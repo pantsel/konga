@@ -57,7 +57,7 @@
             <td>
                 {{snapshot.kong_version.split("-").join(".")}}
             </td>
-            <td>{{snapshot.createdAt | date : "MMM d, y"}}</td>
+            <td>{{snapshot.createdAt | date : "MMM d, y @HH:mm"}}</td>
             <td>
                 <a ui-sref="snapshots.show({id:snapshot.id})" class="btn btn-info btn-link">
                     <i class="mdi mdi-information-outline"></i>

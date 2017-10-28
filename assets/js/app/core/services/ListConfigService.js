@@ -285,7 +285,7 @@
                             inTitle: true
                         },
                         {
-                            title: 'cron',
+                            title: 'Schedule',
                             column: 'cron',
                             inTitle: true
                         },
