@@ -45,6 +45,7 @@
         <tr data-ng-repeat="item in items">
             <td>
                 <i class="mdi mdi-circle clickable"
+                   ng-click="toggleActive(item)"
                    uib-tooltip="{{item.active ? 'Running' : 'Inactive'}}"
                    ng-class="{'text-success': item.active, 'text-danger' : !item.active}"></i>
             </td>

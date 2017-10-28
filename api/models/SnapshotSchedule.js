@@ -28,6 +28,29 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
             type : 'string',
             required : true
         }
+    },
+
+    beforeUpdate: function (values, cb) {
+        sails.log("SnapshotSchedule:beforeUpdate", values);
+
+
+        cb();
+    },
+
+    afterUpdate: function (values, cb) {
+        sails.log("SnapshotSchedule:afterUpdate", values);
+
+
+        if(values.active === false) {
+            // Stop cron job
+
+        }
+
+        if(values.active === true) {
+            // Start cron job
+        }
+
+        cb();
     }
 });
 

@@ -289,6 +289,21 @@
 
                 };
 
+                $scope.toggleActive = function (item) {
+
+                    var data = _.cloneDeep(item);
+
+
+                    SnapshotSchedule.update(data.id,{
+                        active : !data.active
+                    }).then(function (updated) {
+                        item.active = updated.active;
+                    }).catch(function (err) {
+                       console.error("Failed to update Schedule", err);
+                       MessageService.error("Something went wrong...","Could not update schedule");
+                    });
+                }
+
 
                 $scope.prettyCron = function(cron) {
                     return $rootScope.prettyCron.toString(cron);

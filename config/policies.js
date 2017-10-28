@@ -127,6 +127,7 @@ module.exports.policies = {
 
     SnapshotScheduleController: {
         'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+        'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
         'remove' : ['authenticated', 'isAdmin'],
         'find': ['authenticated', 'isAdmin']
     },
