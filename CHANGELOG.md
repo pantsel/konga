@@ -152,5 +152,6 @@ All notable changes to this project will be documented in this file.
 * Manage SNIs from certificates detail modal.
 
 ## [0.8.10](https://github.com/pantsel/konga/releases/tag/0.8.10) - 23-10-2017
-* Only admin users can access snapshots.
-* Kong version is now retrieved automatically throughout the application.
+* [Upgrade] Only admin users can access snapshots.
+* [Upgrade] You don't have to manually specify Kong version when creating a connection. It is now retrieved automatically throughout the application.
+* [New feature] You can now schedule your snapshots and leave Konga to do the rest. 
