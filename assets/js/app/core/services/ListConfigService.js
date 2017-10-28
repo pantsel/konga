@@ -280,14 +280,6 @@
                     ],
                     snapshotschedule: [
                         {
-                            title: 'name',
-                            column: 'name',
-                            searchable: true,
-                            sortable: true,
-                            inSearch: true,
-                            inTitle: true
-                        },
-                        {
                             title: 'connection',
                             column: 'connection',
                             inTitle: true

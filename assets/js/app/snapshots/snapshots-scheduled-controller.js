@@ -124,7 +124,8 @@
                     var parameters = {
                         limit: $scope.itemsPerPage,
                         skip: ($scope.paging.currentPage - 1) * $scope.itemsPerPage,
-                        sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC')
+                        sort: $scope.sort.column + ' ' + ($scope.sort.direction ? 'ASC' : 'DESC'),
+                        populate : ['connection']
                     };
 
                     // Fetch data count
@@ -143,7 +144,7 @@
                         .then(
                             function onSuccess(response) {
                                 $scope.items = response;
-                                $log.debug("Snapshots",$scope.items)
+                                $log.info("Items",$scope.items);
                             }
                         )
                         ;
@@ -185,7 +186,16 @@
                                 active : true
                             }
 
+                            $scope.cronString = "";
 
+                            $scope.onCronValueChanged = function() {
+                                updateCronString();
+                            }
+
+
+                            $scope.prettyCron = function(cron) {
+                                return $rootScope.prettyCron.toString(cron);
+                            }
 
 
                             $scope.alerts = [];
@@ -241,11 +251,31 @@
 
                             }
 
-                            NodeModel.fetch().then(function (connections) {
-                                $scope.connections = connections;
-                            }).catch(function (err) {
 
-                            });
+                            function updateCronString() {
+                                var cron = []
+                                Object.keys($scope.data.cron).forEach(function (key) {
+
+                                    cron.push($scope.data.cron[key] || '*');
+                                });
+
+                                $scope.cronString = cron.join(" ");
+                            }
+
+
+                            function fetchData() {
+                                NodeModel.fetch().then(function (connections) {
+                                    $scope.connections = connections;
+                                }).catch(function (err) {
+
+                                });
+                            }
+
+
+                            updateCronString();
+                            fetchData();
+
+
                         }
                     });
 
@@ -258,6 +288,17 @@
                     });
 
                 };
+
+
+                $scope.prettyCron = function(cron) {
+                    return $rootScope.prettyCron.toString(cron);
+                }
+
+
+                $scope.prettyCronNext = function(cron) {
+                    return $rootScope.getNext.toString(cron);
+                }
+
 
 
 

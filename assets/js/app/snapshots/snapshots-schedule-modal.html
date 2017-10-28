@@ -50,12 +50,12 @@
                 </tr>
                 <tr>
                     <td>month</td>
-                    <td class="no-wrap">1-12 (or names)</td>
+                    <td class="no-wrap">1-12</td>
                     <td>*</td>
                 </tr>
                 <tr>
                     <td>day of week</td>
-                    <td class="no-wrap">0-7 (or names, 0 or 7 are sunday)</td>
+                    <td class="no-wrap">0-7</td>
                     <td>*</td>
                 </tr>
                 </tbody>
@@ -66,24 +66,31 @@
     <form class="form form-group" style="padding: 10px;background: #f2f2f2">
         <div class="row">
             <div class="form-group col-md-4">
-                <input ng-model="data.cron.minute" class="form-control" placeholder="Minute*">
+                <input ng-model="data.cron.minute" class="form-control" ng-change="onCronValueChanged()" placeholder="Minute*">
                 <p class="small no-margin-bottom">Minute</p>
             </div>
             <div class="form-group col-md-4">
-                <input ng-model="data.cron.hour" class="form-control" placeholder="Hour*">
+                <input ng-model="data.cron.hour" class="form-control" ng-change="onCronValueChanged()" placeholder="Hour*">
                 <p class="small no-margin-bottom">Hour</p>
             </div>
             <div class="form-group col-md-4">
-                <input ng-model="data.cron.dayOfMonth" class="form-control" placeholder="Day of Month*">
+                <input ng-model="data.cron.dayOfMonth" class="form-control" ng-change="onCronValueChanged()" placeholder="Day of Month*">
                 <p class="small no-margin-bottom">Day of Month</p>
             </div>
             <div class="form-group col-md-4">
-                <input ng-model="data.cron.month" class="form-control" placeholder="Month*">
+                <input ng-model="data.cron.month" class="form-control" ng-change="onCronValueChanged()" placeholder="Month*">
                 <p class="small no-margin-bottom">Month</p>
             </div>
             <div class="form-group col-md-4">
-                <input ng-model="data.cron.dayOfWeek" class="form-control" placeholder="Day of Week*">
+                <input ng-model="data.cron.dayOfWeek" class="form-control" ng-change="onCronValueChanged()" placeholder="Day of Week*">
                 <p class="small no-margin-bottom">Day of Week</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-danger no-margin-bottom small">
+                    * Will run @ {{prettyCron(cronString)}}
+                </p>
             </div>
         </div>
     </form>
@@ -103,7 +110,7 @@
     </div>
     <div class="form-group">
         <div class="checkbox">
-            <label><input type="checkbox" ng-model="data.active">Run immediately</label>
+            <label><input type="checkbox" ng-model="data.active">Start immediately</label>
         </div>
     </div>
 

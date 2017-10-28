@@ -43,6 +43,8 @@ var jsFilesToInject = [
     "bower_components/angular-ui-router/release/angular-ui-router.js",
     "bower_components/angular-ui-utils/ui-utils.js",
     "bower_components/moment/moment.js",
+    "bower_components/later/later.js",
+    "bower_components/prettycron/prettycron.js",
     "bower_components/angular-bootstrap-show-errors/src/showErrors.js",
     "bower_components/angular-sanitize/angular-sanitize.js",
     "bower_components/angular-xeditable/dist/js/xeditable.js",

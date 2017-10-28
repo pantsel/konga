@@ -183,6 +183,7 @@
           editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
           $rootScope.moment = window.moment;
+          $rootScope.prettyCron = window.prettyCron;
           $rootScope.KONGA_CONFIG = window.KONGA_CONFIG;
           $rootScope.$stateParams = $stateParams;
 
