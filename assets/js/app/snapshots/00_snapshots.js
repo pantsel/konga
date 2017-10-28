@@ -23,7 +23,15 @@
                         views: {
                             'content@': {
                                 templateUrl: 'js/app/snapshots/index.html',
-                                    controller: 'SnapshotsController'
+                                controller: 'SnapshotsController'
+                            },
+                            'list@snapshots': {
+                                templateUrl: 'js/app/snapshots/views/snapshots-list.html',
+                                controller: 'SnapshotsListController',
+                            },
+                            'scheduled@snapshots': {
+                                templateUrl: 'js/app/snapshots/views/snapshots-scheduled.html',
+                                controller: 'SnapshotsScheduledController',
                             },
 
                         }
