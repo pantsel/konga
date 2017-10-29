@@ -90,9 +90,12 @@
                                         $scope.restoring = false;
                                     })
                                     .catch(function(err){
-                                        $log.debug("restoreSnapshot:error",err)
+                                        console.error("restoreSnapshot:error",err)
                                         $scope.restoring = false;
-                                    })
+                                        if(err.data && err.data.message) {
+                                            MessageService.error(err.data ? ( err.data.message || 'Undefined error') : 'Server error');
+                                        }
+                                    });
                             }
 
                             //restore()
