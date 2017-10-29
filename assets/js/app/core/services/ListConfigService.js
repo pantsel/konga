@@ -478,15 +478,16 @@
                                     "Confirm", "Really want to delete the selected item?",
                                     ['No don\'t', 'Yes! delete it'],
                                     function accept() {
+
                                         model.delete(item.id || item.name)
                                             .then(function (res) {
-
-                                                model.scope.items.data.splice(model.scope.items.data.indexOf(item), 1);
+                                                var context =  model.scope.items.data ||  model.scope.items;
+                                                context.splice(context.indexOf(item), 1);
                                             },function(err){
                                                 $log.error("ListConfigService : Model delete failed => ",err)
-                                            })
+                                            });
                                     }, function decline() {
-                                    })
+                                    });
 
                             }
                         };
