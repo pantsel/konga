@@ -21,13 +21,14 @@ module.exports = {
         // Fix update method by setting it to "PATCH"
         // as Kong requires
 
-        if(req.method.toLowerCase() == 'put') {
-            req.method = "PATCH"
+        if(req.method.toLowerCase() === 'put') {
+            req.method = "PATCH";
         }
 
 
         sails.log("KongProxyController",req.node_id + req.url)
         sails.log("req.method",req.method)
+        sails.log("req.body",req.body)
 
         var headers = {'Content-Type': 'application/json'}
 

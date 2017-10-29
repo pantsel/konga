@@ -52,10 +52,10 @@
 
                         PluginsService.add(data)
                             .then(function(resp){
-                                success(resp)
+                                success(resp);
                             }).catch(function(err){
-                            error(err)
-                        })
+                            error(err);
+                        });
                     },
                     ssl : function(data, success,error,event) {
                         var files = [];
@@ -86,16 +86,16 @@
                     addPlugin : function(data, success,error,event) {
 
                         if(handlers[data.name]) {
-                            return handlers[data.name](data, success,error,event)
+                            return handlers[data.name](data, success,error,event);
                         }else{
-                            return handlers['common'](data, success,error,event)
+                            return handlers['common'](data, success,error,event);
                         }
                     },
 
                     createConfigProperties : function(fields,prefix) {
                         var output = {}
                         createConfigProperties(fields,prefix,output)
-                        return output
+                        return output;
                     },
 
                     assignExtraProperties : function(options,fields,prefix) {
@@ -132,12 +132,12 @@
                                         .forEach(function(cf_key){
                                             request_data['config.limits.' + key + '.' + cf_key] = fields.limits.custom_fields[key][cf_key].value
 
-                                        })
-                                })
+                                        });
+                                });
                         }
                     }
 
-                }
+                };
             }
         ])
     ;

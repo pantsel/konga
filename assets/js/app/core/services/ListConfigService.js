@@ -265,10 +265,11 @@
                             inTitle: true
                         },
                         {
-                            title: 'kong version',
-                            column: 'kong_version',
+                            title: 'node',
+                            column: 'kong_node_name',
                             searchable: true,
                             sortable: true,
+                            inSearch: true,
                             inTitle: true
                         },
                         {

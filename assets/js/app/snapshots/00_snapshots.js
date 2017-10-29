@@ -48,17 +48,11 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/snapshots/snapshot.html',
-                                controller: 'SnapshotController',
-                                // resolve : {
-                                //     _snapshot : ['Snapshot','$stateParams',
-                                //         function(Snapshot,$stateParams){
-                                //             return Snapshot.fetch($stateParams.id)
-                                //         }]
-                                // }
+                                templateUrl: 'js/app/snapshots/views/snapshot.html',
+                                controller: 'SnapshotController'
                             },
                         }
-                    })
+                    });
             }
         ])
     ;

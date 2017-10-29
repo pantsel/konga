@@ -61,16 +61,48 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             id : snaphsot_id
         }).exec(function(err,snapshot){
             if(err) return res.negotiate(err)
-            if(!snapshot) res.badInput({
-                message : 'Invalid snaphot'
+            if(!snapshot) res.notFound({
+                message : 'Snapshot not found'
             })
 
             var fns = []
-            var imports = req.param("imports") || Object.keys(snapshot.data)
+
+            // Fix put imports in correct order
+            var requestedImports = req.param("imports") || Object.keys(snapshot.data);
+            var orderedEntities = ["apis","consumers","plugins","upstreams", "upstream_targets"];
+            var imports = _.filter(orderedEntities, function (entity) {
+                return requestedImports.indexOf(entity) > -1;
+            });
+
+
+            console.log("imports", imports);
+
+
             imports.forEach(function(key){
+
+
 
                 //if(key != 'upstream_targets' && key != 'upstreams') {
                     snapshot.data[key].forEach(function(item){
+
+                        var path = null;
+
+                        // Do some housekeeping - monkey patching.
+                        // Fixes bugs in prev versions.
+                        if(item.config) {
+                            if(item.config.anonymous === false || item.config.anonymous === 'false') {
+                                delete item.config.anonymous;
+                            }
+                        }
+
+                        // Transform key in case of upstream targets
+                        if(key === 'upstream_targets') {
+                            path = "upstreams/" + item.upstream_id + "/targets";
+                        }
+
+                        console.log("!!!!!!!!!!!!!!!!!!!!!!!!", item.config ? item.config.anonymous : {});
+
+
                         fns.push(function(cb){
 
                             // For consumers, we need to import their ACLSs and credentials as well
@@ -78,7 +110,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             var consumerAcls = []
                             var consumerCredentials = []
 
-                            if(key == "consumers") {
+                            if(key === "consumers") {
 
                                 // Clean up the consumer object, by storing acls and credentials in different variables
                                 consumerAcls = _.cloneDeep(item.acls)
@@ -87,12 +119,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 delete item.acls
                                 delete item.credentials
 
-                                console.log("item",item)
+                                console.log("item",item);
 
                             }
 
 
-                            KongService.createFromEndpointCb("/" + key,item,req,function(err,created){
+                            KongService.createFromEndpointCb("/" + ( path || key ),item,req,function(err,created){
 
                                 if(!responseData[key]) {
                                     responseData[key] = {
@@ -101,19 +133,22 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                             count : 0,
                                             items : []
                                         }
-                                    }
+                                    };
                                 }
 
                                 if(err) {
-                                    responseData[key].failed.count++
+
+                                    sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
+
+                                    responseData[key].failed.count++;
                                     if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                         responseData[key].failed.items.push(item.name)
                                     }
-                                    return cb()
+                                    return cb();
                                 }
 
 
-                                if(key == 'consumers') {
+                                if(key === 'consumers') {
                                     var consumerFns = []
                                     // Import acls
                                     consumerAcls.forEach(function(acl){
@@ -121,6 +156,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                             KongService.createFromEndpointCb("/" + key + "/" + item.id + "/acls",acl,req,function(err,created){
 
                                                 if(err) {
+                                                    sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
                                                     responseData[key].failed.count++
                                                     if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                                         responseData[key].failed.items.push(item.name)
@@ -143,6 +179,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                                 KongService.createFromEndpointCb("/" + key + "/" + item.id + "/" + credentialKey,credentialData,req,function(err,created){
 
                                                     if(err) {
+                                                        sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
                                                         responseData[key].failed.count++
                                                         if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                                             responseData[key].failed.items.push(item.name)
@@ -164,23 +201,23 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 }else{
 
                                     responseData[key].imported++
-                                    return cb(null,responseData)
+                                    return cb(null,responseData);
                                 }
 
 
-                            })
-                        })
-                    })
+                            });
+                        });
+                    });
                 //}
             })
 
 
             async.series(fns,function(err,data){
                 if(err) return res.negotiate(err)
-                return res.ok(responseData)
-            })
+                return res.ok(responseData);
+            });
 
-        })
+        });
     },
 
     download : function (req,res) {

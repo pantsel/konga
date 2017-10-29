@@ -21,8 +21,7 @@
 
                 SnapshotSchedule.setScope($scope, false, 'items', 'itemCount');
 
-                // Add default list configuration variable to current scope
-                $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
+                $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('snapshotschedule',SnapshotSchedule)));
 
                 // Set initial data
                 $scope.user = UserService.user();
@@ -143,8 +142,9 @@
                         .load(_.merge({}, commonParameters, parameters))
                         .then(
                             function onSuccess(response) {
+                                $log.info("Items",response);
                                 $scope.items = response;
-                                $log.info("Items",$scope.items);
+
                             }
                         )
                         ;
@@ -168,7 +168,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/snapshots/snapshots-schedule-modal.html',
+                        templateUrl: 'js/app/snapshots/views/snapshots-schedule-modal.html',
                         // size : 'sm',
                         backdrop: 'static',
                         keyboard: false,
@@ -241,6 +241,7 @@
                                 SnapshotSchedule.create(data)
                                     .then(function(created){
                                         console.log("SNAPSHOT SCHEDULE CREATED", created);
+                                        $uibModalInstance.close(created);
                                 }).catch(function(err){
                                     console.log("FAILED TO CREATE SNAPSHOT SCHEDULE", err);
                                     if(err.data && err.data.message) {
@@ -280,11 +281,12 @@
                     });
 
 
-                    modalInstance.result.then(function (data) {
-                    }, function (data) {
-                        if(data && data.result){
+                    modalInstance.result.then(function close(data) {
+                        if(data){
                             _triggerFetchData();
                         }
+                    }, function dismiss(data) {
+
                     });
 
                 };

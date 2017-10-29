@@ -19,7 +19,7 @@
                         isVisible : true
                     },
                     {
-                        name : 'Schedules',
+                        name : 'Scheduled tasks',
                         icon : 'mdi mdi-calendar',
                         isVisible : true
                     }

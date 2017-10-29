@@ -35,8 +35,10 @@ var KongService = {
 
         // If apikey is set in headers, use it
         if(req.kong_api_key) {
-            headers['apikey'] = req.kong_api_key
+            headers['apikey'] = req.kong_api_key;
         }
+
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", req.node_id + endpoint, data)
 
         unirest.post(req.node_id + endpoint)
             .headers(headers)

@@ -90,7 +90,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/snapshots/take-snapshot-modal.html',
+                        templateUrl: 'js/app/snapshots/views/take-snapshot-modal.html',
                         size : 'sm',
                         backdrop: 'static',
                         keyboard: false,

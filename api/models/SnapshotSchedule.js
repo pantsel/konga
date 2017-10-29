@@ -58,6 +58,29 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
 
         cb();
+    },
+
+
+    afterCreate: function (values, cb) {
+        sails.log("SnapshotSchedule:afterCreate", values);
+
+
+        if(values.active) {
+            // Start cron job
+            Scheduler.add(values);
+        }
+
+        cb();
+    },
+
+    afterDestroy: function (items, cb) {
+        sails.log("SnapshotSchedule:afterDestroy", items);
+
+        items.forEach(function (item) {
+            Scheduler.remove(item);
+        })
+
+        cb();
     }
 });
 

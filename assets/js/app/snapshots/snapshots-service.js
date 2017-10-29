@@ -15,14 +15,14 @@
                         return $http.post('api/snapshots/take',{
                             name : name,
                             node_id : node_id
-                        })
+                        });
                     },
                     restoreSnapshot : function(id,imports) {
                         return $http.post('api/snapshots/' + id + '/restore',{
                             imports : imports
-                        })
+                        });
                     }
-                }
+                };
 
 
             }

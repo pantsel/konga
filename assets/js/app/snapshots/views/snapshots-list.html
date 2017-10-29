@@ -3,7 +3,7 @@
         <div class="pull-left">
             <button class="btn btn-link btn-primary" data-ng-click="takeSnapshot()">
                 <i class="mdi mdi-camera"></i>
-                Take snapshot
+                instant snapshot
             </button>
             <input type="file" ng-model="file.data"
                    id="import-snapshot"
@@ -15,7 +15,7 @@
             <button
                     class="btn btn-link btn-warning" ng-click="importSnapshot()">
                 <i class="mdi mdi-upload"></i>
-                import
+                import from file
             </button>
         </div>
         <list-search
@@ -53,9 +53,9 @@
             <th width="1"></th>
         </tr>
         <tr data-ng-repeat="snapshot in snapshots">
-            <td><strong>{{snapshot.name || 'undefined'}}@{{snapshot.kong_node_name}}</strong></td>
+            <td><strong>{{snapshot.name || 'undefined'}}</strong></td>
             <td>
-                {{snapshot.kong_version.split("-").join(".")}}
+                {{snapshot.kong_node_name}} <span class="label label-danger">v{{snapshot.kong_version.split("-").join(".")}}</span>
             </td>
             <td>{{snapshot.createdAt | date : "MMM d, y @HH:mm"}}</td>
             <td>
