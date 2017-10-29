@@ -61,7 +61,7 @@
          */
         service.info = function error(message, title, options) {
           var defaultOptions = {
-            timeout: 3000
+            timeout: 5000
           };
 
           _makeMessage(message, title, options, defaultOptions, 'info');
@@ -76,7 +76,7 @@
          */
         service.warning = function error(message, title, options) {
           var defaultOptions = {
-            timeout: 3000
+            timeout: 5000
           };
 
           _makeMessage(message, title, options, defaultOptions, 'warning');
@@ -91,7 +91,7 @@
          */
         service.error = function error(message, title, options) {
           var defaultOptions = {
-            timeout: 4000
+            timeout: 5000
           };
 
           _makeMessage(message, title, options, defaultOptions, 'error');
