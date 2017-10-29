@@ -69,6 +69,13 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
             // Fix put imports in correct order
             var requestedImports = req.param("imports") || Object.keys(snapshot.data);
+
+            if(requestedImports.indexOf("upstream_targets") > -1 && requestedImports.indexOf("upstreams") < 0 ){
+                return res.badRequest({
+                    message : "Upstream targets cannot be restored without their respective upstreams. Check upstreams as well and try again."
+                });
+            }
+
             var orderedEntities = ["apis","consumers","plugins","upstreams", "upstream_targets"];
             var imports = _.filter(orderedEntities, function (entity) {
                 return requestedImports.indexOf(entity) > -1;
