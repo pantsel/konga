@@ -11,9 +11,19 @@ var _ = require('lodash');
  */
 module.exports = function dynamicNode(request, response, next) {
 
-    // If kong-admin-url is set in headers or qs, use that, else get node from user
+    if(request.headers['connection-id'] || request.query.connection_id) {
+        sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
+            .exec(function(err,node) {
+                if (err) return next(err);
+                if (!node) return response.notFound({
+                    message: "connection not found"
+                })
+                request.node_id = node.kong_admin_url
+                request.kong_api_key = node.kong_api_key
+                return  next()
+            });
 
-    if(request.headers['kong-admin-url'] || request.query.kong_admin_url) {
+    }else if(request.headers['kong-admin-url'] || request.query.kong_admin_url) { // If kong-admin-url is set in headers or qs, use that, else get node from user
         // sails.config.kong_admin_url = request.headers['kong-admin-url'] || request.query.kong_admin_url
         request.node_id = request.headers['kong-admin-url'] || request.query.kong_admin_url
         request.kong_api_key = request.headers['kong_api_key'] || request.query.kong_api_key

@@ -82,7 +82,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             });
 
 
-            console.log("imports", imports);
+            sails.log("imports", imports);
 
 
             imports.forEach(function(key){
@@ -107,7 +107,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             path = "upstreams/" + item.upstream_id + "/targets";
                         }
 
-                        console.log("!!!!!!!!!!!!!!!!!!!!!!!!", item.config ? item.config.anonymous : {});
+                        sails.log("!!!!!!!!!!!!!!!!!!!!!!!!", item.config ? item.config.anonymous : {});
 
 
                         fns.push(function(cb){
@@ -126,7 +126,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 delete item.acls
                                 delete item.credentials
 
-                                console.log("item",item);
+                                sails.log("item",item);
 
                             }
 

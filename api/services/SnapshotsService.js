@@ -55,7 +55,7 @@ module.exports = {
                             if(err) {
                                 return cb();
                             }
-                            console.log(data)
+                            sails.log(data)
                             if(!consumer.acls) {
                                 consumer.acls = [];
                             }
@@ -103,7 +103,7 @@ module.exports = {
                             fns.push(function(cb){
                                 KongService.listAllCb(node,'/upstreams/' + upstream.id + '/targets',function(err,data){
                                     if(err) return cb()
-                                    console.log(data.data)
+                                    sails.log(data.data)
                                     if(!result.upstream_targets) result.upstream_targets = []
                                     data.data.forEach(function(item){
                                         result.upstream_targets.push(item);

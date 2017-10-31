@@ -30,7 +30,6 @@
                         .create(angular.copy($scope.node))
                         .then(
                             function onSuccess(result) {
-                                $log.info('New node created successfully',result)
                                 MessageService.success('New node created successfully');
                                 $scope.busy = false;
                                 $rootScope.$broadcast('kong.node.created',result.data)

@@ -9,9 +9,9 @@
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
       '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage','HttpTimeout',
-        'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService','Semver',
+        'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService','Semver','$http',
       function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,HttpTimeout,
-                          SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService, Semver) {
+                          SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService, Semver, $http) {
 
 
           var loadTime = $rootScope.KONGA_CONFIG.info_polling_interval,
@@ -214,57 +214,58 @@
           $scope.create = function() {
 
 
-              // Check if the connection is valid
-              $scope.checkingConnection = true;
-              InfoService.nodeStatus({
-                  kong_admin_url : $scope.node.kong_admin_url
-              }).then(function(response){
-                  $log.debug("Check connection:success",response)
-                  $scope.checkingConnection = false;
+              // First of all Create the connection
+              NodeModel
+                  .create(angular.copy($scope.node))
+                  .then(
+                      function onSuccess(result) {
+                          $log.info('New node created successfully',result)
+                          MessageService.success('New node created successfully');
+                          $scope.busy = false;
+                          $rootScope.$broadcast('kong.node.created',result.data[0])
 
-                  // If check succeeds create the connection
-                  NodeModel
-                      .create(angular.copy($scope.node))
-                      .then(
-                          function onSuccess(result) {
-                              $log.info('New node created successfully',result)
-                              MessageService.success('New node created successfully');
-                              $scope.busy = false;
-                              $rootScope.$broadcast('kong.node.created',result.data)
+                          // Check if the connection is valid
+                          $scope.checkingConnection = true;
+                          $http.get('/kong',{
+                              params : {
+                                  connection_id : result.data[0].id
+                              }
+                          }).then(function(response){
+                              $log.debug("Check connection:success",response)
+                              $scope.checkingConnection = false;
 
                               // Finally, activate the node for the logged in user
                               UserModel
                                   .update(UserService.user().id, {
-                                      node : result.data
+                                      node : result.data[0]
                                   })
                                   .then(
                                       function onSuccess(res) {
                                           var credentials = $localStorage.credentials
-                                          credentials.user.node = result.data
-                                          $rootScope.$broadcast('user.node.updated',result.data)
+                                          credentials.user.node = result.data[0]
+                                          $rootScope.$broadcast('user.node.updated',result.data[0])
                                       },function(err){
                                           $scope.busy = false
                                           UserModel.handleError($scope,err)
                                       }
                                   );
 
+                          }).catch(function(error){
+                              $log.debug("Check connection:error",error)
+                              $scope.checkingConnection = false;
+                              MessageService.error("Oh snap! Can't connect to the created node. Check your connections.")
+                          })
 
 
 
-                          },function(err){
-                              $scope.busy = false
-                              NodeModel.handleError($scope,err)
-                          }
-                      )
-                  ;
+                      },function(err){
+                          $scope.busy = false
+                          NodeModel.handleError($scope,err)
+                      }
+                  )
+              ;
 
 
-
-              }).catch(function(error){
-                  $log.debug("Check connection:error",error)
-                  $scope.checkingConnection = false;
-                  MessageService.error("Oh snap! Can't connect to the selected node.")
-              })
 
 
           }

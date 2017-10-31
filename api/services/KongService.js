@@ -38,14 +38,14 @@ var KongService = {
             headers['apikey'] = req.kong_api_key;
         }
 
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", req.node_id + endpoint, data)
+        sails.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", req.node_id + endpoint, data)
 
         unirest.post(req.node_id + endpoint)
             .headers(headers)
             .send(data)
             .end(function (response) {
                 //if(data.name == "request-transformer") {
-                //    console.log(response.error)
+                //    sails.log(response.error)
                 //}
                 if (response.error)  return cb(response)
                 return cb(null,response.body)

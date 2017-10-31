@@ -143,7 +143,7 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
             .end(function (response) {
                 if (response.error) return res.kongError(response)
 
-                console.log("*******************************",response.body)
+                sails.log("*******************************",response.body)
                 var enabledPlugins = response.body.enabled_plugins;
 
                 return res.json(_this.makeGroups(enabledPlugins))

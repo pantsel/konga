@@ -138,7 +138,7 @@ var defaultModel = {
    */
   beforeUpdate: function beforeUpdate(passport, next) {
 
-      console.log("########################################",passport)
+      sails.log("########################################",passport)
 
     if (passport.hasOwnProperty('password')) {
 

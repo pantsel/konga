@@ -15,7 +15,7 @@ var mg = require('nodemailer-mailgun-transport');
 var notificationsInterval = 30;
 var sendmail = require('sendmail')({
     logger: {
-        debug: console.log,
+        debug: sails.log,
         info: console.info,
         warn: console.warn,
         error: console.error

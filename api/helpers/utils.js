@@ -47,9 +47,9 @@ module.exports = {
 
         webhook.send(message, function(err, header, statusCode, body) {
             if (err) {
-                console.log('Error:', err);
+                sails.log('Error:', err);
             } else {
-                console.log('Received', statusCode, 'from Slack');
+                sails.log('Received', statusCode, 'from Slack');
             }
         });
     },

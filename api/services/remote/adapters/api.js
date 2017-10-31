@@ -53,7 +53,7 @@ module.exports = {
                     headers[array[0]] = array[1]
                 })
 
-                console.log("Headers =>",headers)
+                sails.log("Headers =>",headers)
             }
 
             var request = unirest.get(req.param('endpoint'))
@@ -61,7 +61,7 @@ module.exports = {
             request.end(function (response) {
                 if (response.error)  return res.negotiate(response)
 
-                console.log("response.body",response.body)
+                sails.log("response.body",response.body)
 
                 var jsonRes = response.body
 

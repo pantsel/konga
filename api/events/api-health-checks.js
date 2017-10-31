@@ -16,7 +16,7 @@ var mg = require('nodemailer-mailgun-transport');
 var notificationsInterval = 15;
 var sendmail = require('sendmail')({
     logger: {
-        debug: console.log,
+        debug: sails.log,
         info: console.info,
         warn: console.warn,
         error: console.error
@@ -294,7 +294,7 @@ module.exports = {
 
     makePlainTextNotification : function(hc){
 
-        console.log("!!!!!!!!!!!!!!!!!!!!!!",moment(tasks[hc.id].lastSucceeded));
+        sails.log("!!!!!!!!!!!!!!!!!!!!!!",moment(tasks[hc.id].lastSucceeded));
 
         var duration = moment.duration(moment().diff(moment(tasks[hc.id].lastSucceeded))).humanize();
 

@@ -28,7 +28,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     update : function(req,res) {
 
-        console.log(req.body)
+        sails.log(req.body)
 
         var user = req.body;
         var passports = req.body.passports
