@@ -34,7 +34,7 @@ module.exports = {
    * Set the log level in production environment to "warn"                   *
    ***************************************************************************/
   log: {
-      level: "warn"
+      level: process.env.KONGA_LOG_LEVEL || "warn"
   },
 
   // Keep data of response errors in production mode
