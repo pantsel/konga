@@ -1,5 +1,8 @@
 'use strict';
 
+var _ = require("lodash");
+var async = require("async");
+
 /**
  * Default model configuration
  * (sails.config.models)
@@ -51,19 +54,75 @@ module.exports.models = {
             return;
         }
         self.count().exec(function (err, count) {
-            if (!err && count === 0) {
+
+            if(err) {
+                sails.log.error("Failed to seed " + modelName, error);
+                return callback();
+            }
+
+            if(count === 0) {
                 sails.log.debug('Seeding ' + modelName + '...');
                 if (self.seedData instanceof Array) {
                     self.seedArray(callback);
                 } else {
                     self.seedObject(callback);
                 }
-            } else {
-                sails.log.debug(modelName + ' had models, so no seed needed');
-                callback();
+            }else{
+                if(modelName === 'Emailtransport') {
+                    // Update records
+                    self.updateRecords(callback);
+                }else{
+                    sails.log.debug(modelName + ' had models, so no seed needed');
+                    return callback();
+                }
             }
         });
     },
+
+    updateRecords : function (callback) {
+        var self = this;
+        var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
+        self.find({}).exec(function (err, results) {
+            if (err) {
+                sails.log.debug(err);
+                callback();
+            } else {
+
+
+
+                var data = [];
+
+                self.seedData.forEach(function (seed) {
+                    data.push(_.merge(_.filter(results,function (item) {
+                        return item.name === seed.name
+                    })[0] || {},seed))
+                })
+
+                var fns = [];
+
+                sails.log("!!!!!!!!!!!!!!!!!!!!!!!", data)
+
+                data.forEach(function (item) {
+                    fns.push(function(cb){
+                        self.update({
+                            id :item.id
+                        },_.omit(item, ["id"])).exec(cb)
+                    })
+                })
+
+                async.series(fns,function (err,data) {
+                    if (err) {
+                        sails.log.debug(err);
+                        callback();
+                    }else{
+                        sails.log.debug(modelName + ' seeds updated', data);
+                        callback();
+                    }
+                })
+            }
+        });
+    },
+
     seedArray: function (callback) {
         var self = this;
         var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
