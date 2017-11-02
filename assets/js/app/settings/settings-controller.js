@@ -75,7 +75,7 @@
                                              EmailTransport,_transport){
 
                             $scope.transport = _transport
-                            $log.debug("configureTransport:transport => ",$scope.transport)
+                            $log.info("configureTransport:transport => ",$scope.transport)
 
 
                             $scope.close = function() {
