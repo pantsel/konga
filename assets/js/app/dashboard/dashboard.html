@@ -169,9 +169,21 @@
                         <th>DBMS</th>
                         <td>{{info.configuration.database}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Host</th>
                         <td>{{info.configuration.pg_host}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_contact_points">
+                        <th>Contact points</th>
+                        <td>{{info.configuration.cassandra_contact_points.join(", ")}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_keyspace">
+                        <th>Keyspace</th>
+                        <td>{{info.configuration.cassandra_keyspace}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_data_centers">
+                        <th>Data Centers</th>
+                        <td>{{info.configuration.cassandra_data_centers.join(", ")}}</td>
                     </tr>
                     <tr>
                         <th>Database</th>

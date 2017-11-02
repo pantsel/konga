@@ -148,10 +148,6 @@
           }
 
 
-
-
-
-
           function fetchData() {
               if(!hasInitiallyLoaded) $scope.loading = true
               $log.debug("DashboardController:fetchData() called")
@@ -160,13 +156,13 @@
                   .nodeStatus()
                   .then(function(resp){
                       $scope.status = resp.data
-                      $log.debug("DashboardController:fetchData:status",$scope.status)
+                      $log.info("DashboardController:fetchData:status",$scope.status)
                   })
               var info = InfoService
                   .getInfo()
                   .then(function(resp){
                       $scope.info = resp.data
-                      $log.debug("DashboardController:fetchData:info",$scope.info)
+                      $log.info("DashboardController:fetchData:info",$scope.info)
                   })
               // var cluster = InfoService
               //     .clusterStatus()
