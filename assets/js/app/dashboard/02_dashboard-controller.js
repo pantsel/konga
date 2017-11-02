@@ -164,12 +164,6 @@
                       $scope.info = resp.data
                       $log.info("DashboardController:fetchData:info",$scope.info)
                   })
-              // var cluster = InfoService
-              //     .clusterStatus()
-              //     .then(function(resp){
-              //         $scope.cluster = resp.data
-              //         $log.debug("DashboardController:fetchData:cluster",$scope.cluster)
-              //     })
 
               $q
                   .all([status, info])
