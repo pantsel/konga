@@ -193,16 +193,16 @@
           $scope.kong_versions = SettingsService.getKongVersions()
 
           $scope.node = {
-              kong_admin_url : '',
-              // kong_version : '0-10-x',
+              type : 'default'
           }
 
           $scope.close = function(){
-              $uibModalInstance.dismiss()
+              $uibModalInstance.dismiss();
           }
 
           $scope.create = function() {
 
+              console.log("!!!!!!!!!!!!!!!", $scope.node);
 
               // First of all Create the connection
               NodeModel

@@ -1,4 +1,45 @@
 <form name="connectionForm" ng-submit="create()">
+
+    <uib-tabset active="activeJustified" justified="true">
+        <uib-tab index="0" ng-click="node.type='default'">
+            <uib-tab-heading>
+                Default
+            </uib-tab-heading>
+            <br>
+            <p class="text-muted">
+                Konga will connect directly to Kong's admin API.<br>
+                This method is mainly suitable for demo scenarios or internal access (ex. localhost).<br>
+                Kong's admin API <strong class="text-danger">should not</strong> be publicly exposed.
+            </p>
+
+        </uib-tab>
+        <uib-tab index="1" ng-click="node.type='key_auth'">
+            <uib-tab-heading>
+                API key
+            </uib-tab-heading>
+            <br>
+            <p class="text-muted">
+                Konga will connect to Kong's admin via an exposed "loop-back" API using key authentication.<br><br>
+                 <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">Check out how to setup an API key based "loop-back" API</a>.
+            </p>
+
+        </uib-tab>
+        <uib-tab index="2" ng-click="node.type='jwt'">
+            <uib-tab-heading>
+                JWT
+            </uib-tab-heading>
+            <br>
+            <p class="text-muted">
+                Konga will connect to Kong's admin via an exposed "loop-back" API using JWT authentication.<br><br>
+                <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">Check out how to setup a JWT based "loop-back" API</a>.
+            </p>
+
+        </uib-tab>
+
+    </uib-tabset>
+    <br>
+
+
     <div class="form-group" ng-class="{'has-error' : errors.name}">
         <label class="control-label">Name <em><small class="">required</small></em></label>
         <input ng-model="node.name" class="form-control" placeholder="A unique connection name" required="required">
@@ -9,15 +50,27 @@
         <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's admin api" required="required">
         <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
     </div>
-    <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
-        <label class="control-label">API KEY</label>
-        <input ng-model="node.kong_api_key" class="form-control">
-        <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
-        <p class="help-block">
-            The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.
-            See <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">here</a> for details.
-        </p>
+
+
+
+
+    <div ng-switch="node.type">
+
+        <div ng-switch-when="key_auth">
+            <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
+                <label class="control-label">API KEY</label>
+                <input ng-model="node.kong_api_key" class="form-control" placeholder="The `apikey` ...">
+                <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
+
+            </div>
+        </div>
+        <div ng-switch-when="jwt">
+
+        </div>
+
     </div>
+
+
     <br>
     <div class="form-group">
         <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block">
