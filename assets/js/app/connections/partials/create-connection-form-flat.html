@@ -41,12 +41,12 @@
 
 
     <div class="form-group" ng-class="{'has-error' : errors.name}">
-        <label class="control-label">Name <em><small class="">required</small></em></label>
+        <label class="control-label">Name <span class="text-danger">*</span></label>
         <input ng-model="node.name" class="form-control" placeholder="A unique connection name" required="required">
         <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
     </div>
     <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
-        <label class="control-label">Kong Admin URL <em><small class="">required</small></em></label>
+        <label class="control-label">Kong Admin URL <span class="text-danger">*</span></label>
         <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's admin api" required="required">
         <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
     </div>
@@ -58,14 +58,36 @@
 
         <div ng-switch-when="key_auth">
             <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
-                <label class="control-label">API KEY</label>
-                <input ng-model="node.kong_api_key" class="form-control" placeholder="The `apikey` ...">
+                <label class="control-label">API KEY <span class="text-danger">*</span></label>
+                <input ng-model="node.kong_api_key" ng-required="node.type=='api_key'" class="form-control" placeholder="The `apikey` ...">
                 <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
 
             </div>
         </div>
         <div ng-switch-when="jwt">
-
+            <div class="form-group" ng-class="{'has-error' : errors.jwt_algorithm}">
+                <label class="control-label">Algorithm</label>
+                <select ng-model="node.jwt_algorithm" class="form-control">
+                    <option value="HS256">HS256</option>
+                    <option value="RS256">RS256</option>
+                </select>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.jwt_key}">
+                <label class="control-label">Key <span class="text-danger">*</span></label>
+                <input ng-model="node.jwt_key" ng-required="node.type=='jwt'" class="form-control" placeholder="The JWT identification key">
+                <div class="text-danger" ng-if="errors.jwt_key" data-ng-bind="errors.jwt_key"></div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.jwt_secret}">
+                <label class="control-label">Secret <span class="text-danger">*</span></label>
+                <input ng-model="node.jwt_secret" ng-required="node.type=='jwt'" class="form-control" placeholder="The JWT secret">
+                <div class="text-danger" ng-if="errors.jwt_secret" data-ng-bind="errors.jwt_secret"></div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.jwt_ttl}">
+                <label class="control-label">Lifetime (secs)</label>
+                <input type="number" min="0" ng-model="node.jwt_ttl" class="form-control" placeholder="JWT lifetime">
+                <div class="text-danger" ng-if="errors.jwt_ttl" data-ng-bind="errors.jwt_ttl"></div>
+                <p class="text-muted text-small">JWT lifetime in secs. Defaults to 7200. Set to 0 to disable expiration.</p>
+            </div>
         </div>
 
     </div>

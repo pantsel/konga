@@ -193,7 +193,8 @@
           $scope.kong_versions = SettingsService.getKongVersions()
 
           $scope.node = {
-              type : 'default'
+              type : 'default',
+              jwt_algorithm : 'HS256', // Initialize this anyway so that it can be preselected
           }
 
           $scope.close = function(){
