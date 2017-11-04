@@ -82,12 +82,6 @@
                 <input ng-model="node.jwt_secret" ng-required="node.type=='jwt'" class="form-control" placeholder="The JWT secret">
                 <div class="text-danger" ng-if="errors.jwt_secret" data-ng-bind="errors.jwt_secret"></div>
             </div>
-            <div class="form-group" ng-class="{'has-error' : errors.jwt_ttl}">
-                <label class="control-label">Lifetime (secs)</label>
-                <input type="number" min="0" ng-model="node.jwt_ttl" class="form-control" placeholder="JWT lifetime">
-                <div class="text-danger" ng-if="errors.jwt_ttl" data-ng-bind="errors.jwt_ttl"></div>
-                <p class="text-muted text-small">JWT lifetime in secs. Defaults to 7200. Set to 0 to disable expiration.</p>
-            </div>
         </div>
 
     </div>

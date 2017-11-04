@@ -3,6 +3,7 @@
  */
 
 var unirest = require("unirest")
+var JWT = require("../services/Token");
 
 module.exports = {
 
@@ -26,18 +27,29 @@ module.exports = {
         }
 
 
-        sails.log("KongProxyController",req.node_id + req.url)
-        sails.log("req.method",req.method)
-        sails.log("req.body",req.body)
+        if(!req.connection) {
+            return res.badRequest({
+                message : 'No Kong connection is defined'
+            });
+        }
+
 
         var headers = {'Content-Type': 'application/json'}
 
-        // If apikey is set in headers, use it
-        if(req.kong_api_key) {
-            headers['apikey'] = req.kong_api_key
+
+        // Set required headers according to connection type
+        switch(req.connection.type) {
+            case "key_auth":
+                headers.apikey = req.connection.kong_api_key;
+                break;
+            case "jwt":
+                var token = JWT.issueKongConnectionToken(req.connection);
+                headers.Authorization = "Bearer " + token;
+                break;
         }
 
-        var request = unirest[req.method.toLowerCase()](req.node_id + req.url)
+
+        var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
         request.headers(headers)
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
@@ -51,7 +63,7 @@ module.exports = {
                             body : {
                                 message : 'Ordelist entities must be integers'
                             }
-                        })
+                        });
                     }
                 }
             }
@@ -63,8 +75,11 @@ module.exports = {
 
 
         request.end(function (response) {
-            if (response.error)  return res.negotiate(response)
-            return res.json(response.body)
-        })
+            if (response.error)  {
+                sails.log.error("KongProxyController","request error", response.body);
+                return res.negotiate(response)
+            }
+            return res.json(response.body);
+        });
     }
 };
