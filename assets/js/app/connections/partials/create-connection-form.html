@@ -1,9 +1,9 @@
 <form class="form-horizontal">
 
-    <uib-tabset active="active" justified="true">
+    <uib-tabset active="active" type="pills">
         <uib-tab index="0" ng-click="node.type='default'">
             <uib-tab-heading>
-                Default
+                DEFAULT
             </uib-tab-heading>
             <br>
             <div class="alert alert-info text-small">
@@ -15,7 +15,7 @@
         </uib-tab>
         <uib-tab index="1" ng-click="node.type='key_auth'">
             <uib-tab-heading>
-                API key
+               KEY AUTH
             </uib-tab-heading>
             <br>
             <div class="alert alert-info text-small">
@@ -26,7 +26,7 @@
         </uib-tab>
         <uib-tab index="2" ng-click="node.type='jwt'">
             <uib-tab-heading>
-                JWT
+                JWT AUTH
             </uib-tab-heading>
             <br>
             <div class="alert alert-info text-small">
@@ -45,13 +45,12 @@
             <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
         </div>
         <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
-            <label class="control-label">Kong Admin URL <span class="text-danger">*</span></label>
-            <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's admin api" required="required">
+            <label class="control-label">
+                {{node.type == 'default' ? 'Kong Admin' : 'Loopback API'}} URL
+                <span class="text-danger">*</span></label>
+            <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's {{node.type == 'default' ? 'admin' : 'Loopback'}} API" required="required">
             <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
         </div>
-
-
-
 
         <div ng-switch="node.type">
 
