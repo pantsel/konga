@@ -146,14 +146,6 @@
                             inTitle: true
                         },
                         {
-                            title: 'api key',
-                            column: 'kong_api_key',
-                            searchable: true,
-                            sortable: true,
-                            inSearch: true,
-                            inTitle: true
-                        },
-                        {
                             title: 'kong version',
                             column: 'kong_version'
                         },

@@ -87,8 +87,8 @@ module.exports.issueKongConnectionToken = function issueKong(connection) {
 
     var payload = {
         iss: connection.jwt_key,
-        nbf : moment().subtract(1, 'm').utc().unix(),
-        exp : moment().add(2, 'm').utc().unix()
+        nbf : moment().subtract(1, 'm').unix(),
+        exp : moment().add(2, 'm').unix()
     }
 
     return jwt.sign(
