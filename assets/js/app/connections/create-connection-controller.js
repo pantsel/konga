@@ -16,12 +16,12 @@
                 $scope.kong_versions = SettingsService.getKongVersions()
 
                 $scope.node = {
-                    kong_admin_url : '',
-                    // kong_version : '0-11-x',
+                    type : 'default',
+                    jwt_algorithm : 'HS256', // Initialize this anyway so that it can be preselected
                 }
 
                 $scope.close = function(){
-                    $uibModalInstance.dismiss()
+                    $uibModalInstance.dismiss();
                 }
 
                 $scope.create = function() {
@@ -32,15 +32,15 @@
                             function onSuccess(result) {
                                 MessageService.success('New node created successfully');
                                 $scope.busy = false;
-                                $rootScope.$broadcast('kong.node.created',result.data)
-                                $uibModalInstance.dismiss()
+                                $rootScope.$broadcast('kong.node.created',result.data);
+                                $uibModalInstance.dismiss();
                             },function(err){
                                 $scope.busy = false
-                                NodeModel.handleError($scope,err)
+                                NodeModel.handleError($scope,err);
                             }
                         )
                     ;
-                }
+                };
             }
         ])
     ;
