@@ -25,6 +25,29 @@ module.exports.issue = function issue(payload) {
 };
 
 /**
+ * Service method to generate a new token for Kongs JWT auth, based on the connection settings.
+ *
+ * @param   {Object}    connection
+ *
+ * @returns {*}
+ */
+module.exports.issueKongConnectionToken = function issueKong(connection) {
+    sails.log.verbose(__filename + ':' + __line + ' [Service.Token.issueKongConnectionToken() called]');
+
+
+    var payload = {
+        iss: connection.jwt_key,
+        nbf : moment().subtract(1, 'm').unix(),
+        exp : moment().add(2, 'm').unix()
+    }
+
+    return jwt.sign(
+        payload, // This is the payload we want to put inside the token
+        connection.jwt_secret // Secret string which will be used to sign the token
+    );
+};
+
+/**
  * Service method to verify that the token we received on a request hasn't be tampered with.
  *
  * @param   {String}    token   Token to validate
@@ -80,19 +103,3 @@ module.exports.getToken = function getToken(request, next, throwError) {
     return sails.services.token.verify(token, next);
 };
 
-
-module.exports.issueKongConnectionToken = function issueKong(connection) {
-    sails.log.verbose(__filename + ':' + __line + ' [Service.Token.issueKongConnectionToken() called]');
-
-
-    var payload = {
-        iss: connection.jwt_key,
-        nbf : moment().subtract(1, 'm').unix(),
-        exp : moment().add(2, 'm').unix()
-    }
-
-    return jwt.sign(
-        payload, // This is the payload we want to put inside the token
-        connection.jwt_secret // Secret string which will be used to sign the token
-    );
-};
