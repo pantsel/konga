@@ -2,8 +2,8 @@
  * RemoteApiController
  */
 
-var unirest = require("unirest")
-var JWT = require("../services/Token");
+var unirest = require("unirest");
+var KongService = require("../services/KongService");
 
 module.exports = {
 
@@ -15,13 +15,12 @@ module.exports = {
      */
     proxy : function(req,res) {
 
-        req.url = req.url.replace('/kong','') // Remove the /api prefix
+        req.url = req.url.replace('/kong',''); // Remove the /api prefix
 
-        sails.log("req.url",req.url)
+        sails.log.debug("KongProxyController:req.url",req.url)
 
         // Fix update method by setting it to "PATCH"
         // as Kong requires
-
         if(req.method.toLowerCase() === 'put') {
             req.method = "PATCH";
         }
@@ -33,24 +32,8 @@ module.exports = {
             });
         }
 
-
-        var headers = {'Content-Type': 'application/json'}
-
-
-        // Set required headers according to connection type
-        switch(req.connection.type) {
-            case "key_auth":
-                headers.apikey = req.connection.kong_api_key;
-                break;
-            case "jwt":
-                var token = JWT.issueKongConnectionToken(req.connection);
-                headers.Authorization = "Bearer " + token;
-                break;
-        }
-
-
         var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
-        request.headers(headers)
+        request.headers(KongService.headers(req.connection))
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
 
@@ -67,8 +50,6 @@ module.exports = {
                     }
                 }
             }
-
-
         }
 
         request.send(req.body);
@@ -77,7 +58,7 @@ module.exports = {
         request.end(function (response) {
             if (response.error)  {
                 sails.log.error("KongProxyController","request error", response.body);
-                return res.negotiate(response)
+                return res.negotiate(response);
             }
             return res.json(response.body);
         });
