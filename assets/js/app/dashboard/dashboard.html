@@ -34,70 +34,50 @@
 <konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
 
 <div data-ng-if="!loading && !error && info">
-    <div class="row" vertilize-container>
-        <!-- REQUESTS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <i class="mdi mdi-cast-connected"></i>&nbsp;
-                        REQUESTS
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <canvas id="server"
-                            class="chart chart-bar"
-                            chart-data="data.server.data"
-                            chart-labels="data.server.labels"
-                            chart-options="data.server.options"
-                            chart-series="data.server.series">
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END REQUESTS -->
+    <div class="row">
         <!-- CONNECTIONS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
+        <div class="col-md-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-cast-connected"></i>&nbsp;
+                        <i class="mdi mdi-lan-connect"></i>&nbsp;
                         CONNECTIONS
+                        <span class="pull-right">Total Requests: <strong>{{status.server.total_requests}}</strong></span>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <canvas id="activity"
-                            class="chart chart-bar"
-                            chart-data="data.activity.data"
-                            chart-labels="data.activity.labels"
-                            chart-options="data.activity.options"
-                            chart-series="data.activity.series">
-                    </canvas>
+                    <div class="row text-center">
+                        <div class="col-sm-2">
+                            <strong>ACTIVE</strong>
+                            <h4>{{status.server.connections_active}}</h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <strong>READING</strong>
+                            <h4>{{status.server.connections_reading}}</h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <strong>WRITING</strong>
+                            <h4>{{status.server.connections_writing}}</h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <strong>WAITING</strong>
+                            <h4>{{status.server.connections_waiting}}</h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <strong>ACCEPTED</strong>
+                            <h4>{{status.server.connections_accepted}}</h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <strong>HANDLED</strong>
+                            <h4>{{status.server.connections_handled}}</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- END CONNECTIONS -->
-        <!-- TIMERS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <i class="mdi mdi-timer"></i>&nbsp;
-                        TIMERS
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <canvas id="timers"
-                            class="chart chart-bar"
-                            chart-data="data.timers.data"
-                            chart-labels="data.timers.labels"
-                            chart-options="data.timers.options"
-                            chart-series="data.timers.series">
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END -->
+
+
     </div>
     <div class="row" ng-if="!isKongVersionGreater('0.11.0')">
         <!-- DATABASE -->
@@ -120,12 +100,12 @@
         <!-- END DATABASE -->
     </div>
     <div class="row" vertilize-container>
-        <!-- GATEWAY INFO -->
+        <!-- NODE INFO -->
         <div class="col-md-4">
             <div class="panel panel-default" vertilize>
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-information-outline"></i>&nbsp;GATEWAY INFO
+                        <i class="mdi mdi-information-outline"></i>&nbsp;NODE INFO
                     </div>
                 </div>
                 <table class="table no-margin">
@@ -152,14 +132,35 @@
                 </table>
             </div>
         </div>
-        <!-- END GATEWAY INFO -->
+        <!-- END NODE INFO -->
+        <!-- TIMERS -->
+        <div class="col-md-4">
+            <div class="panel panel-default" vertilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="mdi mdi-timer"></i>&nbsp;
+                        TIMERS
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <canvas id="timers"
+                            class="chart chart-horizontal-bar"
+                            chart-data="data.timers.data"
+                            chart-labels="data.timers.labels"
+                            chart-options="data.timers.options"
+                            chart-series="data.timers.series">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <!-- END -->
 
         <!-- DATABASE INFO -->
         <div class="col-md-4">
             <div class="panel panel-default" vertilize>
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-information-outline"></i>&nbsp;DATABASE INFO
+                        <i class="mdi mdi-information-outline"></i>&nbsp;DATASTORE INFO
                         <span ng-if="isKongVersionGreater('0.11.0')"
                               ng-class="{'text-success' : status.database.reachable, 'text-danger' : !status.database.reachable}"
                               class="pull-right">
@@ -205,9 +206,12 @@
         </div>
         <!-- END DATABASE INFO -->
 
+
+    </div>
+    <div class="row">
         <!-- PLUGINS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
+        <div class="col-md-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i class="mdi mdi-power-plug"></i>&nbsp;

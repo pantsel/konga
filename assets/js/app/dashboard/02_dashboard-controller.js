@@ -203,7 +203,6 @@
 
           $scope.create = function() {
 
-              console.log("!!!!!!!!!!!!!!!", $scope.node);
 
               // First of all Create the connection
               NodeModel
