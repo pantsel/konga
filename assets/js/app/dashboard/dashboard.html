@@ -1,3 +1,4 @@
+
 <div class="container margin-top" style="width: 600px;max-width: 100%" ng-if="!loading">
     <div class="row" ng-if="!user.node && !Gateway">
         <div class="col-md-12 text-center">
@@ -34,6 +35,7 @@
 <konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
 
 <div data-ng-if="!loading && !error && info">
+
     <div class="row">
         <!-- CONNECTIONS -->
         <div class="col-md-12">

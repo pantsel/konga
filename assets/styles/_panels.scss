@@ -8,4 +8,8 @@ $pbrands: primary $brand-primary, success $brand-success, warning $brand-warning
     -moz-box-shadow:inset 0px 0px 0px 2px $value;
     box-shadow:inset 0px 0px 0px 2px $value;
   }
+
+  .panel-#{$key}-outside {
+    border: 2px solid $value;
+  }
 }
