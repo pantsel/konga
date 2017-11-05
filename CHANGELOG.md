@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 
 #### Breaking Changes
 Due to the new **Connection types** logic, the existing connections to Kong admin
-api are likely to stop working. You will need to create new ones using the new forms.
+API are likely to stop working. You will need to create new ones using the new forms.
 No data or settings will be lost.
 
 
