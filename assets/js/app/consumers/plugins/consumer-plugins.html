@@ -15,6 +15,7 @@
     <tr>
         <th width="1"></th>
         <th width="1"></th>
+        <th width="1"></th>
         <th>Name</th>
         <th>API</th>
         <th>Created</th>
@@ -23,14 +24,18 @@
     <tr
             dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
         <td>
+            <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
+        </td>
+        <td>
 
-            <input
-                    bs-switch
-                    switch-on-color="primary"
-                    ng-change="updatePlugin(item)"
-                    ng-model="item.enabled"
-                    type="checkbox"
-                    switch-size="mini">
+            <i class="mdi mdi-toggle-switch text-success clickable"
+               ng-show="item.enabled"
+               ng-click="togglePlugin(item)"
+               uib-tooltip="Enabled"></i>
+            <i class="mdi mdi-toggle-switch-off text-muted clickable"
+               ng-show="!item.enabled"
+               ng-click="togglePlugin(item)"
+               uib-tooltip="Disabled"></i>
         </td>
         <td>
             <raw-view data-item="item"></raw-view>

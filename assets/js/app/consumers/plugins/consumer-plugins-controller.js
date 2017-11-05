@@ -12,11 +12,12 @@
       function controller(_,$scope,$stateParams, $log, $state, $uibModal,ConsumerService,PluginsService, MessageService,DialogService) {
 
 
-          $scope.onAddPlugin = onAddPlugin
-          $scope.onEditPlugin = onEditPlugin
-          $scope.deletePlugin = deletePlugin
-          $scope.updatePlugin = updatePlugin
-          $scope.search = ''
+          $scope.onAddPlugin = onAddPlugin;
+          $scope.onEditPlugin = onEditPlugin;
+          $scope.deletePlugin = deletePlugin;
+          $scope.updatePlugin = updatePlugin;
+          $scope.togglePlugin = togglePlugin;
+          $scope.search = '';
 
 
           /**
@@ -24,6 +25,11 @@
            * Functions
            * ----------------------------------------------------------------------
            */
+
+          function togglePlugin(plugin) {
+              plugin.enabled = !plugin.enabled;
+              updatePlugin(plugin);
+          }
 
           function onAddPlugin() {
               $uibModal.open({
