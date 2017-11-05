@@ -239,7 +239,7 @@
                         access: AccessLevels.user
                     },
                     {
-                        title: 'KONG API',
+                        title: 'API Gateway',
                         show: function () {
                             return AuthService.isAuthenticated() && $rootScope.Gateway
                         },
