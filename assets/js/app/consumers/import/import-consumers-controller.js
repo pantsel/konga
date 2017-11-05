@@ -44,7 +44,7 @@
                         create({
                         username : consumer.username,
                         custom_id : consumer.custom_id,
-                        import_id : $scope.uuid,
+                        // import_id : $scope.uuid,
                     })
 
                     .catch(function(error) {
