@@ -138,6 +138,14 @@
                             inTitle: true
                         },
                         {
+                            title: 'type',
+                            column: 'type',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
                             title: 'kong admin url',
                             column: 'kong_admin_url',
                             searchable: true,
