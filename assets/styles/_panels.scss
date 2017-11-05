@@ -4,6 +4,8 @@ $pbrands: primary $brand-primary, success $brand-success, warning $brand-warning
   $key: nth($brand, 1);
   $value: nth($brand, 2);
   .panel-#{$key} {
-    border: 1px solid $value;
+    -webkit-box-shadow:inset 0px 0px 0px 2px $value;
+    -moz-box-shadow:inset 0px 0px 0px 2px $value;
+    box-shadow:inset 0px 0px 0px 2px $value;
   }
 }
