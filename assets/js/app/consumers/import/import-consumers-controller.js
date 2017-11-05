@@ -32,7 +32,7 @@
 
 
                 $scope.closeModal = function() {
-                    $uibModalInstance.dismiss()
+                    $uibModalInstance.dismiss();
                 }
 
 

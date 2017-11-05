@@ -1,7 +1,5 @@
 <form name="connectionForm" ng-submit="create()">
 
-
-
     <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" ng-click="node.type='default'">
             <uib-tab-heading>
@@ -40,8 +38,6 @@
 
     </uib-tabset>
     <br>
-
-
     <div class="form-group" ng-class="{'has-error' : errors.name}">
         <label class="control-label">Name <span class="text-danger">*</span></label>
         <input ng-model="node.name" class="form-control" placeholder="A unique connection name" required="required">

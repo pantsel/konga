@@ -2,7 +2,7 @@
     <div class="pull-left">
         <h4 class="no-margin">Remote consumers</h4>
         <p class="help-block">
-            Loaded {{consumers.length}} consumers form the remote storage.<br>
+            Loaded {{consumers.length}} unique consumers form the remote storage.<br>
             Select the ones you want to import.
         </p>
     </div>
@@ -30,12 +30,6 @@
     <div class="actions no-margin padding-top">
         <dir-pagination-controls></dir-pagination-controls>
     </div>
-    <div class="clearfix"></div>
-    <div class="padding-top">
-        <i class="mdi mdi-circle text-success"></i> Eligible for import
-        &nbsp;&nbsp;
-        <i class="mdi mdi-circle text-warning"></i> Already exists and won't be imported
-    </div>
 
 
 </div>
@@ -46,7 +40,6 @@
         <th>custom_id</th>
     </tr>
     <tr
-            ng-class="{'warning' : item.exists,'success' : !item.exists}"
             dir-paginate="item in consumers | itemsPerPage: 50 | filter : searchText">
         <td>
             <input class="padding-left" ng-disabled="item.exists" type="checkbox" ng-model="item.checked"/>

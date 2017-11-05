@@ -79,7 +79,7 @@
                         controllerAs: '$ctrl',
                         resolve : {
                             _consumers : function() {
-                                return consumers
+                                return consumers;
                             },
                             //_existingConsumers : function() {
                             //    return ConsumerModel

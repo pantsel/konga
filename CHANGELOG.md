@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 * [Upgrade] You don't have to manually specify Kong version when creating a connection anymore. It is now retrieved automatically throughout the application.
 * [New feature] You can now schedule your Kong node snapshots and leave Konga to do the rest. 
 * [Fix] Fixed some issues with snapshots and snapshot restoration.
+* [Fix] Consumer imports are working again.
 * [UI] Fixed database info display on dashboard page when using Cassandra.
 
 
