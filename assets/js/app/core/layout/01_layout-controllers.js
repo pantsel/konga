@@ -311,7 +311,7 @@
                     {
                         title: 'Application',
                         show: function () {
-                            return true
+                            return true;
                         },
                         access: AccessLevels.user
                     },
@@ -319,7 +319,7 @@
                         state: 'users',
                         icon: 'mdi-account-multiple-outline',
                         show: function () {
-                            return AuthService.hasPermission('users', 'read')
+                            return AuthService.hasPermission('users', 'read');
                         },
                         title: 'Users',
                         access: AccessLevels.anon
@@ -328,7 +328,7 @@
                         state: 'connections',
                         icon: 'mdi-cast-connected',
                         show: function () {
-                            return AuthService.isAuthenticated()
+                            return AuthService.isAuthenticated();
                         },
                         title: 'Connections',
                         access: AccessLevels.anon
@@ -337,7 +337,7 @@
                         state: 'snapshots',
                         icon: 'mdi-camera',
                         show: function () {
-                            return AuthService.authorize(AccessLevels.admin)
+                            return AuthService.authorize(AccessLevels.admin);
                         },
                         title: 'Snapshots',
                         access: AccessLevels.anon
@@ -346,7 +346,7 @@
                         state: 'settings',
                         icon: 'mdi-settings',
                         show: function () {
-                            return AuthService.authorize(AccessLevels.admin)
+                            return AuthService.authorize(AccessLevels.admin);
                         },
                         title: 'Settings',
                         access: AccessLevels.admin
