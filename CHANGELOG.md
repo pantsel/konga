@@ -3,12 +3,26 @@
 All notable changes to this project will be documented in this file.
 
 
-## [0.8.10](https://github.com/pantsel/konga/releases/tag/0.8.10) - 23-10-2017
-* [Upgrade] Only admin users can access snapshots.
-* [Upgrade] You don't have to manually specify Kong version when creating a connection anymore. It is now retrieved automatically throughout the application.
-* [New feature] You can now schedule your Kong node snapshots and leave Konga to do the rest. 
-* [Fix] Fixed some issues with snapshots and snapshot restoration.
-* [UI] Fixed database info display on dashboard page when using Cassandra.
+## [0.9.0](https://github.com/pantsel/konga/releases/tag/0.9.0) - 23-10-2017
+
+> A database update is required! Make sure you run Konga in dev mode once so that
+the migrations will take place.
+
+* **[Enhancement]** Only admin users can access snapshots.
+* **[Enhancement]** You don't have to manually specify Kong version when creating a connection anymore. It is now retrieved automatically throughout the application.
+* **[Enhancement]** You can now schedule your Kong node snapshots and leave Konga to do the rest. 
+* **[Enhancement]** Introducing connection types (**Breaking change**). 
+* **[Enhancement]** Added support for `JWT Auth Loopback API`. 
+* **[Fix]** Fixed some issues with snapshots and snapshot restoration.
+* **[Fix]** Consumer imports are working again.
+* **[Fix]** Fixed database info display on dashboard page when using Cassandra.
+
+
+#### Breaking Changes
+Due to the new **Connection types** logic, the existing connections to Kong admin
+API are likely to stop working. You will need to create new ones using the new forms.
+No data or settings will be lost.
+
 
 
 

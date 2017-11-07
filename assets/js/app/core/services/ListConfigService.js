@@ -138,16 +138,16 @@
                             inTitle: true
                         },
                         {
-                            title: 'kong admin url',
-                            column: 'kong_admin_url',
+                            title: 'type',
+                            column: 'type',
                             searchable: true,
                             sortable: true,
                             inSearch: true,
                             inTitle: true
                         },
                         {
-                            title: 'api key',
-                            column: 'kong_api_key',
+                            title: 'kong admin url',
+                            column: 'kong_admin_url',
                             searchable: true,
                             sortable: true,
                             inSearch: true,

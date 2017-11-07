@@ -32,6 +32,9 @@
                   resolve : {
                       _adapters : function() {
                           return RemoteStorageService.loadAdapters();
+                      },
+                      _existingConsumers : function () {
+                          return $scope.items.data;
                       }
                   }
               });
@@ -135,8 +138,8 @@
               _fetchData()
           })
 
-          _fetchData()
+          _fetchData();
 
       }
-    ])
+    ]);
 }());

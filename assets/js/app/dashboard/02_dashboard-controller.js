@@ -193,12 +193,12 @@
           $scope.kong_versions = SettingsService.getKongVersions()
 
           $scope.node = {
-              kong_admin_url : '',
-              // kong_version : '0-10-x',
+              type : 'default',
+              jwt_algorithm : 'HS256', // Initialize this anyway so that it can be preselected
           }
 
           $scope.close = function(){
-              $uibModalInstance.dismiss()
+              $uibModalInstance.dismiss();
           }
 
           $scope.create = function() {

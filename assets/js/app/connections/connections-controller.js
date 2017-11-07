@@ -24,7 +24,8 @@
                 $scope = angular.extend($scope, angular.copy(ListConfig.getConfig()));
 
                 // Set initial data
-                $scope.createNode = createNode
+                $scope.createNode = createNode;
+                $scope.editNode = editNode;
                 $scope.user = UserService.user();
                 $scope.kong_versions = SettingsService.getKongVersions();
                 $scope.general_settings = SettingsService.getSettings()
@@ -309,8 +310,23 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/connections/create-connection-modal.html',
-                        size : 'lg',
                         controller: 'CreateConnectionController'
+                    });
+                }
+
+
+                function editNode(node) {
+                    $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'js/app/connections/create-connection-modal.html',
+                        controller: 'EditConnectionController',
+                        resolve : {
+                            _node: function () {
+                                return node;
+                            }
+                        }
                     });
                 }
 

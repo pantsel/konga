@@ -1,33 +1,94 @@
 <form class="form-horizontal">
-    <div class="form-group" ng-class="{'has-error' : errors.name}">
-        <label class="col-sm-4 control-label">Name <br><em><small class="help-block">required</small></em></label>
-        <div class="col-sm-7">
-            <input ng-model="node.name" class="form-control">
+
+    <uib-tabset active="active" type="pills">
+        <uib-tab index="0" ng-click="node.type='default'">
+            <uib-tab-heading>
+                DEFAULT
+            </uib-tab-heading>
+            <br>
+            <div class="alert alert-info text-small">
+                Konga will connect directly to Kong's admin API.<br>
+                This method is mainly suitable for demo scenarios or internal access (ex. localhost).<br>
+                Kong's admin API <strong class="text-danger">should not</strong> be publicly exposed.
+            </div>
+
+        </uib-tab>
+        <uib-tab index="1" ng-click="node.type='key_auth'">
+            <uib-tab-heading>
+               KEY AUTH
+            </uib-tab-heading>
+            <br>
+            <div class="alert alert-info text-small">
+                Konga will connect to Kong's admin via an exposed "loop-back" API using key authentication.<br>
+                <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">Check out how to setup an API key based "loop-back" API</a>.
+            </div>
+
+        </uib-tab>
+        <uib-tab index="2" ng-click="node.type='jwt'">
+            <uib-tab-heading>
+                JWT AUTH
+            </uib-tab-heading>
+            <br>
+            <div class="alert alert-info text-small">
+                Konga will connect to Kong's admin via an exposed "loop-back" API using JWT authentication.<br>
+                <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">Check out how to setup a JWT based "loop-back" API</a>.
+            </div>
+
+        </uib-tab>
+
+    </uib-tabset>
+
+    <div class="col-md-12">
+        <div class="form-group" ng-class="{'has-error' : errors.name}">
+            <label class="control-label">Name <span class="text-danger">*</span></label>
+            <input ng-model="node.name" class="form-control" placeholder="A unique connection name" required="required">
             <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
-            <p class="help-block">A unique connection name.</p>
         </div>
-    </div>
-    <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
-        <label class="col-sm-4 control-label">Kong Admin URL <br><em><small class="help-block">required</small></em></label>
-        <div class="col-sm-7">
-            <input ng-model="node.kong_admin_url" class="form-control">
+        <div class="form-group" ng-class="{'has-error' : errors.kong_admin_url}">
+            <label class="control-label">
+                {{node.type == 'default' ? 'Kong Admin' : 'Loopback API'}} URL
+                <span class="text-danger">*</span></label>
+            <input type="url" ng-model="node.kong_admin_url" class="form-control" placeholder="The URL to Kong's {{node.type == 'default' ? 'admin' : 'Loopback'}} API" required="required">
             <div class="text-danger" ng-if="errors.kong_admin_url" data-ng-bind="errors.kong_admin_url"></div>
-            <p class="help-block">The URL to Kong's admin api.</p>
+        </div>
+
+        <div ng-switch="node.type">
+
+            <div ng-switch-when="key_auth">
+                <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
+                    <label class="control-label">API KEY <span class="text-danger">*</span></label>
+                    <input ng-model="node.kong_api_key" ng-required="node.type=='api_key'" class="form-control" placeholder="The `apikey` ...">
+                    <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
+
+                </div>
+            </div>
+            <div ng-switch-when="jwt">
+                <div class="form-group" ng-class="{'has-error' : errors.jwt_algorithm}">
+                    <label class="control-label">Algorithm</label>
+                    <select ng-model="node.jwt_algorithm" class="form-control">
+                        <option value="HS256">HS256</option>
+                        <option value="RS256">RS256</option>
+                    </select>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : errors.jwt_key}">
+                    <label class="control-label">Key <span class="text-danger">*</span></label>
+                    <input ng-model="node.jwt_key" ng-required="node.type=='jwt'" class="form-control" placeholder="The JWT identification key">
+                    <div class="text-danger" ng-if="errors.jwt_key" data-ng-bind="errors.jwt_key"></div>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : errors.jwt_secret}">
+                    <label class="control-label">Secret <span class="text-danger">*</span></label>
+                    <input ng-model="node.jwt_secret" ng-required="node.type=='jwt'" class="form-control" placeholder="The JWT secret">
+                    <div class="text-danger" ng-if="errors.jwt_secret" data-ng-bind="errors.jwt_secret"></div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="form-group" ng-class="{'has-error' : errors.kong_api_key}">
-        <label class="col-sm-4 control-label">API KEY</label>
-        <div class="col-sm-7">
-            <input ng-model="node.kong_api_key" class="form-control">
-            <div class="text-danger" ng-if="errors.kong_api_key" data-ng-bind="errors.kong_api_key"></div>
-            <p class="help-block">
-                The <code>apikey</code> in case you are exposing Kong's admin via a "loop-back" API.
-                See <a href="https://getkong.org/docs/latest/secure-admin-api/#kong-api-loopback" target="_blank">here</a> for details.
-            </p>
-        </div>
-    </div>
+
+
+    <br>
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-7">
+        <div class="col-md-12">
             <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="create()">
                 <i class="mdi mdi-check" ng-if="!busy"></i>
                 <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>

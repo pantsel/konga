@@ -12,22 +12,21 @@ var _ = require('lodash');
 module.exports = function dynamicNode(request, response, next) {
 
     if(request.headers['connection-id'] || request.query.connection_id) {
+
+        sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.");
+
         sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
             .exec(function(err,node) {
                 if (err) return next(err);
                 if (!node) return response.notFound({
                     message: "connection not found"
                 })
-                request.node_id = node.kong_admin_url
-                request.kong_api_key = node.kong_api_key
-                return  next()
+
+                request.connection = node;
+
+                return  next();
             });
 
-    }else if(request.headers['kong-admin-url'] || request.query.kong_admin_url) { // If kong-admin-url is set in headers or qs, use that, else get node from user
-        // sails.config.kong_admin_url = request.headers['kong-admin-url'] || request.query.kong_admin_url
-        request.node_id = request.headers['kong-admin-url'] || request.query.kong_admin_url
-        request.kong_api_key = request.headers['kong_api_key'] || request.query.kong_api_key
-        return  next()
     }else{
         // Get the default node from user
         sails.models.user.findOne({
@@ -40,15 +39,14 @@ module.exports = function dynamicNode(request, response, next) {
 
             if(user.node) {
                 // sails.config.kong_admin_url = user.node.kong_admin_url
-                request.kong_api_key = user.node.kong_api_key
-                request.node_id = user.node.kong_admin_url
-                return  next()
+                request.connection = user.node;
+                return  next();
             }else{
                 return response.badRequest({
                     message : "No connection is selected. Please activate a connection in settings"
-                })
+                });
             }
-        })
+        });
     }
 
 };
