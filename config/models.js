@@ -100,8 +100,6 @@ module.exports.models = {
 
                 var fns = [];
 
-                sails.log("!!!!!!!!!!!!!!!!!!!!!!!", data)
-
                 data.forEach(function (item) {
                     fns.push(function(cb){
                         self.update({
@@ -115,7 +113,7 @@ module.exports.models = {
                         sails.log.debug(err);
                         callback();
                     }else{
-                        sails.log.debug(modelName + ' seeds updated', data);
+                        sails.log.debug(modelName + ' seeds updated');
                         callback();
                     }
                 })
