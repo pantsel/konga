@@ -191,15 +191,15 @@
                         <th>Data Centers</th>
                         <td>{{info.configuration.cassandra_data_centers.join(", ")}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Database</th>
                         <td>{{info.configuration.pg_database}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>User</th>
                         <td>{{info.configuration.pg_user}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Port</th>
                         <td>{{info.configuration.pg_port}}</td>
                     </tr>
