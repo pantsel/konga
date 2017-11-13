@@ -73,6 +73,7 @@
                   consumer_id : $scope.plugin.consumer_id
               })
 
+              // Remove consumer id if it nds up to be an empty string
               if($scope.data.consumer_id === "") {
                   delete $scope.data.consumer_id;
               }
