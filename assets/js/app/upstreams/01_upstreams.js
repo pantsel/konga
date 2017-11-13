@@ -42,11 +42,11 @@
                                 controller: 'EditUpstreamController',
                             },
                             'details@upstreams.edit': {
-                                templateUrl: 'js/app/upstreams/edit-details.html',
+                                templateUrl: window.baseUrl +  'js/app/upstreams/edit-details.html',
                                 controller:'EditUpstreamDetailsController',
                             },
                             'targets@upstreams.edit': {
-                                templateUrl: 'js/app/upstreams/targets/targets.html',
+                                templateUrl: window.baseUrl +  'js/app/upstreams/targets/targets.html',
                                 controller: 'EditUpstreamTargetsController',
                             },
                         }

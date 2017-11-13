@@ -74,7 +74,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/consumers/import/modal-consumers-table.html',
+                        templateUrl: window.baseUrl +  'js/app/consumers/import/modal-consumers-table.html',
                         controller: 'ImportConsumersTableController',
                         controllerAs: '$ctrl',
                         resolve : {

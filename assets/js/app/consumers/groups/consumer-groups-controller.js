@@ -22,7 +22,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/groups/create-group-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/groups/create-group-modal.html',
                   controller: ['$scope','$log','$rootScope','$uibModalInstance','ConsumerService','_consumer',
                       function($scope,$log,$rootScope, $uibModalInstance,ConsumerService,_consumer){
 

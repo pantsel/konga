@@ -59,7 +59,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/plugins/modals/edit-plugin-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/plugins/modals/edit-plugin-modal.html',
                   size : 'lg',
                   controller: 'EditPluginController',
                   resolve: {

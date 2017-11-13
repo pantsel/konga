@@ -25,7 +25,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/apis/views/apis.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/apis.html',
                                 controller: 'ApisController',
                             }
                         }
@@ -40,7 +40,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/apis/views/edit-api.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/edit-api.html',
                                 controller: 'ApiController',
                                 resolve : {
                                     _api: [
@@ -59,11 +59,11 @@
 
                             },
                             'details@apis.edit': {
-                                templateUrl: 'js/app/apis/views/api-details.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/api-details.html',
                                 controller: 'ApiDetailsController',
                             },
                             'plugins@apis.edit': {
-                                templateUrl: 'js/app/apis/views/api-plugins.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/api-plugins.html',
                                 controller: 'ApiPluginsController',
                                 resolve : {
                                     _plugins : [
@@ -75,7 +75,7 @@
                                 }
                             },
                             'healthchecks@apis.edit': {
-                                templateUrl: 'js/app/apis/views/api-health-checks.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/api-health-checks.html',
                                 controller: 'ApiHealthChecksController',
                             }
                         }
@@ -91,7 +91,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/apis/views/api-plugins.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/api-plugins.html',
                                 controller: 'ApiPluginsController',
                                 resolve : {
                                     _api : [
@@ -127,7 +127,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/apis/views/plugins/manage/manage-api-plugins.html',
+                                templateUrl: window.baseUrl +  'js/app/apis/views/plugins/manage/manage-api-plugins.html',
                                 controller: 'ManageApiPluginsController',
                                 resolve : {
                                     _api: [

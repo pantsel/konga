@@ -24,7 +24,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'js/app/certificates/add-certificates-modal.html',
+                    templateUrl: window.baseUrl +  'js/app/certificates/add-certificates-modal.html',
                     controller: function($scope,$uibModal,$uibModalInstance,SnisModel,DialogService,_certificate){
                         $scope.update = _certificate
                         $scope.data = _certificate || {}
@@ -54,7 +54,7 @@
                                 animation: true,
                                 ariaLabelledBy: 'modal-title',
                                 ariaDescribedBy: 'modal-body',
-                                templateUrl: 'js/app/certificates/add-sni-modal.html',
+                                templateUrl: window.baseUrl +  'js/app/certificates/add-sni-modal.html',
                                 size: 'sm',
                                 controller: function($scope,$uibModalInstance,SnisModel,DialogService,_certId){
 

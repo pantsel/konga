@@ -23,7 +23,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/info/index.html',
+                                templateUrl: window.baseUrl +  'js/app/info/index.html',
                                 controller: 'InfoController'
                             }
                         },

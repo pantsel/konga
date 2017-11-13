@@ -11,34 +11,36 @@
  *
  */
 module.exports = {
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the default database connection for models in the production        *
+     * environment (see config/connections.js and config/models.js )           *
+     ***************************************************************************/
 
-  hookTimeout: process.env.KONGA_HOOK_TIMEOUT || 60000,
+    hookTimeout: process.env.KONGA_HOOK_TIMEOUT || 60000,
 
-  kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
+    kong_admin_url: process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
 
-  // models: {
-  //   connection: 'someMysqlServer'
-  // },
+    // models: {
+    //   connection: 'someMysqlServer'
+    // },
 
-  /***************************************************************************
-   * Set the port in the production environment to 80                        *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the port in the production environment to 80                        *
+     ***************************************************************************/
 
-  port: process.env.KONGA_BACKEND_PORT || 1337,
+    port: process.env.KONGA_BACKEND_PORT || 1337,
 
-  /***************************************************************************
-   * Set the log level in production environment to "warn"                   *
-   ***************************************************************************/
-  log: {
-      level: process.env.KONGA_LOG_LEVEL || "warn"
-  },
+    /***************************************************************************
+     * Set the log level in production environment to "warn"                   *
+     ***************************************************************************/
+    log: {
+        level: process.env.KONGA_LOG_LEVEL || "warn"
+    },
 
-  // Keep data of response errors in production mode
-  keepResponseErrors : true
+    // Keep data of response errors in production mode
+    keepResponseErrors: true,
+
+    base_url: process.env.KONGA_BASE_URL || '',
 
 
 };

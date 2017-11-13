@@ -28,7 +28,7 @@
                         },
                         views: {
                             'authContent': {
-                                templateUrl: 'js/app/core/auth/login/login.html',
+                                templateUrl: window.baseUrl +  'js/app/core/auth/login/login.html',
                                 controller: 'LoginController'
                             },
 

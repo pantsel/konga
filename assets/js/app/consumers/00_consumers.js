@@ -27,7 +27,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/consumers/index.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/index.html',
                                 controller: 'ConsumersController'
                             }
                         }
@@ -42,16 +42,16 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/consumers/edit-consumer.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/edit-consumer.html',
                                 controller: 'ConsumerController',
 
                             },
                             'details@consumers.edit': {
-                                templateUrl: 'js/app/consumers/details/consumer-details.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/details/consumer-details.html',
                                 controller: 'ConsumerDetailsController',
                             },
                             'groups@consumers.edit': {
-                                templateUrl: 'js/app/consumers/groups/consumer-groups.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/groups/consumer-groups.html',
                                 controller: 'ConsumerGroupsController',
                                 resolve : {
                                     _acls : [
@@ -64,7 +64,7 @@
                                 }
                             },
                             'credentials@consumers.edit': {
-                                templateUrl: 'js/app/consumers/credentials/consumer-credentials.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/credentials/consumer-credentials.html',
                                 controller: 'ConsumerCredentialsController',
                                 resolve : {
                                     _keys : [
@@ -105,11 +105,11 @@
                                 }
                             },
                             'apis@consumers.edit': {
-                                templateUrl: 'js/app/consumers/apis/consumer-apis.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/apis/consumer-apis.html',
                                 controller: 'ConsumerApisController'
                             },
                             'plugins@consumers.edit': {
-                                templateUrl: 'js/app/consumers/plugins/consumer-plugins.html',
+                                templateUrl: window.baseUrl +  'js/app/consumers/plugins/consumer-plugins.html',
                                 controller: 'ConsumerPluginsController'
                             }
                         },

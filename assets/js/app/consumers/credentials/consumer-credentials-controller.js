@@ -168,7 +168,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/credentials/create-api-key-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/credentials/create-api-key-modal.html',
                   controller: 'CreateKeyAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -185,7 +185,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/credentials/create-basic-auth-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/credentials/create-basic-auth-modal.html',
                   controller: 'CreateBasicAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -201,7 +201,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/credentials/create-oauth2-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/credentials/create-oauth2-modal.html',
                   controller: 'CreateOAuth2Controller',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -217,7 +217,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/credentials/create-hmac-auth-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/credentials/create-hmac-auth-modal.html',
                   controller: 'CreateHMACAuthController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -233,7 +233,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/credentials/create-jwt-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/credentials/create-jwt-modal.html',
                   controller: 'CreateJWTController',
                   controllerAs: '$ctrl',
                   resolve : {

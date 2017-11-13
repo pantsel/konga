@@ -22,7 +22,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/cluster/views/index.html',
+                                templateUrl: window.baseUrl +  'js/app/cluster/views/index.html',
                                 controller: 'ClusterListController'
                             }
                         },

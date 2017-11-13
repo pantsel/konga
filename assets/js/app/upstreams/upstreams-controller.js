@@ -29,7 +29,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/upstreams/add-upstream-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/upstreams/add-upstream-modal.html',
                         controller: 'AddUpstreamModalController',
                         controllerAs: '$ctrl',
                         //size: 'lg',

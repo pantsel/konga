@@ -26,7 +26,7 @@
             },
             views: {
               'authContent': {
-                templateUrl: 'js/app/core/auth/signup/signup.html',
+                templateUrl: window.baseUrl +  'js/app/core/auth/signup/signup.html',
                 controller: 'SignupController'
               }
             }

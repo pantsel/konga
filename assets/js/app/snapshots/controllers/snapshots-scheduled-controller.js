@@ -168,7 +168,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/snapshots/views/snapshots-schedule-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/snapshots/views/snapshots-schedule-modal.html',
                         // size : 'sm',
                         backdrop: 'static',
                         keyboard: false,

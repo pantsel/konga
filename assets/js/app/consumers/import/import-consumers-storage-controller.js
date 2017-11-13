@@ -28,7 +28,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/consumers/import/modal-connection-options.html',
+                        templateUrl: window.baseUrl +  'js/app/consumers/import/modal-connection-options.html',
                         controller: 'ImportConsumersConnectionController',
                         controllerAs: '$ctrl',
                         resolve : {

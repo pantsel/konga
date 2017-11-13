@@ -22,15 +22,15 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/snapshots/index.html',
+                                templateUrl: window.baseUrl +  'js/app/snapshots/index.html',
                                 controller: 'SnapshotsController'
                             },
                             'list@snapshots': {
-                                templateUrl: 'js/app/snapshots/views/snapshots-list.html',
+                                templateUrl: window.baseUrl +  'js/app/snapshots/views/snapshots-list.html',
                                 controller: 'SnapshotsListController',
                             },
                             'scheduled@snapshots': {
-                                templateUrl: 'js/app/snapshots/views/snapshots-scheduled.html',
+                                templateUrl: window.baseUrl +  'js/app/snapshots/views/snapshots-scheduled.html',
                                 controller: 'SnapshotsScheduledController',
                             },
 
@@ -48,7 +48,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/snapshots/views/snapshot.html',
+                                templateUrl: window.baseUrl +  'js/app/snapshots/views/snapshot.html',
                                 controller: 'SnapshotController'
                             },
                         }

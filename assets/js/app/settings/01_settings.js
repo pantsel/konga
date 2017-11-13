@@ -22,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/settings/index.html',
+                                templateUrl: window.baseUrl +  'js/app/settings/index.html',
                                 controller: 'SettingsController',
                             }
                         }

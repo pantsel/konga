@@ -37,7 +37,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script src="%s?r=' + version + '"></script>',
+        fileTmpl: '<script src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '"></script>',
         appRoot: '.tmp/public'
       },
       files: {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script src="%s?r=' + version + '"></script>',
+        fileTmpl: '<script src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '"></script>',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script src="%s?r=' + version + '"></script>',
+        fileTmpl: '<script src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '"></script>',
         appRoot: '.tmp/public'
       },
       files: {
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--SCRIPTS-->',
         endTag: '<!--SCRIPTS END-->',
-        fileTmpl: '<script src="%s?r=' + version + '"></script>',
+        fileTmpl: '<script src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '"></script>',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--STYLES-->',
         endTag: '<!--STYLES END-->',
-        fileTmpl: '<link rel="stylesheet" href="%s?r=' + version + '">',
+        fileTmpl: '<link rel="stylesheet" href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '">',
         appRoot: '.tmp/public'
       },
 
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--STYLES-->',
         endTag: '<!--STYLES END-->',
-        fileTmpl: '<link rel="stylesheet" href="%s?r=' + version + '">',
+        fileTmpl: '<link rel="stylesheet" href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '">',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--STYLES-->',
         endTag: '<!--STYLES END-->',
-        fileTmpl: '<link rel="stylesheet" href="%s?r=' + version + '">',
+        fileTmpl: '<link rel="stylesheet" href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '">',
         appRoot: '.tmp/public'
       },
       files: {
@@ -140,7 +140,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--STYLES-->',
         endTag: '<!--STYLES END-->',
-        fileTmpl: '<link rel="stylesheet" href="%s?r=' + version + '">',
+        fileTmpl: '<link rel="stylesheet" href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '">',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -156,7 +156,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '<!--TEMPLATES-->',
         endTag: '<!--TEMPLATES END-->',
-        fileTmpl: '<script type="text/javascript" src="%s?r=' + version + '"></script>',
+        fileTmpl: '<script type="text/javascript" src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '"></script>',
         appRoot: '.tmp/public'
       },
       files: {
@@ -170,7 +170,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// SCRIPTS',
         endTag: '// SCRIPTS END',
-        fileTmpl: 'script(src="%s?r=' + version + '")',
+        fileTmpl: 'script(src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public'
       },
       files: {
@@ -182,7 +182,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// SCRIPTS',
         endTag: '// SCRIPTS END',
-        fileTmpl: 'script(src="%s?r=' + version + '")',
+        fileTmpl: 'script(src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -195,7 +195,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// SCRIPTS',
         endTag: '// SCRIPTS END',
-        fileTmpl: 'script(src="%s?r=' + version + '")',
+        fileTmpl: 'script(src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public'
       },
       files: {
@@ -207,7 +207,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// SCRIPTS',
         endTag: '// SCRIPTS END',
-        fileTmpl: 'script(src="%s?r=' + version + '")',
+        fileTmpl: 'script(src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// STYLES',
         endTag: '// STYLES END',
-        fileTmpl: 'link(rel="stylesheet", href="%s?r=' + version + '")',
+        fileTmpl: 'link(rel="stylesheet", href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public'
       },
 
@@ -233,7 +233,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// STYLES',
         endTag: '// STYLES END',
-        fileTmpl: 'link(rel="stylesheet", href="%s?r=' + version + '")',
+        fileTmpl: 'link(rel="stylesheet", href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -247,7 +247,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// STYLES',
         endTag: '// STYLES END',
-        fileTmpl: 'link(rel="stylesheet", href="%s?r=' + version + '")',
+        fileTmpl: 'link(rel="stylesheet", href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public'
       },
       files: {
@@ -259,7 +259,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// STYLES',
         endTag: '// STYLES END',
-        fileTmpl: 'link(rel="stylesheet", href="%s?r=' + version + '")',
+        fileTmpl: 'link(rel="stylesheet", href="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public',
         relative: true
       },
@@ -273,7 +273,7 @@ module.exports = function(grunt) {
       options: {
         startTag: '// TEMPLATES',
         endTag: '// TEMPLATES END',
-        fileTmpl: 'script(type="text/javascript", src="%s?r=' + version + '")',
+        fileTmpl: 'script(type="text/javascript", src="' + (process.env.KONGA_BASE_URL ? process.env.KONGA_BASE_URL + '/' : '') + '%s?r=' + version + '")',
         appRoot: '.tmp/public'
       },
       files: {

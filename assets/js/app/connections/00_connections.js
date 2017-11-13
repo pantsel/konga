@@ -22,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/connections/index.html',
+                                templateUrl: window.baseUrl +  'js/app/connections/index.html',
                                 controller: 'ConnectionsController'
                             },
 

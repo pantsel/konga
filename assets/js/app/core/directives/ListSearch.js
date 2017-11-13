@@ -45,7 +45,7 @@
           options: '='
         },
         replace: true,
-        templateUrl: 'js/app/core/directives/partials/ListSearch.html',
+        templateUrl: window.baseUrl +  'js/app/core/directives/partials/ListSearch.html',
         controller: [
           '$scope','$rootScope',
           function controller($scope,$rootScope) {

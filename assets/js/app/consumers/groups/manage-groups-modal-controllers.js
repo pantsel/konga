@@ -30,7 +30,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/groups/create-group-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/groups/create-group-modal.html',
                   controller: ['$scope','$rootScope','$uibModalInstance','KongGroupModel',
                       function($scope,$rootScope, $uibModalInstance,KongGroupModel){
 

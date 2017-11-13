@@ -10,7 +10,7 @@
           message: '@'
         },
         replace: true,
-        templateUrl: 'js/app/core/directives/partials/konga-loader.html',
+        templateUrl: window.baseUrl +  'js/app/core/directives/partials/konga-loader.html',
         controller: [
           '$scope','$rootScope',
           function controller($scope,$rootScope) {

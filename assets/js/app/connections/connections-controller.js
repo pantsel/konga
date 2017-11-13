@@ -159,7 +159,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/connections/node-status-check-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/connections/node-status-check-modal.html',
                         controller: function(_,$scope,$rootScope,$log,$uibModalInstance,NodeModel,_node){
 
 
@@ -309,7 +309,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/connections/create-connection-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/connections/create-connection-modal.html',
                         controller: 'CreateConnectionController'
                     });
                 }
@@ -320,7 +320,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/connections/create-connection-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/connections/create-connection-modal.html',
                         controller: 'EditConnectionController',
                         resolve : {
                             _node: function () {

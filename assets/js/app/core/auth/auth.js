@@ -28,7 +28,7 @@
             },
               views: {
                   'content@': {
-                      templateUrl: 'js/app/core/auth/layout.html',
+                      templateUrl: window.baseUrl +  'js/app/core/auth/layout.html',
                       controller: function($scope,$location) {
 
 

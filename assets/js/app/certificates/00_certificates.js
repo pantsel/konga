@@ -22,7 +22,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/certificates/certificates.html',
+                                templateUrl: window.baseUrl +  'js/app/certificates/certificates.html',
                                 controller: 'CertificatesController',
                                 //resolve: {
                                 //    _certificates : [

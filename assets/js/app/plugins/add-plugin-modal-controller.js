@@ -88,7 +88,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/plugins/modals/add-plugin-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/plugins/modals/add-plugin-modal.html',
                         size : 'lg',
                         controller: 'AddPluginController',
                         resolve: {

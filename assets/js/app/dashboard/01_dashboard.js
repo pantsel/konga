@@ -25,7 +25,7 @@
 
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/dashboard/dashboard.html',
+                                templateUrl: window.baseUrl +  'js/app/dashboard/dashboard.html',
                                 controller: 'DashboardController'
                             },
 

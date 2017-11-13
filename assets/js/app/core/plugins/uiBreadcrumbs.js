@@ -29,7 +29,7 @@
     module.directive('uiBreadcrumbs', ['$interpolate', '$state', function($interpolate, $state) {
             return {
                 restrict: 'E',
-                templateUrl: function(elem, attrs) {
+                templateUrl: window.baseUrl +  function(elem, attrs) {
                     return attrs.templateUrl || templateUrl;
                 },
                 scope: {

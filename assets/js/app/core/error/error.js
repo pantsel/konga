@@ -20,7 +20,7 @@
             },
             views: {
               'content@': {
-                templateUrl: 'js/app/core/error/partials/error.html',
+                templateUrl: window.baseUrl +  'js/app/core/error/partials/error.html',
                 controller: 'ErrorController',
                 resolve: {
                   _error: function resolve() {

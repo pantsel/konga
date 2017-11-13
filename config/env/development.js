@@ -22,6 +22,8 @@ module.exports = {
 
     kong_admin_url: process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
 
+    base_url : process.env.KONGA_BASE_URL || '',
+
     log: {
         level: process.env.KONGA_LOG_LEVEL || "debug"
     }

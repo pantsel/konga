@@ -33,7 +33,8 @@ module.exports.routes = {
         return res.view('homepage',{
             angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
             konga_version: require('../package.json').version,
-            accountActivated : req.query.activated ? true : false
+            accountActivated : req.query.activated ? true : false,
+            baseUrl : process.env.KONGA_BASE_URL
         })
     },
 

@@ -26,7 +26,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/import/modal-select-storage.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/import/modal-select-storage.html',
                   controller: 'ImportConsumersStorageController',
                   controllerAs: '$ctrl',
                   resolve : {
@@ -47,7 +47,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/consumers/create-consumer-modal.html',
+                  templateUrl: window.baseUrl +  'js/app/consumers/create-consumer-modal.html',
                   controller: function($scope,$rootScope,$log,$uibModalInstance,MessageService,ConsumerModel){
 
                       $scope.consumer = {

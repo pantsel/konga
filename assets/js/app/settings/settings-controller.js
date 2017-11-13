@@ -35,7 +35,7 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         size : 'sm',
-                        templateUrl: 'js/app/settings/configure-integration-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/settings/configure-integration-modal.html',
                         controller: function(_,$scope,$rootScope,$log,$uibModalInstance,MessageService,_item){
 
                             $scope.integration = _item;
@@ -70,7 +70,7 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         size : 'sm',
-                        templateUrl: 'js/app/settings/configure-transport-modal.html',
+                        templateUrl: window.baseUrl +  'js/app/settings/configure-transport-modal.html',
                         controller: function(_,$scope,$rootScope,$log,$uibModalInstance,MessageService,
                                              EmailTransport,_transport){
 
