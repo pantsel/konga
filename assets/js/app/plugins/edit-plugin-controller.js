@@ -73,11 +73,6 @@
                   consumer_id : $scope.plugin.consumer_id
               })
 
-              // Remove consumer id if it nds up to be an empty string
-              if($scope.data.consumer_id === "") {
-                  delete $scope.data.consumer_id;
-              }
-
               // Define general modal window content
               $scope.description = $scope.data.meta ? $scope.data.meta.description
                   : 'Configure the Plugin.'
@@ -168,7 +163,9 @@
               //    data.consumer_id = $scope.data.consumer_id.id
               //}
 
-              data.consumer_id = $scope.data.consumer_id
+              if($scope.data.consumer_id) {
+                  data.consumer_id = $scope.data.consumer_id
+              }
 
               function createConfig(fields,prefix) {
 
