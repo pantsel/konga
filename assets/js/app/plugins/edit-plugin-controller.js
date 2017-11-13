@@ -69,9 +69,13 @@
 
           function initialize() {
               // Initialize plugin fields data
-              $scope.data = _.merge(options.fields,$scope.schema,$scope.plugin.consumer_id ? {
+              $scope.data = _.merge(options.fields,$scope.schema,{
                   consumer_id : $scope.plugin.consumer_id
-              } : {})
+              })
+
+              if($scope.data.consumer_id === "") {
+                  delete $scope.data.consumer_id;
+              }
 
               // Define general modal window content
               $scope.description = $scope.data.meta ? $scope.data.meta.description
