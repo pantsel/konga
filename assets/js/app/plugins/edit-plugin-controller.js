@@ -69,9 +69,9 @@
 
           function initialize() {
               // Initialize plugin fields data
-              $scope.data = _.merge(options.fields,$scope.schema,{
+              $scope.data = _.merge(options.fields,$scope.schema,$scope.plugin.consumer_id ? {
                   consumer_id : $scope.plugin.consumer_id
-              })
+              } : {})
 
               // Define general modal window content
               $scope.description = $scope.data.meta ? $scope.data.meta.description
@@ -200,10 +200,16 @@
                   $scope.busy = false;
                   $log.error("update plugin",err)
                   var errors = {}
-                  Object.keys(err.data.customMessage).forEach(function(key){
-                      errors[key.replace('config.','')] = err.data.customMessage[key]
-                      MessageService.error(key + " : " + err.data.customMessage[key])
-                  })
+
+                  if(err.data.customMessage) {
+                      Object.keys(err.data.customMessage).forEach(function(key){
+                          errors[key.replace('config.','')] = err.data.customMessage[key]
+                          MessageService.error(key + " : " + err.data.customMessage[key])
+                      })
+                  }else if(err.data.body && err.data.body.message) {
+                      MessageService.error(err.data.body.message)
+                  }
+
                   $scope.errors = errors
               })
           }
