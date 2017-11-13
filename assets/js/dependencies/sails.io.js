@@ -1412,8 +1412,6 @@ message:4,upgrade:5,noop:6},s=i(r),t={type:"error",data:"parser error"},u=a("blo
      */
     io.sails.connect = function(url, opts) {
 
-
-
       // Make URL optional
       if ('object' === typeof url) {
         opts = url;
