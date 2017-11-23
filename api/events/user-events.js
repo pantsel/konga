@@ -61,7 +61,7 @@ module.exports = {
 
     },
 
-    notify : function(user) {
+    notify : function(user, req) {
 
         var self = this
 
@@ -74,7 +74,9 @@ module.exports = {
 
                 if(!err) {
 
-                    var link = settings.baseUrl + '/auth/activate/' + user.activationToken || 'http://' + require("ip").address() + ':' + sails.config.port +  '/auth/activate/' + user.activationToken;
+                    var baseUrl = settings.basePath || (req.protocol || 'http') + "://" + (req.get('host') || (require("ip").address() + ':' + sails.config.port));
+
+                    var link = baseUrl +  '/auth/activate/' + user.activationToken;
 
                     var mailOptions = {
                         from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
