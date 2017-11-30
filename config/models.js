@@ -56,7 +56,7 @@ module.exports.models = {
         self.count().exec(function (err, count) {
 
             if(err) {
-                sails.log.error("Failed to seed " + modelName, error);
+                sails.log.error("Failed to seed " + modelName, err);
                 return callback();
             }
 

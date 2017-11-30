@@ -163,7 +163,9 @@
               //    data.consumer_id = $scope.data.consumer_id.id
               //}
 
-              data.consumer_id = $scope.data.consumer_id
+              if($scope.data.consumer_id) {
+                  data.consumer_id = $scope.data.consumer_id
+              }
 
               function createConfig(fields,prefix) {
 
@@ -200,10 +202,16 @@
                   $scope.busy = false;
                   $log.error("update plugin",err)
                   var errors = {}
-                  Object.keys(err.data.customMessage).forEach(function(key){
-                      errors[key.replace('config.','')] = err.data.customMessage[key]
-                      MessageService.error(key + " : " + err.data.customMessage[key])
-                  })
+
+                  if(err.data.customMessage) {
+                      Object.keys(err.data.customMessage).forEach(function(key){
+                          errors[key.replace('config.','')] = err.data.customMessage[key]
+                          MessageService.error(key + " : " + err.data.customMessage[key])
+                      })
+                  }else if(err.data.body && err.data.body.message) {
+                      MessageService.error(err.data.body.message)
+                  }
+
                   $scope.errors = errors
               })
           }

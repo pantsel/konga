@@ -90,7 +90,10 @@
         <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block">
             <i class="mdi mdi-check" ng-if="!busy"></i>
             <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
-            create connection
+
+            <span ng-if="busy && checkingConnection">Checking Connection</span>
+            <span ng-if="busy && !checkingConnection">Creating</span>
+            <span ng-if="!busy && !checkingConnection">create connection</span>
         </button>
     </div>
 </form>

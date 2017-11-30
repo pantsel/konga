@@ -60,6 +60,7 @@
     "sails-mysql": "^0.11.5",
     "sails-postgresql": "^0.11.4",
     "sails-sqlserver": "^0.10.8",
+    "socket.io-redis": "~1.0.0",
     "sendmail": "^1.1.1",
     "ua-parser": "0.3.5",
     "unirest": "^0.5.1",

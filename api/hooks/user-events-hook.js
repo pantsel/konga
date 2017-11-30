@@ -26,9 +26,10 @@ module.exports = function hook(sails) {
             sails.log("Hook:user_events_hook:on:user.signUp",data)
 
             var user = data.user;
+            var req  = data.req;
             var sendActivationEmail = data.sendActivationEmail;
             if(sendActivationEmail) {
-                userEvents.notify(user)
+                userEvents.notify(user, req)
             }
 
         });

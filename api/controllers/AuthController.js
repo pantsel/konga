@@ -51,6 +51,7 @@ var AuthController = {
                             // Emit signUp event
                             UserSignUp.emit('user.signUp',{
                                 user : user,
+                                req  : req,
                                 sendActivationEmail : _settings.signup_require_activation
                             });
 
@@ -76,7 +77,7 @@ var AuthController = {
 
         sails.models.user.findOne({
             activationToken : token,
-            activated       : false
+            active       : false
         }).exec(function (err,user) {
             if(err) return res.negotiate(err)
             if(!user) return res.notFound('Invalid token')

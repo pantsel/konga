@@ -203,6 +203,7 @@
 
           $scope.create = function() {
 
+              $scope.busy = true;
 
               // First of all Create the connection
               NodeModel
@@ -211,14 +212,15 @@
                       function onSuccess(result) {
                           $log.info('New node created successfully',result)
                           MessageService.success('New node created successfully');
-                          $scope.busy = false;
-                          $rootScope.$broadcast('kong.node.created',result.data[0])
+
+                          var created = result.data[0] || result.data;
+                          $rootScope.$broadcast('kong.node.created',created)
 
                           // Check if the connection is valid
                           $scope.checkingConnection = true;
                           $http.get('/kong',{
                               params : {
-                                  connection_id : result.data[0].id
+                                  connection_id : created.id
                               }
                           }).then(function(response){
                               $log.debug("Check connection:success",response)
@@ -227,13 +229,13 @@
                               // Finally, activate the node for the logged in user
                               UserModel
                                   .update(UserService.user().id, {
-                                      node : result.data[0]
+                                      node : created
                                   })
                                   .then(
                                       function onSuccess(res) {
                                           var credentials = $localStorage.credentials
                                           credentials.user.node = result.data[0]
-                                          $rootScope.$broadcast('user.node.updated',result.data[0])
+                                          $rootScope.$broadcast('user.node.updated',created)
                                       },function(err){
                                           $scope.busy = false
                                           UserModel.handleError($scope,err)
@@ -243,11 +245,9 @@
                           }).catch(function(error){
                               $log.debug("Check connection:error",error)
                               $scope.checkingConnection = false;
+                              $scope.busy = false;
                               MessageService.error("Oh snap! Can't connect to the created node. Check your connections.")
                           })
-
-
-
                       },function(err){
                           $scope.busy = false
                           NodeModel.handleError($scope,err)

@@ -79,7 +79,7 @@ module.exports.connections = {
     port: process.env.DB_PORT || 5432,
     database: process.env.DB_DATABASE ||'konga_database',
     //poolSize: process.env.DB_POOLSIZE || 10,
-    ssl: process.env.DB_SSL || false
+    ssl: process.env.DB_SSL ? true : false // If set, assume it's true
   },
 
   /**
