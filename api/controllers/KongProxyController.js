@@ -33,7 +33,7 @@ module.exports = {
         }
 
         var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
-        request.headers(KongService.headers(req.connection))
+        request.headers(KongService.headers(req.connection, true))
         if(['post','put','patch'].indexOf(req.method.toLowerCase()) > -1)
         {
 

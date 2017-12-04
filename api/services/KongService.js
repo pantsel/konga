@@ -8,13 +8,15 @@ var JWT =  require("./Token");
 
 var KongService = {
 
-    headers : function (node) {
+    headers : function (node, isJSON) {
 
         // Monkey-patch backwards compatibility with request obj
         var connection = node.connection || node;
+        var headers = {};
 
-        var headers = {'Content-Type': 'application/json'}
-
+        if(isJSON) {
+          headers = {'Content-Type': 'application/json'}
+        }
 
         // Set required headers according to connection type
         switch(connection.type) {
@@ -55,7 +57,7 @@ var KongService = {
     createFromEndpointCb: function (endpoint,data, req, cb) {
 
         unirest.post(req.connection.kong_admin_url + endpoint)
-            .headers(KongService.headers(req))
+            .headers(KongService.headers(req, true))
             .send(data)
             .end(function (response) {
                 if (response.error)  return cb(response)
@@ -76,7 +78,7 @@ var KongService = {
     nodeStatus : function(node,cb) {
 
         unirest.get(node.kong_admin_url + "/status")
-            .headers(KongService.headers(node))
+            .headers(KongService.headers(node, true))
             .end(function (response) {
                 if (response.error)  return cb(response);
                 return cb(null,response.body);
@@ -86,7 +88,7 @@ var KongService = {
 
     nodeInfo : function(node,cb) {
         unirest.get(node.kong_admin_url)
-            .headers(KongService.headers(node))
+            .headers(KongService.headers(node,true))
             .end(function (response) {
                 if (response.error)  return cb(response);
                 return cb(null,response.body);
@@ -96,7 +98,7 @@ var KongService = {
     listAllCb: function (req, endpoint, cb) {
         var getData = function (previousData,url) {
             unirest.get(url)
-                .headers(KongService.headers(req))
+                .headers(KongService.headers(req, true))
                 .end(function (response) {
                     if (response.error) return cb(response)
                     var data = previousData.concat(response.body.data);
