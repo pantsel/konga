@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.9.1](https://github.com/pantsel/konga/releases/tag/0.9.1) - 06-12-2017
+
+* **[Fix]** Fix certificate uploads.
+* Reveal all of oauth credential info in consumer credentials list.
+* Address connection ui issues.
+* Fix user signup.
+* Add environment variables for socket adapter configuration to allow easy socket configuration in docker.
+
+
 ## [0.9.0](https://github.com/pantsel/konga/releases/tag/0.9.0) - 23-10-2017
 
 > A database update is required! Make sure you run Konga in dev mode once so that
@@ -22,9 +31,6 @@ the migrations will take place.
 Due to the new **Connection types** logic, the existing connections to Kong admin
 API are likely to stop working. You will need to create new ones using the new forms.
 No data or settings will be lost.
-
-
-
 
 ## [0.8.9](https://github.com/pantsel/konga/releases/tag/0.8.9) - 8-10-2017
 * Allow certificates deletion.
