@@ -218,7 +218,7 @@
 
                           // Check if the connection is valid
                           $scope.checkingConnection = true;
-                          $http.get('/kong',{
+                          $http.get('kong',{
                               params : {
                                   connection_id : created.id
                               }

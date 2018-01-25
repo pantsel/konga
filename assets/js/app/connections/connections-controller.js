@@ -210,7 +210,7 @@
                         // Check connection before assigning
                         // the node to the user
                         node.checkingConnection = true;
-                        $http.get('/kong',{
+                        $http.get('kong',{
                             params : {
                                 connection_id : node.id
                             }

@@ -139,7 +139,7 @@
 
                     // Check if the connection is valid
                     node.checkingConnection = true;
-                    $http.get('/kong', {
+                    $http.get('kong', {
                         params: {
                             kong_admin_url: node.kong_admin_url,
                             kong_api_key: node.kong_api_key
