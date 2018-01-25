@@ -1,9 +1,9 @@
 ## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
-[![konga-logo.png](screenshots/konga-logo.png)](screenshots/konga-logo.png?raw=true)
+[![konga-logo.png](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/konga-logo.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/konga-logo.png)
 
 
-[![Dashboard](screenshots/bc2.png)](screenshots/bc2.png?raw=true)
+[![Dashboard](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)
 
 <em>Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/).</em>
 
