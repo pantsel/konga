@@ -10,7 +10,7 @@ var fs = require('fs');
 */
 function getseedData() {
   var readEnvVar = process.env.KONGA_SEED_USER_DATA_SOURCE_FILE;
-  if (typeof(readEnvVar) == undefined) {
+  if (typeof(readEnvVar) == 'undefined') {
     readEnvVar = undefined;
   } else {
     readEnvVar = readEnvVar.trim();
