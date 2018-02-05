@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var async = require('async');
 var uuid = require('node-uuid');
+var defUserSeedData = require('../../config/default-user-seed-data.js');
 
 /**
  * User.js
@@ -100,26 +101,20 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
         }
     },
 
-    seedData: [
-        {
-            "username": "admin",
-            "email": "admin@some.domain",
-            "firstName": "Arnold",
-            "lastName": "Administrator",
-            "node_id": "http://kong:8001",
-            "admin": true,
-            "active" : true
-        },
-        {
-            "username": "demo",
-            "email": "demo@some.domain",
-            "firstName": "John",
-            "lastName": "Doe",
-            "node_id": "http://kong:8001",
-            "admin": false,
-            "active" : true
-        }
-    ]
+    //seedData object should now come from a file
+    // the new object has had the password field added
+    // we need to remove it
+    seedData: defUserSeedData.seedData.map( function (orig) {
+      return {
+        "username": orig.username,
+        "email": orig.email,
+        "firstName": orig.firstName,
+        "lastName": orig.lastName,
+        "node_id": orig.node_id,
+        "admin": orig.admin,
+        "active" : orig.active
+      }
+    })
 });
 
 var mongoModel = function () {

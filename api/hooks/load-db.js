@@ -2,6 +2,7 @@
 
 var async = require('async');
 var _ = require('lodash')
+var defUserSeedData = require('../../config/default-user-seed-data.js');
 
 /**
  * load-db.js
@@ -29,15 +30,25 @@ module.exports = function hook(sails) {
                         var passportsFns = []
                         users.forEach(function(user){
                             passportsFns.push(function(_cb){
-                                sails.models.passport
-                                    .create({
-                                        protocol: "local",
-                                        password : user.username == 'admin' ? 'adminadminadmin' : 'demodemodemo',
-                                        user : user.id
-                                    }).exec(function(err,passport){
-                                    if(err) return _cb(err)
-                                    return _cb(null)
-                                })
+                                var passwordToSetArr = defUserSeedData.seedData.filter( function (orig) {
+                                  return (orig.username == user.username)
+                                });
+                                var passwordToSet = undefined;
+                                if (passwordToSetArr.length == [1]) {
+                                  passwordToSet = passwordToSetArr[0].password;
+                                }
+                                // Only set the password if we have one
+                                if (typeof(passwordToSet) != 'undefined') {
+                                  sails.models.passport
+                                      .create({
+                                          protocol: "local",
+                                          password : passwordToSet,
+                                          user : user.id
+                                      }).exec(function(err,passport){
+                                      if(err) return _cb(err)
+                                      return _cb(null)
+                                  })
+                                };
                             })
                         })
 
