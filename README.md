@@ -180,6 +180,8 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
+This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](DEFAULTUSERSEEDDATA.md)
+
 ## Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
