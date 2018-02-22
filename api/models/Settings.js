@@ -25,7 +25,10 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     seedData: [
         {
             "data": {
-                signup_enable: true,
+                // Default signup enabled to false on new databases
+                //  if admins want signup enabled they can switch it on
+                //  via settings. This seems to be more secure.
+                signup_enable: false,
                 signup_require_activation: false,
                 info_polling_interval: 5000,
                 email_default_sender_name: 'KONGA',
