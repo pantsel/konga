@@ -3,162 +3,162 @@
  *
  * Note that this file should only contain controllers and nothing else.
  */
-(function() {
+(function () {
   'use strict';
 
   angular.module('frontend.upstreams')
     .controller('EditUpstreamTargetsController', [
-      '$scope', '$rootScope','$stateParams',
-        '$log', '$state','Upstream','MessageService','$uibModal','DataModel','ListConfig','$http','DialogService',
-      function controller($scope,$rootScope,$stateParams,
-                          $log, $state,Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService ) {
+      '$scope', '$rootScope', '$stateParams',
+      '$log', '$state', 'Upstream', 'MessageService', '$uibModal', 'DataModel', 'ListConfig', '$http', 'DialogService',
+      function controller($scope, $rootScope, $stateParams,
+                          $log, $state, Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService) {
+
+        var targetsEndpoint = (parseFloat($rootScope.Gateway.version) > 0.11) ? '/targets' : '/targets/active';
+        var Target = new DataModel('kong/upstreams/' + $stateParams.id + targetsEndpoint, true)
+        Target.setScope($scope, false, 'items', 'itemCount');
 
 
-          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets',true)
-          Target.setScope($scope, false, 'items', 'itemCount');
+        // Add default list configuration variable to current scope
+        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('target', Target)));
+
+        // Set initial data
+        $scope.loading = false
+        $scope.items = []
+        $scope.totalItems = 0
+
+        // Initialize used title items
+        $scope.titleItems = ListConfig.getTitleItems('target');
 
 
-          // Add default list configuration variable to current scope
-          $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('target',Target)));
+        $scope.sort = {
+          column: 'created_at',
+          direction: true
+        };
 
-          // Set initial data
-          $scope.loading = false
-          $scope.items = []
-          $scope.totalItems = 0
+        // Initialize filters
+        $scope.filters = {
+          searchWord: '',
+          columns: $scope.titleItems
+        };
 
-          // Initialize used title items
-          $scope.titleItems = ListConfig.getTitleItems('target');
+        $scope.changeSort = function changeSort(item) {
+          var sort = $scope.sort;
 
+          if (sort.column === item.column) {
+            sort.direction = !sort.direction;
+          } else {
+            sort.column = item.column;
+            sort.direction = true;
+          }
+        };
 
-          $scope.sort = {
-              column: 'created_at',
-              direction: true
-          };
+        $scope.globalCheck = {
+          isAllChecked: false
+        };
 
-          // Initialize filters
-          $scope.filters = {
-              searchWord: '',
-              columns: $scope.titleItems
-          };
+        $scope.$watch('globalCheck.isAllChecked', function watcher(valueNew, valueOld) {
+          if (valueNew !== valueOld) {
+            checkItems(valueNew)
+          }
+        });
 
-          $scope.changeSort = function changeSort(item) {
-              var sort = $scope.sort;
+        function checkItems(checked) {
+          $scope.items.forEach(function (item) {
+            item.checked = checked
+          })
+        }
 
-              if (sort.column === item.column) {
-                  sort.direction = !sort.direction;
-              } else {
-                  sort.column = item.column;
-                  sort.direction = true;
+        $scope.onAddTarget = function () {
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'js/app/upstreams/targets/add-target-modal.html',
+            controller: [
+              '$scope', '$rootScope', '$log', '$uibModalInstance', 'DataModel', 'MessageService', '_upstream',
+              function ($scope, $rootScope, $log, $uibModalInstance, DataModel, MessageService, _upstream) {
+
+                var targetModel = new DataModel('kong/upstreams/' + _upstream.id + '/targets', true)
+
+                $scope.upstream = _upstream
+
+                $scope.item = {
+                  target: '',
+                  weight: 100
+                }
+
+                $scope.close = function () {
+                  $uibModalInstance.dismiss()
+                }
+
+                $scope.submit = function () {
+                  targetModel.create($scope.item)
+                    .then(function (resp) {
+                      $log.debug("Create target =>", resp)
+                      MessageService.success("Target added successfully!")
+                      $uibModalInstance.dismiss({
+                        data: resp
+                      })
+                    }, function (err) {
+                      $log.error("Create target error =>", err)
+                      $scope.errors = {}
+                      if (err.data && err.data.body) {
+                        for (var key in err.data.body) {
+                          $scope.errors[key] = err.data.body[key]
+                        }
+                      }
+                    })
+                }
               }
-          };
-
-          $scope.globalCheck = {
-              isAllChecked : false
-          };
-
-          $scope.$watch('globalCheck.isAllChecked', function watcher(valueNew, valueOld) {
-              if (valueNew !== valueOld) {
-                  checkItems(valueNew)
+            ],
+            controllerAs: '$ctrl',
+            resolve: {
+              _upstream: function () {
+                return $scope.upstream
               }
+            }
+            //size: 'lg',
           });
 
-          function checkItems(checked) {
-              $scope.items.forEach(function(item){
-                  item.checked = checked
+          modalInstance.result.then(function () {
+
+          }, function (data) {
+            if (data && data.data) _fetchData()
+          });
+        }
+
+        // Overwrite deleteItem method
+        $scope.deleteItem = function (index, item) {
+          DialogService.prompt(
+            "Confirm", "Really want to delete the selected item?",
+            ['No don\'t', 'Yes! delete it'],
+            function accept() {
+
+              $http.delete('kong/upstreams/' + $stateParams.id + '/targets/' + item.id)
+                .then(function (deleted) {
+                  _fetchData()
+                }).catch(function (err) {
+
               })
-          }
+            }, function decline() {
+            })
+        }
 
-          $scope.onAddTarget = function() {
-              var modalInstance = $uibModal.open({
-                  animation: true,
-                  ariaLabelledBy: 'modal-title',
-                  ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/upstreams/targets/add-target-modal.html',
-                  controller: [
-                      '$scope','$rootScope','$log','$uibModalInstance','DataModel','MessageService','_upstream',
-                      function($scope,$rootScope,$log,$uibModalInstance,DataModel,MessageService,_upstream) {
+        function _fetchData() {
+          var config = ListConfig.getConfig();
 
-                          var targetModel = new DataModel('kong/upstreams/' + _upstream.id + '/targets',true)
+          var parameters = {
+            size: config.itemsFetchSize
+          };
 
-                          $scope.upstream = _upstream
-
-                          $scope.item = {
-                              target : '',
-                              weight : 100
-                          }
-
-                          $scope.close = function() {
-                              $uibModalInstance.dismiss()
-                          }
-
-                          $scope.submit = function() {
-                              targetModel.create($scope.item)
-                                  .then(function(resp){
-                                      $log.debug("Create target =>",resp)
-                                      MessageService.success("Target added successfully!")
-                                      $uibModalInstance.dismiss({
-                                          data : resp
-                                      })
-                                  },function(err){
-                                      $log.error("Create target error =>",err)
-                                      $scope.errors = {}
-                                      if(err.data && err.data.body){
-                                          for(var key in err.data.body){
-                                              $scope.errors[key] = err.data.body[key]
-                                          }
-                                      }
-                                  })
-                          }
-                      }
-                  ],
-                  controllerAs: '$ctrl',
-                  resolve : {
-                      _upstream : function(){
-                          return $scope.upstream
-                      }
-                  }
-                  //size: 'lg',
-              });
-
-              modalInstance.result.then(function () {
-
-              }, function (data) {
-                  if(data && data.data) _fetchData()
-              });
-          }
-
-          // Overwrite deleteItem method
-          $scope.deleteItem = function (index,item) {
-              DialogService.prompt(
-                  "Confirm", "Really want to delete the selected item?",
-                  ['No don\'t', 'Yes! delete it'],
-                  function accept() {
-
-                      $http.delete('kong/upstreams/' + $stateParams.id + '/targets/' + item.id)
-                          .then(function(deleted){
-                              _fetchData()
-                          }).catch(function (err) {
-
-                      })
-                  }, function decline() {
-                  })
-          }
-
-          function _fetchData(){
-              var config = ListConfig.getConfig();
-
-              var parameters = {
-                  size: config.itemsFetchSize
-              };
-
-              Target.load(_.merge({}, parameters)).then(function(response){
-                  console.log("####",response)
-                  $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data
-              });
-          }
+          Target.load(_.merge({}, parameters)).then(function (response) {
+            console.log("####", response)
+            $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data
+          });
+        }
 
 
-          _fetchData()
+        _fetchData()
 
       }
     ])
