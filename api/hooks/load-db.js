@@ -48,7 +48,9 @@ module.exports = function hook(sails) {
                                       if(err) return _cb(err)
                                       return _cb(null)
                                   })
-                                };
+                                }else {
+                                  return _cb();
+                                }
                             })
                         })
 
