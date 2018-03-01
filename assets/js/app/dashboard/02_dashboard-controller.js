@@ -33,6 +33,14 @@
               }
           }
 
+          $scope.convert2Unit = function(number) {
+              if(number >= 1000000) {
+                return (number/1000000).toFixed(2) + "M"
+              }else{
+                  return number.toString();
+              }
+          }
+
           $scope.isEnabled = function(name) {
             for(var key in $scope.info.plugins.enabled_in_cluster) {
                 if(name === $scope.info.plugins.enabled_in_cluster[key]) {
