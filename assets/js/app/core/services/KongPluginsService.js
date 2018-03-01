@@ -388,7 +388,7 @@
                             'blacklist': {
                                 type: 'text',
                                 value: '',
-                                help: 'Comma separated list of arbitrary group names that are allowed to consume the API. At least one between whitelist or blacklist must be specified.'
+                                help: 'Comma separated list of arbitrary group names that are not allowed to consume the API. At least one between whitelist or blacklist must be specified.'
                             }
                         },
                         "ldap-auth": {

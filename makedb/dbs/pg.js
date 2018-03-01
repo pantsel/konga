@@ -27,6 +27,7 @@ module.exports = {
             database: dbName,
             password: password,
             port: dbPort,
+            ssl,
         }
 
         // console.log("Connection Options =>", opts);

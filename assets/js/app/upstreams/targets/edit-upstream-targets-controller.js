@@ -14,7 +14,7 @@
                           $log, $state,Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService ) {
 
 
-          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets/active',true)
+          var Target = new DataModel('kong/upstreams/' + $stateParams.id + '/targets',true)
           Target.setScope($scope, false, 'items', 'itemCount');
 
 
