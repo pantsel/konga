@@ -39,6 +39,137 @@
 
                 </div>
             </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.http_path}">
+                <label class="col-sm-3 control-label">Active healthchecks HTTP path
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.http_path" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.http_path" data-ng-bind="errors.healthchecks.active.http_path"></div>
+                    <p class="help-block">
+                        The path that should be used when issuing the HTTP GET request to the target. The default value is <code>/</code>.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.timeout}">
+                <label class="col-sm-3 control-label">Active healthchecks timeout
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.timeout" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.timeout" data-ng-bind="errors.healthchecks.active.timeout"></div>
+                    <p class="help-block">
+                        The connection timeout limit for the HTTP GET request of the probe. The default value is 1 second.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.healthy.interval}">
+                <label class="col-sm-3 control-label">Active healthchecks healthy interval
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.healthy.interval" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.healthy.interval" data-ng-bind="errors.healthchecks.active.healthy.interval"></div>
+                    <p class="help-block">
+                        Interval between active health checks for healthy targets (in seconds). A value of zero indicates that active probes for
+                        healthy targets should not be performed.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.interval}">
+                <label class="col-sm-3 control-label">Active healthchecks unhealthy interval
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.unhealthy.interval" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.unhealthy.interval" data-ng-bind="errors.healthchecks.active.unhealthy.interval"></div>
+                    <p class="help-block">
+                        Interval between active health checks for healthy targets (in seconds). A value of zero indicates that active probes for
+                        healthy targets should not be performed.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.healthy.successes}">
+                <label class="col-sm-3 control-label">Active healthchecks healthy successes
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.healthy.successes" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.healthy.successes" data-ng-bind="errors.healthchecks.active.healthy.successes"></div>
+                    <p class="help-block">
+                        Number of successes in active probes (as defined by <code>healthchecks.active.healthy.http_statuses</code>) to consider a target healthy.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.tcp_failures}">
+                <label class="col-sm-3 control-label">Active healthchecks unhealthy TCP failures
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.unhealthy.tcp_failures" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.unhealthy.tcp_failures" data-ng-bind="errors.healthchecks.active.unhealthy.tcp_failures"></div>
+                    <p class="help-block">
+                        Number of TCP failures in active probes to consider a target unhealthy.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.timeouts}">
+                <label class="col-sm-3 control-label">Active healthchecks unhealthy timeouts
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.unhealthy.timeouts" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.unhealthy.timeouts" data-ng-bind="errors.healthchecks.active.unhealthy.timeouts"></div>
+                    <p class="help-block">
+                        Number of timeouts in active probes to consider a target unhealthy.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.http_failures}">
+                <label class="col-sm-3 control-label">Active healthchecks unhealthy HTTP failures
+                    <br>
+                    <em>
+                        <small class="help-block">optional</small>
+                    </em>
+                </label>
+                <div class="col-sm-8">
+                    <input ng-model="upstream.healthchecks.active.unhealthy.http_failures" class="form-control">
+                    <div class="text-danger" ng-if="errors.healthchecks.active.unhealthy.http_failures" data-ng-bind="errors.healthchecks.active.unhealthy.http_failures"></div>
+                    <p class="help-block">
+                        Number of HTTP failures in active probes (as defined by <code>healthchecks.active.unhealthy.http_statuses</code>) to consider a target
+                        unhealthy.
+                    </p>
+
+                </div>
+            </div>
             <div class="form-group" ng-class="{'has-error' : errors.orderlist}">
                 <label class="col-sm-3 control-label">Orderlist
                     <br><em>
