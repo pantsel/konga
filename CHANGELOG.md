@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 01-03-2018
+
+* **[Fix]** Fix issue [#178](https://github.com/pantsel/konga/issues/178) that produced hook timeouts.
+* **[Fix]** Fix issue [#175](https://github.com/pantsel/konga/issues/175). Health checks are now removed when an API is deleted.
+* **[Fix]** Fix GET targets AND Add possibility to select Hash_on for Upstreams for Kong 0.12.x.
+* **[Fix]** Fix SSL connection to Postgres.
+* **[Fix]** Fix api timeouts to match Kong defaults.
+* **[Enhancement]** Feature to change Konga default users [#168](https://github.com/pantsel/konga/issues/168).
+[See details](https://github.com/pantsel/konga/blob/master/DEFAULTUSERSEEDDATA.md)
+* Various other minor bug fixes and improvements.
+
+#### Breaking Changes
+Since the upstream targets GET call is changed to match Kong's 0.12.x changes, it will not
+work on previous Kong versions
+
+
 
 ## [0.9.1](https://github.com/pantsel/konga/releases/tag/0.9.1) - 06-12-2017
 
