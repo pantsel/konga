@@ -26,6 +26,7 @@
         $scope.items = []
         $scope.totalItems = 0
 
+
         // Initialize used title items
         $scope.titleItems = ListConfig.getTitleItems('target');
 
