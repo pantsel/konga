@@ -51,7 +51,7 @@
 
                 // Listeners
                 $scope.$on('kong.upstream.created',function(ev,data){
-                    _fetchData()
+                    _fetchData();
                 });
 
 

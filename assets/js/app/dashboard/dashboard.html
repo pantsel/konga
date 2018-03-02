@@ -81,7 +81,7 @@
 
 
     </div>
-    <div class="row" ng-if="!isKongVersionGreater('0.11.0')">
+    <div class="row" ng-if="!isGatewayVersionEqOrGreater('0.11.0')">
         <!-- DATABASE -->
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -163,7 +163,7 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i class="mdi mdi-information-outline"></i>&nbsp;DATASTORE INFO
-                        <span ng-if="isKongVersionGreater('0.11.0')"
+                        <span ng-if="isGatewayVersionEqOrGreater('0.11.0')"
                               ng-class="{'text-success' : status.database.reachable, 'text-danger' : !status.database.reachable}"
                               class="pull-right">
                             <small>{{status.database.reachable ? 'Reachable' : 'Unreachable'}}</small>

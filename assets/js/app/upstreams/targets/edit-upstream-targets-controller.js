@@ -8,9 +8,9 @@
 
   angular.module('frontend.upstreams')
     .controller('EditUpstreamTargetsController', [
-      '$scope', '$rootScope', '$stateParams',
+      '_','$scope', '$rootScope', '$stateParams',
       '$log', '$state', 'Upstream', 'MessageService', '$uibModal', 'DataModel', 'ListConfig', '$http', 'DialogService',
-      function controller($scope, $rootScope, $stateParams,
+      function controller(_,$scope, $rootScope, $stateParams,
                           $log, $state, Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService) {
 
         var targetsEndpoint = (parseFloat($rootScope.Gateway.version) > 0.11) ? '/targets' : '/targets/active';
@@ -66,7 +66,7 @@
         function checkItems(checked) {
           $scope.items.forEach(function (item) {
             item.checked = checked
-          })
+          });
         }
 
         $scope.onAddTarget = function () {
@@ -154,7 +154,23 @@
 
           Target.load(_.merge({}, parameters)).then(function (response) {
             console.log("####", response)
-            $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data
+            $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data;
+
+            if($rootScope.isGatewayVersionEqOrGreater('0.12.2')) {
+              // Fetch targets Health
+              Upstream.health($stateParams.id).then(function (response) {
+                console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", response);
+                if(response && response.data.length) {
+                  $scope.items.forEach(function(item){
+                    var healthObj = _.find(response.data, function (target) {
+                      return target.id === item.id;
+                    });
+                    item.health = healthObj && healthObj.health ? healthObj.health : "";
+                  });
+                }
+              });
+
+            }
           });
         }
 

@@ -92,6 +92,12 @@
               .get(_parseEndPointUrl(endPoint, identifier), _parseParameters(parameters));
           },
 
+
+          get: function get(endPoint, parameters) {
+            return $sailsSocket
+              .get(_parseEndPointUrl(endPoint), _parseParameters(parameters));
+          },
+
           /**
            * Service method to create new object to specified end point.
            *

@@ -3,26 +3,26 @@
  *
  * This is the main file for the 'Frontend' application.
  */
-(function() {
+(function () {
   'use strict';
 
   // Create frontend module and specify dependencies for that
   angular.module('frontend', [
-      'angular-spinkit',
-      //'frontend-templates',
-      'frontend.core',
-      'frontend.dashboard',
-      'frontend.settings',
-      'frontend.upstreams',
-      'frontend.info',
-      'frontend.plugins',
-      'frontend.certificates',
-      'frontend.users',
-      'frontend.consumers',
-      'frontend.apis',
-      'frontend.connections',
-      'frontend.snapshots',
-      'frontend.cluster'
+    'angular-spinkit',
+    //'frontend-templates',
+    'frontend.core',
+    'frontend.dashboard',
+    'frontend.settings',
+    'frontend.upstreams',
+    'frontend.info',
+    'frontend.plugins',
+    'frontend.certificates',
+    'frontend.users',
+    'frontend.consumers',
+    'frontend.apis',
+    'frontend.connections',
+    'frontend.snapshots',
+    'frontend.cluster'
 
   ]);
 
@@ -36,55 +36,53 @@
    *  4) Set up application routes
    */
   angular.module('frontend')
-      .config(function($logProvider){
-          $logProvider.debugEnabled(window.enableLogs);
-      })
+    .config(function ($logProvider) {
+      $logProvider.debugEnabled(window.enableLogs);
+    })
 
-      .value('HttpTimeout',20000)
+    .value('HttpTimeout', 20000)
 
-      // Provider to disable UI routers template caching
-      .config(['$provide', function($provide){
-          // Set a suffix outside the decorator function
-          var cacheBuster = Date.now().toString();
+    // Provider to disable UI routers template caching
+    .config(['$provide', function ($provide) {
+      // Set a suffix outside the decorator function
+      var cacheBuster = Date.now().toString();
 
-          function templateFactoryDecorator($delegate) {
-              var fromUrl = angular.bind($delegate, $delegate.fromUrl);
-              $delegate.fromUrl = function (url, params) {
-                  if (url !== null && angular.isDefined(url) && angular.isString(url)) {
-                      url += (url.indexOf("?") === -1 ? "?" : "&");
-                      url += "v=" + cacheBuster;
-                  }
-
-                  return fromUrl(url, params);
-              };
-
-              return $delegate;
+      function templateFactoryDecorator($delegate) {
+        var fromUrl = angular.bind($delegate, $delegate.fromUrl);
+        $delegate.fromUrl = function (url, params) {
+          if (url !== null && angular.isDefined(url) && angular.isString(url)) {
+            url += (url.indexOf("?") === -1 ? "?" : "&");
+            url += "v=" + cacheBuster;
           }
 
-          $provide.decorator('$templateFactory', ['$delegate', templateFactoryDecorator]);
-      }])
-      .config(['$provide',function($provide) {
-          $provide.decorator('$state', function($delegate) {
-              var originalTransitionTo = $delegate.transitionTo;
-              $delegate.transitionTo = function(to, toParams, options) {
-                  return originalTransitionTo(to, toParams, angular.extend({
-                      reload: true
-                  }, options));
-              };
-              return $delegate;
-          });
-      }])
+          return fromUrl(url, params);
+        };
+
+        return $delegate;
+      }
+
+      $provide.decorator('$templateFactory', ['$delegate', templateFactoryDecorator]);
+    }])
+    .config(['$provide', function ($provide) {
+      $provide.decorator('$state', function ($delegate) {
+        var originalTransitionTo = $delegate.transitionTo;
+        $delegate.transitionTo = function (to, toParams, options) {
+          return originalTransitionTo(to, toParams, angular.extend({
+            reload: true
+          }, options));
+        };
+        return $delegate;
+      });
+    }])
     .config([
       '$stateProvider', '$locationProvider', '$urlRouterProvider', '$httpProvider', '$sailsSocketProvider',
-       'cfpLoadingBarProvider',
+      'cfpLoadingBarProvider',
       'toastrConfig',
       'AccessLevels',
-      function config(
-        $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, $sailsSocketProvider,
-         cfpLoadingBarProvider,
-        toastrConfig,
-        AccessLevels
-      ) {
+      function config($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, $sailsSocketProvider,
+                      cfpLoadingBarProvider,
+                      toastrConfig,
+                      AccessLevels) {
         $httpProvider.defaults.useXDomain = true;
 
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -102,7 +100,6 @@
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
           $sailsSocketProvider.interceptors.push(interceptor);
         });
-
 
 
         // Disable spinner from cfpLoadingBar
@@ -132,18 +129,18 @@
 
           .state('frontend', {
             abstract: true,
-              data: {
-                access : 1
-              },
+            data: {
+              access: 1
+            },
             views: {
               header: {
                 templateUrl: 'js/app/core/layout/partials/header.html',
                 controller: 'HeaderController'
               },
-                sidenav: {
-                    templateUrl: 'js/app/core/layout/partials/sidenav.html',
-                    controller: 'SidenavController'
-                },
+              sidenav: {
+                templateUrl: 'js/app/core/layout/partials/sidenav.html',
+                controller: 'SidenavController'
+              },
               footer: {
                 templateUrl: 'js/app/core/layout/partials/footer.html',
                 controller: 'FooterController'
@@ -165,31 +162,29 @@
    */
   angular.module('frontend')
     .run([
-      '$rootScope', '$state', '$stateParams','$injector',
-      'editableOptions','editableThemes','$templateCache','NodesService',
-      'AuthService','cfpLoadingBar','UserService',
-      function run(
-        $rootScope, $state,$stateParams, $injector,
-        editableOptions,editableThemes,$templateCache,NodesService,
-        AuthService,cfpLoadingBar,UserService
-      ) {
+      '$rootScope', '$state', '$stateParams', '$injector',
+      'editableOptions', 'editableThemes', '$templateCache', 'NodesService',
+      'AuthService', 'cfpLoadingBar', 'UserService',
+      function run($rootScope, $state, $stateParams, $injector,
+                   editableOptions, editableThemes, $templateCache, NodesService,
+                   AuthService, cfpLoadingBar, UserService) {
 
-          $rootScope.$on('$routeChangeStart', function(event, next, current) {
-              if (typeof(current) !== 'undefined'){
-                  $templateCache.remove(current.templateUrl);
-              }
-          });
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+          if (typeof(current) !== 'undefined') {
+            $templateCache.remove(current.templateUrl);
+          }
+        });
 
-          editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
+        editableThemes.bs3.buttonsClass = 'btn-sm btn-link';
 
-          $rootScope.moment = window.moment;
-          $rootScope.prettyCron = window.prettyCron;
-          $rootScope.KONGA_CONFIG = window.KONGA_CONFIG;
-          $rootScope.$stateParams = $stateParams;
+        $rootScope.moment = window.moment;
+        $rootScope.prettyCron = window.prettyCron;
+        $rootScope.KONGA_CONFIG = window.KONGA_CONFIG;
+        $rootScope.$stateParams = $stateParams;
 
 
-          // Set usage of Bootstrap 3 CSS with angular-xeditable
-          editableOptions.theme = 'bs3';
+        // Set usage of Bootstrap 3 CSS with angular-xeditable
+        editableOptions.theme = 'bs3';
 
         /**
          * Route state change start event, this is needed for following:
@@ -197,68 +192,66 @@
          */
         $rootScope.$on('$stateChangeStart', function stateChangeStart(event, toState, params, fromState, fromParams) {
 
-            cfpLoadingBar.start();
+          cfpLoadingBar.start();
 
-            if (!AuthService.authorize(toState.data.access)) {
-                event.preventDefault();
-                $state.go('auth.login', params);
+          if (!AuthService.authorize(toState.data.access)) {
+            event.preventDefault();
+            $state.go('auth.login', params);
+          }
+
+          if (toState.name == 'auth.login' && AuthService.isAuthenticated()) {
+            event.preventDefault();
+            $state.go('dashboard', params, {location: 'replace'});
+          }
+
+
+          if (toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup_enable) {
+            event.preventDefault();
+            $state.go('auth.login', params, {location: 'replace'});
+          }
+
+
+          // Handle Permissions
+
+          var routeNameParts = toState.name.split(".");
+          var context = routeNameParts[0];
+          var action = routeNameParts[1];
+
+          // Special exception that allows a user to edits his/hers own profile
+          if (!(context == 'users' && action == 'show' && params.id == UserService.user().id)) {
+            if (!AuthService.hasPermission(context, action)) {
+              console.log(fromState)
+              event.preventDefault();
+              cfpLoadingBar.complete();
+
+              // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
+              if (!fromState.name) {
+                $state.go('dashboard', params, {location: 'replace'})
+              }
             }
-
-            if(toState.name == 'auth.login' && AuthService.isAuthenticated()) {
-                event.preventDefault();
-                $state.go('dashboard', params, {location: 'replace'});
-            }
+          }
 
 
-            if(toState.data.needsSignupEnabled && !$rootScope.KONGA_CONFIG.signup_enable) {
-                event.preventDefault();
-                $state.go('auth.login', params, {location: 'replace'});
-            }
-
-
-
-
-            // Handle Permissions
-
-            var routeNameParts = toState.name.split(".");
-            var context = routeNameParts[0];
-            var action  = routeNameParts[1];
-
-            // Special exception that allows a user to edits his/hers own profile
-            if(!(context == 'users' && action == 'show' && params.id == UserService.user().id)) {
-                if(!AuthService.hasPermission(context,action)) {
-                    console.log(fromState)
-                    event.preventDefault();
-                    cfpLoadingBar.complete();
-
-                    // Redirect to dashboard if coming from nowhere ex. refresh or direct link to page
-                    if(!fromState.name) {
-                        $state.go('dashboard', params, {location: 'replace'})
-                    }
-                }
-            }
-
-
-            //
-            //if (toState.redirectTo) {
-            //    event.preventDefault();
-            //    $state.go(toState.redirectTo, params, {location: 'replace'})
-            //}
+          //
+          //if (toState.redirectTo) {
+          //    event.preventDefault();
+          //    $state.go(toState.redirectTo, params, {location: 'replace'})
+          //}
 
         });
 
-          $rootScope.$on('$stateChangeSuccess', function stateChangeStart(event, toState) {
-              $rootScope.$state = toState
-              cfpLoadingBar.complete();
+        $rootScope.$on('$stateChangeSuccess', function stateChangeStart(event, toState) {
+          $rootScope.$state = toState
+          cfpLoadingBar.complete();
 
-          });
+        });
 
 
-        $rootScope.isAuthenticated = function() {
-            return AuthService.isAuthenticated()
+        $rootScope.isAuthenticated = function () {
+          return AuthService.isAuthenticated()
         }
 
-         //Check for state change errors.
+        //Check for state change errors.
         //$rootScope.$on('$stateChangeError', function stateChangeError(event, toState, toParams, fromState, fromParams, error) {
         //  event.preventDefault();
         //
@@ -278,54 +271,59 @@
         //});
       }
     ])
-      .controller('MainController',['$log','$scope','$rootScope','Settings','NodeModel',
-          'UserService','InfoService','AuthService','SubscriptionsService','NotificationsService',
-          function($log,$scope,$rootScope,Settings,NodeModel,
-                   UserService,InfoService,AuthService,SubscriptionsService,NotificationsService){
+    .controller('MainController', ['$log', '$scope', '$rootScope', 'Settings', 'NodeModel', 'Semver',
+      'UserService', 'InfoService', 'AuthService', 'SubscriptionsService', 'NotificationsService',
+      function ($log, $scope, $rootScope, Settings, NodeModel, Semver,
+                UserService, InfoService, AuthService, SubscriptionsService, NotificationsService) {
 
-              $rootScope.user = UserService.user()
-              $rootScope.konga_version = window.konga_version
-              $log.debug("MainController:User => ", $rootScope.user)
+        $rootScope.user = UserService.user()
+        $rootScope.konga_version = window.konga_version
+        $log.debug("MainController:User => ", $rootScope.user)
 
-              // ToDo decide whether to use Gateway Info for getting active node version and stuff...
-              $scope.$on('user.node.updated',function(ev,node){
 
-                  $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
-                  // Fetch and store Gateway Info
-                  _fetchGatewayInfo()
-              })
+        $rootScope.isGatewayVersionEqOrGreater = function (version) {
+          return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) >= 0 : false;
+        }
 
-              $scope.$on('user.login',function(ev,user){
-                    _fetchGatewayInfo()
+        // ToDo decide whether to use Gateway Info for getting active node version and stuff...
+        $scope.$on('user.node.updated', function (ev, node) {
 
-              })
+          $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
+          // Fetch and store Gateway Info
+          _fetchGatewayInfo()
+        })
 
-              function _fetchSettings() {
-                  Settings.load()
-                      .then(function(settings){
-                          $log.debug("MainController:_fetchSettings: =>", settings )
-                          $rootScope.konga_settings_id = settings.length ? settings[0].id : null
-                          $rootScope.konga_settings = settings.length ? settings[0].data : {}
-                      })
-              }
+        $scope.$on('user.login', function (ev, user) {
+          _fetchGatewayInfo()
 
-              function _fetchGatewayInfo() {
-                  InfoService.getInfo()
-                      .then(function(response){
-                        $rootScope.Gateway = response.data
-                        $log.debug("MainController:onUserNodeUpdated:Gateway Info =>",$rootScope.Gateway)
-                  }).catch(function(err){
-                      $rootScope.Gateway = null;
-                  })
-              }
+        })
 
-              if(AuthService.isAuthenticated()) {
-                  _fetchGatewayInfo()
-                  _fetchSettings()
+        function _fetchSettings() {
+          Settings.load()
+            .then(function (settings) {
+              $log.debug("MainController:_fetchSettings: =>", settings)
+              $rootScope.konga_settings_id = settings.length ? settings[0].id : null
+              $rootScope.konga_settings = settings.length ? settings[0].data : {}
+            })
+        }
 
-              }
+        function _fetchGatewayInfo() {
+          InfoService.getInfo()
+            .then(function (response) {
+              $rootScope.Gateway = response.data
+              $log.debug("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway)
+            }).catch(function (err) {
+            $rootScope.Gateway = null;
+          })
+        }
 
-              SubscriptionsService.init()
-          }])
+        if (AuthService.isAuthenticated()) {
+          _fetchGatewayInfo()
+          _fetchSettings()
+
+        }
+
+        SubscriptionsService.init()
+      }])
   ;
 }());

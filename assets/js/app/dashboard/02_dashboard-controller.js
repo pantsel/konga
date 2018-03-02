@@ -23,10 +23,6 @@
 
           $scope.showCluster = $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version,"0.11.0") < 0 : false;
 
-          $scope.isKongVersionGreater = function (version) {
-              return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version,version) >= 0 : false;
-          }
-
           $scope.closeAlert = function() {
               if($scope.alert) {
                   delete $scope.alert;
@@ -35,7 +31,7 @@
 
           $scope.convert2Unit = function(number) {
               if(number >= 1000000) {
-                return (number/1000000).toFixed(2) + "M"
+                return (number/1000000).toFixed(2) + "M";
               }else{
                   return number.toString();
               }

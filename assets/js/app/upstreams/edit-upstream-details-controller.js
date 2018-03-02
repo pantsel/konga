@@ -13,9 +13,6 @@
       function controller($scope, $rootScope, $stateParams,
                           $log, $state, Upstream, MessageService, Semver) {
 
-        $scope.isKongVersionGreater = function (version) {
-          return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) >= 0 : false;
-        }
 
         $scope.submit = function () {
 
