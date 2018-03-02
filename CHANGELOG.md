@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 03-03-2018
+
+* **[0.12.x compat]** Show Upstream health for node when Kong >=0.12.2
+* Various other minor bug fixes and improvements.
+
+
 ## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 01-03-2018
 
 * **[Fix]** Fix issue [#178](https://github.com/pantsel/konga/issues/178) that produced hook timeouts.

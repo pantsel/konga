@@ -52,7 +52,7 @@
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td ng-if="isGatewayVersionEqOrGreater('0.12.2')">
-                        <i style="opacity: .5" uib-tooltip="{{item.health}}" ng-if="item.health && item.health === 'HEALTHCHECKS_OFF'" class="mdi mdi-heart-outline"></i></td>
+                        <i style="opacity: .5" uib-tooltip="{{item.health}}" ng-if="item.health && item.health === 'HEALTHCHECKS_OFF'" class="mdi mdi-heart-outline"></i>
                     <i
                             ng-if="item.health && item.health !== 'HEALTHCHECKS_OFF'"
                             class="mdi"
