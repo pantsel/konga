@@ -159,7 +159,6 @@
             if($rootScope.isGatewayVersionEqOrGreater('0.12.2')) {
               // Fetch targets Health
               Upstream.health($stateParams.id).then(function (response) {
-                console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", response);
                 if(response && response.data.length) {
                   $scope.items.forEach(function(item){
                     var healthObj = _.find(response.data, function (target) {
