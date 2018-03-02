@@ -285,6 +285,11 @@
           return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) >= 0 : false;
         }
 
+
+        $rootScope.compareKongVersion = function (version) {
+          return Semver.cmp($rootScope.Gateway.version, version);
+        }
+
         // ToDo decide whether to use Gateway Info for getting active node version and stuff...
         $scope.$on('user.node.updated', function (ev, node) {
 

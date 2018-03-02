@@ -37,7 +37,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.http_path}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.http_path}">
             <label class="col-sm-3 control-label">Active healthchecks HTTP path
                 <br>
                 <em>
@@ -53,7 +53,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.timeout}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.timeout}">
             <label class="col-sm-3 control-label">Active healthchecks timeout
                 <br>
                 <em>
@@ -69,7 +69,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.healthy.interval}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.healthy.interval}">
             <label class="col-sm-3 control-label">Active healthchecks healthy interval
                 <br>
                 <em>
@@ -86,7 +86,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.interval}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.interval}">
             <label class="col-sm-3 control-label">Active healthchecks unhealthy interval
                 <br>
                 <em>
@@ -103,7 +103,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.healthy.successes}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.healthy.successes}">
             <label class="col-sm-3 control-label">Active healthchecks healthy successes
                 <br>
                 <em>
@@ -119,7 +119,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.tcp_failures}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.tcp_failures}">
             <label class="col-sm-3 control-label">Active healthchecks unhealthy TCP failures
                 <br>
                 <em>
@@ -135,7 +135,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.timeouts}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.timeouts}">
             <label class="col-sm-3 control-label">Active healthchecks unhealthy timeouts
                 <br>
                 <em>
@@ -151,7 +151,7 @@
 
             </div>
         </div>
-        <div class="form-group" ng-if="isGatewayVersionEqOrGreater('0.11.0')" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.http_failures}">
+        <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.healthchecks.active.unhealthy.http_failures}">
             <label class="col-sm-3 control-label">Active healthchecks unhealthy HTTP failures
                 <br>
                 <em>
@@ -168,7 +168,9 @@
 
             </div>
         </div>
-        <div class="form-group" ng-class="{'has-error' : errors.orderlist}">
+        <div class="form-group"
+             ng-if="compareKongVersion('0.12.0') < 0"
+             ng-class="{'has-error' : errors.orderlist}">
             <label class="col-sm-3 control-label">Orderlist
                 <br><em><small class="help-block">optional</small></em></label>
             <div class="col-sm-8">
