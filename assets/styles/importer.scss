@@ -75,6 +75,14 @@ body {
   max-width: 100%;
 }
 
+@media (min-width: 1200px){
+  .main-container.container {
+    width:1280px;
+  }
+}
+
+
+
 
 .text-nowrap{
   white-space: nowrap;

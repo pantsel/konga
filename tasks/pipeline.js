@@ -71,6 +71,7 @@ var jsFilesToInject = [
     "bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js",
     "bower_components/angular-chart.js/dist/angular-chart.js",
     "bower_components/angular-base64/angular-base64.js",
+    "bower_components/angular-google-chart/ng-google-chart.js",
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
