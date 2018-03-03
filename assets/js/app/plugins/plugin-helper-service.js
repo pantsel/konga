@@ -11,40 +11,42 @@
             '_','$log','BackendConfig','Upload','PluginsService',
             function( _,$log,BackendConfig,Upload,PluginsService) {
 
-                function assignExtraProperties(options,fields,prefix) {
+                function assignExtraProperties(_pluginName, options,fields,prefix) {
                     Object.keys(fields).forEach(function (item) {
                         if(fields[item].schema) {
-                            assignExtraProperties(options,fields[item].schema.fields,item)
+                            assignExtraProperties(_pluginName, options,fields[item].schema.fields,item);
                         }else{
                             var path = prefix ? prefix + "." + item : item;
-                            var value = fields[item].default
+                            var value = fields[item].default;
 
                             if (fields[item].type === 'array'
                                 && (typeof value === 'object' || typeof value === 'string')
+                                && _pluginName !== 'statsd'
                             ) {
-                                value = []
+                                value = [];
                             }
                             fields[item].value = value
-                            fields[item].help = _.get(options,path) ? _.get(options,path).help : ''
+                            fields[item].help = _.get(options,path) ? _.get(options,path).help : '';
                         }
-                    })
+                    });
                 }
 
 
-                function createConfigProperties(fields,prefix,data) {
+                function createConfigProperties(pluginName,fields,prefix,data) {
                     Object.keys(fields).forEach(function (key) {
                         if(fields[key].schema) {
-                            createConfigProperties(fields[key].schema.fields,key,data)
+                            createConfigProperties(pluginName,fields[key].schema.fields,key,data);
                         }else{
                             var path = prefix ? prefix + "." + key : key;
-                            if (fields[key].value instanceof Array) {
+                            if (fields[key].value instanceof Array && pluginName !== 'statsd') {
                                 // Transform to comma separated string
-                                data['config.' + path] = fields[key].value.join(",")
+                                data['config.' + path] = fields[key].value.join(",");
                             } else {
-                                data['config.' + path] = fields[key].value
+                                data['config.' + path] = fields[key].value;
                             }
                         }
-                    })
+                    });
+
                 }
 
                 var handlers  = {
@@ -92,14 +94,14 @@
                         }
                     },
 
-                    createConfigProperties : function(fields,prefix) {
+                    createConfigProperties : function(pluginName,fields,prefix) {
                         var output = {}
-                        createConfigProperties(fields,prefix,output)
+                        createConfigProperties(pluginName,fields,prefix,output)
                         return output;
                     },
 
-                    assignExtraProperties : function(options,fields,prefix) {
-                        return  assignExtraProperties(options,fields,prefix)
+                    assignExtraProperties : function(_pluginName, options,fields,prefix) {
+                        return  assignExtraProperties(_pluginName, options,fields,prefix)
                     },
 
                     /**

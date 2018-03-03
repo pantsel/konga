@@ -1,0 +1,150 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><strong>consumer</strong></label>
+        <div class="col-sm-10">
+            <input
+                    type="text"
+                    ng-model="data.consumer_id"
+                    class="form-control"
+            >
+            <p class="help-block">
+                The CONSUMER ID that this plugin configuration will target.
+                This value can only be used if authentication has been enabled
+                so that the system can identify the user making the request.
+                If left blank, the plugin will be applied to all consumers.
+            </p>
+        </div>
+    </div>
+    <!-- CONFIG.HOST -->
+    <div class="form-group" ng-class="{'has-error' : errors['host']}">
+        <label class="col-sm-2 control-label"><strong>Host</strong></label>
+        <div class="col-sm-10">
+            <input
+                    type="text"
+                    ng-model="data.fields.host.value"
+                    class="form-control"
+            >
+            <p class="help-block">
+                The IP address or host name to send data to
+            </p>
+        </div>
+    </div>
+    <!--/ END CONFIG.HOST -->
+
+    <!-- CONFIG.PORT -->
+    <div class="form-group" ng-class="{'has-error' : errors['port']}">
+        <label class="col-sm-2 control-label"><strong>Port</strong></label>
+        <div class="col-sm-10">
+            <input
+                    type="number"
+                    ng-model="data.fields.port.value"
+                    class="form-control"
+            >
+            <p class="help-block">
+                The port to send data to on the upstream server. By default, statsd uses UDP.
+            </p>
+        </div>
+    </div>
+    <!--/ END CONFIG.PORT -->
+
+    <!-- CONFIG.PREFIX -->
+    <div class="form-group" ng-class="{'has-error' : errors['prefix']}">
+        <label class="col-sm-2 control-label"><strong>Prefix</strong></label>
+        <div class="col-sm-10">
+            <input
+                    type="text"
+                    ng-model="data.fields.prefix.value"
+                    class="form-control"
+            >
+            <p class="help-block">
+                String to be prefixed to each metric's name.
+            </p>
+        </div>
+    </div>
+    <!--/ END CONFIG.PREFIX -->
+
+    <!-- CONFIG.METRICS -->
+    <div class="form-group">
+        <label class="col-sm-2 control-label"><strong>Metrics</strong></label>
+        <div class="col-sm-10">
+            <div class="row no-margin-left" ng-repeat="metric in data.fields.metrics.value">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class="form-control"  ng-model="metric.name">
+                            <option  ng-repeat="item in statsd.metricNames" ng-value="item">{{item}}</option>
+                        </select>
+                        <p class="help-block">
+                            Name
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control"  ng-model="metric.stat_type">
+                        <option  ng-repeat="item in statsd.statTypes" ng-value="item">{{item}}</option>
+                    </select>
+                    <p class="help-block">
+                        Stat type
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <input
+                            type="number"
+                            ng-model="metric.sample_rate"
+                            class="form-control"
+                    >
+                    <p class="help-block">
+                        Sample rate
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"  ng-model="metric.consumer_identifier">
+                        <option  ng-repeat="item in statsd.consumerIndentifiers" ng-value="item">{{item}}</option>
+                    </select>
+                    <p class="help-block">
+                        Consumer identifier
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn btn-sm btn-link btn-danger"
+                         style="margin-top: 15px"
+                         ng-click="statsd.removeMetric(data.fields.metrics.value, $index)">
+                        <i class="mdi mdi-delete"></i>&nbsp;
+                        remove
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-link" ng-click="statsd.addMetric(data.fields.metrics.value)">
+                        <i class="mdi mdi-plus"></i>&nbsp;
+                        add metric
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--/ END CONFIG.METRICS --->
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button"
+                    ng-if="context === 'create'"
+                    data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="addPlugin()">
+                <i class="mdi mdi-check" ng-if="!busy"></i>
+                <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                add plugin
+            </button>
+
+            <button type="button"
+                    ng-if="context === 'update'"
+                    data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="updatePlugin()">
+                <i class="mdi mdi-check" ng-if="!busy"></i>
+                <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
+                submit changes
+            </button>
+        </div>
+    </div>
+</form>
