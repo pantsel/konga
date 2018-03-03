@@ -10,8 +10,8 @@ _Konga is not an official app. No affiliation with [Mashape](https://www.mashape
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
-> Notice: Upgrade your Kong installations to v0.11.x so you can use Konga to it's full capacity. Support for older
-versions of Kong will be discontinued.
+> Notice: Upgrade your Kong installations to v0.11.x so you can use Konga to it's full capacity.
+  Starting with Konga 0.10.x, Kong versions prior to 0.11.x are not supported.
 
 ## Summary
 
