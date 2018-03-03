@@ -295,11 +295,11 @@
 
           $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
           // Fetch and store Gateway Info
-          _fetchGatewayInfo()
+          _fetchGatewayInfo();
         })
 
         $scope.$on('user.login', function (ev, user) {
-          _fetchGatewayInfo()
+          _fetchGatewayInfo();
 
         })
 
@@ -308,27 +308,27 @@
             .then(function (settings) {
               $log.debug("MainController:_fetchSettings: =>", settings)
               $rootScope.konga_settings_id = settings.length ? settings[0].id : null
-              $rootScope.konga_settings = settings.length ? settings[0].data : {}
-            })
+              $rootScope.konga_settings = settings.length ? settings[0].data : {};
+            });
         }
 
         function _fetchGatewayInfo() {
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              $log.debug("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway)
+              $log.debug("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
             }).catch(function (err) {
             $rootScope.Gateway = null;
-          })
+          });
         }
 
         if (AuthService.isAuthenticated()) {
-          _fetchGatewayInfo()
-          _fetchSettings()
+          _fetchGatewayInfo();
+          _fetchSettings();
 
         }
 
-        SubscriptionsService.init()
+        SubscriptionsService.init();
       }])
   ;
 }());
