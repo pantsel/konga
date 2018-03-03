@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 03-03-2018
 
 * **[0.12.x compat]** Show Upstream health for node when Kong >=0.12.2
+* **[Fix]** Statsd plugin management is working as expected again for
+versions of Kong >= 0.11.x. As a result, Kong versions < 0.11.x are not supported.
 * Various other minor bug fixes and improvements.
 
 
