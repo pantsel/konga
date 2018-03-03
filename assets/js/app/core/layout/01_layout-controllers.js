@@ -70,7 +70,7 @@
 
                 $scope.$watch(function () { return $localStorage.notifications; },function(newVal,oldVal){
                     if(oldVal!==newVal && newVal !== undefined){
-                        $scope.notifications = newVal
+                        $scope.notifications = newVal;
                     }
                 })
 
@@ -83,7 +83,7 @@
                     NotificationsService.add({
                         icon : 'mdi-camera',
                         message : "Snapshot '" + message.data.name + "' created!"
-                    })
+                    });
 
                 })
 
@@ -91,8 +91,8 @@
 
 
                 $scope.toggleSideNav = function () {
-                    $rootScope.$broadcast('sidenav-toggle')
-                }
+                    $rootScope.$broadcast('sidenav-toggle');
+                };
             }
         ])
     ;
@@ -125,7 +125,7 @@
                         sort: 'createdAt DESC'
                     }).then(function (connections) {
                         $scope.connections = connections;
-                    })
+                    });
                 }
 
 
@@ -176,19 +176,19 @@
                 }
 
                 $scope.$on('kong.node.created', function (ev, node) {
-                    _fetchConnections()
+                    _fetchConnections();
                 })
 
                 $scope.$on('kong.node.updated', function (ev, node) {
-                    _fetchConnections()
+                    _fetchConnections();
                 })
 
                 $scope.$on('kong.node.deleted', function (ev, node) {
-                    _fetchConnections()
+                    _fetchConnections();
                 })
 
                 if(AuthService.isAuthenticated()) {
-                    _fetchConnections()
+                    _fetchConnections();
                 }
 
 
