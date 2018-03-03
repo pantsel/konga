@@ -390,7 +390,7 @@
               function onSuccess(response) {
                 console.log(response)
                 $scope.nodes = response;
-
+                updateActiveKongConnectionVersion();
 
               }
             );
@@ -460,6 +460,57 @@
 
 
         _triggerFetchData()
+
+
+        $rootScope.$watch('Gateway',function(newVal,oldVal){
+          if(newVal){
+            updateActiveKongConnectionVersion();
+          }
+        })
+
+        function updateActiveKongConnectionVersion() {
+          if(!$rootScope.Gateway || !$scope.nodes) {
+            return false;
+          }
+
+          var activeNode = getActiveNode();
+
+          if(activeNode && activeNode.kong_version !== $rootScope.Gateway.version) {
+
+            console.log("##############################");
+            console.log("UPDATING ACTIVE CONNECTION KONG VERSION");
+            console.log("_______________________________________");
+            console.log("Gateway version", $rootScope.Gateway.version);
+            console.log("Active connection Kong version", activeNode.kong_version);
+            console.log("##############################");
+
+
+            NodeModel
+              .update(activeNode.id, {
+                kong_version : $rootScope.Gateway.version
+              })
+              .then(
+                function onSuccess(result) {
+                  MessageService.success('Active node version updated');
+                  $rootScope.$broadcast('kong.node.updated',result.data);
+                },function(err){
+                  NodeModel.handleError($scope,err);
+                }
+              )
+            ;
+          }
+
+
+        }
+
+        function getActiveNode() {
+          return _.find($scope.nodes, function (node) {
+            return isActive(node);
+          })
+        }
+
+
+        updateActiveKongConnectionVersion();
       }
     ])
   ;
