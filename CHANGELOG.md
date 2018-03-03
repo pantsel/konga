@@ -2,28 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 03-03-2018
 
-* **[0.12.x compat]** Show Upstream health for node when Kong >=0.12.2
-* **[Fix]** Statsd plugin management is working as expected again for
-versions of Kong >= 0.11.x. As a result, Kong versions < 0.11.x are not supported.
-* Various other minor bug fixes and improvements.
+## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 03-03-2018
 
-
-## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 01-03-2018
-
-* **[Fix]** Fix issue [#178](https://github.com/pantsel/konga/issues/178) that produced hook timeouts.
-* **[Fix]** Fix issue [#175](https://github.com/pantsel/konga/issues/175). Health checks are now removed when an API is deleted.
+* **[Fix [#178](https://github.com/pantsel/konga/issues/178)]** Fix issue that produced hook timeouts.
+* **[Fix [#175](https://github.com/pantsel/konga/issues/175)]** Health checks are now removed when an API is deleted.
 * **[Fix]** Fix GET targets AND Add possibility to select Hash_on for Upstreams for Kong 0.12.x.
 * **[Fix]** Fix SSL connection to Postgres.
 * **[Fix]** Fix api timeouts to match Kong defaults.
+* **[Fix [#131](https://github.com/pantsel/konga/issues/131)]** Statsd plugin management is working as expected again for
+versions of Kong >= 0.11.x. As a result, Kong versions < 0.11.x are not supported.
 * **[Enhancement]** Feature to change Konga default users [#168](https://github.com/pantsel/konga/issues/168).
 [See details](https://github.com/pantsel/konga/blob/master/DEFAULTUSERSEEDDATA.md)
+* **[0.12.x compat]** Show Upstream health for node when Kong >=0.12.2
 * Various other minor bug fixes and improvements.
-
-#### Breaking Changes
-Since the upstream targets GET call is changed to match Kong's 0.12.x changes, it will not
-work on previous Kong versions
 
 
 
