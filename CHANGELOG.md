@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 * **[Fix]** Fix GET targets AND Add possibility to select Hash_on for Upstreams for Kong 0.12.x.
 * **[Fix]** Fix SSL connection to Postgres.
 * **[Fix]** Fix api timeouts to match Kong defaults.
+* **[Fix [#146](https://github.com/pantsel/konga/issues/146)]** Update active Connection's version automatically when Kong version changes.
 * **[Fix [#131](https://github.com/pantsel/konga/issues/131)]** Statsd plugin management is working as expected again for
 versions of Kong >= 0.11.x. As a result, Kong versions < 0.11.x are not supported.
 * **[Enhancement]** Feature to change Konga default users [#168](https://github.com/pantsel/konga/issues/168).
