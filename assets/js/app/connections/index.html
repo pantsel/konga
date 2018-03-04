@@ -74,6 +74,17 @@
 
                     <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-outline"></i></td>
                 </td>
+                <td ng-click="chooseNetdataEndpoint(node)" class="clickable">
+                    <i class="mdi mdi-chart-bar"
+                       ng-if="!node.netdata_url"
+                       uib-tooltip="No netdata connection"
+                       style="opacity: .5"></i>
+
+                    <i class="mdi mdi-chart-bar text-success"
+                       ng-if="node.netdata_url"
+                       uib-tooltip="{{node.netdata_url}}"
+                       style="opacity: .8"></i>
+                </td>
                 <td>
                     <a ng-if="user.hasPermission('connections','update')" class="clickable" ng-click="editNode(node)">
                         <strong>{{node.name || 'undefined'}}</strong>

@@ -35,7 +35,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       required: true
     },
 
-    netdata_url: {
+    // netdata_connection: {
+    //   model: 'netdataconnection'
+    // },
+
+    netdata_url : {
       type: 'string'
     },
 

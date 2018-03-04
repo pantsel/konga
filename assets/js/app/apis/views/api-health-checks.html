@@ -1,22 +1,25 @@
 <div class="col-md-12 bg-light-grey padding margin-bottom">
-    <div class="col-md-6 text-left">
-        <h4>
-            <i class="mdi mdi-heart-pulse"></i>
-            Health Checks
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <h4>
+                <i class="mdi mdi-heart-pulse"></i>
+                Health Checks
 
-        </h4>
-    </div>
-    <div class="col-md-6 text-right">
-        <input
-                bs-switch
-                ng-model="apiHC.active"
-                type="checkbox"
-                switch-on-text="ENABLED"
-                switch-off-text="DISABLED"
-                ng-change="toggleApiHC()"
-        >
+            </h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <input
+                    bs-switch
+                    ng-model="apiHC.active"
+                    type="checkbox"
+                    switch-on-text="ENABLED"
+                    switch-off-text="DISABLED"
+                    ng-change="toggleApiHC()"
+            >
 
+        </div>
     </div>
+
 </div>
 
 

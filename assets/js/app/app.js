@@ -14,6 +14,7 @@
     'frontend.core',
     'frontend.dashboard',
     'frontend.settings',
+    'frontend.netdataConnections',
     'frontend.upstreams',
     'frontend.info',
     'frontend.plugins',

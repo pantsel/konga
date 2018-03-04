@@ -17,7 +17,6 @@
 
                 $scope.node = _node;
 
-                console.log("$$$$$$$$$$$$$$$$$$$", $scope.node);
                 $scope.active = ['default','key_auth','jwt'].indexOf($scope.node.type);
 
                 $scope.close = function(){
