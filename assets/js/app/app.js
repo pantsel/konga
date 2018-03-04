@@ -9,7 +9,6 @@
   // Create frontend module and specify dependencies for that
   angular.module('frontend', [
     'angular-spinkit',
-    'googlechart',
     //'frontend-templates',
     'frontend.core',
     'frontend.dashboard',

@@ -5084,6 +5084,11 @@ a.thumbnail.active {
   background-color: $brand-warning;
   border-color: $brand-warning;
   color: #fff;
+
+  a {
+    color: #fff !important;
+    text-decoration: underline;
+  }
 }
 .alert-warning hr {
   border-top-color: #ffb67f;

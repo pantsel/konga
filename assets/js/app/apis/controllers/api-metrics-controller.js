@@ -18,6 +18,7 @@
         $scope.netdataApiUrl = "";
         $scope.chartFamilies = {};
 
+
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 

@@ -15,37 +15,66 @@
         <konga-loader message="Initializing..."></konga-loader>
     </div>
     <div class="col-md-12" ng-if="!initializing">
+
+        <div class="row margin-bottom">
+            <div class="col-md-12">
+                <button class="btn btn-sm btn-link" ng-class="{'btn-danger' : !statsd, 'btn-success': statsd}">
+                    statsd : <strong>{{statsd ? 'enabled' : 'not enabled'}}</strong>
+                </button>&nbsp;
+                <button class="btn btn-sm btn-link"
+                        ng-click="editNetdataUrl()"
+                        ng-class="{'btn-warning' : !netdataApiUrl, 'btn-success': netdataApiUrl}">
+                    <i class="mdi mdi-pencil"></i>&nbsp;
+                    Netdata URL: <strong>{{netdataApiUrl || 'not set'}}</strong>&nbsp;
+                </button>
+            </div>
+        </div>
+
         <div ng-if="error" class="alert alert-danger">
             <i class="mdi mdi-alert"></i>
             {{error}}
         </div>
         <div ng-if="!netdataApiUrl" class="alert alert-warning">
-            <i class="mdi mdi-alert"></i>
-            No <strong>netdata URL</strong> is set for this API or the current Kong Connection.
-            <a href="javascript:void(0)" ng-click="editActiveNode()">Click here to set it up</a>.
+            <h6 style="color: #fff" class="no-margin-top">
+                <i class="mdi mdi-alert"></i>
+                <strong>No netdata server is associated with this API or the current Kong Connection.</strong>
+            </h6>
+            <p>You can:</p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editActiveNode()">
+                Connect the current Kong node and all associated APIs to a netdata server.
+            </a>
+
+            </p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editNetdataUrl()">
+                Connect this API to a netdata server individually.
+            </a>
+            </p>
         </div>
         <div ng-if="!statsd" class="alert alert-warning">
             <i class="mdi mdi-alert"></i>
-            The <strong>statsd</strong> plugin must be enabled for this API.
+            You need to enable the <strong>statsd</strong> plugin on this API.
         </div>
         <div ng-if="!apiCharts.length && statsd && netdataApiUrl" class="alert alert-warning">
             <i class="mdi mdi-alert"></i>
-            No metrics where found for this API. Make sure you have configured netdata and the statsd plugin correctly.
+            No metrics where found for this API.
         </div>
 
 
-        <div ng-if="netdataApiUrl">
-            <p>
-                <strong class="margin-right">
-                    Netdata URL :
-                    <a href="{{netdataApiUrl}}" target="_blank">{{netdataApiUrl}}</a>
-                </strong>
-                <button class="btn btn-sm btn-link" ng-click="editNetdataUrl()">
-                    <i class="mdi mdi-pencil-box"></i>
-                    edit
-                </button>
-            </p>
-        </div>
+        <!--<div ng-if="netdataApiUrl">-->
+            <!--<p>-->
+                <!--<strong>-->
+                    <!--Netdata URL :-->
+                    <!--<a href="{{netdataApiUrl}}" target="_blank">{{netdataApiUrl}}</a>-->
+                <!--</strong>&nbsp;&nbsp;-->
+                <!--<button class="btn btn-sm btn-link" ng-click="editNetdataUrl()">-->
+                    <!--<i class="mdi mdi-pencil-box"></i>-->
+                    <!--edit-->
+                <!--</button>-->
+            <!--</p>-->
+        <!--</div>-->
+
 
         <uib-tabset active="active">
             <uib-tab index="$index" heading="{{key.toUpperCase()}}" ng-repeat="(key, charts) in chartFamilies">

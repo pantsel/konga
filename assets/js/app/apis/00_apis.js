@@ -4,7 +4,7 @@
   angular.module('frontend.apis', [
     'angular.chips',
     'ngFileUpload'
-  ]);
+  ])
 
   // Module configuration
   angular.module('frontend.apis')
