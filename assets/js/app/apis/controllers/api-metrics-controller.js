@@ -8,9 +8,9 @@
 
   angular.module('frontend.apis')
     .controller('ApiMetricsController', [
-      '_','$scope','$rootScope', '$log', '$state','$stateParams','ApiService','$uibModal',
+      '_','$scope','$rootScope', '$log', '$state','$stateParams','ApiService','$uibModal','InfoService',
       'PluginsService','MessageService','SettingsService','$http','UserService', 'NetdataConnection',
-      function controller(_,$scope,$rootScope, $log, $state, $stateParams, ApiService,$uibModal,
+      function controller(_,$scope,$rootScope, $log, $state, $stateParams, ApiService,$uibModal, InfoService,
                           PluginsService,MessageService,SettingsService,$http,UserService,NetdataConnection) {
 
 
@@ -22,22 +22,38 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
-
         function drawChart() {
           $scope.initializing = true;
           $scope.error = "";
           // Load the plugins assigned to this api
-          PluginsService.load({api_id: $stateParams.api_id})
-            .then(function (response) {
+
+
+          PluginsService.load({name: 'statsd'})
+            .then(function (resp) {
               $scope.loadingPlugins = false;
-              $scope.statsd = _.find(response.data.data, function (item) {
-                return item.name === 'statsd' && item.enabled;
-              });
+
+              var statsdPlugins = resp.data.data;
+              if(statsdPlugins.length) {
+                var global = _.find(statsdPlugins, function (plugin) {
+                  return !plugin.api_id && plugin.enabled;
+                });
+
+                var thisApi = _.find(statsdPlugins, function (plugin) {
+                  return plugin.api_id === $scope.api.id && plugin.enabled;
+                });
+
+                $scope.statsd = thisApi || global;
+              }
+
+              if(!$scope.statsd) {
+                $scope.initializing = false;
+                return false;
+              }
 
               NetdataConnection.load({apiId: $scope.api.id})
                 .then(function (results) {
                   $scope.netdataApiUrl = results.length ? results[0].url : UserService.user().node.netdata_url;
-                  if($scope.statsd && $scope.netdataApiUrl) {
+                  if($scope.netdataApiUrl) {
 
                     var chartsListUrl = $scope.netdataApiUrl+ '/api/v1/charts';
                     $http.get(chartsListUrl , {noAuth : true})
