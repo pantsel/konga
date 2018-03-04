@@ -44,32 +44,34 @@
                     <div class="panel-title">
                         <i class="mdi mdi-lan-connect"></i>&nbsp;
                         CONNECTIONS
-                        <span class="pull-right">Total Requests: <strong>{{convert2Unit(status.server.total_requests)}}</strong></span>
+                        <span class="pull-right" uib-tooltip="{{status.server.total_requests}}">
+                            Total Requests: <strong>{{convert2Unit(status.server.total_requests)}}</strong>
+                        </span>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="row text-center">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_active}}">
                             <strong>ACTIVE</strong>
                             <h3>{{convert2Unit(status.server.connections_active)}}</h3>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_reading}}">
                             <strong>READING</strong>
                             <h3>{{convert2Unit(status.server.connections_reading)}}</h3>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_writing}}">
                             <strong>WRITING</strong>
                             <h3>{{convert2Unit(status.server.connections_writing)}}</h3>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_waiting}}">
                             <strong>WAITING</strong>
                             <h3>{{convert2Unit(status.server.connections_waiting)}}</h3>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_accepted}}">
                             <strong>ACCEPTED</strong>
                             <h3>{{convert2Unit(status.server.connections_accepted)}}</h3>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_handled}}">
                             <strong>HANDLED</strong>
                             <h3>{{convert2Unit(status.server.connections_handled)}}</h3>
                         </div>

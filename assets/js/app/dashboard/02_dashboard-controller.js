@@ -31,9 +31,11 @@
 
           $scope.convert2Unit = function(number) {
               if(number >= 1000000) {
-                return (number/1000000).toFixed(2) + "M";
+                return Math.trunc(number/1000000) + "M+";
+              }else if(number >= 1000){
+                return Math.trunc(number/1000) + "K+";
               }else{
-                  return number.toString();
+                return number.toString();
               }
           }
 
