@@ -2,11 +2,11 @@
 <div class="row">
     <div class="col-md-3" data-ng-repeat="acl in acls">
         <div
-                class="panel panel-default panel-flat elipsize">
+                class="panel panel-default panel-flat elipsize" style="background: #fff">
             <i
                     data-ng-click="deleteGroup(acl)"
                     class="mdi mdi-close clickable pull-right margin-top margin-right"></i>
-            <div class="panel-body" style="padding-right: 30px;background: #fff">
+            <div class="panel-body elipsize">
                         <span class=" no-wrap ">
                             <i class="mdi mdi-account-multiple-outline"></i>
                             <strong>{{acl.group}}</strong>
