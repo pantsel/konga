@@ -811,6 +811,11 @@ tr.disabled{
   min-height: 34px;
 }
 
+
+chips > div > input {
+  width: 100%;
+}
+
 //.iln-match-height  .panel {
 //  height: 100%; !important;
 //}
