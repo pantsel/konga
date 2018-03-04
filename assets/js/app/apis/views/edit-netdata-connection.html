@@ -1,0 +1,45 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        <i class="mdi mdi-chart-bar"></i>
+        netdata URL
+        <a class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h5>
+    <p class="help-block no-margin">
+        Update netdata URL for {{api.name}}
+    </p>
+</div>
+<div class="modal-body">
+    <div ng-if="error" class="alert alert-danger">
+        {{error}}
+        <a class="modal-close pull-right" ng-click="closeErrorAlert()">
+            <i class="mdi mdi-close" style="color:#fff"></i>
+        </a>
+    </div>
+    <div ng-if="message" class="alert alert-info">
+        {{message}}
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="netdataConnection.url" placeholder="Type your netdata server's URL...">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="submit" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="submit()">
+                    <i class="mdi mdi-check" ng-if="!busy"></i>
+                    <fading-circle-spinner class="spinner spinner-invert pull-left"
+                                           ng-if="busy"></fading-circle-spinner>
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

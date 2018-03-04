@@ -32,6 +32,21 @@
             <i class="mdi mdi-alert"></i>
             No metrics where found for this API. Make sure you have configured netdata and the statsd plugin correctly.
         </div>
+
+
+        <div ng-if="netdataApiUrl">
+            <p>
+                <strong class="margin-right">
+                    Netdata URL :
+                    <a href="{{netdataApiUrl}}" target="_blank">{{netdataApiUrl}}</a>
+                </strong>
+                <button class="btn btn-sm btn-link" ng-click="editNetdataUrl()">
+                    <i class="mdi mdi-pencil-box"></i>
+                    edit
+                </button>
+            </p>
+        </div>
+
         <uib-tabset active="active">
             <uib-tab index="$index" heading="{{key.toUpperCase()}}" ng-repeat="(key, charts) in chartFamilies">
                 <br>

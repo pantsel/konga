@@ -18,14 +18,15 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       unique: true,
       autoIncrement: true
     },
-    name: {
-      type: 'string',
-      required: true,
-      unique: true
-    },
+    // name: {
+    //   type: 'string',
+    //   required: true,
+    //   unique: true
+    // },
 
-    apis: {
-      type: 'json'
+    apiId: {
+      type: 'string',
+      required: true
     },
 
     url: {
