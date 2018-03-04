@@ -8,9 +8,9 @@
 
   angular.module('frontend.apis')
     .controller('ApiMetricsController', [
-      '_','$scope','$rootScope', '$log', '$state','$stateParams','ApiService',
+      '_','$scope','$rootScope', '$log', '$state','$stateParams','ApiService','$uibModal',
       'PluginsService','MessageService','SettingsService','$http','UserService',
-      function controller(_,$scope,$rootScope, $log, $state, $stateParams, ApiService,
+      function controller(_,$scope,$rootScope, $log, $state, $stateParams, ApiService,$uibModal,
                           PluginsService,MessageService,SettingsService,$http,UserService) {
 
 
@@ -25,7 +25,7 @@
 
 
         function drawChart() {
-
+          $scope.initializing = true;
           $scope.error = "";
           // Load the plugins assigned to this api
           PluginsService.load({api_id: $stateParams.api_id})
@@ -107,6 +107,32 @@
             });
           }, 1000);
         }
+
+
+
+        $scope.editActiveNode = function() {
+          $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'js/app/connections/create-connection-modal.html',
+            controller: 'EditConnectionController',
+            resolve: {
+              _node: function () {
+                return UserService.user().node;
+              }
+            }
+          });
+        };
+
+
+
+        $scope.$on('kong.node.updated', function (ev, node) {
+          if(UserService.user().node && UserService.user().node.id === node.id) {
+            $scope.netdataApiUrl = UserService.user().node.netdata_url;
+            drawChart();
+          }
+        });
 
 
 

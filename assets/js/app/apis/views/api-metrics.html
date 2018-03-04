@@ -22,7 +22,7 @@
         <div ng-if="!netdataApiUrl" class="alert alert-warning">
             <i class="mdi mdi-alert"></i>
             No <strong>netdata URL</strong> is set for this API or the current Kong Connection.
-            Click here to set it up.
+            <a href="javascript:void(0)" ng-click="editActiveNode()">Click here to set it up</a>.
         </div>
         <div ng-if="!statsd" class="alert alert-warning">
             <i class="mdi mdi-alert"></i>

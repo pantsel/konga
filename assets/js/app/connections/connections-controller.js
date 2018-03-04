@@ -410,7 +410,9 @@
 
         $scope.$on('kong.node.updated', function (ev, node) {
           _triggerFetchData();
-          //updateUserNode(node.active ? node : null)
+          if(UserService.user().node && node.id === UserService.user().node.id) {
+            updateUserNode(node);
+          }
         })
 
         $scope.$on('kong.node.deactivated', function (ev, node) {
