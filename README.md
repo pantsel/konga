@@ -44,7 +44,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-Konga is fully compatible with Kong 0.11.x,0.12.x. It may work on older versions as well although thry are not supported.
+Konga is fully compatible with Kong 0.11.x,0.12.x. It may work with older versions as well but they are not supported.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
