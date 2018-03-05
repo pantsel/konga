@@ -45,15 +45,11 @@
                 $scope.statsd = thisApi || global;
               }
 
-              if(!$scope.statsd) {
-                $scope.initializing = false;
-                return false;
-              }
 
               NetdataConnection.load({apiId: $scope.api.id})
                 .then(function (results) {
                   $scope.netdataApiUrl = results.length ? results[0].url : UserService.user().node.netdata_url;
-                  if($scope.netdataApiUrl) {
+                  if($scope.netdataApiUrl && $scope.statsd) {
 
                     var chartsListUrl = $scope.netdataApiUrl+ '/api/v1/charts';
                     $http.get(chartsListUrl , {noAuth : true})
@@ -63,16 +59,29 @@
 
                         // Filter only the charts of this API
                         $scope.apiCharts = [];
-                        for(var key in $scope.netDataCharts.charts) {
-                          if($scope.netDataCharts.charts.hasOwnProperty(key) &&
-                            key.indexOf($scope.statsd.config.prefix) > -1 &&
-                            key.split(".")[1] === $scope.api.name) {
-                            if(!$scope.chartFamilies[$scope.netDataCharts.charts[key].family]) {
-                              $scope.chartFamilies[$scope.netDataCharts.charts[key].family] = [];
+                        if($scope.netDataCharts instanceof Array) {
+                          // The response came as an array.
+                          // We assume that it contains multiple hosts of a cluster
+                          // ToDo
+                        }else{
+                          for(var key in $scope.netDataCharts.charts) {
+                            if($scope.netDataCharts.charts.hasOwnProperty(key) &&
+                              key.indexOf($scope.statsd.config.prefix) > -1 &&
+                              key.split(".")[1] === $scope.api.name) {
+
+                              // Add hostname in the chart object so we can filter by host later
+                              $scope.netDataCharts.charts[key].hostname = $scope.netDataCharts.hostname;
+
+                              if(!$scope.chartFamilies[$scope.netDataCharts.charts[key].family]) {
+                                $scope.chartFamilies[$scope.netDataCharts.charts[key].family] = [];
+                              }
+                              $scope.apiCharts.push($scope.netDataCharts.charts[key]);
+
+                              $scope.chartFamilies[$scope.netDataCharts.charts[key].family].push($scope.netDataCharts.charts[key]);
                             }
-                            $scope.apiCharts.push($scope.netDataCharts.charts[key]);
-                            $scope.chartFamilies[$scope.netDataCharts.charts[key].family].push($scope.netDataCharts.charts[key]);
                           }
+
+                          console.log("!!!!!!!!!!!!!!!!!", $scope.chartFamilies);
                         }
 
                         $scope.initializing = false;
@@ -125,6 +134,18 @@
             });
           }, 1000);
         }
+
+
+        $scope.getHostGroups = function () {
+          var groupArray = [];
+          angular.forEach($scope.apiCharts, function (item, idx) {
+            if (groupArray.indexOf(item.hostname) === -1) {
+              groupArray.push(item.hostname);
+            }
+          });
+
+          return groupArray.sort();
+        };
 
 
         $scope.editActiveNode = function() {

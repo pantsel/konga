@@ -62,45 +62,17 @@
         </div>
 
 
-        <!--<div ng-if="netdataApiUrl">-->
-            <!--<p>-->
-                <!--<strong>-->
-                    <!--Netdata URL :-->
-                    <!--<a href="{{netdataApiUrl}}" target="_blank">{{netdataApiUrl}}</a>-->
-                <!--</strong>&nbsp;&nbsp;-->
-                <!--<button class="btn btn-sm btn-link" ng-click="editNetdataUrl()">-->
-                    <!--<i class="mdi mdi-pencil-box"></i>-->
-                    <!--edit-->
-                <!--</button>-->
-            <!--</p>-->
-        <!--</div>-->
-
-
         <uib-tabset active="active">
             <uib-tab index="$index" heading="{{key.toUpperCase()}}" ng-repeat="(key, charts) in chartFamilies">
                 <br>
-                <div id="chart_{{chart.id}}"
-                     ng-init="initRepeaterItem($index, chart)"
-                     ng-repeat="chart in charts" style="width: 100%; height: 250px;"></div>
-
+                <div ng-repeat="hostname in getHostGroups()">
+                    <h5>Host: {{hostname}}</h5>
+                    <div id="chart_{{chart.id}}"
+                         ng-init="initRepeaterItem($index, chart) | filter : {'hostname':hostname}"
+                         ng-repeat="chart in charts" style="width: 100%; height: 250px;"></div>
+                </div>
             </uib-tab>
-
-
         </uib-tabset>
-
-        <!--<pre>{{metrics | json}}</pre>-->
-        <!--<div google-chart-->
-             <!--chart="chart"-->
-             <!--url="netdataApiUrl"-->
-             <!--ng-repeat="chart in apiCharts" style="width: 100%; height: 500px;"></div>-->
-        <!--<div id="chart_{{chart.id}}"-->
-             <!--ng-init="initRepeaterItem($index, chart)"-->
-             <!--ng-repeat="chart in apiCharts" style="width: 100%; height: 250px;"></div>-->
-
-
-        <!--<div google-chart chart="chart"-->
-             <!--ng-repeat="chart in apiCharts"-->
-             <!--style="height:500px; width:100%;"></div>-->
     </div>
 </div>
 
