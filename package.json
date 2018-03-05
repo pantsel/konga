@@ -42,7 +42,7 @@
     "lodash": "3.10.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "moment": "^2.18.1",
+    "moment": "^2.21.0",
     "mongodb": "^2.2.11",
     "mysql": "^2.11.1",
     "node-cron": "^1.1.3",
