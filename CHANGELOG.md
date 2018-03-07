@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 07-03-2018
+
+* Added passive healtchecks configuration in upstreams
+
 
 ## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 03-03-2018
 
