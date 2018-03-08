@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.4](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
+
+* Better assets caching
+
 ## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 07-03-2018
 
 * Added passive healtchecks configuration in upstreams
