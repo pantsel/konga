@@ -23,7 +23,7 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl : 'js/app/upstreams/index.html',
+                                templateUrl : 'js/app/upstreams/index.html?v=' + window.konga_version,
                                 controller  : 'UpstreamsController'
                             }
                         }
@@ -38,15 +38,15 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl : 'js/app/upstreams/edit.html',
+                                templateUrl : 'js/app/upstreams/edit.html?v=' + window.konga_version,
                                 controller: 'EditUpstreamController',
                             },
                             'details@upstreams.edit': {
-                                templateUrl: 'js/app/upstreams/edit-details.html',
+                                templateUrl: 'js/app/upstreams/edit-details.html?v=' + window.konga_version,
                                 controller:'EditUpstreamDetailsController',
                             },
                             'targets@upstreams.edit': {
-                                templateUrl: 'js/app/upstreams/targets/targets.html',
+                                templateUrl: 'js/app/upstreams/targets/targets.html?v=' + window.konga_version,
                                 controller: 'EditUpstreamTargetsController',
                             },
                         }
