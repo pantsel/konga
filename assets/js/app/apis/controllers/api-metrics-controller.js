@@ -14,6 +14,7 @@
                           PluginsService,MessageService,SettingsService,$http,UserService,NetdataConnection) {
 
 
+
         $scope.initializing = true;
         $scope.netdataApiUrl = "";
         $scope.chartFamilies = {};
@@ -54,37 +55,21 @@
                     var chartsListUrl = $scope.netdataApiUrl+ '/api/v1/charts';
                     $http.get(chartsListUrl , {noAuth : true})
                       .then(function success(result){
-                        console.log("ApiMetricsController => Retrieved charts list", result);
-                        $scope.netDataCharts = result.data;
 
-                        // Filter only the charts of this API
-                        $scope.apiCharts = [];
-                        if($scope.netDataCharts instanceof Array) {
-                          // The response came as an array.
-                          // We assume that it contains multiple hosts of a cluster
-                          // ToDo
-                        }else{
-                          for(var key in $scope.netDataCharts.charts) {
-                            if($scope.netDataCharts.charts.hasOwnProperty(key) &&
-                              key.indexOf($scope.statsd.config.prefix) > -1 &&
-                              key.split(".")[1] === $scope.api.name) {
-
-                              // Add hostname in the chart object so we can filter by host later
-                              $scope.netDataCharts.charts[key].hostname = $scope.netDataCharts.hostname;
-
-                              if(!$scope.chartFamilies[$scope.netDataCharts.charts[key].family]) {
-                                $scope.chartFamilies[$scope.netDataCharts.charts[key].family] = [];
-                              }
-                              $scope.apiCharts.push($scope.netDataCharts.charts[key]);
-
-                              $scope.chartFamilies[$scope.netDataCharts.charts[key].family].push($scope.netDataCharts.charts[key]);
-                            }
-                          }
-
-                          console.log("!!!!!!!!!!!!!!!!!", $scope.chartFamilies);
-                        }
-
+                        $scope.hosts = result.data.hosts;
                         $scope.initializing = false;
+                        $scope.activeHost = result.data.hosts[0];
+                        $scope.loadingHostCharts = true;
+
+                        console.log("$scope.statsd.config",$scope.statsd.config);
+
+
+                        getHostCharts($scope.activeHost);
+
+                        console.log("ApiMetricsController => Retrieved hosts", $scope.hosts);
+
+
+                        // $scope.initializing = false;
 
                       },function error(error){
                         console.error("ApiMetricsController => Failed to retrieved charts list", error);
@@ -107,6 +92,37 @@
           });
         }
 
+
+        function getHostCharts(host) {
+          $http.get($scope.netdataApiUrl+ '/host/' + host.hostname + '/api/v1/charts' , {noAuth : true})
+            .then(function success(result){
+
+              host.charts = result.data.charts;
+
+              for(var key in host.charts) {
+                if(host.charts[key].id.indexOf($scope.statsd.config.prefix) < 0 ||
+                  host.charts[key].id.indexOf($scope.api.name) < 0) {
+                  delete host.charts[key];
+                }else{
+                  if(!$scope.chartFamilies[host.charts[key].family]) {
+                    $scope.chartFamilies[host.charts[key].family] = [];
+                  }
+
+                  $scope.chartFamilies[host.charts[key].family].push(host.charts[key]);
+                }
+              }
+
+              $scope.loadingHostCharts = false;
+
+            }).catch(function (error) {
+            console.error("Failed to load charts of host " + host.hostname);
+            $scope.initializing = false;
+            $scope.loadingHostCharts = false;
+            $scope.error = error.message;
+          });
+        }
+
+
         $scope.initRepeaterItem = function(index, _chart) {
           setTimeout(function() {
             addChart(_chart);
@@ -122,10 +138,62 @@
           var chart = new google.visualization.AreaChart(document.getElementById('chart_' +  _chart.id));
           var options = {
             title:  _chart.title,
-            isStacked: 'false',
-            vAxis: {minValue: 100},
             selectionMode: 'multiple',
-            displayAnnotations: true
+            // do not set width, height - the chart resizes itself
+            //width: state.chartWidth(),
+            //height: state.chartHeight(),
+            lineWidth: 1,
+            fontSize: 11,
+            hAxis: {
+              //  title: "Time of Day",
+              //  format:'HH:mm:ss',
+              viewWindowMode: 'maximized',
+              slantedText: false,
+              format:'HH:mm:ss',
+              textStyle: {
+                fontSize: 9
+              },
+              gridlines: {
+                color: '#EEE'
+              }
+            },
+            vAxis: {
+              viewWindowMode: 'maximized',
+              minValue: 100,
+              direction: 1,
+              textStyle: {
+                fontSize: 9
+              },
+              gridlines: {
+                color: '#EEE'
+              }
+            },
+            // chartArea: {
+            //   width: '65%',
+            //   height: '80%'
+            // },
+            focusTarget: 'category',
+            annotation: {
+              '1': {
+                style: 'line'
+              }
+            },
+            pointsVisible: 0,
+            titlePosition: 'out',
+            titleTextStyle: {
+              fontSize: 11
+            },
+            tooltip: {
+              isHtml: false,
+              ignoreBounds: true,
+              textStyle: {
+                fontSize: 9
+              }
+            },
+            curveType: 'function',
+            areaOpacity: 0.3,
+            isStacked: false
+
           };
 
           setInterval(function() {
