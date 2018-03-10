@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
+
+* **[Enhancement]** [netdata](https://github.com/firehol/netdata) integration.
+Utilize the power of statsd & netdata for real-time API metrics.
+* Minor fixes and improvements.
+
 ## [0.10.4](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
 
 * Better assets caching
