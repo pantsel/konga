@@ -18,17 +18,16 @@
         $scope.initializing = true;
         $scope.netdataApiUrl = "";
         $scope.chartFamilies = {};
+        $scope.intervals = {};
 
 
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(initDrawingCharts);
 
-        function drawChart() {
+        function initDrawingCharts() {
           $scope.initializing = true;
           $scope.error = "";
           // Load the plugins assigned to this api
-
-
           PluginsService.load({name: 'statsd'})
             .then(function (resp) {
               $scope.loadingPlugins = false;
@@ -55,22 +54,11 @@
                     var chartsListUrl = $scope.netdataApiUrl+ '/api/v1/charts';
                     $http.get(chartsListUrl , {noAuth : true})
                       .then(function success(result){
-
                         $scope.hosts = result.data.hosts;
                         $scope.initializing = false;
                         $scope.activeHost = result.data.hosts[0];
                         $scope.loadingHostCharts = true;
-
-                        console.log("$scope.statsd.config",$scope.statsd.config);
-
-
                         getHostCharts($scope.activeHost);
-
-                        console.log("ApiMetricsController => Retrieved hosts", $scope.hosts);
-
-
-                        // $scope.initializing = false;
-
                       },function error(error){
                         console.error("ApiMetricsController => Failed to retrieved charts list", error);
                         $scope.initializing = false;
@@ -115,27 +103,44 @@
               $scope.loadingHostCharts = false;
 
             }).catch(function (error) {
-            console.error("Failed to load charts of host " + host.hostname);
             $scope.initializing = false;
             $scope.loadingHostCharts = false;
             $scope.error = error.message;
           });
         }
 
-
-        $scope.initRepeaterItem = function(index, _chart) {
-          setTimeout(function() {
-            addChart(_chart);
-          }, 10);
-
-
-        };
-
-
         function addChart(_chart) {
+          var chart;
           var query = new google.visualization.Query($scope.netdataApiUrl +
             _chart.data_url + '&after=-120&format=datasource&options=nonzero');
-          var chart = new google.visualization.AreaChart(document.getElementById('chart_' +  _chart.id));
+
+          switch (_chart.type) {
+            case "line":
+              chart = new google.visualization.LineChart(document.getElementById('chart_' +  _chart.id));
+              break;
+            default:
+              chart = new google.visualization.AreaChart(document.getElementById('chart_' +  _chart.id));
+          }
+
+
+          // Listen to `onmouseover`,`onmouseout` events
+
+          google.visualization.events.addListener(chart, 'onmouseover', function (row, column) {
+            if($scope.intervals[_chart.id]) {
+              clearInterval($scope.intervals[_chart.id]);
+            }
+          });
+
+          google.visualization.events.addListener(chart, 'onmouseout', function (row, column) {
+            setChartQueryInterval(query,_chart);
+          });
+
+
+          setChartQueryInterval(query,_chart);
+
+        }
+
+        function setChartQueryInterval(query,c) {
           var options = {
             title:  _chart.title,
             selectionMode: 'multiple',
@@ -195,8 +200,7 @@
             isStacked: false
 
           };
-
-          setInterval(function() {
+          $scope.intervals[c.id] = setInterval(function() {
             query.send(function(data) {
               chart.draw(data.getDataTable(), options);
             });
@@ -204,6 +208,13 @@
         }
 
 
+        $scope.initRepeaterItem = function(index, _chart) {
+          setTimeout(function() {
+            addChart(_chart);
+          }, 10);
+
+
+        };
         $scope.getHostGroups = function () {
           var groupArray = [];
           angular.forEach($scope.apiCharts, function (item, idx) {
@@ -214,8 +225,6 @@
 
           return groupArray.sort();
         };
-
-
         $scope.editActiveNode = function() {
           $uibModal.open({
             animation: true,
@@ -230,8 +239,6 @@
             }
           });
         };
-
-
         $scope.editNetdataUrl = function () {
           $uibModal.open({
             animation: true,
@@ -319,27 +326,30 @@
               }
             }
           });
-        }
-
-
-
+        };
         $scope.$on('kong.node.updated', function (ev, node) {
           if(UserService.user().node && UserService.user().node.id === node.id) {
             $scope.netdataApiUrl = UserService.user().node.netdata_url;
-            drawChart();
+            initDrawingCharts();
           }
         });
-
         $scope.$on('api.' + $scope.api.id + '.netdataConnection.updated', function (ev, connection) {
           if($scope.netdataApiUrl !== connection.url) {
             $scope.netdataApiUrl = connection.url;
-            drawChart();
+            initDrawingCharts();
           }
         });
-
         $scope.$on('api.' + $scope.api.id + '.netdataConnection.deleted', function (ev, connection) {
           $scope.netdataApiUrl = UserService.user().node.netdata_url;
-          drawChart();
+          initDrawingCharts();
+        });
+        $scope.$on('$destroy', function() {
+          // Clear intervals
+          for(var key in $scope.intervals) {
+            if($scope.intervals.hasOwnProperty(key)) {
+              clearInterval($scope.intervals[key]);
+            }
+          }
         });
 
       }
