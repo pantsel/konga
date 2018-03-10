@@ -119,7 +119,8 @@
                             </select>
                         </div>
                         <div data-ng-if="!value.enum">
-                            <input type="text" ng-model="value.value" class="form-control">
+                            <!--<input type="text" ng-model="value.value" class="form-control">-->
+                            <textarea ng-model="value.value" class="form-control"></textarea>
                         </div>
                     </div>
                     <div ng-switch-when="array">

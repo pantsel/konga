@@ -46,7 +46,7 @@
     // Provider to disable UI routers template caching
     .config(['$provide', function ($provide) {
       // Set a suffix outside the decorator function
-      var cacheBuster = Date.now().toString();
+      var cacheBuster = window.konga_version;
 
       function templateFactoryDecorator($delegate) {
         var fromUrl = angular.bind($delegate, $delegate.fromUrl);

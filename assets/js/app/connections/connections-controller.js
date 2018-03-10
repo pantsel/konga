@@ -136,7 +136,9 @@
                       _triggerFetchData()
                     }
                   }
-                )
+                ).catch(function(error){
+                  console.error("Failed to delete node", error);
+              })
               ;
             }, function decline() {
             })
