@@ -41,40 +41,34 @@
                     </select>
                 </div>
             </div>
-
-            <div ng-if="error" class="alert alert-danger">
-                <i class="mdi mdi-alert"></i>
-                {{error}}
-            </div>
-            <div ng-if="!netdataApiUrl" class="alert alert-warning">
-                <h6 style="color: #fff" class="no-margin-top">
-                    <i class="mdi mdi-alert"></i>
-                    <strong>No netdata server is associated with this API or the current Kong Connection.</strong>
-                </h6>
-                <p>You can:</p>
-                <p>
-                    - <a href="javascript:void(0)" ng-click="editActiveNode()">
-                    Connect the current Kong node and all associated APIs to a netdata server.
-                </a>
-
-                </p>
-                <p>
-                    - <a href="javascript:void(0)" ng-click="editNetdataUrl()">
-                    Connect this API to a netdata server individually.
-                </a>
-                </p>
-            </div>
-            <div ng-if="!statsd" class="alert alert-warning">
-                <i class="mdi mdi-alert"></i>
-                You need to enable the <strong>statsd</strong> plugin on this API or globally.
-            </div>
-
         </div>
 
-        <!--<div ng-if="!apiCharts.length && statsd && netdataApiUrl" class="alert alert-warning">-->
-        <!--<i class="mdi mdi-alert"></i>-->
-        <!--No metrics where found for this API.-->
-        <!--</div>-->
+        <div ng-if="error" class="alert alert-danger">
+            <i class="mdi mdi-alert"></i>
+            {{error}}
+        </div>
+        <div ng-if="!netdataApiUrl" class="alert alert-warning">
+            <h6 style="color: #fff" class="no-margin-top">
+                <i class="mdi mdi-alert"></i>
+                <strong>No netdata server is associated with this API or the current Kong Connection.</strong>
+            </h6>
+            <p>You can:</p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editActiveNode()">
+                Connect the current Kong node and all associated APIs to a netdata server.
+            </a>
+
+            </p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editNetdataUrl()">
+                Connect this API to a netdata server individually.
+            </a>
+            </p>
+        </div>
+        <div ng-if="!statsd" class="alert alert-warning">
+            <i class="mdi mdi-alert"></i>
+            You need to enable the <strong>statsd</strong> plugin on this API or globally.
+        </div>
 
         <div class="col-md-12" ng-if="loadingHostCharts">
             <konga-loader message="Loading metrics of {{activeHost.hostname}}..."></konga-loader>
