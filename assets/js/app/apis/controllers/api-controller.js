@@ -35,7 +35,7 @@
             isVisible: true
           },
           {
-            name: 'Metrics',
+            name: 'Metrics<span class="badge badge-danger pull-right">beta</span>',
             icon: 'mdi mdi-chart-bar',
             isVisible: true
           }
