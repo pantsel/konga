@@ -18,6 +18,7 @@
 
         $scope.netdataApiUrl = "";
         $scope.intervals = {};
+        $scope.initializing = true;
 
         $scope.initRepeaterItem = function(index, _chart) {
           setTimeout(function() {
