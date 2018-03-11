@@ -23,7 +23,8 @@
     'frontend.apis',
     'frontend.connections',
     'frontend.snapshots',
-    'frontend.cluster'
+    'frontend.cluster',
+    'frontend.healthchecks'
 
   ]);
 

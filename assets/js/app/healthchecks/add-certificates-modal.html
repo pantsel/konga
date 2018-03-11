@@ -1,0 +1,69 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        {{data.id ? 'Certificate Details' : 'Add Certificate'}}
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+    </h5>
+</div>
+
+<div class="modal-body">
+    <div class="alert alert-danger" ng-if="errorMessage || errors.message">
+        {{errorMessage || errors.message}}
+    </div>
+    <div class="form-group" ng-class="{'has-error' : errors.cert}">
+        <label class="control-label">Certificate</label>
+        <pre ng-if="data.id">{{data.cert}}</pre>
+        <p class="help-block" ng-if="!data.id">Upload the certificate file</p>
+        <input type="file"
+               ngf-select ng-model="data.cert" name="data.value" ng-if="!data.id"
+        />
+        <div class="text-danger" ng-if="errors.cert" data-ng-bind="errors.cert"></div>
+    </div>
+    <hr>
+    <div class="form-group" ng-class="{'has-error' : errors.key}">
+        <label class="control-label">Key</label>
+        <pre ng-if="data.id">{{data.key}}</pre>
+        <p class="help-block" ng-if="!data.id">Upload the certificate .key file</p>
+        <input type="file" ng-if="!data.id"
+               ngf-select ng-model="data.key" name="data.value"
+        />
+        <div class="text-danger" ng-if="errors.key" data-ng-bind="errors.key"></div>
+    </div>
+    <hr>
+    <div class="form-group" ng-class="{'has-error' : errors.snis}" ng-if="!data.id">
+        <label class="control-label">Server Name Indications</label>
+        <p class="help-block">A comma separated list of Server Name Indications. ex: <code>ssl-example.com,other-ssl-example.com</code></p>
+        <input type="text"
+               class="form-control"
+               ng-disabled="data.id"
+               ng-model="data.snis" name="data.value"
+        />
+        <div class="text-danger" ng-if="errors.snis" data-ng-bind="errors.snis"></div>
+    </div>
+    <div class="form-group" ng-if="data.id">
+        <label class="control-label">Server Name Indications</label>
+        <p></p>
+        <span ng-repeat="sni in data.snis" class="label label-default">
+            <span style="vertical-align: text-top">{{sni}}</span>&nbsp;
+            <i class="mdi mdi-close clickable" ng-click="deleteSNI(sni)"></i>
+        </span>
+        <button type="button" class="btn btn-sm btn-link" ng-click="openAddSniModal()">
+            <i class="mdi mdi-plus" style="vertical-align: super"></i>&nbsp;
+            <span style="vertical-align: super">ADD SNI</span>
+        </button>
+    </div>
+    <div class="form-group">
+        <button type="text"
+                ng-if="!data.id"
+                data-ng-disabled="uploading"
+                class="btn btn-primary btn-block" data-ng-click="submitCerts()">
+            {{data.id ? 'Update' : 'Submit'}} Certificates
+        </button>
+        <button type="text"
+                ng-if="data.id"
+                class="btn btn-primary btn-block" data-ng-click="close()">
+            ok
+        </button>
+    </div>
+</div>

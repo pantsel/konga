@@ -436,7 +436,44 @@
               inSearch: true,
               inTitle: true
             }
-          ]
+          ],
+          hc: [
+            {
+              title: '',
+              column: 'active',
+              sortable: true
+            },
+            {
+              title: 'api',
+              column: 'api.name',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'hc endpoint',
+              column: 'health_check_endpoint',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'notification endpoint',
+              column: 'notification_endpoint',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Created',
+              column: 'created_at',
+              class: 'col-xs-2',
+              sortable: false
+            }
+          ],
         };
 
         return {
