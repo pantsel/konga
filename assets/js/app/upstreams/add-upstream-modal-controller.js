@@ -14,10 +14,12 @@
                           $uibModalInstance, Upstream, MessageService) {
 
         $scope.upstream = {
-          slots: 1000,
-          hash_on: 'none',
-          hash_fallback: 'none'
+          slots: 1000
+        }
 
+        if($rootScope.compareKongVersion('0.12.0') >= 0) {
+         $scope.upstream['hash_on'] = 'none';
+         $scope.upstream['hash_fallback'] = 'none';
         }
 
 
