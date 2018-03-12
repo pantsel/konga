@@ -58,7 +58,7 @@
                     </td>
                     <td><a data-ui-sref="consumers.edit({'id':consumer.id})"><strong>{{consumer.username || "-"}}</strong></a></td>
                     <td>{{consumer.custom_id || "-"}}</td>
-                    <td>{{moment(consumer.created_at).format("MMM DD YYYY @h:mm")}}</td>
+                    <td>{{moment(consumer.created_at).format("MMM DD YYYY @HH:mm")}}</td>
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
                         <button type="button"
                                 ng-click="deleteItem($index,consumer)" class="btn btn-danger btn-link">
