@@ -1,0 +1,24 @@
+<div class="modal-header primary">
+    <h4 class="modal-title" id="modal-title">
+        Create API
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+
+    </h4>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <form class="form-horizontal">
+        <div data-ng-include="partial"></div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-7">
+                <button type="submit" class="btn btn-primary btn-block" ng-click="submit()">
+                    <i class="mdi mdi-check"></i>
+                    Submit API
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

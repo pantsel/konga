@@ -46,6 +46,29 @@
                             sortable: true,
                         }
                     ],
+                    service: [
+                        {
+                            title: 'name',
+                            column: 'name',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'upstream url',
+                            column: 'upstream_url',
+                            searchable: true,
+                            sortable: true,
+                            inSearch: true,
+                            inTitle: true
+                        },
+                        {
+                            title: 'created',
+                            column: 'created_at',
+                            sortable: true,
+                        }
+                    ],
                     consumerApi: [
                         {
                             title: 'name',

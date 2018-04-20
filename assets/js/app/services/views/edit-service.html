@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li
+                    role="presentation"
+                    data-ng-show="section.isVisible"
+                    ng-class="{'active' : sections[activeSection].name == section.name }"
+                    data-ng-click="showSection($index)"
+                    data-ng-repeat="section in sections">
+                <a href>
+                    <i class="{{section.icon}}"></i>
+                    {{section.name}}
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-md-9">
+        <div data-ui-view="details" ng-show="activeSection == 0"></div>
+        <div data-ui-view="plugins" ng-show="activeSection == 1"></div>
+        <div data-ui-view="healthchecks" ng-show="activeSection == 2"></div>
+
+    </div>
+</div>
