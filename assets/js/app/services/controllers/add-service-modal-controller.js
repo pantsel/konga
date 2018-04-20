@@ -17,7 +17,7 @@
           var availableFormattedVersion = ServiceService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
           $scope.service = angular.copy(ServiceService.getProperties($rootScope.Gateway.version));
 
-          $scope.partial = 'js/app/services/partials/form-service-' + availableFormattedVersion + '.html?r=' + Date.now();
+          $scope.partial = 'js/app/services/partials/form-service-add-' + availableFormattedVersion + '.html?r=' + Date.now();
 
           $log.debug("$scope.service",$scope.service)
 

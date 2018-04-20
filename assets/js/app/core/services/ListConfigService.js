@@ -56,8 +56,8 @@
                             inTitle: true
                         },
                         {
-                            title: 'upstream url',
-                            column: 'upstream_url',
+                            title: 'host',
+                            column: 'host',
                             searchable: true,
                             sortable: true,
                             inSearch: true,

@@ -18,28 +18,16 @@
                  * Each key must have a respective .html file in /services/partials
                  */
                 var properties = {
-                    '09': {
+                    '013': {
                         name: '',
-                        request_host: '',
-                        request_path: '',
-                        strip_request_path: false,
-                        preserve_host: false,
-                        upstream_url: ''
-                    },
-                    '010': {
-                        name: '',
-                        hosts: '',
-                        uris: '',
-                        methods: '',
-                        strip_uri: true,
-                        preserve_host: false,
+                        host: '',
+                        protocol: '',
+                        port: 80,
+                        path: '',
                         retries: 5,
-                        upstream_connect_timeout: 60000,
-                        upstream_send_timeout: 60000,
-                        upstream_read_timeout: 60000,
-                        https_only: false,
-                        http_if_terminated: true,
-                        upstream_url: ''
+                        connect_timeout: 60000,
+                        write_timeout: 60000,
+                        read_timeout: 60000
                     }
                 }
 
