@@ -273,6 +273,15 @@
                         access: AccessLevels.user
                     },
                     {
+                        state: 'routes',
+                        show: function () {
+                           	return AuthService.hasPermission('routes', 'read') && $rootScope.Gateway
+                        },
+                        title: 'Routes',
+                        icon: 'mdi-cloud-outline',
+                        access: AccessLevels.user
+                    },
+                    {
                         state: 'apis',
                         show: function () {
                             return AuthService.hasPermission('apis', 'read') && $rootScope.Gateway
