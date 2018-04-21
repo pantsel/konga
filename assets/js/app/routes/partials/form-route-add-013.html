@@ -1,72 +1,68 @@
-<div class="form-group" ng-class="{'has-error' : errors.name}">
-    <label class="col-sm-4 control-label">Name <br><em><small class="help-block">optional</small></em></label>
+<div class="form-group" ng-class="{'has-error' : errors.hosts}">
+    <label class="col-sm-4 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="service.name" class="form-control">
-        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
-        <p class="help-block">The API name. If none is specified, will default to the <code>request_host</code> or <code>request_path</code>.</p>
+        <input ng-model="route.hosts" class="form-control">
+        <div class="text-danger" ng-if="errors.hosts" data-ng-bind="errors.hosts"></div>
+        <p class="help-block">A comma-separated list of domain names that point to your Route. For example: <code>example.com</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.host}">
-    <label class="col-sm-4 control-label">Host <br><em><small class="help-block">semi-optional</small></em></label>
+<div class="form-group" ng-class="{'has-error' : errors.uris}">
+    <label class="col-sm-4 control-label">Paths <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="service.host" class="form-control">
-        <div class="text-danger" ng-if="errors.host" data-ng-bind="errors.host"></div>
-        <p class="help-block">Your target API endpoint. For example: <code>example.com</code>.</p>
+        <input ng-model="route.paths" class="form-control">
+        <div class="text-danger" ng-if="errors.uris" data-ng-bind="errors.uris"></div>
+        <p class="help-block">A comma-separated list of URIs prefixes that point to your Route. For example: <code>/my-path</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.port}">
-    <label class="col-sm-4 control-label">Port <br><em><small class="help-block">semi-optional</small></em></label>
+<div class="form-group" ng-class="{'has-error' : errors.methods}">
+    <label class="col-sm-4 control-label">Methods <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input type="number" ng-model="service.port" class="form-control">
-        <div class="text-danger" ng-if="errors.port" data-ng-bind="errors.port"></div>
-        <p class="help-block">Your target API port. For example: <code>80</code>.</p>
+        <input ng-model="route.methods" class="form-control">
+        <div class="text-danger" ng-if="errors.methods" data-ng-bind="errors.methods"></div>
+        <p class="help-block">A comma-separated list of HTTP methods that point to your Route. For example: <code>GET</code>,<code>POST</code>. At least one of <code>hosts</code>, <code>uris</code>, or <code>methods</code> should be specified.</p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.path}">
-    <label class="col-sm-4 control-label">Path <br><em><small class="help-block">semi-optional</small></em></label>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Strip Path
+        <br><em><small class="help-block">optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="service.path" class="form-control">
-        <div class="text-danger" ng-if="errors.path" data-ng-bind="errors.path"></div>
-        <p class="help-block">Your target API path. For example: <code>/api</code>.</p>
+        <input
+
+                bs-switch
+                ng-model="route.strip_path"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            When matching a Path via one of the <code>paths</code> prefixes, strip that matching prefix from the upstream URI to be requested. Default: <code>true</code>.
+        </p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.protocol}">
-    <label class="col-sm-4 control-label">Protocol <br><em><small class="help-block">semi-optional</small></em></label>
+<div class="form-group">
+    <label class="col-sm-4 control-label">Preserve Host
+        <br><em><small class="help-block">optional</small></em></label>
     <div class="col-sm-7">
-        <input ng-model="service.protocol" class="form-control">
-        <div class="text-danger" ng-if="errors.protocol" data-ng-bind="errors.protocol"></div>
-        <p class="help-block">Your target API protocol. One of <code>http</code> or <code>https</code>.</p>
+        <input
+
+                bs-switch
+                ng-model="route.preserve_host"
+                switch-size="small"
+                type="checkbox"
+                switch-on-text="YES"
+                switch-off-text="NO"
+        >
+        <p class="help-block">
+            When matching a Route via one of the <code>hosts</code> domain names, make sure the request <code>Host</code> header is forwarded to the upstream service. By default, this is <code>false</code>, and the upstream <code>Host</code> header will be extracted from the configured <code>upstream_url</code>.
+        </p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.retries}">
-    <label class="col-sm-4 control-label">Retries <br><em><small class="help-block">optional</small></em></label>
+<div class="form-group" ng-class="{'has-error' : errors.uris}">
+    <label class="col-sm-4 control-label">Protocols <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-7">
-        <input type="number" ng-model="service.retries" class="form-control">
-        <div class="text-danger" ng-if="errors.retries" data-ng-bind="errors.retries"></div>
-        <p class="help-block">The number of retries to execute upon failure to proxy. The default is <code>5</code>.</p>
-    </div>
-</div>
-<div class="form-group" ng-class="{'has-error' : errors.connect_timeout}">
-    <label class="col-sm-4 control-label">Connect timeout <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-7">
-        <input type="number" ng-model="service.connect_timeout" class="form-control">
-        <div class="text-danger" ng-if="errors.connect_timeout" data-ng-bind="errors.connect_timeout"></div>
-        <p class="help-block">The timeout in milliseconds for establishing a connection to your upstream service. Defaults to <code>60000</code></p>
-    </div>
-</div>
-<div class="form-group" ng-class="{'has-error' : errors.write_timeout}">
-    <label class="col-sm-4 control-label">Write timeout <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-7">
-        <input type="number" ng-model="service.write_timeout" class="form-control">
-        <div class="text-danger" ng-if="errors.write_timeout" data-ng-bind="errors.write_timeout"></div>
-        <p class="help-block">The timeout in milliseconds between two successive write operations for transmitting a request to your upstream service. Defaults to <code>60000</code></p>
-    </div>
-</div>
-<div class="form-group" ng-class="{'has-error' : errors.read_timeout}">
-    <label class="col-sm-4 control-label">Read timeout <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-7">
-        <input type="number" ng-model="service.read_timeout" class="form-control">
-        <div class="text-danger" ng-if="errors.read_timeout" data-ng-bind="errors.read_timeout"></div>
-        <p class="help-block">The timeout in milliseconds between two successive read operations for transmitting a request to your upstream service. Defaults to <code>60000</code></p>
+        <input ng-model="route.protocols" class="form-control">
+        <div class="text-danger" ng-if="errors.uris" data-ng-bind="errors.uris"></div>
+        <p class="help-block">A comma-separated list of Protocols that point to your Route. For example: <code>http,https</code>. At least one of <code>http</code> or <code>https</code> should be specified.</p>
     </div>
 </div>

@@ -9,19 +9,21 @@
     angular.module('frontend.apis')
         .controller('AddPluginModalController', [
             '_','$scope', '$rootScope','$log',
-            '$state','ApiService','ConsumerService','MessageService','DialogService','Semver',
+            '$state','ApiService','ConsumerService', 'ServiceService','MessageService','DialogService','Semver',
             'KongPluginsService','PluginsService','$uibModal','$uibModalInstance',
-            '_consumer','_api',
+            '_consumer','_api', '_service', '_route',
             function controller(_,$scope,$rootScope, $log,
-                                $state, ApiService,ConsumerService, MessageService, DialogService, Semver,
+                                $state, ApiService,ConsumerService, ServiceService, MessageService, DialogService, Semver,
                                 KongPluginsService,PluginsService, $uibModal,$uibModalInstance,
-                                _consumer,_api ) {
+                                _consumer,_api,_service,_route ) {
 
 
                 var pluginOptions = new KongPluginsService().pluginOptions()
 
                 $scope.consumer = _consumer;
                 $scope.api = _api;
+                $scope.service = _service;
+                $scope.route = _route;
                 $scope.pluginOptions = pluginOptions
 
                 new KongPluginsService().makePluginGroups().then(function(groups){
@@ -98,6 +100,12 @@
                             _api : function() {
                                 return $scope.api;
                             },
+                            _service : function() {
+                                return $scope.service;
+                            },
+                            _route : function() {
+                                return $scope.route;
+                            },
                             _pluginName: function () {
                                 return name;
                             },
@@ -162,6 +170,30 @@
 
                     if($scope.consumer) {
                         ConsumerService.listPlugins($scope.consumer.id)
+                            .then(function(response){
+                                $scope.existingPlugins = response.data.data.map(function(item){
+                                    return item.name;
+                                });
+                            })
+                            .catch(function(err){
+
+                            });
+                    }
+                    
+                    if($scope.service) {
+                        ServiceService.listPlugins($scope.service.id)
+                            .then(function(response){
+                                $scope.existingPlugins = response.data.data.map(function(item){
+                                    return item.name;
+                                });
+                            })
+                            .catch(function(err){
+
+                            });
+                    }
+                    
+                    if($scope.route) {
+                        RouteService.listPlugins($scope.route.id)
                             .then(function(response){
                                 $scope.existingPlugins = response.data.data.map(function(item){
                                     return item.name;

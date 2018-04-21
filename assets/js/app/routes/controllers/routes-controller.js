@@ -40,25 +40,16 @@
           }
 
           function toggleStripRequestPathOrUri(route) {
-
-              if($rootScope.Gateway.version.indexOf("0.9.") > -1){
-                  route.strip_request_path=!route.strip_request_path;
-              }else{
-                  route.strip_uri=!route.strip_uri;
-              }
+			  route.strip_path=!route.strip_path;
 
               $scope.updateRoute(route.id,{
-                  strip_uri : route.strip_uri
+                  strip_path : route.strip_path
               })
           }
 
 
           function isRequestPathOrUriStripped(route) {
-              if($rootScope.Gateway && $rootScope.Gateway.version.indexOf("0.9.") > -1){
-                  return route.strip_request_path;
-              }
-
-              return route.strip_uri
+              return route.strip_path
           }
 
 
