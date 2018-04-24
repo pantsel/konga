@@ -71,16 +71,16 @@
                     ],
                     route: [
                         {
-                            title: 'name',
-                            column: 'name',
+                            title: 'hosts',
+                            column: 'hosts',
                             searchable: true,
                             sortable: true,
                             inSearch: true,
                             inTitle: true
                         },
                         {
-                            title: 'hosts',
-                            column: 'hosts',
+                            title: 'service',
+                            column: 'service',
                             searchable: true,
                             sortable: true,
                             inSearch: true,
@@ -353,7 +353,7 @@
                             inTitle: true
                         },
                         {
-                            title: 'API',
+                            title: 'Service / Route / API',
                             column: 'api_id',
                             searchable: true,
                             sortable: true,

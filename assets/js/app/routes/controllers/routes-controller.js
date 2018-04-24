@@ -11,8 +11,8 @@
           RouteModel.setScope($scope, false, 'items', 'itemCount');
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('route',RouteModel)));
           $scope.user = UserService.user()
-          $scope.toggleStripRequestPathOrUri = toggleStripRequestPathOrUri
-          $scope.isRequestPathOrUriStripped = isRequestPathOrUriStripped
+          //$scope.toggleStripRequestPathOrUri = toggleStripRequestPathOrUri
+          //$scope.isRequestPathOrUriStripped = isRequestPathOrUriStripped
           $scope.openAddRouteModal = openAddRouteModal
           $scope.updateRoute = updateRoute
 
@@ -39,7 +39,7 @@
 
           }
 
-          function toggleStripRequestPathOrUri(route) {
+          /*function toggleStripRequestPathOrUri(route) {
 			  route.strip_path=!route.strip_path;
 
               $scope.updateRoute(route.id,{
@@ -50,7 +50,7 @@
 
           function isRequestPathOrUriStripped(route) {
               return route.strip_path
-          }
+          }*/
 
 
           function openAddRouteModal() {

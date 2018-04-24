@@ -25,6 +25,11 @@
                   isVisible : true
               },
               {
+                  name : 'Routes',
+                  icon : 'mdi mdi-directions-fork',
+                  isVisible : true
+              },
+              {
                   name : 'Plugins',
                   icon : 'mdi mdi-power-plug',
                   isVisible : true

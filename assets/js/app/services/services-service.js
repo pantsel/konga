@@ -104,6 +104,10 @@
 
                     deletePlugin: function (serviceId, pluginId) {
                         return $http.delete('kong/services/' + serviceId + '/plugins/' + pluginId)
+                    },
+
+                    routes: function (serviceId) {
+                        return $http.get('kong/services/' + serviceId + '/routes')
                     }
                 }
             }

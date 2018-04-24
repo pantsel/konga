@@ -102,10 +102,11 @@
                     <td>
                         <strong>
                             <a class="clickable"
-                               data-ui-sref="routes.edit({route_id:route.id})">{{ route.name || "-" }}</a>
+                               data-ui-sref="routes.edit({route_id:route.id})">{{ route.hosts || "-" }}</a>
                         </strong>
                     </td>
-                    <td>{{ route.hosts || "-" }}</td>
+                    <td><a data-ui-sref="services.edit({service_id:route.service.id})">{{route.service.id}}</a></td>
+                    <!--<td>{{ route.hosts || "-" }}</td>-->
                     <td>{{route.created_at | date : format : timezone}}</td>
                     <!--<td>-->
                         <!--<a ui-sref="routes.edit({ route_id: route.id })" class="btn btn-default btn-link">-->

@@ -62,6 +62,10 @@
                                 templateUrl: 'js/app/services/views/service-details.html',
                                 controller: 'ServiceDetailsController',
                             },
+                            'routes@services.edit': {
+                                templateUrl: 'js/app/services/views/service-routes.html',
+                                controller: 'ServiceRoutesController'
+                            },
                             'plugins@services.edit': {
                                 templateUrl: 'js/app/services/views/service-plugins.html',
                                 controller: 'ServicePluginsController',

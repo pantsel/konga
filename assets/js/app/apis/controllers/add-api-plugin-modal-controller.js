@@ -73,6 +73,12 @@
                             _api : function() {
                                 return $scope.api;
                             },
+                            _route : function() {
+                                return null;
+                            },
+                            _service : function() {
+                                return null;
+                            },
                             _consumer : function() {
                                 return null;
                             },

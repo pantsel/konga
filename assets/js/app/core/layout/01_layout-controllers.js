@@ -278,7 +278,7 @@
                            	return AuthService.hasPermission('routes', 'read') && $rootScope.Gateway
                         },
                         title: 'Routes',
-                        icon: 'mdi-cloud-outline',
+                        icon: 'mdi-directions-fork',
                         access: AccessLevels.user
                     },
                     {
