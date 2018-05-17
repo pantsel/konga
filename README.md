@@ -142,9 +142,9 @@ The following instructions assume that you have a running Kong instance followin
 instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
 ```
 $ docker pull pantsel/konga
-$ docker run -p 1337:1337 
-             --link kong:kong
-             --name konga
+$ docker run -p 1337:1337 \
+             --link kong:kong \
+             --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
              pantsel/konga
 ```
@@ -155,7 +155,7 @@ $ docker run -p 1337:1337
 // the app must be started in development mode the first time in order to be able to apply migrations.
 // You can do that by bashing into Konga's container and running 'node app.js --dev'.
 // You may also need to add an extra link that points to your database container.
-$ docker run -p 1337:1337 
+$ docker run -p 1337:1337 \
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
