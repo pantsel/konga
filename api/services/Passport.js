@@ -206,7 +206,7 @@ passport.callback = function callback(request, response, next) {
   if (provider === 'ldap') {
     passport.use(new LdapStrategy(ldapConf));
     this.authenticate('ldapauth',
-      this.protocols.ldap.resolve(request, response, next))(request, response, response.next);
+      this.protocols.ldap.getResolver(next))(request, response, response.next);
   } else if (provider === 'local' && action !== undefined) {
     if (action === 'connect' && request.user) {
       this.protocols.local.connect(request, response, next);

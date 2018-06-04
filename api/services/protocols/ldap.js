@@ -16,7 +16,7 @@ var ldapToUser = function (ldapUser, next) {
             if (err) {
                 next(err);
             } else {
-                adminStatus(ldapUser, user, next);
+                setAdminStatus(ldapUser, user, next);
             }
         });
 }
@@ -30,7 +30,7 @@ var member_test = function (group) {
          adminGroup.test(commonName.replace(group, "$1"));
 }
 
-var adminStatus = function (ldapUser, user, next) {
+var setAdminStatus = function (ldapUser, user, next) {
     user.admin =
         _.findIndex(ldapUser._groups, group_test) > -1 ||
         _.findIndex(ldapUser.memberOf, member_test) > -1;
@@ -47,7 +47,7 @@ var adminStatus = function (ldapUser, user, next) {
  * @param {Response}  response
  * @param {Function}  next
  */
-exports.resolve = function resolve(request, response, next) {
+exports.getResolver = function getResolver(next) {
     return function resolveUser(err, result, message) {
         if (result === false) {
             var error = message;
@@ -55,17 +55,21 @@ exports.resolve = function resolve(request, response, next) {
         } else {
             var ldapUser = result;
             sails.models.user
-                .findOne({
-                    username: ldapUser.uid || ldapUser.sAMAccountName
+                .findOne({ // UID is the default, but the LDAP provider could be ActiveDirectory
+                    username: (ldapUser.uid || ldapUser.sAMAccountName)
                 })
                 .populate('node')
                 .exec(function onExec(error, user) {
                     if (error) {
+                        // Dunno, something bad happened
                         next(error);
                     } else if (!user) {
+                        // We've not seen this user yet, so let's create a profile
                         ldapToUser(ldapUser, next);
                     } else {
-                        adminStatus(ldapUser, user, next);
+                        // We trust LDAP explicitly, so we'll check the groups the user
+                        // is a part of evey time they login
+                        setAdminStatus(ldapUser, user, next);
                     }
                 })
         }
