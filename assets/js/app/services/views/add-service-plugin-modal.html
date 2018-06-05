@@ -1,0 +1,70 @@
+<div class="modal-header primary">
+    <h4 class="modal-title" id="modal-title">
+        ADD PLUGIN
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+    </h4>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li
+                        role="presentation"
+                        ng-class="{'active' : activeGroup == group.name}"
+                        data-ng-click="setActiveGroup(group.name)"
+                        data-ng-repeat="group in pluginGroups"
+                >
+                    <a href>
+                        {{group.name}}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-md-9">
+            <div class="row"  data-ng-repeat="group in pluginGroups | filter : filterGroup">
+                <div class="col-md-12">
+                    <div class="inner margin-bottom padding" style="background-color: #f4f4f4">
+                        <h4><i class="mdi pull-left {{group.icon}}"></i>&nbsp;{{group.name.toUpperCase()}}</h4>
+                        <p class="help-block no-margin">{{group.description}}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-ng-repeat="(key,value) in group.plugins">
+                    <div class="panel"
+                         ng-class="{'panel-success' : existingPlugins.indexOf(key) > -1, 'panel-default' : existingPlugins.indexOf(key) < 0}"
+                         >
+                        <div class="panel-body text-center">
+                            <div class="center-block">
+                                <p class="capitalize margin-bottom"><strong>{{key.split('-').join(" ")}}</strong></p>
+                                <img ng-src="images/kong/plugins/{{key}}.png" class="img-responsive" style="margin: auto;height: 72px;width: ">
+                                <div class="clearfix"></div>
+                                <br>
+                                <p class="help-block max-2-lines" data-ng-bind-html="value.description || 'no description available...'"></p>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer" style="background-color: transparent">
+                            <button class="btn btn-primary btn-flat btn-block" data-ng-click="onAddPlugin(key)">Add Plugin</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="row">-->
+        <!--<div class="col-md-12" >-->
+            <!--<ul class="nav nav-pills">-->
+                <!---->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+</div>

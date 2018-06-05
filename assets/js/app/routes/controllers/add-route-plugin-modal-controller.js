@@ -6,21 +6,21 @@
 (function() {
     'use strict';
 
-    angular.module('frontend.apis')
-        .controller('AddApiPluginModalController', [
+    angular.module('frontend.routes')
+        .controller('AddRoutePluginModalController', [
             '_','$scope', '$rootScope','$log',
-            '$state','ApiService','MessageService','DialogService',
+            '$state','RouteService','MessageService','DialogService',
             'KongPluginsService','PluginsService','$uibModal','$uibModalInstance',
-            '_api',
+            '_route',
             function controller(_,$scope,$rootScope, $log,
-                                $state, ApiService, MessageService, DialogService,
+                                $state, RouteService, MessageService, DialogService,
                                 KongPluginsService,PluginsService, $uibModal,$uibModalInstance,
-                                _api ) {
+                                _route ) {
 
 
                 var pluginOptions = new KongPluginsService().pluginOptions()
 
-                $scope.api = _api
+                $scope.route = _route
                 $scope.pluginOptions = pluginOptions
 
                 new KongPluginsService().makePluginGroups().then(function(groups){
@@ -70,13 +70,13 @@
                         size : 'lg',
                         controller: 'AddPluginController',
                         resolve: {
-                            _api : function() {
-                                return $scope.api;
-                            },
                             _route : function() {
-                                return null;
+                                return $scope.route;
                             },
                             _service : function() {
+                                return null;
+                            },
+                            _api : function() {
                                 return null;
                             },
                             _consumer : function() {
@@ -130,8 +130,8 @@
                         })
                 }
 
-                function getApiPlugins() {
-                    ApiService.plugins($scope.api.id)
+                function getRoutePlugins() {
+                    RouteService.plugins($scope.route.id)
                         .then(function(response){
                             $scope.existingPlugins = response.data.data.map(function(item){
                                 return item.name
@@ -143,7 +143,7 @@
                 }
 
 
-                getApiPlugins();
+                getRoutePlugins();
 
             }
         ])

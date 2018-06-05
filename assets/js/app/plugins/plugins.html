@@ -73,7 +73,9 @@
                     <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
                     <td>
                         <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
-                        <span data-ng-if="!item.api_id" >All APIs</span>
+                        <a data-ng-if="item.service_id" data-ui-sref="services.edit({service_id:item.service_id})">{{item.service_id}}</a>
+                        <a data-ng-if="item.route_id" data-ui-sref="routes.edit({route_id:item.route_id})">{{item.route_id}}</a>
+                        <span data-ng-if="!item.api_id && !item.service_id && !item.route_id" >All APIs</span>
                     </td>
                     <td>
                         <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>

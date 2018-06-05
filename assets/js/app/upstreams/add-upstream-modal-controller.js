@@ -14,10 +14,12 @@
                           $uibModalInstance, Upstream, MessageService) {
 
         $scope.upstream = {
-          slots: 1000,
-          hash_on: 'none',
-          hash_fallback: 'none'
+          slots: 1000
+        }
 
+        if($rootScope.compareKongVersion('0.12.0') >= 0) {
+         $scope.upstream['hash_on'] = 'none';
+         $scope.upstream['hash_fallback'] = 'none';
         }
 
 
@@ -31,7 +33,8 @@
           var data = angular.copy($scope.upstream)
 
           // Fix non numeric arrays
-          ["active.healthy", "active.unhealthy", "passive.healthy", "passive.unhealthy"].forEach(function (item) {
+          var arr = ["active.healthy", "active.unhealthy", "passive.healthy", "passive.unhealthy"];
+          arr.forEach(function (item) {
             if (_.get(data, 'healthchecks.' + item + '.http_statuses')) {
               _.update(data, 'healthchecks.' + item + '.http_statuses', function (status) {
                 return parseInt(status);

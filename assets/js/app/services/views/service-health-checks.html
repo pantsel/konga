@@ -1,0 +1,117 @@
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="col-md-6 text-left">
+        <h4>
+            <i class="mdi mdi-heart-pulse"></i>
+            Health Checks
+
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <input
+                bs-switch
+                ng-model="serviceHC.active"
+                type="checkbox"
+                switch-on-text="ENABLED"
+                switch-off-text="DISABLED"
+                ng-change="toggleServiceHC()"
+        >
+
+    </div>
+</div>
+
+
+<uib-tabset active="active">
+    <uib-tab index="0" heading="CONFIGURATION">
+        <br>
+        <form>
+            <div class="alert alert-info">
+                Administrators can also be notified via email
+                when an API is down or unresponsive
+                by enabling <code>Email Notifications</code> in <code>settings</code>.
+            </div>
+            <div class="alert alert-danger" ng-if="serviceHC.active && !serviceHC.health_check_endpoint">
+                You need to define an HC Endpoint in order for health checks to work
+            </div>
+            <div class="form-group">
+                <label>HC Endpoint <span class="text-danger">*</span></label>
+                <input type="text" ng-model="serviceHC.health_check_endpoint" class="form-control" required placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>GET</code> request to the specified endpoint every minute.</small></p>
+            </div>
+            <div class="form-group">
+                <label>Notification Endpoint <small class="text-muted">(optional)</small></label>
+                <input type="text" ng-model="serviceHC.notification_endpoint" class="form-control" placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>POST</code> request to the specified endpoint the first time a health check fails and one every 15 minutes the API stays down or unresponsive.</small></p>
+            </div>
+            <hr>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" ng-click="save()">
+                    save changes
+                </button>
+            </div>
+
+        </form>
+
+    </uib-tab>
+    <uib-tab index="1" heading="STATUS">
+        <br>
+        <div data-ng-show="!serviceHC.data">
+            <h5>No info available yet...</h5>
+            <p class="help-block" ng-if="!serviceHC.active">
+                You need to enable health checks for this API
+                in order to start getting HC status information.
+            </p>
+            <p class="help-block" ng-if="serviceHC.active">
+                Try again later...
+            </p>
+        </div>
+        <div data-ng-show="serviceHC.data" class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>Last known status</th>
+                    <td>
+                        <strong ng-if="serviceHC.data.firstSucceeded" class="text-success">
+                            <i class="mdi mdi-check"></i>
+                            Healthy
+                        </strong>
+                        <strong ng-if="!serviceHC.data.firstSucceeded" class="text-danger">
+                            <i class="mdi mdi-alert-outline"></i>
+                            Down or unresponsive
+                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Last checked</th>
+                    <th>{{moment(serviceHC.data.lastChecked).fromNow()}}</th>
+                </tr>
+                <tr>
+                    <th>Last failed</th>
+                    <td>{{serviceHC.data.lastFailed ? moment(serviceHC.data.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss") : "Never"}}</td>
+                </tr>
+                <tr>
+                    <th>Last notified</th>
+                    <td>{{serviceHC.data.lastNotified ? moment(serviceHC.data.lastNotified).fromNow() : 'Never'}}</td>
+                </tr>
+                <tr>
+                    <th>
+                    <span data-ng-if="moment(serviceHC.data.lastSucceeded || 0) > moment(serviceHC.data.lastFailed || 0)">
+                        Uptime
+                    </span>
+                        <span data-ng-if="moment(serviceHC.data.lastSucceeded || 0) <= moment(serviceHC.data.lastFailed || 0)">
+                        Downtime
+                    </span>
+                    </th>
+                    <td>
+                    <span data-ng-if="moment(serviceHC.data.lastSucceeded || 0) > moment(serviceHC.data.lastFailed || 0)">
+                        {{moment.duration(moment().diff(moment(serviceHC.data.firstSucceeded))).humanize()}}
+                    </span>
+                        <span data-ng-if="moment(serviceHC.data.lastSucceeded || 0) <= moment(serviceHC.data.lastFailed || 0)">
+                        {{moment.duration(moment().diff(moment(serviceHC.data.firstFailed))).humanize()}}
+                    </span>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </uib-tab>
+
+</uib-tabset>
