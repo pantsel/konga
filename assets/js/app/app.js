@@ -24,7 +24,9 @@
     'frontend.connections',
     'frontend.snapshots',
     'frontend.cluster',
-    'frontend.healthchecks'
+    'frontend.healthchecks',
+    'frontend.services',
+    'frontend.routes'
 
   ]);
 

@@ -7,7 +7,7 @@
     'use strict';
 
     angular.module('frontend.routes')
-        .service('RouteService', [
+        .service('RoutesService', [
             '$log', '$state', '$http','Semver',
             function ($log, $state, $http, Semver) {
 
@@ -20,10 +20,10 @@
                 var properties = {
                     '013': {
                         name: '',
-                        hosts: '',
-                        protocols: '',
-                        methods: '',
-                        paths: '',
+                        hosts: [],
+                        protocols: [],
+                        methods: [],
+                        paths: [],
                         strip_path: true,
                         preserve_host: false,
                         regex_priority: 0
@@ -36,11 +36,6 @@
 
                         var fver = version.split('.').slice(0, -1).join('');
                         var props = properties[fver] || properties[Object.keys(properties)[Object.keys(properties).length - 1]];
-
-                        // Kong 0.11.x fix
-                        if(Semver.cmp(version,"0.11.0") >= 0 && props.http_if_terminated !== undefined){
-                            props.http_if_terminated = false;
-                        }
 
                         return props;
                     },
@@ -62,16 +57,16 @@
                         return $http.get('kong/routes/' + routeId)
                     },
 
-                    update: function (route) {
-                        return $http.patch('kong/routes/' + route.id, route)
+                    update: function (routeId, data) {
+                        return $http.patch('kong/routes/' + routeId, data)
                     },
 
                     delete: function (route) {
-                        return $http.delete('kong/routes/' + route.id)
+                        return $http.delete('kong/routes/' + route.id);
                     },
 
                     add: function (route) {
-                        return $http.post('kong/routes/', route)
+                        return $http.post('kong/routes/', route);
                     },
 
                     plugins: function (routeId) {

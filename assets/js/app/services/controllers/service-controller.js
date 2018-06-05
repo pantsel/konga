@@ -34,11 +34,11 @@
                   icon : 'mdi mdi-power-plug',
                   isVisible : true
               },
-              {
-                  name : 'Health Checks',
-                  icon : 'mdi mdi-heart-pulse',
-                  isVisible : true
-              }
+              // {
+              //     name : 'Health Checks',
+              //     icon : 'mdi mdi-heart-pulse',
+              //     isVisible : true
+              // }
           ]
 
 

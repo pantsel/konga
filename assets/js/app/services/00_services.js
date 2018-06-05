@@ -46,13 +46,13 @@
                                     _service: [
                                         'ServiceService','$stateParams',
                                         function resolve(ServiceService,$stateParams) {
-                                            return ServiceService.findById($stateParams.service_id)
+                                            return ServiceService.findById($stateParams.service_id);
                                         }
                                     ],
                                     _activeNode: [
                                         'NodesService',
                                         function resolve(NodesService) {
-                                            return NodesService.isActiveNodeSet()
+                                            return NodesService.isActiveNodeSet();
                                         }
                                     ],
                                 }

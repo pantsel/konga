@@ -4,9 +4,9 @@
   angular.module('frontend.services')
     .controller('ServicesController', [
       '$scope','$rootScope', '$log', '$state','ServiceService','ListConfig','ServiceModel',
-        'UserService','$uibModal','DialogService','ServiceHCModel',
+        'UserService','$uibModal','DialogService',
       function controller($scope,$rootScope, $log, $state, ServiceService,ListConfig,ServiceModel,
-                          UserService,$uibModal,DialogService,ServiceHCModel ) {
+                          UserService,$uibModal,DialogService ) {
 
           ServiceModel.setScope($scope, false, 'items', 'itemCount');
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('service',ServiceModel)));
@@ -87,38 +87,12 @@
           }
 
 
-          function loadServiceHealthChecks(callback) {
-              ServiceHCModel.load({
-                  limit  : $scope.items.total
-              }).then(function(response){
-                  $scope.healthChecks = response
-                  callback(null,response);
-              })
-          }
 
 
-          function assignServiceHealthChecks(services, hcs) {
-              services.forEach(function (service) {
-
-                  hcs.forEach(function (hc) {
-                      if (service.id == hc.service_id) {
-                          service.health_checks = hc
-                      }
-                  })
-              })
-          }
 
           function onFilteredItemsChanged(services) {
 
-              if(!$scope.healthChecks) {
-                  loadServiceHealthChecks(function(err,hcs){
-                      if(hcs) {
-                          assignServiceHealthChecks(services, hcs);
-                      }
-                  })
-              }else{
-                  assignServiceHealthChecks(services, $scope.healthChecks);
-              }
+
 
           }
 
@@ -129,14 +103,7 @@
            * -----------------------------------------------------------------------------------------------------------
            */
 
-          $scope.$on('service.health_checks',function(event,data){
-              $scope.items.data.forEach(function(service){
-                  if(service.health_checks && data.hc_id == service.health_checks.id) {
-                      service.health_checks.data = data
-                      $scope.$apply()
-                  }
-              })
-          })
+
 
           $scope.$on('service.created',function(){
               _fetchData()
