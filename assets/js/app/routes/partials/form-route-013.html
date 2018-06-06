@@ -1,9 +1,8 @@
-<p class="text-danger">
-    * For hosts, paths, methods and protocols, press enter to register every value you type
-</p>
+
+
 <div class="form-group" ng-class="{'has-error' : errors.hosts}">
-    <label class="col-sm-4 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
-    <div class="col-sm-7">
+    <label class="col-sm-3 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
         <chips ng-model="route.hosts">
             <chip-tmpl>
                 <div class="default-chip">
@@ -21,8 +20,8 @@
     </div>
 </div>
 <div class="form-group" ng-class="{'has-error' : errors.paths}">
-    <label class="col-sm-4 control-label">Paths <br><em><small class="help-block">semi-optional</small></em></label>
-    <div class="col-sm-7">
+    <label class="col-sm-3 control-label">Paths <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
         <chips ng-model="route.paths">
             <chip-tmpl>
                 <div class="default-chip">
@@ -38,8 +37,8 @@
     </div>
 </div>
 <div class="form-group" ng-class="{'has-error' : errors.methods}">
-    <label class="col-sm-4 control-label">Methods <br><em><small class="help-block">semi-optional</small></em></label>
-    <div class="col-sm-7">
+    <label class="col-sm-3 control-label">Methods <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
         <chips ng-model="route.methods">
             <chip-tmpl>
                 <div class="default-chip">
@@ -55,9 +54,9 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-4 control-label">Strip Path
+    <label class="col-sm-3 control-label">Strip Path
         <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-7">
+    <div class="col-sm-9">
         <input
 
                 bs-switch
@@ -73,9 +72,9 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-4 control-label">Preserve Host
+    <label class="col-sm-3 control-label">Preserve Host
         <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-7">
+    <div class="col-sm-9">
         <input
 
                 bs-switch
@@ -93,8 +92,8 @@
     </div>
 </div>
 <div class="form-group" ng-class="{'has-error' : errors.uris}">
-    <label class="col-sm-4 control-label">Protocols <br><em><small class="help-block">semi-optional</small></em></label>
-    <div class="col-sm-7">
+    <label class="col-sm-3 control-label">Protocols <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
         <chips ng-model="route.protocols">
             <chip-tmpl>
                 <div class="default-chip">

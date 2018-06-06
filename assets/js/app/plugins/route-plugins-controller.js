@@ -8,11 +8,10 @@
 
   angular.module('frontend.plugins')
     .controller('RoutePluginsController', [
-        '_','$scope', '$stateParams','$log', '$state','RouteService','PluginsService',
+        '_','$scope', '$stateParams','$log', '$state','RoutesService','PluginsService',
         '$uibModal','DialogService','InfoService','_plugins',
-      function controller(_,$scope, $stateParams, $log, $state, RouteService, PluginsService,
+      function controller(_,$scope, $stateParams, $log, $state, RoutesService, PluginsService,
                           $uibModal,DialogService,InfoService,_plugins ) {
-
 
 
           $scope.plugins = _plugins.data;

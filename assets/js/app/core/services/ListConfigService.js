@@ -64,6 +64,14 @@
               inTitle: true
             },
             {
+              title: 'paths',
+              column: 'paths',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'created',
               column: 'created_at',
               sortable: true,

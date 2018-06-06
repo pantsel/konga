@@ -42,11 +42,11 @@
         <td>
             <raw-view data-item="item"></raw-view>
         </td>
-        <th>
-            <a href  ng-click="onEditRoute(item)">
+        <td>
+            <a href  data-ui-sref="routes.edit({route_id:item.id})">
                 {{item.hosts}}
             </a>
-        </th>
+        </td>
         <td>
             {{item.paths || "-"}}
         </td>

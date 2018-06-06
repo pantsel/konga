@@ -8,8 +8,8 @@
 
   angular.module('frontend.routes')
     .controller('RouteDetailsController', [
-      '$scope', '$rootScope', '$log', '$state', 'RoutesService', '$uibModalInstance', 'MessageService', 'SettingsService', '_route',
-      function controller($scope, $rootScope, $log, $state, RoutesService, $uibModalInstance, MessageService, SettingsService, _route) {
+      '$scope', '$rootScope', '$log', '$state', 'RoutesService', 'MessageService', 'SettingsService', '_route',
+      function controller($scope, $rootScope, $log, $state, RoutesService, MessageService, SettingsService, _route) {
 
         var availableFormattedVersion = RoutesService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
         $scope.route = $scope.route || _route;
@@ -25,7 +25,6 @@
               $log.debug("Update Route: ", res)
               $scope.loading = false
               MessageService.success('Route updated successfully!')
-              $uibModalInstance.dismiss(res)
             }).catch(function (err) {
             console.log("err", err)
             $scope.loading = false
@@ -36,11 +35,6 @@
             $scope.errors = errors
           })
 
-        }
-
-
-        $scope.close = function () {
-          $uibModalInstance.dismiss()
         }
 
       }

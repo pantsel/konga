@@ -20,7 +20,7 @@
               $scope.loading = true
               
               // workaround, name field creates constraint violation in v0.13.x
-              delete $scope.service.name;
+              // delete $scope.service.name;
               
               ServiceService.update($scope.service)
                   .then(function(res){
