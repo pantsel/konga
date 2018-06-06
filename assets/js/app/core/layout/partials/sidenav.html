@@ -19,13 +19,13 @@
                         data-ui-sref="{{item.state}}"
                         ng-if="item.state">
                     <i class="mdi {{item.icon}}"></i>
-                    <span class="text-small">{{item.title.toUpperCase()}}</span>
+                    <span class="text-small" ng-bind-html="item.title.toUpperCase()"></span>
                 </a>
                 <a
                         class="sidenav-heading"
                         ng-if="!item.state"
                 >
-                    <span class="text-small">{{item.title.toUpperCase()}}</span>
+                    <span class="text-small" ng-bind-html="item.title.toUpperCase()"></span>
                 </a>
             </li>
 
