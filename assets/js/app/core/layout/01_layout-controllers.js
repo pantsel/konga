@@ -271,15 +271,15 @@
             icon: 'mdi-cloud-outline',
             access: AccessLevels.user
           },
-          {
-            state: 'routes',
-            show: function () {
-              return AuthService.hasPermission('routes', 'read') && $rootScope.isGatewayVersionEqOrGreater('0.13.0')
-            },
-            title: 'Routes',
-            icon: 'mdi-directions-fork',
-            access: AccessLevels.user
-          },
+          // {
+          //   state: 'routes',
+          //   show: function () {
+          //     return AuthService.hasPermission('routes', 'read') && $rootScope.isGatewayVersionEqOrGreater('0.13.0')
+          //   },
+          //   title: 'Routes',
+          //   icon: 'mdi-directions-fork',
+          //   access: AccessLevels.user
+          // },
           {
             state: 'apis',
             show: function () {

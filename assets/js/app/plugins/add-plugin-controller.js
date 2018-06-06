@@ -10,16 +10,13 @@
     .controller('AddPluginController', [
       '_', '$scope', '$rootScope', '$log', '$state', 'ListConfig', 'ApiService',
       'MessageService', 'ConsumerModel', 'ServiceService', 'SocketHelperService', 'PluginHelperService',
-      'KongPluginsService', '$uibModalInstance', 'PluginsService', '_pluginName', '_schema', '_api', '_consumer', '_service', '_route',
+      'KongPluginsService', '$uibModalInstance', 'PluginsService', '_pluginName', '_schema', '_context',
       function controller(_, $scope, $rootScope, $log, $state, ListConfig, ApiService,
                           MessageService, ConsumerModel, ServiceService, SocketHelperService, PluginHelperService,
-                          KongPluginsService, $uibModalInstance, PluginsService, _pluginName, _schema, _api, _consumer, _service, _route) {
+                          KongPluginsService, $uibModalInstance, PluginsService, _pluginName, _schema,_context) {
 
 
-        $scope.api = _api;
-        $scope.consumer = _consumer;
-        $scope.service = _service;
-        $scope.route = _route;
+        $scope[_context.name] = _context.data;
         $scope.context = 'create';
         $log.debug("API", $scope.api)
         $log.debug("Service", $scope.service)

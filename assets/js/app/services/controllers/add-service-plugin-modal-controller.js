@@ -3,149 +3,139 @@
  *
  * Note that this file should only contain controllers and nothing else.
  */
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular.module('frontend.services')
-        .controller('AddServicePluginModalController', [
-            '_','$scope', '$rootScope','$log',
-            '$state','ServiceService','MessageService','DialogService',
-            'KongPluginsService','PluginsService','$uibModal','$uibModalInstance',
-            '_service',
-            function controller(_,$scope,$rootScope, $log,
-                                $state, ServiceService, MessageService, DialogService,
-                                KongPluginsService,PluginsService, $uibModal,$uibModalInstance,
-                                _service ) {
-
-
-                var pluginOptions = new KongPluginsService().pluginOptions()
-
-                $scope.service = _service
-                $scope.pluginOptions = pluginOptions
-
-                new KongPluginsService().makePluginGroups().then(function(groups){
-                    $scope.pluginGroups = groups
-
-                    // Remove ssl plugin if Kong > 0.9.x
-                    if($rootScope.Gateway.version.indexOf('0.9.') < 0){
-                        $scope.pluginGroups.forEach(function(group){
-                            Object.keys(group.plugins).forEach(function(key){
-                                if(key == 'ssl')  delete group.plugins[key]
-                            })
-                        })
-                    }
-
-                    $log.debug("Plugin Groups",$scope.pluginGroups)
-                })
-
-                $scope.activeGroup = 'Authentication'
-                $scope.setActiveGroup = setActiveGroup
-                $scope.filterGroup = filterGroup
-                $scope.onAddPlugin = onAddPlugin
-                $scope.close = function() {
-                    return $uibModalInstance.dismiss()
-                }
+  angular.module('frontend.services')
+    .controller('AddServicePluginModalController', [
+      '_', '$scope', '$rootScope', '$log',
+      '$state', 'ServiceService', 'MessageService', 'DialogService',
+      'KongPluginsService', 'PluginsService', '$uibModal', '$uibModalInstance',
+      '_service',
+      function controller(_, $scope, $rootScope, $log,
+                          $state, ServiceService, MessageService, DialogService,
+                          KongPluginsService, PluginsService, $uibModal, $uibModalInstance,
+                          _service) {
 
 
-                /**
-                 * -------------------------------------------------------------
-                 * Functions
-                 * -------------------------------------------------------------
-                 */
+        var pluginOptions = new KongPluginsService().pluginOptions()
 
-                function setActiveGroup(name) {
-                    $scope.activeGroup = name
-                }
+        $scope.service = _service
+        $scope.pluginOptions = pluginOptions
 
-                function filterGroup(group) {
-                    return group.name == $scope.activeGroup
-                }
+        new KongPluginsService().makePluginGroups().then(function (groups) {
+          $scope.pluginGroups = groups
 
-                function onAddPlugin(name) {
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/plugins/modals/add-plugin-modal.html',
-                        size : 'lg',
-                        controller: 'AddPluginController',
-                        resolve: {
-                            _service : function() {
-                                return $scope.service;
-                            },
-                            _api : function() {
-                                return null;
-                            },
-                            _route : function() {
-                                return null;
-                            },
-                            _consumer : function() {
-                                return null;
-                            },
-                            _pluginName: function () {
-                                return name
-                            },
-                            _schema: function () {
-                                return PluginsService.schema(name)
-                            }
-                        }
-                    });
+          // Remove ssl plugin if Kong > 0.9.x
+          if ($rootScope.Gateway.version.indexOf('0.9.') < 0) {
+            $scope.pluginGroups.forEach(function (group) {
+              Object.keys(group.plugins).forEach(function (key) {
+                if (key == 'ssl') delete group.plugins[key]
+              })
+            })
+          }
+
+          $log.debug("Plugin Groups", $scope.pluginGroups)
+        })
+
+        $scope.activeGroup = 'Authentication'
+        $scope.setActiveGroup = setActiveGroup
+        $scope.filterGroup = filterGroup
+        $scope.onAddPlugin = onAddPlugin
+        $scope.close = function () {
+          return $uibModalInstance.dismiss()
+        }
 
 
-                    modalInstance.result.then(function (data) {
+        /**
+         * -------------------------------------------------------------
+         * Functions
+         * -------------------------------------------------------------
+         */
 
-                    }, function (data) {
-                        if(data && data.name && $scope.existingPlugins.indexOf(data.name) < 0) {
-                            $scope.existingPlugins.push(data.name)
-                        }
-                    });
-                }
+        function setActiveGroup(name) {
+          $scope.activeGroup = name
+        }
 
+        function filterGroup(group) {
+          return group.name == $scope.activeGroup
+        }
 
-
-
-                // Listeners
-                $scope.$on('plugin.added',function(){
-                    fetchPlugins()
-                })
-
-                /**
-                 * ------------------------------------------------------------
-                 * Listeners
-                 * ------------------------------------------------------------
-                 */
-                $scope.$on("plugin.added",function(){
-                    fetchPlugins()
-                })
-
-                $scope.$on("plugin.updated",function(ev,plugin){
-                    fetchPlugins()
-                })
-
-
-                function fetchPlugins() {
-                    PluginsService.load()
-                        .then(function(res){
-
-                        })
-                }
-
-                function getServicePlugins() {
-                    ServiceService.plugins($scope.service.id)
-                        .then(function(response){
-                            $scope.existingPlugins = response.data.data.map(function(item){
-                                return item.name
-                            })
-                        })
-                        .catch(function(err){
-
-                        })
-                }
-
-
-                getServicePlugins();
-
+        function onAddPlugin(name) {
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'js/app/plugins/modals/add-plugin-modal.html',
+            size: 'lg',
+            controller: 'AddPluginController',
+            resolve: {
+              _context: {
+                name: 'service',
+                data: $scope.service
+              },
+              _pluginName: function () {
+                return name
+              },
+              _schema: function () {
+                return PluginsService.schema(name)
+              }
             }
-        ])
-    ;
+          });
+
+
+          modalInstance.result.then(function (data) {
+
+          }, function (data) {
+            if (data && data.name && $scope.existingPlugins.indexOf(data.name) < 0) {
+              $scope.existingPlugins.push(data.name)
+            }
+          });
+        }
+
+
+        // Listeners
+        $scope.$on('plugin.added', function () {
+          fetchPlugins()
+        })
+
+        /**
+         * ------------------------------------------------------------
+         * Listeners
+         * ------------------------------------------------------------
+         */
+        $scope.$on("plugin.added", function () {
+          fetchPlugins()
+        })
+
+        $scope.$on("plugin.updated", function (ev, plugin) {
+          fetchPlugins()
+        })
+
+
+        function fetchPlugins() {
+          PluginsService.load()
+            .then(function (res) {
+
+            })
+        }
+
+        function getServicePlugins() {
+          ServiceService.plugins($scope.service.id)
+            .then(function (response) {
+              $scope.existingPlugins = response.data.data.map(function (item) {
+                return item.name
+              })
+            })
+            .catch(function (err) {
+
+            })
+        }
+
+
+        getServicePlugins();
+
+      }
+    ])
+  ;
 }());
