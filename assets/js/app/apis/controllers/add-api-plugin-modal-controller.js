@@ -85,7 +85,6 @@
             }
           });
 
-
           modalInstance.result.then(function (data) {
 
           }, function (data) {
