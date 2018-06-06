@@ -265,7 +265,7 @@
           {
             state: 'services',
             show: function () {
-              return AuthService.hasPermission('services', 'read') && $rootScope.Gateway
+              return AuthService.hasPermission('services', 'read') && $rootScope.isGatewayVersionEqOrGreater('0.13.0')
             },
             title: 'Services',
             icon: 'mdi-cloud-outline',
@@ -274,7 +274,7 @@
           {
             state: 'routes',
             show: function () {
-              return AuthService.hasPermission('routes', 'read') && $rootScope.Gateway
+              return AuthService.hasPermission('routes', 'read') && $rootScope.isGatewayVersionEqOrGreater('0.13.0')
             },
             title: 'Routes',
             icon: 'mdi-directions-fork',
@@ -311,7 +311,7 @@
             state: 'upstreams',
             icon: 'mdi-shuffle-variant',
             show: function () {
-              return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version, "0.10.0") >= 0;
+              return AuthService.hasPermission('upstreams', 'read') && UserService.user().node && $rootScope.isGatewayVersionEqOrGreater('0.10.0');
             },
             title: 'Upstreams',
             access: AccessLevels.anon
@@ -320,7 +320,7 @@
             state: 'certificates',
             icon: 'mdi-certificate',
             show: function () {
-              return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.Gateway && Semver.cmp($rootScope.Gateway.version, "0.10.0") >= 0;
+              return AuthService.hasPermission('certificates', 'read') && UserService.user().node && $rootScope.isGatewayVersionEqOrGreater('0.10.0');
             },
             title: 'Certificates',
             access: AccessLevels.anon
