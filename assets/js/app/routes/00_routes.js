@@ -18,7 +18,8 @@
             data: {
               activeNode: true,
               pageName: "Routes",
-              pageDescription: "The Route entities defines rules to match client requests. Each Route is associated with a Service, and a Service may have multiple Routes associated to it. Every request matching a given Route will be proxied to its associated Service.",
+              pageDescription: "" +
+              "The Route entities defines rules to match client requests. Each Route is associated with a Service, and a Service may have multiple Routes associated to it. Every request matching a given Route will be proxied to its associated Service.",
               //displayName : "routes",
               prefix: '<i class="material-icons">cloud_queue</i>'
             },

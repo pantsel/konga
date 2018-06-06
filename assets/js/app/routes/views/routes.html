@@ -1,32 +1,10 @@
-
-<!--<div class="row">-->
-    <!--<div class="col-md-12 actions">-->
-        <!--<a  class="btn btn-primary" ng-click="openAddServiceModal()">-->
-            <!--<i class="mdi mdi-plus"></i>-->
-            <!--Add New Api-->
-        <!--</a>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-        <!--<div class="bg-light-grey padding clearfix">-->
-            <!--<div class="input-group col-sm-4 pull-left">-->
-                <!--<div class="input-group-addon">-->
-                    <!--<i class="mdi mdi-magnify"></i>-->
-                <!--</div>-->
-                <!--<input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">-->
-            <!--</div>-->
-            <!--<dir-pagination-controls class="pull-right"></dir-pagination-controls>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 <div class="row actions">
     <div class="col-md-12">
-        <a  class="btn btn-primary pull-left"
+        <a  class="btn btn-link pull-left btn-sm margin-top"
+            data-ui-sref="services"
             ng-if="user.hasPermission($state.name.split('.')[0],'create')"
-            ng-click="openAddRouteModal()">
-            <i class="mdi mdi-plus"></i>
-            Add New Route
+            >
+            <small class='text-info'>You can only create routes from a service page</small>
         </a>
         <list-search
                 class="pull-right"
