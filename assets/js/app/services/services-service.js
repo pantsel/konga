@@ -22,7 +22,7 @@
                         name: '',
                         host: '',
                         protocol: '',
-                        port: 80,
+                        port: null,
                         path: '',
                         retries: 5,
                         connect_timeout: 60000,

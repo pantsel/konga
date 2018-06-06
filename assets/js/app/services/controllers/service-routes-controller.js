@@ -43,7 +43,7 @@
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: 'js/app/routes/views/add-route-modal.html',
+            templateUrl: 'js/app/routes/views/route-modal.html',
             size: 'lg',
             controller: 'AddRouteModalController',
             resolve: {
@@ -91,20 +91,25 @@
         }
 
         function onEditRoute(item) {
-          $uibModal.open({
+          var modalInstance = $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: 'js/app/routes/modals/edit-route-modal.html',
+            templateUrl: 'js/app/routes/views/route-modal.html',
             size: 'lg',
-            controller: 'EditRouteController',
+            controller: 'RouteDetailsController',
             resolve: {
               _route: function () {
                 return _.cloneDeep(item)
-              },
-              _schema: function () {
-                return RoutesService.schema(item.name)
               }
+            }
+          });
+
+          modalInstance.result.then(function (data) {
+
+          }, function (data) {
+            if(data) {
+              fetchRoutes();
             }
           });
         }

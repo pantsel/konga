@@ -1,25 +1,4 @@
 
-<!--<div class="row">-->
-    <!--<div class="col-md-12 actions">-->
-        <!--<a  class="btn btn-primary" ng-click="openAddServiceModal()">-->
-            <!--<i class="mdi mdi-plus"></i>-->
-            <!--Add New Api-->
-        <!--</a>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-        <!--<div class="bg-light-grey padding clearfix">-->
-            <!--<div class="input-group col-sm-4 pull-left">-->
-                <!--<div class="input-group-addon">-->
-                    <!--<i class="mdi mdi-magnify"></i>-->
-                <!--</div>-->
-                <!--<input type="text" data-ng-model="search" class="form-control" placeholder="search apis...">-->
-            <!--</div>-->
-            <!--<dir-pagination-controls class="pull-right"></dir-pagination-controls>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 <div class="row actions">
     <div class="col-md-12">
         <a  class="btn btn-primary pull-left"
@@ -42,9 +21,6 @@
         <div class="table-responsive" >
             <table class="table table-hover table-striped">
                 <tr>
-                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
-                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
-                    <th width="1"></th>
                     <th width="1"></th>
                     <th width="{{item.width}}" class="text-nowrap"
                         data-ng-repeat="item in titleItems | filter:titleFilter"
@@ -69,35 +45,6 @@
                 </tr>
                 <tr
                         dir-paginate="service in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
-                    <!--<td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
-
-                        <i
-                                uib-tooltip="Strip {{Gateway.version.indexOf('0.9.') > -1 ? 'Request Path' : 'Uri'}}"
-                                ng-click="toggleStripRequestPathOrUri(service)"
-                                data-ng-class="{'text-primary' : isRequestPathOrUriStripped(service),'text-muted' : !isRequestPathOrUriStripped(service)}"
-                                class="mdi mdi-link-off clickable">
-                        </i>
-                    </td>
-                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
-                        <i
-                                uib-tooltip="Preserve Host"
-                                ng-click="service.preserve_host=!service.preserve_host;updateService(service.id,{preserve_host : service.preserve_host})"
-                                class="mdi clickable" ng-class="service.preserve_host ? 'mdi-cloud-outline text-primary' : 'mdi-cloud-off-outline text-muted'">
-
-                        </i>
-
-                    </td>-->
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <i
-                            ng-if="service.health_checks && service.health_checks.active"
-                            class="mdi"
-                            uib-tooltip="{{service.health_checks.data ? ( service.health_checks.data.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
-                            data-ng-class="{'mdi-loading mdi-spin': !service.health_checks.data,'mdi-heart-broken text-danger': service.health_checks.data && !service.health_checks.data.isHealthy,'mdi-heart-pulse text-success': service.health_checks.data && service.health_checks.data.isHealthy}"></i>
-
-
-                        <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!service.health_checks || !service.health_checks.active" class="mdi mdi-heart-outline"></i></td>
                     <td>
                         <raw-view data-item="service"></raw-view>
                     </td>
@@ -108,7 +55,7 @@
                         </strong>
                     </td>
                     <td>{{ service.host || "-" }}</td>
-                    <td>{{service.created_at | date : format : timezone}}</td>
+                    <td>{{service.created_at*1000 | date : format : timezone}}</td>
                     <!--<td>-->
                         <!--<a ui-sref="services.edit({ service_id: service.id })" class="btn btn-default btn-link">-->
 

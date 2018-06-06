@@ -58,7 +58,7 @@
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'js/app/routes/views/add-route-modal.html',
+                  templateUrl: 'js/app/routes/views/route-modal.html',
                   controller: 'AddRouteModalController',
                   controllerAs: '$ctrl',
                   size: 'lg'

@@ -1,6 +1,6 @@
 <div class="modal-header primary">
     <h4 class="modal-title" id="modal-title">
-        Add Route to {{service.name}}
+        {{route && route.id ? "Update route" : "Add Route to" + service.name}}
         <a  class="modal-close pull-right" ng-click="close()">
             <i class="mdi mdi-close"></i>
         </a>

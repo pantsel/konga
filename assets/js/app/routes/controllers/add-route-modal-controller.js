@@ -22,7 +22,7 @@
           id: _service.id
         };
 
-        $scope.partial = 'js/app/routes/partials/form-route-add-' + availableFormattedVersion + '.html?r=' + Date.now();
+        $scope.partial = 'js/app/routes/partials/form-route-' + availableFormattedVersion + '.html?r=' + Date.now();
 
         console.log("$scope.route", $scope.route, _service.id)
 
@@ -43,12 +43,18 @@
               $uibModalInstance.dismiss(res);
             }).catch(function (err) {
             $log.error("Create new route error:", err)
-            MessageService.error("Submission failed. Make sure you have completed all required fields.")
+            MessageService.error("Submission failed. " + _.get(err,'data.body.message',""));
             $scope.errors = {}
             if (err.data && err.data.body) {
-              Object.keys(err.data.body).forEach(function (key) {
-                $scope.errors[key] = err.data.body[key]
-              })
+              if(err.data.fields) {
+                Object.keys(err.data.body.fields).forEach(function (key) {
+                  $scope.errors[key] = err.data.body.fields[key]
+                })
+              }else{
+                Object.keys(err.data.body).forEach(function (key) {
+                  $scope.errors[key] = err.data.body[key]
+                })
+              }
             }
           })
         }
