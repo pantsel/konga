@@ -44,7 +44,12 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-Konga is fully compatible with Kong 0.11.x,0.12.x. It may work with older versions as well but they are not supported.
+**Konga up to 0.10.*** is fully compatible with **Kong 0.11.x,0.12.x**. 
+It may work with older versions as well but they are not actively supported.
+It also works with Kong 0.13.* yet without the ability to manage services and routes.
+
+**Konga 0.11+** is fully compatible with **Kong 0.13+**. Compatibility with older Kong versions
+ is still present but not guaranteed.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
@@ -166,6 +171,26 @@ $ docker run -p 1337:1337
              -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
              --name konga \
              pantsel/konga
+             
+             
+ // Alternatively you can use the full connection string to connect to a database
+ $ docker run -p 1337:1337 
+              --link kong:kong \
+              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
+              -e "DB_URI=full-conection-uri" \
+              -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
+              --name konga \
+              pantsel/konga
+              
+ // Another example for connecting to a mongo replica set
+ $ docker run -p 1337:1337 
+               --link kong:kong \
+               -e "DB_ADAPTER=mongo" \ // 'mongo','postgres','sqlserver'  or 'mysql'
+               -e "DB_URI=mongodb://localhost,localhost:27018,localhost:27019/?replicaSet=test" \
+               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
+               --name konga \
+               pantsel/konga
+ 
 ```
 
 
