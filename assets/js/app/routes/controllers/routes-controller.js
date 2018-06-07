@@ -67,9 +67,13 @@
           }).then(function (response) {
             // Assign service names
             response.data.forEach(function (route) {
-              _.set(route,'service',_.find($scope.services,function (service) {
+              var service = _.find($scope.services,function (service) {
                 return service.id === route.service.id
-              }))
+              });
+              if(service) {
+                _.set(route,'service',service);
+              }
+
             })
             $scope.items = response;
             $scope.loading = false;
