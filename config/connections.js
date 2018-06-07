@@ -41,6 +41,7 @@ module.exports.connections = {
    */
   mysql: {
     adapter: 'sails-mysql',
+    url: process.env.DB_URI || null,
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 3306,
     user: process.env.DB_USER || 'root',
@@ -57,6 +58,7 @@ module.exports.connections = {
    */
   mongo: {
     adapter: 'sails-mongo',
+    url: process.env.DB_URI || null,
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 27017,
     user: process.env.DB_USER ||  null,
@@ -73,6 +75,7 @@ module.exports.connections = {
    */
   postgres: {
     adapter: 'sails-postgresql',
+    url: process.env.DB_URI || null,
     host: process.env.DB_HOST || 'localhost',
     user:  process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'admin1!',
@@ -89,6 +92,7 @@ module.exports.connections = {
 
   'sqlserver': {
     adapter: 'sails-sqlserver',
+    url: process.env.DB_URI || null,
     host: process.env.DB_HOST || 'localhost',
     user:  process.env.DB_USER || null,
     password: process.env.DB_PASSWORD || null,
