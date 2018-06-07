@@ -117,7 +117,7 @@
           $scope.isOpen = false;
         }
 
-        $log.debug("FooterController:user =>", $scope.user)
+        console.log("FooterController:user =>", $scope.user)
 
         function _fetchConnections() {
           NodeModel.load({
@@ -140,19 +140,17 @@
           node.checkingConnection = true;
           $http.get('kong', {
             params: {
-              kong_admin_url: node.kong_admin_url,
-              kong_api_key: node.kong_api_key
+              connection_id: node.id
             }
           }).then(function (response) {
-            $log.debug("Check connection:success", response)
+            console.log("Check connection:success", response)
             node.checkingConnection = false;
 
             UserModel
               .update(UserService.user().id, {
                 node: node
               })
-              .then(
-                function onSuccess(res) {
+              .then(function onSuccess(res) {
                   var credentials = $localStorage.credentials
                   credentials.user.node = node
 
@@ -167,7 +165,7 @@
               );
 
           }).catch(function (error) {
-            $log.debug("Check connection:error", error)
+            console.log("Check connection:error", error)
             node.checkingConnection = false;
             MessageService.error("Oh snap! Can't connect to " + node.kong_admin_url)
           })
@@ -195,7 +193,7 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
+              console.log("FooterController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
               $rootScope.$broadcast('user.node.updated', node);
             }).catch(function (err) {
             $rootScope.Gateway = null;
