@@ -1,0 +1,114 @@
+<div class="row actions">
+    <div class="col-md-12">
+        <div class="pull-left">
+            <a  class="btn btn-primary"
+                ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+                ng-click="openUploadCertsModal()">
+                <i class="mdi mdi-plus"></i>
+                Add Certificate
+            </a>
+        </div>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+
+<konga-loader ng-if="loading && !items.length"></konga-loader>
+<div class="row" ng-if="!loading || items.length">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'update')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
+                </tr>
+                <tr
+                        ng-class="{'danger': item.isOrphaned}"
+                        data-ng-repeat="item in items">
+
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
+
+                        <i class="mdi mdi-toggle-switch text-success clickable"
+                           ng-show="item.active"
+                           ng-click="toggleItem(item)"
+                           uib-tooltip="Enabled"></i>
+                        <i class="mdi mdi-toggle-switch-off text-muted clickable"
+                           ng-show="!item.active"
+                           ng-click="toggleItem(item)"
+                           uib-tooltip="Disabled"></i>
+                    </td>
+                    <td>
+                        <strong>{{item.api.name}}</strong>
+                        <p ng-if="item.isOrphaned">
+                            <small>
+                                The API does not exist anymore.
+                            </small>
+
+                        </p>
+                    </td>
+                    <td>{{item.health_check_endpoint}}</td>
+                    <td>
+                        {{item.notification_endpoint}}
+                    </td>
+                    <td>
+                        {{moment(item.createdAt).format("MMM DD YYYY @h:mm")}}
+                    </td>
+                    <td>
+                        //
+                    </td>
+                    <td  width="1" data-ng-if="user.hasPermission('healthchecks','delete')">
+                        <button class="btn btn-danger btn-link" ng-click="deleteItem(item)">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr data-ng-if="!items.length && !loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>No data found...</em>
+                    </td>
+                </tr>
+                <tr data-ng-if="loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>Loading items...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <ul uib-pagination
+                class="pagination margin-top"
+                data-total-items="itemCount"
+                data-ng-model="paging.currentPage"
+                data-ng-change="pageChanged()"
+                data-items-per-page="itemsPerPage"
+                data-max-size="10"
+                data-boundary-links="true"
+                data-rotate="false"
+            ></ul>
+        </div>
+    </div>
+</div>

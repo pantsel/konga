@@ -91,6 +91,10 @@ module.exports.routes = {
     'GET /api/schemas/authentication' : 'KongSchemasController.authentication',
 
 
+    // Consumer portal
+    'GET /api/kong_consumers/:id/apis' : 'KongConsumersController.apis',
+
+
 
 
     'GET /api/settings' : 'SettingsController.find',

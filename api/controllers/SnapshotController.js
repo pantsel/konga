@@ -5,10 +5,12 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var KongService = require('../services/KongService')
+var KongService = require('../services/KongService');
+var SnapshotsService = require('../services/SnapshotsService');
 var _ = require('lodash')
 var async = require('async');
 var fs = require('fs');
+var semver = require('semver');
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
@@ -39,136 +41,14 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             })
 
 
-            res.ok() // Reply directly because snapshot creation may take some time
+            res.ok(); // Reply directly because snapshot creation may take some time
 
-            var result = {}
-
-            var endpoints = ['/apis','/plugins','/consumers']
-
-            if(node.kong_version == '0-10-x') {
-                endpoints = endpoints.concat(['/upstreams'])
-            }
-
-            var fns = []
-
-            endpoints.forEach(function(endpoint){
-                fns.push(function(cb){
-                    KongService.listAllCb(req,endpoint,function(err,data){
-                        if(err) return cb(err)
-                        console.log(data.data)
-                        result[endpoint.replace("/","")] = data.data
-                        return cb()
-                    })
-                })
-            })
-
-
-            async.series(fns,function(err,data){
-                if(err) return res.negotiate(err)
-
-                // Foreach consumer get it's acls
-                var consumerFns = []
-                result.consumers.forEach(function(consumer){
-                    consumerFns.push(function(cb){
-                        KongService.listAllCb(req,'/consumers/' + consumer.id + '/acls',function(err,data){
-                            if(err) return cb()
-                            console.log(data)
-                            if(!consumer.acls) consumer.acls = []
-                            data.data.forEach(function(item){
-                                consumer.acls.push(item)
-                            })
-
-                            return cb()
-                        })
-                    })
-
-
-                    var credentials = ["basic-auth","key-auth","hmac-auth","jwt","oauth2"]
-                    credentials.forEach(function(credential){
-                        consumerFns.push(function(cb){
-                            KongService.listAllCb(req,'/consumers/' + consumer.id + '/' + credential,function(err,data){
-                                if(err) return cb()
-                                console.log(data)
-                                if(!consumer.credentials) consumer.credentials = {}
-                                if(!consumer.credentials[credential]) consumer.credentials[credential] = []
-                                data.data.forEach(function(item){
-                                    consumer.credentials[credential].push(item)
-                                })
-
-                                return cb()
-                            })
-                        })
-                    })
-                })
-
-                async.series(consumerFns,function(err,data) {
-                    if (err) return res.negotiate(err)
-
-                    if(node.kong_version == '0-10-x') {
-                        // Foreach upstream get its targets
-                        var fns = []
-                        result.upstreams.forEach(function(upstream){
-                            fns.push(function(cb){
-                                KongService.listAllCb(req,'/upstreams/' + upstream.id + '/targets',function(err,data){
-                                    if(err) return cb()
-                                    console.log(data.data)
-                                    if(!result.upstream_targets) result.upstream_targets = []
-                                    data.data.forEach(function(item){
-                                        result.upstream_targets.push(item)
-                                    })
-
-                                    return cb()
-                                })
-                            })
-                        })
-
-
-
-                        async.series(fns,function(err,data){
-                            if(err) return res.negotiate(err)
-
-
-                            sails.models.snapshot.create({
-                                name : req.param("name"),
-                                kong_node_name :  node.name,
-                                kong_node_url : node.kong_admin_url,
-                                kong_version : node.kong_version,
-                                data : result
-                            }).exec(function(err,created){
-                                if(err) {
-                                    sails.sockets.blast('events.snapshots', {
-                                        verb : 'failed',
-                                        data : {
-                                            name : req.param("name")
-                                        }
-                                    });
-                                }
-
-                            })
-                        })
-                    }else{
-                        sails.models.snapshot.create({
-                            name : req.param("name"),
-                            kong_node_name :  node.name,
-                            kong_version : node.kong_version,
-                            data : result
-                        }).exec(function(err,created){
-                            if(err) {
-                                sails.sockets.blast('events.snapshots', {
-                                    verb : 'failed',
-                                    data : {
-                                        name : req.param("name")
-                                    }
-                                });
-                            }
-
-                        })
-                    }
-                })
+            SnapshotsService.takeSnapShot(req.param("name"), node,function (err, ok) {
+                // Fire and forget.
+                // Everything is handled by events and socket messages.
 
             });
-
-        })
+        });
     },
 
 
@@ -181,16 +61,55 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             id : snaphsot_id
         }).exec(function(err,snapshot){
             if(err) return res.negotiate(err)
-            if(!snapshot) res.badInput({
-                message : 'Invalid snaphot'
+            if(!snapshot) res.notFound({
+                message : 'Snapshot not found'
             })
 
             var fns = []
-            var imports = req.param("imports") || Object.keys(snapshot.data)
+
+            // Fix put imports in correct order
+            var requestedImports = req.param("imports") || Object.keys(snapshot.data);
+
+            if(requestedImports.indexOf("upstream_targets") > -1 && requestedImports.indexOf("upstreams") < 0 ){
+                return res.badRequest({
+                    message : "Upstream targets cannot be restored without their respective upstreams. Check upstreams as well and try again."
+                });
+            }
+
+            var orderedEntities = ["apis","consumers","plugins","upstreams", "upstream_targets"];
+            var imports = _.filter(orderedEntities, function (entity) {
+                return requestedImports.indexOf(entity) > -1;
+            });
+
+
+            sails.log("imports", imports);
+
+
             imports.forEach(function(key){
+
+
 
                 //if(key != 'upstream_targets' && key != 'upstreams') {
                     snapshot.data[key].forEach(function(item){
+
+                        var path = null;
+
+                        // Do some housekeeping - monkey patching.
+                        // Fixes bugs in prev versions.
+                        if(item.config) {
+                            if(item.config.anonymous === false || item.config.anonymous === 'false') {
+                                delete item.config.anonymous;
+                            }
+                        }
+
+                        // Transform key in case of upstream targets
+                        if(key === 'upstream_targets') {
+                            path = "upstreams/" + item.upstream_id + "/targets";
+                        }
+
+                        sails.log("!!!!!!!!!!!!!!!!!!!!!!!!", item.config ? item.config.anonymous : {});
+
+
                         fns.push(function(cb){
 
                             // For consumers, we need to import their ACLSs and credentials as well
@@ -198,7 +117,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             var consumerAcls = []
                             var consumerCredentials = []
 
-                            if(key == "consumers") {
+                            if(key === "consumers") {
 
                                 // Clean up the consumer object, by storing acls and credentials in different variables
                                 consumerAcls = _.cloneDeep(item.acls)
@@ -207,12 +126,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 delete item.acls
                                 delete item.credentials
 
-                                console.log("item",item)
+                                sails.log("item",item);
 
                             }
 
 
-                            KongService.createFromEndpointCb("/" + key,item,req,function(err,created){
+                            KongService.createFromEndpointCb("/" + ( path || key ),item,req,function(err,created){
 
                                 if(!responseData[key]) {
                                     responseData[key] = {
@@ -221,19 +140,22 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                             count : 0,
                                             items : []
                                         }
-                                    }
+                                    };
                                 }
 
                                 if(err) {
-                                    responseData[key].failed.count++
+
+                                    sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
+
+                                    responseData[key].failed.count++;
                                     if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                         responseData[key].failed.items.push(item.name)
                                     }
-                                    return cb()
+                                    return cb();
                                 }
 
 
-                                if(key == 'consumers') {
+                                if(key === 'consumers') {
                                     var consumerFns = []
                                     // Import acls
                                     consumerAcls.forEach(function(acl){
@@ -241,6 +163,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                             KongService.createFromEndpointCb("/" + key + "/" + item.id + "/acls",acl,req,function(err,created){
 
                                                 if(err) {
+                                                    sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
                                                     responseData[key].failed.count++
                                                     if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                                         responseData[key].failed.items.push(item.name)
@@ -263,6 +186,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                                 KongService.createFromEndpointCb("/" + key + "/" + item.id + "/" + credentialKey,credentialData,req,function(err,created){
 
                                                     if(err) {
+                                                        sails.log.error("Restore snapshot","Failed to create",key,item.name,err.raw_body);
                                                         responseData[key].failed.count++
                                                         if(responseData[key].failed.items.indexOf(item.name) < 0) {
                                                             responseData[key].failed.items.push(item.name)
@@ -284,23 +208,23 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                                 }else{
 
                                     responseData[key].imported++
-                                    return cb(null,responseData)
+                                    return cb(null,responseData);
                                 }
 
 
-                            })
-                        })
-                    })
+                            });
+                        });
+                    });
                 //}
             })
 
 
             async.series(fns,function(err,data){
                 if(err) return res.negotiate(err)
-                return res.ok(responseData)
-            })
+                return res.ok(responseData);
+            });
 
-        })
+        });
     },
 
     download : function (req,res) {

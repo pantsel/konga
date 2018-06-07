@@ -22,116 +22,134 @@ module.exports.policies = {
   '*': ['authenticated'],
 
   AuthController: {
-    'checkPassword':  ['authenticated'],
-    'signup':         ['signup','createUser'],
-    '*':              ['passport'],
+    'checkPassword': ['authenticated'],
+    'signup': ['signup', 'createUser'],
+    '*': ['passport'],
 
   },
 
-  KongInfoController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongInfoController: {
+    '*': ['authenticated', 'dynamicNode'],
   },
 
-  KongApiController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongApiController: {
+    '*': ['authenticated', 'dynamicNode'],
   },
 
-  KongConsumerController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongConsumersController: {
+    '*': ['authenticated', 'dynamicNode']
   },
 
-  RemoteStorageController : {
-    '*':              ['authenticated'],
+  RemoteStorageController: {
+    '*': ['authenticated'],
   },
 
-  KongSchemasController : {
-      '*':              ['authenticated'],
+  KongSchemasController: {
+    '*': ['authenticated'],
   },
 
-  KongPluginsController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongPluginsController: {
+    '*': ['authenticated', 'dynamicNode'],
   },
 
-  KongCertificatesController : {
-    '*':              ['authenticated','dynamicNode'],
+  KongCertificatesController: {
+    '*': ['authenticated', 'dynamicNode'],
   },
 
-  ApiHealthCheckController : {
-    '*':              ['authenticated','dynamicNode'],
-    'subscribeHealthChecks' : ['authenticated']
+  ApiHealthCheckController: {
+    '*': ['authenticated', 'dynamicNode'],
+    'subscribeHealthChecks': ['authenticated']
   },
-
 
 
   // User controller
   UserController: {
-    '*':        ['authenticated'],
-    'count':    ['authenticated'],
-    'find':     ['authenticated'],
-    'findOne':  ['authenticated'],
-    'create':   ['authenticated', 'isAdmin', 'addDataCreate', 'createUser'],
-    'update':   ['authenticated', 'addDataUpdate','updateUser'],
-    'destroy':  ['authenticated', 'isAdmin'],
-    'add':      ['authenticated', 'isAdmin'],
-    'remove':   ['authenticated', 'isAdmin']
+    '*': ['authenticated'],
+    'count': ['authenticated'],
+    'find': ['authenticated'],
+    'findOne': ['authenticated'],
+    'create': ['authenticated', 'isAdmin', 'addDataCreate', 'createUser'],
+    'update': ['authenticated', 'addDataUpdate', 'updateUser'],
+    'destroy': ['authenticated', 'isAdmin'],
+    'add': ['authenticated', 'isAdmin'],
+    'remove': ['authenticated', 'isAdmin']
   },
 
-  ApiController : {
-    'proxy':    ['authenticated','activeNodeData'],
+  ApiController: {
+    'proxy': ['authenticated', 'activeNodeData'],
   },
 
   ConsumerController: {
-    '*':        ['authenticated'],
-    'count':    ['authenticated','activeNodeData'],
-    'find':     ['authenticated','activeNodeData'],
-    'findOne':  ['authenticated','activeNodeData'],
-    'create':   ['authenticated', 'isAdmin', 'addDataCreate'],
-    'update':   ['authenticated', 'isAdmin', 'addDataUpdate'],
-    'destroy':  ['authenticated', 'isAdmin'],
-    'add':      ['authenticated', 'isAdmin'],
-    'remove':   ['authenticated', 'isAdmin'],
-    'sync'  :   ['authenticated', 'isAdmin','dynamicNode','activeNodeData'],
+    '*': ['authenticated'],
+    'count': ['authenticated', 'activeNodeData'],
+    'find': ['authenticated', 'activeNodeData'],
+    'findOne': ['authenticated', 'activeNodeData'],
+    'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
+    'destroy': ['authenticated', 'isAdmin'],
+    'add': ['authenticated', 'isAdmin'],
+    'remove': ['authenticated', 'isAdmin'],
+    'sync': ['authenticated', 'isAdmin', 'dynamicNode', 'activeNodeData'],
   },
 
   KongNodeController: {
-    '*':        ['authenticated'],
-    'count':    ['authenticated'],
-    'find':     ['authenticated'],
-    'findOne':  ['authenticated'],
-    'create':   ['authenticated', 'isAdmin', 'addDataCreate'],
-    'update':   ['authenticated', 'isAdmin', 'addDataUpdate'],
-    'destroy':  ['authenticated', 'isAdmin'],
-    'add':      ['authenticated', 'isAdmin'],
-    'remove':   ['authenticated', 'isAdmin']
+    '*': ['authenticated'],
+    'count': ['authenticated'],
+    'find': ['authenticated'],
+    'findOne': ['authenticated'],
+    'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
+    'destroy': ['authenticated', 'isAdmin'],
+    'add': ['authenticated', 'isAdmin'],
+    'remove': ['authenticated', 'isAdmin']
   },
 
   // User controller
   KongGroupController: {
-    '*':        ['authenticated','dynamicNode'],
-    'count':    ['authenticated','dynamicNode'],
-    'find':     ['authenticated','dynamicNode'],
-    'findOne':  ['authenticated','dynamicNode'],
-    'create':   ['authenticated', 'isAdmin', 'dynamicNode','addDataCreate'],
-    'update':   ['authenticated', 'isAdmin', 'dynamicNode','addDataUpdate'],
-    'destroy':  ['authenticated', 'isAdmin','dynamicNode'],
-    'add':      ['authenticated', 'isAdmin','dynamicNode'],
-    'remove':   ['authenticated', 'isAdmin','dynamicNode']
+    '*': ['authenticated', 'dynamicNode'],
+    'count': ['authenticated', 'dynamicNode'],
+    'find': ['authenticated', 'dynamicNode'],
+    'findOne': ['authenticated', 'dynamicNode'],
+    'create': ['authenticated', 'isAdmin', 'dynamicNode', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'dynamicNode', 'addDataUpdate'],
+    'destroy': ['authenticated', 'isAdmin', 'dynamicNode'],
+    'add': ['authenticated', 'isAdmin', 'dynamicNode'],
+    'remove': ['authenticated', 'isAdmin', 'dynamicNode']
   },
 
-  SnapshotController : {
+  NetdataConnectionController: {
     '*': ['authenticated'],
-    'takeSnapShot' : ['authenticated','dynamicNode','createUser'],
-    'restore' : ['authenticated','dynamicNode']
+    'count': ['authenticated'],
+    'find': ['authenticated'],
+    'findOne': ['authenticated'],
+    'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
+    'destroy': ['authenticated', 'isAdmin']
   },
 
-  SettingsController : {
-    'find' : true,
-    '*':        ['authenticated','isAdmin'],
+  SnapshotController: {
+    '*': ['authenticated'],
+    'takeSnapShot': ['authenticated', 'isAdmin', 'dynamicNode', 'createUser'],
+    'restore': ['authenticated', 'isAdmin', 'dynamicNode'],
+    'remove': ['authenticated', 'isAdmin'],
+    'find': ['authenticated', 'isAdmin']
+  },
+
+  SnapshotScheduleController: {
+    'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
+    'remove': ['authenticated', 'isAdmin'],
+    'find': ['authenticated', 'isAdmin']
+  },
+
+  SettingsController: {
+    'find': true,
+    '*': ['authenticated', 'isAdmin'],
   },
 
 
-  KongProxyController : {
-    "*" : ['authenticated','dynamicNode']
+  KongProxyController: {
+    "*": ['authenticated', 'dynamicNode']
   }
 
 

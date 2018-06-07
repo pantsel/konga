@@ -61,6 +61,8 @@
                                       },
                                       function onError(err) {
 
+                                          $log.error(err);
+                                          $scope.errors = err.data.body || err.data.customMessage || {}
                                       }
                                   )
                           }
@@ -87,6 +89,8 @@
                           MessageService.success('Group updated successfully');
                           $rootScope.$broadcast('kong.group.updated',result)
                           fetchGroups()
+                      }, function(err) {
+                          $scope.errors = err.data.body || err.data.customMessage || {}
                       }
                   )
           }

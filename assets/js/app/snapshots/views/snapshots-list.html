@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-md-12 actions">
+        <div class="pull-left">
+            <button class="btn btn-link btn-primary" data-ng-click="takeSnapshot()">
+                <i class="mdi mdi-camera"></i>
+                instant snapshot
+            </button>
+            <input type="file" ng-model="file.data"
+                   id="import-snapshot"
+                   class="hidden"
+                   file-select="data"
+                   file-loaded="onSnapshotLoaded()"
+                   file-error="onSnapshotReadError($error)"
+                   file-progress="onSnapshotReadProgress($total,$loaded)">
+            <button
+                    class="btn btn-link btn-warning" ng-click="importSnapshot()">
+                <i class="mdi mdi-upload"></i>
+                import from file
+            </button>
+        </div>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <tr>
+            <th width="{{item.width}}" class="text-nowrap"
+                data-ng-repeat="item in titleItems | filter:titleFilter"
+            >
+                <a
+                        data-ng-show="item.column"
+                        class="clickable"
+                        data-ng-click="changeSort(item)"
+                        data-ng-bind-html="item.title.toUpperCase()"
+                ></a>
+                <span
+                        data-ng-show="!item.column"
+                        data-ng-bind-html="item.title.toUpperCase()"
+                ></span>
+
+                <i class="mdi"
+                   data-ng-show="sort.column == item.column"
+                   ng-class="sort.direction ? 'mdi-chevron-down' : 'mdi-chevron-up'"
+                >
+                </i>
+            </th>
+            <th width="1"></th>
+            <th width="1"></th>
+        </tr>
+        <tr data-ng-repeat="snapshot in snapshots">
+            <td><strong>{{snapshot.name || 'undefined'}}</strong></td>
+            <td>
+                {{snapshot.kong_node_name}} <span class="label label-danger">v{{snapshot.kong_version.split("-").join(".")}}</span>
+            </td>
+            <td>{{snapshot.createdAt | date : "MMM d, y @HH:mm"}}</td>
+            <td>
+                <a ui-sref="snapshots.show({id:snapshot.id})" class="btn btn-info btn-link">
+                    <i class="mdi mdi-information-outline"></i>
+                    details
+                </a>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-link" ng-bootbox-confirm="Are you sure you want to delete this snapshot?"
+                        ng-bootbox-confirm-action="deleteSnapshot(snapshot)">
+                    <i class="mdi mdi-delete"></i>
+                    Delete
+                </button>
+            </td>
+        </tr>
+
+        <tr data-ng-if="snapshots.length === 0">
+            <td colspan="100%" class="text-center">
+                <h5>No snapshots found...</h5>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="">
+    <ul uib-pagination
+        class="pagination"
+        data-total-items="itemCount"
+        data-ng-model="paging.currentPage"
+        data-ng-change="pageChanged()"
+        data-items-per-page="itemsPerPage"
+        data-max-size="10"
+        data-boundary-links="true"
+        data-rotate="false"
+    ></ul>
+</div>

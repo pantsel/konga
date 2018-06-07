@@ -1,120 +1,120 @@
-<div class="panel panel-default">
-    <div class="panel-heading primary">
-        <div class="panel-title">
-            <i class="mdi mdi-heart-pulse"></i>
-            Health Checks
-            <div class="pull-right" data-ng-if="apiHC">
-                <input
-                        bs-switch
-                        ng-model="apiHC.active"
-                        type="checkbox"
-                        switch-size="mini"
-                        switch-on-text="ENABLED"
-                        switch-off-text="DISABLED"
-                        ng-change="toggleApiHC()"
-                >
-            </div>
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <h4>
+                <i class="mdi mdi-heart-pulse"></i>
+                Health Checks
+
+            </h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <input
+                    bs-switch
+                    ng-model="apiHC.active"
+                    type="checkbox"
+                    switch-on-text="ENABLED"
+                    switch-off-text="DISABLED"
+                    ng-change="toggleApiHC()"
+            >
+
         </div>
     </div>
-    <div class="panel-body">
 
-        <uib-tabset active="active">
-            <uib-tab index="0" heading="CONFIGURATION">
-                <br>
-                <form>
-                    <div class="alert alert-info">
-                        Administrators can also be notified via email
-                        when an API is down or unresponsive
-                        by enabling <code>Email Notifications</code> in <code>settings</code>.
-                    </div>
-                    <div class="alert alert-danger" ng-if="apiHC.active && !apiHC.health_check_endpoint">
-                        You need to define an HC Endpoint in order for health checks to work
-                    </div>
-                    <div class="form-group">
-                        <label>HC Endpoint <span class="text-danger">*</span></label>
-                        <input type="text" ng-model="apiHC.health_check_endpoint" class="form-control" required placeholder="ex. http://my-api/endpoint">
-                        <p class="help-block"><small>Konga will perform a <code>GET</code> request to the specified endpoint every minute.</small></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Notification Endpoint <small class="text-muted">(optional)</small></label>
-                        <input type="text" ng-model="apiHC.notification_endpoint" class="form-control" placeholder="ex. http://my-api/endpoint">
-                        <p class="help-block"><small>Konga will perform a <code>POST</code> request to the specified endpoint the first time a health check fails and one every 15 minutes the API stays down or unresponsive.</small></p>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-block" ng-click="save()">
-                            save changes
-                        </button>
-                    </div>
+</div>
 
-                </form>
 
-            </uib-tab>
-            <uib-tab index="1" heading="STATUS">
-                <br>
-                <div data-ng-show="!apiHC.data">
-                    <h5>No info available yet...</h5>
-                    <p class="help-block" ng-if="!apiHC.active">
-                        You need to enable health checks for this API
-                        in order to start getting HC status information.
-                    </p>
-                    <p class="help-block" ng-if="apiHC.active">
-                        Try again later...
-                    </p>
-                </div>
-                <div data-ng-show="apiHC.data" class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Last known status</th>
-                            <td>
-                                <strong ng-if="apiHC.data.firstSucceeded" class="text-success">
-                                    <i class="mdi mdi-check"></i>
-                                    Healthy
-                                </strong>
-                                <strong ng-if="!apiHC.data.firstSucceeded" class="text-danger">
-                                    <i class="mdi mdi-alert-outline"></i>
-                                    Down or unresponsive
-                                </strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Last checked</th>
-                            <th>{{moment(apiHC.data.lastChecked).fromNow()}}</th>
-                        </tr>
-                        <tr>
-                            <th>Last failed</th>
-                            <td>{{apiHC.data.lastFailed ? moment(apiHC.data.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss") : "Never"}}</td>
-                        </tr>
-                        <tr>
-                            <th>Last notified</th>
-                            <td>{{apiHC.data.lastNotified ? moment(apiHC.data.lastNotified).fromNow() : 'Never'}}</td>
-                        </tr>
-                        <tr>
-                            <th>
+<uib-tabset active="active">
+    <uib-tab index="0" heading="CONFIGURATION">
+        <br>
+        <form>
+            <div class="alert alert-info">
+                Administrators can also be notified via email
+                when an API is down or unresponsive
+                by enabling <code>Email Notifications</code> in <code>settings</code>.
+            </div>
+            <div class="alert alert-danger" ng-if="apiHC.active && !apiHC.health_check_endpoint">
+                You need to define an HC Endpoint in order for health checks to work
+            </div>
+            <div class="form-group">
+                <label>HC Endpoint <span class="text-danger">*</span></label>
+                <input type="text" ng-model="apiHC.health_check_endpoint" class="form-control" required placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>GET</code> request to the specified endpoint every minute.</small></p>
+            </div>
+            <div class="form-group">
+                <label>Notification Endpoint <small class="text-muted">(optional)</small></label>
+                <input type="text" ng-model="apiHC.notification_endpoint" class="form-control" placeholder="ex. http://my-api/endpoint">
+                <p class="help-block"><small>Konga will perform a <code>POST</code> request to the specified endpoint the first time a health check fails and one every 15 minutes the API stays down or unresponsive.</small></p>
+            </div>
+            <hr>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" ng-click="save()">
+                    save changes
+                </button>
+            </div>
+
+        </form>
+
+    </uib-tab>
+    <uib-tab index="1" heading="STATUS">
+        <br>
+        <div data-ng-show="!apiHC.data">
+            <h5>No info available yet...</h5>
+            <p class="help-block" ng-if="!apiHC.active">
+                You need to enable health checks for this API
+                in order to start getting HC status information.
+            </p>
+            <p class="help-block" ng-if="apiHC.active">
+                Try again later...
+            </p>
+        </div>
+        <div data-ng-show="apiHC.data" class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>Last known status</th>
+                    <td>
+                        <strong ng-if="apiHC.data.firstSucceeded" class="text-success">
+                            <i class="mdi mdi-check"></i>
+                            Healthy
+                        </strong>
+                        <strong ng-if="!apiHC.data.firstSucceeded" class="text-danger">
+                            <i class="mdi mdi-alert-outline"></i>
+                            Down or unresponsive
+                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Last checked</th>
+                    <th>{{moment(apiHC.data.lastChecked).fromNow()}}</th>
+                </tr>
+                <tr>
+                    <th>Last failed</th>
+                    <td>{{apiHC.data.lastFailed ? moment(apiHC.data.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss") : "Never"}}</td>
+                </tr>
+                <tr>
+                    <th>Last notified</th>
+                    <td>{{apiHC.data.lastNotified ? moment(apiHC.data.lastNotified).fromNow() : 'Never'}}</td>
+                </tr>
+                <tr>
+                    <th>
                     <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) > moment(apiHC.data.lastFailed || 0)">
                         Uptime
                     </span>
-                    <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) <= moment(apiHC.data.lastFailed || 0)">
+                        <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) <= moment(apiHC.data.lastFailed || 0)">
                         Downtime
                     </span>
-                            </th>
-                            <td>
+                    </th>
+                    <td>
                     <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) > moment(apiHC.data.lastFailed || 0)">
                         {{moment.duration(moment().diff(moment(apiHC.data.firstSucceeded))).humanize()}}
                     </span>
-                    <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) <= moment(apiHC.data.lastFailed || 0)">
+                        <span data-ng-if="moment(apiHC.data.lastSucceeded || 0) <= moment(apiHC.data.lastFailed || 0)">
                         {{moment.duration(moment().diff(moment(apiHC.data.firstFailed))).humanize()}}
                     </span>
-                            </td>
+                    </td>
 
-                        </tr>
-                    </table>
-                </div>
-            </uib-tab>
+                </tr>
+            </table>
+        </div>
+    </uib-tab>
 
-        </uib-tabset>
-
-
-
-    </div>
-</div>
+</uib-tabset>

@@ -3,5 +3,5 @@
  */
 
 module.exports.paths = {
-    "uploads" : ( process.env.STORAGE_PATH || '/kongadata/' )+ 'uploads/'
+    "uploads" : ( process.env.STORAGE_PATH || './kongadata/' )+ 'uploads/'
 };

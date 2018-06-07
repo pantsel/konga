@@ -1,0 +1,77 @@
+
+<div class="row actions">
+    <div class="col-md-12">
+        <a  class="btn btn-primary pull-left"
+            ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+            ng-click="openAddServiceModal()">
+            <i class="mdi mdi-plus"></i>
+            Add New Service
+        </a>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
+<div class="row" ng-show="!loading || items.data.length">
+    <div class="col-md-12">
+        <div class="table-responsive" >
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1"></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
+                </tr>
+                <tr
+                        dir-paginate="service in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+                    <td>
+                        <raw-view data-item="service"></raw-view>
+                    </td>
+                    <td>
+                        <strong>
+                            <a class="clickable"
+                               data-ui-sref="services.edit({service_id:service.id})">{{ service.name || "-" }}</a>
+                        </strong>
+                    </td>
+                    <td>{{ service.host || "-" }}</td>
+                    <td>{{service.created_at*1000 | date : format : timezone}}</td>
+                    <!--<td>-->
+                        <!--<a ui-sref="services.edit({ service_id: service.id })" class="btn btn-default btn-link">-->
+
+                            <!--edit-->
+                        <!--</a>-->
+                    <!--</td>-->
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button" ng-click="deleteItem($index,service)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+

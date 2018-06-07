@@ -47,7 +47,7 @@
                         // because permissions object complies to CRUD naming.
                         // ToDo : Change 'edit' route uri segments to 'update'
                         if(action === 'edit') {
-                            action = 'update'
+                            action = 'update';
                         }
 
                         /**
@@ -69,6 +69,18 @@
                      */
                     isAuthenticated: function isAuthenticated() {
                         return Boolean($localStorage.credentials);
+                    },
+
+
+                  /**
+                   * Method to check if current user is an admin or not.
+                   *
+                   * @returns {Boolean}
+                   */
+                    isAdmin : function isAdmin() {
+
+                        return $localStorage.credentials && $localStorage.credentials.user && $localStorage.credentials.user.admin;
+
                     },
 
 

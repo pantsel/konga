@@ -1,0 +1,132 @@
+<div class="col-md-12 bg-light-grey padding">
+    <list-search
+            class="pull-right"
+            data-filters="filters"
+            data-options="itemsPerPageOptions"
+            data-items="itemsPerPage"
+    ></list-search>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="250" class="no-wrap">
+                        API PLUGINS
+                    </th>
+                    <th class="no-wrap">
+                        CONSUMER PLUGINS
+
+                    </th>
+                    <td width="1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            API Plugins targeting all consumers
+                        </p>
+                    </td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            API Plugins targeting this consumer
+                        </p>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr
+                        dir-paginate="api in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+
+                    <td>
+                        <strong class="no-margin">
+                            {{ api.name || "-" }}
+                        </strong>
+                        <div class="clearfix"></div>
+                        <span class="label label-success" ng-if="isOpen(api)" uib-tooltip="This api is public. Anyone can consume it.">PUBLIC</span>
+                        <span class="label label-warning" ng-if="isAccessControlled(api)"
+                              uib-tooltip="This api is access controlled">AC</span>
+                        <span class="label label-danger" ng-if="needsAuth(api)"
+                              uib-tooltip="This api is secured with at least one authentication mechanism"
+                        >SECURE</span>
+                    </td>
+
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getGeneralPlugins(api)">
+                                {{item.name.toUpperCase().split("-").join(" ")}}
+                            </span>
+                    </td>
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getConsumerPlugins(api)">
+                                <span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>
+                                <raw-view data-item="item"></raw-view>
+                                <i class="mdi mdi-18px mdi-pencil clickable"
+                                   uib-tooltip="Edit"
+                                   ng-click="onEditPlugin(item)"></i>&nbsp;
+                                <i class="mdi mdi-18px mdi-delete clickable"
+                                   uib-tooltip="Delete"
+                                   ng-click="deletePlugin(api,item)"></i>
+
+                            </span>
+                            <button class="btn btn-sm btn-link" ng-click="onAddPlugin(api)">
+                                <i class="mdi mdi-18px mdi-plus"
+                                >ADD PLUGINS</i>
+                            </button>
+                    </td>
+                    <td>
+                        <div class="btn-group" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
+                            <button id="single-button" type="button" class="btn btn-primary btn-link" uib-dropdown-toggle>
+                                MORE... <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a href><raw-view data-item="api" data-text="'Raw View'"></raw-view></a></li>
+                                <li role="menuitem">
+                                    <a ui-sref="apis.edit({ api_id: api.id })">
+                                        <i class="mdi mdi-pencil"></i>&nbsp;&nbsp;
+                                        Edit API
+                                    </a>
+                                </li>
+
+                                <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+                                <!--<li class="divider"></li>-->
+                                <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
+                            </ul>
+                        </div>
+                    </td>
+                    <!--<td>-->
+                    <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
+
+                    <!--edit-->
+                    <!--</a>-->
+                    <!--</td>-->
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>

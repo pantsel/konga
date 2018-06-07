@@ -27,6 +27,7 @@
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tr>
+                    <th width="1" ng-if="compareKongVersion('0.12.2') >= 0"></th>
                     <th width="{{item.width}}" class="text-nowrap"
                         data-ng-repeat="item in titleItems | filter:titleFilter"
                     >
@@ -50,6 +51,14 @@
                     <th width="1"></th>
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
+                    <td ng-if="compareKongVersion('0.12.2') >= 0">
+                        <i style="opacity: .5" uib-tooltip="{{item.health}}" ng-if="item.health && item.health === 'HEALTHCHECKS_OFF'" class="mdi mdi-heart-outline"></i>
+                    <i
+                            ng-if="item.health && item.health !== 'HEALTHCHECKS_OFF'"
+                            class="mdi"
+                            uib-tooltip="{{item.health}}"
+                            data-ng-class="{'mdi-heart-broken text-danger': item.health === 'UNHEALTHY','mdi-heart-pulse text-success': item.health === 'HEALTHY'}"></i>
+                    </td>
                     <td>
                         <raw-view data-item="item"></raw-view>
                     </td>

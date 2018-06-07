@@ -1,0 +1,77 @@
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="col-md-6 text-left">
+        <h4>
+            <i class="mdi mdi-plug"></i>
+            Assigned plugins
+
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddPlugin()">
+            <i class="mdi mdi-plus"></i>
+            add plugin
+        </button>
+    </div>
+</div>
+
+<div class="col-md-12 bg-light-grey padding">
+    <div class="input-group col-sm-4 pull-left">
+        <div class="input-group-addon">
+            <i class="mdi mdi-magnify"></i>
+        </div>
+        <input type="text" data-ng-model="search" class="form-control" placeholder="search plugins...">
+    </div>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+</div>
+<table class="table">
+    <tr>
+        <th width="1"></th>
+        <th width="1"></th>
+        <th width="1"></th>
+        <th>Name</th>
+        <th>Consumer</th>
+        <th>Created</th>
+        <th width="1"></th>
+    </tr>
+    <tr
+            dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+        <td>
+            <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
+        </td>
+        <td>
+            <i class="mdi mdi-toggle-switch text-success clickable"
+               ng-show="item.enabled"
+               ng-click="togglePlugin(item)"
+               uib-tooltip="Enabled"></i>
+            <i class="mdi mdi-toggle-switch-off text-muted clickable"
+               ng-show="!item.enabled"
+               ng-click="togglePlugin(item)"
+               uib-tooltip="Disabled"></i>
+        </td>
+        <td>
+            <raw-view data-item="item"></raw-view>
+        </td>
+        <th>
+            <a href  ng-click="onEditPlugin(item)">
+                {{item.name}}
+            </a>
+        </th>
+        <td>
+            <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
+            <span data-ng-if="!item.consumer_id" >All consumers</span>
+        </td>
+        <td>{{item.created_at | date : format : timezone}}</td>
+
+        <td>
+            <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
+                <i class="mdi mdi-delete"></i>
+                delete
+            </button>
+        </td>
+    </tr>
+    <tr data-ng-if="plugins.data.length === 0">
+        <td colspan="100%" class="text-center text-muted">
+            <em>no data found...</em>
+        </td>
+    </tr>
+</table>

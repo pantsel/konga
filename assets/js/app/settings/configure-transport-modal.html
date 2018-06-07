@@ -20,6 +20,18 @@
                            ng-model="getModelParent(item.model || item.name)[ getModelLeaf(item.model || item.name) ]"
                            class="form-control">
                 </div>
+                <div ng-switch-when="boolean">
+                    <input
+
+                            bs-switch
+                            ng-model="getModelParent(item.model || item.name)[ getModelLeaf(item.model || item.name) ]"
+                            switch-size="small"
+                            type="checkbox"
+                            switch-on-text="YES"
+                            switch-off-text="NO"
+                    >
+                    <p class="text-muted">{{item.description}}</p>
+                </div>
             </div>
         </div>
         <div class="form-group">

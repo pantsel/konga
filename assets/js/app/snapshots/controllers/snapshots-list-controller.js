@@ -7,7 +7,7 @@
     'use strict';
 
     angular.module('frontend.snapshots')
-        .controller('SnapshotsController', [
+        .controller('SnapshotsListController', [
             '_','$scope', '$rootScope','$q','$log','$ngBootbox','UserModel',
             'SocketHelperService','UserService','SettingsService','MessageService',
             '$state','$uibModal','DialogService','Snapshot','$localStorage',
@@ -28,7 +28,6 @@
 
                 // Initialize used title items
                 $scope.titleItems = ListConfig.getTitleItems('snapshot');
-
 
 
                 // Initialize default sort data
@@ -91,7 +90,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/snapshots/take-snapshot-modal.html',
+                        templateUrl: 'js/app/snapshots/views/take-snapshot-modal.html',
                         size : 'sm',
                         backdrop: 'static',
                         keyboard: false,
@@ -126,24 +125,26 @@
                                         // })
                                         $uibModalInstance.dismiss({
                                             result : response.data
-                                        })
+                                        });
                                     }).catch(function(err){
                                     $scope.submitting = false;
                                     if(err.data && err.data.message) {
-                                        $scope.error = err.data.message
+                                        $scope.error = err.data.message;
                                     }
-                                })
-                            }
+                                });
+                            };
                         }
                     });
 
 
                     modalInstance.result.then(function (data) {
                     }, function (data) {
-                        if(data && data.result) _triggerFetchData()
+                        if(data && data.result){
+                            _triggerFetchData();
+                        }
                     });
 
-                }
+                };
 
 
                 // User delete dialog buttons configuration
@@ -252,7 +253,7 @@
 
 
                 $scope.importSnapshot = function() {
-                    $("#import-snapshot").click()
+                    $("#import-snapshot").click();
                 }
 
                 $scope.onSnapshotLoaded = function(data) {

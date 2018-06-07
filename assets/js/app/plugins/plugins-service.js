@@ -16,23 +16,23 @@
             load : function(query) {
                 return $http.get('kong/plugins',{
                     params: query
-                })
+                });
             },
 
             add : function(data) {
-                return $http.post('kong/plugins',data)
+                return $http.post('kong/plugins',data);
             },
 
             update : function(id,data) {
-              return $http.patch('kong/plugins/' + id,data)
+              return $http.patch('kong/plugins/' + id,data);
             },
 
             fetch : function(pluginId) {
-                return $http.get('kong/plugins/' + pluginId)
+                return $http.get('kong/plugins/' + pluginId);
             },
 
             schema : function(name) {
-                 return $http.get('kong/plugins/schema/' + name)
+                 return $http.get('kong/plugins/schema/' + name);
             },
 
             enabled : function() {
@@ -40,7 +40,7 @@
             },
 
             delete : function(id) {
-                return $http.delete('kong/plugins/' + id)
+                return $http.delete('kong/plugins/' + id);
             }
           }
       }

@@ -1,29 +1,18 @@
 <div class="row">
-    <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    Manage
-                </div>
-            </div>
-            <div class="list-group">
-                <a
-                   class="list-group-item clickable"
-                   ng-class="{'active' : sections[activeSection].name == section.name }"
-                   data-ng-click="showSection($index)"
-                   data-ng-repeat="section in sections">
+    <div class="col-md-12">
+        <uib-tabset active="activeJustified" justified="true">
+            <uib-tab index="$index" data-ng-repeat="section in sections track by $index">
+                <uib-tab-heading>
                     <i class="mdi"  ng-class="section.icon"></i>
                     {{section.name}}
-                </a>
-            </div>
-        </div>
+                </uib-tab-heading>
+                <br><br>
+                <div class="clearfix"></div>
+                <div data-ui-view="{{section.id}}"></div>
+            </uib-tab>
 
-    </div>
-    <div class="col-md-9">
-        <div data-ui-view="details" ng-show="activeSection == 0"></div>
-        <div data-ui-view="groups" ng-show="activeSection == 1"></div>
-        <div data-ui-view="credentials" ng-show="activeSection == 2"></div>
-        <div data-ui-view="plugins" ng-show="activeSection == 3" ng-if="sections[3]"></div>
+
+        </uib-tabset>
     </div>
 </div>
 

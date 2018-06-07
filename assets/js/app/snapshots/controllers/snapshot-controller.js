@@ -25,7 +25,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/snapshots/snapshot-apply-modal.html',
+                        templateUrl: 'js/app/snapshots/views/snapshot-apply-modal.html',
                         controller: function($scope,$uibModalInstance,SnapshotsService,UserService,_snapshot){
 
                             $scope.user = UserService.user()
@@ -37,7 +37,7 @@
                             Object.keys(_snapshot.data).forEach(function(item){
                                 $scope.objects[item] = {
                                     isChecked : false
-                                }
+                                };
                             })
 
                             $scope.updateImports = function(){
@@ -46,7 +46,7 @@
                                     if($scope.objects[key].isChecked) {
                                         $scope.imports.push(key)
                                     }
-                                })
+                                });
                             }
 
                             $scope.close = function(){
@@ -90,9 +90,12 @@
                                         $scope.restoring = false;
                                     })
                                     .catch(function(err){
-                                        $log.debug("restoreSnapshot:error",err)
+                                        console.error("restoreSnapshot:error",err)
                                         $scope.restoring = false;
-                                    })
+                                        if(err.data && err.data.message) {
+                                            MessageService.error(err.data ? ( err.data.message || 'Undefined error') : 'Server error');
+                                        }
+                                    });
                             }
 
                             //restore()

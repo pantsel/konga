@@ -31,13 +31,14 @@ module.exports = {
   port: process.env.KONGA_BACKEND_PORT || 1337,
 
   /***************************************************************************
-   * Set the log level in production environment to "silent"                 *
+   * Set the log level in production environment to "warn"                   *
    ***************************************************************************/
+  log: {
+      level: process.env.KONGA_LOG_LEVEL || "warn"
+  },
 
   // Keep data of response errors in production mode
-  keepResponseErrors : true,
+  keepResponseErrors : true
 
-  // log: {
-  //   level: "silent"
-  // }
+
 };

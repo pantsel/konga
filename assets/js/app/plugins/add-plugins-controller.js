@@ -85,6 +85,12 @@
                       _consumer : function() {
                           return null;
                       },
+                      _route : function() {
+                          return null;
+                      },
+                      _service : function() {
+                          return null;
+                      },
                       _pluginName: function () {
                           return name
                       },

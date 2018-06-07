@@ -42,9 +42,10 @@
                * Set token to actual data and headers. Note that we need bot ways because of socket cannot modify
                * headers anyway. These values are cleaned up in backend side policy (middleware).
                */
-              config.data.token = token;
-              config.headers.authorization = 'Bearer ' + token;
-
+              if(!config.noAuth) {
+                config.data.token = token;
+                config.headers.authorization = 'Bearer ' + token;
+              }
 
             }
 

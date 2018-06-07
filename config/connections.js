@@ -28,7 +28,7 @@ module.exports.connections = {
    */
   localDiskDb: {
     adapter: 'sails-disk',
-    filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || '/kongadata/' ),
+    filePath:  process.env.NODE_ENV == 'test' ? './.tmp/' : ( process.env.STORAGE_PATH || './kongadata/' ),
     fileName: process.env.NODE_ENV == 'test' ? 'localDiskDb.db' : 'konga.db'
   },
 
@@ -78,8 +78,8 @@ module.exports.connections = {
     password: process.env.DB_PASSWORD || 'admin1!',
     port: process.env.DB_PORT || 5432,
     database: process.env.DB_DATABASE ||'konga_database',
-    //poolSize: process.env.DB_POOLSIZE || 10,
-    ssl: process.env.DB_SSL || false
+    poolSize: process.env.DB_POOLSIZE || 10,
+    ssl: process.env.DB_SSL ? true : false // If set, assume it's true
   },
 
   /**

@@ -104,6 +104,10 @@
                                     ]
                                 }
                             },
+                            'apis@consumers.edit': {
+                                templateUrl: 'js/app/consumers/apis/consumer-apis.html',
+                                controller: 'ConsumerApisController'
+                            },
                             'plugins@consumers.edit': {
                                 templateUrl: 'js/app/consumers/plugins/consumer-plugins.html',
                                 controller: 'ConsumerPluginsController'

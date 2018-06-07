@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-12 actions">
+        <div class="pull-left">
+            <button class="btn btn-link btn-primary" data-ng-click="schedule()">
+                <i class="mdi mdi-calendar"></i>
+                add schedule
+            </button>
+
+        </div>
+        <list-search
+                class="pull-right margin-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <tr>
+            <th width="1"></th>
+            <th width="{{item.width}}" class="text-nowrap"
+                data-ng-repeat="item in titleItems | filter:titleFilter"
+            >
+                <a
+                        data-ng-show="item.column"
+                        class="clickable"
+                        data-ng-click="changeSort(item)"
+                        data-ng-bind-html="item.title.toUpperCase()"
+                ></a>
+                <span
+                        data-ng-show="!item.column"
+                        data-ng-bind-html="item.title.toUpperCase()"
+                ></span>
+
+                <i class="mdi"
+                   data-ng-show="sort.column == item.column"
+                   ng-class="sort.direction ? 'mdi-chevron-down' : 'mdi-chevron-up'"
+                >
+                </i>
+            </th>
+            <th width="1"></th>
+            <th width="1"></th>
+        </tr>
+        <tr data-ng-repeat="item in items">
+            <td>
+                <i class="mdi mdi-circle clickable"
+                   ng-click="toggleActive(item)"
+                   uib-tooltip="{{item.active ? 'Running' : 'Inactive'}}"
+                   ng-class="{'text-success': item.active, 'text-danger' : !item.active}"></i>
+            </td>
+            <td><strong>{{item.connection.name}}</strong></td>
+            <td>
+                {{prettyCron(item.cron)}}
+            </td>
+            <td>{{item.createdAt | date : "MMM d, y @HH:mm"}}</td>
+            <td>
+                <button class="btn btn-danger btn-link" ng-click="deleteItem($index,item)">
+                    <i class="mdi mdi-delete"></i>
+                    Delete
+                </button>
+            </td>
+        </tr>
+
+        <tr data-ng-if="items.length === 0">
+            <td colspan="100%" class="text-center">
+                <h5>No items found...</h5>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="">
+    <ul uib-pagination
+        class="pagination"
+        data-total-items="itemCount"
+        data-ng-model="paging.currentPage"
+        data-ng-change="pageChanged()"
+        data-items-per-page="itemsPerPage"
+        data-max-size="10"
+        data-boundary-links="true"
+        data-rotate="false"
+    ></ul>
+</div>

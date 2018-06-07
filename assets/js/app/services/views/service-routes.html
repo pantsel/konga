@@ -1,0 +1,74 @@
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="col-md-6 text-left">
+        <h4>
+            <i class="mdi mdi-plug"></i>
+            Routes
+
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddRoute()">
+            <i class="mdi mdi-plus"></i>
+            add route
+        </button>
+    </div>
+</div>
+
+<div class="col-md-12 bg-light-grey padding">
+    <div class="input-group col-sm-4 pull-left">
+        <div class="input-group-addon">
+            <i class="mdi mdi-magnify"></i>
+        </div>
+        <input type="text" data-ng-model="search" class="form-control" placeholder="search routes...">
+    </div>
+    <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+</div>
+<table class="table">
+    <tr>
+        <th width="1"></th>
+        <th>Hosts</th>
+        <th>Paths</th>
+        <th>Protocols</th>
+        <th>Methods</th>
+        <th>Regex priority</th>
+        <th>Created</th>
+        <th width="1"></th>
+    </tr>
+    <tr
+            dir-paginate="item in routes.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+        <!--<td>-->
+            <!--&lt;!&ndash;<img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">&ndash;&gt;-->
+        <!--</td>-->
+        <td>
+            <raw-view data-item="item"></raw-view>
+        </td>
+        <td>
+            <a href  data-ui-sref="routes.edit({route_id:item.id})">
+                {{item.hosts}}
+            </a>
+        </td>
+        <td>
+            {{item.paths || "-"}}
+        </td>
+        <td>
+            {{item.protocols || "-"}}
+        </td>
+        <td>
+            {{item.methods || "-"}}
+        </td>
+        <td>{{item.regex_priority}}</td>
+        <td>{{item.created_at*1000 | date : format : timezone}}</td>
+
+        <td>
+            <button class="btn btn-link btn-danger" ng-click="deleteRoute(item)">
+                <i class="mdi mdi-delete"></i>
+                delete
+            </button>
+        </td>
+    </tr>
+    <tr data-ng-if="routes.data.length === 0">
+        <td colspan="100%" class="text-center text-muted">
+            <em>no data found...</em>
+        </td>
+    </tr>
+</table>

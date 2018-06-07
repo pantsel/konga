@@ -1,0 +1,98 @@
+<div class="row actions">
+    <div class="col-md-12">
+        <a  class="btn btn-link pull-left btn-sm margin-top"
+            data-ui-sref="services"
+            ng-if="user.hasPermission($state.name.split('.')[0],'create')"
+            >
+            <small class='text-info'>You can only create routes from a service page</small>
+        </a>
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
+<div class="row" ng-show="!loading || items.data.length">
+    <div class="col-md-12">
+        <div class="table-responsive" >
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1"></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+            <span
+                    data-ng-show="!item.column"
+                    data-ng-bind-html="item.title.toUpperCase()"
+            ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'edit')"></th>
+                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'delete')"></th>
+                </tr>
+                <tr
+                        dir-paginate="route in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
+
+                        <i
+                                uib-tooltip="Strip Path"
+                                ng-click="toggleStripPath(route)"
+                                data-ng-class="{'text-primary' : route.strip_path,'text-muted' : !route.strip_path}"
+                                class="mdi mdi-link-off clickable">
+                        </i>
+                    </td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'edit')">
+                        <i
+                                uib-tooltip="Preserve Host"
+                                ng-click="route.preserve_host=!route.preserve_host;updateRoute(route.id,{preserve_host : route.preserve_host})"
+                                class="mdi clickable" ng-class="route.preserve_host ? 'mdi-cloud-outline text-primary' : 'mdi-cloud-off-outline text-muted'">
+
+                        </i>
+
+                    </td>
+                    <td>
+                        <raw-view data-item="route"></raw-view>
+                    </td>
+                    <td>
+                        <strong>
+                            <a class="clickable"
+                               data-ui-sref="routes.edit({route_id:route.id})">{{ route.hosts.join(", ") || "-" }}</a>
+                        </strong>
+                    </td>
+                    <td><a data-ui-sref="services.edit({service_id:route.service.id})">{{route.service.name || route.service.id}}</a></td>
+                    <td>{{ route.paths.join(", ") || "-" }}</td>
+                    <td>{{route.created_at*1000 | date : format : timezone}}</td>
+                    <td>
+                        <a class="btn btn-warning btn-link" ui-sref="routes.edit({ route_id: route.id })" class="btn btn-default btn-link">
+                            <i class="mdi mdi-pencil"></i>
+                            edit
+                        </a>
+                    </td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button" ng-click="deleteItem($index,route)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+

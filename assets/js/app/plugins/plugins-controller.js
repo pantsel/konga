@@ -12,7 +12,8 @@
           $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('plugin',PluginModel)));
           $scope.user = UserService.user();
           $scope.onEditPlugin = onEditPlugin
-          $scope.updatePlugin = updatePlugin
+          $scope.updatePlugin = updatePlugin;
+          $scope.togglePlugin = togglePlugin;
 
 
           /**
@@ -20,6 +21,12 @@
            * Functions
            * ----------------------------------------------------------------------
            */
+
+
+          function togglePlugin(plugin) {
+              plugin.enabled = !plugin.enabled;
+              updatePlugin(plugin);
+          }
 
            function updatePlugin(plugin) {
 

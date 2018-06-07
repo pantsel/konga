@@ -28,7 +28,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     update : function(req,res) {
 
-        console.log(req.body)
+        sails.log(req.body)
 
         var user = req.body;
         var passports = req.body.passports
@@ -58,13 +58,13 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                 }
 
 
-                if(!passports) return res.json(updated)
+                if(!passports) return res.json(user)
 
                 sails.models.passport
                     .update({user:req.param('id')},{password:passports.password})
                     .exec(function(err,updatedPassport){
                         if(err) return res.negotiate(err);
-                        return  res.json(updated)
+                        return  res.json(user)
                     })
 
 

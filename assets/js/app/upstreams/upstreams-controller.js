@@ -29,7 +29,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'js/app/upstreams/add-upstream-modal.html',
+                        templateUrl: 'js/app/upstreams/add-upstream-modal.html?v=' + $rootScope.konga_version,
                         controller: 'AddUpstreamModalController',
                         controllerAs: '$ctrl',
                         //size: 'lg',
@@ -51,7 +51,7 @@
 
                 // Listeners
                 $scope.$on('kong.upstream.created',function(ev,data){
-                    _fetchData()
+                    _fetchData();
                 });
 
 

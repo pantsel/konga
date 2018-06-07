@@ -57,7 +57,7 @@
                           $scope.showForm = false;
                           MessageService.success('User "' + $scope.user.username + '" updated successfully');
                           initUserPassports()
-                          UserService.updateUser(data.data[0],true)
+                          UserService.updateUser(data.data,true)
                           deferred.resolve(true);
                       },function(err){
                           console.log("Err",err)

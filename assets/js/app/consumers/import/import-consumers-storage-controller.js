@@ -10,12 +10,13 @@
         .controller('ImportConsumersStorageController', [
             '_','$scope', '$log', '$state',
             'ConsumerService','RemoteStorageService',
-            '$uibModal','$uibModalInstance','_adapters',
+            '$uibModal','$uibModalInstance','_adapters','_existingConsumers',
             function controller(_,$scope, $log, $state,
                                 ConsumerService, RemoteStorageService,
-                                $uibModal, $uibModalInstance,_adapters) {
+                                $uibModal, $uibModalInstance,_adapters, _existingConsumers) {
 
                 $scope.adapters = _adapters.data
+                console.log("@@@@@@@@@@@@@@@@", _existingConsumers);
 
                 $scope.close = function() {
                     $uibModalInstance.dismiss()
@@ -33,6 +34,9 @@
                         resolve : {
                             _adapter : function() {
                                 return $scope.adapters[adapter]
+                            },
+                            _existingConsumers : function () {
+                                return _existingConsumers;
                             }
                         }
                     });

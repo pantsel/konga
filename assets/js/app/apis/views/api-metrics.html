@@ -1,0 +1,88 @@
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <h4>
+        <i class="mdi mdi-chart-bar"></i>
+        Metrics
+    </h4>
+    <p class="help-block no-margin-bottom">
+        Integrate with <a href="https://github.com/firehol/netdata" target="_blank">netdata</a>
+        and monitor your API in real-time.
+    </p>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12" ng-if="initializing">
+        <konga-loader message="Initializing..."></konga-loader>
+    </div>
+    <div class="col-md-12" ng-if="!initializing">
+
+        <div class="row margin-bottom">
+            <div class="col-xs-12 col-md-8">
+                <button class="btn btn-sm btn-link" ng-class="{'btn-danger' : !statsd, 'btn-success': statsd}">
+                    statsd : <strong>{{statsd ? 'enabled' : 'not enabled'}}</strong>
+                </button>&nbsp;
+                <button class="btn btn-sm btn-link"
+                        ng-click="editNetdataUrl()"
+                        ng-class="{'btn-warning' : !netdataApiUrl, 'btn-success': netdataApiUrl}">
+                    <i class="mdi mdi-pencil"></i>&nbsp;
+                    Netdata URL: <strong>{{netdataApiUrl || 'not set'}}</strong>&nbsp;
+                </button>
+
+
+            </div>
+            <div class="col-xs-12 col-md-4">
+
+
+                <div class="input-group">
+                    <span class="input-group-addon">Host:</span>
+                    <select ng-model="activeHost" class="form-control pull-right"
+                            ng-options="item as item.hostname for item in hosts track by item.hostname">
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="error" class="alert alert-danger">
+            <i class="mdi mdi-alert"></i>
+            {{error}}
+        </div>
+        <div ng-if="!netdataApiUrl" class="alert alert-warning">
+            <h6 style="color: #fff" class="no-margin-top">
+                <i class="mdi mdi-alert"></i>
+                <strong>No netdata server is associated with this API or the current Kong Connection.</strong>
+            </h6>
+            <p>You can:</p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editActiveNode()">
+                Connect the current Kong node and all associated APIs to a netdata server.
+            </a>
+
+            </p>
+            <p>
+                - <a href="javascript:void(0)" ng-click="editNetdataUrl()">
+                Connect this API to a netdata server individually.
+            </a>
+            </p>
+        </div>
+        <div ng-if="!statsd" class="alert alert-warning">
+            <i class="mdi mdi-alert"></i>
+            You need to enable the <strong>statsd</strong> plugin on this API or globally.
+        </div>
+
+        <div class="col-md-12" ng-if="loadingHostCharts">
+            <konga-loader message="Loading metrics of {{activeHost.hostname}}..."></konga-loader>
+        </div>
+
+        <uib-tabset active="active">
+            <uib-tab index="$index" heading="{{key.toUpperCase()}}" ng-repeat="(key, charts) in chartFamilies">
+                <br>
+                <!--<h5>Host: {{activeHost.hostname}}</h5>-->
+                <div id="chart_{{chart.id}}"
+                     ng-init="initRepeaterItem($index, chart)"
+                     ng-repeat="chart in charts" style="width: 100%; height: 250px;"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+</div>

@@ -1,23 +1,21 @@
+FROM node:6.12.3-alpine 
 
-FROM mhart/alpine-node:6.11.3
-
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git
-
-
-RUN npm install -g bower
+COPY . /app
 
 WORKDIR /app
 
-# Copy app
-COPY . /app
-
-RUN npm --unsafe-perm --verbose install --production
+RUN apk upgrade --update \
+    && apk add bash git ca-certificates \
+    && npm install -g bower \
+    && npm --unsafe-perm --production install \
+    && apk del git \
+    && rm -rf /var/cache/apk/* \
+        /app/.git \
+        /app/screenshots \
+        /app/test
 
 EXPOSE 1337
 
-RUN chmod 777 ./start.sh
+VOLUME /app/kongadata
 
-VOLUME kongadata
-
-ENTRYPOINT ["/bin/bash","./start.sh"]
+ENTRYPOINT ["/app/start.sh"]

@@ -7,10 +7,11 @@
       return {
         restrict: 'E',
         scope: {
-          item: '='
+          item: '=',
+          text: '='
         },
         replace: true,
-        template : '<i uib-tooltip="Raw view" class="mdi mdi-eye-outline clickable" data-ng-click="openRawView(item)"></i>',
+        template : '<span class="text-nowrap clickable" data-ng-click="openRawView(item)"><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i>{{text ? "&nbsp;&nbsp;" + text : ""}}</span>',
         controller: [
           '$scope','$uibModal',
           function controller($scope,$uibModal) {

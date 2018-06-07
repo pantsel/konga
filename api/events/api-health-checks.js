@@ -13,16 +13,18 @@ var KongService = require('../services/KongService')
 var moment = require('moment')
 var hcmailer = require('nodemailer');
 var mg = require('nodemailer-mailgun-transport');
-var notificationsInterval = 30;
+var notificationsInterval = 15;
 var sendmail = require('sendmail')({
     logger: {
-        debug: console.log,
+        debug: sails.log,
         info: console.info,
         warn: console.warn,
         error: console.error
     },
     silent: false
 })
+var Utils = require("../helpers/utils");
+
 
 module.exports = {
     emit : function(event,data) {
@@ -103,7 +105,7 @@ module.exports = {
                                 tasks[hc.id].timesFailed++;
                                 sails.log('health_checks:cron:checkStatus => Health check for hc ' + hc.id + ' failed ' + tasks[hc.id].timesFailed + ' times');
 
-                                var timeDiff = self.getMinutesDiff(new Date(),tasks[hc.id].lastNotified)
+                                var timeDiff = Utils.getMinutesDiff(new Date(),tasks[hc.id].lastNotified)
                                 sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[hc.id].lastNotified);
                                 sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
                                 if(!tasks[hc.id].lastNotified || timeDiff > notificationsInterval) {
@@ -146,46 +148,36 @@ module.exports = {
         })
     },
 
-    createTransporter : function(cb) {
+    createTransporter : function(settings,cb) {
 
-        // Get active transport
-        sails.models.settings.find().limit(1)
-            .exec(function(err,settings){
-                if(err) return cb(err)
-                sails.log("helath_checks:createTransporter:settings =>",settings)
-                if(!settings.length
-                    || !settings[0].data
-                    //|| !settings[0].data.email_notifications
-                    || !settings[0].data.notify_when.api_down.active) return cb()
-                sails.log("health_checks:createTransporter => trying to get transport",{
-                    "notifications_enabled" : settings[0].data.email_notifications,
-                    "transport_name" : settings[0].data.default_transport
-                })
-                sails.models.emailtransport.findOne({
-                    name : settings[0].data.default_transport
-                }).exec(function(err,transport){
-                    if(err) return cb(err)
+        sails.log("health_checks:createTransporter => trying to get transport",{
+            "notifications_enabled" : settings.data.email_notifications,
+            "transport_name" : settings.data.default_transport
+        })
+        sails.models.emailtransport.findOne({
+            name : settings.data.default_transport
+        }).exec(function(err,transport){
+            if(err) return cb(err)
 
-                    sails.log("health_checks:createTransporter:transport =>",transport)
-                    if(!transport) return cb()
+            sails.log("health_checks:createTransporter:transport =>",transport)
+            if(!transport) return cb()
 
-                    var result = {
-                        settings : settings[0].data,
-                    }
+            var result = {
+                settings : settings.data,
+            }
 
-                    switch(settings[0].data.default_transport) {
-                        case "smtp":
-                            result.transporter = hcmailer.createTransport(transport.settings)
-                            break;
-                        case "mailgun":
-                            result.transporter = hcmailer.createTransport(mg(transport.settings))
-                            break;
-                    }
+            switch(settings.data.default_transport) {
+                case "smtp":
+                    result.transporter = hcmailer.createTransport(transport.settings)
+                    break;
+                case "mailgun":
+                    result.transporter = hcmailer.createTransport(mg(transport.settings))
+                    break;
+            }
 
-                    return cb(null,result);
+            return cb(null,result);
 
-                })
-            })
+        })
 
     },
 
@@ -193,55 +185,71 @@ module.exports = {
 
         var self = this
 
-        self.notifyNotificationEndpoint(hc)
 
-        self.createTransporter(function(err,result){
-            if(err || !result) {
-                sails.log("health_check:failed to create transporter. No notification will be sent.",err)
-            }else{
-                var transporter = result.transporter
-                var settings = result.settings
-                var html = self.makeNotificationHTML(hc)
+        sails.models.settings.find().limit(1)
+            .exec(function(err,settings) {
+                if (err) return cb(err)
+                sails.log("helath_checks:settings =>", settings)
+                if (!settings.length
+                    || !settings[0].data
+                    || !settings[0].data.notify_when.api_down.active) return false;
 
-                self.getAdminEmailsList(function(err,receivers){
-                    sails.log("health_checks:notify:receivers => ",  receivers)
-                    if(!err && receivers.length) {
 
-                        var mailOptions = {
-                            from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
-                            to: receivers.join(","), // list of receivers
-                            subject: 'An API is down or unresponsive', // Subject line
-                            html: html
-                        };
+                Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(hc));
 
-                        if(settings.default_transport == 'sendmail') {
-                            sendmail(mailOptions, function(err, reply) {
-                                if(err){
-                                    sails.log.error("Health_checks:notify:error",err)
+                self.notifyNotificationEndpoint(hc)
+
+                self.createTransporter(settings[0],function(err,result){
+                    if(err || !result) {
+                        sails.log("health_check:failed to create transporter. No notification will be sent.",err)
+                    }else{
+                        var transporter = result.transporter
+                        var settings = result.settings
+                        var html = self.makeHTMLNotification(hc)
+
+                        Utils.getAdminEmailList(function(err,receivers){
+                            sails.log("health_checks:notify:receivers => ",  receivers)
+                            if(!err && receivers.length) {
+
+                                var mailOptions = {
+                                    from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
+                                    to: receivers.join(","), // list of receivers
+                                    subject: 'An API is down or unresponsive', // Subject line
+                                    html: html
+                                };
+
+                                if(settings.default_transport == 'sendmail') {
+                                    sendmail(mailOptions, function(err, reply) {
+                                        if(err){
+                                            sails.log.error("Health_checks:notify:error",err)
+                                        }else{
+                                            sails.log.info("Health_checks:notify:success",reply)
+
+                                        }
+                                    });
                                 }else{
-                                    sails.log.info("Health_checks:notify:success",reply)
-                                    tasks[hc.id].lastNotified = new Date();
-                                    self.updatehcHealthCheckDetails(hc.id)
+                                    transporter.sendMail(mailOptions, function(error, info){
+                                        if(error){
+                                            sails.log.error("Health_checks:notify:error",error)
 
+                                        }else{
+                                            sails.log.info("Health_checks:notify:success",info)
+
+                                        }
+                                    });
                                 }
-                            });
-                        }else{
-                            transporter.sendMail(mailOptions, function(error, info){
-                                if(error){
-                                    sails.log.error("Health_checks:notify:error",error)
-
-                                }else{
-                                    sails.log.info("Health_checks:notify:success",info)
-                                    tasks[hc.id].lastNotified = new Date();
-                                    self.updatehcHealthCheckDetails(hc.id)
-
-                                }
-                            });
-                        }
+                            }
+                        })
                     }
                 })
-            }
-        })
+
+                tasks[hc.id].lastNotified = new Date();
+                self.updatehcHealthCheckDetails(hc.id)
+
+
+            });
+
+
     },
 
     notifyNotificationEndpoint : function(hc) {
@@ -265,7 +273,7 @@ module.exports = {
             })
     },
 
-    makeNotificationHTML : function makeNotificationHTML(hc) {
+    makeHTMLNotification : function makeHTMLNotification(hc) {
 
         var duration = moment.duration(moment().diff(moment(tasks[hc.id].lastSucceeded))).humanize()
 
@@ -284,20 +292,16 @@ module.exports = {
         return html;
     },
 
-    getMinutesDiff : function(start,end) {
-        var duration = moment.duration(moment(start).diff(moment(end)));
-        return duration.asMinutes();
-    },
+    makePlainTextNotification : function(hc){
 
-    getAdminEmailsList : function(cb) {
-        sails.models.user.find({
-            admin : true
-        }).exec(function(err,admins){
-            if(err) return cb(err)
-            if(!admins.length) return cb([])
-            return cb(null,admins.map(function(item){
-                return item.email;
-            }))
-        })
+        sails.log("!!!!!!!!!!!!!!!!!!!!!!",moment(tasks[hc.id].lastSucceeded));
+
+        var duration = moment.duration(moment().diff(moment(tasks[hc.id].lastSucceeded))).humanize();
+
+        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] An API is down or unresponsive for more than '
+            + duration + '. ID: ' + hc.id + ' | Name: ' + hc.api.name +'.';
+
+        return text;
     }
+
 }

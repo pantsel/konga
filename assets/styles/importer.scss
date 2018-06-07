@@ -35,7 +35,7 @@ body {
   background-color: #f9f9f9;
   color: $gray-darker;
   //padding-bottom: 30px;
-
+  letter-spacing: normal;
 }
 
 .control-label{
@@ -51,6 +51,11 @@ body {
       }
     }
   }
+}
+
+
+.popover {
+  max-width: 100% !important;
 }
 
 .alert-fixed-top{
@@ -69,6 +74,14 @@ body {
   margin-right: auto;
   max-width: 100%;
 }
+
+@media (min-width: 1200px){
+  .main-container.container {
+    width:1280px;
+  }
+}
+
+
 
 
 .text-nowrap{
@@ -291,6 +304,22 @@ footer {
 
 .no-margin {
   margin:0 !important;
+}
+
+.no-margin-top {
+  margin-top:0 !important;
+}
+
+.no-margin-bottom {
+  margin-bottom:0 !important;
+}
+
+.no-margin-left {
+  margin-left:0 !important;
+}
+
+.no-margin-right {
+  margin-right:0 !important;
 }
 
 .clear-left{
@@ -617,7 +646,7 @@ pre {
 }
 
 .bg-light-grey{
-  background-color: #f4f4f4;
+  background-color: #ededed;
 }
 
 .default-chip{
@@ -732,6 +761,61 @@ tr.disabled{
   background-color: $brand-danger;
 }
 
+.badge {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 5px 8px 6px;
+
+  &.badge-success{
+    background-color: $brand-success;
+    &.badge-inverse{
+      background-color: transparent !important;
+      color: $brand-success;
+      border: 1px solid $brand-success;
+    }
+
+  }
+
+  &.badge-api-plugin {
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    .text{
+      padding-right: 5px;
+      padding-left: 5px;
+      vertical-align: inherit;
+    }
+
+    // Raw view icon
+    .mdi-eye-outline{
+      .mdi:before{
+        font-size: 16px;
+      }
+      margin-right: 5px;
+    }
+
+    .mdi:before{
+      font-size: 16px;
+    }
+  }
+
+}
+
+.max-2-lines{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  min-height: 34px;
+}
+
+
+chips > div > input {
+  width: 100%;
+  background-color: transparent;
+}
 
 //.iln-match-height  .panel {
 //  height: 100%; !important;

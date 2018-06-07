@@ -1,0 +1,28 @@
+<div class="modal-header primary">
+    <h5 class="modal-title" id="modal-title">
+        Add SNI
+        <a  class="modal-close pull-right" ng-click="close()">
+            <i class="mdi mdi-close"></i>
+        </a>
+    </h5>
+</div>
+
+<div class="modal-body">
+    <div class="alert alert-danger" ng-if="errorMessage || errors.message">
+        {{errorMessage || errors.message}}
+    </div>
+    <div class="form-group" ng-class="{'has-error' : errors.name}">
+        <label class="control-label">Name</label>
+        <input type="text"
+               class="form-control"
+               ng-model="sni" name="sni"
+        />
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+    </div>
+    <div class="form-group no-margin-bottom">
+        <button type="text"
+                class="btn btn-primary btn-block" data-ng-click="submit()">
+            Submit
+        </button>
+    </div>
+</div>

@@ -1,3 +1,13 @@
+.mdi{
+  &.clickable {
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 .mdi::before {
   font-size: 24px;
   //top:1px;

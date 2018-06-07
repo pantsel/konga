@@ -1,3 +1,4 @@
+
 <div class="container margin-top" style="width: 600px;max-width: 100%" ng-if="!loading">
     <div class="row" ng-if="!user.node && !Gateway">
         <div class="col-md-12 text-center">
@@ -5,12 +6,15 @@
             <h2>
                 Welcome!
             </h2>
-            <p class="lead">First of all, lets setup a connection to Kong Admin.</p>
+            <p class="lead">
+                First of all, lets setup a connection to Kong Admin.<br>
+                <small class="text-muted">Select a connection type.</small>
+            </p>
 
         </div>
-        <div class="col-md-12 margin-top">
+        <div class="col-md-12">
             <div ng-include="'js/app/connections/partials/create-connection-form-flat.html?r=' + Date.now()"
-                 class="margin-top"></div>
+                 class=""></div>
         </div>
     </div>
     <div class="row" ng-if="user.node && !Gateway && error">
@@ -31,72 +35,55 @@
 <konga-loader message="Connecting to node. Please wait.." ng-if="loading && !error"></konga-loader>
 
 <div data-ng-if="!loading && !error && info">
-    <div class="row" vertilize-container>
-        <!-- REQUESTS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <i class="mdi mdi-cast-connected"></i>&nbsp;
-                        REQUESTS
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <canvas id="server"
-                            class="chart chart-bar"
-                            chart-data="data.server.data"
-                            chart-labels="data.server.labels"
-                            chart-options="data.server.options"
-                            chart-series="data.server.series">
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END REQUESTS -->
+
+    <div class="row">
         <!-- CONNECTIONS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
+        <div class="col-md-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-cast-connected"></i>&nbsp;
+                        <i class="mdi mdi-lan-connect"></i>&nbsp;
                         CONNECTIONS
+                        <span class="pull-right" uib-tooltip="{{status.server.total_requests}}">
+                            Total Requests: <strong>{{convert2Unit(status.server.total_requests)}}</strong>
+                        </span>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <canvas id="activity"
-                            class="chart chart-bar"
-                            chart-data="data.activity.data"
-                            chart-labels="data.activity.labels"
-                            chart-options="data.activity.options"
-                            chart-series="data.activity.series">
-                    </canvas>
+                    <div class="row text-center">
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_active}}">
+                            <strong>ACTIVE</strong>
+                            <h3>{{convert2Unit(status.server.connections_active)}}</h3>
+                        </div>
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_reading}}">
+                            <strong>READING</strong>
+                            <h3>{{convert2Unit(status.server.connections_reading)}}</h3>
+                        </div>
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_writing}}">
+                            <strong>WRITING</strong>
+                            <h3>{{convert2Unit(status.server.connections_writing)}}</h3>
+                        </div>
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_waiting}}">
+                            <strong>WAITING</strong>
+                            <h3>{{convert2Unit(status.server.connections_waiting)}}</h3>
+                        </div>
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_accepted}}">
+                            <strong>ACCEPTED</strong>
+                            <h3>{{convert2Unit(status.server.connections_accepted)}}</h3>
+                        </div>
+                        <div class="col-sm-2" uib-tooltip="{{status.server.connections_handled}}">
+                            <strong>HANDLED</strong>
+                            <h3>{{convert2Unit(status.server.connections_handled)}}</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- END CONNECTIONS -->
-        <!-- TIMERS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <i class="mdi mdi-timer"></i>&nbsp;
-                        TIMERS
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <canvas id="timers"
-                            class="chart chart-bar"
-                            chart-data="data.timers.data"
-                            chart-labels="data.timers.labels"
-                            chart-options="data.timers.options"
-                            chart-series="data.timers.series">
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END -->
+
+
     </div>
-    <div class="row" ng-if="!isKongVersionGreater('0.11.0')">
+    <div class="row" ng-if="!isGatewayVersionEqOrGreater('0.11.0')">
         <!-- DATABASE -->
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -117,12 +104,12 @@
         <!-- END DATABASE -->
     </div>
     <div class="row" vertilize-container>
-        <!-- GATEWAY INFO -->
+        <!-- NODE INFO -->
         <div class="col-md-4">
             <div class="panel panel-default" vertilize>
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-information-outline"></i>&nbsp;GATEWAY INFO
+                        <i class="mdi mdi-information-outline"></i>&nbsp;NODE INFO
                     </div>
                 </div>
                 <table class="table no-margin">
@@ -149,15 +136,36 @@
                 </table>
             </div>
         </div>
-        <!-- END GATEWAY INFO -->
+        <!-- END NODE INFO -->
+        <!-- TIMERS -->
+        <div class="col-md-4">
+            <div class="panel panel-default" vertilize>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="mdi mdi-timer"></i>&nbsp;
+                        TIMERS
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <canvas id="timers"
+                            class="chart chart-horizontal-bar"
+                            chart-data="data.timers.data"
+                            chart-labels="data.timers.labels"
+                            chart-options="data.timers.options"
+                            chart-series="data.timers.series">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <!-- END -->
 
         <!-- DATABASE INFO -->
         <div class="col-md-4">
             <div class="panel panel-default" vertilize>
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <i class="mdi mdi-information-outline"></i>&nbsp;DATABASE INFO
-                        <span ng-if="isKongVersionGreater('0.11.0')"
+                        <i class="mdi mdi-information-outline"></i>&nbsp;DATASTORE INFO
+                        <span ng-if="isGatewayVersionEqOrGreater('0.11.0')"
                               ng-class="{'text-success' : status.database.reachable, 'text-danger' : !status.database.reachable}"
                               class="pull-right">
                             <small>{{status.database.reachable ? 'Reachable' : 'Unreachable'}}</small>
@@ -169,30 +177,53 @@
                         <th>DBMS</th>
                         <td>{{info.configuration.database}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Host</th>
                         <td>{{info.configuration.pg_host}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_contact_points">
+                        <th>Contact points</th>
+                        <td>{{info.configuration.cassandra_contact_points.join(", ")}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_keyspace">
+                        <th>Keyspace</th>
+                        <td>{{info.configuration.cassandra_keyspace}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra' && info.configuration.cassandra_data_centers">
+                        <th>Data Centers</th>
+                        <td>{{info.configuration.cassandra_data_centers.join(", ")}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Database</th>
                         <td>{{info.configuration.pg_database}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>User</th>
                         <td>{{info.configuration.pg_user}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="info.configuration.database == 'cassandra'">
+                        <th>Username</th>
+                        <td>{{info.configuration.cassandra_username}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'postgres'">
                         <th>Port</th>
                         <td>{{info.configuration.pg_port}}</td>
+                    </tr>
+                    <tr ng-if="info.configuration.database == 'cassandra'">
+                        <th>Port</th>
+                        <td>{{info.configuration.cassandra_port}}</td>
                     </tr>
                 </table>
             </div>
         </div>
         <!-- END DATABASE INFO -->
 
+
+    </div>
+    <div class="row">
         <!-- PLUGINS -->
-        <div class="col-md-4">
-            <div class="panel panel-default" vertilize>
+        <div class="col-md-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <i class="mdi mdi-power-plug"></i>&nbsp;

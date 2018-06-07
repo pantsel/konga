@@ -15,7 +15,7 @@
                         url: '/snapshots',
                         parent : 'frontend',
                         data : {
-                            access : 0,
+                            access : 2,
                             pageName : "Snapshots",
                             pageDescription : "Take snapshots of currently active nodes.<br>All <code>APIs</code>, <code>Plugins</code>, <code>Consumers</code>, <code>Upstreams</code> and <code>Targets</code>will be saved and available for later import.",
                             prefix : '<i class="mdi mdi-camera"></i>'
@@ -23,7 +23,15 @@
                         views: {
                             'content@': {
                                 templateUrl: 'js/app/snapshots/index.html',
-                                    controller: 'SnapshotsController'
+                                controller: 'SnapshotsController'
+                            },
+                            'list@snapshots': {
+                                templateUrl: 'js/app/snapshots/views/snapshots-list.html',
+                                controller: 'SnapshotsListController',
+                            },
+                            'scheduled@snapshots': {
+                                templateUrl: 'js/app/snapshots/views/snapshots-scheduled.html',
+                                controller: 'SnapshotsScheduledController',
                             },
 
                         }
@@ -32,7 +40,7 @@
                         url: '/:id',
                         parent : 'snapshots',
                         data : {
-                            access : 0,
+                            access :  2,
                             pageName : "Snapshot Details",
                             displayName : "snapshot details",
                             pageDescription : null,
@@ -40,17 +48,11 @@
                         },
                         views: {
                             'content@': {
-                                templateUrl: 'js/app/snapshots/snapshot.html',
-                                controller: 'SnapshotController',
-                                // resolve : {
-                                //     _snapshot : ['Snapshot','$stateParams',
-                                //         function(Snapshot,$stateParams){
-                                //             return Snapshot.fetch($stateParams.id)
-                                //         }]
-                                // }
+                                templateUrl: 'js/app/snapshots/views/snapshot.html',
+                                controller: 'SnapshotController'
                             },
                         }
-                    })
+                    });
             }
         ])
     ;

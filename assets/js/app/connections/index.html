@@ -74,21 +74,33 @@
 
                     <i style="opacity: .5" uib-tooltip="HC disabled" ng-if="!node.health_checks" class="mdi mdi-heart-outline"></i></td>
                 </td>
-                <td><a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.name" onbeforesave="updateNode(node)">{{node.name || 'undefined'}}</a></td>
-                <td>
-                    <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_admin_url" onbeforesave="updateNode(node)">{{node.kong_admin_url}}</a>
+                <td ng-click="chooseNetdataEndpoint(node)" class="clickable">
+                    <i class="mdi mdi-chart-bar"
+                       ng-if="!node.netdata_url"
+                       uib-tooltip="No netdata connection"
+                       style="opacity: .5"></i>
+
+                    <i class="mdi mdi-chart-bar text-success"
+                       ng-if="node.netdata_url"
+                       uib-tooltip="{{node.netdata_url}}"
+                       style="opacity: .8"></i>
                 </td>
                 <td>
-                    <a  edit-disabled="{{!user.hasPermission('connections','update')}}" editable-text="node.kong_api_key" onbeforesave="updateNode(node)">{{node.kong_api_key ?  user.hasPermission('connections','update')? node.kong_api_key : '********' : 'N/A'}}</a>
-                </td>
-                <td>
-                    <a href="#"
-                       edit-disabled="{{!user.hasPermission('connections','update')}}"
-                       editable-select="node.kong_version"
-                       onaftersave="updateNode(node)"
-                       e-ng-options="s.value as s.name for s in kong_versions">
-                        {{ node.kong_version.split("-").join(".") }}
+                    <a ng-if="user.hasPermission('connections','update')" class="clickable" ng-click="editNode(node)">
+                        <strong>{{node.name || 'undefined'}}</strong>
                     </a>
+
+                    <strong  ng-if="!user.hasPermission('connections','update')">{{node.name || 'undefined'}}</strong>
+
+                </td>
+                <td>
+                    {{node.type || 'N/A'}}
+                </td>
+                <td>
+                    {{node.kong_admin_url}}
+                </td>
+                <td>
+                    {{node.kong_version}}
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
                 <td  width="1" data-ng-if="user.hasPermission('connections','delete')">
