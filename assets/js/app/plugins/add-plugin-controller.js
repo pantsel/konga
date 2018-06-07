@@ -16,7 +16,7 @@
                           KongPluginsService, $uibModalInstance, PluginsService, _pluginName, _schema,_context) {
 
 
-        $scope[_context.name] = _context.data;
+        if(_context) $scope[_context.name] = _context.data;
         $scope.context = 'create';
         $log.debug("API", $scope.api)
         $log.debug("Service", $scope.service)

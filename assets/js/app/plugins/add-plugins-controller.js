@@ -78,16 +78,7 @@
             size: 'lg',
             controller: 'AddPluginController',
             resolve: {
-              _api: function () {
-                return null;
-              },
-              _consumer: function () {
-                return null;
-              },
-              _route: function () {
-                return null;
-              },
-              _service: function () {
+              _context: function() {
                 return null;
               },
               _pluginName: function () {
