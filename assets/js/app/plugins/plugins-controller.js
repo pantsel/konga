@@ -98,19 +98,6 @@
           }
         }
 
-        function defineContext(plugin) {
-          if(plugin.service_id) {
-            plugin.context = 'services'
-          } else if(plugin.route_id) {
-            plugin.context = 'routes'
-          } else if(plugin.api_id) {
-            plugin.context = 'apis'
-          }else{
-            plugin.context = 'global'
-          }
-        }
-
-
         /**
          * ------------------------------------------------------------
          * Listeners
