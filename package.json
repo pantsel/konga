@@ -79,7 +79,7 @@
     "debug": "node debug app.js",
     "test": "mocha",
     "bower-deps": "bower --allow-root install",
-    "migrate": "node ./bin/konga.js migrate"
+    "prepare": "node ./bin/konga.js prepare"
   },
   "main": "app.js",
   "repository": {

@@ -34,7 +34,7 @@ else if (argv._[0] === 'play')
         console.log("Exiting",code);
     });
 }
-else if(argv._[0] === 'migrate') {
+else if(argv._[0] === 'prepare') {
   var Sails = require('sails');
   Sails.lift({
     environment: 'development',
