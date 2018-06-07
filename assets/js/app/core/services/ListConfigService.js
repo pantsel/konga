@@ -16,11 +16,6 @@
       function factory(_, DialogService, $log, AuthService, MessageService) {
         /**
          * List title item configuration.
-         *
-         * @type  {{
-                 *          author: *[],
-                 *          book: *[]
-                 *        }}
          */
         var titleItems = {
           service: [
@@ -361,12 +356,20 @@
               inTitle: true
             },
             {
-              title: 'API',
-              column: 'api_id',
+              title: 'context',
+              column: 'context',
               searchable: true,
               sortable: true,
               inSearch: true,
               inTitle: true
+            },
+            {
+              title: 'apply to',
+              column: 'item_id',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true,
             },
             {
               title: 'Consumer',
