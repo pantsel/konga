@@ -20,6 +20,11 @@
 
           $scope.loading = true
 
+          if(!$scope.route.hosts) $scope.route.hosts = [];
+          if(!$scope.route.paths) $scope.route.paths = [];
+          if(!$scope.route.methods) $scope.route.methods = [];
+          if(!$scope.route.protocols) $scope.route.protocols = [];
+
           RoutesService.update($scope.route.id, _.omit($scope.route,["id"]))
             .then(function (res) {
               $log.debug("Update Route: ", res)
