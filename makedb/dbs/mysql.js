@@ -39,7 +39,6 @@ module.exports = {
         }
 
 
-
         var connection = mysql.createConnection(url ? _.omit(parsedOpts,['database']) : {
             host     : dbConf.connections.mysql.host,
             port     : dbConf.connections.mysql.port,
