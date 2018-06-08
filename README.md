@@ -141,9 +141,9 @@ The following instructions assume that you have a running Kong instance followin
 instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
 ```
 $ docker pull pantsel/konga
-$ docker run -p 1337:1337 
-             --link kong:kong
-             --name konga
+$ docker run -p 1337:1337 \
+             --link kong:kong \
+             --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
              pantsel/konga
 ```
