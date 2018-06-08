@@ -49,12 +49,19 @@
                         <raw-view data-item="service"></raw-view>
                     </td>
                     <td>
-                        <strong>
+                        <p class="no-margin">
                             <a class="clickable"
-                               data-ui-sref="services.edit({service_id:service.id})">{{ service.name || "-" }}</a>
-                        </strong>
+                               data-ui-sref="services.edit({service_id:service.id})"><strong>{{ service.name || "-" }}</strong></a>
+                        </p>
+                        <p ng-if="service.extras" class="text-small help-block no-margin-top">{{service.extras.description}}</p>
                     </td>
                     <td>{{ service.host || "-" }}</td>
+                    <td>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in service.extras.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
+                    </td>
                     <td>{{service.created_at*1000 | date : format : timezone}}</td>
                     <!--<td>-->
                         <!--<a ui-sref="services.edit({ service_id: service.id })" class="btn btn-default btn-link">-->

@@ -4,6 +4,8 @@
 
 var unirest = require("unirest");
 var KongService = require("../services/KongService");
+var ProxyHooks = require("../services/KongProxyHooks");
+var _ = require("lodash");
 
 module.exports = {
 
@@ -33,7 +35,14 @@ module.exports = {
       });
     }
 
+
     var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
+
+    var konga_extras;
+    if(req.body && req.body.extras) {
+      konga_extras = req.body.extras;
+      delete req.body.extras;
+    }
     request.headers(KongService.headers(req.connection, true))
     if (['post', 'put', 'patch'].indexOf(req.method.toLowerCase()) > -1) {
 
@@ -52,30 +61,40 @@ module.exports = {
       }
     }
 
-    request.send(req.body);
+
+    ProxyHooks.beforeSend(req, function (err, ok) {
+      if(err) return res.badRequest(err);
+
+      request.send(req.body);
 
 
-    request.end(function (response) {
-      if (response.error) {
-        sails.log.error("KongProxyController", "request error", response.body);
-        return res.negotiate(response);
-      }
+      request.end(function (response) {
+        if (response.error) {
+          sails.log.error("KongProxyController", "request error", response.body);
+          return res.negotiate(response);
+        }
 
-      // If an API was deleted, delete it's assigned health checks as well
-      // ToDo: emit an api.deleted event and handle it somewhere more convenient
-      if(req.method.toLowerCase() === 'delete' && req.url.indexOf('/apis/') > -1) {
-        var apiId = req.url.split("/").slice(-1).pop()
-        sails.log("An API with id " + apiId + "was deleted");
-        sails.models.apihealthcheck.destroy({
-          id: apiId
-        }).exec(function (err) {
-          if(err) {
-            sails.log("Failed to delete healthcecks of API " + apiId);
-          }
+        // If an API was deleted, delete it's assigned health checks as well
+        // ToDo: emit an api.deleted event and handle it somewhere more convenient
+        if(req.method.toLowerCase() === 'delete' && req.url.indexOf('/apis/') > -1) {
+          var apiId = req.url.split("/").slice(-1).pop()
+          sails.log("An API with id " + apiId + "was deleted");
+          sails.models.apihealthcheck.destroy({
+            id: apiId
+          }).exec(function (err) {
+            if(err) {
+              sails.log("Failed to delete healthcecks of API " + apiId);
+            }
+          });
+        }
+
+        ProxyHooks.afterResponseSuccess(_.merge(response.body,{extras: konga_extras}), req, function (err, response) {
+          return res.json(response);
         });
-      }
 
-      return res.json(response.body);
-    });
+
+      });
+    })
+
   }
 };

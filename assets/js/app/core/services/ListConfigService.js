@@ -36,6 +36,14 @@
               inTitle: true
             },
             {
+              title: 'tags',
+              column: 'extras.tags',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'created',
               column: 'created_at',
               sortable: true,

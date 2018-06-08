@@ -817,6 +817,13 @@ chips > div > input {
   background-color: transparent;
 }
 
+.badge.badge-tag {
+  margin-right: 5px;
+  i.mdi:before {
+    font-size: .9em;
+  }
+}
+
 //.iln-match-height  .panel {
 //  height: 100%; !important;
 //}
