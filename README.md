@@ -116,14 +116,8 @@ See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/a
 ***************************************************************************************** 
 ##### Note : 
 In case of `MySQL`, `PostgresSQL` or `SQL Server` adapters, 
-you will need to start the app in development mode the first time. 
+you will need to prepare the database as explained on the next topic. 
 
-```
-npm start
-```
-
-Then kill the process and start Konga as you would in production mode.
-Konga **will not** create the database or tables in production mode. 
 ***************************************************************************************** 
 
 ## Running Konga
