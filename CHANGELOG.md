@@ -2,10 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
-
-* **[Enhancement]** [netdata](https://github.com/firehol/netdata) integration.
-Utilize the power of statsd & netdata for real-time API metrics.
+## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-06-2018
+* **[Compatibility]** Services and Routes support (Kong 0.13+).
 * **[Enhancement]** In plugin management forms, all text inputs are changed to textareas
 so that custom plugins can be better integrated [#189](https://github.com/pantsel/konga/issues/189).
 * Minor fixes and improvements.

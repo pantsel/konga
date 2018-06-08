@@ -35,9 +35,24 @@ else if (argv._[0] === 'play')
     });
 }
 else if(argv._[0] === 'prepare') {
+
+  if(!process.env.DB_ADAPTER && !argv.adapter) {
+    console.error("No db adapter defined. Set -adapter mongo || mysql || postgres || sql-srv")
+    return process.exit(1);
+  }
+
+  if(!process.env.DB_URI && !argv.uri) {
+    console.error("No db connection string is defined. Set -uri {db_connection_string}")
+    return process.exit(1);
+  }
+
+  process.env.DB_ADAPTER = process.env.DB_ADAPTER || argv.adapter;
+  process.env.DB_URI = process.env.DB_URI || argv.uri;
+
   var Sails = require('sails');
   Sails.lift({
     environment: 'development',
+    port: process.env.PORT || argv.port || "1339",
     hooks: {
       grunt: false
     }

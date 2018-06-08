@@ -44,11 +44,11 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-**Konga up to 0.10.*** is fully compatible with **Kong 0.11.x,0.12.x**. 
+1. **Konga up to 0.10.*** is fully compatible with **Kong 0.11.x,0.12.x**. 
 It may work with older versions as well but they are not actively supported.
 It also works with Kong 0.13.* yet without the ability to manage services and routes.
 
-**Konga 0.11+** is fully compatible with **Kong 0.13+**. Compatibility with older Kong versions
+2. **Konga 0.11+** is fully compatible with **Kong 0.13+**. Compatibility for older Kong versions
  is still present but not guaranteed.
 
 ## Prerequisites
@@ -155,11 +155,36 @@ $ docker run -p 1337:1337
 ```
 
 #### To use one of the supported databases
+
+1. ##### Prepare the database
+> **Note**: You can skip this step if using the `mongo` adapter.
+
+Konga will not perform db migrations when running in production mode.
+
+You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
+, passing the args needed for the database connectivity.
+
+The available adapters are ```'mongo','postgres','sqlserver'  or 'mysql'``` 
+
 ```
-// As stated before, in case of 'postgres','sqlserver'  or 'mysql' adapters,
-// the app must be started in development mode the first time in order to be able to apply migrations.
-// You can do that by bashing into Konga's container and running 'node app.js --dev'.
-// You may also need to add an extra link that points to your database container.
+$ node ./bin/konga.js  prepare --adapter {adapter_name} --uri {full_connection_string}
+```
+The process will exit after all migrations are completed.
+
+If you're deploying Konga via the docker image, you can prepare the database using 
+an ephemeral container for the job.
+```
+$ docker run -p 1337:1337 
+              -e "DB_ADAPTER={adapter_name}" \ 
+              -e "DB_URI={full_connection_string}" \
+              -e "NODE_ENV=development" \
+              --name konga \
+              pantsel/konga npm run prepare
+```
+
+
+2. ##### Start Konga
+```
 $ docker run -p 1337:1337 
              --link kong:kong \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
@@ -181,16 +206,6 @@ $ docker run -p 1337:1337
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
               --name konga \
               pantsel/konga
-              
- // Another example for connecting to a mongo replica set
- $ docker run -p 1337:1337 
-               --link kong:kong \
-               -e "DB_ADAPTER=mongo" \ // 'mongo','postgres','sqlserver'  or 'mysql'
-               -e "DB_URI=mongodb://localhost,localhost:27018,localhost:27019/?replicaSet=test" \
-               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
-               --name konga \
-               pantsel/konga
- 
 ```
 
 
@@ -227,11 +242,8 @@ When a plugin property is an array, the input is handled by a chip component.
 You will need to press `enter` after every value you type in
 so that the component assigns it to an array index.
 See issue [#48](https://github.com/pantsel/konga/issues/48) for reference.
-    
-##### 3. Database migrations do not run automatically when starting the app.
-See issue [#40](https://github.com/pantsel/konga/issues/40) for reference.
 
-##### 4. EACCES permission denied, mkdir '/kongadata/'.
+##### 3. EACCES permission denied, mkdir '/kongadata/'.
 If you see this error while trying to run Konga, it means that konga has no write permissions to
 it's default data dir `/kongadata`.  You will just have to define the storage path yourself to 
 a directory Konga will have access permissions via the env var `STORAGE_PATH`.
