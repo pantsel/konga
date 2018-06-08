@@ -2,7 +2,6 @@
 var argv = require('minimist')(process.argv.slice(2));
 var child_process = require('child_process');
 var spawn = child_process.spawn
-var isWin = /^win/.test(process.platform);
 var path = require('path')
 
 
