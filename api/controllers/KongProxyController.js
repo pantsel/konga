@@ -25,7 +25,7 @@ var self = module.exports = {
    */
   proxy: function (req, res) {
 
-    req.url = req.url.replace('/kong', ''); // Remove the /api prefix
+    req.url = req.url.replace('/kong', ''); // Remove the /kong prefix
     var entity = getEntityFromRequest(req);
 
     sails.log.debug("KongProxyController:req.method", req.method)
