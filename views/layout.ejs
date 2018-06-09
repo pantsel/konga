@@ -305,7 +305,7 @@
     window.angularDebugEnabled = <%= angularDebugEnabled %>;
 
 
-    // Disable console logs if in production
+    // Disable console logs in production
     if(!window.angularDebugEnabled && window['console']) {
       window['console']['log'] = function() {};
     }
