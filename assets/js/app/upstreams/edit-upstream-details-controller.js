@@ -8,16 +8,18 @@
 
   angular.module('frontend.upstreams')
     .controller('EditUpstreamDetailsController', [
-      '$scope', '$rootScope', '$stateParams',
-      '$log', '$state', 'Upstream', 'MessageService','Semver',
-      function controller($scope, $rootScope, $stateParams,
-                          $log, $state, Upstream, MessageService, Semver) {
+      '_', '$scope', '$rootScope', '$stateParams',
+      '$log', '$state', 'Upstream', 'MessageService',
+      function controller(_, $scope, $rootScope, $stateParams,
+                          $log, $state, Upstream, MessageService) {
 
 
         $scope.submit = function () {
 
           $scope.busy = true
-          Upstream.update($scope.upstream.id, angular.copy($scope.upstream))
+          var data = angular.copy($scope.upstream);
+          fixHealthChecksHttpStatusesType(data);
+          Upstream.update($scope.upstream.id, data)
             .then(
               function onSuccess(result) {
                 $log.debug("UpdateUpstreamModalController:created upstream", result)
@@ -30,6 +32,25 @@
                 Upstream.handleError($scope, err)
               }
             )
+        }
+
+
+        function fixHealthChecksHttpStatusesType(upstream) {
+          // Fix non numeric arrays
+          var arr = ["active.healthy", "active.unhealthy", "passive.healthy", "passive.unhealthy"];
+          arr.forEach(function (item) {
+            if (_.get(upstream, 'healthchecks.' + item + '.http_statuses')) {
+              _.update(upstream, 'healthchecks.' + item + '.http_statuses', function (statuses) {
+                return _.map(statuses, function (status) {
+                  try{
+                    return parseInt(status);
+                  }catch (e) {
+                    return status;
+                  }
+                })
+              })
+            }
+          });
         }
       }
     ])

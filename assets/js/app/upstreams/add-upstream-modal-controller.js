@@ -35,9 +35,15 @@
           // Fix non numeric arrays
           var arr = ["active.healthy", "active.unhealthy", "passive.healthy", "passive.unhealthy"];
           arr.forEach(function (item) {
-            if (_.get(data, 'healthchecks.' + item + '.http_statuses')) {
-              _.update(data, 'healthchecks.' + item + '.http_statuses', function (status) {
-                return parseInt(status);
+            if (_.get(upstream, 'healthchecks.' + item + '.http_statuses')) {
+              _.update(upstream, 'healthchecks.' + item + '.http_statuses', function (statuses) {
+                return _.map(statuses, function (status) {
+                  try{
+                    return parseInt(status);
+                  }catch (e) {
+                    return status;
+                  }
+                })
               })
             }
           });
