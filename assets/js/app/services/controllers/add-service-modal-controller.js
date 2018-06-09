@@ -13,7 +13,7 @@
       function controller($scope, $rootScope, $log, $state, ServiceService, SettingsService,
                           $uibModalInstance, MessageService) {
 
-
+        $scope.tags = [];
         var availableFormattedVersion = ServiceService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
         $scope.service = angular.copy(ServiceService.getProperties($rootScope.Gateway.version));
 
@@ -63,6 +63,25 @@
             }
           }
         }
+
+        $scope.onTagInputKeyPress = function ($event) {
+          if($event.keyCode === 13) {
+            if(!$scope.service.extras) $scope.service.extras = {};
+            if(!$scope.service.extras.tags) $scope.service.extras.tags = [];
+            $scope.service.extras.tags = $scope.service.extras.tags.concat($event.currentTarget.value);
+            $event.currentTarget.value = null;
+          }
+        }
+
+        function getTags() {
+          ServiceService.getTags().then(function (res) {
+            $scope.tags = res.data;
+          }).catch(function (err) {
+            console.error(err);
+          })
+        }
+
+        getTags();
 
 
       }

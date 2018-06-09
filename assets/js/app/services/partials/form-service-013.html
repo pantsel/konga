@@ -25,7 +25,9 @@
                     <i class="mdi mdi-close" remove-chip></i>
                 </div>
             </chip-tmpl>
-            <input chip-control/>
+            <input ng-model-control
+                   data-ng-keypress="onTagInputKeyPress($event)"
+                   ng-model="$tag" uib-typeahead="tag for tag in tags | filter:$viewValue | limitTo:10"/>
         </chips>
         <p class="help-block">
            Optionaly add tags to the service

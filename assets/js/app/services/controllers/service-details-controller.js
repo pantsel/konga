@@ -13,6 +13,7 @@
 
           var availableFormattedVersion = ServiceService.getLastAvailableFormattedVersion($rootScope.Gateway.version);
           $scope.settings = SettingsService.getSettings();
+          $scope.tags = [];
           $scope.partial = 'js/app/services/partials/form-service-' + availableFormattedVersion + '.html?r=' + Date.now();
 
           $scope.updateService = function() {
@@ -38,6 +39,25 @@
               })
 
           }
+
+          $scope.onTagInputKeyPress = function ($event) {
+            if($event.keyCode === 13) {
+              if(!$scope.service.extras) $scope.service.extras = {};
+              if(!$scope.service.extras.tags) $scope.service.extras.tags = [];
+              $scope.service.extras.tags = $scope.service.extras.tags.concat($event.currentTarget.value);
+              $event.currentTarget.value = null;
+            }
+          }
+
+          function getTags() {
+            ServiceService.getTags().then(function (res) {
+              $scope.tags = res.data;
+            }).catch(function (err) {
+              console.error(err);
+            })
+          }
+
+          getTags();
 
       }
     ])
