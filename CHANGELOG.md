@@ -8,7 +8,10 @@ All notable changes to this project will be documented in this file.
 for better listing.
 * **[Enhancement]** In plugin management forms, all text inputs are changed to textareas
 so that custom plugins can be better integrated [#189](https://github.com/pantsel/konga/issues/189).
-* Minor fixes and improvements.
+* Various fixes and improvements.
+
+> **This update introduces changes in db schemas. If you're using a database other 
+than mongoDB, you will have to apply the migrations as described in README.md**
 
 ## [0.10.4](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
 
