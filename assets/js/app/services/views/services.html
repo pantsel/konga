@@ -53,7 +53,7 @@
                             <a class="clickable"
                                data-ui-sref="services.edit({service_id:service.id})"><strong>{{ service.name || "-" }}</strong></a>
                         </p>
-                        <p ng-if="service.extras" class="text-small help-block no-margin-top">{{service.extras.description}}</p>
+                        <p ng-if="service.extras && service.extras.description" class="text-small help-block no-margin">{{service.extras.description}}</p>
                     </td>
                     <td>{{ service.host || "-" }}</td>
                     <td>
