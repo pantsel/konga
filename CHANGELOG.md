@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-06-2018
 * **[Compatibility]** Services and Routes support (Kong 0.13+).
+* **[Enhancement]** Added the ability to set description and tags to Kong's services
+for better listing.
 * **[Enhancement]** In plugin management forms, all text inputs are changed to textareas
 so that custom plugins can be better integrated [#189](https://github.com/pantsel/konga/issues/189).
 * Minor fixes and improvements.
