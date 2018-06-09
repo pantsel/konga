@@ -3,7 +3,7 @@
 [![konga-logo.png](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/konga-logo.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/konga-logo.png)
 
 
-[![Dashboard](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)
+[![Dashboard](screenshots/bc3.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)
 
 _Konga is not an official app. No affiliation with [Mashape](https://www.mashape.com/)._
 
