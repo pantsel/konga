@@ -77,7 +77,6 @@ var self = module.exports = {
       }
     }
 
-
     // Apply before Hooks
     switch(req.method.toLowerCase()) {
       case "patch":
@@ -95,7 +94,6 @@ var self = module.exports = {
   send: function (entity, unirestReq, konga_extras, req, res) {
 
     unirestReq.send(req.body);
-
 
     unirestReq.end(function (response) {
       if (response.error) {
