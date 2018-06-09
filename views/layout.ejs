@@ -302,6 +302,14 @@
     <!--SCRIPTS END-->
 
   <script>
+    window.angularDebugEnabled = <%= angularDebugEnabled %>;
+
+
+    // Disable console logs if in production
+    if(!window.angularDebugEnabled && window['console']) {
+      window['console']['log'] = function() {};
+    }
+
     angular.element(document).ready(function() {
 
       var initInjector = angular.injector(["ng"]);
