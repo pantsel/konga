@@ -7,7 +7,23 @@ var KongService = require("../services/KongService");
 var ProxyHooks = require("../services/KongProxyHooks");
 var _ = require("lodash");
 
-module.exports = {
+
+function getEntityFromRequest(req) {
+  if(!req.path) return null;
+  return req.path.replace('/kong', '').split("/").filter(function (e) {
+    return e;
+  })[0];
+}
+
+
+var methodAliases = {
+  patch : 'Update',
+  post  : 'Create',
+  delete: 'Delete',
+  get   : 'List'
+}
+
+var self = module.exports = {
 
 
   /**
@@ -18,12 +34,13 @@ module.exports = {
   proxy: function (req, res) {
 
     req.url = req.url.replace('/kong', ''); // Remove the /api prefix
+    var entity = getEntityFromRequest(req);
 
     sails.log.debug("KongProxyController:req.method", req.method)
     sails.log.debug("KongProxyController:req.url", req.url)
+    sails.log.debug("KongProxyController:entity", entity)
 
-    // Fix update method by setting it to "PATCH"
-    // as Kong requires
+    // Fix update method by setting it to "PATCH" as Kong requires
     if (req.method.toLowerCase() === 'put') {
       req.method = "PATCH";
     }
@@ -38,12 +55,19 @@ module.exports = {
 
     var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
 
+    // Assign Konga correlations if set in the request
     var konga_extras;
     if(req.body && req.body.extras) {
       konga_extras = req.body.extras;
+      // Remove the correlations attribute so that we don't break the request to Kong.
+      // If we need them later, they will be available in the `konga_extras` var
       delete req.body.extras;
     }
+
+    // Set the appropriate request headers
     request.headers(KongService.headers(req.connection, true))
+
+    // Apply monkey patches
     if (['post', 'put', 'patch'].indexOf(req.method.toLowerCase()) > -1) {
 
       if (req.body && req.body.orderlist) {
@@ -62,39 +86,68 @@ module.exports = {
     }
 
 
-    ProxyHooks.beforeSend(req, function (err, ok) {
-      if(err) return res.badRequest(err);
-
-      request.send(req.body);
-
-
-      request.end(function (response) {
-        if (response.error) {
-          sails.log.error("KongProxyController", "request error", response.body);
-          return res.negotiate(response);
-        }
-
-        // If an API was deleted, delete it's assigned health checks as well
-        // ToDo: emit an api.deleted event and handle it somewhere more convenient
-        if(req.method.toLowerCase() === 'delete' && req.url.indexOf('/apis/') > -1) {
-          var apiId = req.url.split("/").slice(-1).pop()
-          sails.log("An API with id " + apiId + "was deleted");
-          sails.models.apihealthcheck.destroy({
-            id: apiId
-          }).exec(function (err) {
-            if(err) {
-              sails.log("Failed to delete healthcecks of API " + apiId);
-            }
-          });
-        }
-
-        ProxyHooks.afterResponseSuccess(_.merge(response.body,{extras: konga_extras}), req, function (err, response) {
-          return res.json(response);
+    // Apply before Hooks
+    switch(req.method.toLowerCase()) {
+      case "patch":
+        return ProxyHooks.beforeEntityUpdate(entity, req.param("id"), req.connection.id, _.merge(req.body,{extras: konga_extras}), function (err, data) {
+          if(err) return res.badRequest(err);
+          req.body = data; // Assign the resulting data to req.body
+          return self.send(entity, request, konga_extras, req, res)
         });
+      default:
+        return self.send(entity, request, konga_extras,  req, res);
+    }
+
+  },
+
+  send: function (entity, unirestReq, konga_extras, req, res) {
+
+    unirestReq.send(req.body);
 
 
-      });
-    })
+    unirestReq.end(function (response) {
+      if (response.error) {
+        sails.log.error("KongProxyController", "request error", response.body);
+        return res.negotiate(response);
+      }
 
+      // If an API was deleted, delete it's assigned health checks as well
+      // ToDo: deprecate this
+      if(req.method.toLowerCase() === 'delete' && req.url.indexOf('/apis/') > -1) {
+        var apiId = req.url.split("/").slice(-1).pop()
+        sails.log("An API with id " + apiId + "was deleted");
+        sails.models.apihealthcheck.destroy({
+          id: apiId
+        }).exec(function (err) {
+          if(err) {
+            sails.log("Failed to delete healthcecks of API " + apiId);
+          }
+        });
+      }
+
+
+      // Apply after Hooks
+      switch(req.method.toLowerCase()) {
+        case "get":
+          return ProxyHooks.afterEntityRetrieve(entity, req, response.body, function (err, data) {
+            if(err) return res.badRequest(err);
+            return res.json(data);
+          });
+        case "post":
+          return ProxyHooks.afterEntityCreate(entity, req, response.body, konga_extras || {}, function (err, data) {
+            if(err) return res.badRequest(err);
+            return res.json(data);
+          });
+        case "delete":
+          return ProxyHooks.afterEntityDelete(entity,req,function (err) {
+            if(err) return res.badRequest(err);
+            return res.json(response);
+          });
+        default:
+          return res.json(response.body)
+      }
+
+
+    });
   }
 };

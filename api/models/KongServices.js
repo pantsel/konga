@@ -9,7 +9,7 @@ var _ = require('lodash');
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
-  tableName : "konga_kong_services_extras",
+  tableName : "konga_kong_services",
   autoPK : false,
   attributes: {
     id : {
@@ -41,12 +41,5 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 });
 
 var mongoModel =  _.omit(_.cloneDeep(defaultModel),["autoPK","attributes.id"]);
-
-// var mongoModel = function() {
-//   var obj = _.omit(_.cloneDeep(defaultModel),["autoPK","attributes.id"])
-//   delete obj.autoPK
-//   delete obj.attributes.id
-//   return obj;
-// }
 
 module.exports = sails.config.models.connection == 'mongo' ? mongoModel : defaultModel
