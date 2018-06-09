@@ -107,8 +107,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                             path = "upstreams/" + item.upstream_id + "/targets";
                         }
 
-                        sails.log("!!!!!!!!!!!!!!!!!!!!!!!!", item.config ? item.config.anonymous : {});
-
 
                         fns.push(function(cb){
 

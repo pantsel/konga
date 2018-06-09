@@ -3,13 +3,38 @@
 var _ = require('lodash');
 var URL = require('url');
 
-module.exports = {
+var self = module.exports = {
+
+  isUpdateEntityRequest: function(entity, req) {
+    var parts = req.url.split("/").filter(function (e) {return e;});
+    return parts.length === 2 && parts[0] === entity && req.method === 'PATCH';
+  },
+
+  isListEntityRequest: function(entity, req) {
+    var parsedUrl = URL.parse(req.url);
+    return parsedUrl.pathname === '/services' && req.method === 'GET'
+  },
+
+  isFetchEntityRequest: function(entity, req) {
+    var parts = req.url.split("/").filter(function (e) {return e;});
+    return parts.length === 2 && parts[0] === 'services' && req.method === 'GET';
+  },
+
+  isCreateEntityRequest: function(entity, req) {
+    var parts = req.url.split("/").filter(function (e) {return e;});
+    return parts.length === 1 && parts[0] === 'services' && req.method === 'POST';
+  },
+
+  isDeleteEntityRequest: function(entity, req) {
+    var parts = req.url.split("/").filter(function (e) {return e;});
+    return parts.length === 2 && parts[0] === 'services' && req.method === 'DELETE'
+  },
 
   beforeSend: function (req, next) {
     sails.log.debug("KongProxyHooks:beforeSend")
 
-    var parts = req.url.split("/");
-    if(parts.length === 3 && parts[1] === 'services' && req.method === 'PATCH') {
+
+    if(self.isUpdateEntityRequest('services', req)) {
       var kong_node_id = req.connection.id;
       if(req.body.extras) {
         sails.log.debug("extras", req.param("id"))
@@ -36,6 +61,10 @@ module.exports = {
     }
   },
 
+  afterEntityDeleted: function(entityId, req, next) {
+
+  },
+
 
   afterResponseSuccess : function (resBody, req, next) {
     sails.log.debug("KongProxyHooks:afterResponseSuccess", req.method)
@@ -43,7 +72,8 @@ module.exports = {
     sails.log.debug("parsedUrl", parsedUrl);
     var parts = req.url.split("/").filter(function(e){return e});
     sails.log.debug("req.url parts", parts);
-    if(parts.length === 2 && parts[0] === 'services' && req.method === 'GET') {
+    if(self.isFetchEntityRequest('services', req))
+    {
       var service = resBody;
       sails.log.debug("THIS IS A GET REQUEST FOR A SPECIFIC SERVICE =>", service)
       sails.models.kongserviceextra.findOne({
@@ -57,7 +87,9 @@ module.exports = {
         return next(null, _.merge(resBody, {extras: extras}));
       })
 
-    }else if(parsedUrl.pathname === '/services' && req.method === 'GET') {
+    }
+    else if(self.isListEntityRequest('services', req))
+    {
       sails.log.debug("THIS IS A GET REQUEST FOR SERVICES LIST")
       sails.models.kongserviceextra.find({
         kong_node_id: req.connection.id
@@ -77,7 +109,9 @@ module.exports = {
       })
 
 
-    }else if(parts.length === 1 && parts[0] === 'services' && req.method === 'POST') {
+    }
+    else if(self.isCreateEntityRequest('services', req))
+    {
       sails.log.debug("THIS IS A POST REQUEST TO CREATE A NEW SERVICE")
       if(resBody.extras) {
         sails.models.kongserviceextra.create(_.merge({
@@ -94,9 +128,8 @@ module.exports = {
         return next(null,resBody);
       }
 
-    }else if(parts.length === 2 && parts[0] === 'services' && req.method === 'DELETE') {
-      // Also delete the extras entry
-      next(null, resBody); // Respond immediately
+    }
+    else if(self.isDeleteEntityRequest('services', req)) {
 
       sails.log.debug("THIS IS A DELETE SERVICE REQUEST: service_id =>", parts[1])
 
@@ -105,9 +138,11 @@ module.exports = {
         service_id: parts[1]
       },function (err) {
         if(err) {
-          // Just log the failure for now
           sails.log.error("Failed to remove kong service extras",err);
+          return next(err);
         }
+
+        return next(null, resBody);
       })
 
     }  else{
