@@ -15,14 +15,6 @@ function getEntityFromRequest(req) {
   })[0];
 }
 
-
-var methodAliases = {
-  patch : 'Update',
-  post  : 'Create',
-  delete: 'Delete',
-  get   : 'List'
-}
-
 var self = module.exports = {
 
 
