@@ -47,7 +47,7 @@ var self = module.exports = {
 
     var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
 
-    // Assign Konga correlations if set in the request
+    // Assign Konga correlations to a var if set in the request
     var konga_extras;
     if(req.body && req.body.extras) {
       konga_extras = req.body.extras;
@@ -91,6 +91,14 @@ var self = module.exports = {
 
   },
 
+  /**
+   * Actually send the request to Kong
+   * @param entity
+   * @param unirestReq
+   * @param konga_extras
+   * @param req
+   * @param res
+   */
   send: function (entity, unirestReq, konga_extras, req, res) {
 
     unirestReq.send(req.body);
