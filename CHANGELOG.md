@@ -10,6 +10,8 @@ for better listing.
 * **[Enhancement]** In plugin management forms, all text inputs are changed to textareas
 so that custom plugins can be better integrated [#189](https://github.com/pantsel/konga/issues/189).
 * Various fixes and improvements.
+* **[Enhancement]** Database integrations can now be setup by only using the connection url as well as
+defining connection attributes separately.
 
 > **This update introduces changes in db schemas. If you're using a database other 
 than mongoDB, you will have to apply the migrations as described in README.md**
