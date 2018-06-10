@@ -83,7 +83,7 @@ module.exports = {
             }).exec(function(err,hc){
                 if(err || !hc) {
 
-                    sails.log("api_health_checks => Failed to retrieve apiHealthCheck with id " + hc.id,err)
+                    sails.log("api_health_checks => Failed to retrieve apiHealthCheck",err)
 
                 }else{
                     tasks[hc.id] = _.merge(tasks[hc.id],hc.data)

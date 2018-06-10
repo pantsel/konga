@@ -31,36 +31,34 @@ var self = module.exports = {
 
   afterEntityFetch: function(entityName, req, data, next) {
     sails.log.debug("KongProxyHooks:afterEntityFetch called()", entityName);
-    if(!entityName || !sails.models["kong" + entityName]
-      || !self.hooks[entityName] || !self.hooks[entityName].afterFetch) return next(null, data);
+    if(!entityName || !self.hooks[entityName] || !self.hooks[entityName].afterFetch) return next(null, data);
     return self.hooks[entityName].afterFetch( req, data, next);
   },
 
   afterEntityList: function(entityName, req, resBody, next) {
     sails.log.debug("KongProxyHooks:afterEntityList called()", entityName);
-    if(!entityName || !sails.models["kong" + entityName]
-      || !self.hooks[entityName] || !self.hooks[entityName].afterList) return next(null, resBody);
+    if(!entityName || !self.hooks[entityName] || !self.hooks[entityName].afterList) return next(null, resBody);
     return self.hooks[entityName].afterList( req, resBody, next);
   },
 
   afterEntityCreate: function(entityName, req, data, konga_extras, next) {
     sails.log.debug("KongProxyHooks:afterEntityCreate called()", entityName);
-    if(!entityName || !sails.models["kong" + entityName]
-      || !self.hooks[entityName] || !self.hooks[entityName].afterCreate) return next(null, data);
+    if(!entityName || !self.hooks[entityName] || !self.hooks[entityName].afterCreate) return next(null, data);
     return self.hooks[entityName].afterCreate(req, data, konga_extras, next)
   },
 
   afterEntityDelete: function(entityName, req, next) {
     sails.log.debug("KongProxyHooks:afterEntityDelete called()", entityName);
-    if(!entityName || !sails.models["kong" + entityName]
-      || !self.hooks[entityName] || !self.hooks[entityName].afterDelete) return next();
+    if(!entityName || !self.hooks[entityName] || !self.hooks[entityName].afterDelete) return next();
     return self.hooks[entityName].afterDelete(req, next)
 
   },
 
   hooks: {
-    services : {
+    services: {
       beforeUpdate: function(entityId, connectionId, data, next) {
+
+        if(!sails.models.kongservices) return next(null, data);
 
         sails.models.kongservices.updateOrCreate({
           kong_node_id: connectionId,
@@ -79,7 +77,7 @@ var self = module.exports = {
         });
       },
       afterList: function(req, resBody, next) {
-
+        if(!sails.models.kongservices) return next(null, resBody);
         var connectionId = req.connection.id;
 
         sails.models.kongservices.find({
@@ -100,7 +98,7 @@ var self = module.exports = {
         });
       },
       afterFetch: function(req, data, next) {
-
+        if(!sails.models.kongservices) return next(null, data);
         var connectionId = req.connection.id;
         var entityId = req.path.split("/").filter(function (e) {
           return e;
@@ -123,7 +121,7 @@ var self = module.exports = {
         });
       },
       afterCreate: function(req, data, konga_extras, next) {
-
+        if(!sails.models.kongservices) return next(null, data);
         var connectionId = req.connection.id;
         var entityId = data.id;
 
@@ -142,7 +140,7 @@ var self = module.exports = {
         });
       },
       afterDelete: function(req, next) {
-
+        if(!sails.models.kongservices) return next();
         var connectionId = req.connection.id;
         // The path must be of type /kong/<entityName>/<entityId>
         var entityId = req.path.replace("/kong","").split("/").filter(function (e) {
@@ -160,6 +158,26 @@ var self = module.exports = {
 
           return next();
         })
+      },
+    },
+    apis: {
+      afterDelete: function(req, next) {
+
+        // The path must be of type /kong/<entityName>/<entityId>
+        var entityId = req.path.replace("/kong","").split("/").filter(function (e) {
+          return e;
+        })[1];
+
+        sails.models.apihealthcheck.destroy({
+          api_id: entityId
+        }).exec(function (err) {
+          if(err) {
+            sails.log("Failed to delete healthcecks of API " + apiId);
+            return next(err);
+          }
+
+          return next();
+        });
       },
     }
   }

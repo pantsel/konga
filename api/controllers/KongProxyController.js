@@ -101,20 +101,6 @@ var self = module.exports = {
         return res.negotiate(response);
       }
 
-      // If an API was deleted, delete it's assigned health checks as well
-      // ToDo: deprecate this
-      if(req.method.toLowerCase() === 'delete' && req.url.indexOf('/apis/') > -1) {
-        var apiId = req.url.split("/").slice(-1).pop()
-        sails.log("An API with id " + apiId + "was deleted");
-        sails.models.apihealthcheck.destroy({
-          id: apiId
-        }).exec(function (err) {
-          if(err) {
-            sails.log("Failed to delete healthcecks of API " + apiId);
-          }
-        });
-      }
-
 
       // Apply after Hooks
       switch(req.method.toLowerCase()) {
