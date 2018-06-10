@@ -4,9 +4,9 @@
   angular.module('frontend.apis')
     .controller('ApisController', [
       '$scope', '$rootScope', '$log', '$state', 'ApiService', 'ListConfig', 'ApiModel',
-      'UserService', '$uibModal', 'DialogService', 'ApiHCModel',
+      'UserService', '$uibModal', 'DialogService', 'ApiHCModel', 'MessageService',
       function controller($scope, $rootScope, $log, $state, ApiService, ListConfig, ApiModel,
-                          UserService, $uibModal, DialogService, ApiHCModel) {
+                          UserService, $uibModal, DialogService, ApiHCModel, MessageService) {
 
         ApiModel.setScope($scope, false, 'items', 'itemCount');
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('api', ApiModel)));
@@ -16,6 +16,7 @@
         $scope.openAddApiModal = openAddApiModal
         $scope.updateApi = updateApi
         $scope.onDeleteApi = onDeleteApi
+        $scope.deleteApiHealthChecks = deleteApiHealthChecks
 
 
         /**
@@ -132,6 +133,31 @@
           $scope.deleteItem($index,api);
         }
 
+        function deleteApiHealthChecks() {
+          DialogService.prompt(
+            "Confirm", "<strong>You are about to reset the healthchecks of <code>all APIs</code> on <code>all Kong connections</code></strong>." +
+            "<br><br>That means that you will have to setup each and every one of the from scratch." +
+            "<br><br>Don't worry about affecting the API or Kong Connections entities." +
+            "<br>That won't happen." +
+            "</br><br>Continue?.",
+            ['No don\'t', 'Yes! do it'],
+            function accept() {
+
+              ApiService.resetHealthChecks()
+                .then(function (success) {
+                  MessageService.success('API Healthchecks reset successfully!')
+
+                  $scope.items.data.forEach(function (api) {
+                    delete api.health_checks;
+                  })
+
+                }).catch(function (err) {
+                MessageService.error('Failed to reset API Healthchecks. ' + err.message);
+              })
+
+            }, function decline() {
+            });
+        }
 
         /**
          * -----------------------------------------------------------------------------------------------------------

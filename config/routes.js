@@ -88,6 +88,8 @@ module.exports.routes = {
   'GET /api/apis/healthchecks/subscribe': 'ApiHealthCheckController.subscribeHealthChecks',
   'GET /api/user/:id/subscribe': 'UserController.subscribe',
 
+  // ApiHealthCheckController
+  'DELETE /api/healthchecks/reset': 'ApiHealthCheckController.reset',
 
   // Rich Plugins List
   'GET /api/kong_plugins/list': 'KongPluginsController.list',

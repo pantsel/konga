@@ -24,5 +24,12 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
         });
     },
 
+  reset : function (req, res) {
+    sails.models.apihealthcheck.destroy({}, function (err, done) {
+      if(err) return res.negotiate(err);
+      return res.json(done);
+    })
+  }
+
 });
 
