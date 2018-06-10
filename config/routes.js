@@ -99,6 +99,7 @@ module.exports.routes = {
 
 
   'GET /api/settings': 'SettingsController.find',
+  'GET /api/settings/integrations': 'SettingsController.getIntegrations',
 
 
   /**
