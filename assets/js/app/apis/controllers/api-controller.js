@@ -34,11 +34,11 @@
             icon: 'mdi mdi-heart-pulse',
             isVisible: true
           },
-          {
-            name: 'Metrics<span class="badge badge-danger pull-right">beta</span>',
-            icon: 'mdi mdi-chart-bar',
-            isVisible: true
-          }
+          // {
+          //   name: 'Metrics<span class="badge badge-danger pull-right">beta</span>',
+          //   icon: 'mdi mdi-chart-bar',
+          //   isVisible: true
+          // }
         ]
 
 
