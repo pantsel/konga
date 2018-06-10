@@ -13,7 +13,7 @@ so that custom plugins can be better integrated [#189](https://github.com/pantse
 defining connection attributes separately.
 * Various other fixes and improvements.
 
-> **This update introduces changes in db schemas. If you're using a database other 
+> **This update introduces changes in db schema. If you have integrated Konga with a database other 
 than mongoDB, you will have to apply the migrations as described in README.md**
 
 ## [0.10.4](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-03-2018
