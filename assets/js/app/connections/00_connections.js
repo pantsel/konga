@@ -17,7 +17,7 @@
                         data : {
                             access : 0,
                             pageName : "Connections",
-                            pageDescription : "Create connections to Kong Nodes and select the one to use by clicking on the respective star icon.",
+                            pageDescription : "Create connections to Kong Nodes and activate the one you want use.",
                             prefix : '<i class="mdi mdi-cast-connected"></i>'
                         },
                         views: {

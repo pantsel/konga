@@ -46,6 +46,7 @@
                        data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
                     ></i>
                 </th>
+                <th width="1"></th>
                 <th width="1" ng-if="user.hasPermission('connections','delete')"></th>
             </tr>
             <tr data-ng-repeat="node in nodes">
@@ -56,10 +57,12 @@
                        tooltip-append-to-body="true"
                        uib-tooltip="Toggle active"
                        ng-click="toggleActive(node)"
-                       ng-class="user.node && user.node.id == node.id ? 'mdi-star text-warning' : 'mdi-star-outline'"
+                       ng-class="user.node && user.node.id == node.id ? 'mdi-lan-connect text-success' : 'mdi-lan-disconnect'"
                     ></i>
 
-                    <i class="mdi mdi-loading mdi-spin text-primary" ng-if="node.checkingConnection"></i>
+                    <i class="mdi mdi-loading mdi-spin text-primary margin-right" ng-if="node.checkingConnection"></i>
+
+
 
                 </td>
                 <td ng-click="onShowStatusCheck(node)" class="clickable">
@@ -89,9 +92,18 @@
                     {{node.kong_admin_url}}
                 </td>
                 <td>
-                    {{node.kong_version}}
+                    {{node.kong_version === "0-10-x" ? "undefined" : node.kong_version}}
                 </td>
                 <td>{{node.createdAt | date : "MMM d, y"}}</td>
+                <td>
+                    <button
+                            ng-click="toggleActive(node)"
+                            ng-class="user.node && user.node.id == node.id ? 'btn-success' : ''"
+                            type="button" class="btn btn-sm btn-flat btn-block">
+                        <i class="mdi mdi-loading mdi-spin text-primary margin-right" ng-if="node.checkingConnection"></i>
+                        {{user.node && user.node.id == node.id ? 'deactivate' : 'activate'}}
+                    </button>
+                </td>
                 <td  width="1" data-ng-if="user.hasPermission('connections','delete')">
                     <button class="btn btn-danger btn-link" ng-click="deleteNode(node)">
                         <i class="mdi mdi-delete"></i>
