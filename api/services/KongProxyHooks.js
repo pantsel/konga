@@ -54,6 +54,9 @@ var self = module.exports = {
 
   },
 
+  /**
+   * Setup the actual hooks for Kong's entities like `services`,`apis`,`routes` etc.
+   */
   hooks: {
     services: {
       beforeUpdate: function(entityId, connectionId, data, next) {
