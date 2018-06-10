@@ -114,7 +114,7 @@
                         <!--</a>-->
                     <!--</td>-->
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
-                        <button type="button" ng-click="deleteItem($index,api)" class="btn btn-danger btn-link">
+                        <button type="button" ng-click="onDeleteApi($index,api)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete
                         </button>
