@@ -124,6 +124,7 @@
         }
 
         function onDeleteApi($index,api) {
+
           if(api.health_checks && api.health_checks.active) {
             DialogService.alert("Action required","You need to disable the assigned health checks before deleting the api")
             return false;
