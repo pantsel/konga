@@ -124,8 +124,8 @@
         }
 
         function onDeleteApi($index,api) {
-          if(api.health_checks) {
-            DialogService.alert("Action required","You need to remove the assigned health checks before deleting the api")
+          if(api.health_checks && api.health_checks.active) {
+            DialogService.alert("Action required","You need to disable the assigned health checks before deleting the api")
             return false;
           }
           $scope.deleteItem($index,api);
