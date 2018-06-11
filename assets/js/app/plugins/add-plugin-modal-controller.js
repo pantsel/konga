@@ -20,13 +20,14 @@
 
         var pluginOptions = new KongPluginsService().pluginOptions()
 
+        if(_.isArray(_context)) {
+          _context.forEach(function (ctx) {
+            $scope[ctx.name] = ctx.data;
+          })
+        }else{
+          $scope[_context.name] = _context.data;
+        }
 
-        $scope[_context.name] = _context.data;
-
-        // $scope.consumer = _consumer;
-        // $scope.api = _api;
-        // $scope.service = _service;
-        // $scope.route = _route;
         $scope.pluginOptions = pluginOptions
 
         new KongPluginsService().makePluginGroups().then(function (groups) {

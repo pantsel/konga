@@ -16,10 +16,15 @@
                           KongPluginsService, $uibModalInstance, PluginsService, _pluginName, _schema,_context) {
 
 
-        if(_context) $scope[_context.name] = _context.data;
+        if(_.isArray(_context)) {
+          _context.forEach(function (ctx) {
+            $scope[ctx.name] = ctx.data;
+          })
+        }else{
+          $scope[_context.name] = _context.data;
+        }
+
         $scope.context = 'create';
-        $log.debug("API", $scope.api)
-        $log.debug("Service", $scope.service)
 
         //var pluginOptions = new KongPluginsService().pluginOptions()
         var options = new KongPluginsService().pluginOptions(_pluginName)

@@ -72,13 +72,16 @@
                   controller: 'AddPluginModalController',
                   resolve: {
                       _context : function() {
-                        return {
+                        return [
+                          {
                             name: "consumer",
                             data: $scope.consumer
-                        }
-                      },
-                      _api : function() {
-                          return api;
+                          },
+                          {
+                            name: "api",
+                            data: api
+                          },
+                        ]
                       },
                       _plugins : function() {
                           return PluginsService.load();
