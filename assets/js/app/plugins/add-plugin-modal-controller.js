@@ -17,9 +17,6 @@
                           KongPluginsService, PluginsService, $uibModal, $uibModalInstance,
                           _context) {
 
-
-        var pluginOptions = new KongPluginsService().pluginOptions()
-
         if(_.isArray(_context)) {
           _context.forEach(function (ctx) {
             $scope[ctx.name] = ctx.data;
@@ -28,6 +25,7 @@
           $scope[_context.name] = _context.data;
         }
 
+        var pluginOptions = new KongPluginsService().pluginOptions()
         $scope.pluginOptions = pluginOptions
 
         new KongPluginsService().makePluginGroups().then(function (groups) {
