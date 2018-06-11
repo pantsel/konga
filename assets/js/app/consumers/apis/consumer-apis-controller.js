@@ -71,11 +71,17 @@
                   size : 'lg',
                   controller: 'AddPluginModalController',
                   resolve: {
-                      _consumer: function () {
-                          return $scope.consumer;
-                      },
-                      _api : function() {
-                          return api;
+                      _context : function() {
+                        return [
+                          {
+                            name: "consumer",
+                            data: $scope.consumer
+                          },
+                          {
+                            name: "api",
+                            data: api
+                          },
+                        ]
                       },
                       _plugins : function() {
                           return PluginsService.load();
