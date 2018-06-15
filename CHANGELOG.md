@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.10.4) - 08-06-2018
+
+## [0.11.2](https://github.com/pantsel/konga/releases/tag/0.11.2) - 15-06-2018
+* Various Fixes.
+
+## [0.11.0](https://github.com/pantsel/konga/releases/tag/0.11.0) - 08-06-2018
 * **[Compatibility]** Services and Routes support (Kong 0.13+).
 * **[Fix [#217](https://github.com/pantsel/konga/issues/217)]** Api health checks are now deleted as they should when deleting an api.
 * **[Enhancement]** Added the ability to set description and tags to Kong's services
