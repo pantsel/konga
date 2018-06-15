@@ -21,7 +21,7 @@
           _context.forEach(function (ctx) {
             $scope[ctx.name] = ctx.data;
           })
-        }else{
+        }else if(_context){
           $scope[_context.name] = _context.data;
         }
 
