@@ -77,10 +77,10 @@ settings.
 There is an example configuration file on following path.
 
 ```
-/config/local_example.js
+config/local_example.js
 ```
 
-Just copy this to `/config/local.js` and make necessary changes to it. Note that this
+Just copy this to `config/local.js` and make necessary changes to it. Note that this
 `local.js` file is in .gitignore so it won't go to VCS at any point.
 
 ### Databases Integration
