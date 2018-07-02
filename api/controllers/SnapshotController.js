@@ -288,13 +288,24 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
         var obj = _.omit(service, 'plugins', 'routes', 'id');
         KongService.createFromEndpointCb("/services", obj, req, function(err, res) {
           sails.log('Creating service complete');
+
+          if(!responseData.services) responseData.services = {imported: 0,
+            failed: {
+              count: 0,
+              items: []
+            }}
+
           if (err) {
             sails.log('Cloud not create service ' + service.name + ' err: ' + JSON.stringify(err));
-            return cb(err);
+            responseData.services.failed.count++;
+            return cb();
           }
 
           serviceRoutesMap[res.id] = service.routes;
           servicePluginsMap[res.id] = service.plugins;
+
+
+          responseData.services.imported++
 
           return cb();
         });
@@ -310,12 +321,23 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             route.service = {id: serviceId};
             var obj = _.omit(route, 'plugins');
             KongService.createFromEndpointCb("/routes", obj, req, function(err, res) {
+
+              if(!responseData.routes) responseData.routes = {imported: 0,
+                failed: {
+                  count: 0,
+                  items: []
+                }}
+
               if (err) {
                 sails.log('Cloud not create route ' + route.paths);
-                return cb(err);
+                responseData.routes.failed.count++;
+                return cb();
               }
               sails.log('Route creation complete: ' + route.paths);
               routePluginsMap[res.id] = route.plugins;
+
+
+              responseData.routes.imported++
 
               return cb();
             });
@@ -339,12 +361,20 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             var obj = _.omit(plugin, 'id', 'created_at');
             obj.service_id = serviceId;
             KongService.createFromEndpointCb("/plugins/", obj, req, function(err, res) {
+              if(!responseData.servicePlugins) responseData.servicePlugins = {imported: 0,
+                failed: {
+                  count: 0,
+                  items: []
+                }}
               if (err) {
                 sails.log('Cloud not create plugin  ' + plugin.name + ' for service ' + serviceId);
-                return cb(err);
+                responseData.servicePlugins.failed.count++;
+                return cb();
               }
 
               sails.log('Route plugin created');
+
+              responseData.servicePlugins.imported++
               return cb();
             });
           });
@@ -368,12 +398,22 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             obj.route_id = routeId;
             sails.log('Creating Route plugin... ' + JSON.stringify(obj));
             KongService.createFromEndpointCb("/plugins/", obj, req, function(err, res) {
+              if(!responseData.routePlugins) responseData.routePlugins = {
+                imported: 0,
+                failed: {
+                  count: 0,
+                  items: []
+                }
+              }
               if (err) {
                 sails.log('Cloud not create plugin  ' + plugin.name + ' for route ' + routeId + ' err: ' + JSON.stringify(err));
-                return cb(err);
+                responseData.routePlugins.failed.count++;
+                return cb();
               }
 
               sails.log('Route plugin created');
+
+              responseData.routePlugins.imported++
               return cb();
             });
           });
