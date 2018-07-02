@@ -118,13 +118,15 @@
                 }
 
 
-
                 function _fetchData() {
 
                     $scope.loading = true;
 
                     Snapshot.fetch($stateParams.id)
                         .then(function(result){
+
+                            // Delete `data.routes` since the routes are embedded in the `data.services`
+                            delete result.data.routes;
 
                             $scope.originalSnapshot = result;
                             $scope.snapshot = _.cloneDeep(result);
