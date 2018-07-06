@@ -138,12 +138,17 @@
               },
               {
                 name: "Serverless",
-                hasConsumerPlugins: true,
                 description: "Invoke serverless functions in combination with other plugins:",
                 icon: "mdi-cloud-sync",
                 plugins: {
                   "aws-lambda": {
-                    description: "Invoke an <a href='https://aws.amazon.com/lambda/' target='_blank'>AWS Lambda</a> function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
+                    description: "Invoke an AWS Lambda function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
+                  },
+                  "serverless-functions": {
+                    description: "Dynamically run Lua code from Kong during access phase."
+                  },
+                  "azure-functions": {
+                    description: "This plugin invokes Azure Functions. It can be used in combination with other request plugins to secure, manage or extend the function"
                   }
                 }
               },
@@ -161,6 +166,12 @@
                   },
                   "runscope": {
                     description: "API Performance Testing and Monitoring"
+                  },
+                  "prometheus": {
+                    description: "Expose metrics related to Kong and proxied upstream services in Prometheus exposition format"
+                  },
+                  "zipkin": {
+                    description: "Propagate Zipkin distributed tracing spans, and report spans to a Zipkin server."
                   },
 
                 }
