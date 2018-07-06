@@ -62,7 +62,7 @@
           return $scope.availablePlugins[item.id];
         })
 
-        // Fetch the remaining creds
+        // Fetch the remaining ones
         $scope.credentialGroups.forEach(function (item) {
           item.fetchFunc.call();
         })

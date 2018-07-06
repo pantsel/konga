@@ -5,6 +5,7 @@ var _ = require('lodash');
 var semver = require('semver');
 var KongService = require('./KongService');
 var async = require('async');
+var Utils = require('../helpers/utils');
 
 module.exports = {
 
@@ -22,12 +23,14 @@ module.exports = {
 
       var endpoints = ['/apis', '/plugins', '/consumers']
 
+      status.version = Utils.ensureSemverFormat(status.version);
+
       if (semver.gte(status.version, '0.10.0')) {
         endpoints = endpoints.concat(['/upstreams']);
       }
 
       if (semver.gte(status.version, '0.13.0')) {
-        endpoints = endpoints.concat(['/services','/routes']);
+        endpoints = endpoints.concat(['/services', '/routes']);
       }
 
 
@@ -58,18 +61,18 @@ module.exports = {
         var routesUpdated = [];
 
 
-        _.forEach(result.plugins, function(plugin) {
+        _.forEach(result.plugins, function (plugin) {
           if (plugin.service_id) {
 
-            if(!(plugin.service_id in servicePluginsMap)) {
-              servicePluginsMap[plugin.service_id ] = [];
+            if (!(plugin.service_id in servicePluginsMap)) {
+              servicePluginsMap[plugin.service_id] = [];
             }
             servicePluginsMap[plugin.service_id].push(plugin);
 
           } else if (plugin.route_id) {
 
-            if(!(plugin.route_id in routePluginsMap)) {
-              routePluginsMap[plugin.route_id ] = [];
+            if (!(plugin.route_id in routePluginsMap)) {
+              routePluginsMap[plugin.route_id] = [];
             }
             routePluginsMap[plugin.route_id].push(plugin);
 
@@ -80,7 +83,7 @@ module.exports = {
 
         result.plugins = pluginsUpdated;
 
-        _.forEach(servicePluginsMap, function(arr, service_id) {
+        _.forEach(servicePluginsMap, function (arr, service_id) {
           var service = _.find(result.services, {id: service_id});
 
           if (service) {
@@ -89,7 +92,7 @@ module.exports = {
 
         });
 
-        _.forEach(routePluginsMap, function(arr, route_id) {
+        _.forEach(routePluginsMap, function (arr, route_id) {
           var route = _.find(result.routes, {id: route_id});
 
           if (route) {
@@ -97,12 +100,12 @@ module.exports = {
           }
         });
 
-        _.forEach(result.routes, function(route) {
+        _.forEach(result.routes, function (route) {
           var routes = routesUpdated;
-          if(route.service && route.service.id) {
+          if (route.service && route.service.id) {
             var service = _.find(result.services, {id: route.service.id});
 
-            if(service) {
+            if (service) {
               if (!service.routes) {
                 service.routes = [];
               }
@@ -113,8 +116,6 @@ module.exports = {
         });
 
         result.routes = [];
-
-
 
 
         // Foreach consumer get it's acls
