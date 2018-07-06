@@ -62,12 +62,12 @@ module.exports = {
    * @param version
    */
   ensureSemverFormat: function (version) {
-    if(versionindexOf("-") < 0) {
+    if(version.indexOf("-") < 0) {
       // Find the index of the first alphanumeric character in the version string
-      let firstAlphaIndex = status.version.search(/[a-zA-Z]/);
+      let firstAlphaIndex = version.search(/[a-zA-Z]/);
       if(firstAlphaIndex > -1) {
         // Remove everything from that character onward
-        return  status.version.substring(0, firstAlphaIndex);
+        return  version.substring(0, firstAlphaIndex);
       }
     }
 
