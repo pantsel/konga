@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="87px" height="87px" viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Kong</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="-114.79211%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#004E91" offset="0%"></stop>
+            <stop stop-color="#042238" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Kong">
+            <rect id="Rectangle-18" fill="url(#linearGradient-1)" x="0" y="0" width="87" height="87" rx="6"></rect>
+            <path d="M35.5406267,54.8426007 L44.1761539,54.8426007 L48.6598088,60.4068425 L47.8887094,62.3019609 L36.7322464,62.3019609 L37.0058906,60.4068425 L34.3756721,56.3120798 L35.5406267,54.8426007 Z M41.6413611,29.9234933 L46.3287192,29.9165227 L67.3927611,54.7517222 L65.7561419,62.3021351 L56.728508,62.3021351 L57.2902216,60.1748103 L37.6070771,36.9620064 L41.6413611,29.9234933 Z M50.0042496,20 L59.7518386,27.6876457 L58.5042661,28.9802471 L60.1942154,31.341521 L60.1942154,33.8674742 L55.3346277,37.8419948 L47.1615853,28.1533656 L42.403412,28.1533656 L44.3193581,24.6297524 L50.0042496,20 Z M29.6684683,44.245883 L36.5231229,38.3897494 L45.6206978,49.1514078 L43.0376894,53.0936896 L34.6487042,53.0936896 L28.8453502,60.5800607 L27.5195312,62.3022223 L20,62.3022223 L20,53.1167796 L27.0089619,44.245883 L29.6684683,44.245883 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>
