@@ -24,7 +24,9 @@
     <tr
             dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
         <td>
-            <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
+            <img ng-src="images/kong/plugins/{{item.name}}.png"
+                 onerror="this.src='images/kong/plugins/kong.svg'"
+                 style="height: 42px">
         </td>
         <td>
 

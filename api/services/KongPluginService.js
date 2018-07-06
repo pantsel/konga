@@ -295,13 +295,17 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
       },
       {
         name: "Serverless",
+        hasConsumerPlugins: true,
         description: "Invoke serverless functions in combination with other plugins:",
         icon: "mdi-cloud-sync",
         plugins: {
           "aws-lambda": {
             description: "Invoke an AWS Lambda function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
           },
-          "serverless-functions": {
+          "pre-function": {
+            description: "Dynamically run Lua code from Kong during access phase."
+          },
+          "post-function": {
             description: "Dynamically run Lua code from Kong during access phase."
           },
           "azure-functions": {

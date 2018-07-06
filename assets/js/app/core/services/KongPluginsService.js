@@ -140,11 +140,17 @@
                 name: "Serverless",
                 description: "Invoke serverless functions in combination with other plugins:",
                 icon: "mdi-cloud-sync",
+                hasConsumerPlugins: true,
                 plugins: {
                   "aws-lambda": {
                     description: "Invoke an AWS Lambda function from Kong. It can be used in combination with other request plugins to secure, manage or extend the function."
                   },
-                  "serverless-functions": {
+                  "pre-function": {
+                    hideIfNotInConsumerContext: true,
+                    description: "Dynamically run Lua code from Kong during access phase."
+                  },
+                  "post-function": {
+                    hideIfNotInConsumerContext: true,
                     description: "Dynamically run Lua code from Kong during access phase."
                   },
                   "azure-functions": {
