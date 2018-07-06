@@ -118,7 +118,7 @@ module.exports = {
         result.routes = [];
 
 
-        // Foreach consumer get it's acls
+        // Foreach consumer get it's acls & plugins
         var consumerFns = []
         result.consumers.forEach(function (consumer) {
           consumerFns.push(function (cb) {
@@ -134,7 +134,21 @@ module.exports = {
                 consumer.acls.push(item);
               })
 
-              return cb();
+              // Also get the consumer's plugins
+              KongService.listAllCb(node, '/consumers/' + consumer.id + '/plugins', function (err, data) {
+                if (err) {
+                  return cb();
+                }
+                sails.log(data)
+                if (!consumer.plugins) {
+                  consumer.plugins = [];
+                }
+                data.data.forEach(function (item) {
+                  consumer.plugins.push(item);
+                })
+
+                return cb();
+              });
             });
           })
 
@@ -168,7 +182,7 @@ module.exports = {
           }
 
           if (semver.gte(status.version, '0.10.0')) {
-            // Foreach upstream get its targets
+            // Foreach upstream get it's targets
             var fns = []
             result.upstreams.forEach(function (upstream) {
               fns.push(function (cb) {
