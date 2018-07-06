@@ -56,6 +56,7 @@ module.exports = {
 
 
         var servicePluginsMap = {};
+        var consumerPluginsMap = {};
         var routePluginsMap = {};
         var pluginsUpdated = [];
         var routesUpdated = [];
@@ -76,6 +77,11 @@ module.exports = {
             }
             routePluginsMap[plugin.route_id].push(plugin);
 
+          } else if(plugin.consumer_id) {
+            if (!(plugin.consumer_id in consumerPluginsMap)) {
+              consumerPluginsMap[plugin.consumer_id] = [];
+            }
+            consumerPluginsMap[plugin.consumer_id].push(plugin);
           } else {
             pluginsUpdated.push(plugin);
           }
