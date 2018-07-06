@@ -81,6 +81,7 @@ module.exports.connections = {
     password: process.env.DB_PASSWORD || 'admin1!',
     port: process.env.DB_PORT || 5432,
     database: process.env.DB_DATABASE ||'konga_database',
+    // schema: process.env.DB_PG_SCHEMA ||'public',
     poolSize: process.env.DB_POOLSIZE || 10,
     ssl: process.env.DB_SSL ? true : false // If set, assume it's true
   },
