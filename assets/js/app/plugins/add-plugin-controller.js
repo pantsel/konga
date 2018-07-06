@@ -31,7 +31,7 @@
 
         $scope.schema = _schema.data
         $scope.pluginName = _pluginName
-        $log.debug("Schema", $scope.schema)
+        console.log("Schema", $scope.schema)
         //$log.debug("Options", options)
         $scope.close = close
 
