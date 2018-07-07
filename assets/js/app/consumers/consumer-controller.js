@@ -36,6 +36,16 @@
             name: 'APIs',
             icon: 'mdi-cloud-outline'
           },
+          {
+            id: 'services',
+            name: 'SERVICES',
+            icon: 'mdi-cloud-outline'
+          },
+          {
+            id: 'routes',
+            name: 'ROUTES',
+            icon: 'mdi-directions-fork'
+          },
         ]
 
         if(!_.get($rootScope, 'Gateway.plugins.available_on_server.acl')) {
