@@ -84,6 +84,16 @@ var KongService = {
       });
   },
 
+
+  fetch: function (endpoint,req, cb) {
+    unirest.get(req.connection.kong_admin_url + endpoint)
+      .header('Content-Type', 'application/json')
+      .end(function (response) {
+        if (response.error) return cb(response)
+        return cb(null, response.body)
+      });
+  },
+
   nodeStatus: function (node, cb) {
 
     unirest.get(node.kong_admin_url + "/status")

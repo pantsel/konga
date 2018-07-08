@@ -1,0 +1,82 @@
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="col-md-6 text-left">
+        <h4>
+            <i class="mdi mdi-plug"></i>
+            Eligible Consumers
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+</div>
+<div class="clearfix"></div>
+<konga-loader ng-if="loading && !items.length"></konga-loader>
+<div class="alert alert-info margin-top" ng-if="isOpenService">
+    This service is not Access Controlled, all consumers can access it.
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th width="{{item.width}}" class="text-nowrap" ng-if="!item.hide"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                class="clickable"
+                                data-ng-show="item.column"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        >
+                        </i>
+                    </th>
+                </tr>
+                <tr dir-paginate="consumer in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
+
+                    <td>
+                        <raw-view data-item="consumer"></raw-view>
+                    </td>
+                    <td><a data-ui-sref="consumers.edit({'id':consumer.id})"><strong>{{consumer.username || "-"}}</strong></a></td>
+                    <td>{{consumer.custom_id || "-"}}</td>
+                    <td>{{moment(consumer.created_at*1000).format("MMM DD YYYY @HH:mm")}}</td>
+                    <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
+                        <button type="button"
+                                ng-click="deleteItem($index,consumer)" class="btn btn-danger btn-link">
+                            <i class="mdi mdi-delete"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+                <tr data-ng-if="items.length === 0 && !loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>No data found...</em>
+                    </td>
+                </tr>
+                <tr data-ng-if="loading">
+                    <td colspan="100%" class="text-center text-muted">
+                        <em>Loading consumers...</em>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>

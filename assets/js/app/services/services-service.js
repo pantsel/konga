@@ -79,10 +79,15 @@
             return $http.post('kong/services/', service)
           },
 
-          plugins: function (serviceId) {
-            return $http.get('kong/services/' + serviceId + '/plugins')
+          plugins: function (serviceId,params) {
+            return $http.get('kong/services/' + serviceId + '/plugins',{
+              params: params
+            })
           },
 
+          consumers: function (serviceId) {
+            return $http.get('api/kong_services/' + serviceId + '/consumers')
+          },
 
           addPlugin: function (serviceId, plugin) {
             for (var key in plugin) {
