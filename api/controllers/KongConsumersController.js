@@ -6,7 +6,7 @@ var async = require("async");
 
 var KongConsumersController = {
 
-  apis: function (req, res) {
+  apis: (req, res) => {
 
     var consumerId = req.param("id");
 
@@ -80,7 +80,7 @@ var KongConsumersController = {
 
   },
 
-  services : function(req,res) {
+  services : (req,res) => {
 
     var consumerId = req.param("id");
 
@@ -151,6 +151,10 @@ var KongConsumersController = {
         });
       });
     });
+
+  },
+
+  routes : (req,res) => {
 
   }
 

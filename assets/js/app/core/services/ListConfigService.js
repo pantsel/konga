@@ -122,6 +122,25 @@
             //     inTitle: true
             // }
           ],
+          consumerService: [
+            {
+              title: 'name',
+              width: 200,
+              column: 'name',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+                title: 'host',
+                column: 'host',
+                searchable: true,
+                sortable: true,
+                inSearch: true,
+                inTitle: true
+            }
+          ],
           target: [
             {
               title: '',
@@ -364,8 +383,8 @@
               inTitle: true
             },
             {
-              title: 'context',
-              column: 'context',
+              title: 'scope',
+              column: 'scope',
               searchable: true,
               sortable: true,
               inSearch: true,

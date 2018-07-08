@@ -17,6 +17,7 @@
         $scope.deletePlugin = deletePlugin;
         $scope.updatePlugin = updatePlugin;
         $scope.togglePlugin = togglePlugin;
+        $scope.getContext   = getContext;
         $scope.search = '';
 
 
@@ -63,6 +64,18 @@
               ]
             }
           });
+        }
+
+        function getContext(plugin) {
+          if(plugin.service_id) {
+            return 'services'
+          } else if(plugin.route_id) {
+            return 'routes'
+          } else if(plugin.api_id) {
+            return 'apis'
+          }else{
+            return 'global'
+          }
         }
 
         function updatePlugin(plugin) {

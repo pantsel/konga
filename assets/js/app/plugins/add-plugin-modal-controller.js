@@ -172,7 +172,7 @@
           }
 
           if ($scope.service) {
-            ServiceService.listPlugins($scope.service.id)
+            ServiceService.plugins($scope.service.id)
               .then(function (response) {
                 $scope.existingPlugins = response.data.data.map(function (item) {
                   return item.name;

@@ -98,6 +98,8 @@ module.exports.routes = {
 
   // Consumer portal
   'GET /api/kong_consumers/:id/apis': 'KongConsumersController.apis',
+  'GET /api/kong_consumers/:id/services': 'KongConsumersController.services',
+  'GET /api/kong_consumers/:id/routes': 'KongConsumersController.roures',
 
 
   'GET /api/settings': 'SettingsController.find',
