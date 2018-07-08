@@ -18,17 +18,17 @@
         $scope.sections = [
           {
             id: 'details',
-            name: 'DETAILS',
+            name: 'Details',
             icon: 'mdi-information-outline'
           },
           {
             id: 'groups',
-            name: 'ACL GROUPS',
+            name: 'Groups',
             icon: 'mdi-account-multiple-outline'
           },
           {
             id: 'credentials',
-            name: 'CREDENTIALS',
+            name: 'Credentials',
             icon: 'mdi-security'
           },
           {
@@ -38,26 +38,26 @@
           },
           {
             id: 'services',
-            name: 'SERVICES',
+            name: 'Accessible Services',
             icon: 'mdi-cloud-outline'
           },
           {
             id: 'routes',
-            name: 'ROUTES',
+            name: 'Accessible Routes',
             icon: 'mdi-directions-fork'
           },
         ]
 
         if(!_.get($rootScope, 'Gateway.plugins.available_on_server.acl')) {
           $scope.sections = _.filter($scope.sections, function (item) {
-            return item.id !== 'groups'
+            return item.id !== 'groups' && item.id !== 'apis' && item.id !== 'services' & item.id !== 'routes'
           })
         }
 
         if (Semver.cmp($rootScope.Gateway.version, "0.11.0") >= 0) {
           $scope.sections.push({
             id: 'plugins',
-            name: 'PLUGINS',
+            name: 'Plugins',
             icon: 'mdi-power-plug'
           });
         }

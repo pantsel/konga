@@ -8,14 +8,21 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerGroupsController', [
-      '_', '$scope', '$log', '$state', 'ConsumerService',
-      'MessageService', 'DialogService', '$uibModal', '_acls',
-      function controller(_, $scope, $log, $state, ConsumerService,
-                          MessageService, DialogService, $uibModal, _acls) {
+      '_', '$scope', '$log', '$state', 'ConsumerService','$stateParams',
+      'MessageService', 'DialogService', '$uibModal',
+      function controller(_, $scope, $log, $state, ConsumerService,$stateParams,
+                          MessageService, DialogService, $uibModal) {
 
-        $scope.acls = _acls ? _acls.data.data : false;
         $scope.addGroup = addGroup
         $scope.deleteGroup = deleteConsumerGroup
+
+
+        ConsumerService.fetchAcls($stateParams.id)
+          .then(response =>{
+            $scope.acls = response.data.data;
+          }).catch(function (err) {
+
+        })
 
         function addGroup(consumer) {
           $uibModal.open({

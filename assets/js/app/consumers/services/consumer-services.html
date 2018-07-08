@@ -1,3 +1,4 @@
+
 <div class="col-md-12 bg-light-grey padding">
     <list-search
             class="pull-right"
@@ -6,7 +7,9 @@
             data-items="itemsPerPage"
     ></list-search>
 </div>
-
+<!--<div class="col-md-12 padding">-->
+    <!--<p>The services this consumer can access based on ACLs.</p>-->
+<!--</div>-->
 <div class="clearfix"></div>
 <konga-loader ng-if="loading && !items.data.length"></konga-loader>
 <div class="row" ng-show="!loading || items.data.length">

@@ -2,9 +2,11 @@
     <div class="col-md-12">
         <uib-tabset active="activeJustified" justified="true">
             <uib-tab index="$index" data-ng-repeat="section in sections track by $index">
-                <uib-tab-heading>
+                <uib-tab-heading class="elipsize">
                     <i class="mdi"  ng-class="section.icon"></i>
+                    <br>
                     {{section.name}}
+
                 </uib-tab-heading>
                 <br><br>
                 <div class="clearfix"></div>

@@ -51,23 +51,7 @@
               },
               'groups@consumers.edit': {
                 templateUrl: 'js/app/consumers/groups/consumer-groups.html',
-                controller: 'ConsumerGroupsController',
-                resolve: {
-                  _acls: [
-                    '_',
-                    'ConsumerService',
-                    '$stateParams',
-                    '$rootScope',
-                    function (_, ConsumerService, $stateParams, $rootScope) {
-                      if (_.get($rootScope, 'Gateway.plugins.available_on_server.acl')) {
-                        return ConsumerService.fetchAcls($stateParams.id)
-                      }
-
-                      return false;
-
-                    }
-                  ],
-                }
+                controller: 'ConsumerGroupsController'
               },
               'credentials@consumers.edit': {
                 templateUrl: 'js/app/consumers/credentials/consumer-credentials.html',
