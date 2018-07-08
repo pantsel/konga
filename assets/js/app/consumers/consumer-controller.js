@@ -33,7 +33,7 @@
           },
           {
             id: 'apis',
-            name: 'APIs',
+            name: 'Accessible APIs',
             icon: 'mdi-cloud-outline'
           },
           {
