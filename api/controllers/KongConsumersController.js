@@ -93,7 +93,7 @@ var KongConsumersController = {
         return item.group;
       });
 
-      // Fetch all apis
+      // Fetch all services
       Kong.listAllCb(req,'/services',function (err,data) {
         if(err) return res.negotiate(err);
 
@@ -101,7 +101,7 @@ var KongConsumersController = {
 
         var servicePluginsFns = [];
 
-        // Prepare api objects
+        // Prepare service objects
         services.forEach(function(service){
           // Add consumer id
           service.consumer_id = consumerId;
@@ -112,7 +112,7 @@ var KongConsumersController = {
         });
 
 
-        // Foreach api, fetch it's assigned plugins
+        // Foreach service, fetch it's assigned plugins
         async.series(servicePluginsFns,function (err,data) {
           if(err) return res.negotiate(err);
 

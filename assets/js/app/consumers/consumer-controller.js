@@ -64,7 +64,7 @@
 
         $scope.showPluginsSection = Semver.cmp($rootScope.Gateway.version, "0.11.0") >= 0;
 
-        $scope.showSection = function (index) {
+        $scope.onTabsSelected = function (index) {
           $scope.activeSection = index;
         }
 

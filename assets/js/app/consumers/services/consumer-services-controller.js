@@ -30,7 +30,7 @@
 
 
         function isOpen(api) {
-          return !isAccessControlled(api) && !needsAuth(api);
+          return !isAccessControlled(api);
         }
 
         function isAccessControlled(api) {

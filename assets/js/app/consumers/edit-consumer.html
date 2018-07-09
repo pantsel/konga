@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <uib-tabset active="activeJustified" justified="true">
-            <uib-tab index="$index" data-ng-repeat="section in sections track by $index">
+            <uib-tab index="$index" data-ng-repeat="section in sections track by $index" select="onTabsSelected($index)">
                 <uib-tab-heading class="elipsize">
                     <i class="mdi"  ng-class="section.icon"></i>
                     <br>
@@ -10,11 +10,17 @@
                 </uib-tab-heading>
                 <br><br>
                 <div class="clearfix"></div>
-                <div data-ui-view="{{ section.id }}"></div>
+                <!--<div data-ui-view="{{ section.id }}"></div>-->
             </uib-tab>
-
-
         </uib-tabset>
+
+        <div ng-if="activeSection === 0" data-ui-view="details"></div>
+        <div ng-if="activeSection === 1" data-ui-view="groups"></div>
+        <div ng-if="activeSection === 2" data-ui-view="credentials"></div>
+        <div ng-if="activeSection === 3" data-ui-view="apis"></div>
+        <div ng-if="activeSection === 4" data-ui-view="services"></div>
+        <div ng-if="activeSection === 5" data-ui-view="routes"></div>
+        <div ng-if="activeSection === 6" data-ui-view="plugins"></div>
     </div>
 </div>
 
