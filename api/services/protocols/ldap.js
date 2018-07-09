@@ -1,33 +1,51 @@
 var _ = require('lodash');
-var adminGroup = new RegExp(process.env.ADMIN_GROUP_REG || null);
-var commonName = /^cn=([^,]+),.*/
+var adminGroup = new RegExp(process.env.KONGA_ADMIN_GROUP_REG || "^(admin|konga)$");
+var ldapAttrMap = {
+    username: process.env.KONGA_LDAP_ATTR_USERNAME || 'uid',
+    firstName: process.env.KONGA_LDAP_ATTR_FIRSTNAME || 'givenName',
+    lastName: process.env.KONGA_LDAP_ATTR_LASTNAME || 'sn',
+    email: process.env.KONGA_LDAP_ATTR_EMAIL || 'mail'
+};
+var commonName = /^cn=([^,]+),.*/;
 
-var ldapToUser = function (ldapUser, next) {
-    var data = {
-        active: true
+var ldapToUser = function (ldapUser, user, next) {
+    var data = _.clone(user || {});
+    data.active = true;
+
+    // copy attributes from the ldap user to the konga user using the ldapAttrMap
+    for (var userAttr in ldapAttrMap) {
+        if (ldapAttrMap.hasOwnProperty(userAttr)) {
+            data[userAttr] = ldapUser[ldapAttrMap[userAttr]];
+        }
     }
-    data.username = ldapUser.uid;
-    data.firstName = ldapUser.givenName;
-    data.lastName = ldapUser.sn;
-    data.email = ldapUser.mail;
 
-    sails.models.user.create(data)
-        .exec(function (err, user) {
+    if (data && data.id) {
+        sails.models.user.update({id: data.id}, data).exec(function(err) {
             if (err) {
+                console.error("Failed to update user from ldap", err);
+                next(err);
+            } else {
+                setAdminStatus(ldapUser, data, next);
+            }
+        });
+    } else {
+        sails.models.user.create(data).exec(function (err, user) {
+            if (err) {
+                console.error("Failed to create user from ldap", err);
                 next(err);
             } else {
                 setAdminStatus(ldapUser, user, next);
             }
         });
+    }
 }
 
 var group_test = function (group) {
-    return group.cn === 'admin' || adminGroup.test(group.cn);
+    return adminGroup.test(group.cn);
 }
 
 var member_test = function (group) {
-     return group.startsWith('cn=admin') ||
-         adminGroup.test(commonName.replace(group, "$1"));
+     return adminGroup.test(commonName.replace(group, "$1"));
 }
 
 var setAdminStatus = function (ldapUser, user, next) {
@@ -49,7 +67,8 @@ var setAdminStatus = function (ldapUser, user, next) {
  */
 exports.getResolver = function getResolver(next) {
     return function resolveUser(err, result, message) {
-        if (result === false) {
+        if (result === false || typeof result === 'undefined') {
+            console.error('failed to resolve user', err, message);
             var error = message;
             next(error);
         } else {
@@ -62,14 +81,11 @@ exports.getResolver = function getResolver(next) {
                 .exec(function onExec(error, user) {
                     if (error) {
                         // Dunno, something bad happened
+                        console.error('failed to look up existing user', error);
                         next(error);
-                    } else if (!user) {
-                        // We've not seen this user yet, so let's create a profile
-                        ldapToUser(ldapUser, next);
                     } else {
-                        // We trust LDAP explicitly, so we'll check the groups the user
-                        // is a part of evey time they login
-                        setAdminStatus(ldapUser, user, next);
+                        // sync the ldap user to konga user
+                        ldapToUser(ldapUser, user, next);
                     }
                 })
         }
