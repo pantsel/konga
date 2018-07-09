@@ -36,7 +36,7 @@
             fetchFunc: fetchKeys
           },
           {
-            id: 'hmac',
+            id: 'hmac-auth',
             name: 'HMAC',
             icon: 'mdi-code-tags',
             fetchFunc: fetchHMACAuthCredentials
@@ -68,7 +68,6 @@
         })
 
         $scope.activeGroup = $scope.credentialGroups.length ? $scope.credentialGroups[0].id : null;
-
 
         $scope.updateConsumerDetails = updateConsumerDetails
         $scope.createApiKey = createApiKey
