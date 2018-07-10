@@ -20,13 +20,15 @@
         RoutesService.consumers($stateParams.route_id)
           .then(function (response) {
             console.log("GOT ROUTE CONSUMERS", response.data)
-            if (response.data.total > 0) {
+            if(response.data.data) {
               $scope.items = response.data;
               $scope.loading = false;
-            } else {
+            }else{
               $scope.isOpenService = true;
-              $scope.loading = false;
             }
+
+            $scope.loading = false;
+
           }).catch(function (err) {
           console.error("FAILED TO GET ROUTE CONSUMERS", err);
           $scope.loading = false;
