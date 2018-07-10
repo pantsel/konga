@@ -103,6 +103,7 @@ module.exports.routes = {
 
 
   'GET /api/kong_services/:id/consumers': 'KongServicesController.consumers',
+  'GET /api/kong_routes/:id/consumers': 'KongRoutesController.consumers',
 
 
   'GET /api/settings': 'SettingsController.find',

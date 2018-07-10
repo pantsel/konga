@@ -56,6 +56,10 @@ module.exports.policies = {
     '*': ['authenticated', 'dynamicNode'],
   },
 
+  KongRoutesController: {
+    '*': ['authenticated', 'dynamicNode'],
+  },
+
   KongCertificatesController: {
     '*': ['authenticated', 'dynamicNode'],
   },
