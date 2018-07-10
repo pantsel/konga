@@ -31,11 +31,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     const serviceId = req.params.id;
     let serviceAclPlugin;
-    // let serviceJWT;
-    // let serviceBasicAuth;
-    // let serviceKeyAuth;
-    // let serviceOauth2;
-    // let serviceHMACAuth;
 
 
     sails.log("KongServiceController:consumers called");
@@ -47,11 +42,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("Service plugins =>", plugins);
 
     serviceAclPlugin = _.filter(plugins.data, item => item.name === 'acl')[0];
-    // serviceJWT = _.filter(plugins.data, item => item.name == 'jwt')[0];
-    // serviceBasicAuth = _.filter(plugins.data, item => item.name == 'basic-auth')[0];
-    // serviceKeyAuth = _.filter(plugins.data, item => item.name == 'key-auth')[0];
-    // serviceOauth2 = _.filter(plugins.data, item => item.name == 'oauth2')[0];
-    // serviceHMACAuth = _.filter(plugins.data, item => item.name == 'hmac-auth')[0];
 
     sails.log("serviceAclPlugin",serviceAclPlugin)
 
