@@ -90,6 +90,10 @@
                     }
                   ]
                 }
+              },
+              'consumers@routes.edit': {
+                templateUrl: 'js/app/routes/views/route-consumers.html',
+                controller: 'RouteConsumersController'
               }
             }
           })
