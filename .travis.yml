@@ -1,8 +1,7 @@
 language: node_js
 
 node_js:
-  - "6.9.1"
-  - "7.1.0"
+  - "8.11.3"
 
 services:
   - mysql

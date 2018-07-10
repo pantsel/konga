@@ -18,25 +18,18 @@
 
 
         $scope.loading = true;
-        ServiceService.plugins($scope.service.id, {name: 'acl', enabled: true})
+        ServiceService.consumers($scope.service.id)
           .then(function (response) {
-            console.log("GOT SERVICE PLUGINS", response.data)
+            console.log("GOT SERVICE CONSUMERS", response.data)
             if (response.data.total > 0) {
-              ServiceService.consumers($scope.service.id)
-                .then(function (response) {
-                  console.log("GOT SERVICE CONSUMERS", response.data)
-                  $scope.items = response;
-                  $scope.loading = false;
-                }).catch(function (err) {
-                console.error("FAILED TO GET SERVICE CONSUMERS", err);
-                $scope.loading = false;
-              })
+              $scope.items = response.data;
+              $scope.loading = false;
             } else {
               $scope.isOpenService = true;
               $scope.loading = false;
             }
           }).catch(function (err) {
-          console.error("FAILED TO GET SERVICE PLUGINS", err);
+          console.error("FAILED TO GET SERVICE CONSUMERS", err);
           $scope.loading = false;
         })
 

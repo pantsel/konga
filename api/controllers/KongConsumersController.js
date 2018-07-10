@@ -1,6 +1,4 @@
 var _ = require('lodash');
-var fs = require('fs');
-var PluginService = require('../services/KongPluginService');
 var Kong = require("../services/KongService");
 var async = require("async");
 
