@@ -171,7 +171,7 @@ $ docker run -p 1337:1337
               -e "DB_URI={full_connection_string}" \
               -e "NODE_ENV=development" \
               --name konga \
-              pantsel/konga npm run prepare
+              pantsel/konga node ./bin/konga.js prepare
 ```
 
 
