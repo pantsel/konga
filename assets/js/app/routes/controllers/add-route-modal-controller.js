@@ -67,7 +67,7 @@
               delete($scope.route[key]);
             }
 
-            if ($scope.route[key] === undefined) {
+            if ($scope.route[key] === undefined || $scope.route[key] === "") {
               delete($scope.route[key]);
             }
           }
