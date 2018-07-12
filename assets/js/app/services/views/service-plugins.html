@@ -12,8 +12,10 @@
         </button>
     </div>
 </div>
+<div class="clearfix"></div>
+<konga-loader ng-if="loading && !plugins.data.length"></konga-loader>
 
-<div class="col-md-12 bg-light-grey padding">
+<div ng-if="!loading" class="col-md-12 bg-light-grey padding">
     <div class="input-group col-sm-4 pull-left">
         <div class="input-group-addon">
             <i class="mdi mdi-magnify"></i>
@@ -22,7 +24,8 @@
     </div>
     <dir-pagination-controls class="pull-right"></dir-pagination-controls>
 </div>
-<table class="table">
+
+<table class="table" ng-if="!loading">
     <tr>
         <th width="1"></th>
         <th width="1"></th>

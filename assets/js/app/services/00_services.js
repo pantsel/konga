@@ -72,14 +72,14 @@
               'plugins@services.edit': {
                 templateUrl: 'js/app/services/views/service-plugins.html',
                 controller: 'ServicePluginsController',
-                resolve: {
-                  _plugins: [
-                    'PluginsService', '$stateParams',
-                    function (PluginsService, $stateParams) {
-                      return PluginsService.load({service_id: $stateParams.service_id})
-                    }
-                  ]
-                }
+                // resolve: {
+                //   _plugins: [
+                //     'PluginsService', '$stateParams',
+                //     function (PluginsService, $stateParams) {
+                //       return PluginsService.load({service_id: $stateParams.service_id})
+                //     }
+                //   ]
+                // }
               },
               'healthchecks@services.edit': {
                 templateUrl: 'js/app/services/views/service-health-checks.html',
