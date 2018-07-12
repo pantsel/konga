@@ -123,7 +123,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     if(aclConsumerIds) {
       sails.log("authenticationPluginsConsumerIds", authenticationPluginsConsumerIds);
       sails.log("aclConsumerIds", _.uniq(aclConsumerIds));
-      consumerIds = _.intersection(_.uniq(aclConsumerIds), authenticationPluginsConsumerIds);
+      consumerIds = authenticationPluginsConsumerIds.length ? _.intersection(_.uniq(aclConsumerIds), authenticationPluginsConsumerIds) : _.uniq(aclConsumerIds);
     }else{
       consumerIds = authenticationPluginsConsumerIds;
     }
