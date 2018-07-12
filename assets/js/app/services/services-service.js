@@ -85,8 +85,10 @@
             })
           },
 
-          consumers: function (serviceId) {
-            return $http.get('api/kong_services/' + serviceId + '/consumers')
+          consumers: function (serviceId,params) {
+            return $http.get('api/kong_services/' + serviceId + '/consumers', {
+              params: params
+            })
           },
 
           addPlugin: function (serviceId, plugin) {
