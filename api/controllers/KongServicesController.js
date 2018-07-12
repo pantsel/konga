@@ -47,7 +47,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("Service plugins =>", plugins);
 
     serviceAclPlugin = _.filter(plugins.data, item => item.name === 'acl')[0];
-    jwtPlugin = _.filter(plugins.data, item => item.name === 'jwt-auth')[0];
+    jwtPlugin = _.filter(plugins.data, item => item.name === 'jwt')[0];
     basicAuthPlugin = _.filter(plugins.data, item => item.name === 'basic-auth')[0];
     keyAuthPlugin = _.filter(plugins.data, item => item.name === 'key-auth')[0];
     hmacAuthPlugin = _.filter(plugins.data, item => item.name === 'hmac-auth')[0];
@@ -61,7 +61,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("oauth2Plugin",oauth2Plugin)
 
     let aclConsumerIds;
-    let authenticationPlugins = _.filter(plugins.data, item => ['jwt-auth','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+    let authenticationPlugins = _.filter(plugins.data, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
     authenticationPlugins = _.map(authenticationPlugins, item => item.name);
     sails.log("authenticationPlugins",authenticationPlugins);
 
@@ -146,7 +146,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
           plugins.push('key-auth')
         }
         if(jwts && _.filter(jwts.data,item => item.consumer_id === consumer.id).length) {
-          plugins.push('jwt-auth')
+          plugins.push('jwt')
         }
         if(hmacAuths && _.filter(hmacAuths.data,item => item.consumer_id === consumer.id).length) {
           plugins.push('hmac-auth')

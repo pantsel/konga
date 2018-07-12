@@ -9,7 +9,7 @@
   angular.module('frontend.services')
     .controller('ServiceConsumersController', [
       '_', '$scope', '$rootScope', '$stateParams', '$log', '$state', 'ServiceService','ConsumerModel','ListConfig',
-      function controller(_, $scope, $stateParams, $rootScope, $log, $state, ServiceService, ConsumerModel, ListConfig) {
+      function controller(_, $scope, $rootScope, $stateParams, $log, $state, ServiceService, ConsumerModel, ListConfig) {
 
 
         ConsumerModel.setScope($scope, false, 'items', 'itemCount');
@@ -17,6 +17,15 @@
         $scope.search = '';
         $scope.explanatoryMessage = 'Listing consumers: ';
 
+
+        let availableOnServer = angular.copy($rootScope.Gateway.plugins.available_on_server);
+        let enabledPlugins = [];
+
+        Object.keys(availableOnServer).forEach(key => {
+          if(availableOnServer[key]) enabledPlugins.push(key);
+        })
+
+        console.log("@@@@@@@@@@@@@@@@@@", enabledPlugins.join(","))
 
         $scope.loading = true;
         ServiceService.consumers($scope.service.id)
