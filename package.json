@@ -79,8 +79,7 @@
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha",
-    "bower-deps": "bower --allow-root install",
-    "prepare": "node ./bin/konga.js prepare"
+    "bower-deps": "bower --allow-root install"
   },
   "main": "app.js",
   "repository": {
