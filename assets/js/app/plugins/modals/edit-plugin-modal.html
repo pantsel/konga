@@ -181,5 +181,5 @@
             </div>
         </div>
     </form>
-    <div data-ng-include="'js/app/plugins/forms/' + plugin.name + '.html?r=' + Date.now()"></div>
+    <div ng-if="customPluginForms.indexOf(plugin.name) > -1" data-ng-include="'js/app/plugins/forms/' + plugin.name + '.html?r=' + Date.now()"></div>
 </div>

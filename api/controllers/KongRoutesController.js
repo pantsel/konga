@@ -28,7 +28,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     if(plugins.total == 0) return res.json([]);
 
-    sails.log("Service plugins =>", plugins);
+    sails.log("Route plugins =>", plugins);
 
     routeAclPlugin = _.filter(plugins.data, item => item.name === 'acl')[0];
     jwtPlugin = _.filter(plugins.data, item => item.name === 'jwt-auth')[0];
@@ -46,27 +46,26 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     let aclConsumerIds;
 
-    if(routeAclPlugin) {
-      // This service is Access Controlled by ACL plugin
+    let whiteListedGroups = routeAclPlugin ? routeAclPlugin.config.whitelist || [] : [];
+    let blackListedGroups = routeAclPlugin ? routeAclPlugin.config.blacklist || [] : [];
 
-      let whiteListedGroups = routeAclPlugin.config.whitelist || [];
-      let blackListedGroups = routeAclPlugin.config.blacklist || [];
+    // ACL
+    sails.log("whiteListedGroups",whiteListedGroups)
+    sails.log("blackListedGroups",blackListedGroups)
 
-      // ACL
-      sails.log("whiteListedGroups",whiteListedGroups)
-      sails.log("blackListedGroups",blackListedGroups)
+    // We need to retrieve all acls and filter the accessible ones based on the whitelisted and blacklisted groups
+    let acls = await KongService.fetch(`/acls`, req);
 
-      // We need to retrieve all acls and filter the accessible ones based on the whitelisted and blacklisted groups
-      let acls = await KongService.fetch(`/acls`, req);
+    sails.log("acls",acls);
 
-      let filteredAcls = _.filter(acls.data, item => {
-        return whiteListedGroups.indexOf(item.group) > -1 && blackListedGroups.indexOf(item.group) === -1;
-      });
-      sails.log("filteredAcls", filteredAcls);
+    let filteredAcls = _.filter(acls.data, item => {
+      return whiteListedGroups.indexOf(item.group) > -1 && blackListedGroups.indexOf(item.group) === -1;
+    });
 
-      // Gather the consume ids of the filtered groups
-      aclConsumerIds = _.map(filteredAcls, item => item.consumer_id);
-    }
+    sails.log("filteredAcls", filteredAcls);
+
+    // Gather the consume ids of the filtered groups
+    aclConsumerIds = _.map(filteredAcls, item => item.consumer_id);
 
     let jwts, keyAuths, hmacAuths, oauth2, basicAuths
 
@@ -107,7 +106,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     if(aclConsumerIds) {
       sails.log("authenticationPluginsConsumerIds", authenticationPluginsConsumerIds);
       sails.log("aclConsumerIds", _.uniq(aclConsumerIds));
-      consumerIds = _.intersection(_.uniq(aclConsumerIds), authenticationPluginsConsumerIds);
+      consumerIds = authenticationPluginsConsumerIds.length ? _.intersection(_.uniq(aclConsumerIds), authenticationPluginsConsumerIds) : _.uniq(aclConsumerIds);
     }else{
       consumerIds = authenticationPluginsConsumerIds;
     }

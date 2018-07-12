@@ -13,7 +13,7 @@
 
 
         ConsumerModel.setScope($scope, false, 'items', 'itemCount');
-        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer',ConsumerModel)));
+        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumerWithCreds',ConsumerModel)));
         $scope.search = '';
 
 

@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  angular.module('frontend.plugins')
+  angular.module('frontend.routes')
     .controller('RoutePluginsController', [
         '_','$scope', '$stateParams','$log', '$state','RoutesService','PluginsService',
         '$uibModal','DialogService','InfoService','_plugins',

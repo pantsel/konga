@@ -9,7 +9,7 @@
                     data-ng-repeat="section in sections">
                 <a href>
                     <i class="{{section.icon}}"></i>
-                    {{section.name}}
+                    <span ng-bind-html="section.name"></span>
                 </a>
             </li>
         </ul>

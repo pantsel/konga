@@ -18,7 +18,7 @@
         $scope.plugin = _plugin;
         $scope.schema = _schema.data;
         $scope.context = 'update';
-        $log.log("Plugin", $scope.plugin);
+        console.log("Plugin", $scope.plugin);
         $log.debug("Schema", $scope.schema);
 
         //var pluginOptions = new KongPluginsService().pluginOptions()

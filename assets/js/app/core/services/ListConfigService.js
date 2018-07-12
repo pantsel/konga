@@ -239,6 +239,45 @@
               sortable: true,
             },
           ],
+          consumerWithCreds: [
+            {
+              title: '',
+              width: 1
+            },
+            {
+              title: 'username',
+              column: 'username',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'custom_id',
+              column: 'custom_id',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Matching Credentials',
+              column: 'plugins',
+              searchable: true,
+              sortable: true
+            },
+            {
+              title: 'created',
+              column: 'created_at',
+              sortable: true,
+            },
+            {
+              title: '',
+              hide: !AuthService.hasPermission('consumers', 'delete'),
+              column: false,
+              width: 1
+            },
+          ],
           consumer: [
             {
               title: '',
