@@ -25,8 +25,6 @@
           if(availableOnServer[key]) enabledPlugins.push(key);
         })
 
-        console.log("@@@@@@@@@@@@@@@@@@", enabledPlugins.join(","))
-
         $scope.loading = true;
         ServiceService.consumers($scope.service.id)
           .then(function (response) {
