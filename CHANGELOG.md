@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [0.12.0](https://github.com/pantsel/konga/releases/tag/0.12.0) - 07-07-2018
-* Fix snapshots implementation. Use auto generated entity ids for relations.
+* Fix snapshots implementation. Use auto generated entity ids for proper relationships mapping.
 * Implement new Kong plugins.
 * Only handle plugins available on server. Starting with Kong 0.14, the list of available plugins
 can be defined in KONG_PLUGINS env var.
