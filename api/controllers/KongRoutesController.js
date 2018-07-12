@@ -45,6 +45,9 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("oauth2Plugin",oauth2Plugin)
 
     let aclConsumerIds;
+    let authenticationPlugins = _.filter(plugins.data, item => ['jwt-auth','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+    authenticationPlugins = _.map(authenticationPlugins, item => item.name);
+    sails.log("authenticationPlugins",authenticationPlugins);
 
     let whiteListedGroups = routeAclPlugin ? routeAclPlugin.config.whitelist || [] : [];
     let blackListedGroups = routeAclPlugin ? routeAclPlugin.config.blacklist || [] : [];
@@ -103,7 +106,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
       ...basicAuthConsumerIds
     ]);
 
-    if(aclConsumerIds) {
+    if(aclConsumerIds && aclConsumerIds.length) {
       sails.log("authenticationPluginsConsumerIds", authenticationPluginsConsumerIds);
       sails.log("aclConsumerIds", _.uniq(aclConsumerIds));
       consumerIds = authenticationPluginsConsumerIds.length ? _.intersection(_.uniq(aclConsumerIds), authenticationPluginsConsumerIds) : _.uniq(aclConsumerIds);
@@ -145,6 +148,8 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
       return res.json({
         total: eligibleConsumers.length,
+        acl: routeAclPlugin,
+        authenticationPlugins: authenticationPlugins,
         data: eligibleConsumers
       })
 

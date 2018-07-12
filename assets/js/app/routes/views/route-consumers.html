@@ -23,6 +23,12 @@
 
 <div class="row" ng-if="!isOpenService && !loading">
     <div class="col-md-12">
+        <div class="alert alert-info">
+            <small ng-bind-html="explanatoryMessage"></small>
+        </div>
+
+    </div>
+    <div class="col-md-12">
 
         <div class="table-responsive">
             <table class="table table-hover table-striped">
