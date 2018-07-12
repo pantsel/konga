@@ -3,12 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [0.12.0](https://github.com/pantsel/konga/releases/tag/0.12.0) - 07-07-2018
-* Fix snapshots implementation. Use auto generated entity ids for proper relationships mapping.
-* Implement new Kong plugins.
-* Only handle plugins available on server. Starting with Kong 0.14, the list of available plugins
+* **[Fix]** Fix snapshots implementation. Use auto generated entity ids for proper relationships mapping.
+* **[Compatibility]** Implement new Kong plugins properly.
+* **[Compatibility]** Only handle plugins available on server. Starting with Kong 0.14, the list of available plugins
 can be defined in KONG_PLUGINS env var.
-* Implemented Accessible Services and Routes logic on Consumer page.
-* Implemented Eligible consumers listing based on ACLs and Authentication plugins in Services & Routes
+* **[Enhancement]** Implemented Accessible Services and Routes logic on Consumer page.
+* **[Enhancement]** Implemented Eligible consumers listing based on ACLs and Authentication plugins in Services & Routes
+* Various other fixes and improvements.
 
 ## [0.11.2](https://github.com/pantsel/konga/releases/tag/0.11.2) - 15-06-2018
 * Various Fixes.
