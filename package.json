@@ -31,7 +31,6 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sass": "^3.0.1",
     "grunt-sync": "^0.8.0",
-    "hoek": "^4.2.1",
     "include-all": "^1.0.0",
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.3.0",
