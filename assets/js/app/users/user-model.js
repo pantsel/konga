@@ -24,6 +24,7 @@
                         for(var key in err.data.invalidAttributes){
                             $scope.errors[key] = err.data.invalidAttributes[key][0].message
                         }
+                        //
                         // Passport errors
                         if(err.data.raw && err.data.raw.length) {
                             err.data.raw.forEach(function(raw){
