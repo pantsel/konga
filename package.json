@@ -5,11 +5,8 @@
   "keywords": [
     "sails.js",
     "backend",
-    "REST",
-    "API",
-    "JWT",
-    "JSON Web Token",
-    "Passport.js"
+    "Kong",
+    "GUI"
   ],
   "dependencies": {
     "@slack/client": "^3.16.0",
