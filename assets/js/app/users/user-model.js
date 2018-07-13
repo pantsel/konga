@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Model for Author API, this is used to wrap all Author objects specified actions and data change actions.
+     * Model for User API, this is used to wrap all User objects specified actions and data change actions.
      */
     angular.module('frontend.users')
         .service('UserModel', [
