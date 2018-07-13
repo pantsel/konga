@@ -240,6 +240,12 @@ If you see this error while trying to run Konga, it means that konga has no writ
 it's default data dir `/kongadata`.  You will just have to define the storage path yourself to 
 a directory Konga will have access permissions via the env var `STORAGE_PATH`.
 
+##### 4. The hook `grunt` is taking too long to load
+The default timeout for the sails hooks to load is 60000. In some cases, depending on
+the memory the host machine has available, startup tasks like code minification an uglyfication
+may take longer to complete. You can fix that by setting then env var `KONGA_HOOK_TIMEOUT` to something
+greater than 60000, like 120000.
+
 
 ## More Kong related stuff
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
