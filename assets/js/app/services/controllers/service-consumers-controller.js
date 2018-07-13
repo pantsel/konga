@@ -18,14 +18,12 @@
         $scope.explanatoryMessage = 'Listing consumers: ';
 
 
-        let availableOnServer = angular.copy($rootScope.Gateway.plugins.available_on_server);
-        let enabledPlugins = [];
+        var availableOnServer = angular.copy($rootScope.Gateway.plugins.available_on_server);
+        var enabledPlugins = [];
 
-        Object.keys(availableOnServer).forEach(key => {
+        Object.keys(availableOnServer).forEach(function(key) {
           if(availableOnServer[key]) enabledPlugins.push(key);
         })
-
-        console.log("@@@@@@@@@@@@@@@@@@", enabledPlugins.join(","))
 
         $scope.loading = true;
         ServiceService.consumers($scope.service.id)

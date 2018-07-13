@@ -18,7 +18,7 @@
 
 
         ConsumerService.fetchAcls($stateParams.id)
-          .then(response =>{
+          .then(function(response){
             $scope.acls = response.data.data;
           }).catch(function (err) {
 
