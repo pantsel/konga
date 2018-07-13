@@ -87,19 +87,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
     },
 
-    //model validation messages definitions
-    validationMessages: {
-        email: {
-            required: 'Email is required',
-            email: 'The email address is not valid',
-            unique: 'Email address is already taken'
-        },
-        username: {
-            required: 'Username is required',
-            unique: 'Username is already taken'
-        }
-    },
-
     //seedData object should now come from a file
     // the new object has had the password field added
     // we need to remove it

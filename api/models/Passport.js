@@ -105,13 +105,6 @@ var defaultModel = {
     }
   },
 
-    //model validation messages definitions
-    validationMessages: { //hand for i18n & l10n
-        password: {
-            minLength: 'The password must be at least 6 character long'
-        }
-    },
-
   /**
    * Callback to be run before creating a Passport.
    *
