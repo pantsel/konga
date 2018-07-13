@@ -86,13 +86,13 @@ module.exports = function hook(sails) {
                     // for simplicity.
                     // After all, it's not like they're
                     // going to use it again.
-                    var uuid = require('node-uuid');
+                    var uuidv4 = require('uuid/v4');
 
                     sails.models.user
                         .update({
                             activationToken : undefined
 
-                        },{active : true,activationToken : uuid.v4()})
+                        },{active : true,activationToken : uuidv4()})
                         .exec(cb)
                 }
                 //sails.models.settings.seed

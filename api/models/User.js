@@ -2,7 +2,6 @@
 
 var _ = require('lodash');
 var async = require('async');
-var uuid = require('node-uuid');
 var defUserSeedData = require('../../config/default-user-seed-data.js');
 
 /**

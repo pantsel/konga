@@ -2,7 +2,7 @@
 
 var async = require('async');
 var _ = require('lodash');
-var uuid = require('node-uuid');
+var uuidv4 = require('uuid/v4');
 var UserSignUp = require("../events/user-events")
 
 /**
@@ -20,7 +20,7 @@ var AuthController = {
 
 
         // Assign activation token
-        data.activationToken = uuid.v4();
+        data.activationToken = uuidv4();
 
         // Check settings as to what to do after signup
         sails.models.settings
