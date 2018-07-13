@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 can be defined in KONG_PLUGINS env var.
 * **[Enhancement]** Implemented Accessible Services and Routes logic on Consumer page.
 * **[Enhancement]** Implemented Eligible consumers listing based on ACLs and Authentication plugins in Services & Routes
-* Updated dependecies.
+* Updated dependencies.
 * Various other fixes and improvements.
 
 ## [0.11.2](https://github.com/pantsel/konga/releases/tag/0.11.2) - 15-06-2018
