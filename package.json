@@ -61,12 +61,11 @@
     "ua-parser": "0.3.5",
     "unirest": "^0.5.1",
     "uuid": "^3.3.2",
-    "validator": "4.2.1",
-    "growl": "^1.10.5"
+    "validator": "4.2.1"
   },
   "devDependencies": {
     "chai": "3.4.0",
-    "mocha": "2.3.3",
+    "mocha": "^5.2.0",
     "should": "7.1.1",
     "supertest": "1.1.0"
   },
