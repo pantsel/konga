@@ -85,6 +85,18 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     // Gather the consume ids of the filtered groups
     aclConsumerIds =  _.map(filteredAcls, item => item.consumer_id);
 
+
+    // If the service is access controlled and no aclConsumerIds are found,
+    // it means that noone can use it
+    if(serviceAclPlugin && (!aclConsumerIds || !aclConsumerIds.length)) {
+      return res.json({
+        total: 0,
+        acl: serviceAclPlugin,
+        authenticationPlugins: authenticationPlugins,
+        data: []
+      })
+    }
+
     let jwts, keyAuths, hmacAuths, oauth2, basicAuths
 
     if(jwtPlugin) jwts = await KongService.fetch(`/jwts`, req);

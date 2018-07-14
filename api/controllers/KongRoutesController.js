@@ -67,8 +67,21 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     sails.log("filteredAcls", filteredAcls);
 
-    // Gather the consume ids of the filtered groups
+    // Gather the consumer ids of the filtered groups
     aclConsumerIds = _.map(filteredAcls, item => item.consumer_id);
+    sails.log("aclConsumerIds", aclConsumerIds);
+
+    // If the route is access controlled and no aclConsumerIds are found,
+    // it means that noone can access this route
+    if(routeAclPlugin && (!aclConsumerIds || !aclConsumerIds.length)) {
+      return res.json({
+        total: 0,
+        acl: routeAclPlugin,
+        authenticationPlugins: authenticationPlugins,
+        data: []
+      })
+    }
+
 
     let jwts, keyAuths, hmacAuths, oauth2, basicAuths
 
@@ -106,6 +119,8 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
       ...basicAuthConsumerIds
     ]);
 
+
+
     if(aclConsumerIds && aclConsumerIds.length) {
       sails.log("authenticationPluginsConsumerIds", authenticationPluginsConsumerIds);
       sails.log("aclConsumerIds", _.uniq(aclConsumerIds));
@@ -120,6 +135,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     KongService.listAllCb(req, `/consumers`, (err, consumers) => {
       if (err) return res.negotiate(err);
       if(!consumers.data || !consumers.data.length) return res.json([]);
+
 
       let eligibleConsumers = _.filter(consumers.data, item => {
         return consumerIds.indexOf(item.id) > -1;
