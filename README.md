@@ -244,7 +244,7 @@ a directory Konga will have access permissions via the env var `STORAGE_PATH`.
 
 ##### 4. The hook `grunt` is taking too long to load
 The default timeout for the sails hooks to load is 60000. In some cases, depending on
-the memory the host machine has available, startup tasks like code minification an uglyfication
+the memory the host machine has available, startup tasks like code minification and uglyfication
 may take longer to complete. You can fix that by setting then env var `KONGA_HOOK_TIMEOUT` to something
 greater than 60000, like 120000.
 
