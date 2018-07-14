@@ -81,15 +81,7 @@
               },
               'plugins@routes.edit': {
                 templateUrl: 'js/app/routes/views/route-plugins.html',
-                controller: 'RoutePluginsController',
-                resolve: {
-                  _plugins: [
-                    'PluginsService', '$stateParams',
-                    function (PluginsService, $stateParams) {
-                      return PluginsService.load({route_id: $stateParams.route_id})
-                    }
-                  ]
-                }
+                controller: 'RoutePluginsController'
               },
               'consumers@routes.edit': {
                 templateUrl: 'js/app/routes/views/route-consumers.html',
