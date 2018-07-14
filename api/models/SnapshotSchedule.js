@@ -92,4 +92,12 @@ var mongoModel = function () {
     return obj;
 }
 
+
+if(sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
+  defaultModel.meta =  {
+    schemaName: process.env.DB_PG_SCHEMA
+  }
+}
+
+
 module.exports = sails.config.models.connection == 'mongo' ? mongoModel() : defaultModel

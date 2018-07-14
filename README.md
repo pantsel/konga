@@ -169,6 +169,7 @@ an ephemeral container for the job.
 $ docker run -p 1337:1337 
               -e "DB_ADAPTER={adapter_name}" \ 
               -e "DB_URI={full_connection_string}" \
+              -e "DB_PG_SCHEMA=my-schema"\ // Optionally define a schema when integrating with prostgres
               -e "NODE_ENV=development" \
               --name konga \
               pantsel/konga node ./bin/konga.js prepare
@@ -185,6 +186,7 @@ $ docker run -p 1337:1337
              -e "DB_USER=your-db-user" \ // Omit if not relevant
              -e "DB_PASSWORD=your-db-password" \ // Omit if not relevant
              -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
+             -e "DB_PG_SCHEMA=my-schema"\ // Optionally define a schema when integrating with prostgres
              -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
              --name konga \
              pantsel/konga

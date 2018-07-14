@@ -42,4 +42,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
 var mongoModel =  _.omit(_.cloneDeep(defaultModel),["autoPK","attributes.id"]);
 
+if(sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
+  defaultModel.meta =  {
+    schemaName: process.env.DB_PG_SCHEMA
+  }
+}
+
+
 module.exports = sails.config.models.connection == 'mongo' ? mongoModel : defaultModel
