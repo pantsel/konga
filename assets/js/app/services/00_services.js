@@ -29,12 +29,12 @@
               }
             }
           })
-          .state('services.edit', {
-            url: '/:service_id/edit',
+          .state('services.read', {
+            url: '/:service_id/read',
             data: {
-              pageName: "Edit Service",
+              pageName: "Show Service",
               pageDescription: "",
-              displayName: "edit Service",
+              displayName: "show",
               prefix: '<i class="mdi mdi-pencil"></i>'
             },
             views: {
@@ -57,19 +57,19 @@
                 }
 
               },
-              'details@services.edit': {
+              'details@services.read': {
                 templateUrl: 'js/app/services/views/service-details.html',
                 controller: 'ServiceDetailsController',
               },
-              'routes@services.edit': {
+              'routes@services.read': {
                 templateUrl: 'js/app/services/views/service-routes.html',
                 controller: 'ServiceRoutesController'
               },
-              'consumers@services.edit': {
+              'consumers@services.read': {
                 templateUrl: 'js/app/services/views/service-consumers.html',
                 controller: 'ServiceConsumersController'
               },
-              'plugins@services.edit': {
+              'plugins@services.read': {
                 templateUrl: 'js/app/services/views/service-plugins.html',
                 controller: 'ServicePluginsController',
                 // resolve: {
@@ -81,7 +81,7 @@
                 //   ]
                 // }
               },
-              'healthchecks@services.edit': {
+              'healthchecks@services.read': {
                 templateUrl: 'js/app/services/views/service-health-checks.html',
                 controller: 'ServiceHealthChecksController',
               }

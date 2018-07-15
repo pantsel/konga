@@ -51,7 +51,7 @@
                     <td>
                         <p class="no-margin">
                             <a class="clickable"
-                               data-ui-sref="services.edit({service_id:service.id})"><strong>{{ service.name || "-" }}</strong></a>
+                               data-ui-sref="services.read({service_id:service.id})"><strong>{{ service.name || "-" }}</strong></a>
                         </p>
                         <p ng-if="service.extras && service.extras.description" class="text-small help-block no-margin">{{service.extras.description}}</p>
                     </td>
@@ -64,7 +64,7 @@
                     </td>
                     <td>{{service.created_at*1000 | date : format : timezone}}</td>
                     <!--<td>-->
-                        <!--<a ui-sref="services.edit({ service_id: service.id })" class="btn btn-default btn-link">-->
+                        <!--<a ui-sref="services.read({ service_id: service.id })" class="btn btn-default btn-link">-->
 
                             <!--edit-->
                         <!--</a>-->

@@ -6,7 +6,7 @@
 
         </h4>
     </div>
-    <div class="col-md-6 text-right">
+    <div class="col-md-6 text-right" ng-if="user.hasPermission('plugins','create')">
         <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddPlugin()">
             <i class="mdi mdi-plus"></i>
             add plugin
@@ -27,19 +27,19 @@
 <table class="table" ng-if="plugins">
     <tr>
         <th width="1"></th>
-        <th width="1"></th>
+        <th width="1" ng-if="user.hasPermission('plugins','edit')"></th>
         <th width="1"></th>
         <th>Name</th>
         <th>Consumer</th>
         <th>Created</th>
-        <th width="1"></th>
+        <th width="1" ng-if="user.hasPermission('plugins','delete')"></th>
     </tr>
     <tr
             dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
         <td>
             <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
         </td>
-        <td>
+        <td ng-if="user.hasPermission('plugins','edit')">
             <i class="mdi mdi-toggle-switch text-success clickable"
                ng-show="item.enabled"
                ng-click="togglePlugin(item)"
@@ -53,9 +53,10 @@
             <raw-view data-item="item"></raw-view>
         </td>
         <th>
-            <a href  ng-click="onEditPlugin(item)">
+            <a href  ng-click="onEditPlugin(item)" ng-if="user.hasPermission('plugins','edit')">
                 {{item.name}}
             </a>
+            <span ng-if="!user.hasPermission('plugins','edit')">{{item.name}}</span>
         </th>
         <td>
             <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
@@ -63,7 +64,7 @@
         </td>
         <td>{{item.created_at | date : format : timezone}}</td>
 
-        <td>
+        <td ng-if="user.hasPermission('plugins','delete')">
             <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
                 <i class="mdi mdi-delete"></i>
                 delete

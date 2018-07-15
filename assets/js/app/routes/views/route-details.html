@@ -5,7 +5,11 @@
     </h4>
 </div>
 
-<form class="form-horizontal">
+<div ng-if="!user.hasPermission('routes','edit')">
+    <div json-human="route" class="table-responsive"></div>
+</div>
+
+<form class="form-horizontal" ng-if="user.hasPermission('routes','edit')">
     <div ng-if="Gateway" data-ng-include="partial"></div>
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">

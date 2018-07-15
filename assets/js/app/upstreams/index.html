@@ -41,7 +41,8 @@
                         >
                         </i>
                     </th>
-                    <th width="1"></th>
+                    <th width="1" ng-if="user.hasPermission('upstreams','edit')"></th>
+                    <th width="1" ng-if="user.hasPermission('upstreams','delete')"></th>
                 </tr>
                 <tr dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td>
@@ -50,13 +51,13 @@
                     <td>{{item.name || "-"}}</td>
                     <td>{{item.slots || "-"}}</td>
                     <td>{{moment(item.created_at).format("MMM DD YYYY @HH:mm")}}</td>
-                    <td>
+                    <td ng-if="user.hasPermission('upstreams','edit')">
                         <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})">
                             <i class="mdi mdi-information-outline"></i>
                             details
                         </a>
                     </td>
-                    <td>
+                    <td ng-if="user.hasPermission('upstreams','delete')">
                         <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete

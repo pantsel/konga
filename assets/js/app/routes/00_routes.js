@@ -39,12 +39,12 @@
               }
             }
           })
-          .state('routes.edit', {
-            url: '/:route_id/edit',
+          .state('routes.read', {
+            url: '/:route_id/read',
             data: {
-              pageName: "Edit Route",
+              pageName: "Route",
               pageDescription: "",
-              displayName: "edit Route",
+              displayName: "route",
               prefix: '<i class="mdi mdi-pencil"></i>'
             },
             views: {
@@ -67,7 +67,7 @@
                 }
 
               },
-              'details@routes.edit': {
+              'details@routes.read': {
                 templateUrl: 'js/app/routes/views/route-details.html',
                 controller: 'RouteDetailsController',
                 resolve: {
@@ -79,11 +79,11 @@
                   ]
                 }
               },
-              'plugins@routes.edit': {
+              'plugins@routes.read': {
                 templateUrl: 'js/app/routes/views/route-plugins.html',
                 controller: 'RoutePluginsController'
               },
-              'consumers@routes.edit': {
+              'consumers@routes.read': {
                 templateUrl: 'js/app/routes/views/route-consumers.html',
                 controller: 'RouteConsumersController'
               }

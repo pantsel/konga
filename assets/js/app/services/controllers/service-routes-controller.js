@@ -9,9 +9,9 @@
   angular.module('frontend.services')
     .controller('ServiceRoutesController', [
       '_', '$scope', '$stateParams', '$log', '$state', 'ServiceService',
-      '$uibModal', 'DialogService', 'InfoService', 'RoutesService',
+      '$uibModal', 'DialogService', 'InfoService', 'RoutesService','AuthService',
       function controller(_, $scope, $stateParams, $log, $state, ServiceService,
-                          $uibModal, DialogService, InfoService, RoutesService) {
+                          $uibModal, DialogService, InfoService, RoutesService,AuthService) {
 
 
 
@@ -21,6 +21,9 @@
         $scope.deleteRoute = deleteRoute;
         $scope.updateRoute = updateRoute;
         $scope.toggleAttribute = toggleAttribute;
+        $scope.canCreate = AuthService.hasPermission('routes','create');
+        $scope.canEdit = AuthService.hasPermission('routes','edit');
+        $scope.canDelete = AuthService.hasPermission('routes','delete');
         $scope.search = ''
 
         //$log.debug("Routes",$scope.routes.data);

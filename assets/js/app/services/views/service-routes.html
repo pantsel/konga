@@ -5,7 +5,7 @@
 
         </h4>
     </div>
-    <div class="col-md-6 text-right">
+    <div class="col-md-6 text-right" ng-if="canCreate">
         <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddRoute()">
             <i class="mdi mdi-plus"></i>
             add route
@@ -31,8 +31,8 @@
         <th>Methods</th>
         <th>Regex priority</th>
         <th>Created</th>
-        <th width="1"></th>
-        <th width="1"></th>
+        <th width="1" ng-if="canEdit"></th>
+        <th width="1" ng-if="canDelete"></th>
     </tr>
     <tr
             dir-paginate="item in routes.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
@@ -43,7 +43,7 @@
             <raw-view data-item="item"></raw-view>
         </td>
         <td>
-            <a href  data-ui-sref="routes.edit({route_id:item.id})">
+            <a href  data-ui-sref="routes.read({route_id:item.id})">
                 {{item.hosts.join(", ") || "-"}}
             </a>
         </td>
@@ -58,13 +58,13 @@
         </td>
         <td>{{item.regex_priority}}</td>
         <td>{{item.created_at*1000 | date : format : timezone}}</td>
-        <td>
-            <a class="clickable btn btn-link btn-warning" data-ui-sref="routes.edit({route_id:item.id})">
+        <td ng-if="canEdit">
+            <a class="clickable btn btn-link btn-warning" data-ui-sref="routes.read({route_id:item.id})">
                 <i class="mdi mdi-pencil"></i>
                 edit
             </a>
         </td>
-        <td>
+        <td ng-if="canDelete">
             <button class="btn btn-link btn-danger" ng-click="deleteRoute(item)">
                 <i class="mdi mdi-delete"></i>
                 delete

@@ -249,7 +249,7 @@
             },
             title: 'Info',
             icon: 'mdi-information-outline',
-            access: AccessLevels.user
+            access: AccessLevels.admin
           },
           {
             state: 'cluster',
@@ -326,7 +326,7 @@
           {
             title: 'Application',
             show: function () {
-              return true;
+              return AuthService.hasPermission('users', 'read') || AuthService.hasPermission('connections', 'read');
             },
             access: AccessLevels.user
           },
@@ -334,7 +334,7 @@
             state: 'users',
             icon: 'mdi-account-multiple-outline',
             show: function () {
-              return AuthService.hasPermission('users', 'read');
+              return AuthService.isAuthenticated() && AuthService.hasPermission('users', 'read');
             },
             title: 'Users',
             access: AccessLevels.anon
@@ -343,7 +343,7 @@
             state: 'connections',
             icon: 'mdi-cast-connected',
             show: function () {
-              return AuthService.isAuthenticated();
+              return AuthService.isAuthenticated() && AuthService.hasPermission('connections', 'read');
             },
             title: 'Connections',
             access: AccessLevels.anon

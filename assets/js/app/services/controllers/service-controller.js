@@ -8,8 +8,8 @@
 
   angular.module('frontend.services')
     .controller('ServiceController', [
-      '$scope', '$rootScope', '$state', 'SettingsService', '$log', '_service',
-      function controller($scope, $rootScope, $state, SettingsService, $log, _service) {
+      '$scope', '$rootScope', '$state', 'SettingsService', '$log', 'AuthService', '_service',
+      function controller($scope, $rootScope, $state, SettingsService, $log,AuthService, _service) {
 
         $scope.service = _service.data
 
@@ -27,12 +27,12 @@
           {
             name: 'Routes',
             icon: 'mdi mdi-directions-fork',
-            isVisible: true
+            isVisible: AuthService.hasPermission('routes','read')
           },
           {
             name: 'Plugins',
             icon: 'mdi mdi-power-plug',
-            isVisible: true
+            isVisible: AuthService.hasPermission('plugins','read')
           },
           {
             name: 'Eligible consumers <span class="label label-danger">beta</span>',

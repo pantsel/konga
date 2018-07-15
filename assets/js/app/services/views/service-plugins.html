@@ -5,7 +5,7 @@
 
         </h4>
     </div>
-    <div class="col-md-6 text-right">
+    <div class="col-md-6 text-right" ng-if="canCreate">
         <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddPlugin()">
             <i class="mdi mdi-plus"></i>
             add plugin
@@ -28,19 +28,19 @@
 <table class="table" ng-if="!loading">
     <tr>
         <th width="1"></th>
-        <th width="1"></th>
+        <th width="1" ng-if="canEdit"></th>
         <th width="1"></th>
         <th>Name</th>
         <th>Consumer</th>
         <th>Created</th>
-        <th width="1"></th>
+        <th width="1" ng-if="canDelete"></th>
     </tr>
     <tr
             dir-paginate="item in plugins.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
         <td>
             <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
         </td>
-        <td>
+        <td ng-if="canEdit">
             <i class="mdi mdi-toggle-switch text-success clickable"
                ng-show="item.enabled"
                ng-click="togglePlugin(item)"
@@ -64,7 +64,7 @@
         </td>
         <td>{{item.created_at | date : format : timezone}}</td>
 
-        <td>
+        <td ng-if="canDelete">
             <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
                 <i class="mdi mdi-delete"></i>
                 delete

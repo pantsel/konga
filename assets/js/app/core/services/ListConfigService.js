@@ -51,6 +51,15 @@
           ],
           route: [
             {
+              title: 'id',
+              column: 'id',
+              width: 100,
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'hosts',
               column: 'hosts',
               searchable: true,
@@ -187,12 +196,7 @@
               title: 'created',
               column: 'created_at',
               sortable: true,
-            },
-            {
-              title: '',
-              column: '',
-              width: 1
-            },
+            }
           ],
           kongnode: [
             {

@@ -9,9 +9,9 @@
   angular.module('frontend.services')
     .controller('ServicePluginsController', [
       '_', '$scope', '$stateParams', '$log', '$state', 'ServiceService', 'PluginsService',
-      '$uibModal', 'DialogService',
+      '$uibModal', 'DialogService','AuthService',
       function controller(_, $scope, $stateParams, $log, $state, ServiceService, PluginsService,
-                          $uibModal, DialogService) {
+                          $uibModal, DialogService, AuthService) {
 
 
         $scope.plugins = {
@@ -22,6 +22,9 @@
         $scope.deletePlugin = deletePlugin;
         $scope.updatePlugin = updatePlugin;
         $scope.togglePlugin = togglePlugin;
+        $scope.canCreate = AuthService.hasPermission('plugins','create');
+        $scope.canEdit = AuthService.hasPermission('plugins','edit');
+        $scope.canDelete = AuthService.hasPermission('plugins','delete');
         $scope.search = ''
 
 
