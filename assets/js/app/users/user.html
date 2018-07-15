@@ -112,6 +112,15 @@
 
                         </td>
                     </tr>
+                    <tr ng-if="editableForm.$visible && authUser.admin && user.id !== authUser.id">
+                        <th>Active connection</th>
+                        <td>
+                            <select name="userConnection" ng-model="user.node" class="form-control">
+                                <option ng-repeat="option in connections" ng-value="option.id">{{option.name}} | {{option.kong_admin_url}}</option>
+                            </select>
+
+                        </td>
+                    </tr>
                     <tr ng-if="editableForm.$visible && authUser.admin">
                         <td colspan="2">
                             <div class="form-group well">

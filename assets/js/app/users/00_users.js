@@ -35,6 +35,7 @@
                                             var config = ListConfig.getConfig();
 
                                             var parameters = {
+                                                // populate: 'node',
                                                 limit: config.itemsPerPage,
                                                 sort: 'createdAt DESC'
                                             };
