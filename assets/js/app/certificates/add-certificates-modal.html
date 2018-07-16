@@ -13,24 +13,24 @@
     </div>
     <div class="form-group" ng-class="{'has-error' : errors.cert}">
         <label class="control-label">Certificate</label>
-        <pre ng-if="data.id">{{data.cert}}</pre>
-        <p class="help-block" ng-if="!data.id">Upload the certificate file</p>
-        <input type="file"
-               ngf-select ng-model="data.cert" name="data.value" ng-if="!data.id"
-        />
+        <!--<pre ng-if="data.id">{{data.cert}}</pre>-->
+        <!--<p class="help-block" ng-if="!data.id">Upload the certificate file</p>-->
+        <!--<input type="file"-->
+               <!--ngf-select ng-model="data.cert" name="data.value" ng-if="!data.id"-->
+        <!--/>-->
+        <textarea ng-model="data.cert" class="form-control" rows="10" style="font-size: .8em"></textarea>
         <div class="text-danger" ng-if="errors.cert" data-ng-bind="errors.cert"></div>
     </div>
-    <hr>
     <div class="form-group" ng-class="{'has-error' : errors.key}">
         <label class="control-label">Key</label>
-        <pre ng-if="data.id">{{data.key}}</pre>
-        <p class="help-block" ng-if="!data.id">Upload the certificate .key file</p>
-        <input type="file" ng-if="!data.id"
-               ngf-select ng-model="data.key" name="data.value"
-        />
+        <!--<pre ng-if="data.id">{{data.key}}</pre>-->
+        <!--<p class="help-block" ng-if="!data.id">Upload the certificate .key file</p>-->
+        <!--<input type="file" ng-if="!data.id"-->
+               <!--ngf-select ng-model="data.key" name="data.value"-->
+        <!--/>-->
+        <textarea ng-model="data.key" class="form-control" rows="10" style="font-size: .8em"></textarea>
         <div class="text-danger" ng-if="errors.key" data-ng-bind="errors.key"></div>
     </div>
-    <hr>
     <div class="form-group" ng-class="{'has-error' : errors.snis}" ng-if="!data.id">
         <label class="control-label">Server Name Indications</label>
         <p class="help-block">A comma separated list of Server Name Indications. ex: <code>ssl-example.com,other-ssl-example.com</code></p>

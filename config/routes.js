@@ -70,8 +70,8 @@ module.exports.routes = {
 
   // Kong 0.10.x certificates routes
   // These must be handled by KONGA
-  'POST /kong/certificates': 'KongCertificatesController.upload',
-  'PATCH /kong/certificates/:id': 'KongCertificatesController.update',
+  // 'POST /kong/certificates': 'KongCertificatesController.upload',
+  // 'PATCH /kong/certificates/:id': 'KongCertificatesController.update',
 
 
   // Snapshots
