@@ -35,6 +35,8 @@ else if (argv._[0] === 'play')
 }
 else if(argv._[0] === 'prepare') {
 
+  console.log("Preparing database...")
+
   if(!process.env.DB_ADAPTER && !argv.adapter) {
     console.error("No db adapter defined. Set --adapter {mongo || mysql || postgres || sql-srv}")
     return process.exit(1);
@@ -48,23 +50,31 @@ else if(argv._[0] === 'prepare') {
   process.env.DB_ADAPTER = process.env.DB_ADAPTER || argv.adapter;
   process.env.DB_URI = process.env.DB_URI || argv.uri;
 
-  var Sails = require('sails');
-  Sails.lift({
-    environment: 'development',
-    port: process.env.PORT || argv.port || "1339",
-    hooks: {
-      grunt: false
-    }
-  }, function callback(error, sails) {
-
-    if(error) {
-      console.log("Failed to lift Sails:",error)
-      return process.exit(1);
+  require("../makedb")(function(err) {
+    if(err) {
+      process.exit();
     }
 
-    process.exit()
+    var Sails = require('sails');
+    Sails.lift({
+      environment: 'development',
+      port: process.env.PORT || argv.port || "1339",
+      hooks: {
+        grunt: false
+      }
+    }, function callback(error, sails) {
 
+      if(error) {
+        console.log("Failed to lift Sails:",error)
+        return process.exit(1);
+      }
+
+      process.exit()
+
+    });
   });
+
+
 }
 else
 {
