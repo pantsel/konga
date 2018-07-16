@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 can be defined in KONG_PLUGINS env var.
 * **[Enhancement]** Implemented Accessible Services and Routes logic on Consumer page.
 * **[Enhancement]** Implemented Eligible consumers listing based on ACLs and Authentication plugins in Services & Routes
+* **[Compatibility]** Changed certificates and snis logic for compatibility with Kong 0.14
 * Updated dependencies.
 * Various other fixes and improvements.
 
