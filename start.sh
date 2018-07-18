@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#bash start.sh -c prepare -a postgres -u postgresql://postgres:postgres@localhost:5432/konga -p 1340
+#bash start.sh -c prepare -a postgres -u postgresql://postgres:postgres@localhost:5432/konga
 
 if [ $# -eq 0 ]
   then
