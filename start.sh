@@ -18,10 +18,10 @@ if [ $# -eq 0 ]
         esac
     done
 
-    echo $COMMAND
-    echo $ADAPTER
-    echo $URI
-    echo $PORT
+#    echo $COMMAND
+#    echo $ADAPTER
+#    echo $URI
+#    echo $PORT
 
     if [ "$COMMAND" == "prepare" ]
         then
