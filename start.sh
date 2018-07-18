@@ -7,7 +7,7 @@ if [ $# -eq 0 ]
     # If no args are set, start the app as usual
     node --harmony app.js
   else
-    while getopts c:a:u:p option
+    while getopts "c:a:u:p:" option
     do
         case "${option}"
             in
@@ -18,9 +18,10 @@ if [ $# -eq 0 ]
         esac
     done
 
-#    echo $COMMAND
-#    echo $ADAPTER
-#    echo $URI
+    echo $COMMAND
+    echo $ADAPTER
+    echo $URI
+    echo $PORT
 
     if [ "$COMMAND" == "prepare" ]
         then
