@@ -7,13 +7,14 @@ if [ $# -eq 0 ]
     # If no args are set, start the app as usual
     node --harmony app.js
   else
-    while getopts c:a:u: option
+    while getopts c:a:u:p option
     do
         case "${option}"
             in
             c) COMMAND=${OPTARG};;
             a) ADAPTER=${OPTARG};;
             u) URI=${OPTARG};;
+            p) PORT=${OPTARG};;
         esac
     done
 
@@ -23,7 +24,7 @@ if [ $# -eq 0 ]
 
     if [ "$COMMAND" == "prepare" ]
         then
-            node ./bin/konga.js $COMMAND --adapter $ADAPTER --uri $URI
+            node ./bin/konga.js $COMMAND --adapter $ADAPTER --uri $URI --port $PORT
         else
             echo "Invalid command: $COMMAND"
             exit
