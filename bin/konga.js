@@ -4,6 +4,7 @@ var child_process = require('child_process');
 var spawn = child_process.spawn
 var path = require('path')
 var _ = require('lodash');
+var Sails = require('sails');
 
 
 if (argv._[0] === 'help') {
@@ -36,15 +37,15 @@ else if (argv._[0] === 'play')
 }
 else if(argv._[0] === 'prepare') {
 
-  console.log("Preparing database...")
+  Sails.log("Preparing database...")
 
   if(!process.env.DB_ADAPTER && !argv.adapter) {
-    console.error("No db adapter defined. Set --adapter {mongo || mysql || postgres || sql-srv}")
+    Sails.log.error("No db adapter defined. Set --adapter {mongo || mysql || postgres || sql-srv}")
     return process.exit(1);
   }
 
   if(!process.env.DB_URI && !argv.uri) {
-    console.error("No db connection string is defined. Set --uri {db_connection_string}")
+    Sails.log.error("No db connection string is defined. Set --uri {db_connection_string}")
     return process.exit(1);
   }
 
@@ -53,12 +54,9 @@ else if(argv._[0] === 'prepare') {
   process.env.PORT = _.isString(argv.port) || _.isNumber(argv.port) ? argv.port : 1339;
 
   require("../makedb")(function(err) {
-    if(err) {
-      process.exit();
-    }
+    if(err) return process.exit();
 
-    var Sails = require('sails');
-    Sails.lift({
+    Sails.load({
       environment: 'development',
       port: process.env.PORT,
       hooks: {
@@ -67,10 +65,11 @@ else if(argv._[0] === 'prepare') {
     }, function callback(error, sails) {
 
       if(error) {
-        console.log("Failed to lift Sails:",error)
+        sails.log.error("Failed to prepare database:",error)
         return process.exit(1);
       }
 
+      sails.log("Database migrations complete!")
       process.exit()
 
     });
