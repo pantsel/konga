@@ -140,7 +140,7 @@ instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
 ```
 $ docker pull pantsel/konga
 $ docker run -p 1337:1337 \
-             --link kong:kong \
+             --network {{kong-network}} \ // optional
              --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
              pantsel/konga
@@ -156,7 +156,7 @@ Konga will not perform db migrations when running in production mode.
 You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
 , passing the args needed for the database connectivity.
 
-The available adapters are ```'mongo','postgres','sqlserver'  or 'mysql'``` 
+The available adapters are ```'postgres', or 'mysql'``` 
 
 ```
 $ node ./bin/konga.js  prepare --adapter {adapter_name} --uri {full_connection_string}
@@ -164,22 +164,26 @@ $ node ./bin/konga.js  prepare --adapter {adapter_name} --uri {full_connection_s
 The process will exit after all migrations are completed.
 
 If you're deploying Konga via the docker image, you can prepare the database using 
-an ephemeral container for the job.
+an ephemeral container running the prepare command.
+
+**Args**
+
+argument  | description | default
+----------|-------------|--------
+-c      | command | -
+-a      | adapter (can be `postgres` or `mysql`) | -
+-u     | full database connection url | -
+-p     | port | `1339`
+
 ```
-$ docker run -p 1337:1337 
-              -e "DB_ADAPTER={adapter_name}" \ 
-              -e "DB_URI={full_connection_string}" \
-              -e "DB_PG_SCHEMA=my-schema"\ // Optionally define a schema when integrating with prostgres
-              -e "NODE_ENV=development" \
-              --name konga \
-              pantsel/konga node ./bin/konga.js prepare
+$ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-uri}} -p {{port}}
 ```
 
 
 2. ##### Start Konga
 ```
 $ docker run -p 1337:1337 
-             --link kong:kong \
+             --network {{kong-network}} \ // optional
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
              -e "DB_PORT=your-db-port" \ // Defaults to the default db port
@@ -194,7 +198,7 @@ $ docker run -p 1337:1337
              
  // Alternatively you can use the full connection string to connect to a database
  $ docker run -p 1337:1337 
-              --link kong:kong \
+              --network {{kong-network}} \ // optional
               -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
               -e "DB_URI=full-conection-uri" \
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
@@ -204,7 +208,6 @@ $ docker run -p 1337:1337
 
 
 The GUI will be available at `http://{your server's public ip}:1337`
-Login, go to settings -> new node and add http://kong:8001 for Kong Admin URL.
 
 
 #### Login
