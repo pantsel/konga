@@ -69,7 +69,7 @@ else if(argv._[0] === 'prepare') {
         return process.exit(1);
       }
 
-      sails.log("Database migrations complete!")
+      sails.log("Database migrations completed!")
       process.exit()
 
     });
