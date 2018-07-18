@@ -3,6 +3,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var child_process = require('child_process');
 var spawn = child_process.spawn
 var path = require('path')
+var _ = require('lodash');
 
 
 if (argv._[0] === 'help') {
@@ -49,6 +50,7 @@ else if(argv._[0] === 'prepare') {
 
   process.env.DB_ADAPTER = process.env.DB_ADAPTER || argv.adapter;
   process.env.DB_URI = process.env.DB_URI || argv.uri;
+  process.env.PORT = _.isString(argv.port) || _.isNumber(argv.port) ? argv.port : 1339;
 
   require("../makedb")(function(err) {
     if(err) {
@@ -58,7 +60,7 @@ else if(argv._[0] === 'prepare') {
     var Sails = require('sails');
     Sails.lift({
       environment: 'development',
-      port: process.env.PORT || argv.port || "1339",
+      port: process.env.PORT,
       hooks: {
         grunt: false
       }
