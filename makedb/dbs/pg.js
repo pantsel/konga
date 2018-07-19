@@ -94,7 +94,7 @@ module.exports = {
 
                 }else{
                     console.error("Failed to connect to DB",err);
-                    return next(err);
+                    process.exit(1);
                 }
             }else{
                 console.log("Database exists. Continue...");
