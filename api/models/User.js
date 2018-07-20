@@ -96,7 +96,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       "email": orig.email,
       "firstName": orig.firstName,
       "lastName": orig.lastName,
-      "node_id": orig.node_id,
+      // "node_id": orig.node_id,
       "admin": orig.admin,
       "active": orig.active
     }

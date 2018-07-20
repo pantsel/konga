@@ -44,7 +44,7 @@ function getseedData() {
             "email": "admin@some.domain",
             "firstName": "Arnold",
             "lastName": "Administrator",
-            "node_id": "http://kong:8001",
+            // "node_id": "http://kong:8001",
             "admin": true,
             "active" : true,
             "password": "adminadminadmin"
@@ -54,7 +54,7 @@ function getseedData() {
             "email": "demo@some.domain",
             "firstName": "John",
             "lastName": "Doe",
-            "node_id": "http://kong:8001",
+            // "node_id": "http://kong:8001",
             "admin": false,
             "active" : true,
             "password": "demodemodemo"
