@@ -8,8 +8,8 @@ _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
-> Notice: Upgrade your Kong installations to v0.11.x so you can use Konga to it's full capacity.
-  Starting with Konga 0.10.x, Kong versions prior to 0.11.x are not supported.
+> Notice: Upgrade your Kong installations to v0.12.x so you can use Konga to it's full capacity.
+  Starting with Konga 0.11.x, Kong versions prior to 0.12.x are not supported.
 
 ## Summary
 
@@ -46,7 +46,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 It may work with older versions as well but they are not actively supported.
 It also works with Kong 0.13.* yet without the ability to manage services and routes.
 
-2. **Konga 0.11+** is fully compatible with **Kong 0.13+**. Compatibility for older Kong versions
+2. **Konga 0.12+** is fully compatible with **Kong 0.14+**. Compatibility for older Kong versions
  is still present but not guaranteed.
 
 ## Prerequisites
