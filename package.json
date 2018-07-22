@@ -46,6 +46,7 @@
     "nodemailer": "^4.6.7",
     "nodemailer-mailgun-transport": "^1.4.0",
     "passport": "0.3.0",
+    "passport-ldapauth": "^2.0.0",
     "passport-local": "1.0.0",
     "rc": "^1.2.8",
     "sails": "~0.12.14",
