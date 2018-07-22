@@ -16,6 +16,7 @@
 module.exports = {
   local: require('./local'),
   oauth: require('./oauth'),
+  ldap: require('./ldap'),
   oauth2: require('./oauth2'),
   openid: require('./openid')
 };
