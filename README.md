@@ -217,7 +217,7 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
-This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](DEFAULTUSERSEEDDATA.md)
+This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](./docs/DEFAULTUSERSEEDDATA.md)
 
 You may also configure konga to authenticate via [LDAP](./docs/LDAP.md).
 
