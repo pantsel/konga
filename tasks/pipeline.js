@@ -63,7 +63,6 @@ var jsFilesToInject = [
     "bower_components/angular-utils-pagination/dirPagination.js",
     "bower_components/chart.js/dist/Chart.js",
     "bower_components/angular-resource/angular-resource.js",
-    "bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js",
     "bower_components/angular-moment/angular-moment.js",
     "bower_components/bootbox/bootbox.js",
     "bower_components/ngBootbox/dist/ngBootbox.js",
