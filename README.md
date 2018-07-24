@@ -240,7 +240,7 @@ These are the general environment variables Konga uses.
 | DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
 | DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                    | -                                      | `public`                                     |
 | KONGA_LOG_LEVEL    | The logging level                                                                                                           | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
-
+| TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
 ## Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
