@@ -143,6 +143,7 @@ $ docker run -p 1337:1337 \
              --network {{kong-network}} \ // optional
              --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              pantsel/konga
 ```
 
@@ -184,6 +185,7 @@ $ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-u
 ```
 $ docker run -p 1337:1337 
              --network {{kong-network}} \ // optional
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
              -e "DB_PORT=your-db-port" \ // Defaults to the default db port
@@ -199,6 +201,7 @@ $ docker run -p 1337:1337
  // Alternatively you can use the full connection string to connect to a database
  $ docker run -p 1337:1337 
               --network {{kong-network}} \ // optional
+              -e "TOKEN_SECRET={{somerandomstring}}" \
               -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
               -e "DB_URI=full-conection-uri" \
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
