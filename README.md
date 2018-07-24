@@ -222,6 +222,7 @@ This user data is populated to the database if there is not already any user dat
 You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
 
 ## Environment variables
+These are the general environment variables Konga uses.
 
 | VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |   |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|---|
