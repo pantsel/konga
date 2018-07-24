@@ -9,36 +9,16 @@
   angular.module('frontend.consumers')
     .controller('ConsumersController', [
       '_', '$scope', '$log', '$state', 'ConsumerService', '$q', 'MessageService',
-      'RemoteStorageService', 'UserService', 'SocketHelperService',
+      'UserService', 'SocketHelperService',
       '$uibModal', 'DialogService', 'ListConfig', 'ConsumerModel',
       function controller(_, $scope, $log, $state, ConsumerService, $q, MessageService,
-                          RemoteStorageService, UserService, SocketHelperService,
+                          UserService, SocketHelperService,
                           $uibModal, DialogService, ListConfig, ConsumerModel) {
 
         ConsumerModel.setScope($scope, false, 'items', 'itemCount');
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumer', ConsumerModel)));
         $scope.user = UserService.user();
-        $scope.importConsumers = importConsumers
         $scope.openCreateConsumerModal = openCreateConsumerModal
-
-        function importConsumers() {
-          $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'js/app/consumers/import/modal-select-storage.html',
-            controller: 'ImportConsumersStorageController',
-            controllerAs: '$ctrl',
-            resolve: {
-              _adapters: function () {
-                return RemoteStorageService.loadAdapters();
-              },
-              _existingConsumers: function () {
-                return $scope.items.data;
-              }
-            }
-          });
-        }
 
 
         function openCreateConsumerModal() {

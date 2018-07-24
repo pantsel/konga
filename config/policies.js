@@ -40,10 +40,6 @@ module.exports.policies = {
     '*': ['authenticated', 'dynamicNode']
   },
 
-  RemoteStorageController: {
-    '*': ['authenticated'],
-  },
-
   KongSchemasController: {
     '*': ['authenticated'],
   },
