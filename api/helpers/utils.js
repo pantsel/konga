@@ -72,6 +72,11 @@ module.exports = {
     }
 
     return version;
+  },
+
+  withoutTrailingSlash(str) {
+    return str.replace(/\/$/, "")
   }
+
 
 }

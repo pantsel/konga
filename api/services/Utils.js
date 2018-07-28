@@ -10,10 +10,5 @@ module.exports = {
       }
       return obj;
     }
-  },
-
-  withoutTrailingSlash(str) {
-    return str.replace(/\/$/, "")
   }
-
 }

@@ -215,7 +215,7 @@ module.exports = {
               sails.models.snapshot.create({
                 name: name || "snap@" + Date.now(),
                 kong_node_name: node.name,
-                kong_node_url: node.kong_admin_url,
+                kong_node_url: Utils.withoutTrailingSlash(node.kong_admin_url),
                 kong_version: status.version,
                 data: result
               }).exec(function (err, created) {

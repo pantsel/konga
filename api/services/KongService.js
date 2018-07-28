@@ -3,6 +3,7 @@
 var unirest = require("unirest")
 var ApiHealthCheckService = require('../services/ApiHealthCheckService')
 var JWT = require("./Token");
+var Utils = require('../helpers/utils');
 
 
 var KongService = {
