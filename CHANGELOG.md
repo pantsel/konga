@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.1](https://github.com/pantsel/konga/releases/tag/0.12.1) - 28-07-2018
+* **[Deprecation]** Deprecated consumer imports. This feature was not adopted and provided unnecessary
+complexity to maintenance as well as increased the overall project's size.
+* **[Fix]** Fixed the trailing slash issue. Konga is now able to communicate with
+Kong even if a trailing slash exists in the connection url.
+* Cleaned up unused dependencies.
+
 ## [0.12.0](https://github.com/pantsel/konga/releases/tag/0.12.0) - 07-07-2018
 * **[Fix]** Fix snapshots implementation. Use auto generated entity ids for proper relationships mapping.
 * **[Compatibility]** Implement new Kong plugins properly.
