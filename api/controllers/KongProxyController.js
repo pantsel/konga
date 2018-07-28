@@ -6,6 +6,7 @@ var unirest = require("unirest");
 var KongService = require("../services/KongService");
 var ProxyHooks = require("../services/KongProxyHooks");
 var _ = require("lodash");
+var Utils = require('../services/Utils');
 
 
 function getEntityFromRequest(req) {
