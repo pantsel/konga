@@ -44,6 +44,7 @@ var self = module.exports = {
       });
     }
 
+    sails.log("Kong admin url =>", req.connection.kong_admin_url);
 
     var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
 
