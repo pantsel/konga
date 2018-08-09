@@ -51,7 +51,7 @@ It also works with Kong 0.13.* yet without the ability to manage services and ro
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
-- Nodejs
+- Nodejs >= 8.11.3
 - Npm
 
 ## Used libraries
