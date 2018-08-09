@@ -112,14 +112,14 @@
                 var data = angular.copy($scope.data);
 
                 if(!data.cert || !data.key) {
-                  $scope.errorMessage = "The `Certificate` and `Key` fields cannot be empty"
+                  $scope.errorMessage = "The `Certificate` and/or `Key` fields cannot be empty"
                   return false;
                 }
 
                 data.cert = data.cert.trim();
                 data.key = data.key.trim();
 
-                if ($rootScope.isGatewayVersionEqOrGreater('0.14')) {
+                if ($rootScope.isGatewayVersionEqOrGreater('0.14') && data.snis) {
                   data.snis = data.snis.split(",")
                 }
 
@@ -144,6 +144,11 @@
 
                 var data = angular.copy($scope.data);
 
+                if(!data.cert || !data.key) {
+                  $scope.errorMessage = "The `Certificate` and/or `Key` fields cannot be empty"
+                  return false;
+                }
+                
                 data.cert = data.cert.trim();
                 data.key = data.key.trim();
 
