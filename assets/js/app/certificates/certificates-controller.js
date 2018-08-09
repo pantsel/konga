@@ -132,6 +132,29 @@
 
               }
 
+              $scope.updateCerts = function () {
+
+                $scope.errorMessage = ""
+
+
+                var data = angular.copy($scope.data);
+
+                data.cert = data.cert.trim();
+                data.key = data.key.trim();
+
+                CertificateModel.update(data.id, _.omit(data,['id']))
+                  .then(function (resp) {
+                    console.log('Success', resp.data);
+                    $uibModalInstance.dismiss({
+                      data: resp
+                    })
+                  }).catch(function (err) {
+                  console.error('Error', err);
+                  handleErrors(err)
+                })
+
+              }
+
 
               function handleErrors(err) {
                 $scope.errors = {}
