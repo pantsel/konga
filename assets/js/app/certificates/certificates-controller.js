@@ -111,6 +111,11 @@
 
                 var data = angular.copy($scope.data);
 
+                if(!data.cert || !data.key) {
+                  $scope.errorMessage = "The `Certificate` and `Key` fields cannot be empty"
+                  return false;
+                }
+
                 data.cert = data.cert.trim();
                 data.key = data.key.trim();
 
