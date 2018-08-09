@@ -6,6 +6,7 @@ var unirest = require("unirest");
 var KongService = require("../services/KongService");
 var ProxyHooks = require("../services/KongProxyHooks");
 var _ = require("lodash");
+var Utils = require('../services/Utils');
 
 
 function getEntityFromRequest(req) {
@@ -44,6 +45,7 @@ var self = module.exports = {
       });
     }
 
+    sails.log("Kong admin url =>", req.connection.kong_admin_url);
 
     var request = unirest[req.method.toLowerCase()](req.connection.kong_admin_url + req.url)
 

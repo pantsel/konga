@@ -3,6 +3,7 @@
 var unirest = require("unirest")
 var ApiHealthCheckService = require('../services/ApiHealthCheckService')
 var JWT = require("./Token");
+var Utils = require('../helpers/utils');
 
 
 var KongService = {
@@ -33,7 +34,7 @@ var KongService = {
 
   create: function (req, res) {
 
-    unirest.post(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.post(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .send(req.body)
       .end(function (response) {
@@ -44,7 +45,7 @@ var KongService = {
 
   createCb: function (req, res, cb) {
 
-    unirest.post(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.post(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .send(req.body)
       .end(function (response) {
@@ -55,7 +56,7 @@ var KongService = {
 
   createFromEndpointCb: function (endpoint, data, req, cb) {
 
-    unirest.post(req.connection.kong_admin_url + endpoint)
+    unirest.post(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint)
       .headers(KongService.headers(req, true))
       .send(data)
       .end(function (response) {
@@ -65,8 +66,8 @@ var KongService = {
   },
 
   deleteFromEndpointCb: function (endpoint, req, cb) {
-    sails.log('Deleting ' + req.connection.kong_admin_url + endpoint);
-    unirest.delete(req.connection.kong_admin_url + endpoint)
+    sails.log('Deleting ' + Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint);
+    unirest.delete(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint)
       .headers(KongService.headers(req, true))
       .end(function (response) {
         if (response.error) return cb(response)
@@ -76,7 +77,7 @@ var KongService = {
 
 
   retrieve: function (req, res) {
-    unirest.get(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .end(function (response) {
         if (response.error) return res.kongError(response);
@@ -87,7 +88,7 @@ var KongService = {
 
   fetch: (endpoint,req) => {
     return new Promise((resolve, reject) => {
-      unirest.get(req.connection.kong_admin_url + endpoint)
+      unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint)
         .header('Content-Type', 'application/json')
         .end(function (response) {
           if (response.error) return reject(response)
@@ -99,7 +100,7 @@ var KongService = {
 
   nodeStatus: function (node, cb) {
 
-    unirest.get(node.kong_admin_url + "/status")
+    unirest.get(Utils.withoutTrailingSlash(node.kong_admin_url) + "/status")
       .headers(KongService.headers(node, true))
       .end(function (response) {
         if (response.error) return cb(response);
@@ -109,7 +110,7 @@ var KongService = {
 
 
   nodeInfo: function (node, cb) {
-    unirest.get(node.kong_admin_url)
+    unirest.get(Utils.withoutTrailingSlash(node.kong_admin_url))
       .headers(KongService.headers(node, true))
       .end(function (response) {
         if (response.error) return cb(response);
@@ -133,7 +134,7 @@ var KongService = {
           }
         });
     };
-    getData([], (req.kong_admin_url || req.connection.kong_admin_url) + endpoint);
+    getData([], (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + endpoint);
   },
 
 
@@ -153,11 +154,11 @@ var KongService = {
           }
         });
     };
-    getData([], (req.kong_admin_url || req.connection.kong_admin_url) + req.url.replace('/kong', ''));
+    getData([], (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + req.url.replace('/kong', ''));
   },
 
   update: function (req, res) {
-    unirest.patch(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.patch(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .send(req.body)
       .end(function (response) {
@@ -176,7 +177,7 @@ var KongService = {
   },
 
   updateCb: function (req, res, cb) {
-    unirest.patch(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.patch(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .send(req.body)
       .end(function (response) {
@@ -196,7 +197,7 @@ var KongService = {
   },
 
   updateOrCreate: function (req, res) {
-    unirest.put(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.put(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .send(req.body)
       .end(function (response) {
@@ -206,7 +207,7 @@ var KongService = {
   },
 
   delete: function (req, res) {
-    unirest.delete(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.delete(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .end(function (response) {
         if (response.error) return res.kongError(response);
@@ -227,7 +228,7 @@ var KongService = {
   },
 
   deleteCb: function (req, res, cb) {
-    unirest.delete(req.connection.kong_admin_url + req.url.replace('/kong', ''))
+    unirest.delete(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .header('Content-Type', 'application/json')
       .end(function (response) {
         if (response.error) return cb(response);

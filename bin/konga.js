@@ -54,7 +54,7 @@ else if(argv._[0] === 'prepare') {
   process.env.PORT = _.isString(argv.port) || _.isNumber(argv.port) ? argv.port : 1339;
 
   require("../makedb")(function(err) {
-    if(err) return process.exit();
+    if(err) return process.exit(1);
 
     Sails.load({
       environment: 'development',
@@ -69,7 +69,7 @@ else if(argv._[0] === 'prepare') {
         return process.exit(1);
       }
 
-      sails.log("Database migrations complete!")
+      sails.log("Database migrations completed!")
       process.exit()
 
     });

@@ -25,6 +25,8 @@
  */
 
 // Module dependencies
+var LdapStrategy = require('passport-ldapauth');
+var ldapConf = require("../../config/ldap");
 var passport = require('passport');
 var path = require('path');
 var url = require('url');
@@ -198,10 +200,14 @@ passport.endpoint = function endpoint(request, response) {
 passport.callback = function callback(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Service.Passport.callback() called]');
 
-  var provider = request.param('provider', 'local');
+  var provider = request.param('provider', process.env.KONGA_AUTH_PROVIDER  || 'local');
   var action = request.param('action');
 
-  if (provider === 'local' && action !== undefined) {
+  if (provider === 'ldap') {
+    passport.use(new LdapStrategy(ldapConf));
+    this.authenticate('ldapauth',
+      this.protocols.ldap.getResolver(next))(request, response, response.next);
+  } else if (provider === 'local' && action !== undefined) {
     if (action === 'connect' && request.user) {
       this.protocols.local.connect(request, response, next);
     } else {

@@ -143,6 +143,7 @@ $ docker run -p 1337:1337 \
              --network {{kong-network}} \ // optional
              --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              pantsel/konga
 ```
 
@@ -184,6 +185,7 @@ $ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-u
 ```
 $ docker run -p 1337:1337 
              --network {{kong-network}} \ // optional
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
              -e "DB_PORT=your-db-port" \ // Defaults to the default db port
@@ -199,6 +201,7 @@ $ docker run -p 1337:1337
  // Alternatively you can use the full connection string to connect to a database
  $ docker run -p 1337:1337 
               --network {{kong-network}} \ // optional
+              -e "TOKEN_SECRET={{somerandomstring}}" \
               -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
               -e "DB_URI=full-conection-uri" \
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
@@ -217,8 +220,30 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
-This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](DEFAULTUSERSEEDDATA.md)
+This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](./docs/DEFAULTUSERSEEDDATA.md)
 
+You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
+
+## Environment variables
+These are the general environment variables Konga uses.
+
+| VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
+| PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
+| NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
+| SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
+| SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
+| KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
+| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`,`sqlserver` | -                                            |
+| DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
+| DB_HOST            | If `DB_URI` is not specified, this is the database host. Depends on `DB_ADAPTER`.                                          | -                                      | localhost                                    |
+| DB_PORT            | If `DB_URI` is not specified, this is the database port.  Depends on `DB_ADAPTER`.                                         | -                                      | DB default.                                  |
+| DB_USER            | If `DB_URI` is not specified, this is the database user. Depends on `DB_ADAPTER`.                                          | -                                      | -                                            |
+| DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
+| DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
+| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                    | -                                      | `public`                                     |
+| KONGA_LOG_LEVEL    | The logging level                                                                                                           | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
+| TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
 ## Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
