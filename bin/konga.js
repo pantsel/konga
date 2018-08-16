@@ -37,6 +37,13 @@ else if (argv._[0] === 'play')
 }
 else if(argv._[0] === 'prepare') {
 
+  // Validate node version
+  const Utils = require('./api/services/Utils');
+  if(!Utils.isRuntimeVersionSupported()) {
+    console.error("Incompatible Node.js version. Please make sure that you have Node.js >= 8 installed.")
+    process.exit(1);
+  }
+
   Sails.log("Preparing database...")
 
   if(!process.env.DB_ADAPTER && !argv.adapter) {

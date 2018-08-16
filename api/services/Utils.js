@@ -10,5 +10,11 @@ module.exports = {
       }
       return obj;
     }
+  },
+
+  isRuntimeVersionSupported() {
+    const minRequiredNodeVersion = '10.0.0';
+    const semver = require('semver');
+    return semver.gte(process.versions.node, minRequiredNodeVersion);
   }
 }
