@@ -13,7 +13,7 @@ module.exports = {
   },
 
   isRuntimeVersionSupported() {
-    const minRequiredNodeVersion = '10.0.0';
+    const minRequiredNodeVersion = '8.0.0';
     const semver = require('semver');
     return semver.gte(process.versions.node, minRequiredNodeVersion);
   }
