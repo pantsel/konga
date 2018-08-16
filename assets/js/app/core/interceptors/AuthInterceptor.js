@@ -62,7 +62,7 @@
           responseError: function responseErrorCallback(response) {
             if (response.status === 401 || response.status === 403) {
 
-              if(data.logout) {
+              if(response.data && response.data.logout) {
                 $localStorage.$reset();
 
                 var $state = $injector.get('$state');
