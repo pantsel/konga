@@ -74,7 +74,7 @@ $ npm i
 You can configure your  application to use your environment specified
 settings.
 
-There is an example configuration file on following path.
+There is an example configuration file on the root folder.
 
 ```
 .env_example
