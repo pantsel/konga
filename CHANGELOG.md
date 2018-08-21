@@ -8,6 +8,8 @@ complexity to maintenance as well as increased the overall project's size.
 * **[Fix]** Fixed the trailing slash issue. Konga is now able to communicate with
 Kong even if a trailing slash exists in the connection url.
 * Cleaned up unused dependencies.
+* When installing Konga from source, the `confing/local.js` file is deprecated
+in favor of a `.env` file. Check the README.md for details.
 
 ## [0.12.0](https://github.com/pantsel/konga/releases/tag/0.12.0) - 07-07-2018
 * **[Fix]** Fix snapshots implementation. Use auto generated entity ids for proper relationships mapping.
