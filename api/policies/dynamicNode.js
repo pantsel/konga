@@ -11,42 +11,46 @@ var _ = require('lodash');
  */
 module.exports = function dynamicNode(request, response, next) {
 
-    if(request.headers['connection-id'] || request.query.connection_id) {
+  if (request.headers['connection-id'] || request.query.connection_id) {
 
-        sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.");
+    sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.");
 
-        sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
-            .exec(function(err,node) {
-                if (err) return next(err);
-                if (!node) return response.notFound({
-                    message: "connection not found"
-                })
+    sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
+      .exec(function (err, node) {
+        if (err) return next(err);
+        if (!node) return response.notFound({
+          message: "connection not found"
+        })
 
-                request.connection = node;
+        // Remove trailing slash from kong_admin_url property
+        _.update(node, 'kong_admin_url', function(o) { return o.replace(/\/$/, ""); });
 
-                return  next();
-            });
+        request.connection = node;
 
-    }else{
-        // Get the default node from user
-        sails.models.user.findOne({
-            id:request.token
-        }).populate('node').exec(function(err,user) {
-            if(err) return next(err);
-            if(!user) return response.notFound({
-                message : "user not found"
-            })
+        return next();
+      });
 
-            if(user.node) {
-                // sails.config.kong_admin_url = user.node.kong_admin_url
-                request.connection = user.node;
-                return  next();
-            }else{
-                return response.badRequest({
-                    message : "No connection is selected. Please activate a connection in settings"
-                });
-            }
+  } else {
+    // Get the default node from user
+    sails.models.user.findOne({
+      id: request.token
+    }).populate('node').exec(function (err, user) {
+      if (err) return next(err);
+      if (!user) return response.notFound({
+        message: "user not found"
+      })
+
+      if (user.node) {
+        // Remove trailing slash from kong_admin_url property
+        _.update(user.node, 'kong_admin_url', function(o) { return o.replace(/\/$/, ""); });
+        request.connection = user.node;
+        return next();
+      } else {
+        return response.badRequest({
+          message: "No connection is selected. Please activate a connection in settings"
         });
-    }
+      }
+    });
+  }
 
 };

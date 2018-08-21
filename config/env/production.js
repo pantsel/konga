@@ -10,6 +10,9 @@
  * any private information to this file!
  *
  */
+
+var fs = require('fs');
+
 module.exports = {
   /***************************************************************************
    * Set the default database connection for models in the production        *
@@ -18,7 +21,7 @@ module.exports = {
 
   hookTimeout: process.env.KONGA_HOOK_TIMEOUT || 60000,
 
-  kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
+  // kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
 
   // models: {
   //   connection: 'someMysqlServer'
@@ -28,13 +31,18 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: process.env.KONGA_BACKEND_PORT || 1337,
+  port: process.env.PORT || 1337,
+
+  ssl: {
+    key: process.env.SSL_KEY_PATH ? fs.readFileSync(process.env.SSL_KEY_PATH) : null,
+    cert: process.env.SSL_CRT_PATH ? fs.readFileSync(process.env.SSL_CRT_PATH) : null
+  },
 
   /***************************************************************************
    * Set the log level in production environment to "warn"                   *
    ***************************************************************************/
   log: {
-      level: process.env.KONGA_LOG_LEVEL || "info"
+      level: process.env.KONGA_LOG_LEVEL || "warn"
   },
 
   // Keep data of response errors in production mode

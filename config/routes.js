@@ -62,11 +62,6 @@ module.exports.routes = {
   //'POST /consumers/sync'                 : 'ConsumerController.sync',
 
 
-  // Remote Storage routes
-  'GET /remote/adapters': 'RemoteStorageController.loadAdapters',
-  'POST /remote/consumers': 'RemoteStorageController.loadConsumers',
-  'GET /remote/connection/test': 'RemoteStorageController.testConnection',
-
 
   // Kong 0.10.x certificates routes
   // These must be handled by KONGA

@@ -31,7 +31,7 @@ module.exports = {
   /**
    * The default fallback URL to Kong's admin API.
    */
-  kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
+  // kong_admin_url : process.env.KONG_ADMIN_URL || 'http://127.0.0.1:8001',
 
 
   connections: {
@@ -45,8 +45,8 @@ module.exports = {
   session: {
     secret: '' // Add your own SECRET string here
   },
-  port: 1338,
-  environment: 'development',
+  port: process.env.PORT || 1338,
+  environment: process.env.NODE_ENV || 'development',
   log: {
     level: 'info'
   }

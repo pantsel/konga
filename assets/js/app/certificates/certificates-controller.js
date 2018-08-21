@@ -111,15 +111,48 @@
 
                 var data = angular.copy($scope.data);
 
+                if(!data.cert || !data.key) {
+                  $scope.errorMessage = "The `Certificate` and/or `Key` fields cannot be empty"
+                  return false;
+                }
+
                 data.cert = data.cert.trim();
                 data.key = data.key.trim();
 
-                if ($rootScope.isGatewayVersionEqOrGreater('0.14')) {
+                if ($rootScope.isGatewayVersionEqOrGreater('0.14') && data.snis) {
                   data.snis = data.snis.split(",")
                 }
 
 
                 CertificateModel.create(data)
+                  .then(function (resp) {
+                    console.log('Success', resp.data);
+                    $uibModalInstance.dismiss({
+                      data: resp
+                    })
+                  }).catch(function (err) {
+                  console.error('Error', err);
+                  handleErrors(err)
+                })
+
+              }
+
+              $scope.updateCerts = function () {
+
+                $scope.errorMessage = ""
+
+
+                var data = angular.copy($scope.data);
+
+                if(!data.cert || !data.key) {
+                  $scope.errorMessage = "The `Certificate` and/or `Key` fields cannot be empty"
+                  return false;
+                }
+                
+                data.cert = data.cert.trim();
+                data.key = data.key.trim();
+
+                CertificateModel.update(data.id, _.omit(data,['id']))
                   .then(function (resp) {
                     console.log('Success', resp.data);
                     $uibModalInstance.dismiss({

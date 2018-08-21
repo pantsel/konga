@@ -874,6 +874,17 @@
                   help: "List of paramname:value pairs. If the content-type is one the following [application/json, application/x-www-form-urlencoded], add a new parameter with the given value if the parameter is not present, otherwise if it is already present, the two values (old and new) will be aggregated in an array."
                 }
               },
+              "rename": {
+                "headers": {
+                  help: "List of headername:value pairs. If and only if the header is already set, rename the header. The value is unchanged. Ignored if the header is not already set."
+                },
+                "querystring": {
+                  help: "List of queryname:value pairs. If and only if the field name is already set, rename the field name. The value is unchanged. Ignored if the field name is not already set."
+                },
+                "body": {
+                  help: "List of parameter name:value pairs. Rename the parameter name if and only if content-type is one the following [application/json, multipart/form-data, application/x-www-form-urlencoded] and parameter is present."
+                }
+              },
             },
 
             "response-transformer": {

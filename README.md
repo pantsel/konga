@@ -20,6 +20,7 @@ _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com
 - [**Used libraries**](#used-libraries)
 - [**Installation**](#installation)
 - [**Configuration**](#configuration)
+- [**Environment variables**](#environment-variables)
 - [**Running Konga**](#running-konga)
 - [**Upgrading**](#upgrading)
 - [**FAQ**](#faq)
@@ -51,37 +52,58 @@ It also works with Kong 0.13.* yet without the ability to manage services and ro
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
-- Nodejs
+- Nodejs >= 8 (8.11.3 LTS is recommended)
 - Npm
 
 ## Used libraries
 * Sails.js, http://sailsjs.org/
 * AngularJS, https://angularjs.org/
-* Bootstrap, http://getbootstrap.com/
 
 ## Installation
 
 Install `npm` and `node.js`. Instructions can be found [here](http://sailsjs.org/#/getStarted?q=what-os-do-i-need).
 
-Install `bower`, `gulp` and `sails` packages.
+Install `bower`, ad `gulp` packages.
 ```
 $ git clone https://github.com/pantsel/konga.git
 $ cd konga
-$ npm install
+$ npm i
 ```
 
 ## Configuration
 You can configure your  application to use your environment specified
 settings.
 
-There is an example configuration file on following path.
+There is an example configuration file on the root folder.
 
 ```
-config/local_example.js
+.env_example
 ```
 
-Just copy this to `config/local.js` and make necessary changes to it. Note that this
-`local.js` file is in .gitignore so it won't go to VCS at any point.
+Just copy this to `.env` and make necessary changes to it. Note that this
+`.env` file is in .gitignore so it won't go to VCS at any point.
+
+## Environment variables
+These are the general environment variables Konga uses.
+
+| VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
+| PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
+| NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
+| SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
+| SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
+| KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
+| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`,`sqlserver` | -                                            |
+| DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
+| DB_HOST            | If `DB_URI` is not specified, this is the database host. Depends on `DB_ADAPTER`.                                          | -                                      | localhost                                    |
+| DB_PORT            | If `DB_URI` is not specified, this is the database port.  Depends on `DB_ADAPTER`.                                         | -                                      | DB default.                                  |
+| DB_USER            | If `DB_URI` is not specified, this is the database user. Depends on `DB_ADAPTER`.                                          | -                                      | -                                            |
+| DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
+| DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
+| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                    | -                                      | `public`                                     |
+| KONGA_LOG_LEVEL    | The logging level                                                                                                           | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
+| TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
+
 
 ### Databases Integration
 
@@ -94,29 +116,9 @@ The application also supports some of the most popular databases out of the box:
 1. MySQL
 2. MongoDB
 3. PostgresSQL
-4. SQL Server
 
-In order to use them, in your `/config/local.js` replace
-```
-models: {
-    connection: process.env.DB_ADAPTER || 'localDiskDb',
-}
-```
-with
-```
-models: {
-    connection: process.env.DB_ADAPTER || 'the-name-of-adapter-you-wish-to-use', // 'mysql', 'mongo', 'sqlserver' or 'postgres'
-}
-```
-
-See [Sails adapters](http://sailsjs.com/documentation/concepts/extending-sails/adapters/available-adapters) for further configuration
-
-***************************************************************************************** 
-##### Note : 
-In case of `MySQL`, `PostgresSQL` or `SQL Server` adapters, 
-you will need to prepare the database as explained on the next topic. 
-
-***************************************************************************************** 
+In order to use them, set the appropriate env vars in your `.env` file.
+ 
 
 ## Running Konga
 
@@ -128,10 +130,27 @@ Konga GUI will be available at `http://localhost:1337`
 
 ### Production
 
+***************************************************************************************** 
+In case of `MySQL` or `PostgresSQL` adapters, Konga will not perform db migrations when running in production mode.
+
+You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
+, passing the args needed for the database connectivity.
+
+For example: 
+
+```
+$ node ./bin/konga.js  prepare --adapter postgres --uri postgresql://localhost:5432/konga
+```
+The process will exit after all migrations are completed. 
+
+*****************************************************************************************
+
+Finally:
 ```
 $ npm run production
 ```
 Konga GUI will be available at `http://localhost:1337`
+
 
 ### Production Docker Image
 
@@ -143,6 +162,7 @@ $ docker run -p 1337:1337 \
              --network {{kong-network}} \ // optional
              --name konga \
              -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              pantsel/konga
 ```
 
@@ -151,20 +171,7 @@ $ docker run -p 1337:1337 \
 1. ##### Prepare the database
 > **Note**: You can skip this step if using the `mongo` adapter.
 
-Konga will not perform db migrations when running in production mode.
-
-You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
-, passing the args needed for the database connectivity.
-
-The available adapters are ```'postgres', or 'mysql'``` 
-
-```
-$ node ./bin/konga.js  prepare --adapter {adapter_name} --uri {full_connection_string}
-```
-The process will exit after all migrations are completed.
-
-If you're deploying Konga via the docker image, you can prepare the database using 
-an ephemeral container running the prepare command.
+You can prepare the database using an ephemeral container that runs the prepare command.
 
 **Args**
 
@@ -173,10 +180,9 @@ argument  | description | default
 -c      | command | -
 -a      | adapter (can be `postgres` or `mysql`) | -
 -u     | full database connection url | -
--p     | port | `1339`
 
 ```
-$ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-uri}} -p {{port}}
+$ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-uri}}
 ```
 
 
@@ -184,6 +190,7 @@ $ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-u
 ```
 $ docker run -p 1337:1337 
              --network {{kong-network}} \ // optional
+             -e "TOKEN_SECRET={{somerandomstring}}" \
              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
              -e "DB_HOST=your-db-hostname" \
              -e "DB_PORT=your-db-port" \ // Defaults to the default db port
@@ -199,6 +206,7 @@ $ docker run -p 1337:1337
  // Alternatively you can use the full connection string to connect to a database
  $ docker run -p 1337:1337 
               --network {{kong-network}} \ // optional
+              -e "TOKEN_SECRET={{somerandomstring}}" \
               -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
               -e "DB_URI=full-conection-uri" \
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
@@ -217,7 +225,10 @@ login: admin | password: adminadminadmin
 *Demo user*
 login: demo | password: demodemodemo
 
-This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](DEFAULTUSERSEEDDATA.md)
+This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](./docs/DEFAULTUSERSEEDDATA.md)
+
+You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
+
 
 ## Upgrading
 In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
