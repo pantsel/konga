@@ -19,7 +19,7 @@
  * The same command-line arguments are supported, e.g.:
  * `node app.js --silent --port=80 --prod`
  */
-
+require('dotenv').config()
 
 // Ensure a "sails" can be located:
 let sails;

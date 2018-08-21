@@ -122,3 +122,5 @@ nbproject
 /www/
 /kongadata/
 /certs/
+/.env
+.env
