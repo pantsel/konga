@@ -54,7 +54,7 @@
                             {{sni}}
                         </span>
                     </td>
-                    <td>{{moment(item.created_at).format("MMM DD YYYY @HH:mm")}}</td>
+                    <td>{{moment(item.created_at * 1000).format("MMM DD YYYY @HH:mm")}}</td>
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
                         <button type="button" ng-click="openUploadCertsModal(item)" class="btn btn-primary btn-link">
                             <i class="mdi mdi-information-outline"></i>
