@@ -385,12 +385,12 @@
               'preflight_continue': {
                 type: "boolean",
                 value: false,
-                help: 'Flag to determine whether the Access-Control-Allow-Credentials header should be sent with true as the value.'
+                help: 'A boolean value that instructs the plugin to proxy the OPTIONS preflight request to the upstream API.'
               },
               'credentials': {
                 type: "boolean",
                 value: false,
-                help: 'A boolean value that instructs the plugin to proxy the OPTIONS preflight request to the upstream API.'
+                help: 'Flag to determine whether the Access-Control-Allow-Credentials header should be sent with true as the value.'
               }
             },
             "acl": {
