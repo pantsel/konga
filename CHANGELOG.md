@@ -1,6 +1,9 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
+## [0.12.3](https://github.com/pantsel/konga/releases/tag/0.12.3) - 26-09-2018
+* **[Fix]** Solved some routing issues when running Konga behind a reverse proxy at a sub-path. [#278](https://github.com/pantsel/konga/issues/278)
+* Other minor issues
 
 ## [0.12.2](https://github.com/pantsel/konga/releases/tag/0.12.2) - 22-08-2018
 * **[Fix]** Fix wrong require path on db prepare.
