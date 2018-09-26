@@ -24,7 +24,7 @@
                 controller: 'SettingsController',
                 resolve: {
                   _integrations : ['$http', function ($http) {
-                    return $http.get('/api/settings/integrations');
+                    return $http.get('api/settings/integrations');
                   }]
                 }
 
