@@ -29,7 +29,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sass": "^3.0.1",
     "grunt-sync": "^0.8.0",
-    "include-all": "^1.0.0",
+    "include-all": "^4.0.3",
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
@@ -53,7 +53,7 @@
     "sails-sqlserver": "^0.10.8",
     "sendmail": "^1.4.1",
     "socket.io-redis": "~1.0.0",
-    "unirest": "^0.5.1",
+    "unirest": "git+https://git@github.com/pantsel/unirest-nodejs#master",
     "uuid": "^3.3.2",
     "validator": "4.2.1"
   },
