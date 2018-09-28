@@ -28,9 +28,24 @@ module.exports.routes = {
     res.send(200);
   },
 
-  '/': function (req, res) {
+  '/': async (req, res) => {
+
+    const adminsCount = await sails.models.user.count({admin: true});
+
+    if(adminsCount == 0) {
+      return res.redirect('register')
+    }
+
 
     return res.view('homepage', {
+      angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
+      konga_version: require('../package.json').version,
+      accountActivated: req.query.activated ? true : false
+    })
+  },
+
+  'GET /register' : async (req, res) => {
+    return res.view('welcomepage', {
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       konga_version: require('../package.json').version,
       accountActivated: req.query.activated ? true : false
@@ -45,6 +60,10 @@ module.exports.routes = {
   '/500': {
     view: '500'
   },
+
+  // First time registration
+  'POST /register': 'AuthController.register',
+
 
   // Authentication routes
   '/logout': 'AuthController.logout',

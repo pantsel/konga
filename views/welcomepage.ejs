@@ -1,0 +1,95 @@
+<div class="row page-register">
+    <div class="col-md-12">
+
+        <div class="register-form-container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Welcome to Konga!</h3>
+                    <p class="help-block">Since this is your first time using the app, you will need to create an admin user.</p>
+                    <hr>
+
+                    <form name="loginForm" method="post" action="register">
+                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.username ? 'has-error': '' %>">
+                            <label class="control-label no-margin">Username <span class="text-danger text-small">*</span></label>
+                            <input type="text" name="username" class="form-control username"
+                                   placeholder="Enter your username..." autofocus autocomplete="off" required="required"
+                                   value="<%= typeof old_data != 'undefined' && old_data.username ? old_data.username: '' %>"
+                            />
+                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.username) { %>
+                                <% for (var i in invalidAttributes.username) { %>
+                                    <p class="help-block">
+                                        <%= invalidAttributes.username[i].message %>
+                                    </p>
+                                <% } %>
+                            <% } %>
+
+                        </div>
+
+                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.email ? 'has-error': '' %>">
+                            <label class="control-label no-margin">Email  <span class="text-danger text-small">*</span></label>
+                            <input type="email" name="email"
+                                   class="form-control password"
+                                   placeholder="Enter your email..." required="required"
+                                   value="<%= typeof old_data != 'undefined' && old_data.email ? old_data.email: '' %>"
+                            />
+                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.email) { %>
+                                <% for (var i in invalidAttributes.email) { %>
+                                    <p class="help-block">
+                                        <%= invalidAttributes.email[i].message %>
+                                    </p>
+                                <% } %>
+                            <% } %>
+                        </div>
+                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.password ? 'has-error': '' %>">
+                            <label class="control-label no-margin">Password <span class="text-danger text-small">*</span></label>
+                            <input autocomplete="new-password" type="password" name="password"
+                                   class="form-control password"
+                                   placeholder="Enter your password..." required="required"
+                            />
+                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password) { %>
+                                <% for (var i in invalidAttributes.password) { %>
+                                    <p class="help-block">
+                                        <%= invalidAttributes.password[i].message %>
+                                    </p>
+                                <% } %>
+                            <% } %>
+
+                        </div>
+                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && (invalidAttributes.password || invalidAttributes.password_confirmation) ? 'has-error': '' %>">
+                            <label class="control-label no-margin">Password confirmation <span class="text-danger text-small">*</span></label>
+                            <input
+                                    ng-pattern="user.passports.password"
+                                    autocomplete="new-password" type="password" name="password_confirmation"
+                                    class="form-control password"
+                                    placeholder="Confirm your password..." required="required"
+                            />
+                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password_confirmation) { %>
+                                <% for (var i in invalidAttributes.password_confirmation) { %>
+                                    <p class="help-block">
+                                        <%= invalidAttributes.password_confirmation[i].message %>
+                                    </p>
+                                <% } %>
+                            <% } %>
+                        </div>
+
+                        <br>
+                        <button class="btn btn-primary btn-block">
+                            create admin
+                        </button>
+
+
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+  window.konga_version = "<%=konga_version%>";
+  window.initAngular = false;
+</script>
