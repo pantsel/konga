@@ -51,7 +51,7 @@
                         .login($scope.credentials)
                         .then(
                             function successCallback() {
-                                $(".login-form-container").hide()
+                                $(".login-form-container").remove();
                                 $state.go('dashboard');
                                 $scope.busy = false;
                             },
