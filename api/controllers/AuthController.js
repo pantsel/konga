@@ -59,7 +59,6 @@ var AuthController = {
     }
 
     if(Object.keys(invalidAttributes).length) {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
       return res.view('welcomepage', {
         angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
         konga_version: require('../../package.json').version,

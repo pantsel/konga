@@ -30,9 +30,9 @@ module.exports.routes = {
 
   '/': async (req, res) => {
 
-    const adminsCount = await sails.models.user.count({admin: true});
+    const usersCount = await sails.models.user.count();
 
-    if(adminsCount == 0) {
+    if(usersCount == 0) {
       return res.redirect('register')
     }
 
@@ -40,11 +40,19 @@ module.exports.routes = {
     return res.view('homepage', {
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       konga_version: require('../package.json').version,
-      accountActivated: req.query.activated ? true : false
+      accountActivated: req.query.activated ? true : false,
+      loadScripts: true
     })
   },
 
   'GET /register' : async (req, res) => {
+
+    const usersCount = await sails.models.user.count();
+
+    if(usersCount > 0) {
+      return res.redirect('')
+    }
+
     return res.view('welcomepage', {
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       konga_version: require('../package.json').version,

@@ -93,6 +93,8 @@
 
 -->
 
+<% if (typeof loadScripts != 'undefined' && loadScripts ) {%>
+
 
 <script src="js/dependencies/sails.io.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -297,6 +299,8 @@
 <script src="js/app/users/user-model.js?r=0.12.4"></script>
 <script src="js/app/users/users-controller.js?r=0.12.4"></script>
 <!--SCRIPTS END-->
+
+<% }%>
 
 <script>
   window.angularDebugEnabled = <%= angularDebugEnabled %>;
