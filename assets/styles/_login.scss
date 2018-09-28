@@ -12,8 +12,8 @@
 
   .login-form-container{
     margin: auto;
-    width: 350px;
-    max-width: 90%;
+    width: 380px;
+    max-width: 98%;
     transition: all 0.5s;
 
     .panel{
@@ -61,12 +61,22 @@
 
 
 .page-register{
-  margin-top: 5%;
+
+  .top-part {
+    height: 230px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    background-color: $brand-royal;
+  }
 
   .register-form-container{
-    margin: auto;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
     width: 420px;
-    max-width: 90%;
+    max-width: 95%;
     transition: all 0.5s;
 
     .panel{
