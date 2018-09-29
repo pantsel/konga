@@ -87,20 +87,17 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
   },
 
-  //seedData object should now come from a file
-  // the new object has had the password field added
-  // we need to remove it
-  // seedData: defUserSeedData.seedData.map(function (orig) {
-  //   return {
-  //     "username": orig.username,
-  //     "email": orig.email,
-  //     "firstName": orig.firstName,
-  //     "lastName": orig.lastName,
-  //     // "node_id": orig.node_id,
-  //     "admin": orig.admin,
-  //     "active": orig.active
-  //   }
-  // })
+  seedData: defUserSeedData.seedData.map(function (orig) {
+    return {
+      "username": orig.username,
+      "email": orig.email,
+      "firstName": orig.firstName,
+      "lastName": orig.lastName,
+      // "node_id": orig.node_id,
+      "admin": orig.admin,
+      "active": orig.active
+    }
+  })
 });
 
 var mongoModel = function () {

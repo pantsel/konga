@@ -218,14 +218,7 @@ $ docker run -p 1337:1337
 The GUI will be available at `http://{your server's public ip}:1337`
 
 
-#### Login
-*Admin*
-login: admin | password: adminadminadmin
-
-*Demo user*
-login: demo | password: demodemodemo
-
-This user data is populated to the database if there is not already any user data in it. [It is possible to alter the default user seed data.](./docs/DEFAULTUSERSEEDDATA.md)
+[It is possible to seed default users on first install.](./docs/DEFAULTUSERSEEDDATA.md)
 
 You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
 
