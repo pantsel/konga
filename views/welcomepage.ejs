@@ -1,102 +1,119 @@
-
-<div class="page-register">
-    <div class="top-part"></div>
+<div class="page-register text-center">
     <div class="col-md-12">
-        <div class="register-form-container">
-            <div class="panel panel-default">
-                <div class="panel-body padding-top">
-                    <h3>Welcome to Konga!</h3>
-                    <p class="help-block">Create an admin user</p>
-                    <hr>
+        <div class="login-form-container">
+            <img src="images/konga-logo-small.png" class="img-responsive"/>
+            <br>
+            <h4>Welcome to the jungle!</h4>
+            <p class="help-block">Go ahead and create an administrator account.</p>
+            <br><br>
 
-                    <form name="loginForm" method="post" action="register">
-                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.username ? 'has-error': '' %>">
-                            <label class="control-label no-margin">Username <span class="text-danger text-small">*</span></label>
-                            <input type="text" name="username" class="form-control username"
-                                   placeholder="Enter your username..." autofocus autocomplete="off" required="required"
-                                   value="<%= typeof old_data != 'undefined' && old_data.username ? old_data.username: '' %>"
-                            />
-                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.username) { %>
-                                <% for (var i in invalidAttributes.username) { %>
-                                    <p class="help-block">
-                                        <%= invalidAttributes.username[i].message %>
-                                    </p>
-                                <% } %>
-                            <% } %>
+            <form name="loginForm" method="post" action="register">
+                <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.username ? 'has-error' : '' %>">
+                    <!--<label class="control-label no-margin">Username <span-->
+                    <!--class="text-danger text-small">*</span></label>-->
 
-                        </div>
 
-                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.email ? 'has-error': '' %>">
-                            <label class="control-label no-margin">Email  <span class="text-danger text-small">*</span></label>
-                            <input type="email" name="email"
-                                   class="form-control password"
-                                   placeholder="Enter your email..." required="required"
-                                   value="<%= typeof old_data != 'undefined' && old_data.email ? old_data.email: '' %>"
-                            />
-                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.email) { %>
-                                <% for (var i in invalidAttributes.email) { %>
-                                    <p class="help-block">
-                                        <%= invalidAttributes.email[i].message %>
-                                    </p>
-                                <% } %>
-                            <% } %>
-                        </div>
-                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.password ? 'has-error': '' %>">
-                            <label class="control-label no-margin">Password <span class="text-danger text-small">*</span></label>
-                            <input autocomplete="new-password" type="password" name="password"
-                                   class="form-control password"
-                                   placeholder="Enter your password..." required="required"
-                            />
-                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password) { %>
-                                <% for (var i in invalidAttributes.password) { %>
-                                    <p class="help-block">
-                                        <%= invalidAttributes.password[i].message %>
-                                    </p>
-                                <% } %>
-                            <% } %>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="mdi mdi-account-box-outline"></i>
+                        </span>
+                        <input type="text" name="username" class="form-control username"
+                               placeholder="Username" autofocus autocomplete="off" required="required"
+                               value="<%= typeof old_data != 'undefined' && old_data.username ? old_data.username : '' %>"
+                        />
+                    </div>
+                    <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.username) { %>
+                        <% for (var i in invalidAttributes.username) { %>
+                            <p class="help-block">
+                                <%= invalidAttributes.username[i].message %>
+                            </p>
+                        <% } %>
+                    <% } %>
 
-                        </div>
-                        <div class="form-group <%= typeof invalidAttributes != 'undefined' && (invalidAttributes.password || invalidAttributes.password_confirmation) ? 'has-error': '' %>">
-                            <label class="control-label no-margin">Password confirmation <span class="text-danger text-small">*</span></label>
-                            <input
-                                    ng-pattern="user.passports.password"
-                                    autocomplete="new-password" type="password" name="password_confirmation"
-                                    class="form-control password"
-                                    placeholder="Confirm your password..." required="required"
-                            />
-                            <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password_confirmation) { %>
-                                <% for (var i in invalidAttributes.password_confirmation) { %>
-                                    <p class="help-block">
-                                        <%= invalidAttributes.password_confirmation[i].message %>
-                                    </p>
-                                <% } %>
-                            <% } %>
-                        </div>
-
-                        <br>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block">
-                                create admin
-                            </button>
-                        </div>
-                        <p>
-                            <small>
-                                After the admin user is created, you will be redirected to the login page.
-                            </small>
-                        </p>
-                        <p class="text-center help-block">KONGA v<%=konga_version%></p>
-
-                    </form>
                 </div>
-            </div>
+
+                <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.email ? 'has-error' : '' %>">
+                    <!--<label class="control-label no-margin">Email <span-->
+                                <!--class="text-danger text-small">*</span></label>-->
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="mdi mdi-email-outline"></i>
+                        </span>
+                        <input type="email" name="email"
+                               class="form-control password"
+                               placeholder="Email" required="required"
+                               value="<%= typeof old_data != 'undefined' && old_data.email ? old_data.email : '' %>"
+                        />
+                    </div>
+                    <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.email) { %>
+                        <% for (var i in invalidAttributes.email) { %>
+                            <p class="help-block">
+                                <%= invalidAttributes.email[i].message %>
+                            </p>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="form-group <%= typeof invalidAttributes != 'undefined' && invalidAttributes.password ? 'has-error' : '' %>">
+                    <!--<label class="control-label no-margin">Password <span-->
+                                <!--class="text-danger text-small">*</span></label>-->
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="mdi mdi-lock-outline"></i>
+                        </span>
+                        <input autocomplete="new-password" type="password" name="password"
+                               class="form-control password"
+                               placeholder="Password" required="required"
+                        />
+                    </div>
+                    <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password) { %>
+                        <% for (var i in invalidAttributes.password) { %>
+                            <p class="help-block">
+                                <%= invalidAttributes.password[i].message %>
+                            </p>
+                        <% } %>
+                    <% } %>
+
+                </div>
+                <div class="form-group <%= typeof invalidAttributes != 'undefined' && (invalidAttributes.password || invalidAttributes.password_confirmation) ? 'has-error' : '' %>">
+                    <!--<label class="control-label no-margin">Password confirmation <span-->
+                                <!--class="text-danger text-small">*</span></label>-->
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="mdi mdi-check-circle-outline"></i>
+                        </span>
+                        <input
+                                ng-pattern="user.passports.password"
+                                autocomplete="new-password" type="password" name="password_confirmation"
+                                class="form-control password"
+                                placeholder="Confirm password" required="required"
+                        />
+                    </div>
+                    <% if (typeof invalidAttributes != 'undefined' && invalidAttributes.password_confirmation) { %>
+                        <% for (var i in invalidAttributes.password_confirmation) { %>
+                            <p class="help-block">
+                                <%= invalidAttributes.password_confirmation[i].message %>
+                            </p>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block btn-round btn-flat">
+                        create admin
+                    </button>
+                </div>
+                <p class="text-center help-block">KONGA v<%= konga_version %></p>
+
+            </form>
 
         </div>
     </div>
 </div>
 
 
-
 <script>
-  window.konga_version = "<%=konga_version%>";
+  window.konga_version = "<%= konga_version %>";
   window.initAngular = false;
 </script>
