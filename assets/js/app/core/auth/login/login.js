@@ -56,7 +56,6 @@
                                 $scope.busy = false;
                             },
                             function errorCallback(err) {
-                                MessageService.error(err.data.message)
                                 $scope.busy = false;
                             }
                         )
