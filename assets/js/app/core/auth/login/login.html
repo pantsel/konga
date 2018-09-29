@@ -1,39 +1,52 @@
+<p class="help-block">Sign in to continue</p>
+<br><br>
 <form name="loginForm" method="post" novalidate="novalidate">
     <div class="form-group"
          data-show-errors
     >
-        <label class="control-label no-margin">Login</label>
-        <input type="text" name="username" class="form-control username"
-               placeholder="Enter username or email..." autofocus autocomplete="off" required="required"
-               data-focus-on="username"
-               data-ng-model="credentials.identifier"
-        />
-        <p class="help-block no-margin" ng-show="loginForm.username.$touched && loginForm.username.$error.required">Username or Email is required.</p>
+        <div class="input-group">
+            <!--<label class="control-label no-margin">Login</label>-->
+            <span class="input-group-addon">
+                <i class="mdi mdi-account-circle"></i>
+            </span>
+            <input type="text" name="username" class="form-control username"
+                   placeholder="Username or Email" autocomplete="off" required="required"
+                   data-ng-model="credentials.identifier"
+            />
+        </div>
+
+        <p class="help-block no-margin text-left" ng-show="loginForm.username.$touched && loginForm.username.$error.required">Username or Email is required.</p>
 
     </div>
 
     <div class="form-group"
          data-show-errors
     >
-        <label class="control-label no-margin">Password</label>
-        <input autocomplete="new-password" type="password" name="password"
-               class="form-control password"
-               placeholder="Enter password..." required="required"
-               data-ng-model="credentials.password"
-        />
-        <p class="help-block no-margin" ng-show="loginForm.password.$touched && loginForm.password.$error.required">Password is required.</p>
+        <div class="input-group">
+            <!--<label class="control-label no-margin">Password</label>-->
+            <span class="input-group-addon">
+                <i class="mdi mdi-lock"></i>
+            </span>
+            <input autocomplete="new-password" type="password" name="password"
+                   class="form-control password"
+                   placeholder="Password" required="required"
+                   data-ng-model="credentials.password"
+            />
+        </div>
+
+        <p class="help-block no-margin text-left" ng-show="loginForm.password.$touched && loginForm.password.$error.required">Password is required.</p>
 
 
     </div>
     <br>
-    <div class="form-group">
-        <button class="btn btn-primary btn-block"
+    <div class="form-group text-center">
+        <button class="btn btn-primary btn-flat btn-block"
                 data-ng-click="login()"
                 data-ng-disabled="!loginForm.$valid || busy"
         >
-            Login
+            Sign in
         </button>
     </div>
-
-
 </form>
+
+<p data-ng-if="KONGA_CONFIG.signup_enable" class="text-center text-small help-block">Don't have an account? <a ui-sref="auth.signup">Sign up!</a></p>

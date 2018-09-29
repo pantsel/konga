@@ -8,11 +8,13 @@
   //display: flex;
   //align-items: center;
   //justify-content: center;
+
+
   margin-top: 5%;
 
   .login-form-container{
     margin: auto;
-    width: 380px;
+    width: 350px;
     max-width: 98%;
     transition: all 0.5s;
 
@@ -49,11 +51,40 @@
       }
     }
 
+    img {
+      margin: auto;
+    }
+
+    button {
+      border-radius: 25px;
+      padding: 10px 16px;
+    }
+
 
     .form-group{
+      margin-bottom: 35px;
       &.has-error{
         background-color: transparent !important;
         padding: 0 !important;
+      }
+
+      .input-group {
+        width: 100%;
+        .input-group-addon {
+          position: absolute;
+          padding: 0;
+          color: $gray-light;
+        }
+
+        input {
+          padding-left: 40px;
+          padding-bottom: 10px;
+        }
+      }
+
+      .help-block {
+        font-size: 1.2rem;
+        padding-top: 5px;
       }
     }
   }

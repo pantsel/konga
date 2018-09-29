@@ -1,3 +1,6 @@
+<p class="help-block">Sign up</p>
+<br><br>
+
 <div class="alert alert-success text-center" ng-if="showActivationMessage">
     <i class="mdi mdi-check-circle-outline mdi-48px"></i>
     <div class="clearfix"></div>
@@ -11,15 +14,22 @@
          data-show-errors
          ng-class="{'has-error' : errors.username}"
     >
-        <label class="control-label no-margin">Username <span class="text-danger text-small">*</span></label>
-        <input type="text" name="username" class="form-control username"
-               placeholder="Enter your username..." autofocus autocomplete="off" required="required"
-               data-focus-on="username"
-               data-ng-model="user.username"
-        />
-        <p class="help-block no-margin" ng-show="loginForm.username.$touched && loginForm.username.$error.required">The
+        <!--<label class="control-label no-margin">Username <span class="text-danger text-small">*</span></label>-->
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="mdi mdi-account-circle"></i>
+            </span>
+            <input type="text" name="username" class="form-control username"
+                   placeholder="Username" autocomplete="off" required="required"
+                   data-ng-model="user.username"
+            />
+        </div>
+
+
+        <p class="help-block no-margin text-left" ng-show="loginForm.username.$touched && loginForm.username.$error.required">The
             username is required.</p>
-        <p class="help-block no-margin" ng-show="loginForm.username.$error.custom">
+        <p class="help-block no-margin text-left" ng-show="loginForm.username.$error.custom">
             {{loginForm.username.$error.custom}}</p>
 
     </div>
@@ -29,15 +39,21 @@
          data-show-errors
     >
 
-        <label class="control-label no-margin">Email <span class="text-danger text-small">*</span></label>
-        <input type="email" name="email"
-               class="form-control password"
-               placeholder="Enter your email..." required="required"
-               data-ng-model="user.email"
-        />
-        <p class="help-block no-margin" ng-show="loginForm.email.$touched && loginForm.email.$error.required">The email
+        <!--<label class="control-label no-margin">Email <span class="text-danger text-small">*</span></label>-->
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="mdi mdi-email-outline"></i>
+            </span>
+            <input type="email" name="email"
+                   class="form-control password"
+                   placeholder="Email address" required="required"
+                   data-ng-model="user.email"
+            />
+        </div>
+
+        <p class="help-block no-margin text-left" ng-show="loginForm.email.$touched && loginForm.email.$error.required">The email
             is required.</p>
-        <p class="help-block no-margin" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The email is
+        <p class="help-block no-margin text-left" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The email is
             invalid.</p>
 
 
@@ -46,13 +62,20 @@
          data-show-errors
          ng-class="{'has-error' : errors.password}"
     >
-        <label class="control-label no-margin">Password <span class="text-danger text-small">*</span></label>
-        <input autocomplete="new-password" type="password" name="password"
-               class="form-control password"
-               placeholder="Enter your password..." required="required"
-               data-ng-model="user.passports.password"
-        />
-        <p class="help-block no-margin" ng-show="loginForm.password.$touched && loginForm.password.$error.required">
+        <!--<label class="control-label no-margin">Password <span class="text-danger text-small">*</span></label>-->
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="mdi mdi-lock-outline"></i>
+            </span>
+            <input autocomplete="new-password" type="password" name="password"
+                   class="form-control password"
+                   placeholder="Password" required="required"
+                   data-ng-model="user.passports.password"
+            />
+        </div>
+
+        <p class="help-block no-margin text-left" ng-show="loginForm.password.$touched && loginForm.password.$error.required">
             Password is required.</p>
 
 
@@ -61,19 +84,27 @@
          ng-class="{'has-error' : errors.password_confirmation}"
          data-show-errors="{ trigger: 'keypress' }"
     >
-        <label class="control-label no-margin">Password confirmation <span
-                class="text-danger text-small">*</span></label>
-        <input
-                ng-pattern="user.passports.password"
-                autocomplete="new-password" type="password" name="password_confirmation"
-                class="form-control password"
-                placeholder="Confirm your password..." required="required"
-                data-ng-model="user.password_confirmation"
-        />
+        <!--<label class="control-label no-margin">Password confirmation <span-->
+                <!--class="text-danger text-small">*</span></label>-->
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="mdi mdi-check-circle-outline"></i>
+            </span>
+            <input
+                    ng-pattern="user.passports.password"
+                    autocomplete="new-password" type="password" name="password_confirmation"
+                    class="form-control password"
+                    placeholder="Confirm password" required="required"
+                    data-ng-model="user.password_confirmation"
+            />
+        </div>
+
+
         <div ng-messages="loginForm.password_confirmation.$error"
              ng-if="loginForm.password_confirmation.$dirty && loginForm.password_confirmation.$invalid">
-            <p class="help-block no-margin" ng-message="required">Password confirmation is required</p>
-            <p class="help-block no-margin" ng-message="pattern">Password and password confirmation don't match.</p>
+            <p class="help-block no-margin text-left" ng-message="required">Password confirmation is required</p>
+            <p class="help-block no-margin text-left" ng-message="pattern">Password and password confirmation don't match.</p>
 
         </div>
         <br>
@@ -90,3 +121,4 @@
 
 
 </form>
+<p class="text-center text-small help-block">Back to <a ui-sref="auth.login">Login.</a></p>
