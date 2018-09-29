@@ -1,6 +1,7 @@
 # Changing the default user seed data
 
-Konga will populate the user table with default entries if it finds none are present. If you wish to change the default data you can supply a file with alternative values. A sample file could look like:
+If you wish to seed users on first run, you can supply a file with user data. 
+A sample file could look like:
 
 ````
 module.exports = [
@@ -27,7 +28,7 @@ module.exports = [
     ]
 ````
 
-To make Konga use this file instead of the hardcoded default users you should set the enviroment variable KONGA_SEED_USER_DATA_SOURCE_FILE to point to the files location:
+To make Konga use this file, you should set the enviroment variable KONGA_SEED_USER_DATA_SOURCE_FILE to point to the files location:
 ````
 export KONGA_SEED_USER_DATA_SOURCE_FILE=~/userdb.data 
 ````
