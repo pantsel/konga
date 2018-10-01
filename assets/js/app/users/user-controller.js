@@ -81,7 +81,9 @@
                 MessageService.success('User "' + $scope.user.username + '" deleted successfully');
                 $state.go('users');
               }
-            )
+            ).catch(err => {
+            MessageService.error(_.get(err, 'data.message', 'Failed to delete user'));
+          })
           ;
         };
 

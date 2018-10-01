@@ -8,11 +8,11 @@
 
   angular.module('frontend.users')
     .controller('UsersController', [
-      '_','$scope', '$q','$log', 'SocketHelperService',
+      '_','$scope', '$q','$log', 'SocketHelperService', 'MessageService',
         'UserService','$state','ApiService','$uibModal',
         'DialogService','UserModel','ListConfig','_items','_count',
-      function controller(_,$scope, $q,$log,SocketHelperService, UserService,
-                          $state, ApiService, $uibModal,
+      function controller(_,$scope, $q,$log,SocketHelperService, MessageService,
+                          UserService, $state, ApiService, $uibModal,
                           DialogService,UserModel,ListConfig, _items, _count ) {
 
 
@@ -100,7 +100,10 @@
                       UserModel.delete(user.id)
                           .then(function(resp){
                               $scope.items.splice($scope.items.indexOf(user),1);
-                          })
+                          }).catch(err => {
+                        console.error(err);
+                        MessageService.error(_.get(err, 'data.message', 'Failed to delete user'));
+                      })
                   },function decline(){})
           }
 

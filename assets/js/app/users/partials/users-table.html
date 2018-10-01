@@ -30,7 +30,9 @@
         <td>{{item.createdAt | date : "MMM d, y"}}</td>
         <td>{{item.updatedAt | date : "MMM d, y"}}</td>
         <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
-            <button type="button" ng-click="deleteUser($index,item)" class="btn btn-danger btn-link">
+            <button type="button" ng-click="deleteUser($index,item)"
+                    data-ng-disabled="item.id === user.id"
+                    class="btn btn-danger btn-link">
                 <i class="mdi mdi-delete"></i>
                 Delete
             </button>

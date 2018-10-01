@@ -1,6 +1,8 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
+## [0.13.1](https://github.com/pantsel/konga/releases/tag/0.13.1) - 01-10-2018
+* **[Fix]** Users cannot delete their own accounts anymore.
 
 ## [0.13.0](https://github.com/pantsel/konga/releases/tag/0.13.0) - 29-09-2018
 * Better onboarding experience on first install.
