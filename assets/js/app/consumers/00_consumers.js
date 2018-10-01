@@ -68,6 +68,10 @@
               'services@consumers.edit': {
                 templateUrl: 'js/app/consumers/services/consumer-services.html',
                 controller: 'ConsumerServicesController'
+              },
+              'routes@consumers.edit': {
+                templateUrl: 'js/app/consumers/routes/consumer-routes.html',
+                controller: 'ConsumerRoutesController'
               }
             },
             resolve: {

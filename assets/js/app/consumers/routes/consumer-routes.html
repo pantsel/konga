@@ -1,0 +1,159 @@
+
+<div class="col-md-12 bg-light-grey padding">
+    <list-search
+            class="pull-right"
+            data-filters="filters"
+            data-options="itemsPerPageOptions"
+            data-items="itemsPerPage"
+    ></list-search>
+</div>
+<!--<div class="col-md-12 padding">-->
+    <!--<p>The services this consumer can access based on ACLs.</p>-->
+<!--</div>-->
+<div class="clearfix"></div>
+<konga-loader ng-if="loading && !items.data.length"></konga-loader>
+<div class="row" ng-show="!loading || items.data.length">
+    <div class="col-md-12 padding">
+        <i class="mdi mdi-account-group text-success"></i>
+        <small>Not access controlled</small>&nbsp;&nbsp;
+        <i class="mdi mdi-security-account text-warning"></i>
+        <small>Access Controlled</small>&nbsp;&nbsp;
+        <i class="mdi mdi-security-lock text-danger"></i>
+        <small>Secured with at least one authentication mechanism</small>&nbsp;&nbsp;
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <th></th>
+                    <th width="{{item.width}}" class="text-nowrap"
+                        data-ng-repeat="item in titleItems | filter:titleFilter"
+                    >
+                        <a
+                                data-ng-show="item.column"
+                                class="clickable"
+                                data-ng-click="changeSort(item)"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></a>
+                        <span
+                                data-ng-show="!item.column"
+                                data-ng-bind-html="item.title.toUpperCase()"
+                        ></span>
+
+                        <i class="mdi"
+                           data-ng-show="sort.column == item.column"
+                           data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"
+                        ></i>
+                    </th>
+                    <th width="250" class="no-wrap">
+                        ROUTE PLUGINS
+                    </th>
+                    <th class="no-wrap">
+                        CONSUMER PLUGINS
+                    </th>
+                    <td width="1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            Route Plugins
+                        </p>
+                    </td>
+                    <td class="text-nowrap">
+                        <p class="text-muted text-small no-margin">
+                            Route Plugins targeting this consumer
+                        </p>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr
+                        dir-paginate="route in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+
+                    <td>
+
+                        <i class="mdi mdi-account-group text-success" ng-if="isOpen(route)"></i>
+                        <i class="mdi mdi-security-account text-warning" ng-if="isAccessControlled(route)"></i>
+                        <i class="mdi mdi-security-lock text-danger" ng-if="needsAuth(route)"></i>
+                    </td>
+                    <td>
+                        <strong class="no-margin">
+                            {{ route.name || "-" }}
+                        </strong>
+                    </td>
+                    <td>
+                        {{route.hosts || "-"}}
+                    </td>
+
+                    <td>
+                        {{route.service.id || "-"}}
+                    </td>
+
+                    <td>
+                        {{route.paths || "-"}}
+                    </td>
+
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getGeneralPlugins(route)">
+                                {{item.name.toUpperCase().split("-").join(" ")}}
+                            </span>
+                    </td>
+                    <td>
+                            <span class="badge badge-api-plugin"
+                                  ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                  ng-repeat="item in getConsumerPlugins(route)">
+                                <span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>
+                                <raw-view data-item="item"></raw-view>
+                                <i class="mdi mdi-18px mdi-pencil clickable"
+                                   uib-tooltip="Edit"
+                                   ng-click="onEditPlugin(item)"></i>&nbsp;
+                                <i class="mdi mdi-18px mdi-delete clickable"
+                                   uib-tooltip="Delete"
+                                   ng-click="deletePlugin(route,item)"></i>
+
+                            </span>
+                        <button class="btn btn-sm btn-link" ng-click="onAddPlugin(route)">
+                            <i class="mdi mdi-18px mdi-plus"
+                            >ADD PLUGINS</i>
+                        </button>
+                    </td>
+                    <td>
+                        <div class="btn-group" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
+                            <button id="single-button" type="button" class="btn btn-primary btn-link" uib-dropdown-toggle>
+                                MORE... <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a href><raw-view data-item="route" data-text="'Raw View'"></raw-view></a></li>
+                                <li role="menuitem">
+                                    <a ui-sref="services.read({ service_id: route.id })">
+                                        <i class="mdi mdi-pencil"></i>&nbsp;&nbsp;
+                                        Edit route
+                                    </a>
+                                </li>
+
+                                <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+                                <!--<li class="divider"></li>-->
+                                <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
+                            </ul>
+                        </div>
+                    </td>
+                    <!--<td>-->
+                    <!--<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">-->
+
+                    <!--edit-->
+                    <!--</a>-->
+                    <!--</td>-->
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+</div>
+
+
