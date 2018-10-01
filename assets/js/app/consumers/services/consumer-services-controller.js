@@ -162,6 +162,28 @@
               $scope.items = res.data;
               $scope.loading = false;
               console.log("LOADED CONSUMER SERVICES =>", $scope.items)
+              _fetchRoutes();
+
+            });
+
+        }
+
+        function _fetchRoutes() {
+          $scope.loadingRoutes = true;
+          ConsumerService.listRoutes($stateParams.id)
+            .then(function(res){
+              $scope.routes = res.data;
+              console.log("LOADED CONSUMER ROUTES =>", $scope.items)
+              $scope.loadingRoutes = false;
+              $scope.items.data.forEach(service => {
+                let routes = _.filter($scope.routes.data, route => {
+                  return route.service.id === service.id;
+                })
+
+                if(routes) {
+                  service.routes = routes;
+                }
+              })
             });
 
         }
