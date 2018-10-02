@@ -1,8 +1,11 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-## [0.13.1](https://github.com/pantsel/konga/releases/tag/0.13.1) - 01-10-2018
+## [0.14.0](https://github.com/pantsel/konga/releases/tag/0.13.1) - 01-10-2018
 * **[Fix]** Users cannot delete their own accounts anymore.
+* Fix and refactored the services & routes display on the consumers page.
+In order to determine consumer eligibility, Konga now takes into consideration
+not only acls, but assigned auth plugins as well.
 
 ## [0.13.0](https://github.com/pantsel/konga/releases/tag/0.13.0) - 29-09-2018
 * Better onboarding experience on first install.
