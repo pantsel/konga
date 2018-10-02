@@ -40,12 +40,7 @@
             id: 'services',
             name: 'Accessible Services',
             icon: 'mdi-cloud-outline'
-          },
-          {
-            id: 'routes',
-            name: 'Accessible Routes',
-            icon: 'mdi-directions-fork'
-          },
+          }
         ]
 
         if(!_.get($rootScope, 'Gateway.plugins.available_on_server.acl')) {

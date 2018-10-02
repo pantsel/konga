@@ -1,6 +1,6 @@
-var _ = require('lodash');
-var Kong = require("../services/KongService");
-var async = require("async");
+const _ = require('lodash');
+const Kong = require("../services/KongService");
+const async = require("async");
 
 var KongConsumersController = {
 
@@ -78,9 +78,24 @@ var KongConsumersController = {
 
   },
 
-  services : (req,res) => {
+  services : async (req,res) => {
 
     var consumerId = req.param("id");
+
+    let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
+    let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
+    let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
+    let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
+    let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
+
+    let consumerAuths = []
+    if(jwts.total) consumerAuths.push('jwt');
+    if(keyAuths.total) consumerAuths.push('key-auth');
+    if(hmacAuths.total) consumerAuths.push('hmac-auth');
+    if(oauth2.total) consumerAuths.push('oauth2');
+    if(basicAuths.total) consumerAuths.push('basic-auth');
+
+    sails.log("consumerAuths", consumerAuths)
 
     // Fetch all acls of the specified consumer
     Kong.listAllCb(req,'/consumers/' + consumerId + '/acls', function (err,_acls) {
@@ -105,7 +120,7 @@ var KongConsumersController = {
           service.consumer_id = consumerId;
 
           servicePluginsFns.push(function(cb){
-            return Kong.listAllCb(req,'/services/' + service.id + '/plugins',cb);
+            return Kong.listAllCb(req,'/services/' + service.id + '/plugins?enabled=true',cb);
           });
         });
 
@@ -127,24 +142,34 @@ var KongConsumersController = {
 
             // Add plugins to their respective service
             services[index].plugins = plugins;
+
+            let authenticationPlugins = _.filter(plugins.data, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+            authenticationPlugins = _.map(authenticationPlugins, item => item.name);
+            sails.log("authenticationPlugins",authenticationPlugins);
+            services[index].auths = authenticationPlugins;
           });
 
 
           // Gather apis with no access control restrictions whatsoever
-          var open =  _.filter(services,function (service) {
-            return !service.acl;
+          let open =  _.filter(services,function (service) {
+            return !service.acl && !service.auths.length;
           })
+
+          // Gather services with auths matching at least on consumer credential
+          let matchingAuths = _.filter(services,function (service) {
+            return _.intersection(service.auths, consumerAuths).length > 0;
+          });
 
 
           // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
-          var whitelisted = _.filter(services,function (service) {
+          let whitelisted = _.filter(services,function (service) {
             return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
           });
 
 
           return res.json({
-            total : open.length + whitelisted.length,
-            data  : open.concat(whitelisted)
+            total : open.length + whitelisted.length + matchingAuths.length,
+            data  : open.concat(whitelisted).concat(matchingAuths)
           });
         });
       });
