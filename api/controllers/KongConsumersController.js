@@ -166,10 +166,11 @@ var KongConsumersController = {
             return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
           });
 
+          let eligible = _.intersection(matchingAuths, whitelisted);
 
           return res.json({
-            total : open.length + whitelisted.length + matchingAuths.length,
-            data  : open.concat(whitelisted).concat(matchingAuths)
+            total : open.length + eligible.length,
+            data  : open.concat(eligible)
           });
         });
       });
@@ -264,10 +265,11 @@ var KongConsumersController = {
             return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
           });
 
+          let eligible = _.intersection(matchingAuths, whitelisted);
 
           return res.json({
-            total : open.length + whitelisted.length + matchingAuths.length,
-            data  : open.concat(whitelisted).concat(matchingAuths)
+            total : open.length + eligible.length,
+            data  : open.concat(eligible)
           });
         });
       });
