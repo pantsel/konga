@@ -63,8 +63,8 @@
         }
 
 
-        function onAddPlugin(service) {
-          var modalInstance = $uibModal.open({
+        function onAddPlugin(data, context) {
+          let modalInstance = $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -79,8 +79,8 @@
                     data: $scope.consumer
                   },
                   {
-                    name: "service",
-                    data: service
+                    name: context || "service",
+                    data: data
                   },
                 ]
               },

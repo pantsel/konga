@@ -13,14 +13,14 @@
 <konga-loader ng-if="loading && !items.data.length"></konga-loader>
 
 <div class="row" ng-show="!loading || items.data.length">
-    <div class="col-md-12 padding">
-        <i class="mdi mdi-account-group text-success"></i>
-        <small>Not access controlled</small>&nbsp;&nbsp;
-        <i class="mdi mdi-security-account text-warning"></i>
-        <small>Access Controlled</small>&nbsp;&nbsp;
-        <i class="mdi mdi-security-lock text-danger"></i>
-        <small>Secured with at least one authentication mechanism</small>&nbsp;&nbsp;
-    </div>
+    <!--<div class="col-md-12 padding">-->
+        <!--<i class="mdi mdi-account-group text-success"></i>-->
+        <!--<small>Not access controlled</small>&nbsp;&nbsp;-->
+        <!--<i class="mdi mdi-security-account text-warning"></i>-->
+        <!--<small>Access Controlled</small>&nbsp;&nbsp;-->
+        <!--<i class="mdi mdi-security-lock text-danger"></i>-->
+        <!--<small>Secured with at least one authentication mechanism</small>&nbsp;&nbsp;-->
+    <!--</div>-->
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-hover table-striped">
@@ -35,11 +35,11 @@
                     <td width="1">
                         <h5 class="no-margin-bottom">{{item.name}}</h5>
                         <p class="help-block">{{item.host}}</p>
-                        <p>
-                            <i class="mdi mdi-account-group text-success" ng-if="isOpen(item)"></i>
-                            <i class="mdi mdi-security-account text-warning" ng-if="isAccessControlled(item)"></i>
-                            <i class="mdi mdi-security-lock text-danger" ng-if="needsAuth(item)"></i>
-                        </p>
+                        <!--<p>-->
+                            <!--<i class="mdi mdi-account-group text-success" ng-if="isOpen(item)"></i>-->
+                            <!--<i class="mdi mdi-security-account text-warning" ng-if="isAccessControlled(item)"></i>-->
+                            <!--<i class="mdi mdi-security-lock text-danger" ng-if="needsAuth(item)"></i>-->
+                        <!--</p>-->
                         <div class="btn-group" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">
                             <button type="button" class="btn btn-primary btn-sm btn-block btn-flat" uib-dropdown-toggle>
                                 MORE... <span class="caret"></span>
@@ -73,7 +73,6 @@
                             <span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>
 
                         </div>
-
                         <div class="badge badge-api-plugin"
                              ng-class="{'badge-success badge-inverse' : _item.enabled}"
                              ng-repeat="_item in getConsumerPlugins(item)">
@@ -103,8 +102,6 @@
                                             Delete
                                         </a>
                                     </li>
-                                    <!--<li class="divider"></li>-->
-                                    <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
                                 </ul>
                             </div>
 
@@ -121,18 +118,101 @@
                         Routes &nbsp;<i class="mdi mdi-arrow-right"></i>
                     </td>
                     <td width="600">
-                        <table class="table table-condensed" ng-if="item.routes && item.routes.length">
-                            <tr>
-                                <th>Name</th>
-                                <th>Hosts</th>
-                                <th>Paths</th>
-                                <th>Methods</th>
-                            </tr>
+                        <table class="table table-condensed table-hover" ng-if="item.routes && item.routes.length">
                             <tr ng-repeat="route in item.routes">
-                                <td>{{route.name || "-"}}</td>
-                                <td>{{route.hosts ? route.hosts.join(", ") : "-"}}</td>
-                                <td>{{route.paths ? route.paths.join(", ") : "-"}}</td>
-                                <td>{{route.methods ? route.methods.join(", ") : "-"}}</td>
+                                <td>
+                                    <h4 ng-if="route.name">
+                                        {{route.name}}
+                                    </h4>
+                                    <p ng-if="route.hosts" class="text-small help-block">
+                                        {{route.hosts.join(", ")}}
+                                    </p>
+                                    <p ng-if="route.paths" class="text-small">
+                                        <span class="badge" ng-repeat="paths in route.paths">
+                                            {{paths}}
+                                        </span>
+
+                                    </p>
+                                    <p ng-if="route.methods" class="text-small text-danger">
+                                        {{route.methods.join(", ")}}
+                                    </p>
+
+                                </td>
+                                <td width="1" class="no-wrap text-small">
+                                    Plugins &nbsp;<i class="mdi mdi-arrow-right"></i>
+                                </td>
+                                <td>
+                                    <div class="badge badge-api-plugin"
+                                         ng-class="{'badge-success badge-inverse' : item.enabled}"
+                                         ng-repeat="item in getGeneralPlugins(route)">
+                                        <i class="mdi mdi-cloud-outline" uib-tooltip="Service plugin"></i>
+                                        <span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>
+
+                                    </div>
+                                    <div class="badge badge-api-plugin"
+                                         ng-class="{'badge-success badge-inverse' : _item.enabled}"
+                                         ng-repeat="_item in getConsumerPlugins(route)">
+                                        <i class="mdi mdi-account-box-outline text-danger"
+                                           uib-tooltip="Consumer specific plugin"></i>
+                                        <span class="text">{{_item.name.toUpperCase().split("-").join(" ")}}</span>
+
+                                        <div class="btn-group" uib-dropdown is-open="_item.isopen" dropdown-append-to-body="true">
+                                            <i class="mdi mdi-dots-vertical clickable" uib-dropdown-toggle></i>
+                                            <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu"
+                                                aria-labelledby="single-button">
+                                                <li role="menuitem">
+                                                    <a href>
+                                                        <raw-view data-item="_item" data-text="'Raw view'"></raw-view>
+                                                    </a>
+                                                </li>
+                                                <li role="menuitem">
+                                                    <a href ng-click="onEditPlugin(_item)">
+                                                        <i class="mdi mdi-18px mdi-pencil clickable"></i>&nbsp;&nbsp;
+                                                        Edit
+                                                    </a>
+                                                </li>
+
+                                                <li role="menuitem">
+                                                    <a href ng-click="deletePlugin(route,_item)">
+                                                        <i class="mdi mdi-18px mdi-delete clickable"></i>&nbsp;
+                                                        Delete
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                    <button class="btn btn-sm btn-link"
+                                            uib-tooltip="Add a service plugin that only targets this consumer"
+                                            ng-click="onAddPlugin(route, 'route')">
+                                        <i class="mdi mdi-18px mdi-plus"
+                                        >ADD PLUGIN</i>
+                                    </button>
+                                </td>
+                                <td width="1">
+                                    <div class="btn-group" uib-dropdown is-open="route.isopen" dropdown-append-to-body="true">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block btn-flat" uib-dropdown-toggle>
+                                            MORE... <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu"
+                                            aria-labelledby="single-button">
+                                            <li role="menuitem"><a href>
+                                                <raw-view data-item="route" data-text="'Raw View'"></raw-view>
+                                            </a></li>
+                                            <li role="menuitem">
+                                                <a ui-sref="routes.read({ route_id: route.id })">
+                                                    <i class="mdi mdi-pencil"></i>&nbsp;&nbsp;
+                                                    Edit Route
+                                                </a>
+                                            </li>
+
+                                            <!--<li role="menuitem"><a href="#">Something else here</a></li>-->
+                                            <!--<li class="divider"></li>-->
+                                            <!--<li role="menuitem"><a href="#">Separated link</a></li>-->
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                         <p class="help-block">
@@ -149,144 +229,3 @@
         <dir-pagination-controls class="pull-right"></dir-pagination-controls>
     </div>
 </div>
-
-<!--<div class="row" ng-show="!loading || items.data.length">-->
-<!--<div class="col-md-12 padding">-->
-<!--<i class="mdi mdi-account-group text-success"></i>-->
-<!--<small>Not access controlled</small>&nbsp;&nbsp;-->
-<!--<i class="mdi mdi-security-account text-warning"></i>-->
-<!--<small>Access Controlled</small>&nbsp;&nbsp;-->
-<!--<i class="mdi mdi-security-lock text-danger"></i>-->
-<!--<small>Secured with at least one authentication mechanism</small>&nbsp;&nbsp;-->
-<!--</div>-->
-<!--<div class="col-md-12">-->
-<!--<div class="table-responsive">-->
-<!--<table class="table table-hover">-->
-<!--<tr>-->
-<!--<th></th>-->
-<!--<th width="{{item.width}}" class="text-nowrap"-->
-<!--data-ng-repeat="item in titleItems | filter:titleFilter"-->
-<!--&gt;-->
-<!--<a-->
-<!--data-ng-show="item.column"-->
-<!--class="clickable"-->
-<!--data-ng-click="changeSort(item)"-->
-<!--data-ng-bind-html="item.title.toUpperCase()"-->
-<!--&gt;</a>-->
-<!--<span-->
-<!--data-ng-show="!item.column"-->
-<!--data-ng-bind-html="item.title.toUpperCase()"-->
-<!--&gt;</span>-->
-
-<!--<i class="mdi"-->
-<!--data-ng-show="sort.column == item.column"-->
-<!--data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}"-->
-<!--&gt;</i>-->
-<!--</th>-->
-<!--<th width="250" class="no-wrap">-->
-<!--SERVICE PLUGINS-->
-<!--</th>-->
-<!--<th class="no-wrap">-->
-<!--CONSUMER PLUGINS-->
-
-<!--</th>-->
-<!--<td width="1"></td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td></td>-->
-<!--<td class="text-nowrap">-->
-<!--<p class="text-muted text-small no-margin">-->
-<!--Service Plugins-->
-<!--</p>-->
-<!--</td>-->
-<!--<td class="text-nowrap">-->
-<!--<p class="text-muted text-small no-margin">-->
-<!--Service Plugins targeting this consumer-->
-<!--</p>-->
-<!--</td>-->
-<!--<td></td>-->
-<!--</tr>-->
-<!--<tr-->
-<!--dir-paginate="service in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">-->
-
-<!--<td>-->
-
-<!--<i class="mdi mdi-account-group text-success" ng-if="isOpen(service)"></i>-->
-<!--<i class="mdi mdi-security-account text-warning" ng-if="isAccessControlled(service)"></i>-->
-<!--<i class="mdi mdi-security-lock text-danger" ng-if="needsAuth(service)"></i>-->
-<!--</td>-->
-<!--<td>-->
-<!--<strong class="no-margin">-->
-<!--{{ service.name || "-" }}-->
-<!--</strong>-->
-<!--</td>-->
-<!--<td>-->
-<!--{{service.host || "-"}}-->
-<!--</td>-->
-
-<!--<td>-->
-<!--<span class="badge badge-api-plugin"-->
-<!--ng-class="{'badge-success badge-inverse' : item.enabled}"-->
-<!--ng-repeat="item in getGeneralPlugins(service)">-->
-<!--{{item.name.toUpperCase().split("-").join(" ")}}-->
-<!--</span>-->
-<!--</td>-->
-<!--<td>-->
-<!--<span class="badge badge-api-plugin"-->
-<!--ng-class="{'badge-success badge-inverse' : item.enabled}"-->
-<!--ng-repeat="item in getConsumerPlugins(service)">-->
-<!--<span class="text">{{item.name.toUpperCase().split("-").join(" ")}}</span>-->
-<!--<raw-view data-item="item"></raw-view>-->
-<!--<i class="mdi mdi-18px mdi-pencil clickable"-->
-<!--uib-tooltip="Edit"-->
-<!--ng-click="onEditPlugin(item)"></i>&nbsp;-->
-<!--<i class="mdi mdi-18px mdi-delete clickable"-->
-<!--uib-tooltip="Delete"-->
-<!--ng-click="deletePlugin(service,item)"></i>-->
-
-<!--</span>-->
-<!--<button class="btn btn-sm btn-link" ng-click="onAddPlugin(service)">-->
-<!--<i class="mdi mdi-18px mdi-plus"-->
-<!--&gt;ADD PLUGINS</i>-->
-<!--</button>-->
-<!--</td>-->
-<!--<td>-->
-<!--<div class="btn-group" uib-dropdown is-open="status.isopen" dropdown-append-to-body="true">-->
-<!--<button id="single-button" type="button" class="btn btn-primary btn-link"-->
-<!--uib-dropdown-toggle>-->
-<!--MORE... <span class="caret"></span>-->
-<!--</button>-->
-<!--<ul class="dropdown-menu animated fadeInUpShort go" uib-dropdown-menu role="menu"-->
-<!--aria-labelledby="single-button">-->
-<!--<li role="menuitem"><a href>-->
-<!--<raw-view data-item="service" data-text="'Raw View'"></raw-view>-->
-<!--</a></li>-->
-<!--<li role="menuitem">-->
-<!--<a ui-sref="services.read({ service_id: service.id })">-->
-<!--<i class="mdi mdi-pencil"></i>&nbsp;&nbsp;-->
-<!--Edit Service-->
-<!--</a>-->
-<!--</li>-->
-
-<!--&lt;!&ndash;<li role="menuitem"><a href="#">Something else here</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
-<!--&lt;!&ndash;<li role="menuitem"><a href="#">Separated link</a></li>&ndash;&gt;-->
-<!--</ul>-->
-<!--</div>-->
-<!--</td>-->
-<!--&lt;!&ndash;<td>&ndash;&gt;-->
-<!--&lt;!&ndash;<a ui-sref="apis.edit({ api_id: api.id })" class="btn btn-default btn-link">&ndash;&gt;-->
-
-<!--&lt;!&ndash;edit&ndash;&gt;-->
-<!--&lt;!&ndash;</a>&ndash;&gt;-->
-<!--&lt;!&ndash;</td>&ndash;&gt;-->
-<!--</tr>-->
-<!--</table>-->
-<!--</div>-->
-<!--<dir-pagination-controls class="pull-right"></dir-pagination-controls>-->
-<!--</div>-->
-<!--</div>-->
-
-

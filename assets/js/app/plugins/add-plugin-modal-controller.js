@@ -9,11 +9,11 @@
   angular.module('frontend.apis')
     .controller('AddPluginModalController', [
       '_', '$scope', '$rootScope', '$log',
-      '$state', 'ApiService', 'ConsumerService', 'ServiceService', 'MessageService', 'DialogService', 'Semver',
+      '$state', 'ApiService', 'ConsumerService', 'ServiceService', 'RoutesService','MessageService', 'DialogService', 'Semver',
       'KongPluginsService', 'PluginsService', '$uibModal', '$uibModalInstance',
       '_context',
       function controller(_, $scope, $rootScope, $log,
-                          $state, ApiService, ConsumerService, ServiceService, MessageService, DialogService, Semver,
+                          $state, ApiService, ConsumerService, ServiceService, RoutesService, MessageService, DialogService, Semver,
                           KongPluginsService, PluginsService, $uibModal, $uibModalInstance,
                           _context) {
 
@@ -188,7 +188,7 @@
           }
 
           if ($scope.route) {
-            RouteService.listPlugins($scope.route.id)
+            RoutesService.plugins($scope.route.id)
               .then(function (response) {
                 $scope.existingPlugins = response.data.data.map(function (item) {
                   return item.name;
