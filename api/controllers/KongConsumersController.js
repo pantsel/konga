@@ -102,7 +102,7 @@ var KongConsumersController = {
       if(err) return res.negotiate(err);
 
       // Make an array of group names
-      var consumerGroups = _.map(_acls.data,function(item){
+      let consumerGroups = _.map(_acls.data,function(item){
         return item.group;
       });
 
@@ -110,9 +110,9 @@ var KongConsumersController = {
       Kong.listAllCb(req,'/services',function (err,data) {
         if(err) return res.negotiate(err);
 
-        var services = data.data;
+        let services = data.data;
 
-        var servicePluginsFns = [];
+        let servicePluginsFns = [];
 
         // Prepare service objects
         services.forEach(function(service){
@@ -132,7 +132,7 @@ var KongConsumersController = {
           data.forEach(function(plugins,index){
 
             // Separate acl plugins in an acl property
-            var acl = _.find(plugins.data,function(item){
+            let acl = _.find(plugins.data,function(item){
               return item.name === "acl" && item.enabled === true;
             });
 
@@ -200,7 +200,7 @@ var KongConsumersController = {
       if(err) return res.negotiate(err);
 
       // Make an array of group names
-      var consumerGroups = _.map(_acls.data,function(item){
+      let consumerGroups = _.map(_acls.data,function(item){
         return item.group;
       });
 
@@ -208,9 +208,9 @@ var KongConsumersController = {
       Kong.listAllCb(req,'/routes',function (err,data) {
         if(err) return res.negotiate(err);
 
-        var routes = data.data;
+        let routes = data.data;
 
-        var routePluginsFns = [];
+        let routePluginsFns = [];
 
         // Prepare service objects
         routes.forEach(function(route){
