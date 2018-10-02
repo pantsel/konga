@@ -117,23 +117,23 @@
                     <td width="1" class="no-wrap text-small">
                         Routes &nbsp;<i class="mdi mdi-arrow-right"></i>
                     </td>
-                    <td width="600">
-                        <table class="table table-condensed table-hover" ng-if="item.routes && item.routes.length">
+                    <td width="600" class="no-margin no-padding">
+                        <table class="table table-condensed no-margin" ng-if="item.routes && item.routes.length">
                             <tr ng-repeat="route in item.routes">
                                 <td>
                                     <h4 ng-if="route.name">
                                         {{route.name}}
                                     </h4>
-                                    <p ng-if="route.hosts" class="text-small help-block">
+                                    <p ng-if="route.hosts" class="text-small help-block no-margin">
                                         {{route.hosts.join(", ")}}
                                     </p>
-                                    <p ng-if="route.paths" class="text-small">
+                                    <p ng-if="route.paths" class="text-small no-margin">
                                         <span class="badge" ng-repeat="paths in route.paths">
                                             {{paths}}
                                         </span>
 
                                     </p>
-                                    <p ng-if="route.methods" class="text-small text-danger">
+                                    <p ng-if="route.methods" class="text-small text-danger no-margin">
                                         {{route.methods.join(", ")}}
                                     </p>
 
@@ -184,7 +184,7 @@
 
                                     </div>
                                     <button class="btn btn-sm btn-link"
-                                            uib-tooltip="Add a service plugin that only targets this consumer"
+                                            uib-tooltip="Add a route plugin that only targets this consumer"
                                             ng-click="onAddPlugin(route, 'route')">
                                         <i class="mdi mdi-18px mdi-plus"
                                         >ADD PLUGIN</i>
@@ -215,7 +215,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <p class="help-block">
+                        <p class="help-block no-margin">
                             <span ng-if="!loadingRoutes && !item.routes.length">The service has no routes or they're not accessible by this consumer</span>
                             <span ng-if="loadingRoutes">
                                 <i class="mdi mdi-loading mdi-spin text-primary"></i>&nbsp;

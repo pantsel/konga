@@ -38,7 +38,7 @@
           },
           {
             id: 'services',
-            name: 'Accessible Services',
+            name: 'Accessible Services & Routes',
             icon: 'mdi-cloud-outline'
           }
         ]

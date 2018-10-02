@@ -177,8 +177,23 @@ var KongConsumersController = {
 
   },
 
-  routes : (req,res) => {
+  routes : async (req,res) => {
     var consumerId = req.param("id");
+
+    let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
+    let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
+    let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
+    let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
+    let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
+
+    let consumerAuths = []
+    if(jwts.total) consumerAuths.push('jwt');
+    if(keyAuths.total) consumerAuths.push('key-auth');
+    if(hmacAuths.total) consumerAuths.push('hmac-auth');
+    if(oauth2.total) consumerAuths.push('oauth2');
+    if(basicAuths.total) consumerAuths.push('basic-auth');
+
+    sails.log("consumerAuths", consumerAuths)
 
     // Fetch all acls of the specified consumer
     Kong.listAllCb(req,'/consumers/' + consumerId + '/acls', function (err,_acls) {
@@ -225,24 +240,34 @@ var KongConsumersController = {
 
             // Add plugins to their respective service
             routes[index].plugins = plugins;
+
+            let authenticationPlugins = _.filter(plugins.data, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+            authenticationPlugins = _.map(authenticationPlugins, item => item.name);
+            sails.log("authenticationPlugins",authenticationPlugins);
+            routes[index].auths = authenticationPlugins;
           });
 
 
           // Gather apis with no access control restrictions whatsoever
-          var open =  _.filter(routes,function (route) {
-            return !route.acl;
+          let open =  _.filter(routes,function (route) {
+            return !route.acl && !route.auths.length;
           })
+
+          // Gather services with auths matching at least on consumer credential
+          let matchingAuths = _.filter(routes,function (route) {
+            return _.intersection(route.auths, consumerAuths).length > 0;
+          });
 
 
           // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
-          var whitelisted = _.filter(routes,function (route) {
+          let whitelisted = _.filter(routes,function (route) {
             return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
           });
 
 
           return res.json({
-            total : open.length + whitelisted.length,
-            data  : open.concat(whitelisted)
+            total : open.length + whitelisted.length + matchingAuths.length,
+            data  : open.concat(whitelisted).concat(matchingAuths)
           });
         });
       });
