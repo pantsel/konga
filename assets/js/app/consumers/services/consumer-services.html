@@ -128,15 +128,11 @@
                                         {{route.hosts.join(", ")}}
                                     </p>
                                     <p ng-if="route.paths" class="text-small no-margin">
-                                        <span class="badge" ng-repeat="paths in route.paths">
-                                            {{paths}}
-                                        </span>
-
+                                        {{route.paths.join(", ")}}
                                     </p>
                                     <p ng-if="route.methods" class="text-small text-danger no-margin">
                                         {{route.methods.join(", ")}}
                                     </p>
-
                                 </td>
                                 <td width="1" class="no-wrap text-small">
                                     Plugins &nbsp;<i class="mdi mdi-arrow-right"></i>

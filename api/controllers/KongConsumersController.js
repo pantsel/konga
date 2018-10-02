@@ -166,7 +166,7 @@ var KongConsumersController = {
             return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
           });
 
-          let eligible = _.intersection(matchingAuths, whitelisted);
+          let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
 
           return res.json({
             total : open.length + eligible.length,
@@ -179,8 +179,7 @@ var KongConsumersController = {
   },
 
   routes : async (req,res) => {
-    var consumerId = req.param("id");
-
+    let consumerId = req.param("id");
     let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
     let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
     let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
@@ -265,7 +264,7 @@ var KongConsumersController = {
             return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
           });
 
-          let eligible = _.intersection(matchingAuths, whitelisted);
+          let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
 
           return res.json({
             total : open.length + eligible.length,
