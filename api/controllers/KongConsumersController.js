@@ -83,11 +83,11 @@ var KongConsumersController = {
     var consumerId = req.param("id");
 
     try {
-      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
+      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
+      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
+      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
+      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
+      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
 
       let consumerAuths = []
       if(jwts.total) consumerAuths.push('jwt');
@@ -99,7 +99,7 @@ var KongConsumersController = {
       sails.log("consumerAuths", consumerAuths)
 
       // Fetch all acls of the specified consumer
-      let _acls = await Kong.fetch(`/consumers/${consumerId}/acls?size=${sails.config.blueprints.defaultLimit}`, req);
+      let _acls = await Kong.fetch(`/consumers/${consumerId}/acls`, req);
 
       // Make an array of group names
       let consumerGroups = _.map(_acls.data,function(item){
@@ -107,7 +107,7 @@ var KongConsumersController = {
       });
 
       // Fetch all services
-      let data = await Kong.fetch(`/services?size=${sails.config.blueprints.defaultLimit}`, req);
+      let data = await Kong.fetch(`/services`, req);
 
       let services = data.data;
 
@@ -182,11 +182,11 @@ var KongConsumersController = {
     let consumerId = req.param("id");
 
     try {
-      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
-      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}&size=${sails.config.blueprints.defaultLimit}`, req);
+      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
+      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
+      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
+      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
+      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
 
       let consumerAuths = []
       if(jwts.total) consumerAuths.push('jwt');
@@ -198,7 +198,7 @@ var KongConsumersController = {
       sails.log("consumerAuths", consumerAuths)
 
       // Fetch all acls of the specified consumer
-      let _acls = await Kong.fetch(`/consumers/${consumerId}/acls?size=${sails.config.blueprints.defaultLimit}`, req);
+      let _acls = await Kong.fetch(`/consumers/${consumerId}/acls`, req);
 
 
       // Make an array of group names
@@ -207,7 +207,7 @@ var KongConsumersController = {
       });
 
       // Fetch all routes
-      let data = await Kong.fetch(`/routes?size=${sails.config.blueprints.defaultLimit}`, req)
+      let data = await Kong.fetch(`/routes`, req)
 
       let routes = data.data;
 

@@ -24,7 +24,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     sails.log("KongRoutesController:consumers called");
 
-    let plugins = await KongService.fetch(`/routes/${routeId}/plugins?enabled=true&size=${sails.config.blueprints.defaultLimit}`, req);
+    let plugins = await KongService.fetch(`/routes/${routeId}/plugins?enabled=true`, req);
 
     if(plugins.total == 0) return res.json([]);
 
@@ -57,7 +57,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("blackListedGroups",blackListedGroups)
 
     // We need to retrieve all acls and filter the accessible ones based on the whitelisted and blacklisted groups
-    let acls = await KongService.fetch(`/acls?size=${sails.config.blueprints.defaultLimit}`, req);
+    let acls = await KongService.fetch(`/acls`, req);
 
     sails.log("acls",acls);
 
@@ -85,11 +85,11 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     let jwts, keyAuths, hmacAuths, oauth2, basicAuths
 
-    if(jwtPlugin) jwts = await KongService.fetch(`/jwts?size=${sails.config.blueprints.defaultLimit}`, req);
-    if(keyAuthPlugin) keyAuths = await KongService.fetch(`/key-auths?size=${sails.config.blueprints.defaultLimit}`, req);
-    if(hmacAuthPlugin) hmacAuths = await KongService.fetch(`/hmac-auths?size=${sails.config.blueprints.defaultLimit}`, req);
-    if(oauth2Plugin) oauth2 = await KongService.fetch(`/oauth2?size=${sails.config.blueprints.defaultLimit}`, req);
-    if(basicAuthPlugin) basicAuths = await KongService.fetch(`/basic-auths?size=${sails.config.blueprints.defaultLimit}`, req);
+    if(jwtPlugin) jwts = await KongService.fetch(`/jwts`, req);
+    if(keyAuthPlugin) keyAuths = await KongService.fetch(`/key-auths`, req);
+    if(hmacAuthPlugin) hmacAuths = await KongService.fetch(`/hmac-auths`, req);
+    if(oauth2Plugin) oauth2 = await KongService.fetch(`/oauth2`, req);
+    if(basicAuthPlugin) basicAuths = await KongService.fetch(`/basic-auths`, req);
 
     sails.log("jwts",jwts)
     sails.log("keyAuths",keyAuths)

@@ -88,7 +88,8 @@ var KongService = {
 
   fetch: (endpoint,req) => {
     return new Promise((resolve, reject) => {
-      unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint)
+      let sizeQs = (endpoint.indexOf("?") > -1 ? "&" : "?") + `size=${sails.config.blueprints.defaultLimit}`;
+      unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint + sizeQs)
         .headers(KongService.headers(req, true))
         .end(function (response) {
           if (response.error) return reject(response)
