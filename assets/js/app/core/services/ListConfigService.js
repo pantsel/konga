@@ -17,7 +17,7 @@
         /**
          * List title item configuration.
          */
-        var titleItems = {
+        let titleItems = {
           service: [
             {
               title: 'name',
@@ -632,12 +632,15 @@
           ],
         };
 
+        let defaultLimit = 1000;
+
         return {
+          defaultLimit: defaultLimit,
           getConfig: function getConfig(property, model) {
             return {
               itemCount: 0,
               items: [],
-              itemsFetchSize: 4294967295,
+              itemsFetchSize: defaultLimit,
               itemsPerPage: 25,
               titleItems: this.getTitleItems(property),
               itemsPerPageOptions: [10, 25, 50, 100],

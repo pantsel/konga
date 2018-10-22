@@ -29,9 +29,9 @@
                 controller: 'RoutesController',
                 resolve:{
                   _services: [
-                    'ServiceModel', function resolve(ServiceModel) {
+                    'ServiceModel', 'ListConfig', function resolve(ServiceModel, ListConfig) {
                       return ServiceModel.load({
-                        size : 4294967295
+                        size : ListConfig.defaultLimit
                       })
                     }
                   ]
