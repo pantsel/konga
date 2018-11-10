@@ -40,11 +40,13 @@
             <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
         </td>
         <td>
-            <i class="mdi mdi-toggle-switch text-success clickable"
+            <i class="mdi mdi-toggle-switch text-success"
+               ng-class="{'clickable': user.hasPermission('plugins','edit')}"
                ng-show="item.enabled"
                ng-click="user.hasPermission('plugins','edit') && togglePlugin(item)"
                uib-tooltip="Enabled"></i>
-            <i class="mdi mdi-toggle-switch-off text-muted clickable"
+            <i class="mdi mdi-toggle-switch-off text-muted"
+               ng-class="{'clickable': user.hasPermission('plugins','edit')}"
                ng-show="!item.enabled"
                ng-click="user.hasPermission('plugins','edit') && togglePlugin(item)"
                uib-tooltip="Disabled"></i>
