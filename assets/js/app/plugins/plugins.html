@@ -28,7 +28,7 @@
             <table class="table table-hover table-striped">
                 <tr>
                     <th width="1"></th>
-                    <th width="1" ng-if="user.hasPermission($state.name.split('.')[0],'update')"></th>
+                    <th width="1"></th>
                     <th width="1"></th>
                     <th width="{{item.width}}" class="text-nowrap"
                         data-ng-repeat="item in titleItems | filter:titleFilter"
@@ -56,15 +56,17 @@
                     <td>
                         <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
                     </td>
-                    <td ng-if="user.hasPermission($state.name.split('.')[0],'update')">
+                    <td>
 
-                        <i class="mdi mdi-toggle-switch text-success clickable"
+                        <i class="mdi mdi-toggle-switch text-success"
+                           ng-class="{'clickable': user.hasPermission($state.name.split('.')[0],'update')}"
                            ng-show="item.enabled"
-                           ng-click="togglePlugin(item)"
+                           ng-click="user.hasPermission($state.name.split('.')[0],'update') && togglePlugin(item)"
                            uib-tooltip="Enabled"></i>
-                        <i class="mdi mdi-toggle-switch-off text-muted clickable"
+                        <i class="mdi mdi-toggle-switch-off text-muted"
+                           ng-class="{'clickable': user.hasPermission($state.name.split('.')[0],'update')}"
                            ng-show="!item.enabled"
-                           ng-click="togglePlugin(item)"
+                           ng-click="user.hasPermission($state.name.split('.')[0],'update') && togglePlugin(item)"
                            uib-tooltip="Disabled"></i>
                     </td>
                     <td>
