@@ -49,7 +49,7 @@ module.exports.models = {
         var self = this;
         var modelName = self.adapter.identity.charAt(0).toUpperCase() + self.adapter.identity.slice(1);
         if (!self.seedData) {
-            sails.log.debug('No data avaliable to seed ' + modelName);
+            sails.log.debug('No data available to seed ' + modelName);
             callback();
             return;
         }
