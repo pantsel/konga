@@ -69,6 +69,10 @@
             return $http.post('kong/consumers/' + consumerId + '/' + credential, data)
           },
 
+          updateCredential: function (consumerId, credential, credential_id, data) {
+            return $http.put('kong/consumers/' + consumerId + '/' + credential + '/' + credential_id, data)
+          },
+
           loadCredentials: function (consumerId, credential) {
             return $http.get('kong/consumers/' + consumerId + '/' + credential)
           },
