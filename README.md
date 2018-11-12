@@ -208,7 +208,7 @@ $ docker run -p 1337:1337
               --network {{kong-network}} \ // optional
               -e "TOKEN_SECRET={{somerandomstring}}" \
               -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
-              -e "DB_URI=full-conection-uri" \
+              -e "DB_URI=full-connection-uri" \
               -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
               --name konga \
               pantsel/konga
