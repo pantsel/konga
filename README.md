@@ -182,7 +182,7 @@ argument  | description | default
 -u     | full database connection url | -
 
 ```
-$ docker run --rm pantsel/konga:next -c prepare -a {{adapter}} -u {{connection-uri}}
+$ docker run --rm pantsel/konga:latest -c prepare -a {{adapter}} -u {{connection-uri}}
 ```
 
 
