@@ -87,13 +87,21 @@ var KongService = {
 
   fetch: (endpoint,req) => {
     return new Promise((resolve, reject) => {
-      let sizeQs = (endpoint.indexOf("?") > -1 ? "&" : "?") + `size=${sails.config.blueprints.defaultLimit}`;
-      unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint + sizeQs)
-        .headers(KongService.headers(req, true))
-        .end(function (response) {
-          if (response.error) return reject(response)
-          return resolve(response.body)
-        });
+      KongService.listAllCb(req, endpoint, (err, data) => {
+        if(err) {
+          return reject(err)
+        }
+        return resolve(data)
+      })
+
+
+      // let sizeQs = (endpoint.indexOf("?") > -1 ? "&" : "?") + `size=${sails.config.blueprints.defaultLimit}`;
+      // unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint + sizeQs)
+      //   .headers(KongService.headers(req, true))
+      //   .end(function (response) {
+      //     if (response.error) return reject(response)
+      //     return resolve(response.body)
+      //   });
     })
 
   },
