@@ -29,7 +29,16 @@
         //var pluginOptions = new KongPluginsService().pluginOptions()
         var options = new KongPluginsService().pluginOptions(_pluginName)
 
-        $scope.schema = _schema.data
+
+        var sch = _schema.data;
+        $scope.schema = {
+          fields: {}
+        };
+        sch.fields.forEach(item => {
+          $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
+        })
+
+        // $scope.schema = _schema.data
         $scope.pluginName = _pluginName
         console.log("Schema", $scope.schema)
         //$log.debug("Options", options)
@@ -47,7 +56,6 @@
         function initialize() {
           // Initialize plugin fields data
           $scope.data = _.merge(options.fields, $scope.schema)
-
 
           // Define general modal window content
           $scope.description = $scope.data.meta ? $scope.data.meta.description
