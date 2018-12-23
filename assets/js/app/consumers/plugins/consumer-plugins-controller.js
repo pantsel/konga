@@ -8,8 +8,8 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerPluginsController', [
-      '_', '$scope', '$stateParams', '$log', '$state', '$uibModal', 'ConsumerService', 'PluginsService', 'MessageService', 'DialogService',
-      function controller(_, $scope, $stateParams, $log, $state, $uibModal, ConsumerService, PluginsService, MessageService, DialogService) {
+      '_', '$scope', '$stateParams', '$log', '$state', '$http', 'BackendConfig', '$uibModal', 'ConsumerService', 'PluginsService', 'MessageService', 'DialogService',
+      function controller(_, $scope, $stateParams, $log, $state, $http, BackendConfig, $uibModal, ConsumerService, PluginsService, MessageService, DialogService) {
 
 
         $scope.onAddPlugin = onAddPlugin;
@@ -18,6 +18,7 @@
         $scope.updatePlugin = updatePlugin;
         $scope.togglePlugin = togglePlugin;
         $scope.getContext   = getContext;
+        $scope.loadEntity  = loadEntity;
         $scope.search = '';
 
 
@@ -30,6 +31,17 @@
         function togglePlugin(plugin) {
           plugin.enabled = !plugin.enabled;
           updatePlugin(plugin);
+        }
+
+        function loadEntity(item, entity, id) {
+          item.loading = true;
+          $http.get(BackendConfig.url + `kong/${entity}s/${id}`)
+            .then(result => {
+              // item.loading = false;
+              item[entity] = result.data;
+            }).catch(err => {
+            item.loading = false;
+          })
         }
 
         function onAddPlugin() {
@@ -92,7 +104,6 @@
           });
         }
 
-
         function deletePlugin(plugin) {
           DialogService.prompt(
             "Delete Plugin", "Really want to delete the plugin?",
@@ -126,7 +137,6 @@
             }
           });
         }
-
 
         function fetchPlugins() {
           ConsumerService.listPlugins($stateParams.id)
