@@ -40,9 +40,17 @@
                             var path = prefix ? prefix + "." + key : key;
                             if (fields[key].value instanceof Array && pluginName !== 'statsd') {
                                 // Transform to comma separated string
-                                data['config.' + path] = fields[key].value.join(",");
+                                // data['config.' + path] = fields[key].value.join(",");
+                                if(!data.config) data.config = {};
+                                if(fields[key].value) {
+                                    data.config[path] = fields[key].value.join(",");
+                                }
                             } else {
-                                data['config.' + path] = fields[key].value;
+                                // data['config.' + path] = fields[key].value;
+                                if(!data.config) data.config = {};
+                                if(fields[key].value) {
+                                    data.config[path] = fields[key].value;
+                                }
                             }
                         }
                     });

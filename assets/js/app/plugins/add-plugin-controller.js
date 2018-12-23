@@ -138,6 +138,11 @@
             if (!request_data[key]) delete request_data[key]
           })
 
+          // Delete unset config fields
+          Object.keys(request_data.config).forEach(function (key) {
+            if (!request_data.config[key]) delete request_data.config[key]
+          })
+
           console.log("REQUEST DATA =>", request_data)
 
 
