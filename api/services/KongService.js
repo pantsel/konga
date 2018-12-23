@@ -127,11 +127,10 @@ var KongService = {
           if (response.error) return cb(response)
           var data = previousData.concat(response.body.data);
           if (response.body.next) {
-            getData(data, response.body.next);
+            getData(data, (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + response.body.next);
           }
           else {
             response.body.data = data;
-
             ProxyHooks.afterEntityList(endpoint.replace('/', ''), req, response.body, (err, finalData) => {
               if (err) return cb(err);
               return cb(null, finalData)
