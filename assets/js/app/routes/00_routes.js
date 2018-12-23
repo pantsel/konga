@@ -31,7 +31,7 @@
                   _services: [
                     'ServiceModel', function resolve(ServiceModel) {
                       return ServiceModel.load({
-                        size : 1000
+                        size : 4294967295
                       })
                     }
                   ]

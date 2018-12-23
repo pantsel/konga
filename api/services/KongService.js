@@ -4,6 +4,7 @@ var unirest = require("unirest")
 var ApiHealthCheckService = require('../services/ApiHealthCheckService')
 var JWT = require("./Token");
 var Utils = require('../helpers/utils');
+var ProxyHooks = require('../services/KongProxyHooks');
 
 
 var KongService = {
@@ -75,7 +76,6 @@ var KongService = {
       });
   },
 
-
   retrieve: function (req, res) {
     unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + req.url.replace('/kong', ''))
       .headers(KongService.headers(req, true))
@@ -84,7 +84,6 @@ var KongService = {
         return res.json(response.body);
       });
   },
-
 
   fetch: (endpoint,req) => {
     return new Promise((resolve, reject) => {
@@ -109,7 +108,6 @@ var KongService = {
       });
   },
 
-
   nodeInfo: function (node, cb) {
     unirest.get(Utils.withoutTrailingSlash(node.kong_admin_url))
       .headers(KongService.headers(node, true))
@@ -120,6 +118,8 @@ var KongService = {
   },
 
   listAllCb: function (req, endpoint, cb) {
+    var url = (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + endpoint;
+    sails.log.debug('KongService: listAllCb', url);
     var getData = function (previousData, url) {
       unirest.get(url)
         .headers(KongService.headers(req, true))
@@ -131,13 +131,16 @@ var KongService = {
           }
           else {
             response.body.data = data;
-            return cb(null, response.body)
+
+            ProxyHooks.afterEntityList(endpoint.replace('/', ''), req, response.body, (err, finalData) => {
+              if (err) return cb(err);
+              return cb(null, finalData)
+            })
           }
         });
     };
-    getData([], (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + endpoint);
+    getData([], url);
   },
-
 
   list: function (req, res) {
     var getData = function (previousData, url) {
