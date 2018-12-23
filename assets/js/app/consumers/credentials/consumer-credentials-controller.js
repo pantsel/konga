@@ -72,7 +72,7 @@
         $scope.updateConsumerDetails = updateConsumerDetails
         $scope.createApiKey = createApiKey
         $scope.createJWT = createJWT
-        $scope.createBasicAuthCredentials = createBasicAuthCredentials
+        $scope.manageBasicAuth = manageBasicAuth
         $scope.createOAuth2 = createOAuth2
         $scope.createHMAC = createHMAC
         $scope.deleteKey = deleteKey
@@ -200,17 +200,20 @@
         }
 
 
-        function createBasicAuthCredentials() {
+        function manageBasicAuth(cred) {
           $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: 'js/app/consumers/credentials/create-basic-auth-modal.html',
-            controller: 'CreateBasicAuthController',
+            templateUrl: 'js/app/consumers/credentials/manage-basic-auth-modal.html',
+            controller: 'ManageBasicAuthController',
             controllerAs: '$ctrl',
             resolve: {
               _consumer: function () {
                 return $scope.consumer
+              },
+              _cred: function () {
+                return cred
               }
             }
           });
