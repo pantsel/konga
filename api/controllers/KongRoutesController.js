@@ -26,6 +26,13 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     let plugins = await KongService.fetch(`/routes/${routeId}/plugins?enabled=true`, req);
 
+    // Make sure only the enabled plugins are listed.
+    // Kong 1.x API stopped honoring the query string parameters for some reason,
+    // so ?enabled=true, makes no difference whatsoever.
+    // Putting this monkey patch here with the plan to remove it if Kong starts accepting query strings again.
+    plugins.data = _.filter(plugins.data, plugin => plugin.enabled);
+    plugins.total = plugins.data.length;
+
     if(plugins.total == 0) return res.json([]);
 
     sails.log("Route plugins =>", plugins);
@@ -68,7 +75,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("filteredAcls", filteredAcls);
 
     // Gather the consumer ids of the filtered groups
-    aclConsumerIds = _.map(filteredAcls, item => item.consumer_id);
+    aclConsumerIds = _.map(filteredAcls, item => item.consumer.id);
     sails.log("aclConsumerIds", aclConsumerIds);
 
     // If the route is access controlled and no aclConsumerIds are found,
@@ -98,11 +105,11 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.log("basicAuths",basicAuths)
 
 
-    let jwtConsumerIds = jwts ? _.map(jwts.data, item => item.consumer_id) : [];
-    let keyAuthConsumerIds = keyAuths ? _.map(keyAuths.data, item => item.consumer_id) : [];
-    let hmacAuthConsumerIds = hmacAuths ? _.map(hmacAuths.data, item => item.consumer_id) : [];
-    let oauth2ConsumerIds = oauth2 ? _.map(oauth2.data, item => item.consumer_id) : [];
-    let basicAuthConsumerIds = basicAuths ? _.map(basicAuths.data, item => item.consumer_id) : [];
+    let jwtConsumerIds = jwts ? _.map(jwts.data, item => item.consumer.id) : [];
+    let keyAuthConsumerIds = keyAuths ? _.map(keyAuths.data, item => item.consumer.id) : [];
+    let hmacAuthConsumerIds = hmacAuths ? _.map(hmacAuths.data, item => item.consumer.id) : [];
+    let oauth2ConsumerIds = oauth2 ? _.map(oauth2.data, item => item.consumer.id) : [];
+    let basicAuthConsumerIds = basicAuths ? _.map(basicAuths.data, item => item.consumer.id) : [];
 
     sails.log("jwtConsumerIds",jwtConsumerIds)
     sails.log("keyAuthConsumerIds",keyAuthConsumerIds)
@@ -143,19 +150,19 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
       eligibleConsumers.forEach(consumer => {
         let plugins = [];
-        if(keyAuths && _.filter(keyAuths.data,item => item.consumer_id === consumer.id).length) {
+        if(keyAuths && _.filter(keyAuths.data,item => item.consumer.id === consumer.id).length) {
           plugins.push('key-auth')
         }
-        if(jwts && _.filter(jwts.data,item => item.consumer_id === consumer.id).length) {
+        if(jwts && _.filter(jwts.data,item => item.consumer.id === consumer.id).length) {
           plugins.push('jwt')
         }
-        if(hmacAuths && _.filter(hmacAuths.data,item => item.consumer_id === consumer.id).length) {
+        if(hmacAuths && _.filter(hmacAuths.data,item => item.consumer.id === consumer.id).length) {
           plugins.push('hmac-auth')
         }
-        if(oauth2 && _.filter(oauth2.data,item => item.consumer_id === consumer.id).length) {
+        if(oauth2 && _.filter(oauth2.data,item => item.consumer.id === consumer.id).length) {
           plugins.push('oauth2')
         }
-        if(basicAuths && _.filter(basicAuths.data,item => item.consumer_id === consumer.id).length) {
+        if(basicAuths && _.filter(basicAuths.data,item => item.consumer.id === consumer.id).length) {
           plugins.push('basic-auth')
         }
         consumer.plugins = plugins;
