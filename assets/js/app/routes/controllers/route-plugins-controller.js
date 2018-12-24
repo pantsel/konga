@@ -112,7 +112,7 @@
 
         function fetchPlugins() {
           $scope.loading = true;
-          PluginsService.load({route_id: $stateParams.route_id})
+          RoutesService.plugins($stateParams.route_id)
             .then(function (res) {
               $scope.plugins = res.data
               $scope.loading = false;
@@ -120,6 +120,7 @@
             $scope.loading = false;
             console.error(error);
           })
+
         }
 
         fetchPlugins();
