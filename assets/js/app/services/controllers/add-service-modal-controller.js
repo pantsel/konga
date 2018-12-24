@@ -38,20 +38,21 @@
               $uibModalInstance.dismiss()
             }).catch(function (err) {
             $log.error("Create new service error:", err)
-            MessageService.error("Submission failed. Make sure you have completed all required fields.")
             $scope.errors = {}
-            if (err.data && err.data.body) {
-              if (err.data.body.fields) {
-                Object.keys(err.data.body.fields).forEach(function (key) {
-                  $scope.errors[key] = err.data.body.fields[key]
-                })
-              }else{
-                Object.keys(err.data.body).forEach(function (key) {
-                  $scope.errors[key] = err.data.body[key]
-                })
-              }
+            const errorBody = _.get(err, 'data.body');
+            if (errorBody) {
+              if (errorBody.fields) {
 
+                for (let key in errorBody.fields) {
+                  $scope.errors[key] = errorBody.fields[key]
+                }
+              }
+              $scope.errorMessage = errorBody.message || '';
+            } else {
+              $scope.errorMessage = "An unknown error has occured"
             }
+
+            MessageService.error($scope.errorMessage || "Submission failed. Make sure you have completed all required fields.")
           })
         }
 

@@ -10,6 +10,9 @@
 
 <div class="modal-body" id="modal-body">
     <form class="form-horizontal">
+        <div ng-if="errorMessage" class="alert alert-danger">
+            {{errorMessage}}
+        </div>
         <div data-ng-include="partial"></div>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">

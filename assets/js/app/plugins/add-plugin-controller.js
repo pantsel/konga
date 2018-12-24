@@ -168,22 +168,24 @@
             }, function (err) {
               $scope.busy = false;
               $log.error("create plugin", err)
-              var errors = {}
 
-              if (err.data.customMessage) {
-                Object.keys(err.data.customMessage).forEach(function (key) {
-                  errors[key.replace('config.', '')] = err.data.customMessage[key]
-                  MessageService.error(key + " : " + err.data.customMessage[key])
-                })
+              $scope.errors = {};
+              const errorBody = _.get(err, 'data.body');
+              if (errorBody) {
+                if (errorBody.fields) {
+
+                  for (let key in errorBody.fields) {
+                    $scope.errors[key] = errorBody.fields[key]
+                  }
+                }
+                $scope.errorMessage = errorBody.message || '';
+              } else {
+                $scope.errorMessage = "An unknown error has occured"
               }
 
-              if (err.data.body) {
-                Object.keys(err.data.body).forEach(function (key) {
-                  errors[key] = err.data.body[key]
-                  MessageService.error(key + " : " + err.data.body[key])
-                })
-              }
-              $scope.errors = errors
+              MessageService.error($scope.errorMessage);
+
+
             }, function evt(event) {
               // Only used for ssl plugin certs upload
               var progressPercentage = parseInt(100.0 * event.loaded / event.total);

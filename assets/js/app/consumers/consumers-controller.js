@@ -59,21 +59,11 @@
                     $state.go('consumers.edit',{id:res.data.id});
                   }).catch(function (err) {
                   $log.error("Failed to create consumer", err)
-
-                  handleErrors(err);
+                  ConsumerModel.handleError($scope, err);
 
                 });
               }
 
-              function handleErrors(err) {
-                $scope.errors = {}
-                if (err.data) {
-
-                  for (var key in err.data.body) {
-                    $scope.errors[key] = err.data.body[key]
-                  }
-                }
-              }
 
               function close() {
                 $uibModalInstance.dismiss()

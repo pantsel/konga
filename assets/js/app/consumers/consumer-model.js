@@ -6,29 +6,28 @@
      */
     angular.module('frontend.consumers')
         .service('ConsumerModel', [
-            'DataModel','DataService','$q','$log',
-            function(DataModel,DataService,$q,$log) {
+            'DataModel','MessageService','$q','$log',
+            function(DataModel,MessageService,$q,$log) {
 
                 var model = new DataModel('kong/consumers',true);
 
 
                 model.handleError = function($scope,err) {
                     $scope.errors = {}
-                    if(err.data){
+                    const errorBody = _.get(err, 'data.body');
+                    if (errorBody) {
+                        if (errorBody.fields) {
 
-                        for(var key in err.data.invalidAttributes){
-                            $scope.errors[key] = err.data.invalidAttributes[key][0].message
+                            for (let key in errorBody.fields) {
+                                $scope.errors[key] = errorBody.fields[key]
+                            }
                         }
-
-                        // Passport errors
-                        if(err.data.raw && err.data.raw.length) {
-                            err.data.raw.forEach(function(raw){
-                                for(var key in raw.err.invalidAttributes){
-                                    $scope.errors[key] = raw.err.invalidAttributes[key][0].message
-                                }
-                            })
-                        }
+                        $scope.errorMessage = errorBody.message || '';
+                    } else {
+                        $scope.errorMessage = "An unknown error has occured"
                     }
+
+                    MessageService.error($scope.errorMessage);
                 }
 
                 return model;

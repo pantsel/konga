@@ -36,6 +36,7 @@
           clearRoute()
 
           console.log("Route =>", $scope.route);
+          $scope.errorMessage = '';
 
           RoutesService.add($scope.route)
             .then(function (res) {
@@ -46,17 +47,19 @@
             $log.error("Create new route error:", err)
             MessageService.error("Submission failed. " + _.get(err,'data.body.message',""));
             $scope.errors = {}
-            if (err.data && err.data.body) {
-              if(err.data.fields) {
-                Object.keys(err.data.body.fields).forEach(function (key) {
-                  $scope.errors[key] = err.data.body.fields[key]
-                })
-              }else{
-                Object.keys(err.data.body).forEach(function (key) {
-                  $scope.errors[key] = err.data.body[key]
-                })
+            const errorBody = _.get(err, 'data.body');
+            if (errorBody) {
+              if (errorBody.fields) {
+
+                for (let key in errorBody.fields) {
+                  $scope.errors[key] = errorBody.fields[key]
+                }
               }
+              $scope.errorMessage = errorBody.message || '';
+            } else {
+              $scope.errorMessage = "An unknown error has occured"
             }
+
           })
         }
 
