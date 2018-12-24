@@ -26,6 +26,7 @@
 
                 $scope.create = function() {
                     $scope.busy = true;
+                    console.log("Creating connection", angular.copy($scope.node))
                     NodeModel
                         .create(angular.copy($scope.node))
                         .then(
@@ -36,7 +37,9 @@
                                 $uibModalInstance.dismiss();
                             },function(err){
                                 $scope.busy = false
+                                console.error(err);
                                 NodeModel.handleError($scope,err);
+                                MessageService.error(_.get(err, 'data.message', 'Something went wrong...'))
                             }
                         )
                     ;
