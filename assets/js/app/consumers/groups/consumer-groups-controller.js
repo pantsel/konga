@@ -8,22 +8,16 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerGroupsController', [
-      '_', '$scope', '$log', '$state', 'ConsumerService','$stateParams',
+      '_', '$scope', '$log', '$state', 'ConsumerService','$stateParams', 'ACLModel', 'ListConfig',
       'MessageService', 'DialogService', '$uibModal',
-      function controller(_, $scope, $log, $state, ConsumerService,$stateParams,
+      function controller(_, $scope, $log, $state, ConsumerService,$stateParams, ACLModel, ListConfig,
                           MessageService, DialogService, $uibModal) {
 
+        ACLModel.setScope($scope, false, 'items', 'itemCount');
+        $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('consumerACLs',ACLModel)));
         $scope.addGroup = addGroup
         $scope.deleteGroup = deleteConsumerGroup
-
-
-        ConsumerService.fetchAcls($stateParams.id)
-          .then(function(response){
-            $scope.acls = response.data.data;
-          }).catch(function (err) {
-
-        })
-
+        
         function addGroup(consumer) {
           $uibModal.open({
             animation: true,
@@ -41,7 +35,7 @@
 
                 function createGroup() {
                   ConsumerService.addAcl(_consumer.id, $scope.acl).then(function (data) {
-                    fetcAcls()
+                    fetchData()
                     close()
                   }).catch(function (err) {
                     $log.error(err)
@@ -71,7 +65,7 @@
             function accept() {
               ConsumerService.deleteAcl($scope.consumer.id, group.id)
                 .then(function (data) {
-                  fetcAcls()
+                  fetchData()
                 })
 
             }, function decline() {
@@ -79,12 +73,15 @@
 
         }
 
-        function fetcAcls() {
+        function fetchData() {
           ConsumerService.fetchAcls($scope.consumer.id)
             .then(function (res) {
-              $scope.acls = res.data.data;
+              $scope.items = res.data;
+              console.log('ACLS =>', $scope.items);
             })
         }
+
+        fetchData();
       }
     ])
 }());

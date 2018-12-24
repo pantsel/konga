@@ -121,15 +121,17 @@
               sortable: true,
               inSearch: true,
               inTitle: true
-            },
-            // {
-            //     title: 'upstream url',
-            //     column: 'upstream_url',
-            //     searchable: true,
-            //     sortable: true,
-            //     inSearch: true,
-            //     inTitle: true
-            // }
+            }
+          ],
+          consumerACLs: [
+            {
+              title: 'group',
+              column: 'group',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            }
           ],
           consumerService: [
             {

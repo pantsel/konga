@@ -138,7 +138,6 @@
               });
           }
 
-
           function deletePlugin(api,plugin) {
               DialogService.prompt(
                   "Delete Plugin","Really want to delete the plugin?",

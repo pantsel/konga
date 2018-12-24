@@ -1,33 +1,48 @@
-
-<div class="row">
-    <div class="col-md-3" data-ng-repeat="acl in acls">
-        <div
-                class="panel panel-default panel-flat elipsize" style="background: #fff">
-            <i
-                    data-ng-click="deleteGroup(acl)"
-                    class="mdi mdi-close clickable pull-right margin-top margin-right"></i>
-            <div class="panel-body elipsize">
+<div ng-if="items && items.data">
+    <div class="col-md-12 bg-light-grey padding margin-bottom">
+        <list-search
+                class="pull-right"
+                data-filters="filters"
+                data-options="itemsPerPageOptions"
+                data-items="itemsPerPage"
+        ></list-search>
+    </div>
+    <div class="row">
+        <div class="col-md-3" dir-paginate="acl in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
+            <div
+                    class="panel panel-default panel-flat elipsize" style="background: #fff">
+                <i
+                        data-ng-click="deleteGroup(acl)"
+                        class="mdi mdi-close clickable pull-right margin-top margin-right"></i>
+                <div class="panel-body elipsize">
                         <span class=" no-wrap ">
                             <i class="mdi mdi-account-multiple-outline"></i>
                             <strong>{{acl.group}}</strong>
 
                         </span>
+                </div>
+
             </div>
 
         </div>
-
-    </div>
-    <div class="col-md-3">
-        <div
-                data-ng-click="addGroup(consumer)"
-                class="panel panel-dashed panel-flat clickable">
-            <div class="panel-body elipsize">
+        <div class="col-md-3">
+            <div
+                    data-ng-click="addGroup(consumer)"
+                    class="panel panel-dashed panel-flat clickable">
+                <div class="panel-body elipsize">
                         <span class=" no-wrap">
                             <i class="mdi mdi-plus"></i>
                             Add a group
                         </span>
 
+                </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+        </div>
+    </div>
 </div>
+
