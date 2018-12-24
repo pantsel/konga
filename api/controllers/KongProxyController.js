@@ -94,19 +94,22 @@ var self = module.exports = {
   },
 
 
-
-  listAllEntityRecords: (req, res) => {
+  /**
+   * All GET methods to Kong will be using this methods
+   * starting from Kong 1.x due to Kong's limitations on listing size
+   * @param req
+   * @param res
+   */
+  listProxy: (req, res) => {
     req.url = req.url.replace('/kong', ''); // Remove the /kong prefix
-    var entity = req.params.entity;
+    const entity = req.params.entity;
 
     sails.log.debug("KongProxyController:listAllEntityRecords:req.method", req.method)
     sails.log.debug("KongProxyController:listAllEntityRecords:req.url", req.url)
     sails.log.debug("KongProxyController:listAllEntityRecords:entity", entity)
 
-    KongService.listAllCb(req, `/${entity}`, (err, data) => {
-      if(err) {
-        return res.negotiate(err);
-      }
+    KongService.listAllCb(req, req.url, (err, data) => {
+      if(err) return res.negotiate(err);
       return res.json(data);
     })
   },

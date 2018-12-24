@@ -136,7 +136,8 @@ module.exports.routes = {
    * Fix Kong 1.x Listing routes
    */
 
-  'GET /kong/:entity': 'KongProxyController.listAllEntityRecords',
+  // 'GET /kong/:entity': 'KongProxyController.listProxy',
+  // 'GET /kong/:entity/:id/:child_entity': 'KongProxyController.listProxy',
 
 
   /**
@@ -144,7 +145,7 @@ module.exports.routes = {
    */
 
   'GET /kong': 'KongProxyController.proxy',
-  'GET /kong/*': 'KongProxyController.proxy',
+  'GET /kong/*': 'KongProxyController.listProxy',
   'POST /kong/*': 'KongProxyController.proxy',
   'PUT /kong/*': 'KongProxyController.proxy',
   'PATCH /kong/*': 'KongProxyController.proxy',
