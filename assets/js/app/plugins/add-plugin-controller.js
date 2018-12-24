@@ -103,26 +103,36 @@
 
           // Add api_id to request_data if defined
           if ($scope.api) {
-            request_data.api_id = $scope.api.id;
+            request_data.api = {
+              id: $scope.api.id
+            };
           }
 
           // Add service_id to request_data if defined
           if ($scope.service) {
-            request_data.service_id = $scope.service.id;
+            request_data.service = {
+              id: $scope.service.id
+            };
           }
 
           // Add route_id to request_data if defined
           if ($scope.route) {
-            request_data.route_id = $scope.route.id;
+            request_data.route = {
+              id: $scope.route.id
+            };
           }
 
           // If a consumer is defined, add consumer_id to request data
           if ($scope.consumer) {
-            request_data.consumer_id = $scope.consumer.id;
+            request_data.consumer = {
+              id: $scope.consumer.id
+            };
           }
 
           if ($scope.data.consumer_id) { // Overwrite consumer if explicitly set
-            request_data.consumer_id = $scope.data.consumer_id;
+            request_data.consumer = {
+              id: $scope.data.consumer_id
+            };
           }
 
           // Apply monkey patches to request data if needed
