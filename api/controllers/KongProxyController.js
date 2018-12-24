@@ -93,6 +93,24 @@ var self = module.exports = {
 
   },
 
+
+
+  listAllEntityRecords: (req, res) => {
+    req.url = req.url.replace('/kong', ''); // Remove the /kong prefix
+    var entity = req.params.entity;
+
+    sails.log.debug("KongProxyController:listAllEntityRecords:req.method", req.method)
+    sails.log.debug("KongProxyController:listAllEntityRecords:req.url", req.url)
+    sails.log.debug("KongProxyController:listAllEntityRecords:entity", entity)
+
+    KongService.listAllCb(req, `/${entity}`, (err, data) => {
+      if(err) {
+        return res.negotiate(err);
+      }
+      return res.json(data);
+    })
+  },
+
   /**
    * Actually send the request to Kong
    * @param entity

@@ -16,7 +16,16 @@
                           KongPluginsService, $uibModalInstance, PluginsService, _plugin, _schema) {
 
         $scope.plugin = _plugin;
-        $scope.schema = _schema.data;
+
+        var sch = _schema.data;
+        $scope.schema = {
+          fields: {}
+        };
+        sch.fields.forEach(item => {
+          $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
+        })
+
+        // $scope.schema = _schema.data;
         $scope.context = 'update';
         console.log("Plugin", $scope.plugin);
         $log.debug("Schema", $scope.schema);
