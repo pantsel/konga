@@ -50,10 +50,11 @@
                         <option value="consumer">consumer</option>
                         <option value="ip">ip</option>
                         <option value="header">header</option>
+                        <option value="cookie">cookie</option>
                     </select>
                     <div class="text-danger" ng-if="errors.hash_on" data-ng-bind="errors.hash_on"></div>
                     <p class="help-block">
-                        What to use as hashing input: <code>none</code>, <code>consumer</code>, <code>ip</code>, or <code>header</code> (defaults to <code>none</code> resulting in a weighted-round-robin scheme).
+                        What to use as hashing input: <code>none</code>, <code>consumer</code>, <code>ip</code>, <code>header</code> or <code>cookie</code> (defaults to <code>none</code> resulting in a weighted-round-robin scheme).
                     </p>
                 </div>
             </div>
