@@ -75,16 +75,16 @@
                     <th><a href ng-click="onEditPlugin(item)">{{item.name}}</a></th>
                     <td>{{::getContext(item)}}</td>
                     <td>
-                        <a data-ng-if="item.api_id" data-ui-sref="apis.edit({api_id:item.api_id})">{{item.api_id}}</a>
-                        <a data-ng-if="item.service_id" data-ui-sref="services.read({service_id:item.service_id})">{{item.service_id}}</a>
-                        <a data-ng-if="item.route_id" data-ui-sref="routes.read({route_id:item.route_id})">{{item.route_id}}</a>
-                        <span data-ng-if="!item.api_id && !item.service_id && !item.route_id" > All Entrypoints </span>
+                        <a data-ng-if="item.api" data-ui-sref="apis.edit({api_id:item.api.id})">{{item.api.id}}</a>
+                        <a data-ng-if="item.service" data-ui-sref="services.read({service_id:item.service.id})">{{item.service.id}}</a>
+                        <a data-ng-if="item.route" data-ui-sref="routes.read({route_id:item.route.id})">{{item.route.id}}</a>
+                        <span data-ng-if="!item.api && !item.service && !item.route" > All Entrypoints </span>
                     </td>
                     <td>
-                        <a data-ng-if="item.consumer_id" data-ui-sref="consumers.edit({id:item.consumer_id})">{{item.consumer_id}}</a>
-                        <span data-ng-if="!item.consumer_id" >All consumers</span>
+                        <a data-ng-if="item.consumer" data-ui-sref="consumers.edit({id:item.consumer.id})">{{item.consumer.id}}</a>
+                        <span data-ng-if="!item.consumer" >All consumers</span>
                     </td>
-                    <td>{{item.created_at | date : format : timezone}}</td>
+                    <td>{{item.created_at * 1000 | date : format : timezone}}</td>
 
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
                         <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
