@@ -22,58 +22,64 @@
     </div>
     <dir-pagination-controls class="pull-right"></dir-pagination-controls>
 </div>
-<table class="table">
-    <tr>
-        <th width="1"></th>
-        <th>Hosts</th>
-        <th>Paths</th>
-        <th>Protocols</th>
-        <th>Methods</th>
-        <th>Regex priority</th>
-        <th>Created</th>
-        <th width="1" ng-if="canEdit"></th>
-        <th width="1" ng-if="canDelete"></th>
-    </tr>
-    <tr
-            dir-paginate="item in routes.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
-        <!--<td>-->
-            <!--&lt;!&ndash;<img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">&ndash;&gt;-->
-        <!--</td>-->
-        <td>
-            <raw-view data-item="item"></raw-view>
-        </td>
-        <td>
-            <a href  data-ui-sref="routes.read({route_id:item.id})">
-                {{item.hosts.join(", ") || "-"}}
-            </a>
-        </td>
-        <td>
-            {{item.paths.join(", ") || "-"}}
-        </td>
-        <td>
-            {{item.protocols.join(", ") || "-"}}
-        </td>
-        <td>
-            {{item.methods.join(", ") || "-"}}
-        </td>
-        <td>{{item.regex_priority}}</td>
-        <td>{{item.created_at*1000 | date : format : timezone}}</td>
-        <td ng-if="canEdit">
-            <a class="clickable btn btn-link btn-warning" data-ui-sref="routes.read({route_id:item.id})">
-                <i class="mdi mdi-pencil"></i>
-                edit
-            </a>
-        </td>
-        <td ng-if="canDelete">
-            <button class="btn btn-link btn-danger" ng-click="deleteRoute(item)">
-                <i class="mdi mdi-delete"></i>
-                delete
-            </button>
-        </td>
-    </tr>
-    <tr data-ng-if="routes.data.length === 0">
-        <td colspan="100%" class="text-center text-muted">
-            <em>no data found...</em>
-        </td>
-    </tr>
-</table>
+<div class="clearfix"></div>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th width="1"></th>
+            <th>Name / ID</th>
+            <th>Hosts</th>
+            <th>Paths</th>
+            <th>Protocols</th>
+            <th>Methods</th>
+            <th>Regex priority</th>
+            <th>Created</th>
+            <th width="1" ng-if="canEdit"></th>
+            <th width="1" ng-if="canDelete"></th>
+        </tr>
+        <tr
+                dir-paginate="item in routes.data | orderBy:'created_at':true | itemsPerPage: 25 | filter : search">
+            <td>
+                <raw-view data-item="item"></raw-view>
+            </td>
+            <td>
+                <a href  data-ui-sref="routes.read({route_id:item.id})" class="no-wrap">
+                    {{item.name || item.id}}
+                </a>
+            </td>
+            <td>
+                <a href  data-ui-sref="routes.read({route_id:item.id})">
+                    {{item.hosts.join(", ") || "-"}}
+                </a>
+            </td>
+            <td>
+                {{item.paths.join(", ") || "-"}}
+            </td>
+            <td>
+                {{item.protocols.join(", ") || "-"}}
+            </td>
+            <td>
+                {{item.methods.join(", ") || "-"}}
+            </td>
+            <td>{{item.regex_priority}}</td>
+            <td>{{item.created_at*1000 | date : format : timezone}}</td>
+            <td ng-if="canEdit">
+                <a class="clickable btn btn-link btn-warning" data-ui-sref="routes.read({route_id:item.id})">
+                    <i class="mdi mdi-pencil"></i>
+                    edit
+                </a>
+            </td>
+            <td ng-if="canDelete">
+                <button class="btn btn-link btn-danger" ng-click="deleteRoute(item)">
+                    <i class="mdi mdi-delete"></i>
+                    delete
+                </button>
+            </td>
+        </tr>
+        <tr data-ng-if="routes.data.length === 0">
+            <td colspan="100%" class="text-center text-muted">
+                <em>no data found...</em>
+            </td>
+        </tr>
+    </table>
+</div>

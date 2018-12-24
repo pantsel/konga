@@ -35,6 +35,7 @@
 
           clearRoute()
 
+          console.log("Route =>", $scope.route);
 
           RoutesService.add($scope.route)
             .then(function (res) {

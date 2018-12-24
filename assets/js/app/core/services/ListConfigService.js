@@ -51,7 +51,7 @@
           ],
           route: [
             {
-              title: 'id',
+              title: 'name / id',
               column: 'id',
               width: 100,
               searchable: true,

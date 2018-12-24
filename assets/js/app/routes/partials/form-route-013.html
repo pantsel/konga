@@ -4,6 +4,16 @@
         <small>* For hosts, paths, methods and protocols, press enter to apply every value you type</small>
     </div>
 </div>
+<div class="form-group" ng-class="{'has-error' : errors.name}">
+    <label class="col-sm-3 control-label">Name <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-9">
+        <input ng-model="route.name" class="form-control">
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+        <p class="help-block">
+            The name of the Route.
+        </p>
+    </div>
+</div>
 <div class="form-group" ng-class="{'has-error' : errors.hosts}">
     <label class="col-sm-3 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-9">
@@ -107,7 +117,7 @@
         </p>
     </div>
 </div>
-<div class="form-group" ng-class="{'has-error' : errors.uris}">
+<div class="form-group" ng-class="{'has-error' : errors.protocols}">
     <label class="col-sm-3 control-label">Protocols <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-9">
         <chips ng-model="route.protocols">
@@ -126,3 +136,61 @@
         </p>
     </div>
 </div>
+
+<!--
+<div class="form-group" ng-class="{'has-error' : errors.snis}">
+    <label class="col-sm-3 control-label">SNIs <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
+        <chips ng-model="route.snis">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input chip-control/>
+        </chips>
+        <p class="help-block">
+            A list of SNIs that match this Route when using stream routing.
+            When using <code>tcp</code> or <code>tls</code> protocols, at least one of <code>snis</code>, <code>sources</code>, or <code>destinations</code> must be set.
+        </p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.sources}">
+    <label class="col-sm-3 control-label">Sources <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
+        <chips ng-model="route.sources">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input chip-control/>
+        </chips>
+        <p class="help-block">
+            A list of IP sources of incoming connections that match this Route when using stream routing.
+            Each entry is an object with fields “ip” (optionally in CIDR range notation) and/or “port”.
+            When using <code>tcp</code> or <code>tls</code> protocols, at least one of <code>snis</code>, <code>sources</code>, or <code>destinations</code> must be set.
+        </p>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.destinations}">
+    <label class="col-sm-3 control-label">Destinations <br><em><small class="help-block">semi-optional</small></em></label>
+    <div class="col-sm-9">
+        <chips ng-model="route.destinations">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input chip-control/>
+        </chips>
+        <p class="help-block">
+            A list of IP destinations of incoming connections that match this Route when using stream routing. Each entry is an object with fields “ip” (optionally in CIDR range notation) and/or “port”.
+            When using <code>tcp</code> or <code>tls</code> protocols, at least one of <code>snis</code>, <code>sources</code>, or <code>destinations</code> must be set.
+        </p>
+    </div>
+</div>
+-->

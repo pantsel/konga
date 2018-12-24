@@ -24,8 +24,13 @@
           if(!$scope.route.paths) $scope.route.paths = [];
           if(!$scope.route.methods) $scope.route.methods = [];
           if(!$scope.route.protocols) $scope.route.protocols = [];
+          // if(!$scope.route.snis) $scope.route.snis = [];
+          // if(!$scope.route.sources) $scope.route.sources = [];
+          // if(!$scope.route.destinations) $scope.route.destinations = [];
 
-          RoutesService.update($scope.route.id, _.omit($scope.route,["id"]))
+          console.log("Submitting route", $scope.route);
+
+          RoutesService.update($scope.route.id, _.omit($scope.route,["id", "data"]))
             .then(function (res) {
               $log.debug("Update Route: ", res)
               $scope.loading = false
