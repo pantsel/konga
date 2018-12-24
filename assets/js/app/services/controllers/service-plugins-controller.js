@@ -87,7 +87,6 @@
           })
         }
 
-
         function deletePlugin(plugin) {
           DialogService.prompt(
             "Delete Plugin", "Really want to delete the plugin?",
@@ -124,7 +123,7 @@
 
         function fetchPlugins() {
           $scope.loading = true;
-          PluginsService.load({service_id: $stateParams.service_id})
+          ServiceService.plugins($stateParams.service_id)
             .then(function (response) {
               $scope.plugins = response.data
               console.log("Plugins", $scope.plugins);
@@ -133,7 +132,6 @@
             console.error(error);
             $scope.loading = false;
           })
-
         }
 
 
