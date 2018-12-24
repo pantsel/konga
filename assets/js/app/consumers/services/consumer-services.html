@@ -121,9 +121,9 @@
                         <table class="table table-condensed no-margin" ng-if="item.routes && item.routes.length">
                             <tr ng-repeat="route in item.routes">
                                 <td>
-                                    <h4 ng-if="route.name">
-                                        {{route.name}}
-                                    </h4>
+                                    <h6>
+                                        <strong>{{route.name || route.id}}</strong>
+                                    </h6>
                                     <p ng-if="route.hosts" class="text-small help-block no-margin">
                                         {{route.hosts.join(", ")}}
                                     </p>
