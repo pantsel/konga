@@ -20,7 +20,7 @@
 
 
         $scope.openUploadCertsModal = function (certificate) {
-          var modalInstance = $uibModal.open({
+          const modalInstance = $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -50,7 +50,7 @@
 
 
               $scope.openAddSniModal = function () {
-                var modalInstance = $uibModal.open({
+                const _modalInstance = $uibModal.open({
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
@@ -97,7 +97,7 @@
 
                 });
 
-                modalInstance.result.then(function (data) {
+                _modalInstance.result.then(function (data) {
                   if (data && data.data) $scope.data.snis.push(data.data);
                 }, function (data) {
                 });
@@ -108,8 +108,7 @@
 
                 $scope.errorMessage = ""
 
-
-                var data = angular.copy($scope.data);
+                let data = angular.copy($scope.data);
 
                 if(!data.cert || !data.key) {
                   $scope.errorMessage = "The `Certificate` and/or `Key` fields cannot be empty"
@@ -122,7 +121,6 @@
                 if ($rootScope.isGatewayVersionEqOrGreater('0.14') && data.snis) {
                   data.snis = data.snis.split(",")
                 }
-
 
                 CertificateModel.create(data)
                   .then(function (resp) {
@@ -169,17 +167,16 @@
               function handleErrors(err) {
                 $scope.errors = {}
 
-                if (err.data) {
-                  if (err.data.customMessage) {
+                const errorBody = _.get(err, 'data.body');
 
-                    for (var key in err.data.customMessage) {
-                      $scope.errors[key] = err.data.customMessage[key]
+                if (errorBody) {
+                  if (errorBody.fields) {
+
+                    for (let key in errorBody.fields) {
+                      $scope.errors[key] = errorBody.fields[key]
                     }
                   }
-
-                  if (err.data.message) {
-                    $scope.errorMessage = err.data.message
-                  }
+                  $scope.errorMessage = errorBody.message || '';
                 } else {
                   $scope.errorMessage = "An unknown error has occured"
                 }
