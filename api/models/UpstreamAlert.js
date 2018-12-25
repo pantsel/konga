@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-// var HealthCheckEvents = require("../events/api-health-checks")
+var HealthCheckEvents = require("../events/upstream-health-checks");
 
 /**
  * ApiHealthCheck.js
@@ -52,25 +52,24 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
   },
 
 
-  // afterUpdate: function (values, cb) {
-  //
-  //   sails.log("ApiHealthCheck:afterUpdate:called()")
-  //   sails.log("ApiHealthCheck:afterUpdate:health_checks",values)
-  //
-  //   // Manage toggle health checks
-  //   if(values.active) {
-  //     // Send event to begin health checks for the updated node
-  //     sails.log("ApiHealthCheck:afterUpdate:emit api.health_checks.start")
-  //     HealthCheckEvents.emit('api.health_checks.start',values);
-  //   }else{
-  //     // Send event to stop health checks for the updated node
-  //     sails.log("ApiHealthCheck:afterUpdate:emit api.health_checks.stop")
-  //     HealthCheckEvents.emit('api.health_checks.stop',values);
-  //   }
-  //
-  //
-  //   cb()
-  // },
+  afterUpdate: function (values, cb) {
+
+    sails.log("UpstreamAlert:afterUpdate:called()", values)
+
+    // Manage toggle health checks
+    if(values.active) {
+      // Send event to begin health checks for the updated node
+      sails.log("UpstreamAlert:afterUpdate:emit upstream.health_checks.start")
+      HealthCheckEvents.emit('upstream.health_checks.start',values);
+    }else{
+      // Send event to stop health checks for the updated node
+      sails.log("UpstreamAlert:afterUpdate:emit upstream.health_checks.stop")
+      HealthCheckEvents.emit('upstream.health_checks.stop',values);
+    }
+
+
+    cb()
+  },
 });
 
 
