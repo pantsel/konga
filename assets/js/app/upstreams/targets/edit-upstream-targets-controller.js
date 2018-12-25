@@ -13,7 +13,7 @@
       function controller(_,$scope, $rootScope, $stateParams,
                           $log, $state, Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService) {
 
-        var targetsEndpoint = $rootScope.compareKongVersion('0.12.0') >= 0 ? '/targets/all' : '/targets/active';
+        var targetsEndpoint = $rootScope.compareKongVersion('0.12.0') >= 0 ? '/targets' : '/targets/active';
         var Target = new DataModel('kong/upstreams/' + $stateParams.id + targetsEndpoint, true)
         Target.setScope($scope, false, 'items', 'itemCount');
 
@@ -137,6 +137,7 @@
 
               $http.delete('kong/upstreams/' + $stateParams.id + '/targets/' + item.id)
                 .then(function (deleted) {
+                  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!", deleted);
                   _fetchData()
                 }).catch(function (err) {
 
@@ -147,31 +148,28 @@
 
         function _fetchData() {
           Target.load().then(function (response) {
-            console.log("Targets", response);
             $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data;
 
             // Get Targets health
             if($rootScope.compareKongVersion('0.12.2') >= 0) {
               // Fetch targets Health
-              Upstream.health($stateParams.id).then(function (response) {
+              Upstream.health($stateParams.id).then(function (_response) {
                 console.log("Health checks =>", response);
-                if(response && response.data.length) {
+                if(_response && _response.data.length) {
                   $scope.items.forEach(function(item){
-                    var healthObj = _.find(response.data, function (target) {
+                    var healthObj = _.find(_response.data, function (target) {
                       return target.id === item.id;
                     });
-                    item.health = healthObj && healthObj.health ? healthObj.health : "";
+                    if(healthObj && healthObj.health) {
+                      item.health = healthObj.health;
+                    }
                   });
                 }
               });
-
             }
           });
         }
-
-
-        _fetchData()
-
+        _fetchData();
       }
     ])
   ;
