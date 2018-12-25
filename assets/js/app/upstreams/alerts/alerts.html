@@ -3,24 +3,9 @@
         <div class="panel-title pull-left">
             Alerts
         </div>
-        <div class="pull-right">
-            <input
-                    bs-switch
-                    ng-model="alert.active"
-                    switch-size="mini"
-                    type="checkbox"
-                    switch-on-text="ENABLED"
-                    switch-off-text="DISABLED"
-                    ng-change="toggleAlerts()"
-            >
-        </div>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-
-        <div class="alert alert-warning" ng-if="!alert.active">
-            Alerts are disabled
-        </div>
 
         <p class="text-danger">
             Trigger alerts when a target is unhealthy or a dns error occurs
@@ -41,10 +26,9 @@
                                 ng-model="alert.email"
                                 switch-size="small"
                                 type="checkbox"
-                                switch-active="{{alert.active}}"
                                 switch-on-text="ON"
                                 switch-off-text="OFF"
-                                ng-change="updateAlert()"
+                                ng-change="alertChanged()"
                         >
                     </div>
                 </td>
@@ -64,9 +48,8 @@
                                 switch-size="small"
                                 type="checkbox"
                                 switch-on-text="ON"
-                                switch-active="{{alert.active}}"
                                 switch-off-text="OFF"
-                                ng-change="updateAlert()"
+                                ng-change="alertChanged()"
                         >
                     </div>
                 </td>

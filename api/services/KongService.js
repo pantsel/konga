@@ -85,6 +85,17 @@ var KongService = {
       });
   },
 
+  get: function (req, endpoint) {
+    var self = this;
+    return new Promise((resolve, reject) => {
+      self.listAllCb(req, endpoint, (err, data) => {
+        if (err) return reject(err);
+        resolve(data);
+      })
+    });
+
+  },
+
   fetch: (endpoint,req) => {
     return new Promise((resolve, reject) => {
       KongService.listAllCb(req, endpoint, (err, data) => {

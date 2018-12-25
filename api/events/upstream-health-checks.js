@@ -11,6 +11,7 @@ const moment = require('moment')
 const hcmailer = require('nodemailer');
 const mg = require('nodemailer-mailgun-transport');
 const notificationsInterval = 15;
+const KongService = require('../services/KongService');
 const sendmail = require('sendmail')({
     logger: {
         debug: sails.log,
@@ -36,11 +37,10 @@ module.exports = {
 
     start : function(hc) {
 
-        if(( tasks[hc.id] &&  tasks[hc.id].isStarted )|| !hc.id) return false;
+        if(tasks[hc.id]|| !hc.id) return false;
 
         sails.log('Start scheduled health checks for upstream ', hc.id);
         var self = this;
-
 
         tasks[hc.id] = _.merge(hc, {
             cron: self.createCron(hc)
@@ -52,68 +52,46 @@ module.exports = {
     stop : function(hc) {
         if(tasks[hc.id]) {
             sails.log('Stopping health check for hc ' + hc.id);
-            tasks[hc.id].cron.stop()
-            tasks[hc.id].isStarted = false;
-            //delete tasks[hc.id]
+            tasks[hc.id].cron.stop();
         }
     },
 
     createCron : function(hc) {
 
         var self = this;
-        return cron.schedule('* * * * *', function() {
+        return cron.schedule('* * * * *', async () => {
             sails.log('Checking health of upstream => ', hc);
 
-            // // Get ApiHealthCheck again in case it has been changed while the cron was running
-            // sails.models.apihealthcheck.findOne({
-            //     id:hc.id
-            // }).exec(function(err,hc){
-            //     if(err || !hc) {
-            //
-            //         sails.log("api_health_checks => Failed to retrieve apiHealthCheck",err)
-            //
-            //     }else{
-            //         tasks[hc.id] = _.merge(tasks[hc.id],hc.data)
-            //
-            //         if(!hc.health_check_endpoint) {
-            //             sails.log("api_health_checks =>","no health_check_endpoint defined. Ending it.")
-            //             return false;
-            //         }
-            //
-            //         sails.log("api_health_checks => Performing GET request to " + hc.health_check_endpoint)
-            //
-            //         unirest.get(hc.health_check_endpoint)
-            //             .end(function (response) {
-            //                 if (response.error)  { // health check failed
-            //                     if(!tasks[hc.id].firstFailed) tasks[hc.id].firstFailed = new Date();
-            //                     tasks[hc.id].firstSucceeded = null;
-            //                     tasks[hc.id].lastFailed = new Date();
-            //                     tasks[hc.id].isHealthy = false;
-            //                     tasks[hc.id].timesFailed++;
-            //                     sails.log('health_checks:cron:checkStatus => Health check for hc ' + hc.id + ' failed ' + tasks[hc.id].timesFailed + ' times');
-            //
-            //                     var timeDiff = Utils.getMinutesDiff(new Date(),tasks[hc.id].lastNotified)
-            //                     sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[hc.id].lastNotified);
-            //                     sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
-            //                     if(!tasks[hc.id].lastNotified || timeDiff > notificationsInterval) {
-            //                         self.notify(hc)
-            //                     }
-            //                 }else{ // health check succeeded
-            //                     sails.log('Health check for hc ' + hc.id + ' succeeded');
-            //                     if(!tasks[hc.id].firstSucceeded) tasks[hc.id].firstSucceeded = new Date();
-            //                     tasks[hc.id].timesFailed = 0;
-            //                     tasks[hc.id].isHealthy = true;
-            //                     tasks[hc.id].firstFailed = null;
-            //                     tasks[hc.id].lastSucceeded = new Date();
-            //                 }
-            //
-            //
-            //                 self.updatehcHealthCheckDetails(hc.id)
-            //             })
-            //     }
-            //
-            //
-            // })
+            try {
+                // Get the Kong connection the upstream belongs to
+                const connection = await sails.models.kongnode.findOne({
+                    id: hc.connection.id || hc.connection
+                })
+                if(!connection) return sails.log("Upstream health => No connection set. Ending it.");
+
+                sails.log("Kong Connection =>", connection);
+                const targetsHC = await KongService.get({
+                    connection: connection
+                }, `/upstreams/${hc.upstream_id}/health`);
+
+                sails.log("Upstream targetsHC", targetsHC);
+
+                if(!targetsHC.data || !targetsHC.data.length) return false;
+
+                // Check results recursively for 'UNHEALTHY' | 'DNS_ERROR' health
+                let unhealthyTargets = _.filter(targetsHC.data, (item) => {
+                    return item.health === 'UNHEALTHY' || item.health === 'DNS_ERROR'
+                });
+
+                sails.log("Unhealthy upstream targets", unhealthyTargets);
+                if(unhealthyTargets.length) {
+                    self.notify(connection, unhealthyTargets);
+                }
+
+
+            }catch (e) {
+                sails.log("Upstream health => Failed to retrieve connection",e);
+            }
 
         })
     },
@@ -168,73 +146,81 @@ module.exports = {
 
     },
 
-    notify : function(hc) {
+    notify : function(connection, unhealthyTargets) {
 
         var self = this
 
-
         sails.models.settings.find().limit(1)
-            .exec(function(err,settings) {
-                if (err) return cb(err)
-                sails.log("helath_checks:settings =>", settings)
-                if (!settings.length
-                    || !settings[0].data
-                    || !settings[0].data.notify_when.api_down.active) return false;
+          .exec(function(err,settings) {
+              if (err) return sails.log(`Failed to get settings`, err);
+              console.log('UpstreamHC:notify:settings =>', JSON.stringify(settings));
+              if (!settings.length || !settings[0].data) return false;
 
+              Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(connection, unhealthyTargets));
+          })
 
-                Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(hc));
-
-                self.notifyNotificationEndpoint(hc)
-
-                self.createTransporter(settings[0],function(err,result){
-                    if(err || !result) {
-                        sails.log("health_check:failed to create transporter. No notification will be sent.",err)
-                    }else{
-                        var transporter = result.transporter
-                        var settings = result.settings
-                        var html = self.makeHTMLNotification(hc)
-
-                        Utils.getAdminEmailList(function(err,receivers){
-                            sails.log("health_checks:notify:receivers => ",  receivers)
-                            if(!err && receivers.length) {
-
-                                var mailOptions = {
-                                    from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
-                                    to: receivers.join(","), // list of receivers
-                                    subject: 'An API is down or unresponsive', // Subject line
-                                    html: html
-                                };
-
-                                if(settings.default_transport == 'sendmail') {
-                                    sendmail(mailOptions, function(err, reply) {
-                                        if(err){
-                                            sails.log.error("Health_checks:notify:error",err)
-                                        }else{
-                                            sails.log.info("Health_checks:notify:success",reply)
-
-                                        }
-                                    });
-                                }else{
-                                    transporter.sendMail(mailOptions, function(error, info){
-                                        if(error){
-                                            sails.log.error("Health_checks:notify:error",error)
-
-                                        }else{
-                                            sails.log.info("Health_checks:notify:success",info)
-
-                                        }
-                                    });
-                                }
-                            }
-                        })
-                    }
-                })
-
-                tasks[hc.id].lastNotified = new Date();
-                self.updatehcHealthCheckDetails(hc.id)
-
-
-            });
+        // sails.models.settings.find().limit(1)
+        //     .exec(function(err,settings) {
+        //         if (err) return cb(err)
+        //         sails.log("helath_checks:settings =>", settings)
+        //         if (!settings.length
+        //             || !settings[0].data
+        //             || !settings[0].data.notify_when.api_down.active) return false;
+        //
+        //
+        //         Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(hc));
+        //
+        //         self.notifyNotificationEndpoint(hc)
+        //
+        //         self.createTransporter(settings[0],function(err,result){
+        //             if(err || !result) {
+        //                 sails.log("health_check:failed to create transporter. No notification will be sent.",err)
+        //             }else{
+        //                 var transporter = result.transporter
+        //                 var settings = result.settings
+        //                 var html = self.makeHTMLNotification(hc)
+        //
+        //                 Utils.getAdminEmailList(function(err,receivers){
+        //                     sails.log("health_checks:notify:receivers => ",  receivers)
+        //                     if(!err && receivers.length) {
+        //
+        //                         var mailOptions = {
+        //                             from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
+        //                             to: receivers.join(","), // list of receivers
+        //                             subject: 'An API is down or unresponsive', // Subject line
+        //                             html: html
+        //                         };
+        //
+        //                         if(settings.default_transport == 'sendmail') {
+        //                             sendmail(mailOptions, function(err, reply) {
+        //                                 if(err){
+        //                                     sails.log.error("Health_checks:notify:error",err)
+        //                                 }else{
+        //                                     sails.log.info("Health_checks:notify:success",reply)
+        //
+        //                                 }
+        //                             });
+        //                         }else{
+        //                             transporter.sendMail(mailOptions, function(error, info){
+        //                                 if(error){
+        //                                     sails.log.error("Health_checks:notify:error",error)
+        //
+        //                                 }else{
+        //                                     sails.log.info("Health_checks:notify:success",info)
+        //
+        //                                 }
+        //                             });
+        //                         }
+        //                     }
+        //                 })
+        //             }
+        //         })
+        //
+        //         tasks[hc.id].lastNotified = new Date();
+        //         self.updatehcHealthCheckDetails(hc.id)
+        //
+        //
+        //     });
 
 
     },
@@ -279,14 +265,19 @@ module.exports = {
         return html;
     },
 
-    makePlainTextNotification : function(hc){
+    makePlainTextNotification : function(connection, unhealthyTargets){
 
-        sails.log("!!!!!!!!!!!!!!!!!!!!!!",moment(tasks[hc.id].lastSucceeded));
-
-        var duration = moment.duration(moment().diff(moment(tasks[hc.id].lastSucceeded))).humanize();
-
-        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] An API is down or unresponsive for more than '
-            + duration + '. ID: ' + hc.id + ' | Name: ' + hc.api.name +'.';
+        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] Some upstream health checks have failed: ';
+        unhealthyTargets.forEach(target => {
+            text += '```Connection: `' +
+              connection.name +
+              '`, Upstream id: `' +
+              _.get(target, 'upstream.id', 'N/A') +
+            '`, Target: `' +
+              target.target +
+              '`, Health: `' +
+              target.health + '` ``` '
+        })
 
         return text;
     }

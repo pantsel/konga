@@ -28,8 +28,10 @@ module.exports = {
 
   sendSlackNotification: function (settings, message) {
 
+    sails.log("Sending notification to slack", settings.data.integrations, message);
+
     var slack = _.find(settings.data.integrations, function (item) {
-      return item.id == 'slack'
+      return item.id === 'slack'
     })
 
     if (!slack || !slack.config.enabled) return;

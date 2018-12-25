@@ -18,7 +18,7 @@
         const Alert = new DataModel('api/upstreamalert', true);
 
         $scope.alert = {
-          active: false
+          upstream_id: $stateParams.id
         }
 
         Alert.load({
@@ -29,30 +29,20 @@
         })
 
 
-        $scope.toggleAlerts = async () => {
-          try{
-            if($scope.alert.id) {
-              const data = await $scope.updateAlert();
-              console.log("Alert updated => ", data);
-            } else {
-              const data = await Alert.create({
-                upstream_id: $stateParams.id,
-                active: $scope.alert.active,
-                connection: $rootScope.user.node.id
-              })
-              console.log("Alert created => ", data);
-              $scope.alert = data.data;
-            }
-          } catch (e) {
-            console.error(e);
-            MessageService.error('Something went wrong...')
-          }
-        }
+        $scope.alertChanged = async () => {
 
-        $scope.updateAlert = async () => {
-          const data = await Alert.update($scope.alert.id, _.omit($scope.alert, ['id']));
-          console.log("Alert updated => ", data);
-          $scope.alert = data.data;
+          $scope.alert.connection = $rootScope.user.node.id; // Always get user.node.id in case it's changed
+
+          if($scope.alert.id) { // Update the alert
+            const data = await Alert.update($scope.alert.id, _.omit($scope.alert, ['id']));
+            console.log("Alert updated => ", data);
+            $scope.alert = data.data;
+          } else { // Create an alert for this upstream
+            const data = await Alert.create($scope.alert)
+            console.log("Alert created => ", data);
+            $scope.alert = data.data;
+          }
+
         }
 
       }
