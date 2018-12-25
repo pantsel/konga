@@ -85,7 +85,7 @@ module.exports = {
 
                 sails.log("Unhealthy upstream targets", unhealthyTargets);
                 if(unhealthyTargets.length) {
-                    self.notify(connection, unhealthyTargets);
+                    self.notify(hc, connection, unhealthyTargets);
                 }
 
 
@@ -146,9 +146,13 @@ module.exports = {
 
     },
 
-    notify : function(connection, unhealthyTargets) {
+    notify : function(hc, connection, unhealthyTargets) {
 
         var self = this
+
+        if(!hc.email && !hc.slack) {
+            return sails.log("Slack and email notifications are disabled for this Upstream.");
+        }
 
         sails.models.settings.find().limit(1)
           .exec(function(err,settings) {
@@ -156,7 +160,11 @@ module.exports = {
               console.log('UpstreamHC:notify:settings =>', JSON.stringify(settings));
               if (!settings.length || !settings[0].data) return false;
 
-              Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(connection, unhealthyTargets));
+              if(hc.slack) {
+                  Utils.sendSlackNotification(settings[0],self.makePlainTextNotification(connection, unhealthyTargets));
+              }else{
+                  sails.log("Slack notifications are disabled for this Upstream.")
+              }
           })
 
         // sails.models.settings.find().limit(1)
