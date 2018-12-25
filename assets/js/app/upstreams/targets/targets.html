@@ -52,12 +52,27 @@
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td ng-if="compareKongVersion('0.12.2') >= 0">
+                        <!-- DNS_ERROR -->
+                        <span ng-if="item.health && item.health === 'DNS_ERROR'" class="badge badge-danger">
+                            DNS_ERROR
+                        </span>
+
+                        <!-- HEALTHCHECKS_OFF -->
                         <i style="opacity: .5" uib-tooltip="{{item.health}}" ng-if="item.health && item.health === 'HEALTHCHECKS_OFF'" class="mdi mdi-heart-outline"></i>
-                    <i
-                            ng-if="item.health && item.health !== 'HEALTHCHECKS_OFF'"
+
+                        <!-- HEALTHY -->
+                        <i
+                            ng-if="item.health && item.health === 'HEALTHY'"
                             class="mdi"
                             uib-tooltip="{{item.health}}"
-                            data-ng-class="{'mdi-heart-broken text-danger': item.health === 'UNHEALTHY','mdi-heart-pulse text-success': item.health === 'HEALTHY'}"></i>
+                            class="mdi-heart-pulse text-success"></i>
+
+                        <!-- UNHEALTHY -->
+                        <i
+                            ng-if="item.health && item.health === 'UNHEALTHY'"
+                            class="mdi"
+                            uib-tooltip="{{item.health}}"
+                            class="mdi-heart-broken text-danger"></i>
                     </td>
                     <td>
                         <raw-view data-item="item"></raw-view>

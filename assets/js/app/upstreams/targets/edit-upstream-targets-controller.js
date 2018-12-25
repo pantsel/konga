@@ -13,7 +13,7 @@
       function controller(_,$scope, $rootScope, $stateParams,
                           $log, $state, Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService) {
 
-        var targetsEndpoint = $rootScope.compareKongVersion('0.12.0') >= 0 ? '/targets' : '/targets/active';
+        var targetsEndpoint = $rootScope.compareKongVersion('0.12.0') >= 0 ? '/targets/all' : '/targets/active';
         var Target = new DataModel('kong/upstreams/' + $stateParams.id + targetsEndpoint, true)
         Target.setScope($scope, false, 'items', 'itemCount');
 
@@ -146,15 +146,11 @@
         }
 
         function _fetchData() {
-          var config = ListConfig.getConfig();
-
-          var parameters = {
-            size: config.itemsFetchSize
-          };
-
-          Target.load(_.merge({}, parameters)).then(function (response) {
+          Target.load().then(function (response) {
+            console.log("Targets", response);
             $scope.items = JSON.stringify(response.data) === "{}" ? [] : response.data;
 
+            // Get Targets health
             if($rootScope.compareKongVersion('0.12.2') >= 0) {
               // Fetch targets Health
               Upstream.health($stateParams.id).then(function (response) {
