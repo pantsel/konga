@@ -1,3 +1,15 @@
+<script type="text/ng-template" id="popoverTemplate.html">
+    <div style="max-width: 320px">
+        <h5>How does it work?</h5>
+        <p>
+            Behind the scenes, Konga will poll <code>upstreams/{id}/health</code> every minute
+            and trigger an alert if the results contain targets with <code>UNHEALTHY</code> or <code>DNS_ERROR</code> statuses.
+            <br><br>
+            Bare in mind that Upstream health checks must be enabled and configured accordingly in the <code>Details</code> tab.
+        </p>
+    </div>
+</script>
+
 <div class="panel panel-default">
     <div class="panel-heading primary">
         <div class="panel-title pull-left">
@@ -7,9 +19,15 @@
     </div>
     <div class="panel-body">
 
-        <p class="text-danger">
-            Trigger alerts when a target is unhealthy or a dns error occurs
-        </p>
+        <div class="alert alert-info">
+            Trigger alerts when a target is unhealthy or a DNS error occurs.
+            <a href="javascript:void(0)"
+               uib-popover-template="'popoverTemplate.html'"
+               popover-trigger="'outsideClick'"
+            >How does it work?</a>
+        </div>
+
+        <h4 class="margin-bottom">What should I do when an alert is triggered?</h4>
 
         <table class="table">
             <tr>

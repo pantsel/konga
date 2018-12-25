@@ -37,7 +37,13 @@ module.exports = {
 
     start : function(hc) {
 
-        if(tasks[hc.id]|| !hc.id) return false;
+        if(!hc.id) return false;
+
+        if(tasks[hc.id]) { // Reset task if exists
+            sails.log('Resetting health check for hc ' + hc.id);
+            tasks[hc.id].cron.stop();
+            delete tasks[hc.id];
+        }
 
         sails.log('Start scheduled health checks for upstream ', hc.id);
         var self = this;
@@ -53,6 +59,7 @@ module.exports = {
         if(tasks[hc.id]) {
             sails.log('Stopping health check for hc ' + hc.id);
             tasks[hc.id].cron.stop();
+            delete tasks[hc.id];
         }
     },
 
@@ -63,6 +70,13 @@ module.exports = {
             sails.log('Checking health of upstream => ', hc);
 
             try {
+
+                // Fetch the upstreamalert again in case it has changed
+                // while the cron is running
+                hc = await sails.models.upstreamalert.findOne({
+                    id: hc.id
+                });
+
                 // Get the Kong connection the upstream belongs to
                 const connection = await sails.models.kongnode.findOne({
                     id: hc.connection.id || hc.connection
