@@ -6,8 +6,8 @@
    */
   angular.module('frontend.upstreams')
     .service('Upstream', [
-      'DataModel','DataService','$log',
-      function (DataModel, DataService, $log) {
+      'DataModel','DataService','$log', 'MessageService',
+      function (DataModel, DataService, $log, MessageService) {
 
         var model = new DataModel('kong/upstreams', true);
 
@@ -50,12 +50,20 @@
 
         model.handleError = function ($scope, err) {
           $scope.errors = {}
-          if (err.data && err.data.body) {
+          const errorBody = _.get(err, 'data.body');
+          if (errorBody) {
+            if (errorBody.fields) {
 
-            for (var key in err.data.body) {
-              $scope.errors[key] = err.data.body[key]
+              for (let key in errorBody.fields) {
+                $scope.errors[key] = errorBody.fields[key]
+              }
             }
+            $scope.errorMessage = errorBody.message || '';
+          } else {
+            $scope.errorMessage = "An unknown error has occured"
           }
+
+          MessageService.error($scope.errorMessage);
         }
 
         return model;
