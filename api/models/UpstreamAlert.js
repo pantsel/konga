@@ -26,6 +26,21 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       unique: true
     },
 
+    connection: {
+      model: 'kongnode',
+      required: true
+    },
+
+    email: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    slack: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
     active : {
       type : 'boolean',
       defaultsTo : false

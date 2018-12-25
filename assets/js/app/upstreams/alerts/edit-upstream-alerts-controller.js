@@ -9,9 +9,9 @@
   angular.module('frontend.upstreams')
     .controller('EditUpstreamAlertsController', [
       '_', '$scope', '$rootScope', '$stateParams',
-      '$log', '$state', 'Upstream', 'MessageService', '$uibModal', 'DataModel', 'ListConfig', '$http', 'DialogService',
+      '$log', '$state', 'Upstream', 'MessageService', '$uibModal', 'DataModel',
       function controller(_, $scope, $rootScope, $stateParams,
-                          $log, $state, Upstream, MessageService, $uibModal, DataModel, ListConfig, $http, DialogService) {
+                          $log, $state, Upstream, MessageService, $uibModal, DataModel) {
 
 
         console.log("Loaded EditUpstreamAlertsController");
@@ -32,14 +32,13 @@
         $scope.toggleAlerts = async () => {
           try{
             if($scope.alert.id) {
-              const data = await Alert.update($scope.alert.id, {
-                active: $scope.alert.active
-              })
+              const data = await $scope.updateAlert();
               console.log("Alert updated => ", data);
             } else {
               const data = await Alert.create({
                 upstream_id: $stateParams.id,
-                active: $scope.alert.active
+                active: $scope.alert.active,
+                connection: $rootScope.user.node.id
               })
               console.log("Alert created => ", data);
               $scope.alert = data.data;
@@ -48,6 +47,12 @@
             console.error(e);
             MessageService.error('Something went wrong...')
           }
+        }
+
+        $scope.updateAlert = async () => {
+          const data = await Alert.update($scope.alert.id, _.omit($scope.alert, ['id']));
+          console.log("Alert updated => ", data);
+          $scope.alert = data.data;
         }
 
       }

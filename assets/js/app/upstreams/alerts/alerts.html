@@ -7,7 +7,7 @@
             <input
                     bs-switch
                     ng-model="alert.active"
-                    switch-size="small"
+                    switch-size="mini"
                     type="checkbox"
                     switch-on-text="ENABLED"
                     switch-off-text="DISABLED"
@@ -17,8 +17,58 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        <p class="help-block">
+
+        <div class="alert alert-warning" ng-if="!alert.active">
+            Alerts are disabled
+        </div>
+
+        <p class="text-danger">
             Trigger alerts when a target is unhealthy or a dns error occurs
         </p>
+
+        <table class="table">
+            <tr>
+                <td>
+                    <h5>Email administrators</h5>
+                    <p class="help-block">
+                        Emails have to be properly set up under <a ui-sref="settings"  class="no-wrap">Settings -> Notifications</a>.
+                    </p>
+                </td>
+                <td width="1">
+                    <div class="pull-right">
+                        <input
+                                bs-switch
+                                ng-model="alert.email"
+                                switch-size="small"
+                                type="checkbox"
+                                switch-on-text="ON"
+                                switch-off-text="OFF"
+                                ng-change="updateAlert()"
+                        >
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Send notification to Slack</h5>
+                    <p class="help-block">
+                        Integration with slack has to be properly set up under <a ui-sref="settings" class="no-wrap">Settings -> Notifications</a>.
+                    </p>
+                </td>
+                <td width="1">
+                    <div class="pull-right">
+                        <input
+                                bs-switch
+                                ng-model="alert.slack"
+                                switch-size="small"
+                                type="checkbox"
+                                switch-on-text="ON"
+                                switch-off-text="OFF"
+                                ng-change="updateAlert()"
+                        >
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
