@@ -14,6 +14,7 @@
                           $log, $state, Upstream, MessageService) {
 
 
+        $scope.context = 'update';
         $scope.submit = function () {
 
           $scope.busy = true
