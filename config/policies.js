@@ -147,6 +147,13 @@ module.exports.policies = {
     'find': ['authenticated', 'isAdmin']
   },
 
+  UpstreamAlertsController: {
+    'create': ['authenticated', 'isAdmin', 'addDataCreate'],
+    'update': ['authenticated', 'isAdmin', 'addDataUpdate'],
+    'remove': ['authenticated', 'isAdmin'],
+    'find': ['authenticated', 'isAdmin']
+  },
+
   SettingsController: {
     'find': true,
     '*': ['authenticated', 'isAdmin'],

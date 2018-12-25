@@ -63,16 +63,14 @@
                         <!-- HEALTHY -->
                         <i
                             ng-if="item.health && item.health === 'HEALTHY'"
-                            class="mdi"
-                            uib-tooltip="{{item.health}}"
-                            class="mdi-heart-pulse text-success"></i>
+                            class="mdi mdi-heart-pulse text-success"
+                            uib-tooltip="{{item.health}}"></i>
 
                         <!-- UNHEALTHY -->
                         <i
                             ng-if="item.health && item.health === 'UNHEALTHY'"
-                            class="mdi"
-                            uib-tooltip="{{item.health}}"
-                            class="mdi-heart-broken text-danger"></i>
+                            class="mdi mdi-heart-broken text-danger"
+                            uib-tooltip="{{item.health}}"></i>
                     </td>
                     <td>
                         <raw-view data-item="item"></raw-view>

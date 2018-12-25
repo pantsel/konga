@@ -13,7 +13,7 @@
                         data-ng-click="showSection($index)"
                         data-ng-repeat="section in sections">
                     <i class="mdi {{section.icon}}"></i>
-                    {{section.name}}
+                    <span data-ng-bind-html="section.name"></span>
                 </a>
             </div>
         </div>
@@ -33,6 +33,7 @@
         </div>
         <div ng-if="upstream" data-ui-view="details" ng-show="activeSection == 0"></div>
         <div ng-if="upstream" data-ui-view="targets" ng-show="activeSection == 1"></div>
+        <div ng-if="upstream" data-ui-view="alerts" ng-show="activeSection == 2"></div>
     </div>
 </div>
 

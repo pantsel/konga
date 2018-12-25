@@ -49,6 +49,10 @@
                                 templateUrl: 'js/app/upstreams/targets/targets.html',
                                 controller: 'EditUpstreamTargetsController',
                             },
+                            'alerts@upstreams.edit': {
+                                templateUrl: 'js/app/upstreams/alerts/alerts.html',
+                                controller: 'EditUpstreamAlertsController',
+                            },
                         }
                     })
             }

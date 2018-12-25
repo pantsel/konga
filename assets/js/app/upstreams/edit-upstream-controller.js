@@ -22,6 +22,10 @@
               {
                   name : 'Targets',
                   icon : 'mdi-target'
+              },
+              {
+                name : 'Alerts <span class="badge badge-danger pull-right">beta</span>',
+                icon : 'mdi-bell'
               }
           ]
           $scope.activeSection = 0;

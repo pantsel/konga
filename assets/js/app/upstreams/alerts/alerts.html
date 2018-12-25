@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading primary">
+        <div class="panel-title pull-left">
+            Alerts
+        </div>
+        <div class="pull-right">
+            <input
+                    bs-switch
+                    ng-model="alert.active"
+                    switch-size="small"
+                    type="checkbox"
+                    switch-on-text="ENABLED"
+                    switch-off-text="DISABLED"
+                    ng-change="toggleAlerts()"
+            >
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <p class="help-block">
+            Trigger alerts when a target is unhealthy or a dns error occurs
+        </p>
+    </div>
+</div>
