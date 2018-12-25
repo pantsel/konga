@@ -23,10 +23,7 @@ module.exports = function hook(sails) {
 
         // Start health checks for all eligible nodes
         sails.models.upstreamalert.find({
-          or : [
-            { email: true },
-            { slack: true }
-          ]
+         active: true
         })
             .exec(function(err,hcs){
                 if(!err && hcs.length){

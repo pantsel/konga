@@ -15,17 +15,28 @@
         <div class="panel-title pull-left">
             Alerts
         </div>
+        <div class="pull-right">
+            <input
+                    bs-switch
+                    ng-model="alert.active"
+                    switch-size="mini"
+                    type="checkbox"
+                    switch-on-text="ON"
+                    switch-off-text="OFF"
+                    ng-change="alertChanged()"
+            >
+        </div>
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
 
-        <div class="alert alert-info">
-            Trigger alerts when a target is unhealthy or a DNS error occurs.
-            <a href="javascript:void(0)"
-               uib-popover-template="'popoverTemplate.html'"
-               popover-trigger="'outsideClick'"
-            >How does it work?</a>
-        </div>
+        <a href="javascript:void(0)"
+           uib-popover-template="'popoverTemplate.html'"
+           popover-placement="bottom"
+           popover-trigger="'outsideClick'"
+        >How does it work?</a>
+        <br>
+        <br>
 
         <h4 class="margin-bottom">What should I do when an alert is triggered?</h4>
 

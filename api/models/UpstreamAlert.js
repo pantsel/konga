@@ -46,6 +46,11 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
       required : true
     },
 
+    active: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
     data : {
       type : 'json'
     }
@@ -57,7 +62,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     sails.log("UpstreamAlert:afterUpdate:called()", values)
 
     // Manage toggle health checks
-    if(values.email || values.slack) {
+    if(values.active) {
       // Send event to begin health checks for the updated node
       sails.log("UpstreamAlert:afterUpdate:emit upstream.health_checks.start")
       HealthCheckEvents.emit('upstream.health_checks.start',values);

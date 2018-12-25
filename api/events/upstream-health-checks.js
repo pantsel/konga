@@ -179,6 +179,10 @@ module.exports = {
               }else{
                   sails.log("Slack notifications are disabled for this Upstream.")
               }
+
+              if(hc.email) {
+
+              }
           })
 
         // sails.models.settings.find().limit(1)

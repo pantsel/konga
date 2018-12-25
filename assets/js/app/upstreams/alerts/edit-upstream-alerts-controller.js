@@ -18,7 +18,8 @@
         const Alert = new DataModel('api/upstreamalert', true);
 
         $scope.alert = {
-          upstream_id: $stateParams.id
+          upstream_id: $stateParams.id,
+          active: false
         }
 
         Alert.load({
