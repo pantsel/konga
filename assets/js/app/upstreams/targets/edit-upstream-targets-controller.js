@@ -154,6 +154,7 @@
             if($rootScope.compareKongVersion('0.12.2') >= 0) {
               // Fetch targets Health
               Upstream.health($stateParams.id).then(function (response) {
+                console.log("Health checks =>", response);
                 if(response && response.data.length) {
                   $scope.items.forEach(function(item){
                     var healthObj = _.find(response.data, function (target) {
