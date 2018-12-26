@@ -93,9 +93,12 @@ module.exports.models = {
                 var data = [];
 
                 self.seedData.forEach(function (seed) {
-                    data.push(_.merge(_.filter(results,function (item) {
-                        return item.name === seed.name
-                    })[0] || {},seed))
+
+                    const updateItem = _.find(results, (item) => {
+                        return item.name === seed.name;
+                    })
+
+                    if(updateItem) data.push(_.merge(seed, updateItem));
                 })
 
                 var fns = [];
