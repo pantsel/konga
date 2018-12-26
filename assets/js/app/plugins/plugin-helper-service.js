@@ -19,7 +19,7 @@
                             var path = prefix ? prefix + "." + item : item;
                             var value = fields[item].default;
 
-                            if (fields[item].type === 'array'
+                            if ((fields[item].type === 'array' || fields[item].type === 'set')
                                 && (typeof value === 'object' || typeof value === 'string')
                                 && _pluginName !== 'statsd'
                             ) {
@@ -38,19 +38,24 @@
                             createConfigProperties(pluginName,fields[key].schema.fields,key,data);
                         }else{
                             var path = prefix ? prefix + "." + key : key;
-                            if (fields[key].value instanceof Array && pluginName !== 'statsd') {
-                                // Transform to comma separated string
-                                // data['config.' + path] = fields[key].value.join(",");
-                                if(!data.config) data.config = {};
-                                if(fields[key].value) {
-                                    data.config[path] = fields[key].value.join(",");
-                                }
-                            } else {
-                                // data['config.' + path] = fields[key].value;
-                                if(!data.config) data.config = {};
-                                if(fields[key].value) {
-                                    data.config[path] = fields[key].value;
-                                }
+                            // if (fields[key].value instanceof Array && pluginName !== 'statsd') {
+                            //     // Transform to comma separated string
+                            //     // data['config.' + path] = fields[key].value.join(",");
+                            //     if(!data.config) data.config = {};
+                            //     if(fields[key].value) {
+                            //         data.config[path] = fields[key].value.join(",");
+                            //     }
+                            // } else {
+                            //     // data['config.' + path] = fields[key].value;
+                            //     if(!data.config) data.config = {};
+                            //     if(fields[key].value) {
+                            //         data.config[path] = fields[key].value;
+                            //     }
+                            // }
+
+                            if(!data.config) data.config = {};
+                            if(fields[key].value) {
+                                data.config[path] = fields[key].value;
                             }
                         }
                     });

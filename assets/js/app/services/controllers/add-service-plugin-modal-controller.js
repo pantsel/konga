@@ -116,7 +116,6 @@
         function fetchPlugins() {
           PluginsService.load()
             .then(function (res) {
-
             })
         }
 

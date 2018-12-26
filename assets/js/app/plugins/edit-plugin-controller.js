@@ -84,7 +84,9 @@
         function initialize() {
           // Initialize plugin fields data
           $scope.data = _.merge(options.fields, $scope.schema, {
-            consumer_id: $scope.plugin.consumer_id
+            consumer: {
+              id: _.get($scope, 'plugin.consumer.id')
+            }
           });
 
           // Define general modal window content
@@ -174,33 +176,22 @@
           //    data.consumer_id = $scope.data.consumer_id.id
           //}
 
-          if ($scope.data.consumer_id) {
-            data.consumer_id = $scope.data.consumer_id;
+          const consumerId = _.get($scope, 'data.consumer.id');
+          if (consumerId) {
+            data.consumer = {
+              id: consumerId
+            };
           }
 
-          function createConfig(fields, prefix) {
 
-            Object.keys(fields).forEach(function (key) {
-              if (fields[key].schema) {
-                createConfig(fields[key].schema.fields, prefix ? prefix + "." + key : key);
-              } else {
-                var path = prefix ? prefix + "." + key : key;
-                if (fields[key].value instanceof Array && _plugin.name !== 'statsd') {
-                  // Transform to comma separated string
-                  data['config.' + path] = fields[key].value.join(",");
-                } else {
-                  data['config.' + path] = fields[key].value;
-                }
-              }
-            });
+          // Create request data "config." properties
+          const config = PluginHelperService.createConfigProperties(_plugin.name,$scope.data.fields)
 
-          }
+          const finalData = _.merge(data, config)
 
-          createConfig($scope.data.fields);
+          console.log("REQUEST DATA =>", finalData);
 
-          $log.debug("REQUEST DATA =>", data);
-
-          PluginsService.update(_plugin.id, data)
+          PluginsService.update(_plugin.id, finalData)
             .then(function (res) {
               $log.debug("updatePlugin", res);
               $scope.busy = false;

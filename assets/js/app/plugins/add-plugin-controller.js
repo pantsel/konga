@@ -122,16 +122,18 @@
             };
           }
 
-          // If a consumer is defined, add consumer_id to request data
+          // If a consumer is defined, add consumer id to request data
           if ($scope.consumer) {
             request_data.consumer = {
               id: $scope.consumer.id
             };
           }
 
-          if ($scope.data.consumer_id) { // Overwrite consumer if explicitly set
+          // Overwrite consumer if explicitly set
+          const explicitlySetConsumer = _.get($scope, 'data.consumer.id');
+          if (explicitlySetConsumer) {
             request_data.consumer = {
-              id: $scope.data.consumer_id
+              id: explicitlySetConsumer
             };
           }
 
