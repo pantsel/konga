@@ -89,6 +89,7 @@
             }
           });
 
+
           // Define general modal window content
           $scope.description = $scope.data.meta ? $scope.data.meta.description
             : 'Configure the Plugin.';
@@ -134,6 +135,7 @@
             }
           }
 
+
           // Customize data fields according to plugin
           PluginHelperService.customizeDataFieldsForPlugin(_plugin.name, $scope.data.fields);
 
@@ -151,6 +153,12 @@
               var path = prefix ? prefix + "." + item : item;
               var value = _.get(_plugin.config, path);
 
+              if (fields[item].type === 'record' && fields[item].fields) {
+                fields[item].fields.forEach(field => {
+                  const prop = Object.keys(field)[0];
+                  field[prop].value = _.get(_plugin.config, `${path}.${prop}`);
+                })
+              }
 
               if (fields[item].type === 'array'
                 && value !== null && typeof value === 'object' && !Object.keys(value).length) {
@@ -297,6 +305,10 @@
             metrics.splice(index,1);
           }
         };
+
+        $scope.getFieldProp = (field) => {
+          return Object.keys(field)[0];
+        }
       }
     ])
   ;

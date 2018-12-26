@@ -53,10 +53,22 @@
                             //     }
                             // }
 
+
                             if(!data.config) data.config = {};
-                            if(fields[key].value) {
-                                data.config[path] = fields[key].value;
+
+                            if(fields[key].fields) {
+                                fields[key].fields.forEach(field => {
+                                    if(!data.config[path]) data.config[path] = {};
+                                    const prop = Object.keys(field)[0];
+                                    data.config[path][Object.keys(field)[0]] = _.get(field, `${prop}.value`);
+                                })
+                            }else{
+                                if(fields[key].value) {
+                                    data.config[path] = fields[key].value;
+                                }
                             }
+
+
                         }
                     });
 

@@ -280,6 +280,10 @@
             metrics.splice(index,1);
           }
         };
+
+        $scope.getFieldProp = (field) => {
+          return Object.keys(field)[0];
+        }
       }
     ]);
 }());

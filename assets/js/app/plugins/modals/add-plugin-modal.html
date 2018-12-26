@@ -37,6 +37,36 @@
             <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
             <div class="col-sm-7">
                 <div ng-switch on="value.type">
+                    <!-- TYPE: RECORD -->
+                    <div ng-switch-when="record">
+                        <div class="plugin-field-table">
+                            <div data-ng-repeat="field in value.fields">
+                                <!--<pre>{{field | json}}</pre>-->
+                                <label><i class="mdi mdi-chevron-right"></i>{{getFieldProp(field)}}</label>
+                                <div ng-switch on="field[getFieldProp(field)].type">
+                                    <div ng-switch-when="array">
+                                        <chips ng-model="field[getFieldProp(field)].value">
+                                            <chip-tmpl>
+                                                <div class="default-chip">
+                                                    {{chip}}
+                                                    <i class="mdi mdi-close" remove-chip></i>
+                                                </div>
+                                            </chip-tmpl>
+                                            <input chip-control/>
+                                        </chips>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <input type="{{field[getFieldProp(field)].type}}" ng-model="field[getFieldProp(field)].value" class="form-control">
+                                    </div>
+                                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
+                                    <p class="help-block">{{data.help}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
                     <!-- TYPE: TABLE -->
                     <div ng-switch-when="table">
 
