@@ -102,12 +102,12 @@
                     <!-- TYPE: STRING -->
                     <div ng-switch-when="string">
                         <div data-ng-if="value.one_of">
-                            <select class="form-control" ng-model="value.value" ng-options="x for x in value.enum">
+                            <select class="form-control" ng-model="value.value" ng-options="x for x in value.one_of">
                             </select>
                         </div>
                         <div data-ng-if="!value.one_of">
                             <!--<input type="text" ng-model="value.value" class="form-control">-->
-                            <textarea ng-model="value.one_of" class="form-control"></textarea>
+                            <textarea ng-model="value.value" class="form-control"></textarea>
                         </div>
                     </div>
 
