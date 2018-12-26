@@ -120,16 +120,16 @@ module.exports = {
         }).exec(function(err,updated){
             // Fire and forger for now
             if(err) {
-                sails.log("health_checks:updatehcHealthCheckDetails:failed",err)
+                sails.log("Upstream health:updatehcHealthCheckDetails:failed",err)
             }else{
-                sails.sockets.blast('api.health_checks', _.merge({hc_id:hcId},data));
+                sails.sockets.blast('api.Upstream health', _.merge({hc_id:hcId},data));
             }
         })
     },
 
     createTransporter : function(settings,cb) {
 
-        sails.log("health_checks:createTransporter => trying to get transport",{
+        sails.log("Upstream health:createTransporter => trying to get transport",{
             "notifications_enabled" : settings.data.email_notifications,
             "transport_name" : settings.data.default_transport
         })
@@ -138,7 +138,7 @@ module.exports = {
         }).exec(function(err,transport){
             if(err) return cb(err)
 
-            sails.log("health_checks:createTransporter:transport =>",transport)
+            sails.log("Upstream health:createTransporter:transport =>",transport)
             if(!transport) return cb()
 
             var result = {
@@ -150,7 +150,11 @@ module.exports = {
                     result.transporter = hcmailer.createTransport(transport.settings)
                     break;
                 case "mailgun":
-                    result.transporter = hcmailer.createTransport(mg(transport.settings))
+                    if(!_.get(transport,'settings.auth.api_key') || !_.get(transport,'settings.auth.api_domain')) {
+                        result.transporter = null;
+                    }else{
+                        result.transporter = hcmailer.createTransport(mg(transport.settings))
+                    }
                     break;
             }
 
@@ -181,7 +185,49 @@ module.exports = {
               }
 
               if(hc.email) {
+                  self.createTransporter(settings[0], function (err, result) {
+                      if (err || !result || !result.transporter) {
+                          sails.log("health_check:failed to create transporter. No notification will be sent.", err)
+                      } else {
+                          var transporter = result.transporter
+                          var settings = result.settings
+                          var html = self.makeHTMLNotification(connection, unhealthyTargets)
 
+                          Utils.getAdminEmailList(function (err, receivers) {
+                              sails.log("Upstream health:notify:receivers => ", receivers)
+                              if (!err && receivers.length) {
+
+                                  var mailOptions = {
+                                      from: '"' + settings.email_default_sender_name + '" <' + settings.email_default_sender + '>', // sender address
+                                      to: receivers.join(","), // list of receivers
+                                      subject: 'An alert was triggered (Upstream Health)', // Subject line
+                                      html: html
+                                  };
+
+                                  if (settings.default_transport == 'sendmail') {
+                                      sendmail(mailOptions, function (err, reply) {
+                                          if (err) {
+                                              sails.log.error("Upstream health:notify:error", err)
+                                          } else {
+                                              sails.log.info("Upstream health:notify:success", reply)
+
+                                          }
+                                      });
+                                  } else {
+                                      transporter.sendMail(mailOptions, function (error, info) {
+                                          if (error) {
+                                              sails.log.error("Upstream health:notify:error", error)
+
+                                          } else {
+                                              sails.log.info("Upstream health:notify:success", info)
+
+                                          }
+                                      });
+                                  }
+                              }
+                          })
+                      }
+                  })
               }
           })
 
@@ -207,7 +253,7 @@ module.exports = {
         //                 var html = self.makeHTMLNotification(hc)
         //
         //                 Utils.getAdminEmailList(function(err,receivers){
-        //                     sails.log("health_checks:notify:receivers => ",  receivers)
+        //                     sails.log("Upstream health:notify:receivers => ",  receivers)
         //                     if(!err && receivers.length) {
         //
         //                         var mailOptions = {
@@ -220,19 +266,19 @@ module.exports = {
         //                         if(settings.default_transport == 'sendmail') {
         //                             sendmail(mailOptions, function(err, reply) {
         //                                 if(err){
-        //                                     sails.log.error("Health_checks:notify:error",err)
+        //                                     sails.log.error("Upstream health:notify:error",err)
         //                                 }else{
-        //                                     sails.log.info("Health_checks:notify:success",reply)
+        //                                     sails.log.info("Upstream health:notify:success",reply)
         //
         //                                 }
         //                             });
         //                         }else{
         //                             transporter.sendMail(mailOptions, function(error, info){
         //                                 if(error){
-        //                                     sails.log.error("Health_checks:notify:error",error)
+        //                                     sails.log.error("Upstream health:notify:error",error)
         //
         //                                 }else{
-        //                                     sails.log.info("Health_checks:notify:success",info)
+        //                                     sails.log.info("Upstream health:notify:success",info)
         //
         //                                 }
         //                             });
@@ -253,9 +299,9 @@ module.exports = {
 
     notifyNotificationEndpoint : function(hc) {
 
-        sails.log("api_health_checks:notifyNotificationEndpoint")
+        sails.log("api_Upstream health:notifyNotificationEndpoint")
         if(!hc.notification_endpoint) {
-            sails.log("api_health_checks:notifyNotificationEndpoint => No notification endpoint defined")
+            sails.log("api_Upstream health:notifyNotificationEndpoint => No notification endpoint defined")
             return false;
         }
 
@@ -264,29 +310,47 @@ module.exports = {
             .send(hc.api)
             .end(function (response) {
                 if (response.error)  {
-                    sails.log("api_health_checks:notifyNotificationEndpoint => Failed to notify notification endpoint",response.error)
+                    sails.log("api_Upstream health:notifyNotificationEndpoint => Failed to notify notification endpoint",response.error)
                 }else{
-                    sails.log("api_health_checks:notifyNotificationEndpoint => Succeeded to notify notification endpoint")
+                    sails.log("api_Upstream health:notifyNotificationEndpoint => Succeeded to notify notification endpoint")
                 }
 
             })
     },
 
-    makeHTMLNotification : function makeHTMLNotification(hc) {
+    makeHTMLNotification : function makeHTMLNotification(connection, unhealthyTargets) {
 
-        var duration = moment.duration(moment().diff(moment(tasks[hc.id].lastSucceeded))).humanize()
+        let html = '<h2>Some Upstream health checks have failed</h2>' +
+          '<h3>Connection</h3>' +
+          '<table style="border: 1px solid #ccc;background-color: #eaeaea">' +
+          '<tr>' +
+          '<th style="text-align: left">Name</th>' +
+          '<td style="text-align: left">' + connection.name + '</td>' +
+          '</tr>' +
+          '<th style="text-align: left">URL</th>' +
+          '<td style="text-align: left">' + connection.kong_admin_url + '</td>' +
+          '</tr>' +
+          '</table>' +
 
-        var html = '<p>An API is down or unresponsive for more than ' + duration + '</p>' +
-            '<table style="border: 1px solid #ccc;background-color: #eaeaea">' +
-            '<tr>' +
-            '<th style="text-align: left">Id</th>' +
-            '<td style="text-align: left">' + hc.id + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<th style="text-align: left">Name</th>' +
-            '<td style="text-align: left">' + hc.api.name + '</td>' +
-            '</tr>' +
-            '</table>';
+          '<h3>Unhealthy Targets</h3>' +
+          '<table style="border: 1px solid #ccc;background-color: #eaeaea">' +
+          '<tr>' +
+          '<th>Upstream Id</th>' +
+          '<th>Target</th>' +
+          '<th>Health</th>' +
+          '</tr>';
+
+        unhealthyTargets.forEach(target => {
+           const row = '<tr>' +
+             '<td>' + _.get(target, 'upstream.id', 'N/A') + '</td>' +
+             '<td>' + target.target + '</td>' +
+             '<td>' + target.health + '</td>' +
+             '</tr>';
+
+           html += row;
+        });
+
+        html += '</table>';
 
         return html;
     },
