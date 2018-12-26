@@ -61,7 +61,7 @@ var self = module.exports = {
     services: {
       beforeUpdate: function(entityId, connectionId, data, next) {
 
-        if(!sails.models.kongservices) return next(null, data);
+        if(!sails.models.kongservices || !req.connection) return next(null, data);
 
         sails.models.kongservices.updateOrCreate({
           kong_node_id: connectionId,
@@ -80,7 +80,7 @@ var self = module.exports = {
         });
       },
       afterList: function(req, resBody, next) {
-        if(!sails.models.kongservices) return next(null, resBody);
+        if(!sails.models.kongservices || !req.connection) return next(null, resBody);
         var connectionId = req.connection.id;
 
         sails.models.kongservices.find({
@@ -101,7 +101,7 @@ var self = module.exports = {
         });
       },
       afterFetch: function(req, data, next) {
-        if(!sails.models.kongservices) return next(null, data);
+        if(!sails.models.kongservices || !req.connection) return next(null, data);
         var connectionId = req.connection.id;
         var entityId = req.path.split("/").filter(function (e) {
           return e;
@@ -124,7 +124,7 @@ var self = module.exports = {
         });
       },
       afterCreate: function(req, data, konga_extras, next) {
-        if(!sails.models.kongservices) return next(null, data);
+        if(!sails.models.kongservices || !req.connection) return next(null, data);
         var connectionId = req.connection.id;
         var entityId = data.id;
 
@@ -143,7 +143,7 @@ var self = module.exports = {
         });
       },
       afterDelete: function(req, next) {
-        if(!sails.models.kongservices) return next();
+        if(!sails.models.kongservices || !req.connection) return next();
         var connectionId = req.connection.id;
         // The path must be of type /kong/<entityName>/<entityId>
         var entityId = req.path.replace("/kong","").split("/").filter(function (e) {
@@ -165,7 +165,7 @@ var self = module.exports = {
     },
     apis: {
       afterDelete: function(req, next) {
-
+        if(!req.connection) return next();
         // The path must be of type /kong/<entityName>/<entityId>
         var entityId = req.path.replace("/kong","").split("/").filter(function (e) {
           return e;
