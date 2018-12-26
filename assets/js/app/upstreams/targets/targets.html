@@ -49,6 +49,8 @@
                         </i>
                     </th>
                     <th width="1"></th>
+                    <th width="1"></th>
+                    <th width="1"></th>
                 </tr>
                 <tr dir-paginate="item in items | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td ng-if="compareKongVersion('0.12.2') >= 0">
@@ -77,7 +79,21 @@
                     </td>
                     <td>{{item.target || "-"}}</td>
                     <td>{{item.weight || "-"}}</td>
-                    <td>{{moment(item.created_at).format("MMM DD YYYY @h:mm")}}</td>
+                    <td>{{moment(item.created_at * 1000).format("MMM DD YYYY @h:mm")}}</td>
+                    <td>
+                        <button type="button" ng-click="setHealth($index,item, true)"
+                                uib-tooltip="Set healthy"
+                                class="btn btn-success btn-link">
+                            <i class="mdi mdi-check-circle-outline"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="setHealth($index,item, false)"
+                                uib-tooltip="Set unhealthy"
+                                class="btn btn-warning btn-link">
+                            <i class="mdi mdi-heart-off"></i>
+                        </button>
+                    </td>
                     <td>
                         <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>

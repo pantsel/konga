@@ -20,6 +20,7 @@
 
         // Add default list configuration variable to current scope
         $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('target', Target)));
+        $scope.setHealth = setHealth;
 
         // Set initial data
         $scope.loading = false
@@ -169,6 +170,20 @@
             }
           });
         }
+
+        function setHealth(index, target, healthy) {
+          console.log("@@@@@@@@@@@@@@@@@@@@@@@@@");
+          $http.post(`kong/upstreams/${$stateParams.id}/targets/${target.id}/${healthy ? 'healthy' : 'unhealthy'}`)
+            .then(res => {
+              MessageService.success(`Target ${target.target} is set to ${healthy ? 'healthy' : 'unhealthy'}`);
+              target.health = healthy ? 'HEALTHY' : 'UNHEALTHY';
+            })
+            .catch(err => {
+              console.error(err);
+              MessageService.error('Something went wrong...');
+            })
+        }
+
         _fetchData();
       }
     ])
