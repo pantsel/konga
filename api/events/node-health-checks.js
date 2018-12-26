@@ -83,6 +83,7 @@ module.exports = {
                     if(!tasks[node.id].firstFailed) tasks[node.id].firstFailed = new Date();
                     tasks[node.id].firstSucceeded = null;
                     tasks[node.id].lastFailed = new Date();
+                    tasks[node.id].lastFailedReason = 'The node is down or unresponsive';
                     tasks[node.id].isHealthy = false;
                     tasks[node.id].timesFailed++;
                     sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times');
@@ -96,11 +97,34 @@ module.exports = {
 
                 }else{
                     sails.log('Health check for node ' + node.id + ' succeeded',data);
-                    if(!tasks[node.id].firstSucceeded) tasks[node.id].firstSucceeded = new Date();
-                    tasks[node.id].timesFailed = 0;
-                    tasks[node.id].isHealthy = true;
-                    tasks[node.id].firstFailed = null;
-                    tasks[node.id].lastSucceeded = new Date();
+
+                    // The node may be up and running, but we also need to check
+                    // if the database is reachable.
+                    // If the database is not reachable, the check will have to be marked as failed.
+                    if(!_.get(data,'database.reachable')) {
+                        if(!tasks[node.id].firstFailed) tasks[node.id].firstFailed = new Date();
+                        tasks[node.id].firstSucceeded = null;
+                        tasks[node.id].lastFailed = new Date();
+                        tasks[node.id].lastFailedReason = 'Database is unreachable';
+                        tasks[node.id].isHealthy = false;
+                        tasks[node.id].timesFailed++;
+                        sails.log('health_checks:cron:checkStatus => Health check for node ' + node.id + ' failed ' + tasks[node.id].timesFailed + ' times.' +
+                          'Database is unreachable');
+
+                        var timeDiff = Utils.getMinutesDiff(new Date(),tasks[node.id].lastNotified)
+                        sails.log('health_checks:cron:checkStatus:last notified => ' + tasks[node.id].lastNotified);
+                        sails.log('health_checks:cron:checkStatus => Checking if eligible for notification',timeDiff);
+                        if(!tasks[node.id].lastNotified || timeDiff > notificationsInterval) {
+                            self.notify(node);
+                        }
+                    } else {
+                        if(!tasks[node.id].firstSucceeded) tasks[node.id].firstSucceeded = new Date();
+                        tasks[node.id].timesFailed = 0;
+                        tasks[node.id].isHealthy = true;
+                        tasks[node.id].firstFailed = null;
+                        tasks[node.id].lastSucceeded = new Date();
+                    }
+
                 }
 
                 self.updateNodeHealthCheckDetails(node.id)
@@ -231,8 +255,9 @@ module.exports = {
 
         var duration = moment.duration(moment().diff(moment(tasks[node.id].lastSucceeded))).humanize()
 
-        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] A Kong Node is down or unresponsive for more than '
-            + duration + '. ID: ' + node.id + ' | Name: ' + node.name + " | Kong Admin URL: " + node.kong_admin_url + '.';
+        var text = '[ ' + moment().format('MM/DD/YYYY @HH:mm:ss') + ' ] A Kong Node  health check is failing for more than '
+            + duration + '. ID: ' + node.id + ' | Name: ' + node.name + " | Kong Admin URL: " + node.kong_admin_url + ' | ' +
+          ' Reason: ' + _.get(tasks, `${node.id}.lastFailedReason`, 'N/A') + '.';
 
         return text;
     },
@@ -241,7 +266,8 @@ module.exports = {
 
         var duration = moment.duration(moment().diff(moment(tasks[node.id].lastSucceeded))).humanize()
 
-        var html = '<p>A Kong Node is down or unresponsive for more than ' + duration + '</p>' +
+        var html = '<h3>A Kong Node health check is failing for more than ' + duration + '</h3>' +
+          '<h4>' + _.get(tasks, `${node.id}.lastFailedReason`, 'N/A') + '</h4>' +
             '<table style="border: 1px solid #ccc;background-color: #eaeaea">' +
             '<tr>' +
             '<th style="text-align: left">Id</th>' +

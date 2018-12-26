@@ -70,7 +70,7 @@
                     <i
                             ng-if="node.health_checks"
                             class="mdi"
-                            uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            uib-tooltip="{{node.health_check_details ? ( node.health_check_details.isHealthy ? 'Healthy' : 'Unhealthy' ) : 'N/A'}}"
                             data-ng-class="{'mdi-loading mdi-spin': Object.keys(node.health_check_details).length == 0,'mdi-heart-broken text-danger': node.health_check_details && !node.health_check_details.isHealthy,'mdi-heart-pulse text-success': node.health_check_details && node.health_check_details.isHealthy}"></i>
 
                     <i class="mdi mdi-loading mdi-spin text-primary" ng-if="node.health_checks && !node.health_check_details"></i>

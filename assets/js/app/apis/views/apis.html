@@ -97,7 +97,7 @@
                         <i
                             ng-if="api.health_checks && api.health_checks.active"
                             class="mdi"
-                            uib-tooltip="{{api.health_checks.data ? ( api.health_checks.data.isHealthy ? 'Healthy' : 'Down or unresponsive' ) : 'N/A'}}"
+                            uib-tooltip="{{api.health_checks.data ? ( api.health_checks.data.isHealthy ? 'Healthy' : 'Unhealthy' ) : 'N/A'}}"
                             data-ng-class="{'mdi-loading mdi-spin': !api.health_checks.data,'mdi-heart-broken text-danger': api.health_checks.data && !api.health_checks.data.isHealthy,'mdi-heart-pulse text-success': api.health_checks.data && api.health_checks.data.isHealthy}"></i>
 
 

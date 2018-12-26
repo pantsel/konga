@@ -68,7 +68,7 @@
                         //     message : message
                         // })
 
-                        MessageService.warning('A Kong node is down, unresponsive or unreachable.')
+                        MessageService.warning('A Connection health check has failed: ' + _.get(data,'lastFailedReason', 'N/A'))
                     }
 
                 })

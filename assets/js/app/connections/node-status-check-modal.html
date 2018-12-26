@@ -58,7 +58,7 @@
                     </strong>
                     <strong ng-if="!node.health_check_details.firstSucceeded" class="text-danger">
                         <i class="mdi mdi-alert-outline"></i>
-                        Down or unresponsive
+                        Unhealthy
                     </strong>
                 </td>
             </tr>
@@ -69,6 +69,10 @@
             <tr>
                 <th>Last failed</th>
                 <td>{{node.health_check_details.lastFailed ? moment(node.health_check_details.lastFailed).format("dddd, MMMM Do YYYY, HH:mm:ss") : "Never"}}</td>
+            </tr>
+            <tr>
+                <th>Last failed reason</th>
+                <td><strong>{{node.health_check_details.lastFailedReason ? node.health_check_details.lastFailedReason : "N/A"}}</strong></td>
             </tr>
             <tr>
                 <th>Last notified</th>
