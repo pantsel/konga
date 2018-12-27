@@ -137,8 +137,8 @@ module.exports.routes = {
    */
 
   'GET /kong/:entity': 'KongProxyController.listProxy',
-  'GET /kong/:entity/:id/:child_entity': 'KongProxyController.listProxy',
   'GET /kong/:entity/:id': 'KongProxyController.proxy',
+  'GET /kong/:entity/:id/:child_entity': 'KongProxyController.listProxy',
 
 
   /**
