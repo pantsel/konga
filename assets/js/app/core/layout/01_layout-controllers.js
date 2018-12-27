@@ -278,15 +278,15 @@
             icon: 'mdi-directions-fork',
             access: AccessLevels.user
           },
-          {
-            state: 'apis',
-            show: function () {
-              return AuthService.hasPermission('apis', 'read') && $rootScope.Gateway
-            },
-            title: 'APIs <small>(deprecated)</small>',
-            icon: 'mdi-cloud-outline',
-            access: AccessLevels.user
-          },
+          // {
+          //   state: 'apis',
+          //   show: function () {
+          //     return AuthService.hasPermission('apis', 'read')  && $rootScope.isGatewayVersionSmaller('1.0.0-rc1')
+          //   },
+          //   title: 'APIs <small>(deprecated)</small>',
+          //   icon: 'mdi-cloud-outline',
+          //   access: AccessLevels.user
+          // },
           {
             state: 'consumers',
             show: function () {

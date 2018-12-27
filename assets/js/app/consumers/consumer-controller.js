@@ -31,11 +31,11 @@
             name: 'Credentials',
             icon: 'mdi-security'
           },
-          {
-            id: 'apis',
-            name: 'Accessible APIs',
-            icon: 'mdi-cloud-outline'
-          },
+          // {
+          //   id: 'apis',
+          //   name: 'Accessible APIs',
+          //   icon: 'mdi-cloud-outline'
+          // },
           {
             id: 'services',
             name: 'Accessible Services & Routes',

@@ -289,6 +289,10 @@
           return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) >= 0 : false;
         }
 
+        $rootScope.isGatewayVersionSmaller = function (version) {
+          return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) < 0 : false;
+        }
+
 
         $rootScope.compareKongVersion = function (version) {
           return Semver.cmp($rootScope.Gateway.version, version);
