@@ -54,7 +54,7 @@
                 <tr
                         dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage">
                     <td>
-                        <img ng-src="images/kong/plugins/{{item.name}}.png" style="height: 42px">
+                        <img ng-src="images/kong/plugins/{{item.name}}.png" onerror="this.src='images/kong/plugins/kong.svg'" style="height: 42px">
                     </td>
                     <td>
 
