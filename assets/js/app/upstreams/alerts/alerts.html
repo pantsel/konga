@@ -30,6 +30,10 @@
     </div>
     <div class="panel-body">
 
+        <div class="alert alert-warning" ng-if="!alert.active">
+            Alerting is disabled. Switch alerts ON to enable them.
+        </div>
+
         <a href="javascript:void(0)"
            uib-popover-template="'popoverTemplate.html'"
            popover-placement="bottom"
