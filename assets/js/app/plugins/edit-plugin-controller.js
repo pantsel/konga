@@ -21,9 +21,12 @@
         $scope.schema = {
           fields: {}
         };
-        sch.fields.forEach(item => {
-          $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
-        })
+
+        if(_.isArray(sch.fields)) {
+          sch.fields.forEach(item => {
+            $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
+          })
+        }
 
         // $scope.schema = _schema.data;
         $scope.context = 'update';

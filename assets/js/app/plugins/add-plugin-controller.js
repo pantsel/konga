@@ -34,9 +34,13 @@
         $scope.schema = {
           fields: {}
         };
-        sch.fields.forEach(item => {
-          $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
-        })
+
+        if(_.isArray(sch.fields)) {
+          sch.fields.forEach(item => {
+            $scope.schema.fields[Object.keys(item)[0]] = item[Object.keys(item)[0]];
+          })
+        }
+
 
         // $scope.schema = _schema.data
         $scope.pluginName = _pluginName
@@ -143,7 +147,7 @@
           // Create request data "config." properties
           var config = PluginHelperService.createConfigProperties(request_data.name,$scope.data.fields)
 
-          request_data = _.merge(request_data, config)
+          request_data = _.merge(request_data, config || {})
 
           // Delete unset fields
           Object.keys(request_data).forEach(function (key) {
@@ -151,9 +155,12 @@
           })
 
           // Delete unset config fields
-          Object.keys(request_data.config).forEach(function (key) {
-            if (!request_data.config[key]) delete request_data.config[key]
-          })
+          if(request_data.config) {
+            Object.keys(request_data.config).forEach(function (key) {
+              if (!request_data.config[key]) delete request_data.config[key]
+            })
+          }
+
 
           console.log("REQUEST DATA =>", request_data)
 
