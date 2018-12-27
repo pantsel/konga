@@ -31,212 +31,213 @@
         {{errors.config}}
     </div>
 
-    <form ng-if="customPluginForms.indexOf(plugin.name) < 0" class="form-horizontal">
+    <!--<form ng-if="customPluginForms.indexOf(plugin.name) < 0" class="form-horizontal">-->
 
-        <div data-ng-if="!data.no_consumer" class="form-group">
-            <label class="col-sm-4 control-label"><strong>consumer</strong></label>
-            <div class="col-sm-7">
-                <input
-                        type="text"
-                        ng-model="data.consumer.id"
-                        class="form-control">
-                <p class="help-block">
-                    The CONSUMER ID that this plugin configuration will target.
-                    This value can only be used if authentication has been enabled
-                    so that the system can identify the user making the request.
-                    If left blank, the plugin will be applied to all consumers.
-                </p>
-            </div>
-        </div>
+        <!--<div data-ng-if="!data.no_consumer" class="form-group">-->
+            <!--<label class="col-sm-4 control-label"><strong>consumer</strong></label>-->
+            <!--<div class="col-sm-7">-->
+                <!--<input-->
+                        <!--type="text"-->
+                        <!--ng-model="data.consumer.id"-->
+                        <!--class="form-control">-->
+                <!--<p class="help-block">-->
+                    <!--The CONSUMER ID that this plugin configuration will target.-->
+                    <!--This value can only be used if authentication has been enabled-->
+                    <!--so that the system can identify the user making the request.-->
+                    <!--If left blank, the plugin will be applied to all consumers.-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in data.fields">
-            <label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>
-            <div class="col-sm-7">
-                <div ng-switch on="value.type">
+        <!--<div class="form-group" ng-class="{'has-error' : errors[key]}" data-ng-repeat="(key,value) in data.fields">-->
+            <!--<label class="col-sm-4 control-label"><strong>{{humanizeLabel(key)}}</strong></label>-->
+            <!--<div class="col-sm-7">-->
+                <!--<div ng-switch on="value.type">-->
 
-                    <!-- TYPE: RECORD -->
-                    <div ng-switch-when="record">
-                        <div class="plugin-field-table">
-                            <div data-ng-repeat="field in value.fields">
-                                <!--<pre>{{field | json}}</pre>-->
-                                <label><i class="mdi mdi-chevron-right"></i>{{getFieldProp(field)}}</label>
-                                <div ng-switch on="field[getFieldProp(field)].type">
-                                    <div ng-switch-when="array">
-                                        <chips ng-model="field[getFieldProp(field)].value">
-                                            <chip-tmpl>
-                                                <div class="default-chip">
-                                                    {{chip}}
-                                                    <i class="mdi mdi-close" remove-chip></i>
-                                                </div>
-                                            </chip-tmpl>
-                                            <input chip-control/>
-                                        </chips>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <input type="{{field[getFieldProp(field)].type}}" ng-model="field[getFieldProp(field)].value" class="form-control">
-                                    </div>
-                                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
-                                    <p class="help-block">{{data.help}}</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <!-- TYPE: TABLE -->
-                    <div ng-switch-when="table">
-                        <div data-ng-repeat="(key,data) in value.schema.fields" class="plugin-field-table margin-bottom">
-
-                            <label>{{key}}</label>
-                            <div data-ng-if="value.schema.flexible">
-                                <button data-ng-click="removeField(value.schema.fields,key)" class="btn btn-sm btn-flat btn-danger" style="position: absolute;top: 0px;right: 15px">
-                                    <i class="mdi mdi-close"></i>
-                                </button>
-                                <div class="row margin-top">
-
-                                    <div class="col-md-4" data-ng-repeat="(k,v) in data.schema.fields">
-                                        <input type="{{v.type}}" ng-model="v.value" class="form-control">
-                                        <p class="help-block">{{k}}</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <!--&lt;!&ndash; TYPE: RECORD &ndash;&gt;-->
+                    <!--<div ng-switch-when="record">-->
+                        <!--<div class="plugin-field-table">-->
+                            <!--<div data-ng-repeat="field in value.fields">-->
+                                <!--&lt;!&ndash;<pre>{{field | json}}</pre>&ndash;&gt;-->
+                                <!--<label><i class="mdi mdi-chevron-right"></i>{{getFieldProp(field)}}</label>-->
+                                <!--<div ng-switch on="field[getFieldProp(field)].type">-->
+                                    <!--<div ng-switch-when="array">-->
+                                        <!--<chips ng-model="field[getFieldProp(field)].value">-->
+                                            <!--<chip-tmpl>-->
+                                                <!--<div class="default-chip">-->
+                                                    <!--{{chip}}-->
+                                                    <!--<i class="mdi mdi-close" remove-chip></i>-->
+                                                <!--</div>-->
+                                            <!--</chip-tmpl>-->
+                                            <!--<input chip-control/>-->
+                                        <!--</chips>-->
+                                    <!--</div>-->
+                                    <!--<div ng-switch-default>-->
+                                        <!--<input type="{{field[getFieldProp(field)].type}}" ng-model="field[getFieldProp(field)].value" class="form-control">-->
+                                    <!--</div>-->
+                                    <!--<div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>-->
+                                    <!--<p class="help-block">{{data.help}}</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
 
-                            <div data-ng-if="!value.schema.flexible">
+                    <!--</div>-->
 
-                                <div ng-switch on="data.type">
-                                    <div ng-switch-when="array">
-                                        <chips ng-model="data.value">
-                                            <chip-tmpl>
-                                                <div class="default-chip">
-                                                    {{chip}}
-                                                    <i class="mdi mdi-close" remove-chip></i>
-                                                </div>
-                                            </chip-tmpl>
-                                            <input chip-control/>
-                                        </chips>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <input type="{{data.type}}" ng-model="data.value" class="form-control">
-                                    </div>
-                                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
-                                    <p class="help-block">{{data.help}}</p>
-                                </div>
-                            </div>
+                    <!--&lt;!&ndash; TYPE: TABLE &ndash;&gt;-->
+                    <!--<div ng-switch-when="table">-->
+                        <!--<div data-ng-repeat="(key,data) in value.schema.fields" class="plugin-field-table margin-bottom">-->
 
-                        </div>
-                        <!-- Start Monkey patch for response-ratelimiting plugin -->
-                        <div data-ng-if="plugin.name === 'response-ratelimiting'">
-                            <div class="input-group">
-                                <input type="text"
-                                       on-key-enter="addFlexField(value.schema.fields,value)"
-                                       data-ng-model="value.flex_field"
-                                       class="form-control"
-                                       my-enter="doSomething()"
-                                       placeholder="add an object to limit...">
-                                <span class="input-group-btn">
-                                    <button data-ng-click="addFlexField(value.schema.fields,value)" class="btn btn-primary" type="button">
-                                        <i class="mdi mdi-plus"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <!-- End Monkey patch for response-ratelimiting plugin -->
-                    </div>
+                            <!--<label>{{key}}</label>-->
+                            <!--<div data-ng-if="value.schema.flexible">-->
+                                <!--<button data-ng-click="removeField(value.schema.fields,key)" class="btn btn-sm btn-flat btn-danger" style="position: absolute;top: 0px;right: 15px">-->
+                                    <!--<i class="mdi mdi-close"></i>-->
+                                <!--</button>-->
+                                <!--<div class="row margin-top">-->
 
-                    <!-- TYPE: STRING -->
-                    <div ng-switch-when="string">
-                        <div data-ng-if="value.one_of">
-                            <select class="form-control" ng-model="value.value" ng-options="x for x in value.one_of">
-                            </select>
-                        </div>
-                        <div data-ng-if="!value.one_of">
-                            <!--<input type="text" ng-model="value.value" class="form-control">-->
-                            <textarea ng-model="value.value" class="form-control"></textarea>
-                        </div>
-                    </div>
+                                    <!--<div class="col-md-4" data-ng-repeat="(k,v) in data.schema.fields">-->
+                                        <!--<input type="{{v.type}}" ng-model="v.value" class="form-control">-->
+                                        <!--<p class="help-block">{{k}}</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                    <!-- TYPE: ARRAY -->
-                    <div ng-switch-when="array">
-                        <chips ng-model="value.value">
-                            <chip-tmpl>
-                                <div class="default-chip">
-                                    {{chip}}
-                                    <i class="mdi mdi-close" remove-chip></i>
-                                </div>
-                            </chip-tmpl>
-                            <input chip-control/>
-                        </chips>
-                        <p class="help-block">Tip: Press <code>Enter</code> to accept a value.</p>
-                    </div>
 
-                    <!-- TYPE: SET -->
-                    <div ng-switch-when="set">
-                        <chips ng-model="value.value">
-                            <chip-tmpl>
-                                <div class="default-chip">
-                                    {{chip}}
-                                    <i class="mdi mdi-close" remove-chip></i>
-                                </div>
-                            </chip-tmpl>
-                            <input chip-control/>
-                        </chips>
-                        <p class="help-block">Tip: Press <code>Enter</code> to accept a value.</p>
-                    </div>
+                            <!--<div data-ng-if="!value.schema.flexible">-->
 
-                    <!-- TYPE: SELECT -->
-                    <div ng-switch-when="select">
-                        <select class="form-control"  ng-model="value.value">
-                            <option  ng-repeat="item in units" ng-value="item">{{item}}</option>
-                        </select>
-                    </div>
+                                <!--<div ng-switch on="data.type">-->
+                                    <!--<div ng-switch-when="array">-->
+                                        <!--<chips ng-model="data.value">-->
+                                            <!--<chip-tmpl>-->
+                                                <!--<div class="default-chip">-->
+                                                    <!--{{chip}}-->
+                                                    <!--<i class="mdi mdi-close" remove-chip></i>-->
+                                                <!--</div>-->
+                                            <!--</chip-tmpl>-->
+                                            <!--<input chip-control/>-->
+                                        <!--</chips>-->
+                                    <!--</div>-->
+                                    <!--<div ng-switch-default>-->
+                                        <!--<input type="{{data.type}}" ng-model="data.value" class="form-control">-->
+                                    <!--</div>-->
+                                    <!--<div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>-->
+                                    <!--<p class="help-block">{{data.help}}</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                    <!-- TYPE: BOOLEAN -->
-                    <div ng-switch-when="boolean">
-                        <input
-                                bs-switch
-                                ng-model="value.value"
-                                switch-size="small"
-                                type="checkbox"
-                                switch-on-text="YES"
-                                switch-off-text="NO"
-                                ng-change="updateApi(api)"
-                        >
+                        <!--</div>-->
+                        <!--&lt;!&ndash; Start Monkey patch for response-ratelimiting plugin &ndash;&gt;-->
+                        <!--<div data-ng-if="plugin.name === 'response-ratelimiting'">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="text"-->
+                                       <!--on-key-enter="addFlexField(value.schema.fields,value)"-->
+                                       <!--data-ng-model="value.flex_field"-->
+                                       <!--class="form-control"-->
+                                       <!--my-enter="doSomething()"-->
+                                       <!--placeholder="add an object to limit...">-->
+                                <!--<span class="input-group-btn">-->
+                                    <!--<button data-ng-click="addFlexField(value.schema.fields,value)" class="btn btn-primary" type="button">-->
+                                        <!--<i class="mdi mdi-plus"></i>-->
+                                    <!--</button>-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; End Monkey patch for response-ratelimiting plugin &ndash;&gt;-->
+                    <!--</div>-->
 
-                    </div>
+                    <!--&lt;!&ndash; TYPE: STRING &ndash;&gt;-->
+                    <!--<div ng-switch-when="string">-->
+                        <!--<div data-ng-if="value.one_of">-->
+                            <!--<select class="form-control" ng-model="value.value" ng-options="x for x in value.one_of">-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <!--<div data-ng-if="!value.one_of">-->
+                            <!--&lt;!&ndash;<input type="text" ng-model="value.value" class="form-control">&ndash;&gt;-->
+                            <!--<textarea ng-model="value.value" class="form-control"></textarea>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                    <!-- TYPE: FILE -->
-                    <div ng-switch-when="file">
-                        <!--<input type="file"-->
-                               <!--ngf-select ng-model="value.value" name="value.value"-->
-                        <!--/>-->
-                        <!--<br>-->
-                        <p class="text-primary">
-                            To change the certificates you must remove the plugin and add it again
-                        </p>
-                        <pre>{{value.value}}</pre>
-                    </div>
+                    <!--&lt;!&ndash; TYPE: ARRAY &ndash;&gt;-->
+                    <!--<div ng-switch-when="array">-->
+                        <!--<chips ng-model="value.value">-->
+                            <!--<chip-tmpl>-->
+                                <!--<div class="default-chip">-->
+                                    <!--{{chip}}-->
+                                    <!--<i class="mdi mdi-close" remove-chip></i>-->
+                                <!--</div>-->
+                            <!--</chip-tmpl>-->
+                            <!--<input chip-control/>-->
+                        <!--</chips>-->
+                        <!--<p class="help-block">Tip: Press <code>Enter</code> to accept a value.</p>-->
+                    <!--</div>-->
 
-                    <!-- DEFAULT -->
-                    <div ng-switch-default>
-                        <input type="{{value.type}}" ng-model="value.value" class="form-control">
+                    <!--&lt;!&ndash; TYPE: SET &ndash;&gt;-->
+                    <!--<div ng-switch-when="set">-->
+                        <!--<chips ng-model="value.value">-->
+                            <!--<chip-tmpl>-->
+                                <!--<div class="default-chip">-->
+                                    <!--{{chip}}-->
+                                    <!--<i class="mdi mdi-close" remove-chip></i>-->
+                                <!--</div>-->
+                            <!--</chip-tmpl>-->
+                            <!--<input chip-control/>-->
+                        <!--</chips>-->
+                        <!--<p class="help-block">Tip: Press <code>Enter</code> to accept a value.</p>-->
+                    <!--</div>-->
 
-                    </div>
-                    <div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>
-                    <p class="help-block">{{value.help}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-7">
-                <button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="updatePlugin()">
-                    <i class="mdi mdi-check" ng-if="!busy"></i>
-                    <fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>
-                    submit changes
-                </button>
-            </div>
-        </div>
-    </form>
+                    <!--&lt;!&ndash; TYPE: SELECT &ndash;&gt;-->
+                    <!--<div ng-switch-when="select">-->
+                        <!--<select class="form-control"  ng-model="value.value">-->
+                            <!--<option  ng-repeat="item in units" ng-value="item">{{item}}</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash; TYPE: BOOLEAN &ndash;&gt;-->
+                    <!--<div ng-switch-when="boolean">-->
+                        <!--<input-->
+                                <!--bs-switch-->
+                                <!--ng-model="value.value"-->
+                                <!--switch-size="small"-->
+                                <!--type="checkbox"-->
+                                <!--switch-on-text="YES"-->
+                                <!--switch-off-text="NO"-->
+                                <!--ng-change="updateApi(api)"-->
+                        <!--&gt;-->
+
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash; TYPE: FILE &ndash;&gt;-->
+                    <!--<div ng-switch-when="file">-->
+                        <!--&lt;!&ndash;<input type="file"&ndash;&gt;-->
+                               <!--&lt;!&ndash;ngf-select ng-model="value.value" name="value.value"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<br>&ndash;&gt;-->
+                        <!--<p class="text-primary">-->
+                            <!--To change the certificates you must remove the plugin and add it again-->
+                        <!--</p>-->
+                        <!--<pre>{{value.value}}</pre>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash; DEFAULT &ndash;&gt;-->
+                    <!--<div ng-switch-default>-->
+                        <!--<input type="{{value.type}}" ng-model="value.value" class="form-control">-->
+
+                    <!--</div>-->
+                    <!--<div class="text-danger" ng-if="errors[key]" data-ng-bind="errors[key]"></div>-->
+                    <!--<p class="help-block">{{value.help}}</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm-offset-4 col-sm-7">-->
+                <!--<button type="button" data-ng-disabled="busy" class="btn btn-primary btn-block" ng-click="updatePlugin()">-->
+                    <!--<i class="mdi mdi-check" ng-if="!busy"></i>-->
+                    <!--<fading-circle-spinner class="spinner spinner-invert pull-left" ng-if="busy"></fading-circle-spinner>-->
+                    <!--submit changes-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+    <div  ng-if="customPluginForms.indexOf(pluginName) < 0" data-ng-include="'js/app/plugins/forms/default.html?r=' + Date.now()"></div>
     <div ng-if="customPluginForms.indexOf(plugin.name) > -1" data-ng-include="'js/app/plugins/forms/' + plugin.name + '.html?r=' + Date.now()"></div>
 </div>
