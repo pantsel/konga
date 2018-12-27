@@ -61,7 +61,7 @@ var self = module.exports = {
     services: {
       beforeUpdate: function(entityId, connectionId, data, next) {
 
-        if(!sails.models.kongservices || !req.connection) return next(null, data);
+        if(!sails.models.kongservices) return next(null, data);
 
         sails.models.kongservices.updateOrCreate({
           kong_node_id: connectionId,
