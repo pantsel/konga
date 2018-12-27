@@ -63,7 +63,9 @@
                                     data.config[path][Object.keys(field)[0]] = _.get(field, `${prop}.value`);
                                 })
                             }else{
-                                if(fields[key].value) {
+                                if(fields[key].value !== ""
+                                  && fields[key].value !== 'undefined'
+                                  && fields[key].value !== undefined) {
                                     data.config[path] = fields[key].value;
                                 }
                             }
