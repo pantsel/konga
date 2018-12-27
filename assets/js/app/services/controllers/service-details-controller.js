@@ -31,6 +31,9 @@
             delete data.name;
           }
 
+          // Kong 1.x compat
+          delete data.data;
+
           ServiceService.update(data)
             .then(function (res) {
               console.log("Update Service: ", res)
