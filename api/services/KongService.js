@@ -283,7 +283,20 @@ var KongService = {
 
         return cb(null, response.body);
       });
-  }
+  },
+
+  put: function (url, connection, data) {
+    // sails.log("KongService.put called() =>", url, connection, data);
+    return new Promise((resolve, reject) => {
+      unirest.put(Utils.withoutTrailingSlash(connection.kong_admin_url) +url.replace('/kong', ''))
+        .headers(KongService.headers(connection, true))
+        .send(data)
+        .end(function (response) {
+          if (response.error) return reject(response);
+          return resolve(response.body);
+        });
+    })
+  },
 }
 
 module.exports = KongService

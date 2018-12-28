@@ -27,6 +27,11 @@
                         return $http.post('api/snapshots/' + id + '/restore',{
                             imports : imports
                         });
+                    },
+                    restore : function(id,imports) {
+                        return $http.post('api/snapshots/' + id + '/restore',{
+                            imports : imports
+                        });
                     }
                 };
 
