@@ -95,13 +95,64 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
             if(snapshot.data['consumers']) {
               await Promise.all(snapshot.data['consumers'].map(async (consumer) => {
                 const res = await KongService.put(`/${entity}/${consumer.id}`, req.connection, _.omit(consumer, ["id", "credentials"]));
-                // const credentials = consumer.credentials;
+
+                // Apply credentials to the consumer
+                const plural2singularMAP = {
+                  'basic-auths': 'basic-auth',
+                  'key-auths': 'key-auth',
+                  'hmac-auths': 'hmac-auth',
+                  'jwts': 'jwt'
+                }
+                for(let key in consumer.credentials) {
+                  if(consumer.credentials[key].length) {
+                    await Promise.all(consumer.credentials[key].map(async (cred) => {
+                      const singularKey = plural2singularMAP[key] || key;
+                      try{
+                        await KongService.post(`/consumers/${consumer.id}/${singularKey}`, req.connection, _.omit(cred, ["id", "consumer"]));
+                      }catch(e) {
+                        if(e.statusCode && e.statusCode === 409) {
+                          // A UNIQUE violation detected.
+                          // That means the credential already exists.
+                          sails.log(_.get(e, 'body.message'))
+                        }else{
+                          sails.log.error(`Create consumer credentials error =>`, e);
+                        }
+                      }
+                    }));
+                  }
+                }
                 data.push(res);
               }));
             }
 
           } else if(entity === 'upstreams') {
+            if(snapshot.data['upstreams']) {
 
+              // Create upstreams
+              await Promise.all(snapshot.data['upstreams'].map(async (upstream) => {
+                const res = await KongService.put(`/upstreams/${upstream.id}`, req.connection, _.omit(upstream, ["id", "targets"]));
+                // Create the upstream targets if needed
+                if(upstream.targets) {
+                  await Promise.all(upstream.targets.map(async (target) => {
+                    try{
+                      const res = await KongService.put(`/upstreams/${upstream.id}/targets`, req.connection, _.pick(target, ["target", "weight"]));
+                      data.push(res);
+                    } catch(e) {
+                      if(e.statusCode && e.statusCode === 409) {
+                        // A UNIQUE violation detected.
+                        // That means the credential already exists.
+                        sails.log(_.get(e, 'body.message'))
+                      }else{
+                        sails.log.error(`Create upstream targets error =>`, e);
+                      }
+                    }
+                  }));
+                }
+
+
+                data.push(res);
+              }));
+            }
           }else{
             if(snapshot.data[entity]) {
               await Promise.all(snapshot.data[entity].map(async (item) => {

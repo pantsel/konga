@@ -103,7 +103,6 @@ var KongService = {
         resolve(data);
       })
     });
-
   },
 
   fetch: (endpoint,req) => {
@@ -114,17 +113,7 @@ var KongService = {
         }
         return resolve(data)
       })
-
-
-      // let sizeQs = (endpoint.indexOf("?") > -1 ? "&" : "?") + `size=${sails.config.blueprints.defaultLimit}`;
-      // unirest.get(Utils.withoutTrailingSlash(req.connection.kong_admin_url) + endpoint + sizeQs)
-      //   .headers(KongService.headers(req, true))
-      //   .end(function (response) {
-      //     if (response.error) return reject(response)
-      //     return resolve(response.body)
-      //   });
     })
-
   },
 
   nodeStatus: function (node, cb) {
@@ -289,6 +278,19 @@ var KongService = {
     // sails.log("KongService.put called() =>", url, connection, data);
     return new Promise((resolve, reject) => {
       unirest.put(Utils.withoutTrailingSlash(connection.kong_admin_url) +url.replace('/kong', ''))
+        .headers(KongService.headers(connection, true))
+        .send(data)
+        .end(function (response) {
+          if (response.error) return reject(response);
+          return resolve(response.body);
+        });
+    })
+  },
+
+  post: function (url, connection, data) {
+    // sails.log("KongService.put called() =>", url, connection, data);
+    return new Promise((resolve, reject) => {
+      unirest.post(Utils.withoutTrailingSlash(connection.kong_admin_url) +url.replace('/kong', ''))
         .headers(KongService.headers(connection, true))
         .send(data)
         .end(function (response) {
