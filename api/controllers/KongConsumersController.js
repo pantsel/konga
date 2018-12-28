@@ -92,6 +92,7 @@ var KongConsumersController = {
       let oauth2 = [];
       let basicAuths = [];
 
+      // ToDo: clean this up somehow
       if(_.get(nodeInfo, 'plugins.available_on_server.jwt')) {
         let jwtsRecs = await Kong.fetch(`/jwts`, req);
         jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
@@ -220,6 +221,7 @@ var KongConsumersController = {
       let oauth2 = [];
       let basicAuths = [];
 
+      // ToDo: clean this up somehow
       if(_.get(nodeInfo, 'plugins.available_on_server.jwt')) {
         let jwtsRecs = await Kong.fetch(`/jwts`, req);
         jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);

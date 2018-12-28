@@ -8,9 +8,9 @@
 
   angular.module('frontend.consumers')
     .controller('ConsumerServicesController', [
-      '_', '$scope', '$q','$stateParams', '$log', '$state', '$uibModal', 'DialogService',
+      '_', '$scope', '$q','$stateParams', '$log', '$state', '$uibModal', 'DialogService', 'MessageService',
       'ConsumerService', 'ApiModel', 'ListConfig', 'UserService', 'PluginsService','ServiceModel',
-      function controller(_, $scope,$q, $stateParams, $log, $state, $uibModal, DialogService,
+      function controller(_, $scope,$q, $stateParams, $log, $state, $uibModal, DialogService, MessageService,
                           ConsumerService, ApiModel, ListConfig, UserService, PluginsService,ServiceModel) {
 
 
@@ -25,6 +25,12 @@
         $scope.isAccessControlled = isAccessControlled;
         $scope.needsAuth = needsAuth;
         $scope.isOpen = isOpen;
+
+
+        $scope.withRoutes = function(service)
+        {
+          return service.routes && service.routes.length; // otherwise it won't be within the results
+        };
 
 
 
@@ -160,11 +166,14 @@
           ConsumerService.listServices($stateParams.id)
             .then(function(res){
               $scope.items = res.data;
-              $scope.loading = false;
+              // $scope.loading = false;
               console.log("LOADED CONSUMER SERVICES =>", $scope.items)
               _fetchRoutes();
 
-            });
+            }).catch(err => {
+            $scope.loading = false;
+            MessageService.error(`Something went wrong...`)
+          });
 
         }
 
@@ -174,7 +183,6 @@
             .then(function(res){
               $scope.routes = res.data;
               console.log("LOADED CONSUMER ROUTES =>", $scope.items)
-              $scope.loadingRoutes = false;
               $scope.items.data.forEach(service => {
                 let routes = _.filter($scope.routes.data, route => {
                   return route.service.id === service.id;
@@ -184,7 +192,13 @@
                   service.routes = routes;
                 }
               })
-            });
+              $scope.loading = false;
+              $scope.loadingRoutes = false;
+            }).catch(err => {
+            $scope.loading = false;
+            $scope.loadingRoutes = false;
+            MessageService.error(`Something went wrong...`)
+          });
 
         }
 
