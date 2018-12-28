@@ -135,6 +135,7 @@ module.exports.policies = {
   SnapshotController: {
     '*': ['authenticated'],
     'takeSnapShot': ['authenticated', 'isAdmin', 'dynamicNode', 'createUser'],
+    'snapshot': ['authenticated', 'isAdmin', 'dynamicNode', 'createUser'],
     'restore': ['authenticated', 'isAdmin', 'dynamicNode'],
     'remove': ['authenticated', 'isAdmin'],
     'find': ['authenticated', 'isAdmin']

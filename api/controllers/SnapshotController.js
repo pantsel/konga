@@ -5,12 +5,12 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var KongService = require('../services/KongService');
-var SnapshotsService = require('../services/SnapshotsService');
-var _ = require('lodash')
-var async = require('async');
-var fs = require('fs');
-var semver = require('semver');
+const KongService = require('../services/KongService');
+const SnapshotsService = require('../services/SnapshotsService');
+const _ = require('lodash')
+const async = require('async');
+const fs = require('fs');
+const semver = require('semver');
 
 module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
@@ -25,6 +25,25 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
     sails.sockets.join(req.socket, roomName);
     res.json({
       room: roomName
+    });
+  },
+
+  snapshot: async (req, res) => {
+    // Get node
+    sails.models.kongnode.findOne({
+      id: req.param("node_id")
+    }).exec(async (err, node) => {
+      if (err) return res.negotiate(err)
+      if (!node) return res.badRequest({
+        message: "Invalid Kong Node"
+      })
+      try {
+        const snapshot = await SnapshotsService.snapshot(req.param('name'), node);
+        return res.json(snapshot);
+      } catch (e) {
+        return res.negotiate(e)
+      }
+
     });
   },
 

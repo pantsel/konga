@@ -98,6 +98,7 @@ module.exports.routes = {
 
   // Snapshots
   'POST /api/snapshots/take': 'SnapshotController.takeSnapShot',
+  'POST /api/snapshots/snapshot': 'SnapshotController.snapshot',
   'GET /api/snapshots/subscribe': 'SnapshotController.subscribe',
   'POST /api/snapshots/:id/restore': 'SnapshotController.restore',
   'GET /api/snapshots/:id/download': 'SnapshotController.download',

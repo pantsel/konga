@@ -9,6 +9,81 @@ var Utils = require('../helpers/utils');
 
 module.exports = {
 
+  snapshot: async(snapshotName, node) => {
+    const entities = {
+      'services': [],
+      'routes': [],
+      'consumers': [],
+      'plugins': [],
+      'acls': [],
+      'upstreams': [],
+      'certificates': [],
+      'snis': []
+    };
+    const req = {
+      connection: node
+    }
+
+    const consumersCredentials = {
+      'basic-auths': [],
+      'key-auths': [],
+      'hmac-auths': [],
+      'jwts': [],
+      'oauth2': []
+    }
+
+    try {
+      // Gather entities
+      for(let entity in entities) {
+        const result = await KongService.fetch(`/${entity}`, req);
+        entities[entity] = result.data;
+
+        // For each upstream, fetch it's targets
+        if(entity === 'upstreams' && result.data.length) {
+          entities[entity].forEach(async (upstream) => {
+            const targets = await KongService.fetch(`/upstreams/${upstream.id}/targets`, req);
+            upstream.targets = targets.data;
+          })
+        }
+      }
+
+      // Gather consumer credentials
+      for(let credential in consumersCredentials) {
+        const result = await KongService.fetch(`/${credential}`, req);
+        consumersCredentials[credential] = result.data;
+      }
+
+      // Assign credentials to consumers
+      if(entities.consumers && entities.consumers.length) {
+        entities.consumers.forEach(consumer => {
+          consumer.credentials = {};
+          for(let key in consumersCredentials) {
+            consumer.credentials[key] = _.filter(consumersCredentials[key], (item) => {
+              return consumer.id === _.get(item, 'consumer.id');
+            })
+          }
+        })
+      }
+
+      sails.log("SnapshotController:snapshot:entities", entities);
+
+      // Create the actual snapshot
+      return new Promise((resolve, reject) => {
+        sails.models.snapshot.create({
+          name: snapshotName || "snap@" + Date.now(),
+          kong_node_name: node.name,
+          kong_node_url: Utils.withoutTrailingSlash(node.kong_admin_url),
+          kong_version: node.kong_version,
+          data: entities
+        }).exec(function (err, created) {
+          if (err) return reject(err);
+          return resolve(created);
+        });
+      })
+    } catch(err) {
+      throw err;
+    }
+  },
 
   takeSnapShot: function (name, node, cb) {
 
