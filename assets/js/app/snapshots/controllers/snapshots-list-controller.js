@@ -114,15 +114,12 @@
                                     return false;
                                 }
 
-
                                 $scope.submitting = true;
                                 SnapshotsService.snapshot($scope.snapshot.name,$scope.node.id)
                                   .then(function(response){
-                                      MessageService.success('Snapshot creation may take some time. You will get notified when the job is done!');
+                                      MessageService.success('Snapshot Created!');
                                       $scope.submitting = false;
-                                      // $uibModalInstance.dismiss({
-                                      //     result : response.data
-                                      // })
+
                                       $uibModalInstance.dismiss({
                                           result : response.data
                                       });
@@ -132,22 +129,6 @@
                                         $scope.error = err.data.message;
                                     }
                                 });
-                                // SnapshotsService.takeSnapshot($scope.snapshot.name,$scope.node.id)
-                                //     .then(function(response){
-                                //         MessageService.success('Snapshot creation may take some time. You will get notified when the job is done!');
-                                //         $scope.submitting = false;
-                                //         // $uibModalInstance.dismiss({
-                                //         //     result : response.data
-                                //         // })
-                                //         $uibModalInstance.dismiss({
-                                //             result : response.data
-                                //         });
-                                //     }).catch(function(err){
-                                //     $scope.submitting = false;
-                                //     if(err.data && err.data.message) {
-                                //         $scope.error = err.data.message;
-                                //     }
-                                // });
                             };
                         }
                     });
