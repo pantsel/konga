@@ -33,9 +33,7 @@ module.exports = {
 
             sails.log.error("SnapshotScheduler:Running scheduled task", "Fetch node", node);
 
-            SnapshotsService.takeSnapShot(null, node, function (err, ok) {
-
-            });
+            SnapshotsService.snapshot(null, node);
 
           });
 
