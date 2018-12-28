@@ -83,18 +83,24 @@ var KongConsumersController = {
     var consumerId = req.param("id");
 
     try {
-      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
-      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
-      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
-      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
-      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
+      let jwtsRecs = await Kong.fetch(`/jwts`, req);
+      let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
+      let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
+      let oauth2Recs = await Kong.fetch(`/oauth2`, req);
+      let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
+
+      let jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
 
       let consumerAuths = []
-      if(jwts.total) consumerAuths.push('jwt');
-      if(keyAuths.total) consumerAuths.push('key-auth');
-      if(hmacAuths.total) consumerAuths.push('hmac-auth');
-      if(oauth2.total) consumerAuths.push('oauth2');
-      if(basicAuths.total) consumerAuths.push('basic-auth');
+      if(jwts.length) consumerAuths.push('jwt');
+      if(keyAuths.length) consumerAuths.push('key-auth');
+      if(hmacAuths.length) consumerAuths.push('hmac-auth');
+      if(oauth2.length) consumerAuths.push('oauth2');
+      if(basicAuths.length) consumerAuths.push('basic-auth');
 
       sails.log("consumerAuths", consumerAuths)
 
@@ -182,20 +188,24 @@ var KongConsumersController = {
     let consumerId = req.param("id");
 
     try {
-      let jwts = await Kong.fetch(`/jwts?consumer_id=${consumerId}`, req);
-      let keyAuths = await Kong.fetch(`/key-auths?consumer_id=${consumerId}`, req);
-      let hmacAuths = await Kong.fetch(`/hmac-auths?consumer_id=${consumerId}`, req);
-      let oauth2 = await Kong.fetch(`/oauth2?consumer_id=${consumerId}`, req);
-      let basicAuths = await Kong.fetch(`/basic-auths?consumer_id=${consumerId}`, req);
+      let jwtsRecs = await Kong.fetch(`/jwts`, req);
+      let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
+      let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
+      let oauth2Recs = await Kong.fetch(`/oauth2`, req);
+      let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
+
+      let jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
+      let basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
 
       let consumerAuths = []
-      if(jwts.total) consumerAuths.push('jwt');
-      if(keyAuths.total) consumerAuths.push('key-auth');
-      if(hmacAuths.total) consumerAuths.push('hmac-auth');
-      if(oauth2.total) consumerAuths.push('oauth2');
-      if(basicAuths.total) consumerAuths.push('basic-auth');
-
-      sails.log("consumerAuths", consumerAuths)
+      if(jwts.length) consumerAuths.push('jwt');
+      if(keyAuths.length) consumerAuths.push('key-auth');
+      if(hmacAuths.length) consumerAuths.push('hmac-auth');
+      if(oauth2.length) consumerAuths.push('oauth2');
+      if(basicAuths.length) consumerAuths.push('basic-auth');
 
       // Fetch all acls of the specified consumer
       let _acls = await Kong.fetch(`/consumers/${consumerId}/acls`, req);
