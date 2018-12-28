@@ -50,7 +50,7 @@
                     </td>
                     <td>{{item.name || "-"}}</td>
                     <td>{{item.slots || "-"}}</td>
-                    <td>{{moment(item.created_at).format("MMM DD YYYY @HH:mm")}}</td>
+                    <td>{{moment(item.created_at * 1000).format("MMM DD YYYY @HH:mm")}}</td>
                     <td ng-if="user.hasPermission('upstreams','edit')">
                         <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})">
                             <i class="mdi mdi-information-outline"></i>

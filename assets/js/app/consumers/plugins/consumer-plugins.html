@@ -84,7 +84,7 @@
 
             <span data-ng-if="!item.api_id && !item.service_id && !item.route_id" > All Entrypoints </span>
         </td>
-        <td>{{item.created_at | date : format : timezone}}</td>
+        <td>{{item.created_at * 1000 | date : format : timezone}}</td>
 
         <td>
             <button class="btn btn-link btn-danger" ng-click="deletePlugin(item)">
