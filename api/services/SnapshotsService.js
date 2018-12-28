@@ -10,6 +10,8 @@ var Utils = require('../helpers/utils');
 module.exports = {
 
   snapshot: async(snapshotName, node) => {
+
+
     const entities = {
       'services': [],
       'routes': [],
@@ -33,6 +35,18 @@ module.exports = {
     }
 
     try {
+
+      const nodeInfo = await KongService.info(node);
+
+      // Take in account only the plugins enabled in the cluster
+      // ToDo: clean this up somehow
+      if(nodeInfo.plugins.enabled_in_cluster.indexOf('basic-auth') < 0) { delete consumersCredentials['basic-auths']}
+      if(nodeInfo.plugins.enabled_in_cluster.indexOf('key-auth') < 0) { delete consumersCredentials['key-auths'] }
+      if(nodeInfo.plugins.enabled_in_cluster.indexOf('hmac-auth') < 0) { delete consumersCredentials['hmac-auths'] }
+      if(nodeInfo.plugins.enabled_in_cluster.indexOf('jwt') < 0) { delete consumersCredentials['jwts'] }
+      if(nodeInfo.plugins.enabled_in_cluster.indexOf('oauth2') < 0) { delete consumersCredentials['oauth2'] }
+
+
       // Gather entities
       for(let entity in entities) {
         const result = await KongService.fetch(`/${entity}`, req);

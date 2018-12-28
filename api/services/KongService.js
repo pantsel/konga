@@ -135,6 +135,17 @@ var KongService = {
       });
   },
 
+  info: function (connection) {
+    return new Promise((resolve, reject) => {
+      unirest.get(Utils.withoutTrailingSlash(connection.kong_admin_url))
+        .headers(KongService.headers(connection, true))
+        .end(function (response) {
+          if (response.error) return reject(response);
+          return resolve(response.body);
+        });
+    });
+  },
+
   listAllCb: function (req, endpoint, cb) {
     var url = (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + endpoint;
 

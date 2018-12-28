@@ -83,17 +83,40 @@ var KongConsumersController = {
     var consumerId = req.param("id");
 
     try {
-      let jwtsRecs = await Kong.fetch(`/jwts`, req);
-      let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
-      let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
-      let oauth2Recs = await Kong.fetch(`/oauth2`, req);
-      let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
 
-      let jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      const nodeInfo = await Kong.info(req.connection);
+
+      let jwts = [];
+      let keyAuths = [];
+      let hmacAuths = [];
+      let oauth2 = [];
+      let basicAuths = [];
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.jwt')) {
+        let jwtsRecs = await Kong.fetch(`/jwts`, req);
+        jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.key-auth')) {
+        let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
+        keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.hmac-auth')) {
+        let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
+        hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.oauth2')) {
+        let oauth2Recs = await Kong.fetch(`/oauth2`, req);
+        oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.basic-auth')) {
+        let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
+        basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
 
       let consumerAuths = []
       if(jwts.length) consumerAuths.push('jwt');
@@ -188,17 +211,40 @@ var KongConsumersController = {
     let consumerId = req.param("id");
 
     try {
-      let jwtsRecs = await Kong.fetch(`/jwts`, req);
-      let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
-      let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
-      let oauth2Recs = await Kong.fetch(`/oauth2`, req);
-      let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
 
-      let jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
-      let basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      const nodeInfo = await Kong.info(req.connection);
+
+      let jwts = [];
+      let keyAuths = [];
+      let hmacAuths = [];
+      let oauth2 = [];
+      let basicAuths = [];
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.jwt')) {
+        let jwtsRecs = await Kong.fetch(`/jwts`, req);
+        jwts = _.filter(jwtsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.key-auth')) {
+        let keyAuthsRecs = await Kong.fetch(`/key-auths`, req);
+        keyAuths = _.filter(keyAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.hmac-auth')) {
+        let hmacAuthsRecs = await Kong.fetch(`/hmac-auths`, req);
+        hmacAuths = _.filter(hmacAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.oauth2')) {
+        let oauth2Recs = await Kong.fetch(`/oauth2`, req);
+        oauth2 = _.filter(oauth2Recs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
+      if(_.get(nodeInfo, 'plugins.available_on_server.basic-auth')) {
+        let basicAuthsRecs = await Kong.fetch(`/basic-auths`, req);
+        basicAuths = _.filter(basicAuthsRecs.data, item => _.get(item, 'consumer.id') === consumerId);
+      }
+
 
       let consumerAuths = []
       if(jwts.length) consumerAuths.push('jwt');
@@ -206,6 +252,8 @@ var KongConsumersController = {
       if(hmacAuths.length) consumerAuths.push('hmac-auth');
       if(oauth2.length) consumerAuths.push('oauth2');
       if(basicAuths.length) consumerAuths.push('basic-auth');
+
+      sails.log("consumerAuths", consumerAuths)
 
       // Fetch all acls of the specified consumer
       let _acls = await Kong.fetch(`/consumers/${consumerId}/acls`, req);
