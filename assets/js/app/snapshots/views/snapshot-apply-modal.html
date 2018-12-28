@@ -32,7 +32,8 @@
     </div>
     <div class="row" data-ng-if="ready && restoring">
         <div class="col-md-12 text-center margin-bottom">
-            <h5>Applying snapshot to "{{user.node.name}}". Please wait...</h5>
+            <h5>Applying snapshot to "{{user.node.name}}"</h5>
+            <h6>Please wait...</h6>
             <br>
             <div class="anim-loader">
                 <span class="dot dot_1"></span>
@@ -54,15 +55,21 @@
                     <th>Object</th>
                     <th>Imported</th>
                     <th>Failed</th>
+                    <th>Failed Items</th>
                 </tr>
                 <tr data-ng-repeat="(key,value) in results">
                     <td>{{key}}</td>
                     <td><strong class="text-success">{{value.imported}}</strong></td>
                     <td>
                         <strong class="text-danger">{{value.failed.count}}</strong>
-                        <br>
-                        <p class="help-block">{{value.failed.items.join(", ")}}</p>
-
+                    </td>
+                    <td>
+                        <span  ng-if="!value.failed.items.length"> - </span>
+                        <ol ng-if="value.failed.items.length">
+                            <li ng-repeat="item in value.failed.items">
+                                <code>{{item}}</code>
+                            </li>
+                        </ol>
                     </td>
                 </tr>
             </table>

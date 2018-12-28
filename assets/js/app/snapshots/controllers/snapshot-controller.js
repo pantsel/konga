@@ -23,8 +23,11 @@
 
           var modalInstance = $uibModal.open({
             animation: true,
+            backdrop: 'static',
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
+            size: 'lg',
+
             templateUrl: 'js/app/snapshots/views/snapshot-apply-modal.html',
             controller: function ($scope, $uibModalInstance, SnapshotsService, UserService, _snapshot) {
 
