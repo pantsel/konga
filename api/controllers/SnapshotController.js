@@ -93,22 +93,21 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
         await Promise.all(requestedImports.map(async (entity) => {
           if(entity === 'consumers') {
             if(snapshot.data['consumers']) {
-              snapshot.data['consumers'].forEach(async consumer => {
+              await Promise.all(snapshot.data['consumers'].map(async (consumer) => {
                 const res = await KongService.put(`/${entity}/${consumer.id}`, req.connection, _.omit(consumer, ["id", "credentials"]));
                 // const credentials = consumer.credentials;
                 data.push(res);
-              })
+              }));
             }
 
           } else if(entity === 'upstreams') {
 
           }else{
             if(snapshot.data[entity]) {
-              snapshot.data[entity].forEach(async item => {
-                const res = await KongService.put(`/${entity}/${item.id}`, req.connection, _.omit(item, ["id"]));
-                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@", res);
+              await Promise.all(snapshot.data[entity].map(async (item) => {
+                const res = await KongService.put(`/${entity}/${item.id}`, req.connection, _.omit(item, ["id", "extras"]));
                 data.push(res);
-              })
+              }));
             }
 
           }
