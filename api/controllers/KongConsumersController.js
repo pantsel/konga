@@ -2,6 +2,8 @@ const _ = require('lodash');
 const Kong = require("../services/KongService");
 const async = require("async");
 
+
+
 var KongConsumersController = {
 
   apis: (req, res) => {
@@ -155,7 +157,7 @@ var KongConsumersController = {
 
 
       // Foreach service, fetch it's assigned plugins
-      async.series(servicePluginsFns,function (err,data) {
+      async.series(servicePluginsFns,async function (err,data) {
         if(err) return res.negotiate(err);
 
         data.forEach(function(plugins,index){
@@ -197,9 +199,25 @@ var KongConsumersController = {
 
         let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
 
+        let servicesResults = open.concat(eligible);
+        const routes  = await Kong.fetchConsumerRoutes(req, consumerId, consumerAuths, consumerGroups);
+
+        servicesResults.forEach(service => {
+            let _routes = _.filter(routes.data, route => {
+              return route.service.id === service.id;
+            })
+
+            if(_routes) {
+              service.routes = _routes;
+            }
+          })
+
+        // Filter out the services that have no eligible routes
+        const filtered = _.filter(servicesResults, service => service.routes && service.routes.length);
+
         return res.json({
-          total : open.length + eligible.length,
-          data  : open.concat(eligible)
+          total : filtered.length,
+          data  : filtered
         });
       });
     }catch (e) {
@@ -284,7 +302,7 @@ var KongConsumersController = {
       });
 
 
-      // Foreach service, fetch it's assigned plugins
+      // Foreach route, fetch it's assigned plugins
       async.series(routePluginsFns,function (err,data) {
         if(err) return res.negotiate(err);
 

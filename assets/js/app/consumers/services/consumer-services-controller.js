@@ -27,14 +27,6 @@
         $scope.isOpen = isOpen;
 
 
-        $scope.withRoutes = function(service)
-        {
-          return service.routes && service.routes.length; // otherwise it won't be within the results
-        };
-
-
-
-
         function isOpen(api) {
           return !isAccessControlled(api);
         }
@@ -166,41 +158,41 @@
           ConsumerService.listServices($stateParams.id)
             .then(function(res){
               $scope.items = res.data;
-              // $scope.loading = false;
-              console.log("LOADED CONSUMER SERVICES =>", $scope.items)
-              _fetchRoutes();
-
-            }).catch(err => {
-            $scope.loading = false;
-            MessageService.error(`Something went wrong...`)
-          });
-
-        }
-
-        function _fetchRoutes() {
-          $scope.loadingRoutes = true;
-          ConsumerService.listRoutes($stateParams.id)
-            .then(function(res){
-              $scope.routes = res.data;
-              console.log("LOADED CONSUMER ROUTES =>", $scope.items)
-              $scope.items.data.forEach(service => {
-                let routes = _.filter($scope.routes.data, route => {
-                  return route.service.id === service.id;
-                })
-
-                if(routes) {
-                  service.routes = routes;
-                }
-              })
               $scope.loading = false;
-              $scope.loadingRoutes = false;
+              console.log("LOADED CONSUMER SERVICES =>", $scope.items)
+              // _fetchRoutes();
+
             }).catch(err => {
             $scope.loading = false;
-            $scope.loadingRoutes = false;
             MessageService.error(`Something went wrong...`)
           });
 
         }
+
+        // function _fetchRoutes() {
+        //   $scope.loadingRoutes = true;
+        //   ConsumerService.listRoutes($stateParams.id)
+        //     .then(function(res){
+        //       $scope.routes = res.data;
+        //       console.log("LOADED CONSUMER ROUTES =>", $scope.items)
+        //       $scope.items.data.forEach(service => {
+        //         let routes = _.filter($scope.routes.data, route => {
+        //           return route.service.id === service.id;
+        //         })
+        //
+        //         if(routes) {
+        //           service.routes = routes;
+        //         }
+        //       })
+        //       $scope.loading = false;
+        //       $scope.loadingRoutes = false;
+        //     }).catch(err => {
+        //     $scope.loading = false;
+        //     $scope.loadingRoutes = false;
+        //     MessageService.error(`Something went wrong...`)
+        //   });
+        //
+        // }
 
 
         _fetchData();

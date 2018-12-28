@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-hover table-striped">
-                <tr dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | filter : withRoutes | itemsPerPage: itemsPerPage as filteredItems">
+                <tr dir-paginate="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
 
                     <td width="1">
                         <h5 class="no-margin-bottom">{{item.name}}</h5>

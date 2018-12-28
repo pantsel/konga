@@ -1,10 +1,11 @@
 'use strict';
 
-var unirest = require("unirest")
-var ApiHealthCheckService = require('../services/ApiHealthCheckService')
-var JWT = require("./Token");
-var Utils = require('../helpers/utils');
-var ProxyHooks = require('../services/KongProxyHooks');
+const unirest = require("unirest")
+const ApiHealthCheckService = require('../services/ApiHealthCheckService')
+const JWT = require("./Token");
+const Utils = require('../helpers/utils');
+const ProxyHooks = require('../services/KongProxyHooks');
+const _ = require('lodash');
 
 
 function getParameterByName(name, url) {
@@ -310,6 +311,74 @@ var KongService = {
         });
     })
   },
+
+
+  fetchConsumerRoutes: async (req, consumerId, consumerAuths, consumerGroups) => {
+
+    // Fetch all routes
+    let data = await KongService.fetch(`/routes`, req)
+    let routes = data.data;
+
+    // Get all plugins
+    const allPlugins = await KongService.fetch(`/plugins`, req);
+    let routePlugins = [];
+
+    routes.forEach(route => {
+      // Add consumer id
+      route.consumer_id = consumerId;
+      const _p =_.filter(allPlugins.data, item => item.enabled && route.id === _.get(item, 'route.id'));
+      routePlugins.push(_p);
+    })
+
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@", routePlugins)
+
+
+    routePlugins.forEach(function(plugins,index){
+
+      // Separate acl plugins in an acl property
+      var acl = _.find(plugins.data,function(item){
+        return item.name === "acl" && item.enabled === true;
+      });
+
+      if(acl) {
+        routes[index].acl = acl;
+      }
+
+      // Add plugins to their respective service
+      routes[index].plugins = plugins;
+
+      let authenticationPlugins = _.filter(plugins.data, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+      authenticationPlugins = _.map(authenticationPlugins, item => item.name);
+      sails.log("authenticationPlugins",authenticationPlugins);
+      routes[index].auths = authenticationPlugins;
+    });
+
+
+    // Gather apis with no access control restrictions whatsoever
+    let open =  _.filter(routes,function (route) {
+      return !route.acl && !route.auths.length;
+    })
+
+    // Gather services with auths matching at least on consumer credential
+    let matchingAuths = _.filter(routes,function (route) {
+      return _.intersection(route.auths, consumerAuths).length > 0;
+    });
+
+
+    // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
+    let whitelisted = _.filter(routes,function (route) {
+      return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
+    });
+
+    let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
+
+    return {
+      total : open.length + eligible.length,
+      data  : open.concat(eligible)
+    }
+
+  }
+
 }
 
 module.exports = KongService
