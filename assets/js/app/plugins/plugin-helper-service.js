@@ -64,6 +64,7 @@
                                 })
                             }else{
                                 if(fields[key].value !== ""
+                                  && fields[key].value !== null
                                   && fields[key].value !== 'undefined'
                                   && fields[key].value !== undefined) {
                                     data.config[path] = fields[key].value;
