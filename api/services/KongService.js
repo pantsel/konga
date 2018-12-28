@@ -7,6 +7,16 @@ var Utils = require('../helpers/utils');
 var ProxyHooks = require('../services/KongProxyHooks');
 
 
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
 var KongService = {
 
   headers: function (node, isJSON) {
@@ -138,6 +148,12 @@ var KongService = {
 
   listAllCb: function (req, endpoint, cb) {
     var url = (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + endpoint;
+
+    // Always add size=1000 the url just to be sure
+    // no more than the needed amount of requests are performed
+    const sizeParam = getParameterByName('size', url);
+    if(!sizeParam)  url += url.indexOf('?') > -1 ? `&size=1000` : `?size=1000`;
+
     sails.log.debug('KongService: listAllCb', url);
     var getData = function (previousData, url) {
       unirest.get(url)
@@ -157,7 +173,7 @@ var KongService = {
           }
         });
     };
-    getData([], url);
+    getData([], `${url}`);
   },
 
   list: function (req, res) {
