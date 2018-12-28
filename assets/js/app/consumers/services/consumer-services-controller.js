@@ -47,7 +47,7 @@
 
         function getGeneralPlugins(api) {
 
-          return _.filter(api.plugins.data,function(item){
+          return _.filter(api.plugins,function(item){
             return !item.consumer_id;
           });
         }
@@ -55,7 +55,7 @@
 
         function getConsumerPlugins(api) {
 
-          return _.filter(api.plugins.data,function(item){
+          return _.filter(api.plugins,function(item){
             return item.consumer_id && item.consumer_id === $stateParams.id;
           });
         }

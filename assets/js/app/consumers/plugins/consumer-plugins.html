@@ -50,39 +50,39 @@
         </th>
         <td>{{::getContext(item)}}</td>
         <td>
-            <div data-ng-if="item.api_id">
-                <a ng-if="!item.api" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'api', item.api_id)">
+            <div data-ng-if="item.api.id">
+                <a ng-if="!item.api" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'api', item.api.id)">
                     <i class="mdi" ng-class="item.loading ? 'mdi-loading mdi-spin text-primary': 'mdi-eye-outline'"></i>
                 </a>
-                <a data-ui-sref="apis.edit({api_id:item.api_id})" style="vertical-align: middle">
-                    {{item.api ? item.api.name : item.api_id}}
+                <a data-ui-sref="apis.edit({api_id:item.api.id})" style="vertical-align: middle">
+                    {{item.api ? item.api.name : item.api.id}}
                 </a>
 
             </div>
 
-            <div data-ng-if="item.service_id">
-                <a ng-if="!item.service" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'service', item.service_id)">
+            <div data-ng-if="item.service.id">
+                <a ng-if="!item.service" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'service', item.service.id)">
                     <i class="mdi" ng-class="item.loading ? 'mdi-loading mdi-spin text-primary': 'mdi-eye-outline'"></i>
                 </a>
-                <a data-ui-sref="services.read({service_id:item.service_id})" style="vertical-align: middle">
-                    {{item.service ? item.service.name : item.service_id}}
+                <a data-ui-sref="services.read({service_id:item.service.id})" style="vertical-align: middle">
+                    {{item.service.name || item.service.id}}
                 </a>
 
 
             </div>
 
-            <div data-ng-if="item.route_id">
-                <a ng-if="!item.route" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'route', item.route_id)">
+            <div data-ng-if="item.route.id">
+                <a ng-if="!item.route" href class="btn btn-link" data-ng-disabled="item.loading" ng-click="loadEntity(item, 'route', item.route.id)">
                     <i class="mdi" ng-class="item.loading ? 'mdi-loading mdi-spin text-primary': 'mdi-eye-outline'"></i>
                 </a>
-                <a data-ui-sref="routes.read({route_id:item.route_id})" style="vertical-align: middle">
-                    {{item.route && item.route.name ? item.route.name : item.route_id}}
+                <a data-ui-sref="routes.read({route_id:item.route.id})" style="vertical-align: middle">
+                    {{item.route.name || item.route.id}}
                 </a>
 
             </div>
 
 
-            <span data-ng-if="!item.api_id && !item.service_id && !item.route_id" > All Entrypoints </span>
+            <span data-ng-if="!item.api.id && !item.service.id && !item.route.id" > All Entrypoints </span>
         </td>
         <td>{{item.created_at * 1000 | date : format : timezone}}</td>
 

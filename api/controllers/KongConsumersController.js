@@ -139,86 +139,73 @@ var KongConsumersController = {
       });
 
       // Fetch all services
-      let data = await Kong.fetch(`/services`, req);
+      let servicesRecords = await Kong.fetch(`/services`, req);
 
-      let services = data.data;
+      // Fetch all plugins
+      let allPluginsRecords = await Kong.fetch(`/plugins`, req);
 
-      let servicePluginsFns = [];
+      let services = servicesRecords.data;
+      let allPlugins = allPluginsRecords.data;
 
-      // Prepare service objects
-      services.forEach(function(service){
-        // Add consumer id
-        service.consumer_id = consumerId;
 
-        servicePluginsFns.push(function(cb){
-          return Kong.listAllCb(req,'/services/' + service.id + '/plugins?enabled=true',cb);
+      // Assign plugins to their respective service
+      services.forEach(service => {
+        service.consumer_id = consumerId; // We need this for the frontend
+        service.plugins = _.filter(allPlugins, plugin => plugin.enabled && service.id === _.get(plugin, 'service.id'));
+
+        // Separate acl plugins in an acl property
+        let acl = _.find(service.plugins,function(item){
+          return item.name === "acl" && item.enabled === true;
         });
+
+        if(acl) {
+          service.acl = acl;
+        }
+
+        let authenticationPlugins = _.filter(service.plugins, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
+        authenticationPlugins = _.map(authenticationPlugins, item => item.name);
+        sails.log("authenticationPlugins",authenticationPlugins);
+        service.auths = authenticationPlugins;
       });
 
 
-      // Foreach service, fetch it's assigned plugins
-      async.series(servicePluginsFns,async function (err,data) {
-        if(err) return res.negotiate(err);
+      // Gather apis with no access control restrictions whatsoever
+      let open =  _.filter(services,function (service) {
+        return !service.acl && !service.auths.length;
+      })
 
-        data.forEach(function(plugins,index){
-
-          // Separate acl plugins in an acl property
-          let acl = _.find(plugins.data,function(item){
-            return item.name === "acl" && item.enabled === true;
-          });
-
-          if(acl) {
-            services[index].acl = acl;
-          }
-
-          // Add plugins to their respective service
-          services[index].plugins = plugins;
-
-          let authenticationPlugins = _.filter(plugins.data, item => ['jwt','basic-auth','key-auth','hmac-auth','oauth2'].indexOf(item.name) > -1);
-          authenticationPlugins = _.map(authenticationPlugins, item => item.name);
-          sails.log("authenticationPlugins",authenticationPlugins);
-          services[index].auths = authenticationPlugins;
-        });
+      // Gather services with auths matching at least on consumer credential
+      let matchingAuths = _.filter(services,function (service) {
+        return _.intersection(service.auths, consumerAuths).length > 0;
+      });
 
 
-        // Gather apis with no access control restrictions whatsoever
-        let open =  _.filter(services,function (service) {
-          return !service.acl && !service.auths.length;
+      // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
+      let whitelisted = _.filter(services,function (service) {
+        return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
+      });
+
+      let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
+
+      let servicesResults = open.concat(eligible);
+      const routes  = await Kong.fetchConsumerRoutes(req, consumerId, consumerAuths, consumerGroups);
+
+      servicesResults.forEach(service => {
+        let _routes = _.filter(routes.data, route => {
+          return route.service.id === service.id;
         })
 
-        // Gather services with auths matching at least on consumer credential
-        let matchingAuths = _.filter(services,function (service) {
-          return _.intersection(service.auths, consumerAuths).length > 0;
-        });
+        if(_routes) {
+          service.routes = _routes;
+        }
+      })
 
+      // Filter out the services that have no eligible routes
+      const filtered = _.filter(servicesResults, service => service.routes && service.routes.length);
 
-        // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
-        let whitelisted = _.filter(services,function (service) {
-          return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
-        });
-
-        let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
-
-        let servicesResults = open.concat(eligible);
-        const routes  = await Kong.fetchConsumerRoutes(req, consumerId, consumerAuths, consumerGroups);
-
-        servicesResults.forEach(service => {
-            let _routes = _.filter(routes.data, route => {
-              return route.service.id === service.id;
-            })
-
-            if(_routes) {
-              service.routes = _routes;
-            }
-          })
-
-        // Filter out the services that have no eligible routes
-        const filtered = _.filter(servicesResults, service => service.routes && service.routes.length);
-
-        return res.json({
-          total : filtered.length,
-          data  : filtered
-        });
+      return res.json({
+        total : filtered.length,
+        data  : filtered
       });
     }catch (e) {
       return res.negotiate(e);
