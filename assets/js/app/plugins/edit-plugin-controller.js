@@ -31,7 +31,7 @@
         // $scope.schema = _schema.data;
         $scope.context = 'update';
         console.log("Plugin", $scope.plugin);
-        $log.debug("Schema", $scope.schema);
+        console.log("Schema", $scope.schema);
 
         //var pluginOptions = new KongPluginsService().pluginOptions()
         var options = new KongPluginsService().pluginOptions(_plugin.name);
@@ -138,7 +138,6 @@
             }
           }
 
-
           // Customize data fields according to plugin
           PluginHelperService.customizeDataFieldsForPlugin(_plugin.name, $scope.data.fields);
 
@@ -179,9 +178,7 @@
           $scope.busy = true;
 
 
-          var data = {
-            enabled: $scope.plugin.enabled
-          };
+          var data = _.omit($scope.plugin, ['config']);
 
           //if($scope.data.consumer_id instanceof Object) {
           //    data.consumer_id = $scope.data.consumer_id.id
