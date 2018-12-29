@@ -5,6 +5,11 @@
                 <i class="mdi mdi-plus"></i>
                 Create upstream
             </button>
+            <button class="btn btn-link btn-danger" ng-click="openAlertsListModal()">
+                <i class="mdi mdi-bell-outline"></i>&nbsp;
+                alerting&nbsp;
+                <span class="badge">{{alertsCount}}</span>
+            </button>
         </div>
         <list-search
                 class="pull-right"

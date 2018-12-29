@@ -234,6 +234,30 @@
               sortable: true,
             }
           ],
+          upstreamAlert: [
+            {
+              title: '',
+              column: '',
+              width: 1
+            },
+            {
+              title: 'Upstream',
+              column: 'upstream_id',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'Connection',
+              column: 'connection'
+            },
+            {
+              title: 'created',
+              column: 'created_at',
+              sortable: true,
+            }
+          ],
           kongnode: [
             {
               title: '',

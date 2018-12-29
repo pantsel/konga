@@ -7,22 +7,27 @@
     'use strict';
 
     angular.module('frontend.upstreams')
-        .controller('UpstreamsController', [
+        .controller('AlertsModalController', [
             '_','$scope', '$rootScope','$q','$log','UserModel',
             'SocketHelperService','UserService','SettingsService','MessageService',
-            '$state','$uibModal','DialogService','Upstream','$localStorage', 'DataModel',
-            'ListConfig',
+            '$state','DialogService','Upstream','$localStorage', 'DataModel',
+            'ListConfig', '$uibModalInstance', '_upstreams',
             function controller(_,$scope, $rootScope,$q,$log,UserModel,
                                 SocketHelperService, UserService,SettingsService, MessageService,
-                                $state, $uibModal,DialogService,Upstream,$localStorage, DataModel,
-                                ListConfig ) {
+                                $state,DialogService,Upstream,$localStorage, DataModel,
+                                ListConfig, $uibModalInstance, _upstreams ) {
 
-
-                Upstream.setScope($scope, false, 'items', 'itemCount');
-                $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('upstream',Upstream)));
-                $scope.user = UserService.user();
 
                 const Alert = new DataModel('api/upstreamalert', true);
+                Alert.setScope($scope, false, 'items', 'itemCount');
+                $scope = angular.extend($scope, angular.copy(ListConfig.getConfig('upstreamAlert',Alert)));
+                $scope.user = UserService.user();
+
+                $scope.close = () => {
+                    $uibModalInstance.dismiss()
+                }
+
+
                 $scope.alertsCount = 0;
 
                 $scope.openCreateItemModal = function() {
@@ -44,14 +49,9 @@
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
                         templateUrl: 'js/app/upstreams/alerts/alerts-modal.html?v=' + $rootScope.konga_version,
-                        controller: 'AlertsModalController',
+                        controller: 'AddUpstreamModalController',
                         controllerAs: '$ctrl',
-                        size: 'lg',
-                        resolve: {
-                            _upstreams: function () {
-                                return _.get($scope, 'items.data', []);
-                            }
-                        }
+                        //size: 'lg',
                     });
                 }
 
@@ -59,41 +59,20 @@
                 function _fetchData(){
                     $scope.loading  = true;
 
-                    Upstream.load({
-                        size: $scope.itemsFetchSize
+                    Alert.load({
+                        connection: _.get($scope.user,'node.id'),
+                        populate: 'connection'
                     }).then(function(response){
+                        response.forEach(item => {
+                            item.upstream = _.find(_upstreams, upstream => item.upstream_id === upstream.id)
+                        })
                         $scope.items = response
+                        console.log("Loaded alerts =>", $scope.items);
                         $scope.loading  = false;
                     });
                 }
 
-                function countAlerts() {
-                    Alert.count().then(data => {
-                        $scope.alertsCount = data.count;
-                    })
-                }
-
-
-                // Listeners
-                $scope.$on('kong.upstream.created',function(ev,data){
-                    _fetchData();
-                });
-
-
-                $scope.$on('user.node.updated',function(ev,node){
-                    if(UserService.user().node.kong_version == '0-9-x'){
-                        $state.go('dashboard')
-                    }else{
-                        _fetchData()
-                    }
-
-                });
-
-
-                _fetchData()
-
-                countAlerts();
-
+                _fetchData();
             }
         ])
     ;

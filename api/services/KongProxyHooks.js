@@ -186,7 +186,6 @@ var self = module.exports = {
     upstreams: {
       afterList: function(req, resBody, next) {
         if(!req.connection) return next(null, resBody);
-        var connectionId = req.connection.id;
 
         const existingUpstreamIds = _.map(resBody.data, item => item.id);
         sails.log("KongProxyHooks:upstreams:afterList:existingUpstreamIds", existingUpstreamIds);
