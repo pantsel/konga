@@ -42,8 +42,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     },
 
     cron : {
-      type : 'string',
-      required : true
+      type : 'string'
     },
 
     active: {
