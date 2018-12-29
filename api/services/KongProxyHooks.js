@@ -163,7 +163,27 @@ var self = module.exports = {
         })
       },
     },
-    apis: {
+    // apis: {
+    //   afterDelete: function(req, next) {
+    //     if(!req.connection) return next();
+    //     // The path must be of type /kong/<entityName>/<entityId>
+    //     var entityId = req.path.replace("/kong","").split("/").filter(function (e) {
+    //       return e;
+    //     })[1];
+    //
+    //     sails.models.apihealthcheck.destroy({
+    //       api_id: entityId
+    //     }).exec(function (err) {
+    //       if(err) {
+    //         sails.log("Failed to delete healthcecks of API " + apiId);
+    //         return next(err);
+    //       }
+    //
+    //       return next();
+    //     });
+    //   },
+    // },
+    upstreams: {
       afterDelete: function(req, next) {
         if(!req.connection) return next();
         // The path must be of type /kong/<entityName>/<entityId>
@@ -171,11 +191,11 @@ var self = module.exports = {
           return e;
         })[1];
 
-        sails.models.apihealthcheck.destroy({
-          api_id: entityId
+        sails.models.upstreamalert.destroy({
+          upstream_id: entityId
         }).exec(function (err) {
           if(err) {
-            sails.log("Failed to delete healthcecks of API " + apiId);
+            sails.log("Failed to delete alerts of upstream " + entityId);
             return next(err);
           }
 
