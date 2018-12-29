@@ -167,7 +167,7 @@ var KongService = {
           }
           else {
             response.body.data = data;
-            ProxyHooks.afterEntityList(endpoint.replace('/', ''), req, response.body, (err, finalData) => {
+            ProxyHooks.afterEntityList(endpoint.replace('/', '').split('?')[0], req, response.body, (err, finalData) => {
               if (err) return cb(err);
               return cb(null, finalData)
             })
