@@ -150,7 +150,10 @@ module.exports = {
                     result.transporter = hcmailer.createTransport(transport.settings)
                     break;
                 case "mailgun":
-                    if(!_.get(transport,'settings.auth.api_key') || !_.get(transport,'settings.auth.api_domain')) {
+                    sails.log("Upstream health:createTransporter:transport is mailgun");
+                    sails.log(`[api_key]=>`, _.get(transport,'settings.auth.api_key'));
+                    sails.log(`[domain]=>`, _.get(transport,'settings.auth.domain'));
+                    if(!_.get(transport,'settings.auth.api_key') || !_.get(transport,'settings.auth.domain')) {
                         result.transporter = null;
                     }else{
                         result.transporter = hcmailer.createTransport(mg(transport.settings))
