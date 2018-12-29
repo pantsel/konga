@@ -195,9 +195,11 @@ var self = module.exports = {
           upstream_id: entityId
         }).exec(function (err) {
           if(err) {
-            sails.log("Failed to delete alerts of upstream " + entityId);
+            sails.log("KongProxyHooks:upstreams:afterDelete:Failed to delete alerts of upstream " + entityId);
             return next(err);
           }
+
+          sails.log("KongProxyHooks:upstreams:afterDelete:Deleted alerts of upstream " + entityId);
 
           return next();
         });
