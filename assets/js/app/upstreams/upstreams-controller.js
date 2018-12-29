@@ -68,7 +68,9 @@
                 }
 
                 function countAlerts() {
-                    Alert.count().then(data => {
+                    Alert.count({
+                        connection : _.get($scope, 'user.node.id')
+                    }).then(data => {
                         $scope.alertsCount = data.count;
                     })
                 }
