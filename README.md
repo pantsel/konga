@@ -8,8 +8,6 @@ _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com
 
 [Site and working demo here](https://pantsel.github.io/konga/)
 
-> Notice: Upgrade your Kong installations to v0.12.x so you can use Konga to it's full capacity.
-  Starting with Konga 0.11.x, Kong versions prior to 0.12.x are not supported.
 
 ## Summary
 
@@ -38,17 +36,14 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Manage multiple Kong Nodes.
 * Backup, restore and migrate Kong Nodes using Snapshots.
 * Monitor Node and API states using health checks.
-* Email notifications.
+* Email & Slack notifications.
 * Multiple users.
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-1. **Konga up to 0.10.*** is fully compatible with **Kong 0.11.x,0.12.x**. 
-It may work with older versions as well but they are not actively supported.
-It also works with Kong 0.13.* yet without the ability to manage services and routes.
+From 0.14.0 onwards, Konga is **only** compatible with **Kong >= 1.0.0**.
 
-2. **Konga 0.12+** is fully compatible with **Kong 0.14+**. Compatibility for older Kong versions
- is still present but not guaranteed.
+If you're on Kong <= 0.14.x , use this branch instead.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
