@@ -299,9 +299,7 @@
               },
               function onError(error) {
                 $log.error('DataModel.load() failed.', error, self.endpoint, parameters);
-                if(error.data && error.data.body && error.data.body.message) {
-                  MessageService.error(error.data.body.message)
-                }
+                MessageService.error(_.get(error, 'data.body.message', 'An unexpected error has occurred...'))
               }
             )
           ;
