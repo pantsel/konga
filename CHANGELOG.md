@@ -1,11 +1,16 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-## [0.14.0](https://github.com/pantsel/konga/releases/tag/0.13.1) - 01-10-2018
-* **[Fix]** Users cannot delete their own accounts anymore.
-* Fix and refactored the services & routes display on the consumers page.
-In order to determine consumer eligibility, Konga now takes into consideration
-not only acls, but assigned auth plugins as well.
+## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 02-01-2019
+> Starting from version 0.14.0, Konga won't be compatible with Kong versions
+  prior to 1.0.0 due to the breaking changes on Kong's API and plugin schemas.
+  
+* **[Compatibility]** Kong 1.0.0 compatibility. 
+* **[Deprecation]** APIs and related implementations are deprecated.
+* **[Fix]** Missing fields are included on the upstream form.
+* **[Fix]** The bundled Kong plugins are no longer needed in order
+features like `Accessible Consumer Routes` and `Snapshots` to work properly.
+* **[Enhancement]** You can now set up alert triggers and dispatch notifications when upstream targets are not healthy.
 
 ## [0.13.0](https://github.com/pantsel/konga/releases/tag/0.13.0) - 29-09-2018
 * Better onboarding experience on first install.
