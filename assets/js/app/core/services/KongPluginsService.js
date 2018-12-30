@@ -233,6 +233,7 @@
                 name: "Custom",
                 description: "Custom Plugins",
                 icon: "mdi-account-box-outline",
+                hasConsumerPlugins: true,
                 plugins: {}
               }
             ]
