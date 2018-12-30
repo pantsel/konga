@@ -79,11 +79,11 @@
         }
 
         function getContext(plugin) {
-          if(plugin.service.id) {
+          if(plugin.service) {
             return 'services'
-          } else if(plugin.route.id) {
+          } else if(plugin.route) {
             return 'routes'
-          } else if(plugin.api.id) {
+          } else if(plugin.api) {
             return 'apis'
           }else{
             return 'global'
