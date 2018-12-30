@@ -166,11 +166,18 @@ var KongService = {
             getData(data, (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + response.body.next);
           }
           else {
-            response.body.data = data;
-            ProxyHooks.afterEntityList(endpoint.replace('/', '').split('?')[0], req, response.body, (err, finalData) => {
-              if (err) return cb(err);
-              return cb(null, finalData)
-            })
+            try {
+              response.body.data = data;
+              ProxyHooks.afterEntityList(endpoint.replace('/', '').split('?')[0], req, response.body, (err, finalData) => {
+                if (err) return cb(err);
+                return cb(null, finalData)
+              })
+            }catch(err) {
+              return cb(null, {
+                data: []
+              })
+            }
+
           }
         });
     };
