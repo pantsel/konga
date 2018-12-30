@@ -8,8 +8,8 @@
 
   angular.module('frontend.consumers')
     .controller('CreateOAuth2Controller', [
-      '_','$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','_consumer',
-      function controller(_, $scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,_consumer ) {
+      '_','$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','_consumer', 'KongErrorService',
+      function controller(_, $scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,_consumer, KongErrorService ) {
 
           $scope.consumer = _consumer
           $scope.create = create
@@ -27,13 +27,15 @@
 
           function create() {
 
+              console.log("oauth2 credential", $scope.data);
+
               ConsumerService.addCredential($scope.consumer.id,'oauth2',$scope.data).then(function(resp){
                   $log.debug("OAuth2 generated",resp)
                   $rootScope.$broadcast('consumer.oauth2.created')
                   $uibModalInstance.dismiss()
               }).catch(function(err){
                   $log.error(err)
-                  $scope.errors = err.data.body || err.data.customMessage || {}
+                  KongErrorService.handle($scope, err);
               })
           }
 
