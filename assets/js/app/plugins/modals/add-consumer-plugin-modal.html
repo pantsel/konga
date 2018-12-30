@@ -41,7 +41,9 @@
 
                         <div class="panel-body text-center">
                             <div class="center-block">
-                                <p class="capitalize margin-bottom"><strong>{{key.split('-').join(" ")}}</strong></p>
+                                <p class="capitalize margin-bottom elipsize" uib-tooltip="{{key.split('-').join(' ')}}">
+                                    <strong>{{key.split('-').join(" ")}}</strong>
+                                </p>
                                 <img ng-src="images/kong/plugins/{{key}}.png" class="img-responsive"
                                      onerror="this.src='images/kong/plugins/kong.svg'"
                                      style="margin: auto;height: 72px;width:72px ">
