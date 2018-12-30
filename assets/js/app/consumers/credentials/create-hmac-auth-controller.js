@@ -8,8 +8,8 @@
 
   angular.module('frontend.consumers')
     .controller('CreateHMACAuthController', [
-      '$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','_consumer',
-      function controller($scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,_consumer ) {
+      '$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','KongErrorService','_consumer',
+      function controller($scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,KongErrorService, _consumer ) {
 
           $scope.consumer = _consumer
           $scope.createHMACAuthCredentials = createHMACAuthCredentials
@@ -35,7 +35,7 @@
                   $uibModalInstance.dismiss()
               }).catch(function(err){
                   $log.error(err)
-                  $scope.errors = err.data.body || err.data.customMessage || {}
+                  KongErrorService.handle($scope, err);
               })
           }
 

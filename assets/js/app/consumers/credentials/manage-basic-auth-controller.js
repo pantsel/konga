@@ -8,8 +8,8 @@
 
   angular.module('frontend.consumers')
     .controller('ManageBasicAuthController', [
-      '$scope', '$rootScope', '$log', 'ConsumerService', 'MessageService', '$uibModalInstance', '_consumer', '_cred',
-      function controller($scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance, _consumer, _cred) {
+      '$scope', '$rootScope', '$log', 'ConsumerService', 'MessageService', '$uibModalInstance', 'KongErrorService', '_consumer', '_cred',
+      function controller($scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance, KongErrorService, _consumer, _cred) {
 
         $scope.consumer = _consumer
         $scope.manage = manage
@@ -42,7 +42,7 @@
             $uibModalInstance.dismiss()
           }).catch(function (err) {
             $log.error(err)
-            $scope.errors = err.data.body || err.data.customMessage || {}
+            KongErrorService.handle($scope, err);
           })
         }
 
@@ -54,7 +54,7 @@
             $uibModalInstance.dismiss()
           }).catch(function (err) {
             $log.error(err)
-            $scope.errors = err.data.body || err.data.customMessage || {}
+            KongErrorService.handle($scope, err);
           })
         }
       }

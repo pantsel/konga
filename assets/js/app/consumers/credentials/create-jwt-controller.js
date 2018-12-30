@@ -8,8 +8,8 @@
 
   angular.module('frontend.consumers')
     .controller('CreateJWTController', [
-      '_','$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance','_consumer',
-      function controller(_, $scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance,_consumer ) {
+      '_','$scope', '$rootScope', '$log','ConsumerService','MessageService','$uibModalInstance', 'KongErrorService', '_consumer',
+      function controller(_, $scope, $rootScope, $log, ConsumerService, MessageService, $uibModalInstance, KongErrorService, _consumer ) {
 
           $scope.consumer = _consumer
           $scope.createJWT = createJWT
@@ -46,7 +46,7 @@
                   $uibModalInstance.dismiss()
               }).catch(function(err){
                   $log.error(err)
-                  $scope.errors = err.data.body || err.data.customMessage || {}
+                  KongErrorService.handle($scope, err);
               })
           }
 
