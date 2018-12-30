@@ -55,7 +55,8 @@
         <tr data-ng-repeat="snapshot in snapshots">
             <td><strong>{{snapshot.name || 'undefined'}}</strong></td>
             <td>
-                {{snapshot.kong_node_name}} <span class="label label-danger">v{{snapshot.kong_version.split("-").join(".")}}</span>
+                {{snapshot.kong_node_name}}<br>
+                <span class="label label-danger">v{{snapshot.kong_version.split("-").join(".")}}</span>
             </td>
             <td>{{snapshot.createdAt | date : "MMM d, y @HH:mm"}}</td>
             <td>
