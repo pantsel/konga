@@ -49,6 +49,8 @@ It also works with Kong 0.13.* yet without the ability to manage services and ro
 
 2. **Konga 0.12+** is fully compatible with **Kong 0.14+**. Compatibility for older Kong versions
  is still present but not guaranteed.
+ 
+3. This branch is not compatible with Kong >= 1.0.0. For that, use the [master](https://github.com/pantsel/konga) branch.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
