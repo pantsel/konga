@@ -41,9 +41,10 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
 
 ## Compatibility
-From 0.14.0 onwards, Konga is **only** compatible with **Kong >= 1.0.0**.
+**From 0.14.0 onwards, Konga is ONLY compatible with Kong >= 1.0.0**
 
-If you're on Kong <= 0.14.x , use this branch instead.
+If you're on an older Kong version , use [this](https://github.com/pantsel/konga/tree/legacy) branch 
+or `konga:legacy` from docker hub instead.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
