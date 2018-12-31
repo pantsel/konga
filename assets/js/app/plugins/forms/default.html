@@ -124,6 +124,11 @@
                     </div>
                 </div>
 
+                <!-- TYPE: INTEGER -->
+                <div ng-switch-when="integer">
+                    <input type="number" ng-model="value.value" class="form-control"></input>
+                </div>
+
                 <!-- TYPE: ARRAY -->
                 <div ng-switch-when="array">
                     <chips ng-model="value.value">
