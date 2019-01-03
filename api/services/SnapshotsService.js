@@ -50,15 +50,18 @@ module.exports = {
       // Gather entities
       for(let entity in entities) {
         const result = await KongService.fetch(`/${entity}`, req);
-        entities[entity] = result.data;
+        if(result) {
+          entities[entity] = result.data;
 
-        // For each upstream, fetch it's targets
-        if(entity === 'upstreams' && result.data.length) {
-          entities[entity].forEach(async (upstream) => {
-            const targets = await KongService.fetch(`/upstreams/${upstream.id}/targets`, req);
-            upstream.targets = targets.data;
-          })
+          // For each upstream, fetch it's targets
+          if(entity === 'upstreams' && result.data.length) {
+            entities[entity].forEach(async (upstream) => {
+              const targets = await KongService.fetch(`/upstreams/${upstream.id}/targets`, req);
+              upstream.targets = targets.data;
+            })
+          }
         }
+
       }
 
       // Gather consumer credentials
