@@ -190,6 +190,10 @@ var self = module.exports = {
         const existingUpstreamIds = _.map(resBody.data, item => item.id);
         sails.log("KongProxyHooks:upstreams:afterList:existingUpstreamIds", existingUpstreamIds);
 
+        if(!existingUpstreamIds.length) {
+          return next();
+        }
+
         // Check if there are any alerts that do not match
         // the exiting upstream ids
         sails.models.upstreamalert.find({
