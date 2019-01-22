@@ -603,7 +603,7 @@
             return {
               itemCount: 0,
               items: [],
-              itemsFetchSize: 4294967295,
+              itemsFetchSize: 1000,
               itemsPerPage: 25,
               titleItems: this.getTitleItems(property),
               itemsPerPageOptions: [10, 25, 50, 100],
