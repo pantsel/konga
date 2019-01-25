@@ -39,8 +39,7 @@
                     close()
                   }).catch(function (err) {
                     $log.error(err)
-
-                    $scope.errors = err.data.body || err.data.customMessage || {}
+                    $scope.errors = ACLModel.handleError($scope, err);
                   })
 
                 }
