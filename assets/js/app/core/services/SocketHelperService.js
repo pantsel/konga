@@ -57,8 +57,6 @@
               output = {or: conditions};
             }
 
-            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!", output);
-
             return output;
           }
         };
