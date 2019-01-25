@@ -14,6 +14,7 @@
           return {
 
               getInfo : function() {
+                  console.log('InfoService:getInfo called');
                   return $http.get('kong')
               },
               nodeStatus : function(params) {

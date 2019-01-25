@@ -53,6 +53,22 @@
                                 templateUrl: 'js/app/upstreams/alerts/alerts.html',
                                 controller: 'EditUpstreamAlertsController',
                             },
+                        },
+                        resolve: {
+                            _gateway: [
+                                'InfoService',
+                                '$rootScope',
+                                function (InfoService, $rootScope) {
+                                    return new Promise((resolve, reject) => {
+                                        var watcher = $rootScope.$watch('Gateway', function (newValue, oldValue) {
+                                            if (newValue) {
+                                                watcher(); // clear watcher
+                                                resolve(newValue)
+                                            }
+                                        })
+                                    })
+                                }
+                            ],
                         }
                     })
             }
