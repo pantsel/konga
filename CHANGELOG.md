@@ -1,7 +1,7 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
-## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 02-01-2019
+## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 27-01-2019
 > Starting from version 0.14.0, Konga won't be compatible with Kong versions
   prior to 1.0.0 due to the breaking changes on Kong's API and plugin schemas.
   
