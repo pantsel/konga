@@ -161,8 +161,8 @@ var KongService = {
         .headers(KongService.headers(req, true))
         .end(function (response) {
           if (response.error) return cb(response)
-          var data = previousData.concat(response.body.data);
-          if (response.body.next) {
+          var data = previousData.concat(_.get(response, 'body.data', []));
+          if (_.get(response, 'body.next')) {
             getData(data, (Utils.withoutTrailingSlash(req.kong_admin_url) || Utils.withoutTrailingSlash(req.connection.kong_admin_url)) + response.body.next);
           }
           else {
