@@ -10,6 +10,10 @@ var commonName = /^cn=([^,]+),.*/;
 
 var ldapToUser = function (ldapUser, user, next) {
     var data = _.clone(user || {});
+    
+    data.admin =
+        _.findIndex(ldapUser._groups, group_test) > -1 ||
+        _.findIndex(ldapUser.memberOf, member_test) > -1;
     data.active = true;
 
     // copy attributes from the ldap user to the konga user using the ldapAttrMap
@@ -19,13 +23,13 @@ var ldapToUser = function (ldapUser, user, next) {
         }
     }
 
-    if (data && data.id) {
+    if (data.id) {
         sails.models.user.update({id: data.id}, data).exec(function(err) {
             if (err) {
                 console.error("Failed to update user from ldap", err);
                 next(err);
             } else {
-                setAdminStatus(ldapUser, data, next);
+                next(null, data);
             }
         });
     } else {
@@ -34,7 +38,7 @@ var ldapToUser = function (ldapUser, user, next) {
                 console.error("Failed to create user from ldap", err);
                 next(err);
             } else {
-                setAdminStatus(ldapUser, user, next);
+                next(null, data);
             }
         });
     }
@@ -46,13 +50,6 @@ var group_test = function (group) {
 
 var member_test = function (group) {
      return adminGroup.test(commonName.replace(group, "$1"));
-}
-
-var setAdminStatus = function (ldapUser, user, next) {
-    user.admin =
-        _.findIndex(ldapUser._groups, group_test) > -1 ||
-        _.findIndex(ldapUser.memberOf, member_test) > -1;
-    next(null, user);
 }
 
 /**
