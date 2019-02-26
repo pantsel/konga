@@ -119,7 +119,7 @@ module.exports = {
                 return next(err);
             }
 
-            client.query('CREATE DATABASE ' + opts.database, function (err, res) {
+            client.query('CREATE DATABASE `' + opts.database + '`', function (err, res) {
                 if (err) {
                     console.log("Failed to create `" + opts.database +"`",err);
                     done();
