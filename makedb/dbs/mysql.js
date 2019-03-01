@@ -24,37 +24,37 @@ function parse(uri) {
 }
 
 module.exports = {
-    run : function (next) {
-        console.log("Using MySQL DB Adapter.");
-        return this.create(next);
-    },
+  run : function (next) {
+    console.log("Using MySQL DB Adapter.");
+    return this.create(next);
+  },
 
 
-    create : function(next) {
+  create : function(next) {
 
-        var parsedOpts;
-        var url = dbConf.connections.mysql.url;
-        if(url) {
-          parsedOpts = parse(url);
-        }
-
-
-        var connection = mysql.createConnection(url ? _.omit(parsedOpts,['database']) : {
-            host     : dbConf.connections.mysql.host,
-            port     : dbConf.connections.mysql.port,
-            user     : dbConf.connections.mysql.user,
-            password : dbConf.connections.mysql.password
-        });
-
-        console.log("Creating database `" + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ) + "` if not exists.");
-
-        connection.query('CREATE DATABASE IF NOT EXISTS `' + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database + '`'), function (error, results, fields) {
-            if (error) {
-                console.error(error);
-                return next(error);
-            }
-
-            return next();
-        });
+    var parsedOpts;
+    var url = dbConf.connections.mysql.url;
+    if(url) {
+      parsedOpts = parse(url);
     }
+
+
+    var connection = mysql.createConnection(url ? _.omit(parsedOpts,['database']) : {
+      host     : dbConf.connections.mysql.host,
+      port     : dbConf.connections.mysql.port,
+      user     : dbConf.connections.mysql.user,
+      password : dbConf.connections.mysql.password
+    });
+
+    console.log("Creating database `" + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ) + "` if not exists.");
+
+    connection.query('CREATE DATABASE IF NOT EXISTS ' + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ), function (error, results, fields) {
+      if (error) {
+        console.error(error);
+        return next(error);
+      }
+
+      return next();
+    });
+  }
 }

@@ -59,79 +59,79 @@ function parse(str) {
 }
 
 module.exports = {
-    run : function (next) {
+  run : function (next) {
 
-        console.log("Using postgres DB Adapter.");
+    console.log("Using postgres DB Adapter.");
 
-        var self     = this;
-        var url      = dbConf.connections.postgres.url;
-        var user     = dbConf.connections.postgres.user;
-        var password = dbConf.connections.postgres.password;
-        var dbName   = dbConf.connections.postgres.database;
-        var dbHost   = dbConf.connections.postgres.host;
-        var dbPort   = dbConf.connections.postgres.port;
-        var ssl      = dbConf.connections.postgres.ssl;
+    var self     = this;
+    var url      = dbConf.connections.postgres.url;
+    var user     = dbConf.connections.postgres.user;
+    var password = dbConf.connections.postgres.password;
+    var dbName   = dbConf.connections.postgres.database;
+    var dbHost   = dbConf.connections.postgres.host;
+    var dbPort   = dbConf.connections.postgres.port;
+    var ssl      = dbConf.connections.postgres.ssl;
 
-        var opts = url ? parse(url) : {
-            user: user,
-            host: dbHost,
-            database: dbName,
-            password: password,
-            port: dbPort,
-            ssl,
+    var opts = url ? parse(url) : {
+      user: user,
+      host: dbHost,
+      database: dbName,
+      password: password,
+      port: dbPort,
+      ssl,
+    }
+
+    // console.log("Connection Options =>", opts);
+
+    pg.connect(opts, function (err, client, done) {
+      if (err) {
+
+        if(err.code == "3D000")
+        {
+          console.log("Database `" + opts.database + "` does not exist. Creating...");
+          done();
+          return self.create(opts,next);
+
+        }else{
+          console.error("Failed to connect to DB",err);
+          return next(err);
+        }
+      }else{
+        console.log("Database exists. Continue...");
+        return next();
+      }
+
+    });
+  },
+
+
+  create : function(opts,next) {
+
+    // Hook up to postgres db so we can create a new one
+    var defaultDbOpts = _.merge(_.cloneDeep(opts),{
+      database : "postgres"
+    });
+
+    pg.connect(defaultDbOpts, function (err, client, done) {
+      if (err) {
+        console.log(err);
+        done();
+        return next(err);
+      }
+
+      client.query('CREATE DATABASE ' + opts.database, function (err, res) {
+        if (err) {
+          console.log("Failed to create `" + opts.database +"`",err);
+          done();
+          return next(err);
+
         }
 
-        // console.log("Connection Options =>", opts);
+        console.log("Database `" + opts.database + "` created! Continue...");
 
-        pg.connect(opts, function (err, client, done) {
-            if (err) {
+        return next();
 
-                if(err.code == "3D000")
-                {
-                    console.log("Database `" + opts.database + "` does not exist. Creating...");
-                    done();
-                    return self.create(opts,next);
-
-                }else{
-                    console.error("Failed to connect to DB",err);
-                    return next(err);
-                }
-            }else{
-                console.log("Database exists. Continue...");
-                return next();
-            }
-
-        });
-    },
-
-
-    create : function(opts,next) {
-
-        // Hook up to postgres db so we can create a new one
-        var defaultDbOpts = _.merge(_.cloneDeep(opts),{
-            database : "postgres"
-        });
-
-        pg.connect(defaultDbOpts, function (err, client, done) {
-            if (err) {
-                console.log(err);
-                done();
-                return next(err);
-            }
-
-            client.query('CREATE DATABASE `' + opts.database + '`', function (err, res) {
-                if (err) {
-                    console.log("Failed to create `" + opts.database +"`",err);
-                    done();
-                    return next(err);
-
-                }
-
-                console.log("Database `" + opts.database + "` created! Continue...");
-
-                return next();
-
-            });
-        });
-    }
+      });
+    });
+  }
 }
