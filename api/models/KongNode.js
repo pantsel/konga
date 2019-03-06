@@ -40,7 +40,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     //   model: 'netdataconnection'
     // },
 
-    netdata_url : {
+    netdata_url: {
       type: 'string'
     },
 
@@ -117,27 +117,32 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     cb()
   },
   seedData: defKongNodeSeedData.seedData.map(function (orig) {
-    return {
+    var auth = (orig => {
+      switch (orig.type) {
+        case 'default':
+          return {}
+        case 'key_auth':
+          return {
+            "kong_api_key": orig.kong_api_key
+          }
+        case 'jwt':
+          return {
+            "jwt_algorithm": orig.jwt_algorithm,
+            "jwt_key": orig.jwt_key,
+            "jwt_secret": orig.jwt_secret,
+          }
+        default:
+          throw Error('Unimplemented')
+      }
+    });
+    return Object.assign({
       "name": orig.name,
       "type": orig.type,
       "kong_admin_url": orig.kong_admin_url,
-      "kong_api_key": orig.kong_api_key,
-      "jwt_algorithm": orig.jwt_algorithm,
-      "jwt_key": orig.jwt_key,
-      "jwt_secret": orig.jwt_secret,
-      "kong_version": orig.kong_version,
       "health_checks": orig.health_checks,
       "health_check_details": orig.health_check_details,
-      "active": orig.active
-    }
+    }, auth(orig))
   })
-  // seedData: [
-  //   {
-  //     "name": "default",
-  //     "kong_admin_url": "http://kong:8001",
-  //     "active": true
-  //   }
-  // ]
 });
 
 
@@ -148,8 +153,8 @@ var mongoModel = function () {
   return obj;
 }
 
-if(sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
-  defaultModel.meta =  {
+if (sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
+  defaultModel.meta = {
     schemaName: process.env.DB_PG_SCHEMA
   }
 }
