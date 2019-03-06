@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var HealthCheckEvents = require("../events/node-health-checks")
+var defKongNodeSeedData = require('../../config/default-kong-node-seed-data.js');
 
 /**
  * KongNode.js
@@ -115,6 +116,21 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
     cb()
   },
+  seedData: defKongNodeSeedData.seedData.map(function (orig) {
+    return {
+      "name": orig.name,
+      "type": orig.type,
+      "kong_admin_url": orig.kong_admin_url,
+      "kong_api_key": orig.kong_api_key,
+      "jwt_algorithm": orig.jwt_algorithm,
+      "jwt_key": orig.jwt_key,
+      "jwt_secret": orig.jwt_secret,
+      "kong_version": orig.kong_version,
+      "health_checks": orig.health_checks,
+      "health_check_details": orig.health_check_details,
+      "active": orig.active
+    }
+  })
   // seedData: [
   //   {
   //     "name": "default",
