@@ -18,7 +18,7 @@ function getseedData(env_var_name, model_name) {
       readEnvVar = undefined;
     } else {
       if (!fs.existsSync(readEnvVar)) {
-        console.log('Could not find ' + env_var_name);
+        console.log('Could not find ' + readEnvVar + ' from ' + env_var_name);
         readEnvVar = undefined;
       }
       try {
@@ -31,7 +31,7 @@ function getseedData(env_var_name, model_name) {
         }
       } catch (e) {
         console.log(e);
-        console.log('Failed to load ' + env_var_name);
+        console.log('Failed to load ' + readEnvVar + ' from ' + env_var_name);
         console.log('Reverting to default ' + model_name + ' seed');
         readEnvVar = undefined;
       }
