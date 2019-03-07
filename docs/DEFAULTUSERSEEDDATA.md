@@ -71,9 +71,7 @@ module.exports = [
         "type": "key_auth",
         "kong_admin_url": "http://kong:8001",
         "kong_api_key": "DonKeyKong",
-        "kong_version": "1.0.3",
         "health_checks": false,
-        "active": false
     }
 ]
 ```
