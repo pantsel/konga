@@ -8,9 +8,9 @@ var fs = require('fs');
  Return the seed data to be used, either from a file or hardcoded depending
  on enviroment variable setting
 */
-function getseedData() {
-  var readEnvVar = process.env.KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE;
-  if (typeof(readEnvVar) == 'undefined') {
+function getseedData(env_var_name, model_name) {
+  var readEnvVar = process.env[env_var_name];
+  if (typeof (readEnvVar) == 'undefined') {
     readEnvVar = undefined;
   } else {
     readEnvVar = readEnvVar.trim();
@@ -18,32 +18,32 @@ function getseedData() {
       readEnvVar = undefined;
     } else {
       if (!fs.existsSync(readEnvVar)) {
-        console.log('Could not find KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE');
+        console.log('Could not find ' + env_var_name);
         readEnvVar = undefined;
       }
       try {
         var seedUserData = require(readEnvVar);
-        if (typeof(seedUserData) != 'object') {
+        if (typeof (seedUserData) != 'object') {
           readEnvVar = undefined;
         } else {
           // We may place other checks on file contents here if required
-          console.log('Sucessfully read in user seed data file');
+          console.log('Sucessfully read in ' + model_name + ' seed data file');
         }
       } catch (e) {
         console.log(e);
-        console.log('Failed to load KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE');
-        console.log('Reverting to default user seed');
+        console.log('Failed to load ' + env_var_name);
+        console.log('Reverting to default ' + model_name + ' seed');
         readEnvVar = undefined;
       }
     }
   }
-  if(typeof(readEnvVar) == 'undefined') {
+  if (typeof (readEnvVar) == 'undefined') {
     return [];
   };
   return seedUserData
 }
 
 module.exports = {
-    seedData: getseedData()
+  userSeedData: getseedData('KONGA_SEED_USER_DATA_SOURCE_FILE', 'user'),
+  kongNodeSeedData: getseedData('KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE', 'Kong node')
 }
-
