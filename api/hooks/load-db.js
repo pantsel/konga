@@ -58,9 +58,6 @@ module.exports = function hook(sails) {
 
                     })
             }
-
-
-
             async.series([
                 sails.models.user.seed,
                 seedPassports,

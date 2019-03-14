@@ -8,9 +8,9 @@
 
   angular.module('frontend.dashboard')
     .controller('DashboardController', [
-      '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage','HttpTimeout',
+      '$scope', '$rootScope','$log', '$state','$q','InfoService','$localStorage','HttpTimeout', '$location',
         'SettingsService', 'NodeModel','$timeout', 'MessageService','UserModel','UserService','Semver','$http',
-      function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,HttpTimeout,
+      function controller($scope,$rootScope, $log, $state,$q,InfoService,$localStorage,HttpTimeout, $location,
                           SettingsService, NodeModel, $timeout, MessageService, UserModel, UserService, Semver, $http) {
 
 
@@ -18,6 +18,9 @@
               errorCount = 0,
               hasInitiallyLoaded = false,
               loadPromise;
+
+          $scope.loading = true;
+          $scope.hasConnections = false;
 
           $scope.HttpTimeout = HttpTimeout;
 
@@ -272,7 +275,16 @@
            * Init UI
            */
 
-          if($rootScope.Gateway || UserService.user().node) fetchData();
+          if($rootScope.Gateway || UserService.user().node) {
+              fetchData();
+          }else{
+              NodeModel.count().then(data => {
+                  if(data.count)  $scope.hasConnections = true;
+                  $scope.loading = false;
+              }).catch(err => {
+                  $scope.loading = false;
+              })
+          }
 
 
           

@@ -40,10 +40,11 @@ function getseedData(env_var_name, model_name) {
   if (typeof (readEnvVar) == 'undefined') {
     return [];
   };
+
   return seedUserData
 }
 
 module.exports = {
   userSeedData: getseedData('KONGA_SEED_USER_DATA_SOURCE_FILE', 'user'),
-  kongNodeSeedData: getseedData('KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE', 'Kong node')
+  kongNodeSeedData: getseedData('KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE', 'kong_node')
 }
