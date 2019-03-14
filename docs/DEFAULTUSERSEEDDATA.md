@@ -58,3 +58,25 @@ services:
 
 (This will work if the swarm is setup with the konga_user_seed secret set with it's value as the contents of the user file.)
 
+# Adding a default kong node seed
+
+If you wish to seed one or multiple kong connections on the first run, you can also add a kong node seed file, similar to the user one.
+
+For example :
+
+```
+module.exports = [
+    {
+        "name": "Kong Test Seed",
+        "type": "key_auth",
+        "kong_admin_url": "http://kong:8001",
+        "kong_api_key": "DonKeyKong",
+        "health_checks": false,
+    }
+]
+```
+
+To make Konga use this file, you should set the enviroment variable KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE to point to the files location:
+````
+export KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE=~/kong_node.data 
+````
