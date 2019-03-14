@@ -11,7 +11,9 @@ _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com
 ### Support the project
 If you find Konga helpful, 
 you can show your support and help me continue maintaining the project by [buying me a coffee](buymeacoff.ee/F1aRIj8CG)
-or becoming a [Patreon](https://www.patreon.com/kongaui). Cheers!
+or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
+
+<a href="https://www.buymeacoffee.com/F1aRIj8CG" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 
 ## Summary
