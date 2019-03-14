@@ -120,3 +120,4 @@ nbproject
 !/logs/.gitkeep
 /config/mssqlconfig.js
 /www/
+/seeds/
