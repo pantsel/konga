@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var HealthCheckEvents = require("../events/node-health-checks")
+var defSeedData = require('../../config/default-seed-data.js');
 
 /**
  * KongNode.js
@@ -39,7 +40,7 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
     //   model: 'netdataconnection'
     // },
 
-    netdata_url : {
+    netdata_url: {
       type: 'string'
     },
 
@@ -115,13 +116,33 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
     cb()
   },
-  // seedData: [
-  //   {
-  //     "name": "default",
-  //     "kong_admin_url": "http://kong:8001",
-  //     "active": true
-  //   }
-  // ]
+  seedData: defSeedData.kongNodeSeedData.map(function (orig) {
+    var auth = (orig => {
+      switch (orig.type) {
+        case 'default':
+          return {}
+        case 'key_auth':
+          return {
+            "kong_api_key": orig.kong_api_key
+          }
+        case 'jwt':
+          return {
+            "jwt_algorithm": orig.jwt_algorithm,
+            "jwt_key": orig.jwt_key,
+            "jwt_secret": orig.jwt_secret,
+          }
+        default:
+          throw Error('Unimplemented')
+      }
+    });
+    return Object.assign({
+      "name": orig.name,
+      "type": orig.type,
+      "kong_admin_url": orig.kong_admin_url,
+      "health_checks": orig.health_checks,
+      "health_check_details": orig.health_check_details,
+    }, auth(orig))
+  })
 });
 
 
@@ -132,8 +153,8 @@ var mongoModel = function () {
   return obj;
 }
 
-if(sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
-  defaultModel.meta =  {
+if (sails.config.models.connection == 'postgres' && process.env.DB_PG_SCHEMA) {
+  defaultModel.meta = {
     schemaName: process.env.DB_PG_SCHEMA
   }
 }
