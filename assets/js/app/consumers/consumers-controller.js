@@ -31,11 +31,20 @@
 
               $scope.consumer = {
                 username: '',
-                custom_id: ''
+                custom_id: '',
+                tags: []
               }
 
               $scope.close = close
               $scope.submit = submit
+
+              $scope.onTagInputKeyPress = function ($event) {
+                if($event.keyCode === 13) {
+                  if(!$scope.consumer.tags) $scope.consumer.tags = [];
+                  $scope.consumer.tags = $scope.consumer.tags.concat($event.currentTarget.value);
+                  $event.currentTarget.value = null;
+                }
+              }
 
               function submit() {
 

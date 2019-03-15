@@ -52,6 +52,12 @@
                     </td>
                     <td><a data-ui-sref="consumers.edit({'id':consumer.id})"><strong>{{consumer.username || "-"}}</strong></a></td>
                     <td>{{consumer.custom_id || "-"}}</td>
+                    <td>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in consumer.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
+                    </td>
                     <td>{{moment(consumer.created_at*1000).format("MMM DD YYYY @HH:mm")}}</td>
                     <td ng-if="user.hasPermission($state.name.split('.')[0],'delete')">
                         <button type="button"
