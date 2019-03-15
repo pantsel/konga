@@ -53,10 +53,15 @@
         }
 
         $scope.onTagInputKeyPress = function ($event) {
-          if ($event.keyCode === 13) {
-            if (!$scope.service.extras) $scope.service.extras = {};
-            if (!$scope.service.extras.tags) $scope.service.extras.tags = [];
-            $scope.service.extras.tags = $scope.service.extras.tags.concat($event.currentTarget.value);
+          if($event.keyCode === 13) {
+            if($rootScope.isGatewayVersionEqOrGreater("1.1.0rc1")) {
+              if(!$scope.service.tags) $scope.service.tags = [];
+              $scope.service.tags = $scope.service.tags.concat($event.currentTarget.value);
+            }else{
+              if(!$scope.service.extras) $scope.service.extras = {};
+              if(!$scope.service.extras.tags) $scope.service.extras.tags = [];
+              $scope.service.extras.tags = $scope.service.extras.tags.concat($event.currentTarget.value);
+            }
             $event.currentTarget.value = null;
           }
         }

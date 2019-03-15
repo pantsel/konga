@@ -43,6 +43,11 @@
               props.http_if_terminated = false;
             }
 
+            // Add tags property
+            if (Semver.cmp(version, "1.1.0-rc1") >= 0 && !props.tags) {
+              props.tags = [];
+            }
+
             return props;
           },
 

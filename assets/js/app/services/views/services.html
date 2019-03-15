@@ -61,6 +61,10 @@
                             <i class="mdi mdi-tag"></i>&nbsp;
                             {{tag}}
                         </span>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in service.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
                     </td>
                     <td>{{service.created_at*1000 | date : format : timezone}}</td>
                     <!--<td>-->
