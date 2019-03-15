@@ -14,6 +14,25 @@
         </p>
     </div>
 </div>
+<div class="form-group">
+    <label class="col-sm-3 control-label">Tags <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-9" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
+        <chips ng-model="route.tags">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input ng-model-control
+                   data-ng-keypress="onTagInputKeyPress($event)"
+                   ng-model="$tag" uib-typeahead="tag for tag in tags | filter:$viewValue | limitTo:10"/>
+        </chips>
+        <p class="help-block">
+            Optionaly add tags to the route
+        </p>
+    </div>
+</div>
 <div class="form-group" ng-class="{'has-error' : errors.hosts}">
     <label class="col-sm-3 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-9">

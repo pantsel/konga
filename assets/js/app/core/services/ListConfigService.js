@@ -60,6 +60,14 @@
               inTitle: true
             },
             {
+              title: 'tags',
+              column: 'tags',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'hosts',
               column: 'hosts',
               searchable: true,
