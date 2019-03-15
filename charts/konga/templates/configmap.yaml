@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  konga-config
+  labels:
+    app.kubernetes.io/name: {{ include "konga.name" . }}
+    helm.sh/chart: {{ include "konga.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  {{- if .Values.config }}
+  PORT: {{ default 1337 .Values.config.port }}
+  NODE_ENV: {{ default "development" .Values.config.node_env }}
+  SSL_KEY_PATH: {{ .Values.config.ssl_key_path }}
+  SSL_CRT_PATH: {{ .Values.config.ssl_crt_path }}
+  KONGA_HOOK_TIMEOUT: {{ default "60000" .Values.config.konga_hook_timeout }}
+  DB_ADAPTER: {{ default "postgres" .Values.config.db_adapter }}
+  DB_URI: {{ .Values.config.db_uri }}
+  DB_HOST: {{ default "localhost" .Values.config.db_host }}
+  DB_PORT: {{ default "5432" .Values.config.db_port }}
+  DB_USER: {{ .Values.config.db_user }}
+  DB_PASSWORD: {{ .Values.config.db_password }}
+  DB_DATABASE: {{ default "konga_database" .Values.config.db_database }}
+  DB_PG_SCHEMA: {{ default "public" .Values.config.db_pg_schema }}
+  {{- if eq .Values.config.node_env "development" }}
+    KONGA_LOG_LEVEL: {{ default "debug" .Values.config.log_level }}
+  {{ else if eq .Values.config.node_env "production" }}
+    KONGA_LOG_LEVEL: {{ default "warn" .Values.config.log_level }}
+  {{- end }}
+  TOKEN_SECRET: {{ .Values.config.token_secret }}
+  {{- end }}
+  
+  {{- if .Values.ldap }}
+  KONGA_AUTH_PROVIDER: {{ default "local" .Values.ldap.auth_provider }}
+  KONGA_LDAP_HOST: {{ default "ldap://localhost:389" .Values.ldap.host }}
+  KONGA_LDAP_BIND_DN: {{ .Values.ldap.bind_dn }}
+  KONGA_LDAP_BIND_PASSWORD: {{ .Values.ldap.bind_pass }}
+  KONGA_LDAP_USER_SEARCH_BASE: {{ default "ou=users,dc=com" .Values.ldap.user_search_base }}
+  KONGA_LDAP_USER_SEARCH_FILTER: {{ default "(|(uid={{username}})(sAMAccountName={{username}}))" .Values.ldap.user_search_filter }}
+  KONGA_LDAP_USER_ATTRS: {{ default "uid,uidNumber,givenName,sn,mail" .Values.ldap.user_attrs }}
+  KONGA_LDAP_GROUP_SEARCH_BASE: {{ default "ou=groups,dc=com" .Values.ldap.group_search_base }}
+  KONGA_LDAP_GROUP_SEARCH_FILTER: {{ default "(|(memberUid={{uid}})(memberUid={{uidNumber}})(sAMAccountName={{uid}}))" .Values.ldap.group_search_filter }}
+  KONGA_LDAP_GROUP_ATTRS: {{ default "cn" .Values.ldap.group_attrs }}
+  KONGA_ADMIN_GROUP_REG: {{ default "^(admin|konga)$" .Values.ldap.group_reg }}
+  KONGA_LDAP_ATTR_USERNAME: {{ default "uid" .Values.ldap.attr_username }}
+  KONGA_LDAP_ATTR_FIRSTNAME: {{ default "givenName" .Values.ldap.attr_firstname }}
+  KONGA_LDAP_ATTR_LASTNAME: {{ default "sn" .Values.ldap.attr_lastname }}
+  KONGA_LDAP_ATTR_EMAIL: {{ default "mail" .Values.ldap.attr_email }}
+  {{- end }}
