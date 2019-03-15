@@ -1,20 +1,35 @@
 
 <div class="container" style="width: 600px;max-width: 100%" ng-if="!loading">
     <div class="row" ng-if="!user.node && !Gateway">
-        <div class="col-md-12 text-center">
-            <img src="images/conn_sync-100.png" class="margin-bottom">
-            <h3>
-                Welcome!
-            </h3>
-            <p class="lead">
-                First of all, lets setup a connection to Kong Admin.<br>
-                <small class="text-muted">Select a connection type.</small>
-            </p>
+        <div data-ng-if="hasConnections">
+            <div class="col-md-12 text-center">
+                <img src="images/conn_sync-100.png" class="margin-bottom">
+                <h3>
+                    Welcome!
+                </h3>
+                <p class="lead">
+                    No active connection to Kong Admin was found.<br>
+                    <small class="text-muted">Activate one from the <a ui-sref="connections">Connections</a> page.</small>
+                </p>
 
+            </div>
         </div>
-        <div class="col-md-12">
-            <div ng-include="'js/app/connections/partials/create-connection-form-flat.html?r=' + Date.now()"
-                 class=""></div>
+        <div data-ng-if="!hasConnections">
+            <div class="col-md-12 text-center">
+                <img src="images/conn_sync-100.png" class="margin-bottom">
+                <h3>
+                    Welcome!
+                </h3>
+                <p class="lead">
+                    First of all, lets setup a connection to Kong Admin.<br>
+                    <small class="text-muted">Select a connection type.</small>
+                </p>
+
+            </div>
+            <div class="col-md-12">
+                <div ng-include="'js/app/connections/partials/create-connection-form-flat.html?r=' + Date.now()"
+                     class=""></div>
+            </div>
         </div>
     </div>
     <div class="row" ng-if="user.node && !Gateway && error">

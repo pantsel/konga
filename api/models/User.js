@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var async = require('async');
-var defUserSeedData = require('../../config/default-user-seed-data.js');
+var defSeedData = require('../../config/default-seed-data.js');
 
 /**
  * User.js
@@ -87,13 +87,12 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
   },
 
-  seedData: defUserSeedData.seedData.map(function (orig) {
+  seedData: defSeedData.userSeedData.map(function (orig) {
     return {
       "username": orig.username,
       "email": orig.email,
       "firstName": orig.firstName,
       "lastName": orig.lastName,
-      // "node_id": orig.node_id,
       "admin": orig.admin,
       "active": orig.active
     }

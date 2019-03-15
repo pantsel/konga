@@ -2,7 +2,7 @@
 
 var async = require('async');
 var _ = require('lodash')
-var defUserSeedData = require('../../config/default-user-seed-data.js');
+var defSeedData = require('../../config/default-seed-data.js');
 
 /**
  * load-db.js
@@ -30,7 +30,7 @@ module.exports = function hook(sails) {
                         var passportsFns = []
                         users.forEach(function(user){
                             passportsFns.push(function(_cb){
-                                var passwordToSetArr = defUserSeedData.seedData.filter( function (orig) {
+                                var passwordToSetArr = defSeedData.userSeedData.filter( function (orig) {
                                   return (orig.username == user.username)
                                 });
                                 var passwordToSet = undefined;
@@ -58,9 +58,6 @@ module.exports = function hook(sails) {
 
                     })
             }
-
-
-
             async.series([
                 sails.models.user.seed,
                 seedPassports,
