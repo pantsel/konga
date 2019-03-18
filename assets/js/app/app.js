@@ -280,7 +280,7 @@
       function ($log, $scope, $rootScope, Settings, NodeModel, Semver,
                 UserService, InfoService, AuthService, SubscriptionsService, NotificationsService) {
 
-        $rootScope.user = UserService.user()
+        $rootScope.user = UserService.user();
         $rootScope.konga_version = window.konga_version
         $log.debug("MainController:User => ", $rootScope.user)
 
@@ -292,7 +292,6 @@
         $rootScope.isGatewayVersionSmaller = function (version) {
           return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) < 0 : false;
         }
-
 
         $rootScope.compareKongVersion = function (version) {
           return Semver.cmp($rootScope.Gateway.version, version);
@@ -308,7 +307,6 @@
 
         $scope.$on('user.login', function (ev, user) {
           _fetchGatewayInfo();
-
         })
 
         function _fetchSettings() {

@@ -306,7 +306,7 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              $log.debug("FooterController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
+              $log.debug("ConnectionsController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
               $rootScope.$broadcast('user.node.updated', node);
             }).catch(function (err) {
             $rootScope.Gateway = null;

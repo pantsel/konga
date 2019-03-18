@@ -17,8 +17,13 @@ module.exports = function authenticated(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.Authenticated() called]');
 
   if(process.env.NO_AUTH === 'true') {
-    // Store user id to request object
-    request.token = 'noauthtoken';
+    // // Store user id to request object
+    request.token = 'noauth';
+
+    // We delete the token from query and body to not mess with blueprints
+    request.query && delete request.query.token;
+    request.body && delete request.body.token;
+
     return next();
   }
 

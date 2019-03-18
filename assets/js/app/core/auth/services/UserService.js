@@ -31,7 +31,7 @@
       function factory(_, $localStorage, $rootScope, AuthService) {
 
         function user() {
-
+          var user = $localStorage.credentials ? $localStorage.credentials.user : {};
           if(window.no_auth) {
             var guestUser = {
               id: 1,
@@ -42,17 +42,14 @@
               admin: true,
               active: true
             };
-            var user = $localStorage.credentials ? $localStorage.credentials.user : {};
+
             if(!user.id) {
               $localStorage.credentials = {
                 user: guestUser,
                 token: 'noauthtoken'
               };
             }
-            return $localStorage.credentials.user;
           }
-
-          var user = $localStorage.credentials ? $localStorage.credentials.user : {};
 
           if (user.id) {
             user.hasPermission = AuthService.hasPermission

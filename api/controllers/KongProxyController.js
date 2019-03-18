@@ -124,6 +124,9 @@ var self = module.exports = {
    */
   send: function (entity, unirestReq, konga_extras, req, res) {
 
+    // Clean up the mess
+    // delete req.body.token;
+
     unirestReq.send(req.body);
 
     unirestReq.end(function (response) {
