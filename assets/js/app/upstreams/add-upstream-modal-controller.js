@@ -22,6 +22,14 @@
          $scope.upstream['hash_fallback'] = 'none';
         }
 
+        $scope.onTagInputKeyPress = function ($event) {
+          if($event.keyCode === 13) {
+            if(!$scope.upstream.tags) $scope.upstream.tags = [];
+            $scope.upstream.tags = $scope.upstream.tags.concat($event.currentTarget.value);
+            $event.currentTarget.value = null;
+          }
+        }
+
 
         $scope.close = function () {
           $uibModalInstance.dismiss()

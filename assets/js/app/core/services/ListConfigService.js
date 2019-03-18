@@ -233,6 +233,13 @@
               inTitle: true
             },
             {
+              title: 'tags',
+              column: 'tags',
+              searchable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'slots',
               column: 'slots'
             },

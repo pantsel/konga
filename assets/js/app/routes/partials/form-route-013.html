@@ -14,9 +14,9 @@
         </p>
     </div>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
     <label class="col-sm-3 control-label">Tags <br><em><small class="help-block">optional</small></em></label>
-    <div class="col-sm-9" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
+    <div class="col-sm-9">
         <chips ng-model="route.tags">
             <chip-tmpl>
                 <div class="default-chip">

@@ -14,6 +14,28 @@
         </div>
     </div>
 
+    <!-- TAGS -->
+    <div class="form-group" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
+        <label class="col-sm-3 control-label">Tags <br><em><small class="help-block">optional</small></em></label>
+        <div class="col-sm-9">
+            <chips ng-model="upstream.tags">
+                <chip-tmpl>
+                    <div class="default-chip">
+                        {{chip}}
+                        <i class="mdi mdi-close" remove-chip></i>
+                    </div>
+                </chip-tmpl>
+                <input ng-model-control
+                       data-ng-keypress="onTagInputKeyPress($event)"
+                       ng-model="$tag" uib-typeahead="tag for tag in tags | filter:$viewValue | limitTo:10"/>
+            </chips>
+            <p class="help-block">
+                Optionaly add tags to the route
+            </p>
+        </div>
+    </div>
+    <!--/ TAGS -->
+
     <!-- has_on -->
     <div class="form-group" ng-if="compareKongVersion('0.12.0') >= 0" ng-class="{'has-error' : errors.hash_on}">
         <label class="col-sm-3 control-label">Hash on
@@ -598,7 +620,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-8">
-            <button type="submit" class="btn btn-primary btn-block" ng-click="submit()">
+            <button type="button" class="btn btn-primary btn-block" ng-click="submit()">
                 <i class="mdi mdi-check"></i>
                 {{context === 'update' ? 'Submit Changes' : 'Submit Upstream'}}
             </button>
