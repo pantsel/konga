@@ -334,6 +334,7 @@
             state: 'users',
             icon: 'mdi-account-multiple-outline',
             show: function () {
+              if(window.no_auth) return false;
               return AuthService.isAuthenticated() && AuthService.hasPermission('users', 'read');
             },
             title: 'Users',

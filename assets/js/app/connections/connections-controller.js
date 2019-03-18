@@ -25,6 +25,7 @@
 
         // Set initial data
         $scope.createNode = createNode;
+        $scope.isActive = isActive;
         $scope.editNode = editNode;
         $scope.user = UserService.user();
         $scope.kong_versions = SettingsService.getKongVersions();
@@ -238,20 +239,30 @@
 
         function toggleUserNode(node) {
 
-          UserModel
-            .update(UserService.user().id, {
-              node: isActive(node) ? null : node
-            }).then(function onSuccess(res) {
-            var credentials = $localStorage.credentials
-            var user = res.data;
-            if (!user.node) {
+          if(window.no_auth) {
+            var credentials = $localStorage.credentials;
+            if(credentials.user.node && credentials.user.node.id == node.id) {
               delete credentials.user.node;
-            } else {
+            }else{
               credentials.user.node = node;
             }
+            $rootScope.$broadcast('user.node.updated', credentials.user.node)
+          }else{
+            UserModel
+              .update(UserService.user().id, {
+                node: isActive(node) ? null : node
+              }).then(function onSuccess(res) {
+              var credentials = $localStorage.credentials
+              var user = res.data;
+              if (!user.node) {
+                delete credentials.user.node;
+              } else {
+                credentials.user.node = node;
+              }
 
-            $rootScope.$broadcast('user.node.updated', res.data.node)
-          })
+              $rootScope.$broadcast('user.node.updated', res.data.node)
+            })
+          }
         }
 
 
@@ -312,7 +323,6 @@
             controller: 'CreateConnectionController'
           });
         }
-
 
         function editNode(node) {
           $uibModal.open({

@@ -98,7 +98,7 @@
         //$httpProvider.interceptors.push('CsrfInterceptor');
 
         //$httpProvider.interceptors.push('TemplateCacheInterceptor');
-        // $httpProvider.interceptors.push('KongaInterceptor');
+        $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
@@ -301,7 +301,7 @@
         // ToDo decide whether to use Gateway Info for getting active node version and stuff...
         $scope.$on('user.node.updated', function (ev, node) {
 
-          $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
+          console.log("MainController:onUserNodeUpdated => Fetching Gateway Info", node)
           // Fetch and store Gateway Info
           _fetchGatewayInfo();
         })
@@ -324,7 +324,7 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              $log.debug("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
+              console.log("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
             }).catch(function (err) {
             $rootScope.Gateway = null;
           });

@@ -16,6 +16,12 @@ var _ = require('lodash');
 module.exports = function authenticated(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.Authenticated() called]');
 
+  if(process.env.NO_AUTH === 'true') {
+    // Store user id to request object
+    request.token = 'noauthtoken';
+    return next();
+  }
+
   /**
    * Helper function to process possible error and actual token after it is decoded.
    *

@@ -12,6 +12,10 @@
 module.exports = function isAdmin(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.isAdmin() called]');
 
+  if(process.env.NO_AUTH === 'true') {
+    return next();
+  }
+
   // Fetch current user by the token
   sails.models['user']
     .findOne(request.token)

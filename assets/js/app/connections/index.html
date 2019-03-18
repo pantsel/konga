@@ -57,7 +57,7 @@
                        tooltip-append-to-body="true"
                        uib-tooltip="Toggle active"
                        ng-click="toggleActive(node)"
-                       ng-class="user.node && user.node.id == node.id ? 'mdi-lan-connect text-success' : 'mdi-lan-disconnect'"
+                       ng-class="isActive(node) ? 'mdi-lan-connect text-success' : 'mdi-lan-disconnect'"
                     ></i>
 
                     <i class="mdi mdi-loading mdi-spin text-primary margin-right" ng-if="node.checkingConnection"></i>
