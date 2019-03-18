@@ -23,6 +23,7 @@
                           HeaderNavigationItems,
                           UserService, AuthService, NotificationsService, $localStorage) {
         $scope.user = UserService.user;
+        $scope.no_auth = window.no_auth;
         $scope.auth = AuthService;
         $scope.navigationItems = HeaderNavigationItems;
         $scope.notifications = NotificationsService.load();

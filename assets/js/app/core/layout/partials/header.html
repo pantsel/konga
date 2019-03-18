@@ -55,9 +55,11 @@
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
                         &nbsp;
                         <span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().firstName || user().username}}</span>
-                        <span class="caret"></span>
+                        <span class="caret" ng-if="!no_auth"></span>
                     </a>
-                    <ul class="dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu animated fadeInDownShort go"
+                        ng-if="!no_auth"
+                        uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                         <li role="menuitem">
                             <a data-ui-sref="users.show({id:user().id})">

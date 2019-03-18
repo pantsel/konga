@@ -30,12 +30,13 @@ module.exports.routes = {
 
   '/': async (req, res) => {
 
-    const usersCount = await sails.models.user.count();
+    if(process.env.NO_AUTH !== 'true') {
+      const usersCount = await sails.models.user.count();
 
-    if(usersCount == 0) {
-      return res.redirect('register')
+      if(usersCount == 0) {
+        return res.redirect('register')
+      }
     }
-
 
     return res.view('homepage', {
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
