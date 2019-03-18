@@ -15,6 +15,15 @@
 
 
         $scope.context = 'update';
+
+        $scope.onTagInputKeyPress = function ($event) {
+          if($event.keyCode === 13) {
+            if(!$scope.upstream.tags) $scope.upstream.tags = [];
+            $scope.upstream.tags = $scope.upstream.tags.concat($event.currentTarget.value);
+            $event.currentTarget.value = null;
+          }
+        }
+
         $scope.submit = function () {
 
           $scope.busy = true

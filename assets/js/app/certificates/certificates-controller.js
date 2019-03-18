@@ -103,6 +103,14 @@
                 });
               }
 
+              $scope.onTagInputKeyPress = function ($event) {
+                if($event.keyCode === 13) {
+                  if(!$scope.data.tags) $scope.data.tags = [];
+                  $scope.data.tags = $scope.data.tags.concat($event.currentTarget.value);
+                  $event.currentTarget.value = null;
+                }
+              }
+
 
               $scope.submitCerts = function () {
 

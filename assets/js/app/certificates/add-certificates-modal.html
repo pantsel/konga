@@ -53,14 +53,33 @@
             <span style="vertical-align: super">ADD SNI</span>
         </button>
     </div>
+    <!-- TAGS -->
+    <div class="form-group" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
+        <label class="control-label">Tags <br><em><small class="help-block">optional</small></em></label>
+        <chips ng-model="data.tags">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input ng-model-control
+                   data-ng-keypress="onTagInputKeyPress($event)"
+                   ng-model="$tag" uib-typeahead="tag for tag in tags | filter:$viewValue | limitTo:10"/>
+        </chips>
+        <p class="help-block">
+            Optionally add tags to the Certificate
+        </p>
+    </div>
+    <!--/ TAGS -->
     <div class="form-group">
-        <button type="text"
+        <button type="button"
                 ng-if="!data.id"
                 data-ng-disabled="uploading"
                 class="btn btn-primary btn-block" data-ng-click="submitCerts()">
             {{data.id ? 'Update' : 'Submit'}} Certificates
         </button>
-        <button type="text"
+        <button type="button"
                 ng-if="data.id"
                 class="btn btn-primary btn-block" data-ng-click="updateCerts()">
             ok

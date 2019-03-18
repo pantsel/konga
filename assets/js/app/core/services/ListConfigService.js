@@ -552,6 +552,14 @@
               inTitle: true
             },
             {
+              title: 'tags ',
+              column: 'tags',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'snis',
               column: 'snis',
               searchable: true,
