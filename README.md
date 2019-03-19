@@ -91,7 +91,6 @@ These are the general environment variables Konga uses.
 
 | VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
-| NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | null                                         |
 | PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
 | NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
 | SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
@@ -104,9 +103,11 @@ These are the general environment variables Konga uses.
 | DB_USER            | If `DB_URI` is not specified, this is the database user. Depends on `DB_ADAPTER`.                                          | -                                      | -                                            |
 | DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
 | DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
-| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                    | -                                      | `public`                                     |
-| KONGA_LOG_LEVEL    | The logging level                                                                                                           | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
+| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                     | -                                      | `public`                                     |
+| KONGA_LOG_LEVEL    | The logging level                                                                                                          | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
 | TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
+| NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | null                                         |
+| BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | ''                                     | null                                         |
 
 
 ### Databases Integration

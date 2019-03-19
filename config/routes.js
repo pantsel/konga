@@ -39,6 +39,7 @@ module.exports.routes = {
     }
 
     return res.view('homepage', {
+      base_url: process.env.BASE_URL || '',
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       no_auth: process.env.NO_AUTH === 'true' ? true: false,
       konga_version: require('../package.json').version,
@@ -56,6 +57,8 @@ module.exports.routes = {
     }
 
     return res.view('welcomepage', {
+      base_url: process.env.BASE_URL || '',
+      no_auth: process.env.NO_AUTH === 'true' ? true: false,
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       konga_version: require('../package.json').version,
       accountActivated: req.query.activated ? true : false
