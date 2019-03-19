@@ -23,37 +23,37 @@
 
                 function _subscribe() {
 
-                    io.socket.get('/api/kongnodes/healthchecks/subscribe?token=' + AuthService.token(),
+                    io.socket.get('api/kongnodes/healthchecks/subscribe?token=' + AuthService.token(),
                         function (data, jwr) {
 
                             if (jwr.statusCode == 200) {
-                                $log.info("Subscribed to room",data.room)
+                                console.log("Subscribed to room",data.room)
                                 io.socket.on(data.room, function (obj) {
                                     //$log.info("Notification received",obj)
                                     $rootScope.$broadcast("node.health_checks", obj)
 
                                 });
                             } else {
-                                $log.info(jwr);
+                                console.log("Failed to subscribe to: ", jwr);
                             }
                         });
-
-                    io.socket.get('/api/apis/healthchecks/subscribe?token=' + AuthService.token(),
-                        function (data, jwr) {
-                            //$log.info("ApiHealthChecksSub:data",data)
-                            //$log.info("ApiHealthChecksSub:jwr",jwr)
-
-                            if (jwr.statusCode == 200) {
-                                $log.info("Subscribed to room",data.room)
-                                io.socket.on(data.room, function (obj) {
-                                    //$log.info("Notification received",obj)
-                                    $rootScope.$broadcast("api.health_checks", obj)
-
-                                });
-                            } else {
-                                $log.info(jwr);
-                            }
-                        });
+                    //
+                    // io.socket.get('api/apis/healthchecks/subscribe?token=' + AuthService.token(),
+                    //     function (data, jwr) {
+                    //         //$log.info("ApiHealthChecksSub:data",data)
+                    //         //$log.info("ApiHealthChecksSub:jwr",jwr)
+                    //
+                    //         if (jwr.statusCode == 200) {
+                    //             $log.info("Subscribed to room",data.room)
+                    //             io.socket.on(data.room, function (obj) {
+                    //                 //$log.info("Notification received",obj)
+                    //                 $rootScope.$broadcast("api.health_checks", obj)
+                    //
+                    //             });
+                    //         } else {
+                    //             $log.info(jwr);
+                    //         }
+                    //     });
 
                     // io.socket.get('/api/snapshots/subscribe?token=' + AuthService.token(),
                     //     function (data, jwr) {

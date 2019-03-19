@@ -34,7 +34,7 @@
           var user = $localStorage.credentials ? $localStorage.credentials.user : {};
           if(window.no_auth) {
             var guestUser = {
-              id: 1,
+              id: 999,
               username: 'guest',
               email: 'guest@guest.com',
               firstName: 'Guest',
@@ -43,7 +43,7 @@
               active: true
             };
 
-            if(!user.id) {
+            if(!user.id || user.id !== guestUser.id || user.username !== guestUser.username || user.email !== guestUser.email) {
               $localStorage.credentials = {
                 user: guestUser,
                 token: 'noauthtoken'

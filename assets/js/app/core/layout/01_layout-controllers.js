@@ -122,7 +122,7 @@
 
 
         function _fetchConnections() {
-          $http.get('/api/kongnode').then(function (response) {
+          $http.get('api/kongnode').then(function (response) {
             $scope.connections = response.data;
           });
           // NodeModel.load({
