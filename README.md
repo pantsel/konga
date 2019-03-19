@@ -108,6 +108,8 @@ These are the general environment variables Konga uses.
 | TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
 | NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | null                                         |
 | BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | ''                                     | null                                         |
+| KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | ''                                     | null                                         |
+| KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/SEED_DEFAULT_DATA.md)                               | ''                                     | null                                         |
 
 
 ### Databases Integration
@@ -223,7 +225,7 @@ $ docker run -p 1337:1337
 The GUI will be available at `http://{your server's public ip}:1337`
 
 
-[It is possible to seed default users on first install.](./docs/DEFAULTUSERSEEDDATA.md)
+[It is possible to seed default users on first install.](./docs/SEED_DEFAULT_DATA.md)
 
 You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
 
