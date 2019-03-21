@@ -52,7 +52,7 @@ module.exports.routes = {
 
     const usersCount = await sails.models.user.count();
 
-    if(usersCount > 0) {
+    if(usersCount > 0 || process.env.NO_AUTH === 'true') {
       return res.redirect('')
     }
 
