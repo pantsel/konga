@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [0.14.4](https://github.com/pantsel/konga/releases/tag/0.14.4)
-* Added support for `TAGS` in all major Entities (Starting from Kong `1.1.0-rc1`).
+* Added support for `TAGS` in all major Kong Entities (Starting from Kong `1.1.0-rc1`).
 * Konga can now be used without authentication. In order to do that,
   simply set the env var `NO_AUTH=true`.
 * You can now seed default Users and Kong Connections on first install.
