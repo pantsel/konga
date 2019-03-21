@@ -45,7 +45,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Monitor Node and API states using health checks.
 * Email & Slack notifications.
 * Multiple users.
-* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
+* Easy database integration (MySQL, postgresSQL, MongoDB).
 
 ## Compatibility
 **From 0.14.0 onwards, Konga is ONLY compatible with Kong >= 1.0.0**
@@ -96,7 +96,7 @@ These are the general environment variables Konga uses.
 | SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
 | SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
 | KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
-| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`,`sqlserver` | -                                            |
+| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`     | -                                            |
 | DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
 | DB_HOST            | If `DB_URI` is not specified, this is the database host. Depends on `DB_ADAPTER`.                                          | -                                      | localhost                                    |
 | DB_PORT            | If `DB_URI` is not specified, this is the database port.  Depends on `DB_ADAPTER`.                                         | -                                      | DB default.                                  |
@@ -231,9 +231,14 @@ You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
 
 
 ## Upgrading
-In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
+In some cases a newer version of Konga may introduce changes in database schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
 Then stop the app and run it again in production mode.
+
+if you're using docker, you can lift an ephemeral container, as stated before:
+```
+$ docker run --rm pantsel/konga:latest -c prepare -a {{adapter}} -u {{connection-uri}}
+```
 
 ## FAQ
 
