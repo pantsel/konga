@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 * The new env var `BASE_URL`, allows you to run Konga behind a reverse proxy on a relative path.
   For example, if you configure your proxy to route requests to `example.com/konga`
   you will need to set `BASE_URL=/konga/`
+* Fix compatibility with new `response-ratelimiting` plugin schema. Ref issue #363.
    
 
 ## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 27-01-2019
