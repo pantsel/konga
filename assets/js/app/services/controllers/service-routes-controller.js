@@ -79,7 +79,7 @@
 
 
         function deleteRoute(route) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete Route", "Really want to delete the route?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {

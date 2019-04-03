@@ -93,7 +93,7 @@
 
 
           function deleteUser($index,user) {
-              DialogService.prompt(
+              DialogService.confirm(
                   "Delete User","Really want to delete the user?",
                   ['No don\'t','Yes! delete it'],
                   function accept(){

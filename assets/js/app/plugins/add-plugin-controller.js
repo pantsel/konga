@@ -9,10 +9,10 @@
   angular.module('frontend.plugins')
     .controller('AddPluginController', [
       '_', '$scope', '$rootScope', '$log', '$state', 'ListConfig', 'ApiService',
-      'MessageService', 'ConsumerModel', 'ServiceService', 'SocketHelperService', 'PluginHelperService',
+      'MessageService', 'ConsumerModel', 'ServiceService', 'DialogService', 'SocketHelperService', 'PluginHelperService',
       'KongPluginsService', '$uibModalInstance', 'PluginsService', '_pluginName', '_schema', '_context',
       function controller(_, $scope, $rootScope, $log, $state, ListConfig, ApiService,
-                          MessageService, ConsumerModel, ServiceService, SocketHelperService, PluginHelperService,
+                          MessageService, ConsumerModel, ServiceService, DialogService, SocketHelperService, PluginHelperService,
                           KongPluginsService, $uibModalInstance, PluginsService, _pluginName, _schema,_context) {
 
 
@@ -50,7 +50,7 @@
 
         // Define the plugins that will have their own custom form
         // so that it can be included via ng-include in the .html files
-        $scope.customPluginForms = ['statsd'];
+        $scope.customPluginForms = ['statsd', 'response-ratelimiting'];
 
         $scope.humanizeLabel = function (key) {
           return key.split("_").join(" ");
@@ -290,6 +290,29 @@
 
         $scope.getFieldProp = (field) => {
           return Object.keys(field)[0];
+        }
+
+        /**
+         * RESPONSE RATE LIMITING
+         */
+
+        $scope.addMap = (obj) => {
+
+          DialogService.prompt('Add Limit', 'Enter key', (keyName) => {
+            if(!obj.value) {
+              obj.value = {}
+            }
+
+            obj.value[keyName] = {};
+            obj.values.fields.forEach(field => {
+              obj.value[keyName][Object.keys(field)[0]] = null
+            })
+          })
+
+        }
+
+        $scope.removeMap = (keyName, obj) => {
+          delete obj.value[keyName];
         }
       }
     ]);

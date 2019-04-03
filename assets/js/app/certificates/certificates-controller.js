@@ -33,7 +33,7 @@
               }
 
               $scope.deleteSNI = function (sni) {
-                DialogService.prompt(
+                DialogService.confirm(
                   "Confirm", "Really want to delete the selected item?",
                   ['No don\'t', 'Yes! delete it'],
                   function accept() {

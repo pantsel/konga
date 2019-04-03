@@ -84,7 +84,7 @@
 
 
           function deletePlugin(plugin) {
-              DialogService.prompt(
+              DialogService.confirm(
                   "Delete Plugin","Really want to delete the plugin?",
                   ['No don\'t','Yes! delete it'],
                   function accept(){
