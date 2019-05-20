@@ -1,0 +1,59 @@
+{
+    "global" : {
+        "aws" : {
+            "aws_region" : "us-east-1",
+            "aws_account" : "324148959017",
+            "gitops_bucket" : "git-ops-prd",
+            "certificate_arn" : "arn:aws:acm:us-east-1:324148959017:certificate/6168f3c7-b505-4ec0-b254-935be71489e9",
+            "cloudwatch_notification" : "arn:aws:sns:us-east-1:324148959017:devops"
+        },
+        "service" : {
+            "service_name" : "ms-konga",
+            "service_repository" : "repo-kna-jms",
+            "tag_service" : "KNA",
+            "container_port" : "1337",
+            "health_check" : "/#!/login",
+            "ingress_cidr_blocks" : "[ \"0.0.0.0/0\" ]",
+            "ingress_ipv6_cidr_blocks" : "[ \"::/0\" ]",
+            "qas" : {
+                "service" : {
+                    "tag_environment" : "QAS",
+                    "container_memory" : "512",
+                    "container_memory_reservation" : "256",
+                    "desired_containers" : "2",
+                    "min_containers" : "2",
+                    "max_containers" : "4",
+                    "cpu_utilization_alarm" : "80",
+                    "memory_utilization_alarm" : "80",
+                    "task_count_alarm" : "2"
+                }
+            },
+            "stg" : {
+                "service" : {
+                    "tag_environment" : "STG",
+                    "container_memory" : "512",
+                    "container_memory_reservation" : "256",
+                    "desired_containers" : "2",
+                    "min_containers" : "2",
+                    "max_containers" : "4",
+                    "cpu_utilization_alarm" : "80",
+                    "memory_utilization_alarm" : "80",
+                    "task_count_alarm" : "2"
+                }
+            },
+            "prd" : {
+                "service" : {
+                    "tag_environment" : "PRD",
+                    "container_memory" : "512",
+                    "container_memory_reservation" : "256",
+                    "desired_containers" : "2",
+                    "min_containers" : "2",
+                    "max_containers" : "4",
+                    "cpu_utilization_alarm" : "70",
+                    "memory_utilization_alarm" : "70",
+                    "task_count_alarm" : "2"
+                }
+            }    
+        }
+    }
+}
