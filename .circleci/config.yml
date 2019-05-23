@@ -184,14 +184,97 @@ jobs:
      - deploy:
         name: AWS - Pushing to Staging Environment
         command: |
-            echo "Staging"
-            #rm -rf GitOps
-            #mkdir -p ~/.ssh/
-            #ssh-keyscan github.com >> ~/.ssh/known_hosts
-            #git clone git@github.com:GitJMSeguradora/GitOps.git
-            #cp GitOps/circleci/workflows/deploy/deploy.sh . 
-            #chmod +x deploy.sh
-            #./deploy.sh staging
+            # Clone GitOps
+            rm -rf GitOps
+            mkdir -p ~/.ssh/
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+            git clone git@github.com:GitJMSeguradora/GitOps.git
+
+            # 100% Terraform Project? - create terraform.enable file at the root of the project
+            ENABLE_TERRAFORM=terraform.enable
+            if [ -f $ENABLE_TERRAFORM ]; then
+            
+              echo "Deploy Quality Environment with Terraform ServiceDefinitions.json"
+            
+              # image tag - ECR
+              CIRCLE_BUILD_DOCKER=$(cat DOCKER_IMAGE.txt)-stg
+            
+              # validate  ServiceDefinitions.json file
+              schema_validation=$(json validate --schema-file GitOps/circleci/workflows/deploy/ServiceDefinitions-Schema.json --document-file ServiceDefinitions.json 2>&1 | sed 1,10d)
+              if [ ! -z "$schema_validation" ]; then
+                echo "Invalid JSON file: ServiceDefinitions.json"
+                echo $schema_validation
+                exit 1
+              fi
+            
+              # terraform ServiceDefinitions.json > terraform.tfvars
+              aws_region=$(jq --raw-output '.global.aws.aws_region' < ServiceDefinitions.json)
+              aws_account=$(jq --raw-output '.global.aws.aws_account' < ServiceDefinitions.json)
+              gitops_bucket=$(jq --raw-output '.global.aws.gitops_bucket' < ServiceDefinitions.json)
+              service_name=$(jq --raw-output '.global.service.service_name' < ServiceDefinitions.json)
+              service_repository=$(jq --raw-output '.global.service.service_repository' < ServiceDefinitions.json)
+              tag_service=$(jq --raw-output '.global.service.tag_service' < ServiceDefinitions.json)
+              tag_environment=$(jq --raw-output '.global.service.stg.service.tag_environment' < ServiceDefinitions.json)
+              container_port=$(jq --raw-output '.global.service.container_port' < ServiceDefinitions.json)
+              container_memory=$(jq --raw-output '.global.service.stg.service.container_memory' < ServiceDefinitions.json)
+              container_memory_reservation=$(jq --raw-output '.global.service.stg.service.container_memory_reservation' < ServiceDefinitions.json)
+              desired_containers=$(jq --raw-output '.global.service.stg.service.desired_containers' < ServiceDefinitions.json)
+              min_containers=$(jq --raw-output '.global.service.stg.service.min_containers' < ServiceDefinitions.json)
+              max_containers=$(jq --raw-output '.global.service.stg.service.max_containers' < ServiceDefinitions.json)
+              cpu_utilization_alarm=$(jq --raw-output '.global.service.stg.service.cpu_utilization_alarm' < ServiceDefinitions.json)
+              memory_utilization_alarm=$(jq --raw-output '.global.service.stg.service.memory_utilization_alarm' < ServiceDefinitions.json)
+              task_count_alarm=$(jq --raw-output '.global.service.stg.service.task_count_alarm' < ServiceDefinitions.json)
+              health_check=$(jq --raw-output '.global.service.health_check' < ServiceDefinitions.json)
+              ingress_cidr_blocks=$(jq --raw-output '.global.service.ingress_cidr_blocks' < ServiceDefinitions.json)
+              ingress_ipv6_cidr_blocks=$(jq --raw-output '.global.service.ingress_ipv6_cidr_blocks' < ServiceDefinitions.json)
+            
+              # aws login
+              aws configure set region "$aws_region"
+              $(aws ecr get-login --region "$aws_region" --no-include-email)
+            
+              # create repository if not exists
+              aws ecr describe-repositories --repository-names "$service_repository" 2>/dev/null 
+              status=$?
+              if [[ ! "${status}" -eq 0 ]]; then
+                  aws ecr create-repository --repository-name "$service_repository"
+              fi
+            
+              # docker build
+              docker build -t "$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" --build-arg KONGA_PG_HOST=$KONGA_STG_PG_HOST --build-arg KONGA_PG_USER=$KONGA_STG_PG_USER --build-arg KONGA_PG_PASSWORD=$KONGA_STG_PG_PASSWORD --build-arg KONGA_PG_DATABASE=$KONGA_STG_PG_DATABASE --build-arg KONGA_NODE_ENV=production --build-arg KONGA_TOKEN=$KONGA_STG_TOKEN .
+              docker image ls
+            
+              # push docker image
+              docker tag "$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" "$aws_account".dkr.ecr."$aws_region".amazonaws.com/"$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER"
+              docker push "$aws_account".dkr.ecr."$aws_region".amazonaws.com/"$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER"
+              
+              # terraform init
+              cd terraform || exit
+              echo "aws_region = \"$aws_region\"
+              gitops_bucket = \"$gitops_bucket\"
+              service_name = \"$service_name\"
+              service_repository = \"$service_repository\"
+              tag_service = \"$tag_service\"
+              container_port = \"$container_port\"
+              tag_environment = \"$tag_environment\"
+              container_port = \"$container_port\"
+              container_memory = \"$container_memory\"
+              container_memory_reservation = \"$container_memory_reservation\"
+              desired_containers = \"$desired_containers\"
+              min_containers = \"$min_containers\"
+              max_containers = \"$max_containers\"
+              cpu_utilization_alarm = \"$cpu_utilization_alarm\"
+              memory_utilization_alarm = \"$memory_utilization_alarm\"
+              task_count_alarm = \"$task_count_alarm\"
+              health_check = \"$health_check\"
+              ingress_cidr_blocks = $ingress_cidr_blocks
+              ingress_ipv6_cidr_blocks = $ingress_ipv6_cidr_blocks" > terraform.tfvars
+              terraform init -backend-config "bucket=$gitops_bucket" -backend-config "region=$aws_region" -backend-config "key=terraform/aws/$aws_region/$tag_environment/ecs/services/$service_name/main.tfstate"
+            
+              # terraform deploy
+              terraform apply -var service_repository_tag="$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" -auto-approve
+              # terraform plan
+              echo "Done."
+              fi
 
   deploy-prd:
     <<: *defaults
@@ -203,14 +286,97 @@ jobs:
      - deploy:
         name: AWS - Pushing to Production Environment
         command: |
-            echo "Production"
-            #rm -rf GitOps
-            #mkdir -p ~/.ssh/
-            #ssh-keyscan github.com >> ~/.ssh/known_hosts
-            #git clone git@github.com:GitJMSeguradora/GitOps.git
-            #cp GitOps/circleci/workflows/deploy/deploy.sh . 
-            #chmod +x deploy.sh
-            #./deploy.sh production
+            # Clone GitOps
+            rm -rf GitOps
+            mkdir -p ~/.ssh/
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+            git clone git@github.com:GitJMSeguradora/GitOps.git
+
+            # 100% Terraform Project? - create terraform.enable file at the root of the project
+            ENABLE_TERRAFORM=terraform.enable
+            if [ -f $ENABLE_TERRAFORM ]; then
+            
+              echo "Deploy Quality Environment with Terraform ServiceDefinitions.json"
+            
+              # image tag - ECR
+              CIRCLE_BUILD_DOCKER=$(cat DOCKER_IMAGE.txt)-prd
+            
+              # validate  ServiceDefinitions.json file
+              schema_validation=$(json validate --schema-file GitOps/circleci/workflows/deploy/ServiceDefinitions-Schema.json --document-file ServiceDefinitions.json 2>&1 | sed 1,10d)
+              if [ ! -z "$schema_validation" ]; then
+                echo "Invalid JSON file: ServiceDefinitions.json"
+                echo $schema_validation
+                exit 1
+              fi
+            
+              # terraform ServiceDefinitions.json > terraform.tfvars
+              aws_region=$(jq --raw-output '.global.aws.aws_region' < ServiceDefinitions.json)
+              aws_account=$(jq --raw-output '.global.aws.aws_account' < ServiceDefinitions.json)
+              gitops_bucket=$(jq --raw-output '.global.aws.gitops_bucket' < ServiceDefinitions.json)
+              service_name=$(jq --raw-output '.global.service.service_name' < ServiceDefinitions.json)
+              service_repository=$(jq --raw-output '.global.service.service_repository' < ServiceDefinitions.json)
+              tag_service=$(jq --raw-output '.global.service.tag_service' < ServiceDefinitions.json)
+              tag_environment=$(jq --raw-output '.global.service.prd.service.tag_environment' < ServiceDefinitions.json)
+              container_port=$(jq --raw-output '.global.service.container_port' < ServiceDefinitions.json)
+              container_memory=$(jq --raw-output '.global.service.prd.service.container_memory' < ServiceDefinitions.json)
+              container_memory_reservation=$(jq --raw-output '.global.service.prd.service.container_memory_reservation' < ServiceDefinitions.json)
+              desired_containers=$(jq --raw-output '.global.service.prd.service.desired_containers' < ServiceDefinitions.json)
+              min_containers=$(jq --raw-output '.global.service.prd.service.min_containers' < ServiceDefinitions.json)
+              max_containers=$(jq --raw-output '.global.service.prd.service.max_containers' < ServiceDefinitions.json)
+              cpu_utilization_alarm=$(jq --raw-output '.global.service.prd.service.cpu_utilization_alarm' < ServiceDefinitions.json)
+              memory_utilization_alarm=$(jq --raw-output '.global.service.prd.service.memory_utilization_alarm' < ServiceDefinitions.json)
+              task_count_alarm=$(jq --raw-output '.global.service.prd.service.task_count_alarm' < ServiceDefinitions.json)
+              health_check=$(jq --raw-output '.global.service.health_check' < ServiceDefinitions.json)
+              ingress_cidr_blocks=$(jq --raw-output '.global.service.ingress_cidr_blocks' < ServiceDefinitions.json)
+              ingress_ipv6_cidr_blocks=$(jq --raw-output '.global.service.ingress_ipv6_cidr_blocks' < ServiceDefinitions.json)
+            
+              # aws login
+              aws configure set region "$aws_region"
+              $(aws ecr get-login --region "$aws_region" --no-include-email)
+            
+              # create repository if not exists
+              aws ecr describe-repositories --repository-names "$service_repository" 2>/dev/null 
+              status=$?
+              if [[ ! "${status}" -eq 0 ]]; then
+                  aws ecr create-repository --repository-name "$service_repository"
+              fi
+            
+              # docker build
+              docker build -t "$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" --build-arg KONGA_PG_HOST=$KONGA_PRD_PG_HOST --build-arg KONGA_PG_USER=$KONGA_PRD_PG_USER --build-arg KONGA_PG_PASSWORD=$KONGA_PRD_PG_PASSWORD --build-arg KONGA_PG_DATABASE=$KONGA_PRD_PG_DATABASE --build-arg KONGA_NODE_ENV=production --build-arg KONGA_TOKEN=$KONGA_PRD_TOKEN .
+              docker image ls
+            
+              # push docker image
+              docker tag "$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" "$aws_account".dkr.ecr."$aws_region".amazonaws.com/"$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER"
+              docker push "$aws_account".dkr.ecr."$aws_region".amazonaws.com/"$service_repository":"$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER"
+              
+              # terraform init
+              cd terraform || exit
+              echo "aws_region = \"$aws_region\"
+              gitops_bucket = \"$gitops_bucket\"
+              service_name = \"$service_name\"
+              service_repository = \"$service_repository\"
+              tag_service = \"$tag_service\"
+              container_port = \"$container_port\"
+              tag_environment = \"$tag_environment\"
+              container_port = \"$container_port\"
+              container_memory = \"$container_memory\"
+              container_memory_reservation = \"$container_memory_reservation\"
+              desired_containers = \"$desired_containers\"
+              min_containers = \"$min_containers\"
+              max_containers = \"$max_containers\"
+              cpu_utilization_alarm = \"$cpu_utilization_alarm\"
+              memory_utilization_alarm = \"$memory_utilization_alarm\"
+              task_count_alarm = \"$task_count_alarm\"
+              health_check = \"$health_check\"
+              ingress_cidr_blocks = $ingress_cidr_blocks
+              ingress_ipv6_cidr_blocks = $ingress_ipv6_cidr_blocks" > terraform.tfvars
+              terraform init -backend-config "bucket=$gitops_bucket" -backend-config "region=$aws_region" -backend-config "key=terraform/aws/$aws_region/$tag_environment/ecs/services/$service_name/main.tfstate"
+            
+              # terraform deploy
+              terraform apply -var service_repository_tag="$GITHUB_VERSION"-ci"$CIRCLE_BUILD_DOCKER" -auto-approve
+              # terraform plan
+              echo "Done."
+              fi
 
 workflows:
   version: 2
