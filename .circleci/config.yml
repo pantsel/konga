@@ -46,7 +46,7 @@ jobs:
      - run:
         name: Build Docker
         command: |
-            cd /tmp/persist_to_workspace--build-arg KONGA_PG_HOST=$KONGA_QAS_PG_HOST --build-arg KONGA_PG_USER=$KONGA_QAS_PG_USER --build-arg KONGA_PG_PASSWORD=$KONGA_QAS_PG_PASSWORD --build-arg KONGA_PG_DATABASE=$KONGA_QAS_PG_DATABASE --build-arg KONGA_NODE_ENV=production --build-arg KONGA_TOKEN=$KONGA_QAS_TOKEN .
+            cd /tmp/persist_to_workspace --build-arg KONGA_PG_HOST=$KONGA_QAS_PG_HOST --build-arg KONGA_PG_USER=$KONGA_QAS_PG_USER --build-arg KONGA_PG_PASSWORD=$KONGA_QAS_PG_PASSWORD --build-arg KONGA_PG_DATABASE=$KONGA_QAS_PG_DATABASE --build-arg KONGA_NODE_ENV=production --build-arg KONGA_TOKEN=$KONGA_QAS_TOKEN .
             docker image ls
             echo "$CIRCLE_BUILD_NUM" > DOCKER_IMAGE.txt
      - persist_to_workspace:
