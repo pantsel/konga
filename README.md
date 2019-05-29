@@ -121,7 +121,9 @@ The application also supports some of the most popular databases out of the box:
 3. PostgresSQL
 
 In order to use them, set the appropriate env vars in your `.env` file.
- 
+
+Create the related database with your usual tools.
+Initialize the aaplication by running the app in dev mode: `node --harmony app.js --dev`
 
 ## Running Konga
 
