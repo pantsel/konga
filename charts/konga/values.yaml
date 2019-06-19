@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: pantsel/konga
-  tag: latest
+  tag: 0.14.1
   pullPolicy: IfNotPresent
 
 nameOverride: ""
