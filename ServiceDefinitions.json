@@ -1,25 +1,27 @@
 {
     "global" : {
         "aws" : {
-            "aws_region" : "us-east-1",
+            "aws_region" : "sa-east-1",
             "aws_account" : "324148959017",
             "gitops_bucket" : "git-ops-prd",
-            "certificate_arn" : "arn:aws:acm:us-east-1:324148959017:certificate/6168f3c7-b505-4ec0-b254-935be71489e9",
-            "cloudwatch_notification" : "arn:aws:sns:us-east-1:324148959017:devops"
+            "gitops_region" : "us-east-1",
+            "certificate_arn" : "arn:aws:acm:sa-east-1:324148959017:certificate/3800cf3d-eab4-4936-8cc5-970d3b20e57d",
+            "cloudwatch_notification" : "arn:aws:sns:sa-east-1:324148959017:devops"
         },
         "service" : {
-            "service_name" : "ms-konga",
-            "service_repository" : "repo-kna-jms",
-            "tag_service" : "KNA",
+            "tag_name" : "ms-konga",
+            "tag_resource" : "ecs",
+            "tag_client" : "sqd",
             "container_port" : "1337",
             "health_check" : "/#!/login",
             "ingress_cidr_blocks" : "[ \"0.0.0.0/0\" ]",
             "ingress_ipv6_cidr_blocks" : "[ \"::/0\" ]",
+            "internal" : "false",
             "qas" : {
                 "service" : {
-                    "tag_environment" : "QAS",
-                    "container_memory" : "512",
-                    "container_memory_reservation" : "256",
+                    "tag_environment" : "qas",
+                    "container_memory" : "256",
+                    "container_memory_reservation" : "128",
                     "desired_containers" : "2",
                     "min_containers" : "2",
                     "max_containers" : "4",
@@ -30,9 +32,9 @@
             },
             "stg" : {
                 "service" : {
-                    "tag_environment" : "STG",
-                    "container_memory" : "512",
-                    "container_memory_reservation" : "256",
+                    "tag_environment" : "stg",
+                    "container_memory" : "256",
+                    "container_memory_reservation" : "128",
                     "desired_containers" : "2",
                     "min_containers" : "2",
                     "max_containers" : "4",
@@ -43,9 +45,9 @@
             },
             "prd" : {
                 "service" : {
-                    "tag_environment" : "PRD",
+                    "tag_environment" : "prd",
                     "container_memory" : "512",
-                    "container_memory_reservation" : "256",
+                    "container_memory_reservation" : "128",
                     "desired_containers" : "2",
                     "min_containers" : "2",
                     "max_containers" : "4",

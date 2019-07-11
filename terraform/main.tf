@@ -1,16 +1,22 @@
-module "service" {
-  source = "git@github.com:GitJMSeguradora/GitOps.git//terraform/aws/modules/ecs/services/"
+module "services" {
+  source = "git::git@github.com:GitJMSeguradora/GitOps.git//terraform/aws/modules/ecs/services/?ref=feature/sa-east-1"
 
   aws_region                   = "${var.aws_region}"
+  aws_account                  = "${var.aws_account}"
   gitops_bucket                = "${var.gitops_bucket}"
-  tag_service                  = "${var.tag_service}"
+  gitops_region                = "${var.gitops_region}"
+  tag_name                     = "${var.tag_name}"
+  tag_resource                 = "${var.tag_resource}"
+  tag_client                   = "${var.tag_client}"
   tag_environment              = "${var.tag_environment}"
+  task_revision                = "${var.task_revision}"
   container_port               = "${var.container_port}"
   desired_containers           = "${var.desired_containers}"
   container_memory             = "${var.container_memory}"
   container_memory_reservation = "${var.container_memory_reservation}"
   ingress_cidr_blocks          = "${var.ingress_cidr_blocks}"
   ingress_ipv6_cidr_blocks     = "${var.ingress_ipv6_cidr_blocks}"
+  internal                     = "${var.internal}"
   health_check                 = "${var.health_check}"
   min_containers               = "${var.min_containers}"
   max_containers               = "${var.max_containers}"
@@ -18,7 +24,5 @@ module "service" {
   cloudwatch_notification      = "${var.cloudwatch_notification}"
   cpu_utilization_alarm        = "${var.cpu_utilization_alarm}"
   memory_utilization_alarm     = "${var.memory_utilization_alarm}"
-  service_repository           = "${var.service_repository}"
-  service_repository_tag       = "${var.service_repository_tag}"
   certificate_arn              = "${var.certificate_arn}"
 }

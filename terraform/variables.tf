@@ -1,29 +1,36 @@
-# Configure the AWS Provider
 variable "aws_region" {
-  default = "us-east-1"
+  default = ""
 }
 
 variable "aws_account" {
-  default = "324148959017"
+  default = ""
 }
 
 variable "gitops_bucket" {
-  default = "git-ops-prd"
+  default = ""
+}
+
+variable "gitops_region" {
+  default = ""
 }
 
 variable "certificate_arn" {
-  default = "arn:aws:acm:us-east-1:324148959017:certificate/6168f3c7-b505-4ec0-b254-935be71489e9"
+  default = ""
 }
 
 variable "cloudwatch_notification" {
-  default = "arn:aws:sns:us-east-1:324148959017:devops"
+  default = ""
+}
+
+variable "tag_name" {
+  default = ""
 }
 
 variable "tag_resource" {
   default = ""
 }
 
-variable "tag_service" {
+variable "tag_client" {
   default = ""
 }
 
@@ -31,7 +38,7 @@ variable "tag_environment" {
   default = ""
 }
 
-variable "tag_client" {
+variable "task_revision" {
   default = ""
 }
 
@@ -91,14 +98,10 @@ variable "ingress_ipv6_cidr_blocks" {
   default = ["::/0"]
 }
 
+variable "internal" {
+  default = ""
+}
+
 variable "public_subnet_ids" {
   default = []
-}
-
-variable "service_repository" {
-  default = ""
-}
-
-variable "service_repository_tag" {
-  default = ""
 }
