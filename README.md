@@ -5,9 +5,6 @@
 
 _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com/)._
 
-
-[Site and working demo here](https://pantsel.github.io/konga/)
-
 ### Support the project
 If you find Konga helpful, 
 you can show your support and help me continue maintaining the project by [buying me a coffee](buymeacoff.ee/F1aRIj8CG)
