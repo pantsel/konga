@@ -73,7 +73,11 @@ else if(argv._[0] === 'prepare') {
     }, function callback(error, sails) {
 
       if(error) {
+<<<<<<< HEAD
         console.log.error("Failed to prepare database:",error)
+=======
+        Sails.log.error("Failed to prepare database:",error)
+>>>>>>> master
         return process.exit(1);
       }
 
