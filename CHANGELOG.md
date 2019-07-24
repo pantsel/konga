@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
   you will need to set `BASE_URL=/konga/`
 * Fix compatibility with new `response-ratelimiting` plugin schema. Ref issue #363.
 * Updated Dockerfile node.js version to 10.16
+* Various minor fixes and improvements
    
 
 ## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 27-01-2019
