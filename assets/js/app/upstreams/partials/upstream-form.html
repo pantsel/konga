@@ -458,7 +458,7 @@
                 </em>
             </label>
             <div class="col-sm-8">
-                <input ng-model="upstream.healthchecks.passive.unhealthy.http_failures" class="form-control">
+                <input type="number" ng-model="upstream.healthchecks.passive.unhealthy.http_failures" class="form-control">
                 <div class="text-danger" ng-if="errors['healthchecks.passive.unhealthy.http_failures']" data-ng-bind="errors['healthchecks.passive.unhealthy.http_failures']"></div>
                 <p class="help-block">
                     Number of HTTP failures in passive probes (as defined by <code>healthchecks.passive.unhealthy.http_statuses</code>)
