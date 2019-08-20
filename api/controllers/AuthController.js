@@ -94,7 +94,7 @@ var AuthController = {
           if (err) return res.negotiate(err)
 
 
-          return res.redirect('')
+          return res.redirect(process.env.BASE_URL + '')
         })
       })
 
