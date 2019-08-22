@@ -37,7 +37,7 @@ spec:
               port: http
           envFrom:
             - configMapRef:
-                name: konga-config
+                name: {{ include "konga.fullname" . }}-config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
