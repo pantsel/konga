@@ -177,8 +177,12 @@
               } else {
                 var path = prefix ? prefix + "." + key : key;
                 if (fields[key].value instanceof Array && _plugin.name !== 'statsd') {
-                  // Transform to comma separated string
-                  data['config.' + path] = fields[key].value.join(",");
+                  if (fields[key].value.length === 0) {
+                    data['config.' + path] = null;
+                  } else {
+                    // Transform to comma separated string
+                    data['config.' + path] = fields[key].value.join(",");
+                  }
                 } else {
                   data['config.' + path] = fields[key].value;
                 }
