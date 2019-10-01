@@ -12,9 +12,13 @@ RUN apk upgrade --update \
     && rm -rf /var/cache/apk/* \
         /app/.git \
         /app/screenshots \
-        /app/test
+        /app/test \
+    && mkdir /app/kongadata \
+    && chown -R 1000:1000 /app
 
 EXPOSE 1337
+
+USER 1000:1000
 
 VOLUME /app/kongadata
 
