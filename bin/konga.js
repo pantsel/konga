@@ -16,6 +16,7 @@ if (argv._[0] === 'help') {
 else if (argv._[0] === 'play')
 {
     var port = process.env.PORT || argv.port
+    var host = process.env.HOST || argv.host
 
     console.log("------------------------------------------------------")
     console.log("Playing Konga!")
@@ -26,6 +27,7 @@ else if (argv._[0] === 'play')
 
     var args = ["app.js","--prod"]
     if(port) args.push("--port=" + port)
+    if(host) args.push("--host=" + host)
 
     console.log(args)
 
@@ -82,7 +84,6 @@ else if(argv._[0] === 'prepare') {
 
     });
   });
-
 
 }
 else

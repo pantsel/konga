@@ -88,6 +88,7 @@ These are the general environment variables Konga uses.
 
 | VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
+| HOST               | The IP address that will be bind by Konga's server                                                                               | -                                      | '0.0.0.0'                                         |
 | PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
 | NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
 | SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |

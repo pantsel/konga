@@ -33,6 +33,8 @@ module.exports = {
 
   port: process.env.PORT || 1337,
 
+  host: process.env.HOST || "0.0.0.0",
+
   ssl: {
     key: process.env.SSL_KEY_PATH ? fs.readFileSync(process.env.SSL_KEY_PATH) : null,
     cert: process.env.SSL_CRT_PATH ? fs.readFileSync(process.env.SSL_CRT_PATH) : null

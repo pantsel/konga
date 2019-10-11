@@ -69,6 +69,18 @@
         </p>
     </div>
 </div>
+<div class="form-group" ng-class="{'has-error' : errors.https_redirect_status_code}">
+        <label class="col-sm-3 control-label">Https redirect status code <br><em><small class="help-block">optional</small></em></label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control" ng-model="route.https_redirect_status_code">
+            <p class="help-block">
+                The status code Kong responds with when all properties of a Route match except the protocol,
+                i.e. if the protocol of the request is <code>HTTP</code> instead of <code>HTTPS</code>.
+                <code>Location</code> header is injected by Kong if the field is set to 301, 302, 307 or 308. 
+                Defaults to <code>426</code>.
+            </p>
+        </div>
+</div>
 <div class="form-group" ng-class="{'has-error' : errors.regex_priority}">
     <label class="col-sm-3 control-label">Regex priority <br><em><small class="help-block">optional</small></em></label>
     <div class="col-sm-9">
