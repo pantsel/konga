@@ -42,7 +42,7 @@
 
 
           $scope.onCredentialSelected = function(credential) {
-              DialogService.prompt(
+              DialogService.confirm(
                   "Mass Assign Credentials",
                   "You are about to mass assign <strong>" + credential + "</strong> credentials" +
                   " to " + $scope.consumers.length + " selected consumers.<br>Continue?",

@@ -98,7 +98,7 @@
         //$httpProvider.interceptors.push('CsrfInterceptor');
 
         //$httpProvider.interceptors.push('TemplateCacheInterceptor');
-        // $httpProvider.interceptors.push('KongaInterceptor');
+        $httpProvider.interceptors.push('KongaInterceptor');
 
         // Iterate $httpProvider interceptors and add those to $sailsSocketProvider
         angular.forEach($httpProvider.interceptors, function iterator(interceptor) {
@@ -280,7 +280,7 @@
       function ($log, $scope, $rootScope, Settings, NodeModel, Semver,
                 UserService, InfoService, AuthService, SubscriptionsService, NotificationsService) {
 
-        $rootScope.user = UserService.user()
+        $rootScope.user = UserService.user();
         $rootScope.konga_version = window.konga_version
         $log.debug("MainController:User => ", $rootScope.user)
 
@@ -293,7 +293,6 @@
           return $rootScope.Gateway ? Semver.cmp($rootScope.Gateway.version, version) < 0 : false;
         }
 
-
         $rootScope.compareKongVersion = function (version) {
           return Semver.cmp($rootScope.Gateway.version, version);
         }
@@ -301,14 +300,13 @@
         // ToDo decide whether to use Gateway Info for getting active node version and stuff...
         $scope.$on('user.node.updated', function (ev, node) {
 
-          $log.debug("MainController:onUserNodeUpdated => Fetching Gateway Info")
+          console.log("MainController:onUserNodeUpdated => Fetching Gateway Info", node)
           // Fetch and store Gateway Info
           _fetchGatewayInfo();
         })
 
         $scope.$on('user.login', function (ev, user) {
           _fetchGatewayInfo();
-
         })
 
         function _fetchSettings() {
@@ -324,7 +322,7 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              $log.debug("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
+              console.log("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
             }).catch(function (err) {
             $rootScope.Gateway = null;
           });

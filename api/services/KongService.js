@@ -376,7 +376,7 @@ var KongService = {
 
     return {
       total : open.length + eligible.length,
-      data  : open.concat(eligible)
+      data  : _.uniqBy(open.concat(eligible), 'id')
     }
 
   }

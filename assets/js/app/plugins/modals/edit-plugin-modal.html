@@ -238,6 +238,6 @@
             <!--</div>-->
         <!--</div>-->
     <!--</form>-->
-    <div  ng-if="customPluginForms.indexOf(pluginName) < 0" data-ng-include="'js/app/plugins/forms/default.html?r=' + Date.now()"></div>
+    <div  ng-if="customPluginForms.indexOf(plugin.name) < 0" data-ng-include="'js/app/plugins/forms/default.html?r=' + Date.now()"></div>
     <div ng-if="customPluginForms.indexOf(plugin.name) > -1" data-ng-include="'js/app/plugins/forms/' + plugin.name + '.html?r=' + Date.now()"></div>
 </div>

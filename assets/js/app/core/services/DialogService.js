@@ -22,7 +22,7 @@
 
 
 
-        service.prompt = function prompt(title,message, buttonTexts,accept, decline) {
+        service.confirm = function prompt(title,message, buttonTexts,accept, decline) {
 
           var modalInstance = $uibModal.open({
             animation: true,
@@ -85,6 +85,46 @@
               }
             },
             size: 'sm'
+          });
+
+        };
+
+        service.prompt = function prompt(title,message,accept, decline) {
+
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            windowClass : 'dialog',
+            template: '' +
+              '<div class="modal-header dialog no-margin">' +
+              '<h5 class="modal-title">' + title + '</h5>' +
+              '</div>' +
+              '<div class="modal-body">' +
+              '<p>' + message + '</p>' +
+              '<input type="text" class="form-control" ng-model="data"></div>' +
+              '</div>' +
+              '<div class="modal-footer dialog">' +
+              '<button class="btn btn-link" data-ng-click="decline()">CANCEL</button>' +
+              '<button class="btn btn-success btn-link" data-ng-click="accept()">OK</button>' +
+              '</div>',
+            controller: function($scope,$uibModalInstance){
+              $scope.data = '';
+              $scope.accept =  function() {
+                if(!$scope.data) return false;
+                $uibModalInstance.close($scope.data)
+              }
+              $scope.decline =  function(){
+                $uibModalInstance.dismiss('decline')
+              }
+            },
+            size: 'sm'
+          });
+
+          modalInstance.result.then(function (d) {
+            accept(d);
+          }, function (d) {
+            decline()
           });
 
         };

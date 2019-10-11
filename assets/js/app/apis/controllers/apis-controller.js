@@ -134,7 +134,7 @@
         }
 
         function deleteApiHealthChecks() {
-          DialogService.prompt(
+          DialogService.confirm(
             "Confirm", "<strong>You are about to reset the healthchecks of <code>all APIs</code> on <code>all Kong connections</code></strong>." +
             "<br><br>That means that you will have to setup each and every one of the from scratch." +
             "<br><br>Don't worry about affecting the API or Kong Connections entities." +

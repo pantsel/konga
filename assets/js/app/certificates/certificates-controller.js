@@ -33,7 +33,7 @@
               }
 
               $scope.deleteSNI = function (sni) {
-                DialogService.prompt(
+                DialogService.confirm(
                   "Confirm", "Really want to delete the selected item?",
                   ['No don\'t', 'Yes! delete it'],
                   function accept() {
@@ -101,6 +101,14 @@
                   if (data && data.data) $scope.data.snis.push(data.data);
                 }, function (data) {
                 });
+              }
+
+              $scope.onTagInputKeyPress = function ($event) {
+                if($event.keyCode === 13) {
+                  if(!$scope.data.tags) $scope.data.tags = [];
+                  $scope.data.tags = $scope.data.tags.concat($event.currentTarget.value);
+                  $event.currentTarget.value = null;
+                }
               }
 
 

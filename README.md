@@ -5,9 +5,6 @@
 
 _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com/)._
 
-
-[Site and working demo here](https://pantsel.github.io/konga/)
-
 ### Support the project
 If you find Konga helpful, 
 you can show your support and help me continue maintaining the project by [buying me a coffee](buymeacoff.ee/F1aRIj8CG)
@@ -45,7 +42,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Monitor Node and API states using health checks.
 * Email & Slack notifications.
 * Multiple users.
-* Easy database integration (MySQL, postgresSQL, MongoDB, SQL Server).
+* Easy database integration (MySQL, postgresSQL, MongoDB).
 
 ## Compatibility
 **From 0.14.0 onwards, Konga is ONLY compatible with Kong >= 1.0.0**
@@ -91,21 +88,26 @@ These are the general environment variables Konga uses.
 
 | VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
+| HOST               | The IP address that will be bind by Konga's server                                                                               | -                                      | '0.0.0.0'                                         |
 | PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
 | NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
 | SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
 | SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
 | KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
-| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`,`sqlserver` | -                                            |
+| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`     | -                                            |
 | DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
 | DB_HOST            | If `DB_URI` is not specified, this is the database host. Depends on `DB_ADAPTER`.                                          | -                                      | localhost                                    |
 | DB_PORT            | If `DB_URI` is not specified, this is the database port.  Depends on `DB_ADAPTER`.                                         | -                                      | DB default.                                  |
 | DB_USER            | If `DB_URI` is not specified, this is the database user. Depends on `DB_ADAPTER`.                                          | -                                      | -                                            |
 | DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
 | DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
-| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                    | -                                      | `public`                                     |
-| KONGA_LOG_LEVEL    | The logging level                                                                                                           | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
+| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                     | -                                      | `public`                                     |
+| KONGA_LOG_LEVEL    | The logging level                                                                                                          | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
 | TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
+| NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | -                                         |
+| BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | <string>                                     | -                                         |
+| KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | <string>                                     | -                                         |
+| KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/SEED_DEFAULT_DATA.md)                               | <string>                                     | -                                         |
 
 
 ### Databases Integration
@@ -221,15 +223,20 @@ $ docker run -p 1337:1337
 The GUI will be available at `http://{your server's public ip}:1337`
 
 
-[It is possible to seed default users on first install.](./docs/DEFAULTUSERSEEDDATA.md)
+[It is possible to seed default users on first install.](./docs/SEED_DEFAULT_DATA.md)
 
 You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
 
 
 ## Upgrading
-In some cases a newer version of Konga may introduce new db tables, collections or changes in schemas.
+In some cases a newer version of Konga may introduce changes in database schemas.
 The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
 Then stop the app and run it again in production mode.
+
+if you're using docker, you can lift an ephemeral container, as stated before:
+```
+$ docker run --rm pantsel/konga:latest -c prepare -a {{adapter}} -u {{connection-uri}}
+```
 
 ## FAQ
 

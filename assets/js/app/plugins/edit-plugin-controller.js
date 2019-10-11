@@ -9,10 +9,10 @@
   angular.module('frontend.plugins')
     .controller('EditPluginController', [
       '_', '$scope', '$rootScope', '$log', 'ListConfig',
-      'MessageService', 'ConsumerModel', 'SocketHelperService', 'PluginHelperService',
+      'MessageService', 'ConsumerModel', 'SocketHelperService', 'PluginHelperService', 'DialogService',
       'KongPluginsService', '$uibModalInstance', 'PluginsService', '_plugin', '_schema',
       function controller(_, $scope, $rootScope, $log, ListConfig,
-                          MessageService, ConsumerModel, SocketHelperService, PluginHelperService,
+                          MessageService, ConsumerModel, SocketHelperService, PluginHelperService, DialogService,
                           KongPluginsService, $uibModalInstance, PluginsService, _plugin, _schema) {
 
         $scope.plugin = _plugin;
@@ -38,7 +38,7 @@
 
         // Define the plugins that will have their own custom form
         // so that it can be included via ng-include in the .html files
-        $scope.customPluginForms = ['statsd'];
+        $scope.customPluginForms = ['statsd', 'response-ratelimiting'];
 
 
         //$log.debug("Options", options)
@@ -103,40 +103,40 @@
           });
 
           // Monkey patch for response-ratelimiting plugin
-          if (_plugin.name === 'response-ratelimiting') {
-            console.log("response-ratelimiting:limits =>", _plugin.config.limits);
-
-            // Delete initial schema fields
-            delete $scope.data.fields.limits.schema.fields.day;
-            delete $scope.data.fields.limits.schema.fields.hour;
-            delete $scope.data.fields.limits.schema.fields.minute;
-            delete $scope.data.fields.limits.schema.fields.month;
-            delete $scope.data.fields.limits.schema.fields.second;
-            delete $scope.data.fields.limits.schema.fields.year;
-
-
-            if (_plugin.config.limits) {
-              Object.keys(_plugin.config.limits).forEach(function (key) {
-
-                //console.log("_plugin.config.limits[key]",_plugin.config.limits[key])
-
-                var inner_fields = {};
-                Object.keys(_plugin.config.limits[key]).forEach(function (k) {
-                  inner_fields[k] = {
-                    type: 'number',
-                    default: _plugin.config.limits[key][k]
-                  }
-                });
-
-                $scope.data.fields.limits.schema.fields[key] = {
-
-                  schema: {
-                    fields: inner_fields
-                  }
-                }
-              })
-            }
-          }
+          // if (_plugin.name === 'response-ratelimiting') {
+          //   console.log("response-ratelimiting:limits =>", _plugin.config.limits);
+          //
+          //   // Delete initial schema fields
+          //   delete $scope.data.fields.limits.schema.fields.day;
+          //   delete $scope.data.fields.limits.schema.fields.hour;
+          //   delete $scope.data.fields.limits.schema.fields.minute;
+          //   delete $scope.data.fields.limits.schema.fields.month;
+          //   delete $scope.data.fields.limits.schema.fields.second;
+          //   delete $scope.data.fields.limits.schema.fields.year;
+          //
+          //
+          //   if (_plugin.config.limits) {
+          //     Object.keys(_plugin.config.limits).forEach(function (key) {
+          //
+          //       //console.log("_plugin.config.limits[key]",_plugin.config.limits[key])
+          //
+          //       var inner_fields = {};
+          //       Object.keys(_plugin.config.limits[key]).forEach(function (k) {
+          //         inner_fields[k] = {
+          //           type: 'number',
+          //           default: _plugin.config.limits[key][k]
+          //         }
+          //       });
+          //
+          //       $scope.data.fields.limits.schema.fields[key] = {
+          //
+          //         schema: {
+          //           fields: inner_fields
+          //         }
+          //       }
+          //     })
+          //   }
+          // }
 
           // Customize data fields according to plugin
           PluginHelperService.customizeDataFieldsForPlugin(_plugin.name, $scope.data.fields);
@@ -305,6 +305,30 @@
             metrics.splice(index,1);
           }
         };
+
+
+        /**
+         * RESPONSE RATE LIMITING
+         */
+
+        $scope.addMap = (obj) => {
+
+          DialogService.prompt('Add Limit', 'Enter key', (keyName) => {
+            if(!obj.value) {
+              obj.value = {}
+            }
+
+            obj.value[keyName] = {};
+            obj.values.fields.forEach(field => {
+              obj.value[keyName][Object.keys(field)[0]] = null
+            })
+          })
+
+        }
+
+        $scope.removeMap = (keyName, obj) => {
+          delete obj.value[keyName];
+        }
 
         $scope.getFieldProp = (field) => {
           return Object.keys(field)[0];

@@ -30,15 +30,20 @@ module.exports.routes = {
 
   '/': async (req, res) => {
 
-    const usersCount = await sails.models.user.count();
+    const baseUrl = process.env.BASE_URL ? process.env.BASE_URL : '';
 
-    if(usersCount == 0) {
-      return res.redirect('register')
+    if(process.env.NO_AUTH !== 'true') {
+      const usersCount = await sails.models.user.count();
+
+      if(usersCount == 0) {
+        return res.redirect(baseUrl + 'register')
+      }
     }
 
-
     return res.view('homepage', {
+      base_url: process.env.BASE_URL || '',
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
+      no_auth: process.env.NO_AUTH === 'true' ? true: false,
       konga_version: require('../package.json').version,
       accountActivated: req.query.activated ? true : false,
       loadScripts: true
@@ -47,13 +52,16 @@ module.exports.routes = {
 
   'GET /register' : async (req, res) => {
 
+    const baseUrl = process.env.BASE_URL ? process.env.BASE_URL : '';
     const usersCount = await sails.models.user.count();
 
-    if(usersCount > 0) {
-      return res.redirect('')
+    if(usersCount > 0 || process.env.NO_AUTH === 'true') {
+      return res.redirect(baseUrl + '')
     }
 
     return res.view('welcomepage', {
+      base_url: process.env.BASE_URL || '',
+      no_auth: process.env.NO_AUTH === 'true' ? true: false,
       angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
       konga_version: require('../package.json').version,
       accountActivated: req.query.activated ? true : false

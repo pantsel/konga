@@ -1,6 +1,22 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
+
+## [0.14.4](https://github.com/pantsel/konga/releases/tag/0.14.4)
+* Added support for `TAGS` in all major Kong Entities (Starting from Kong `1.1.0-rc1`).
+* Konga can now be used without authentication. In order to do that,
+  simply set the env var `NO_AUTH=true`.
+* You can now seed default Users and Kong Connections on first install.
+  Check out the [docs](./docs/SEED_DEFAULT_DATA.md).
+* The new env var `BASE_URL`, allows you to run Konga behind a reverse proxy on a relative path.
+  For example, if you configure your proxy to route requests to `example.com/konga`
+  you will need to set `BASE_URL=/konga/`
+* Fix compatibility with new `response-ratelimiting` plugin schema. Ref issue #363.
+* Add ENV HOST support for sails `host` to bind host by IP address. Ref pull req #451. Big ups to [narate](https://github.com/narate)!
+* Updated Dockerfile node.js version to 10.16
+* Various minor fixes and improvements
+   
+
 ## [0.14.1](https://github.com/pantsel/konga/releases/tag/0.14.1) - 27-01-2019
 > Starting from version 0.14.0, Konga won't be compatible with Kong versions
   prior to 1.0.0 due to the breaking changes on Kong's API and plugin schemas.

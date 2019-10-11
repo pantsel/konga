@@ -58,7 +58,7 @@
         }
 
         function deleteConsumerGroup(group) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete Group", "Really want to remove the group from the consumer?",
             ['No', 'Remove it!'],
             function accept() {

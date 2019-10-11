@@ -93,8 +93,7 @@ var AuthController = {
           }).exec(function (err, passport) {
           if (err) return res.negotiate(err)
 
-
-          return res.redirect('')
+          return res.redirect(process.env.BASE_URL || '')
         })
       })
 

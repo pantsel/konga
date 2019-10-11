@@ -54,6 +54,12 @@
                         <raw-view data-item="item"></raw-view>
                     </td>
                     <td>{{item.name || "-"}}</td>
+                    <td>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in item.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
+                    </td>
                     <td>{{item.slots || "-"}}</td>
                     <td>{{moment(item.created_at * 1000).format("MMM DD YYYY @HH:mm")}}</td>
                     <td ng-if="user.hasPermission('upstreams','edit')">

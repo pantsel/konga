@@ -13,7 +13,7 @@ module.exports = function dynamicNode(request, response, next) {
 
   if (request.headers['connection-id'] || request.query.connection_id) {
 
-    sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.");
+    sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.", request.headers['connection-id'] || request.query.connection_id);
 
     sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
       .exec(function (err, node) {

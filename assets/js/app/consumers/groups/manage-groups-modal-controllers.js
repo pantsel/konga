@@ -97,7 +97,7 @@
 
           function deleteGroup(group) {
 
-              DialogService.prompt(
+              DialogService.confirm(
                   "Delete Group","Really want to delete the '" + group.name + "' group?",
                   ['No don\'t','Yes! delete it'],
                   function accept(){

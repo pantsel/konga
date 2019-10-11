@@ -33,7 +33,7 @@ To make Konga use this file, you should set the enviroment variable KONGA_SEED_U
 export KONGA_SEED_USER_DATA_SOURCE_FILE=~/userdb.data 
 ````
 
-This is espically useful when running Konga in a container as part of a Docker swarm. The file can be setup as a Docker secret and supplied to the container. This can be done with an entry in a compose file simular to:
+This is especially useful when running Konga in a container as part of a Docker swarm. The file can be setup as a Docker secret and supplied to the container. This can be done with an entry in a compose file simular to:
 
 ````
 version: "3.1"

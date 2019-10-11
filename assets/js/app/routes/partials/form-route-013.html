@@ -14,6 +14,25 @@
         </p>
     </div>
 </div>
+<div class="form-group" ng-if="isGatewayVersionEqOrGreater('1.1.0-rc1')">
+    <label class="col-sm-3 control-label">Tags <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-9">
+        <chips ng-model="route.tags">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <i class="mdi mdi-close" remove-chip></i>
+                </div>
+            </chip-tmpl>
+            <input ng-model-control
+                   data-ng-keypress="onTagInputKeyPress($event)"
+                   ng-model="$tag" uib-typeahead="tag for tag in tags | filter:$viewValue | limitTo:10"/>
+        </chips>
+        <p class="help-block">
+            Optionally add tags to the route
+        </p>
+    </div>
+</div>
 <div class="form-group" ng-class="{'has-error' : errors.hosts}">
     <label class="col-sm-3 control-label">Hosts <br><em><small class="help-block">semi-optional</small></em></label>
     <div class="col-sm-9">
@@ -49,6 +68,18 @@
             A list of paths that match this Route. For example: /my-path. At least one of <code>hosts</code>, <code>paths</code>, or <code>methods</code> must be set.
         </p>
     </div>
+</div>
+<div class="form-group" ng-class="{'has-error' : errors.https_redirect_status_code}">
+        <label class="col-sm-3 control-label">Https redirect status code <br><em><small class="help-block">optional</small></em></label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control" ng-model="route.https_redirect_status_code">
+            <p class="help-block">
+                The status code Kong responds with when all properties of a Route match except the protocol,
+                i.e. if the protocol of the request is <code>HTTP</code> instead of <code>HTTPS</code>.
+                <code>Location</code> header is injected by Kong if the field is set to 301, 302, 307 or 308. 
+                Defaults to <code>426</code>.
+            </p>
+        </div>
 </div>
 <div class="form-group" ng-class="{'has-error' : errors.regex_priority}">
     <label class="col-sm-3 control-label">Regex priority <br><em><small class="help-block">optional</small></em></label>

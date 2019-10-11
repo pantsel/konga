@@ -17,6 +17,7 @@
            */
           authorize: function authorize(accessLevel) {
 
+            if(window.no_auth) return true;
 
             if (accessLevel === AccessLevels.user) {
               return this.isAuthenticated();
@@ -28,6 +29,8 @@
           },
 
           hasPermission: function (context, action) {
+
+            if(window.no_auth) return true;
 
             // If user is admin or  context is not a permissions Object key, grant permission
             if (($localStorage.credentials && $localStorage.credentials.user.admin)
@@ -68,6 +71,7 @@
            * @returns {Boolean}
            */
           isAuthenticated: function isAuthenticated() {
+            if(window.no_auth) return true;
             return Boolean($localStorage.credentials);
           },
 
@@ -78,7 +82,7 @@
            * @returns {Boolean}
            */
           isAdmin: function isAdmin() {
-
+            if(window.no_auth) return true;
             return $localStorage.credentials && $localStorage.credentials.user && $localStorage.credentials.user.admin;
 
           },

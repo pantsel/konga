@@ -60,6 +60,14 @@
               inTitle: true
             },
             {
+              title: 'tags',
+              column: 'tags',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'hosts',
               column: 'hosts',
               searchable: true,
@@ -221,6 +229,13 @@
               column: 'name',
               searchable: true,
               sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
+              title: 'tags',
+              column: 'tags',
+              searchable: true,
               inSearch: true,
               inTitle: true
             },
@@ -537,6 +552,14 @@
               inTitle: true
             },
             {
+              title: 'tags ',
+              column: 'tags',
+              searchable: true,
+              sortable: true,
+              inSearch: true,
+              inTitle: true
+            },
+            {
               title: 'snis',
               column: 'snis',
               searchable: true,
@@ -710,7 +733,7 @@
 
               },
               deleteItem: function deleteItem($index, item) {
-                DialogService.prompt(
+                DialogService.confirm(
                   "Confirm", "Really want to delete the selected item?",
                   ['No don\'t', 'Yes! delete it'],
                   function accept() {

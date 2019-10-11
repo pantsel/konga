@@ -50,6 +50,12 @@
 
                     <td>{{item.id}}</td>
                     <td>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in item.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
+                    </td>
+                    <td>
                         <span class="badge" style="margin-right: 3px;margin-bottom: 3px" ng-repeat="sni in item.snis">
                             {{sni}}
                         </span>

@@ -75,6 +75,12 @@
                         </strong>
                     </td>
                     <td>
+                        <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in route.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            {{tag}}
+                        </span>
+                    </td>
+                    <td>
                         {{ route.hosts.join(", ") || "-" }}
                     </td>
                     <td><a data-ui-sref="services.read({service_id:route.service.id})">{{route.service.name || route.service.id}}</a></td>

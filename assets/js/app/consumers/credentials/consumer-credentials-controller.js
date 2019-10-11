@@ -94,7 +94,7 @@
 
 
         function deleteHMACAuthCredentials($index, credentials) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete Credentials", "Really want to delete the selected credentials?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {
@@ -112,7 +112,7 @@
         }
 
         function deleteBasicAuthCredentials($index, credentials) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete Credentials", "Really want to delete the selected credentials?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {
@@ -130,7 +130,7 @@
         }
 
         function deleteOAuth2($index, oauth) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete JWT", "Really want to delete the selected OAuth2?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {
@@ -148,7 +148,7 @@
         }
 
         function deleteJWT($index, jwt) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete JWT", "Really want to delete the selected JWT?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {
@@ -166,7 +166,7 @@
         }
 
         function deleteKey($index, key) {
-          DialogService.prompt(
+          DialogService.confirm(
             "Delete Key", "Really want to delete the selected key?",
             ['No don\'t', 'Yes! delete it'],
             function accept() {

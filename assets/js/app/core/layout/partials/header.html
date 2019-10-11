@@ -50,14 +50,16 @@
                 <!-- END NOTIFICATIONS DROPDOWN -->
 
                 <!-- PROFILE DROPDOWN -->
-                <li data-ng-show="auth.isAuthenticated()" uib-dropdown keyboard-nav>
+                <li data-ng-show="auth.isAuthenticated() && !no_auth" uib-dropdown keyboard-nav>
                     <a class="nav-auth-img-container" uib-dropdown-toggle>
                         <img class="nav-auth-img" ng-src="images/user-icon.png"/>
                         &nbsp;
                         <span class="greeting visible-md-inline visible-lg-inline">Hello, {{user().firstName || user().username}}</span>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu animated fadeInDownShort go" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <ul class="dropdown-menu animated fadeInDownShort go"
+                        ng-if="!no_auth"
+                        uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                         <li role="menuitem">
                             <a data-ui-sref="users.show({id:user().id})">
