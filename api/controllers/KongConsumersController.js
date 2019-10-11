@@ -210,7 +210,7 @@ var KongConsumersController = {
 
       // Get the services the consumer can access based on ACL and authentication plugins
       let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
-      eligible = eligible.concat(whitelistedNoAuth); // At the end, add the whitelistedNoAuth services that escape the above `intersection`
+      eligible = _.union(eligible.concat(whitelistedNoAuth)); // At the end, add the whitelistedNoAuth services that escape the above `intersection`
       sails.log("***********************************************")
       sails.log("KongConsumersController:services:eligible", _.map(eligible, item => item.name))
       sails.log("***********************************************")
@@ -363,7 +363,7 @@ var KongConsumersController = {
 
         return res.json({
           total : open.length + eligible.length,
-          data  : open.concat(eligible)
+          data  : _.uniqBy(open.concat(eligible), 'id')
         });
       });
     }catch(e) {
