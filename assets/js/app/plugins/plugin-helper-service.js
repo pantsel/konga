@@ -61,6 +61,10 @@
                                     if(!data.config[path]) data.config[path] = {};
                                     const prop = Object.keys(field)[0];
                                     data.config[path][Object.keys(field)[0]] = _.get(field, `${prop}.value`);
+                                    if(field[prop].type === "integer") data.config[path][Object.keys(field)[0]] = Number(data.config[path][Object.keys(field)[0]])
+                                    if(field[prop].type === "array") {
+                                        if (field[prop].elements.type === "integer") data.config[path][Object.keys(field)[0]] = data.config[path][Object.keys(field)[0]].map(v => Number(v))
+                                    }
                                 })
                             }else{
                                 if(fields[key].value !== ""
