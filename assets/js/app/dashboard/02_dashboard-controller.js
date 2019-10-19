@@ -236,11 +236,20 @@
                               $scope.checkingConnection = false;
 
                               // Finally, activate the node for the logged in user
-                              UserModel
-                                  .update(UserService.user().id, {
-                                      node : created
-                                  })
-                                  .then(
+                              if(window.no_auth) {
+                                  var credentials = $localStorage.credentials;
+                                  if(credentials.user.node && credentials.user.node.id == node.id) {
+                                      delete credentials.user.node;
+                                  }else{
+                                      credentials.user.node = created;
+                                  }
+                                  $rootScope.$broadcast('user.node.updated', credentials.user.node)
+                              } else {
+                                  UserModel
+                                    .update(UserService.user().id, {
+                                        node : created
+                                    })
+                                    .then(
                                       function onSuccess(res) {
                                           var credentials = $localStorage.credentials
                                           credentials.user.node = result.data[0]
@@ -248,8 +257,10 @@
                                       },function(err){
                                           $scope.busy = false
                                           UserModel.handleError($scope,err)
+                                          MessageService.error(_.get(err, 'data.message', 'Something went wrong...'))
                                       }
-                                  );
+                                    );
+                              }
 
                           }).catch(function(error){
                               $log.debug("Check connection:error",error)
@@ -258,8 +269,10 @@
                               MessageService.error("Oh snap! Can't connect to the created node. Check your connections.")
                           })
                       },function(err){
-                          $scope.busy = false
-                          NodeModel.handleError($scope,err)
+                        console.log(err);
+                        $scope.busy = false
+                        NodeModel.handleError($scope,err)
+                        MessageService.error(_.get(err, 'data.message', 'Something went wrong...'))
                       }
                   )
               ;

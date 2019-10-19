@@ -44,7 +44,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
 
     create : function(req,res) {
-
         sails.models.kongnode.create(req.body)
             .exec(function(err, node){
                 if(err) {
@@ -75,9 +74,6 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                         return res.created(node);
                     }
                 })
-
-
-
             })
     }
 });
