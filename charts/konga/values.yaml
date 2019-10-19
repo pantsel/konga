@@ -87,3 +87,5 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+podAnnotations: {}
