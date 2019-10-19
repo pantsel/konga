@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [0.14.6](https://github.com/pantsel/konga/releases/tag/0.14.5)
+## [0.14.6](https://github.com/pantsel/konga/releases/tag/0.14.6)
 * Fixed `NO_AUTH` onboarding problems related to #474.
 * Minor improvements.
 
