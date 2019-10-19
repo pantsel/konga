@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [0.14.6](https://github.com/pantsel/konga/releases/tag/0.14.5)
+* Fixed `NO_AUTH` onboarding problems related to #474.
+* Minor improvements.
+
+## [0.14.5](https://github.com/pantsel/konga/releases/tag/0.14.5)
+* Fix issue #473 concerning password length validation on first user registration.
+
 ## [0.14.4](https://github.com/pantsel/konga/releases/tag/0.14.4)
 * Added support for `TAGS` in all major Kong Entities (Starting from Kong `1.1.0-rc1`).
 * Konga can now be used without authentication. In order to do that,
