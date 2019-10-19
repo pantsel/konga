@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.7](https://github.com/pantsel/konga/releases/tag/0.14.7)
+* Fixed `NO_AUTH` onboarding problems related to #474 when using a database.
 
 ## [0.14.6](https://github.com/pantsel/konga/releases/tag/0.14.6)
 * Fixed `NO_AUTH` onboarding problems related to #474.
