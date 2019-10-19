@@ -383,8 +383,8 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
         }
       },
       {
-        name: "Custom",
-        description: "Custom Plugins",
+        name: "Other",
+        description: "Other Plugins",
         icon: "mdi-account-box-outline",
         plugins: {}
       }
