@@ -10,6 +10,10 @@
 module.exports = function addDataCreate(request, response, next) {
   sails.log.verbose(__filename + ':' + __line + ' [Policy.addDataCreate() called]');
 
+  if(process.env.NO_AUTH === 'true') {
+    return next();
+  }
+
   if (request.token) {
     request.body.createdUser = request.token;
     request.body.updatedUser = request.token;

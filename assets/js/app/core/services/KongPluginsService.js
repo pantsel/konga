@@ -230,8 +230,8 @@
                 }
               },
               {
-                name: "Custom",
-                description: "Custom Plugins",
+                name: "Other",
+                description: "Other Plugins",
                 icon: "mdi-account-box-outline",
                 hasConsumerPlugins: true,
                 plugins: {}

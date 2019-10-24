@@ -45,6 +45,10 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
                 var user = updated[0];
 
+                if(!user) {
+                  return  res.json()
+                }
+
                 if(user.node) {
                     sails.models.kongnode
                         .findOne({id : user.node})

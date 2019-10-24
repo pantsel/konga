@@ -166,6 +166,7 @@
                 }, function (err) {
                   $scope.busy = false
                   UserModel.handleError($scope, err)
+                  MessageService.error(_.get(err, 'data.message', 'Something went wrong...'))
                 }
               );
 
