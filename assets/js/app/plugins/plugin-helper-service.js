@@ -53,6 +53,12 @@
                             //     }
                             // }
 
+                            if (fields[key].value instanceof Array
+                                && fields[key].elements.type === "integer") {
+                                fields[key].value = fields[key].value.map(function(value) {
+                                    return parseInt(value);
+                                });
+                            }
 
                             if(!data.config) data.config = {};
 
