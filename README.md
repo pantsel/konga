@@ -52,7 +52,7 @@ or `konga:legacy` from docker hub instead.
 
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
-- Nodejs >= 8 (8.11.3 LTS is recommended)
+- Nodejs >= 8, <= 10.x (10.x is recommended)
 - Npm
 
 ## Used libraries
