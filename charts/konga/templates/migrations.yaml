@@ -1,0 +1,35 @@
+{{- if .Values.runMigrations }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "konga.name" . }}-migrations
+  labels:
+    app: {{ include "konga.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: init-migrations
+spec:
+  template:
+    metadata:
+      name: {{ include "konga.name" . }}-migrations
+      labels:
+        app: {{ include "konga.name" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-migrations
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command:
+            - "/app/start.sh"
+            - "-c"
+            - "prepare"
+            - "-a"
+            - {{ .Values.config.db_adapter }}
+            - "-u"
+            - {{ .Values.config.db_uri }}
+      restartPolicy: Never
+  backoffLimit: 20
+{{- end }}
