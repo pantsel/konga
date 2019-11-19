@@ -157,7 +157,9 @@
           // Delete unset config fields
           if(request_data.config) {
             Object.keys(request_data.config).forEach(function (key) {
-              if (!request_data.config[key]) delete request_data.config[key]
+              if ((!request_data.config[key]) || (Array.isArray(request_data.config[key]) &&
+                 !request_data.config[key].length) || (typeof(request_data.config[key])==="object" &&
+                 (Object.values(request_data.config[key]).every(v => (isNaN(v) || v == null))))) delete request_data.config[key]
             })
           }
 
