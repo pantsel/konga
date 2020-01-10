@@ -19,6 +19,10 @@ spec:
         app.kubernetes.io/name: {{ include "konga.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      volumes:
+{{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 8 }}
+{{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -40,6 +44,10 @@ spec:
                 name: {{ include "konga.fullname" . }}-config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+{{- if .Values.extraVolumeMounts }}
+{{ toYaml .Values.extraVolumeMounts | nindent 12 }}
+{{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
