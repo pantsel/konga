@@ -49,7 +49,7 @@ var group_test = function (group) {
 }
 
 var member_test = function (group) {
-     return adminGroup.test(commonName.replace(group, "$1"));
+     return adminGroup.test(group.replace(commonName, "$1"));
 }
 
 /**
