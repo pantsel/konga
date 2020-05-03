@@ -93,6 +93,25 @@
     </p>
   </div>
 </div>
+
+<div class="form-group" ng-class="{'has-error' : errors.path_handling}" ng-if="route.path_handling">
+  <label class="col-sm-3 control-label">Path handling</label>
+  <div class="col-sm-9">
+    <select
+      ng-model="route.path_handling"
+      class="form-control pull-right"
+      ng-options="item for item in ['v0', 'v1']"
+    >
+    </select>
+    <p class="help-block">
+      Controls how the Service path, Route path and requested path are combined
+      when sending a request to the upstream. See above for a detailed
+      description of each behavior. Accepted values are: <code>"v0"</code>, <code>"v1"</code>. Defaults to
+      <code>"v1"</code>.
+    </p>
+  </div>
+</div>
+
 <div
   class="form-group"
   ng-class="{'has-error' : errors.https_redirect_status_code}"

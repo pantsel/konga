@@ -43,10 +43,33 @@
 
           clearRoute()
 
-          console.log("Route =>", $scope.route);
+          const data = _.cloneDeep($scope.route)
+
+          // Format sources and destingations
+          if(data.sources && data.sources.length) {
+            data.sources = _.map(data.sources, (item) => {
+              const parts = item.split(":");
+              const obj = {};
+              obj.ip = parts[0]
+              if(parts[1]) obj.port = parseInt(parts[1])
+              return obj;
+            })
+          }
+
+          if(data.destinations && data.destinations.length) {
+            data.destinations = _.map(data.destinations, (item) => {
+              const parts = item.split(":");
+              const obj = {};
+              obj.ip = parts[0]
+              if(parts[1]) obj.port = parseInt(parts[1])
+              return obj;
+            })
+          }
+
+          console.log("Route =>", data);
           $scope.errorMessage = '';
 
-          RoutesService.add($scope.route)
+          RoutesService.add(data)
             .then(function (res) {
               $rootScope.$broadcast('route.created')
               MessageService.success('Route created!')
@@ -76,11 +99,11 @@
           for (var key in $scope.route) {
 
             if ($scope.route[key] instanceof Array && !$scope.route[key].length) {
-              delete($scope.route[key]);
+              $scope.route[key] = null
             }
 
             if ($scope.route[key] === undefined || $scope.route[key] === "") {
-              delete($scope.route[key]);
+              $scope.route[key] = null
             }
           }
         }
