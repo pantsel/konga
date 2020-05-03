@@ -39,6 +39,10 @@ var KongService = {
         var token = JWT.issueKongConnectionToken(connection);
         headers.Authorization = "Bearer " + token;
         break;
+      case "basic_auth":
+        var basicAuthtoken = Buffer.from(connection.username + ":" + connection.password).toString('base64');
+        headers.Authorization = "Basic " + basicAuthtoken;
+        break;
     }
 
     return headers;

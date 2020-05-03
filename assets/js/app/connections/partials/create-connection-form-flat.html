@@ -35,7 +35,15 @@
             </div>
 
         </uib-tab>
-
+        <uib-tab index="3" ng-click="node.type='basic_auth'">
+            <uib-tab-heading>
+                Basic AUTH
+            </uib-tab-heading>
+            <br>
+            <div class="alert alert-info text-small">
+                Konga will connect to Kong's admin using Basic authentication. It is strongly recommended to use SSL/TLS encryption on Kong.<br>
+            </div>
+        </uib-tab>
     </uib-tabset>
     <br>
     <div class="form-group" ng-class="{'has-error' : errors.name}">
@@ -81,7 +89,18 @@
                 <div class="text-danger" ng-if="errors.jwt_secret" data-ng-bind="errors.jwt_secret"></div>
             </div>
         </div>
-
+        <div ng-switch-when="basic_auth">
+            <div class="form-group" ng-class="{'has-error' : errors.username}">
+                <label class="control-label">Username <span class="text-danger">*</span></label>
+                <input ng-model="node.username" ng-required="node.type=='basic_auth'" class="form-control" placeholder="The `Username` ...">
+                <div class="text-danger" ng-if="errors.username" data-ng-bind="errors.username"></div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : errors.password}">
+                <label class="control-label">Password <span class="text-danger">*</span></label>
+                <input ng-model="node.password" ng-required="node.type=='basic_auth'" class="form-control" placeholder="The Basic Authentication Password" type="password">
+                <div class="text-danger" ng-if="errors.password" data-ng-bind="errors.password"></div>
+            </div>
+        </div>
     </div>
 
 
