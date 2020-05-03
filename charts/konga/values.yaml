@@ -34,6 +34,8 @@ config: {}
 #   db_pg_schema: public
 #   log_level: debug
 #   token_secret:
+#   konga_node_data:
+#   konga_user_data:
 
 # LDAP configuration for Konga
 ldap: {}
