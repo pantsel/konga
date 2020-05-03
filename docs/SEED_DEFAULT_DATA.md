@@ -28,12 +28,12 @@ module.exports = [
     ]
 ````
 
-To make Konga use this file, you should set the enviroment variable KONGA_SEED_USER_DATA_SOURCE_FILE to point to the files location:
+To make Konga use this file, you should set the environment variable KONGA_SEED_USER_DATA_SOURCE_FILE to point to the files location:
 ````
 export KONGA_SEED_USER_DATA_SOURCE_FILE=~/userdb.data 
 ````
 
-This is especially useful when running Konga in a container as part of a Docker swarm. The file can be setup as a Docker secret and supplied to the container. This can be done with an entry in a compose file simular to:
+This is especially useful when running Konga in a container as part of a Docker swarm. The file can be setup as a Docker secret and supplied to the container. This can be done with an entry in a compose file similar to:
 
 ````
 version: "3.1"
@@ -76,7 +76,7 @@ module.exports = [
 ]
 ```
 
-To make Konga use this file, you should set the enviroment variable KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE to point to the files location:
+To make Konga use this file, you should set the environment variable KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE to point to the files location:
 ````
 export KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE=~/kong_node.data 
 ````

@@ -14,6 +14,22 @@ var AuthController = {
 
     let data = req.allParams();
 
+    // If an admin is already registred, prevent further action
+    const count = await sails.models.user.count({ admin: true });
+    if (count > 0) {
+      return res.view('welcomepage', {
+        angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
+        konga_version: require('../../package.json').version,
+        invalidAttributes: {
+          username: [{
+            rule: 'required',
+            message: 'An adming user is already registered!'
+          }]
+        },
+        old_data: data
+      })
+    }
+
     function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());

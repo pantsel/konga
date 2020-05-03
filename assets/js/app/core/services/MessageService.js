@@ -16,8 +16,8 @@
 
   angular.module('frontend.core.services')
     .factory('MessageService', [
-      'toastr', '_',
-      function factory(toastr, _) {
+      'toastr', '_', '$sanitize',
+      function factory(toastr, _, $sanitize) {
         var service = {};
 
         /**
@@ -34,7 +34,7 @@
           title = title || '';
           options = options || {};
 
-          toastr[type](message, title, _.assign(defaultOptions, options));
+          toastr[type]($sanitize(message), title, _.assign(defaultOptions, options));
         }
 
         /**

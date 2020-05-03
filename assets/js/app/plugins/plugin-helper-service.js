@@ -53,6 +53,12 @@
                             //     }
                             // }
 
+                            if (fields[key].value instanceof Array
+                                && fields[key].elements.type === "integer") {
+                                fields[key].value = fields[key].value.map(function(value) {
+                                    return parseInt(value);
+                                });
+                            }
 
                             if(!data.config) data.config = {};
 
@@ -61,6 +67,10 @@
                                     if(!data.config[path]) data.config[path] = {};
                                     const prop = Object.keys(field)[0];
                                     data.config[path][Object.keys(field)[0]] = _.get(field, `${prop}.value`);
+                                    if(field[prop].type === "integer") data.config[path][Object.keys(field)[0]] = Number(data.config[path][Object.keys(field)[0]])
+                                    if(field[prop].type === "array") {
+                                        if (field[prop].elements.type === "integer" && data.config[path][Object.keys(field)[0]] !== undefined) data.config[path][Object.keys(field)[0]] = data.config[path][Object.keys(field)[0]].map(v => Number(v))
+                                    }
                                 })
                             }else{
                                 if(fields[key].value !== ""

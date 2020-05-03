@@ -205,7 +205,6 @@
 
 
           if (!isActive(node)) {
-            console.log("node not active", node)
 
             // Check connection before assigning
             // the node to the user

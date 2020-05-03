@@ -99,8 +99,7 @@ than mongoDB, you will have to apply the migrations as described in README.md**
 
 ## [0.10.3](https://github.com/pantsel/konga/releases/tag/0.10.3) - 07-03-2018
 
-* Added passive healtchecks configuration in upstreams
-
+* Added passive health checks configuration in upstreams
 
 ## [0.10.2](https://github.com/pantsel/konga/releases/tag/0.10.2) - 03-03-2018
 

@@ -1,5 +1,6 @@
 {
   "globals": { "sails": true },
   "node" : true,
-  "asi" : true
+  "asi" : true,
+  "esversion": 6
 }
