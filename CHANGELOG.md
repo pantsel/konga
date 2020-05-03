@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.9](https://github.com/pantsel/konga/releases/tag/0.14.9)
+* Fix security issue that allowed a user to escalate to admin status. (Kudos to [j3ssie](https://github.com/j3ssie)).
+* Fix XSS vulnerabity on alerts and notifications. (Kudos to [j3ssie](https://github.com/j3ssie)).
+* Fix issues #555, #562. Initial registration allows multiple admin users to be created
+* Added the ability to seed initial user and node data via configmaps and mounts PR: #522
+* Added Basic Auth credentials support on Connections PR: #393
+* Updated project dependencies
+* Fix some typos PRs: #551, #546
+
 ## [0.14.7](https://github.com/pantsel/konga/releases/tag/0.14.7)
 * Fixed `NO_AUTH` onboarding problems related to #474 when using a database.
 
