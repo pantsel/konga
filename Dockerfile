@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:10.16-alpine
 
 COPY . /app
 
