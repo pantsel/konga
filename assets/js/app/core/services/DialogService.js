@@ -33,7 +33,7 @@
             '<div class="modal-header dialog no-margin">' +
             '<h5 class="modal-title">' + title + '</h5>' +
             '</div>' +
-            '<div class="modal-body">' + message + '</div>' +
+            '<div class="modal-body" ng-bind-html="' + message + '"></div>' +
             '<div class="modal-footer dialog">' +
             '<button class="btn btn-link" data-ng-click="decline()">' + buttonTexts[0] + '</button>' +
             '<button class="btn btn-success btn-link" data-ng-click="accept()">' + buttonTexts[1] + '</button>' +
@@ -75,7 +75,7 @@
             '<div class="modal-header dialog no-margin">' +
             '<h5 class="modal-title">' + ( title || 'Alert' ) + '</h5>' +
             '</div>' +
-            '<div class="modal-body">' + message + '</div>' +
+            '<div class="modal-body" ng-bind-html="' + message + '"></div>' +
             '<div class="modal-footer dialog">' +
             '<button class="btn btn-success btn-link" data-ng-click="close()">OK</button>' +
             '</div>',
@@ -101,7 +101,7 @@
               '<h5 class="modal-title">' + title + '</h5>' +
               '</div>' +
               '<div class="modal-body">' +
-              '<p>' + message + '</p>' +
+              '<p ng-bind-html="' + message + '"></p>' +
               '<input type="text" class="form-control" ng-model="data"></div>' +
               '</div>' +
               '<div class="modal-footer dialog">' +
