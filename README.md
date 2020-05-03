@@ -47,7 +47,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 ## Compatibility
 **From 0.14.0 onwards, Konga is ONLY compatible with Kong 1.0.0>= 1.4.x**
 **Only partial compatibility with Kong 1.5.* is implemented**
-**Compatibility with Kong 2.x is not implemented. A new generation on Konga is in the works for that.**
+**Compatibility with Kong 2.x is not implemented. A new generation of Konga is in the works for that.**
 
 If you're on an older Kong version , use [this](https://github.com/pantsel/konga/tree/legacy) branch 
 or `konga:legacy` from docker hub instead.
