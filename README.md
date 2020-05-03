@@ -45,16 +45,14 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Easy database integration (MySQL, postgresSQL, MongoDB).
 
 ## Compatibility
-**From 0.14.0 onwards, Konga is ONLY compatible with Kong 1.0.0 >= 1.5.x**
+**From 0.14.0 onwards, Konga is ONLY compatible with Kong 1.x**
 
 If you're on an older Kong version , use [this](https://github.com/pantsel/konga/tree/legacy) branch 
 or `konga:legacy` from docker hub instead.
 
-**Compatibility with Kong 2.x is partially. A new generation of Konga is in the works for that.**
-
 ## Prerequisites
 - A running [Kong installation](https://getkong.org/) 
-- Nodejs >= 8, <= 10.x (10.x is recommended)
+- Nodejs >= 8, <= 12.x (12.16 LTS is recommended)
 - Npm
 
 ## Used libraries
