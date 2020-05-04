@@ -15,7 +15,9 @@
                     Object.keys(fields).forEach(function (item) {
                         if(fields[item].schema) {
                             assignExtraProperties(_pluginName, options,fields[item].schema.fields,item);
-                        }else{
+                        } else if (fields[item].fields){
+                            assignExtraProperties(_pluginName, options,fields[item].fields,item);
+                        } else {
                             var path = prefix ? prefix + "." + item : item;
                             var value = fields[item].default;
 

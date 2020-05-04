@@ -50,7 +50,7 @@
 
         // Define the plugins that will have their own custom form
         // so that it can be included via ng-include in the .html files
-        $scope.customPluginForms = ['statsd', 'response-ratelimiting'];
+        $scope.customPluginForms = ['statsd', 'response-ratelimiting', 'acme'];
 
         $scope.humanizeLabel = function (key) {
           return key.split("_").join(" ");
