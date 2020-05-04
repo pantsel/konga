@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 * Implemented missing `client_certificate` field on services.
 * Added the ability to seed initial user and node data via configmaps and mounts PR: #522
 * Added Basic Auth credentials support on Connections PR: #393
+* Implemented ACME plugin configuration
 * Updated project dependencies
 * Fix some typos PRs: #551, #546
 
