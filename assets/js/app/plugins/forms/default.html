@@ -38,6 +38,46 @@
                                         <input chip-control/>
                                     </chips>
                                 </div>
+                                <div ng-switch-when="record">
+                                    <div class="plugin-field-table">
+                                        <div data-ng-repeat="_field in field[getFieldProp(field)].fields" class="well" style="background-color: #f2f2f2;border: 1px solid #eaeaea">
+                                            <label>{{getFieldProp(_field)}}</label>
+                                            <div>
+                                                <div ng-switch on="_field[getFieldProp(_field)].type">
+                                                    <!-- TYPE: STRING -->
+                                                    <div ng-switch-when="string">
+                                                        <textarea ng-model="field[getFieldProp(field)].value[getFieldProp(_field)]" class="form-control"></textarea>
+                                                    </div>
+    
+                                                    <!-- TYPE: INTEGER -->
+                                                    <div ng-switch-when="integer">
+                                                        <input type="number" ng-model="field[getFieldProp(field)].value[getFieldProp(_field)]" class="form-control"></input>
+                                                    </div>
+    
+                                                    <!-- TYPE: NUMBER -->
+                                                    <div ng-switch-when="number">
+                                                        <input type="number" ng-model="field[getFieldProp(field)].value[getFieldProp(_field)]" class="form-control"></input>
+                                                    </div>
+    
+                                                     <!-- TYPE: BOOLEAN -->
+                                                    <div ng-switch-when="boolean">
+                                                        <input
+                                                                bs-switch
+                                                                ng-model="field[getFieldProp(field)].value[getFieldProp(_field)]"
+                                                                switch-size="small"
+                                                                type="checkbox"
+                                                                switch-on-text="YES"
+                                                                switch-off-text="NO"
+                                                        >
+    
+                                                    </div>
+    
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
                                 <div ng-switch-default>
                                     <input type="{{field[getFieldProp(field)].type}}" ng-model="field[getFieldProp(field)].value" class="form-control">
                                 </div>

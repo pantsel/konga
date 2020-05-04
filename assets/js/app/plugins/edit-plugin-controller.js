@@ -38,7 +38,7 @@
 
         // Define the plugins that will have their own custom form
         // so that it can be included via ng-include in the .html files
-        $scope.customPluginForms = ['statsd', 'response-ratelimiting', 'acme'];
+        $scope.customPluginForms = ['statsd', 'response-ratelimiting'];
 
 
         //$log.debug("Options", options)
