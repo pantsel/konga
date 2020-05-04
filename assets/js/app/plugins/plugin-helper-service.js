@@ -33,7 +33,6 @@
                     });
                 }
 
-
                 function createConfigProperties(pluginName,fields,prefix,data) {
                     Object.keys(fields).forEach(function (key) {
                         if(fields[key].schema) {
