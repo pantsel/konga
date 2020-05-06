@@ -88,7 +88,9 @@
             data.headers = _.map(data.headers, (item) => {
               const parts = item.split(":");
               const obj = {};
-              obj[parts[0]] = parts[1].split(",")
+              obj[parts[0]] = parts[1].split(",").filter(function (el) {
+                return el;
+              })
               return obj;
             }).reduce(function(r, e) {
               const key = Object.keys(e)[0];
