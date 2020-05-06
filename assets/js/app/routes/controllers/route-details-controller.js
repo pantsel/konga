@@ -15,7 +15,7 @@
         $scope.route = $scope.route || _route;
 
         // Transform headers attr to a compatible array
-        if($scope.route.headers && Object.keys($scope.route.headers).length) {
+        if($scope.route.headers && !_.isArray($scope.route.headers) && Object.keys($scope.route.headers).length) {
           const array = [];
           Object.keys($scope.route.headers).forEach(key => {
             const str = `${key}:${$scope.route.headers[key].join(",")}`
