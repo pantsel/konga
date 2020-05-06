@@ -45,7 +45,7 @@
 
           const data = _.cloneDeep($scope.route)
 
-          // Format sources and destingations
+          // Format sources, destingations and headers
           if(data.sources && data.sources.length) {
             data.sources = _.map(data.sources, (item) => {
               const parts = item.split(":");
@@ -64,6 +64,20 @@
               if(parts[1]) obj.port = parseInt(parts[1])
               return obj;
             })
+          }
+
+          if(data.headers && data.headers.length) {
+            data.headers = _.map(data.headers, (item) => {
+              const parts = item.split(":");
+              const obj = {};
+              obj[parts[0]] = parts[1].split(",")
+              return obj;
+            }).reduce(function(r, e) {
+              const key = Object.keys(e)[0];
+              const value = e[key];
+              r[key] = value;
+              return r;
+            }, {});
           }
 
           console.log("Route =>", data);

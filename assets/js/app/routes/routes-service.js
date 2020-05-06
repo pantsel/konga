@@ -21,7 +21,7 @@
           '013': {
             name: '',
             hosts: [],
-            protocols: [],
+            protocols: ["http", "https"],
             methods: [],
             headers: [],
             paths: [],
@@ -36,7 +36,7 @@
           '015': {
             name: '',
             hosts: [],
-            protocols: [],
+            protocols: ["http", "https"],
             methods: [],
             paths: [],
             headers: [],
