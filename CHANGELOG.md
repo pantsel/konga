@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 * Fix security issue that allowed a user to escalate to admin status. (Kudos to [j3ssie](https://github.com/j3ssie)).
 * Fix XSS vulnerabity on alerts and notifications. (Kudos to [j3ssie](https://github.com/j3ssie)).
 * Fix issues #555, #562. Initial registration allows multiple admin users to be created
-* Implemented missing `snis`, `sources`, `destingations` and `path_handling` fields on routes.
+* Implemented missing `headers`, `snis`, `sources`, `destingations` and `path_handling` fields on routes.
 * Implemented missing `client_certificate` field on services.
 * Added the ability to seed initial user and node data via configmaps and mounts PR: #522
 * Added Basic Auth credentials support on Connections PR: #393
