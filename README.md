@@ -27,6 +27,7 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 - [**Upgrading**](#upgrading)
 - [**FAQ**](#faq)
 - [**More Kong related stuff**](#more-kong-related-stuff)
+- [**Supporters**](#supported-by)
 - [**License**](#license)
 
 ## Discussions & Support
@@ -270,8 +271,14 @@ greater than 60000, like 120000.
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
 - [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
 
+## Supported by
+
+Special thanks to our supporters that keep the project going and the motivation alive.
+
+[![Greenbird](screenshots/greenbird.png)](https://www.greenbird.com/)
 
 ## Author
+
 Panagis Tselentis
 
 ## License
