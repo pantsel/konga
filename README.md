@@ -15,7 +15,7 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 
 ## Supported by
 
-Special thanks to our supporters that keep the project going and the motivation alive.
+Special thanks to our supporters that help us keep the project going and the motivation alive.
 
 [![Greenbird](screenshots/greenbird.png)](https://www.greenbird.com/)
 
