@@ -87,6 +87,9 @@
                   "ldap-auth": {
                     description: "Integrate Kong with a LDAP server"
                   },
+                  "session": {
+                    description: "Support sessions for Kong Authentication Plugins."
+                  }
                 }
               },
               {
@@ -113,6 +116,10 @@
                   "bot-detection": {
                     hideIfNotInConsumerContext: true,
                     description: "Detects and blocks bots or custom clients"
+                  },
+                  "acme": {
+                    description: "Let's Encrypt and ACMEv2 integration with Kong",
+                    hideIfNotInConsumerContext: true,
                   }
                 }
               },
@@ -134,6 +141,9 @@
                   "request-termination": {
                     description: "This plugin terminates incoming requests with a specified status code and message. This allows to (temporarily) block an API or Consumer."
                   },
+                  "proxy-cache": {
+                    description: "Cache and serve commonly requested responses in Kong"
+                  }
                 }
               },
               {

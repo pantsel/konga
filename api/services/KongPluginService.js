@@ -250,6 +250,9 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
           "ldap-auth": {
             description: "Integrate Kong with a LDAP server"
           },
+          "session": {
+            description: "Support sessions for Kong Authentication Plugins."
+          }
         }
       },
       {
@@ -271,6 +274,10 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
           },
           "bot-detection": {
             description: "Detects and blocks bots or custom clients"
+          },
+          "acme": {
+            description: "Let's Encrypt and ACMEv2 integration with Kong",
+            hideIfNotInConsumerContext: true,
           }
         }
       },
@@ -291,6 +298,9 @@ var KongPluginService = _.merge(_.cloneDeep(require('./KongService')), {
           "request-termination": {
             description: "This plugin terminates incoming requests with a specified status code and message. This allows to (temporarily) block an API or Consumer."
           },
+          "proxy-cache": {
+            description: "Cache and serve commonly requested responses in Kong"
+          }
         }
       },
       {
