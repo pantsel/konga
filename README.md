@@ -13,6 +13,12 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 <a href="https://www.buymeacoffee.com/F1aRIj8CG" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 
+## Supported by
+
+Special thanks to our supporters that keep the project going and the motivation alive.
+
+[![Greenbird](screenshots/greenbird.png)](https://www.greenbird.com/)
+
 ## Summary
 
 - [**Discussions & Support**](#discussions--support)
@@ -27,7 +33,6 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 - [**Upgrading**](#upgrading)
 - [**FAQ**](#faq)
 - [**More Kong related stuff**](#more-kong-related-stuff)
-- [**Supporters**](#supported-by)
 - [**License**](#license)
 
 ## Discussions & Support
@@ -270,12 +275,6 @@ greater than 60000, like 120000.
 ## More Kong related stuff
 - [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
 - [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
-
-## Supported by
-
-Special thanks to our supporters that keep the project going and the motivation alive.
-
-[![Greenbird](screenshots/greenbird.png)](https://www.greenbird.com/)
 
 ## Author
 
