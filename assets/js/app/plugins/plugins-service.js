@@ -33,7 +33,7 @@
           },
 
           schema: function (name) {
-            return $http.get('kong/plugins/schema/' + name);
+            return $http.get('kong/schemas/plugins/' + name);
           },
 
           enabled: function () {
