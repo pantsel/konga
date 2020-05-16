@@ -17,7 +17,7 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 
 Special thanks to our supporters that help us keep the project going and the motivation alive.
 
-<a href="https://www.greenbird.com" target="__blank"><img src="screenshots/greenbird.png" width="250"></a>
+<a href="https://www.greenbird.com" target="_blank"><img src="screenshots/greenbird.png" width="250"></a>
 
 ## Summary
 
