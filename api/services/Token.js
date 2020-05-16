@@ -20,7 +20,8 @@ module.exports.issue = function issue(payload) {
 
     return jwt.sign(
         payload, // This is the payload we want to put inside the token
-        process.env.TOKEN_SECRET || "oursecret" // Secret string which will be used to sign the token
+        process.env.TOKEN_SECRET || "oursecret", // Secret string which will be used to sign the token
+        { expiresIn: parseInt(process.env.KONGA_JWT_TOKEN_EXPIRY || 60 * 60 )}
     );
 };
 
