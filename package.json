@@ -55,7 +55,8 @@
     "socket.io-redis": "~1.0.0",
     "unirest": "git+https://git@github.com/pantsel/unirest-nodejs.git#master",
     "uuid": "^3.4.0",
-    "validator": "4.2.1"
+    "validator": "4.2.1",
+    "snyk": "^1.321.0"
   },
   "devDependencies": {
     "chai": "3.4.0",
@@ -69,7 +70,9 @@
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
     "test": "mocha",
-    "bower-deps": "bower --allow-root install"
+    "bower-deps": "bower --allow-root install",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "main": "app.js",
   "repository": {
@@ -77,5 +80,6 @@
     "url": "https://github.com/pantsel/konga.git"
   },
   "author": "Tselentis Panagis",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
