@@ -130,9 +130,6 @@ var defaultModel = {
    * @param   {Function}  next
    */
   beforeUpdate: function beforeUpdate(passport, next) {
-
-      sails.log("########################################",passport)
-
     if (passport.hasOwnProperty('password')) {
 
       bcrypt.hash(passport.password, 10, function callback(error, hash) {
