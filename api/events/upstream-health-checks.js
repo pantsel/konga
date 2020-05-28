@@ -178,7 +178,7 @@ module.exports = {
         sails.models.settings.find().limit(1)
           .exec(function(err,settings) {
               if (err) return sails.log(`Failed to get settings`, err);
-              console.log('UpstreamHC:notify:settings =>', JSON.stringify(settings));
+            //   console.log('UpstreamHC:notify:settings =>', JSON.stringify(settings));
               if (!settings.length || !settings[0].data) return false;
 
               if(hc.slack) {

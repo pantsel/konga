@@ -67,7 +67,6 @@
                             item.upstream = _.find(_upstreams, upstream => item.upstream_id === upstream.id)
                         })
                         $scope.items = response
-                        console.log("Loaded alerts =>", $scope.items);
                         $scope.loading  = false;
                     });
                 }

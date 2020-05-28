@@ -269,7 +269,6 @@
                               MessageService.error("Oh snap! Can't connect to the created node. Check your connections.")
                           })
                       },function(err){
-                        console.log(err);
                         $scope.busy = false
                         NodeModel.handleError($scope,err)
                         MessageService.error(_.get(err, 'data.message', 'Something went wrong...'))

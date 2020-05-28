@@ -26,7 +26,6 @@
                       return kong_versions
                     },
                     setSettings : function(settings) {
-                        console.log("########",settings)
                         $localStorage.settings = settings
                     },
                     getSettings : function() {

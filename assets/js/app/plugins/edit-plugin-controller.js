@@ -197,8 +197,6 @@
 
           const finalData = _.merge(data, config)
 
-          console.log("REQUEST DATA =>", finalData);
-
           PluginsService.update(_plugin.id, finalData)
             .then(function (res) {
               $log.debug("updatePlugin", res);

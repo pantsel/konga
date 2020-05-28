@@ -161,7 +161,7 @@
             .then(function(res){
               $scope.items = res.data;
               $scope.loading = false;
-              console.log("LOADED CONSUMER ROUTES =>", $scope.items)
+              // console.log("LOADED CONSUMER ROUTES =>", $scope.items)
             });
 
         }

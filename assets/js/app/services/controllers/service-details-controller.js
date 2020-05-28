@@ -36,12 +36,10 @@
 
           ServiceService.update(data)
             .then(function (res) {
-              console.log("Update Service: ", res)
               $scope.loading = false
               MessageService.success('Service updated successfully!');
               originalService = res.data; // ref. monkey patch
             }).catch(function (err) {
-            console.log("err", err)
             $scope.loading = false
             var errors = {}
             Object.keys(err.data.body).forEach(function (key) {

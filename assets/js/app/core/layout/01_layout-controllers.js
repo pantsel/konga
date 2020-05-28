@@ -118,19 +118,13 @@
           $scope.isOpen = false;
         }
 
-        console.log("FooterController:user =>", $scope.user)
+        // console.log("FooterController:user =>", $scope.user)
 
 
         function _fetchConnections() {
           $http.get('api/kongnode').then(function (response) {
             $scope.connections = response.data;
           });
-          // NodeModel.load({
-          //   sort: 'createdAt DESC'
-          // }).then(function (connections) {
-          //   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!", connections);
-          //   $scope.connections = connections;
-          // });
         }
 
         $scope.activateConnection = function (node) {
@@ -148,7 +142,7 @@
               connection_id: node.id
             }
           }).then(function (response) {
-            console.log("Check connection:success", response)
+            // console.log("Check connection:success", response)
             node.checkingConnection = false;
 
             UserModel
@@ -171,7 +165,6 @@
               );
 
           }).catch(function (error) {
-            console.log("Check connection:error", error)
             node.checkingConnection = false;
             MessageService.error("Oh snap! Can't connect to " + node.kong_admin_url)
           })
@@ -199,7 +192,6 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              console.log("FooterController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
               $rootScope.$broadcast('user.node.updated', node);
             }).catch(function (err) {
             $rootScope.Gateway = null;

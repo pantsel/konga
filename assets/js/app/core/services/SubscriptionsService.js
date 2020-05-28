@@ -27,14 +27,13 @@
                         function (data, jwr) {
 
                             if (jwr.statusCode == 200) {
-                                console.log("Subscribed to room",data.room)
                                 io.socket.on(data.room, function (obj) {
                                     //$log.info("Notification received",obj)
                                     $rootScope.$broadcast("node.health_checks", obj)
 
                                 });
                             } else {
-                                console.log("Failed to subscribe to: ", jwr);
+                                // ToDo: Inform about error
                             }
                         });
                     //

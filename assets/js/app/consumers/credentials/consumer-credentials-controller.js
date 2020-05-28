@@ -287,7 +287,7 @@
         function fetchBasicAuthCredentials() {
           ConsumerService.loadCredentials($scope.consumer.id, 'basic-auth')
             .then(function (res) {
-              console.log("FETCH BASIC AUTH CREDS =>", res.data);
+              // console.log("FETCH BASIC AUTH CREDS =>", res.data);
               $scope.basic_auth_credentials = res.data;
             })
         }
@@ -295,7 +295,7 @@
         function fetchHMACAuthCredentials() {
           ConsumerService.loadCredentials($scope.consumer.id, 'hmac-auth')
             .then(function (res) {
-              console.log("FETCH HMAC AUTH CREDS =>", res.data);
+              // console.log("FETCH HMAC AUTH CREDS =>", res.data);
               $scope.hmac_auth_credentials = res.data;
             })
         }
@@ -303,7 +303,7 @@
         function fetchKeys() {
           ConsumerService.loadCredentials($scope.consumer.id, 'key-auth')
             .then(function (res) {
-              console.log("FETCH KEYS CREDS =>", res.data);
+              // console.log("FETCH KEYS CREDS =>", res.data);
               $scope.keys = res.data
             })
 
@@ -312,7 +312,7 @@
         function fetchJWTs() {
           ConsumerService.loadCredentials($scope.consumer.id, 'jwt')
             .then(function (res) {
-              console.log("FETCH JWT AUTH CREDS =>", res.data);
+              // console.log("FETCH JWT AUTH CREDS =>", res.data);
               $scope.jwts = res.data
             })
 
@@ -321,7 +321,7 @@
         function fetchOAuth2() {
           ConsumerService.loadCredentials($scope.consumer.id, 'oauth2')
             .then(function (res) {
-              console.log("FETCH OAUTH2 CREDS =>", res.data);
+              // console.log("FETCH OAUTH2 CREDS =>", res.data);
               $scope.oauth2_credentials = res.data
             })
 

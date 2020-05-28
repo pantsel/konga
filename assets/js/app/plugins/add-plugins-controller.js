@@ -20,7 +20,6 @@
 
         var info = _info.data
         var plugins_available = info.plugins.available_on_server
-        console.log("SERVER AVAILABLE PLUGINS => ", plugins_available)
         var pluginOptions = new KongPluginsService().pluginOptions()
 
         $scope.pluginOptions = pluginOptions

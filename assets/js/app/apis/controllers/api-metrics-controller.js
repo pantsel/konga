@@ -84,7 +84,7 @@
                 if($scope.netdataConnection.id) {
                   NetdataConnection.update($scope.netdataConnection.id, _.omit($scope.netdataConnection, ['id']))
                     .then(function (result) {
-                      console.log("Netdata Connection updated", result);
+                      // console.log("Netdata Connection updated", result);
                       $rootScope.$broadcast('api.' + _api.id + '.netdataConnection.updated',result.data);
                       $uibModalInstance.dismiss();
                     }).catch(function (error) {
@@ -94,7 +94,7 @@
                 }else {
                   NetdataConnection.create($scope.netdataConnection)
                     .then(function (result) {
-                      console.log("Netdata Connection created", result);
+                      // console.log("Netdata Connection created", result);
                       $rootScope.$broadcast('api.' + _api.id + '.netdataConnection.updated',result.data);
                       $uibModalInstance.dismiss();
                     }).catch(function (error) {

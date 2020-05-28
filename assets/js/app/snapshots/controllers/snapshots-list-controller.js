@@ -150,7 +150,6 @@
                         label: 'Delete',
                         className: 'btn-danger btn-link',
                         callback: function callback(result,node) {
-                            console.log(node)
                             //$scope.deleteNode();
                         }
                     },

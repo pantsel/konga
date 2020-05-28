@@ -44,7 +44,6 @@
 
         // $scope.schema = _schema.data
         $scope.pluginName = _pluginName
-        console.log("Schema", $scope.schema)
         //$log.debug("Options", options)
         $scope.close = close
 
@@ -76,7 +75,6 @@
           // Assign extra properties from options to data fields
           PluginHelperService.assignExtraProperties(_pluginName, options, $scope.data.fields);
 
-          console.log("Extra properties added to fields =>", $scope.data.fields);
         }
 
 
@@ -154,7 +152,6 @@
             if (!request_data[key]) delete request_data[key]
           })
 
-          console.log("request_data.config", request_data.config)
 
           // Delete unset config fields
           if(request_data.config) {
@@ -166,12 +163,6 @@
                 delete request_data.config[key]
             })
           }
-
-
-
-
-          console.log("REQUEST DATA =>", request_data)
-
 
           PluginHelperService.addPlugin(
             request_data,

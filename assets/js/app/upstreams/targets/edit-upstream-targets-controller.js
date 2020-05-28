@@ -138,7 +138,6 @@
 
               $http.delete('kong/upstreams/' + $stateParams.id + '/targets/' + item.id)
                 .then(function (deleted) {
-                  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!", deleted);
                   _fetchData()
                 }).catch(function (err) {
 
@@ -155,7 +154,6 @@
             if($rootScope.compareKongVersion('0.12.2') >= 0) {
               // Fetch targets Health
               Upstream.health($stateParams.id).then(function (_response) {
-                console.log("Health checks =>", response);
                 if(_response && _response.data.length) {
                   $scope.items.forEach(function(item){
                     var healthObj = _.find(_response.data, function (target) {
@@ -172,7 +170,6 @@
         }
 
         function setHealth(index, target, healthy) {
-          console.log("@@@@@@@@@@@@@@@@@@@@@@@@@");
           $http.post(`kong/upstreams/${$stateParams.id}/targets/${target.id}/${healthy ? 'healthy' : 'unhealthy'}`)
             .then(res => {
               MessageService.success(`Target ${target.target} is set to ${healthy ? 'healthy' : 'unhealthy'}`);

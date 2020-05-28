@@ -132,7 +132,7 @@
 
                 CertificateModel.create(data)
                   .then(function (resp) {
-                    console.log('Success', resp.data);
+                    // console.log('Success', resp.data);
                     $uibModalInstance.dismiss({
                       data: resp
                     })
@@ -160,7 +160,7 @@
 
                 CertificateModel.update(data.id, _.omit(data,['id']))
                   .then(function (resp) {
-                    console.log('Success', resp.data);
+                    // console.log('Success', resp.data);
                     $uibModalInstance.dismiss({
                       data: resp
                     })
@@ -216,7 +216,7 @@
           CertificateModel.load({
             size: $scope.itemsFetchSize
           }).then(function (response) {
-            console.log(response)
+            // console.log(response)
             $scope.items = response;
             $scope.loading = false;
 

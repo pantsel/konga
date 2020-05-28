@@ -17,8 +17,6 @@
         // Expose necessary data
         $scope.user = _user;
 
-        console.log("$scope.user",$scope.user);
-
         initUserPassports()
         $scope.authUser = UserService.user();
 
@@ -49,8 +47,6 @@
 
 
           data.passports.protocol = 'local'; // Make sure the protocol is set
-
-          console.log("data", data)
           // return false;
 
           UserModel
@@ -63,7 +59,6 @@
                 UserService.updateUser(data.data, true)
                 deferred.resolve(true);
               }, function (err) {
-                console.log("Err", err)
                 UserModel.handleError($scope, err)
                 deferred.reject('Error');
               }
@@ -109,10 +104,7 @@
             .load()
             .then(
               function onSuccess(response) {
-                console.log(response)
                 $scope.connections = response;
-                console.log("@@@@@@@@@@@@@@@@@@@@@", $scope.connections);
-
               }
             );
         }

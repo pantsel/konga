@@ -28,7 +28,6 @@
         $scope.loading = true;
         ServiceService.consumers($scope.service.id)
           .then(function (response) {
-            console.log("GOT SERVICE CONSUMERS", response.data)
             if (response.data.total > 0) {
               $scope.items = response.data;
               $scope.loading = false;

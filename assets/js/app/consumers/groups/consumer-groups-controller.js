@@ -76,7 +76,7 @@
           ConsumerService.fetchAcls($scope.consumer.id)
             .then(function (res) {
               $scope.items = res.data;
-              console.log('ACLS =>', $scope.items);
+              // console.log('ACLS =>', $scope.items);
             })
         }
 

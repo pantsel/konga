@@ -81,7 +81,6 @@
             size: $scope.itemsFetchSize
           }).then(function (response) {
             $scope.items = response;
-            console.log("LOADED PLUGINS => ", $scope.items);
             $scope.loading = false;
           })
         }

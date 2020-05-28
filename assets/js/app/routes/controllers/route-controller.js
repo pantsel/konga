@@ -11,8 +11,6 @@
       '$scope', '$rootScope', '$state', 'SettingsService', '$log', '_route',
       function controller($scope, $rootScope, $state, SettingsService, $log, _route) {
 
-        console.log("RouteController loaded");
-
         $scope.route = _route.data
 
         // Fix empty object properties

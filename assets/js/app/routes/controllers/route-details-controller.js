@@ -100,15 +100,12 @@
             }, {});
           }
 
-          console.log("Submitting route", data);
-
           RoutesService.update($scope.route.id, _.omit(data,["id", "data"]))
             .then(function (res) {
               $log.debug("Update Route: ", res)
               $scope.loading = false
               MessageService.success('Route updated successfully!')
             }).catch(function (err) {
-            console.log("err", err)
             $scope.loading = false
             var errors = {}
             Object.keys(err.data.body).forEach(function (key) {

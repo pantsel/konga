@@ -27,7 +27,7 @@
 
           function create() {
 
-              console.log("oauth2 credential", $scope.data);
+            //   console.log("oauth2 credential", $scope.data);
 
               ConsumerService.addCredential($scope.consumer.id,'oauth2',$scope.data).then(function(resp){
                   $log.debug("OAuth2 generated",resp)

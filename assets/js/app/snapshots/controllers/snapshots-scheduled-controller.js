@@ -240,10 +240,8 @@
 
                                 SnapshotSchedule.create(data)
                                     .then(function(created){
-                                        console.log("SNAPSHOT SCHEDULE CREATED", created);
                                         $uibModalInstance.close(created);
                                 }).catch(function(err){
-                                    console.log("FAILED TO CREATE SNAPSHOT SCHEDULE", err);
                                     if(err.data && err.data.message) {
                                         $scope.alerts.push({ type: 'danger', msg: err.data.message });
                                     }

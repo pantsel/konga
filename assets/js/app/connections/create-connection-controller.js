@@ -26,7 +26,7 @@
 
                 $scope.create = function() {
                     $scope.busy = true;
-                    console.log("Creating connection", angular.copy($scope.node))
+                    // console.log("Creating connection", angular.copy($scope.node))
                     NodeModel
                         .create(angular.copy($scope.node))
                         .then(

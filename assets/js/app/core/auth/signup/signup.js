@@ -76,7 +76,7 @@
                               }
 
                           },function(err){
-                              console.log(err)
+                            //   console.log(err)
                               $scope.busy = false
                               UserModel.handleError($scope,err)
 

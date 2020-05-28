@@ -24,8 +24,6 @@
 
         $scope.partial = 'js/app/routes/partials/form-route-' + availableFormattedVersion + '.html?r=' + Date.now();
 
-        console.log("$scope.route", $scope.route, _service.id)
-
         $scope.close = function () {
           $uibModalInstance.dismiss()
         }
@@ -82,7 +80,6 @@
             }, {});
           }
 
-          console.log("Route =>", data);
           $scope.errorMessage = '';
 
           RoutesService.add(data)

@@ -124,7 +124,6 @@
             .count()
             .then(
               function onSuccess(response) {
-                console.log(response)
                 $scope.itemCount = response.count;
               }
             );
@@ -135,7 +134,6 @@
             .load(_.merge({}, commonParameters, parameters))
             .then(
               function onSuccess(response) {
-                console.log(response)
                 $scope.items = response;
 
                 // Check if the all apis still exist

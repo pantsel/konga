@@ -13,8 +13,6 @@
       function controller(_, $scope, $rootScope, $stateParams,
                           $log, $state, Upstream, MessageService, $uibModal, DataModel) {
 
-
-        console.log("Loaded EditUpstreamAlertsController");
         const Alert = new DataModel('api/upstreamalert', true);
 
         $scope.alert = {
@@ -26,7 +24,6 @@
           upstream_id: $stateParams.id
         }).then((data) => {
           if(data.length) $scope.alert = _.merge($scope.alert, data[0]);
-          console.log("ALERT => ", $scope.alert);
         })
 
 
@@ -36,11 +33,9 @@
 
           if($scope.alert.id) { // Update the alert
             const data = await Alert.update($scope.alert.id, _.omit($scope.alert, ['id']));
-            console.log("Alert updated => ", data);
             $scope.alert = data.data;
           } else { // Create an alert for this upstream
             const data = await Alert.create($scope.alert)
-            console.log("Alert created => ", data);
             $scope.alert = data.data;
           }
 

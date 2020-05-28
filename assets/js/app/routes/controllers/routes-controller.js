@@ -28,7 +28,6 @@
 
           RouteModel.update(id, data)
             .then(function (res) {
-              console.log("Update Route: ", res)
               $scope.loading = false
               _fetchData()
             }).catch(function (err) {

@@ -31,9 +31,6 @@
 
       function link(scope, element, attrs) {
 
-        // console.log("!!!!!!!!!!!!!!!!!!!!!!", scope.chart, scope.url, element);
-        console.log("!!!!!!!!!!!!!!!!!!!!!!", scope.url + scope.chart.data_url + '&after=-120&format=datasource&options=nonzero')
-
         // google.charts.load('current', {'packages':['corechart']});
         // google.charts.setOnLoadCallback(drawChart);
 

@@ -126,7 +126,6 @@
           ServiceService.plugins($stateParams.service_id)
             .then(function (response) {
               $scope.plugins = response.data
-              console.log("Plugins", $scope.plugins);
               $scope.loading = false;
             }).catch(function (error) {
             console.error(error);

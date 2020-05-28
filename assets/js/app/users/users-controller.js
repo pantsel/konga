@@ -157,8 +157,6 @@
                   )
                   ;
 
-              console.log("parameters",parameters)
-
               // Fetch actual data
               var load = UserModel
                   .load(_.merge({}, commonParameters, parameters))

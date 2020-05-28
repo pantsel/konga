@@ -99,7 +99,6 @@ var AuthController = {
       .create(_.omit(data, ['password', 'password_confirmation']))
       .exec(function (err, user) {
         if (err) {
-          console.log(err.invalidAttributes)
           return res.view('welcomepage', {
             angularDebugEnabled: process.env.NODE_ENV == 'production' ? false : true,
             konga_version: require('../../package.json').version,

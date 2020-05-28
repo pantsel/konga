@@ -20,7 +20,6 @@
         $scope.loading = true;
         RoutesService.consumers($stateParams.route_id)
           .then(function (response) {
-            console.log("GOT ROUTE CONSUMERS", response.data)
             if(response.data.data) {
               $scope.items = response.data;
               $scope.loading = false;

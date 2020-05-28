@@ -224,7 +224,7 @@
           // Special exception that allows a user to edits his/hers own profile
           if (!(context == 'users' && action == 'show' && params.id == UserService.user().id)) {
             if (!AuthService.hasPermission(context, action)) {
-              console.log(fromState)
+              // console.log(fromState)
               event.preventDefault();
               cfpLoadingBar.complete();
 
@@ -300,7 +300,7 @@
         // ToDo decide whether to use Gateway Info for getting active node version and stuff...
         $scope.$on('user.node.updated', function (ev, node) {
 
-          console.log("MainController:onUserNodeUpdated => Fetching Gateway Info", node)
+          // console.log("MainController:onUserNodeUpdated => Fetching Gateway Info", node)
           // Fetch and store Gateway Info
           _fetchGatewayInfo();
         })
@@ -322,7 +322,7 @@
           InfoService.getInfo()
             .then(function (response) {
               $rootScope.Gateway = response.data
-              console.log("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
+              // console.log("MainController:onUserNodeUpdated:Gateway Info =>", $rootScope.Gateway);
             }).catch(function (err) {
             $rootScope.Gateway = null;
           });
