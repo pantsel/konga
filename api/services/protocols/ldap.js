@@ -38,7 +38,7 @@ var ldapToUser = function (ldapUser, user, next) {
                 console.error("Failed to create user from ldap", err);
                 next(err);
             } else {
-                next(null, data);
+                next(null, user);
             }
         });
     }
