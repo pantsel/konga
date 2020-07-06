@@ -12,8 +12,8 @@ if [ $# -eq 0 ]
         case "${option}"
             in
             c) COMMAND=${OPTARG};;
-            a) ADAPTER=${OPTARG};;
-            u) URI=${OPTARG};;
+            a) ADAPTER_OPTS="--adapter ${OPTARG}";;
+            u) URI_OPTS="--uri ${OPTARG}";;
         esac
     done
 
@@ -24,7 +24,7 @@ if [ $# -eq 0 ]
 
     if [ "$COMMAND" == "prepare" ]
         then
-            node ./bin/konga.js $COMMAND --adapter $ADAPTER --uri $URI
+            node ./bin/konga.js $COMMAND $ADAPTER_OPTS $URI_OPTS
         else
             echo "Invalid command: $COMMAND"
             exit
