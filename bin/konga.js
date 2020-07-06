@@ -54,13 +54,9 @@ else if(argv._[0] === 'prepare') {
     return process.exit(1);
   }
 
-  if(!process.env.DB_URI && !argv.uri) {
-    Sails.log.error("No db connection string is defined. Set --uri {db_connection_string}")
-    return process.exit(1);
-  }
-
   process.env.DB_ADAPTER = process.env.DB_ADAPTER || argv.adapter;
-  process.env.DB_URI = process.env.DB_URI || argv.uri;
+  if(argv.uri)
+    process.env.DB_URI = argv.uri
   process.env.PORT = _.isString(argv.port) || _.isNumber(argv.port) ? argv.port : 1339;
 
   require("../makedb")(function(err) {
