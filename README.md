@@ -48,7 +48,7 @@ If you need to discuss anything Konga related, we have a chatroom on Gitter:
 * Monitor Node and API states using health checks.
 * Email & Slack notifications.
 * Multiple users.
-* Easy database integration (MySQL, postgresSQL, MongoDB).
+* Easy database integration (MySQL, PostgreSQL, MongoDB).
 
 ## Compatibility
 **From 0.14.0 onwards, Konga is ONLY compatible with Kong 1.x**
@@ -126,7 +126,7 @@ The application also supports some of the most popular databases out of the box:
 
 1. MySQL
 2. MongoDB
-3. PostgresSQL
+3. PostgreSQL
 
 In order to use them, set the appropriate env vars in your `.env` file.
  
@@ -142,7 +142,7 @@ Konga GUI will be available at `http://localhost:1337`
 ### Production
 
 ***************************************************************************************** 
-In case of `MySQL` or `PostgresSQL` adapters, Konga will not perform db migrations when running in production mode.
+In case of `MySQL` or `PostgreSQL` adapters, Konga will not perform db migrations when running in production mode.
 
 You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
 , passing the args needed for the database connectivity.
