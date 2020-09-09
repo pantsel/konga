@@ -66,7 +66,7 @@ var KongConsumersController = {
 
           // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
           var whitelisted = _.filter(apis, function (api) {
-            return api.acl && _.intersection(api.acl.config.whitelist, consumerGroups).length > 0;
+            return api.acl && _.intersection(api.acl.config.allow, consumerGroups).length > 0;
           });
 
 
@@ -189,7 +189,7 @@ var KongConsumersController = {
 
       // Gather services with access control restrictions whitelisting at least one of the consumer's groups.
       let whitelisted = _.filter(services,function (service) {
-        return service.acl && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0;
+        return service.acl && _.intersection(service.acl.config.allow,consumerGroups).length > 0;
       });
       sails.log("***********************************************")
       sails.log("KongConsumersController:services:whitelisted", _.map(whitelisted, item => item.name))
@@ -200,7 +200,7 @@ var KongConsumersController = {
       // & access control restrictions whitelisting at least one of the consumer's groups.
       let whitelistedNoAuth = _.filter(services,function (service) {
         return service.acl
-          && _.intersection(service.acl.config.whitelist,consumerGroups).length > 0
+          && _.intersection(service.acl.config.allow,consumerGroups).length > 0
           && (!service.auths || !service.auths.length);
       });
       sails.log("***********************************************")
@@ -356,7 +356,7 @@ var KongConsumersController = {
 
         // Gather apis with access control restrictions whitelisting at least one of the consumer's groups.
         let whitelisted = _.filter(routes,function (route) {
-          return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
+          return route.acl && _.intersection(route.acl.config.allow,consumerGroups).length > 0;
         });
 
         let eligible = matchingAuths.length && whitelisted.length ? _.intersection(matchingAuths, whitelisted) : matchingAuths.concat(whitelisted);
