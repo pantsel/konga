@@ -11,11 +11,11 @@ var _ = require('lodash');
  */
 module.exports = function dynamicNode(request, response, next) {
 
-  if (request.headers['connection-id'] || request.query.connection_id) {
+  if (request.query.connection_id || request.headers['connection-id']) {
 
-    sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.", request.headers['connection-id'] || request.query.connection_id);
+    sails.log.debug("Policy:dynamicNode", "`connection-id` is defined.", request.query.connection_id || request.headers['connection-id']);
 
-    sails.models.kongnode.findOne(request.headers['connection-id'] || request.query.connection_id)
+    sails.models.kongnode.findOne(request.query.connection_id || request.headers['connection-id'])
       .exec(function (err, node) {
         if (err) return next(err);
         if (!node) return response.notFound({
