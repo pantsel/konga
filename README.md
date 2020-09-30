@@ -1,9 +1,16 @@
 ## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 
-[![Dashboard](screenshots/bc3.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)
+[![Dashboard](screenshots/bc3.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc3.png)
 
 _Konga is not an official app. No affiliation with [Kong](https://www.konghq.com/)._
+
+<div align="center">
+<span>README on other languages</span>
+<p>
+<a href=".github/README_pt_BR.md">Português Brasil (pt_BR)</a>
+</p>
+</div>
 
 ### Support the project
 If you find Konga helpful, 
@@ -62,14 +69,14 @@ or `konga:legacy` from docker hub instead.
 - Npm
 
 ## Used libraries
-* Sails.js, http://sailsjs.org/
-* AngularJS, https://angularjs.org/
+* [Sails.js, http://sailsjs.org/](http://sailsjs.org/)
+* [AngularJS, https://angularjs.org](https://angularjs.org/)
 
 ## Installation
 
 Install `npm` and `node.js`. Instructions can be found [here](http://sailsjs.org/#/getStarted?q=what-os-do-i-need).
 
-Install `bower`, ad `gulp` packages.
+Install `bower`, and `gulp` packages.
 ```
 $ git clone https://github.com/pantsel/konga.git
 $ cd konga
@@ -77,8 +84,7 @@ $ npm i
 ```
 
 ## Configuration
-You can configure your  application to use your environment specified
-settings.
+You can configure your application to use your environment specific settings.
 
 There is an example configuration file on the root folder.
 
@@ -112,8 +118,8 @@ These are the general environment variables Konga uses.
 | TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
 | NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | -                                         |
 | BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | <string>                                     | -                                         |
-| KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | <string>                                     | -                                         |
-| KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/SEED_DEFAULT_DATA.md)                               | <string>                                     | -                                         |
+| KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/en/SEED_DEFAULT_DATA.md).                               | <string>                                     | -                                         |
+| KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/en/SEED_DEFAULT_DATA.md)                               | <string>                                     | -                                         |
 
 
 ### Databases Integration
@@ -229,9 +235,9 @@ $ docker run -p 1337:1337
 The GUI will be available at `http://{your server's public ip}:1337`
 
 
-[It is possible to seed default users on first install.](./docs/SEED_DEFAULT_DATA.md)
+[It is possible to seed default users on first install.](./docs/en/SEED_DEFAULT_DATA.md)
 
-You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
+You may also configure Konga to authenticate via [LDAP](./docs/en/LDAP.md).
 
 
 ## Upgrading
