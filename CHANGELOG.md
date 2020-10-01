@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file.
 * Konga can now be used without authentication. In order to do that,
   simply set the env var `NO_AUTH=true`.
 * You can now seed default Users and Kong Connections on first install.
-  Check out the [docs](./docs/SEED_DEFAULT_DATA.md).
+  Check out the [docs](./docs/en/SEED_DEFAULT_DATA.md).
 * The new env var `BASE_URL`, allows you to run Konga behind a reverse proxy on a relative path.
   For example, if you configure your proxy to route requests to `example.com/konga`
   you will need to set `BASE_URL=/konga/`
