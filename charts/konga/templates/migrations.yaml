@@ -1,0 +1,44 @@
+{{- if and .Values.runMigrations ( ne .Values.config.db_adapter "mongo" ) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "konga.name" . }}-migrations
+  labels:
+    app: {{ include "konga.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: init-db-migrations
+spec:
+  template:
+    metadata:
+      name: {{ include "konga.name" . }}-migrations
+      labels:
+        app.kubernetes.io/name: {{ include "konga.name" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        helm.sh/chart: {{ include "konga.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-migrations
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command:
+            - "/app/start.sh"
+          args:
+            - "-c"
+            - "prepare"
+            {{- if and ( eq .Values.config.db_adapter "postgres" ) ( empty .Values.config.db_uri) }}
+            {{- $dburi := ( print "postgresql://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 5432 .Values.config.db_port ) "/" .Values.config.db_database ) }}
+            - {{ .Values.config.db_adapter | quote }}
+            - -u
+            - {{ $dburi | quote }}
+            {{- else if and ( eq .Values.config.db_adapter "mysql" ) ( empty .Values.config.db_uri) }}
+            {{- $dburi := ( print .Values.config.db_adapter "://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 3306 .Values.config.db_port ) "/" .Values.config.db_database ) }}
+            - {{ .Values.config.db_adapter | quote }}
+            - -u
+            - {{ $dburi | quote }}
+{{- end }}
+      restartPolicy: Never
+  backoffLimit: 20
+{{- end }}
