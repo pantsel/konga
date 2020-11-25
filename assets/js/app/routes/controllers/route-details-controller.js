@@ -18,12 +18,14 @@
         if($scope.route.headers && !_.isArray($scope.route.headers) && Object.keys($scope.route.headers).length) {
           const array = [];
           Object.keys($scope.route.headers).forEach(key => {
-            const str = `${key}:${$scope.route.headers[key].join(",")}`
-            array.push(str)
+            $scope.route.headers[key].forEach(header => {
+              const str = `${key}:${header}`
+              array.push(str)
+            })
           })
           $scope.route.headers = array;
         }
-        
+
         // Transform sources and destinations
         if($scope.route.sources && $scope.route.sources.length) {
           $scope.route.sources = _.map($scope.route.sources, source => {
@@ -85,19 +87,16 @@
           }
 
           if(data.headers && data.headers.length) {
-            data.headers = _.map(data.headers, (item) => {
+            const headers = {};
+            _.map(data.headers, (item) => {
               const parts = item.split(":");
-              const obj = {};
-              obj[parts[0]] = parts[1].split(",").filter(function (el) {
-                return el;
-              })
-              return obj;
-            }).reduce(function(r, e) {
-              const key = Object.keys(e)[0];
-              const value = e[key];
-              r[key] = value;
-              return r;
-            }, {});
+              if (headers[parts[0]] !== undefined) {
+                headers[parts[0]].push(parts[1]);
+              } else {
+                headers[parts[0]] = [parts[1]];
+              }
+            })
+            data.headers = headers;
           }
 
           console.log("Submitting route", data);
