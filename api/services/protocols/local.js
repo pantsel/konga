@@ -87,7 +87,7 @@ exports.login = function login(request, identifier, password, next) {
       } else if (!user) {
         next(null, false);
       } else {
-        sails.log("Passport:Policy:local:findUser =>",user)
+        sails.log("Passport:Policy:local:findUser:error =>",error)
         sails.models.passport
           .findOne({
             protocol: 'local',
@@ -95,7 +95,6 @@ exports.login = function login(request, identifier, password, next) {
           })
           .exec(function onExec(error, passport) {
             sails.log("Passport:Policy:local:findUserPassport:error =>",error)
-            sails.log("Passport:Policy:local:findUserPassport =>",passport)
             if (passport) {
               passport.validatePassword(password, function callback(error, response) {
                 if (error) {
