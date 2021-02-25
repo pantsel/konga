@@ -99,8 +99,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
   afterDestroy: function (values, cb) {
 
-    sails.log("KongNode:afterDestroy:called => ", values);
-
     // Stop health checks
     values.forEach(function (node) {
       HealthCheckEvents.emit('health_checks.stop', node);
