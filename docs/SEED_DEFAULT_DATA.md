@@ -80,3 +80,15 @@ To make Konga use this file, you should set the environment variable KONGA_SEED_
 ````
 export KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE=~/kong_node.data 
 ````
+
+To make Konga update seed on every deployment, you can set next environment variables.
+
+For user data update:
+```
+export KONGA_SEED_USER_DATA_FORCE_UPDATE=true
+```
+For node data update:
+```
+export KONGA_SEED_KONG_NODE_FORCE_UPDATE=true
+```
+seeds will be merged with current settings
