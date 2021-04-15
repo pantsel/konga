@@ -11,25 +11,46 @@ data:
   {{- if .Values.config }}
   PORT: "{{ default 1337 .Values.config.port }}"
   NODE_ENV: {{ default "development" .Values.config.node_env }}
+  {{- if not ( empty .Values.config.ssl_key_path ) }}
   SSL_KEY_PATH: {{ .Values.config.ssl_key_path }}
+  {{- end }}
+  {{- if not ( empty .Values.config.ssl_crt_path )}}
   SSL_CRT_PATH: {{ .Values.config.ssl_crt_path }}
+  {{- end }}
   KONGA_HOOK_TIMEOUT: "{{ default 60000 .Values.config.konga_hook_timeout }}"
   DB_ADAPTER: {{ default "postgres" .Values.config.db_adapter }}
-  DB_URI: {{ .Values.config.db_uri }}
-  DB_HOST: {{ default "localhost" .Values.config.db_host }}
-  DB_PORT: "{{ default 5432 .Values.config.db_port }}"
+  {{- if and ( eq .Values.config.db_adapter "postgres" ) ( empty .Values.config.db_uri) }}
+  {{- $dburi := ( print "postgresql://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 5432 .Values.config.db_port ) "/" .Values.config.db_database ) }}
+  DB_URI: {{ $dburi | quote }}
+  {{- else if and ( eq .Values.config.db_adapter "mysql" ) ( empty .Values.config.db_uri) }}
+  {{- $dburi := ( print .Values.config.db_adapter "://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 3306 .Values.config.db_port ) "/" .Values.config.db_database ) }}
+  DB_URI: {{ $dburi | quote }}
+  {{- else if and ( eq .Values.config.db_adapter "mongo" ) ( empty .Values.config.db_uri ) }}
+  {{- $dburi := ( print "mongodb://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 27017 .Values.config.db_port ) "/" .Values.config.db_database ) }}
+  DB_URI: {{ $dburi | quote }}
+  {{- end }}
+  DB_HOST: {{ .Values.config.db_host }}
+  DB_PORT: {{ .Values.config.db_port | quote }}
   DB_USER: {{ .Values.config.db_user }}
   DB_PASSWORD: {{ .Values.config.db_password }}
   DB_DATABASE: {{ default "konga_database" .Values.config.db_database }}
+  {{- if eq .Values.config.db_adapter "postgres" }}
   DB_PG_SCHEMA: {{ default "public" .Values.config.db_pg_schema }}
+  {{- end}}
   {{- if eq .Values.config.node_env "development" }}
   KONGA_LOG_LEVEL: {{ default "debug" .Values.config.log_level }}
-  {{ else if eq .Values.config.node_env "production" }}
+  {{- else if eq .Values.config.node_env "production" }}
   KONGA_LOG_LEVEL: {{ default "warn" .Values.config.log_level }}
   {{- end }}
+  {{- if not ( empty .Values.config.token_secret ) }}
   TOKEN_SECRET: {{ .Values.config.token_secret }}
+  {{- end }}
+  {{- if not ( empty .Values.config.konga_node_data ) }}
   KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE: "{{ .Values.config.konga_node_data }}"
+  {{- end }}
+  {{- if not ( empty .Values.config.konga_user_data ) }}
   KONGA_SEED_USER_DATA_SOURCE_FILE: "{{ .Values.config.konga_user_data }}"
+  {{- end }}
   {{- end }}
 
   {{- if .Values.ldap }}
