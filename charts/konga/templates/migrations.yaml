@@ -28,17 +28,18 @@ spec:
           args:
             - "-c"
             - "prepare"
+            - "a"
             {{- if and ( eq .Values.config.db_adapter "postgres" ) ( empty .Values.config.db_uri) }}
             {{- $dburi := ( print "postgresql://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 5432 .Values.config.db_port ) "/" .Values.config.db_database ) }}
             - {{ .Values.config.db_adapter | quote }}
-            - -u
+            - "-u"
             - {{ $dburi | quote }}
             {{- else if and ( eq .Values.config.db_adapter "mysql" ) ( empty .Values.config.db_uri) }}
             {{- $dburi := ( print .Values.config.db_adapter "://" .Values.config.db_user ":" .Values.config.db_password "@" ( default "localhost" .Values.config.db_host ) ":" ( default 3306 .Values.config.db_port ) "/" .Values.config.db_database ) }}
             - {{ .Values.config.db_adapter | quote }}
-            - -u
+            - "-u"
             - {{ $dburi | quote }}
-{{- end }}
+            {{- end }}
       restartPolicy: Never
   backoffLimit: 20
 {{- end }}
