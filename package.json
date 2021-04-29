@@ -47,7 +47,7 @@
     "rc": "^1.2.8",
     "sails": "~0.12.14",
     "sails-disk": "^0.10.10",
-    "sails-mongo": "^0.12.3",
+    "sails-mongo": "^2.0.0",
     "sails-mysql": "^0.11.5",
     "sails-postgresql": "^0.11.4",
     "sails-sqlserver": "^0.10.8",
