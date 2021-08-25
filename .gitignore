@@ -115,6 +115,7 @@ npm-debug.log
 .netbeans
 nbproject
 .idea
+.vscode
 .node_history
 /logs/*
 !/logs/.gitkeep

@@ -363,14 +363,14 @@ var KongService = {
 
     // Gather routes with access control restrictions whitelisting at least one of the consumer's groups.
     let whitelisted = _.filter(routes,function (route) {
-      return route.acl && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0;
+      return route.acl && _.intersection(route.acl.config.allow,consumerGroups).length > 0;
     });
 
     // Gather routes  with no authentication plugins
     // & access control restrictions whitelisting at least one of the consumer's groups.
     let whitelistedNoAuth = _.filter(routes,function (route) {
       return route.acl
-        && _.intersection(route.acl.config.whitelist,consumerGroups).length > 0
+        && _.intersection(route.acl.config.allow,consumerGroups).length > 0
         && (!route.auths || !route.auths.length);
     });
 

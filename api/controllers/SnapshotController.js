@@ -131,6 +131,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
                     if (consumer.credentials[key].length) {
                       await Promise.all(consumer.credentials[key].map(async (cred) => {
                         const singularKey = plural2singularMAP[key] || key;
+                        if (cred.ttl == null) cred = _.omit(cred, ["ttl"]) // fix key-auth plugin "bad argument to 'floor' (number expected" error
                         try {
                           await KongService.post(`/consumers/${consumer.id}/${singularKey}`, req.connection, _.omit(cred, ["id", "consumer"]));
                           responseData[key].imported++;
@@ -195,7 +196,7 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
               await Promise.all(snapshot.data[entity].map(async (item) => {
                 try {
-                  await KongService.put(`/${entity}/${item.id}`, req.connection, _.omit(item, ["id", "extras"]));
+                  await KongService.put(`/${entity}/${item.id}`, req.connection, _.omit(item, ["id", "extras", "run_on"]));
                   responseData[entity].imported++;
                 } catch (e) {
 
@@ -665,4 +666,3 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
   }
 
 });
-
