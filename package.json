@@ -64,7 +64,7 @@
     "supertest": "1.1.0"
   },
   "scripts": {
-    "postinstall": "bower --allow-root install",
+    "postinstall": "bower --allow-root install && patch-package",
     "start": "node --harmony app.js",
     "production": "node --harmony app.js --prod",
     "debug": "node debug app.js",
