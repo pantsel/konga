@@ -108,6 +108,7 @@ These are the general environment variables Konga uses.
 | DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
 | DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
 | DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                     | -                                      | `public`                                     |
+| DB_IS_PG12_OR_NEWER| If `true` will set `isVersion12OrNewer: true` to sails-postgresql in order to work with Postgres12 or newer.               | true/false |                           | false                                        |
 | KONGA_LOG_LEVEL    | The logging level                                                                                                          | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
 | TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
 | NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | -                                         |
