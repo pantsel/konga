@@ -1,0 +1,17 @@
+version: 2.1
+orbs:
+  datacamp-ecr: datacamp/ecr@0
+workflows:
+  version: 2
+  build:
+    jobs:
+      - datacamp-ecr/build_and_push_image_to_ecr:
+          name: Build and push 
+          context: org-global
+          aws-access-key-id: $OPS_AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $OPS_AWS_SECRET_ACCESS_KEY
+          account-url: $OPS_ECR_URL
+          dockerfile: Dockerfile
+          repo: konga-forked
+          tag: $CIRCLE_SHA1
+
