@@ -1,0 +1,28 @@
+diff --git a/node_modules/sails-postgresql/lib/adapter.js b/node_modules/sails-postgresql/lib/adapter.js
+index db77370..e9f1794 100644
+--- a/node_modules/sails-postgresql/lib/adapter.js
++++ b/node_modules/sails-postgresql/lib/adapter.js
+@@ -159,16 +159,21 @@ module.exports = (function() {
+         var tableName = table;
+         var schemaName = getSchema(connectionName, table);
+ 
++        var is12OrNewer = connectionObject.config.isVersion12OrNewer; // look for parameter
++        var compatible = function (s) { return is12OrNewer ? "" : s; }; // ignore the field if v12+
++
+         // Build query to get a bunch of info from the information_schema
+         // It's not super important to understand it only that it returns the following fields:
+         // [Table, #, Column, Type, Null, Constraint, C, consrc, F Key, Default]
++
++        /* Ignore columns consrc and Default if the postgres version is 12+ */
+         var query = "SELECT x.nspname || '.' || x.relname as \"Table\", x.attnum as \"#\", x.attname as \"Column\", x.\"Type\"," +
+           " case x.attnotnull when true then 'NOT NULL' else '' end as \"NULL\", r.conname as \"Constraint\", r.contype as \"C\", " +
+-          "r.consrc, fn.nspname || '.' || f.relname as \"F Key\", d.adsrc as \"Default\" FROM (" +
++          compatible("r.consrc,") + " fn.nspname || '.' || f.relname as \"F Key\"" + compatible(", d.adsrc as \"Default\"") + "FROM(" +
+           "SELECT c.oid, a.attrelid, a.attnum, n.nspname, c.relname, a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod) as \"Type\", " +
+           "a.attnotnull FROM pg_catalog.pg_attribute a, pg_namespace n, pg_class c WHERE a.attnum > 0 AND NOT a.attisdropped AND a.attrelid = c.oid " +
+           "and c.relkind not in ('S','v') and c.relnamespace = n.oid and n.nspname not in ('pg_catalog','pg_toast','information_schema')) x " +
+-          "left join pg_attrdef d on d.adrelid = x.attrelid and d.adnum = x.attnum " +
++          compatible("left join pg_attrdef d on d.adrelid = x.attrelid and d.adnum = x.attnum ") +
+           "left join pg_constraint r on r.conrelid = x.oid and r.conkey[1] = x.attnum " +
+           "left join pg_class f on r.confrelid = f.oid " +
+           "left join pg_namespace fn on f.relnamespace = fn.oid " +
