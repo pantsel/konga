@@ -26,3 +26,4 @@ index db77370..e9f1794 100644
            "left join pg_constraint r on r.conrelid = x.oid and r.conkey[1] = x.attnum " +
            "left join pg_class f on r.confrelid = f.oid " +
            "left join pg_namespace fn on f.relnamespace = fn.oid " +
+           
