@@ -36,7 +36,7 @@
     "minimatch": "^3.0.4",
     "minimist": "^1.2.5",
     "mkdirp": "^0.5.5",
-    "moment": "^2.25.1",
+    "moment": "^2.29.2",
     "node-cron": "^1.2.1",
     "node-sass": "^4.13.1",
     "nodemailer": "^4.7.0",
