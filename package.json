@@ -16,7 +16,7 @@
     "bluebird": "3.0.5",
     "bower": "^1.8.8",
     "dotenv": "^6.2.0",
-    "ejs": "^2.7.4",
+    "ejs": "^3.1.7",
     "grunt": "^1.1.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-concat": "^1.0.1",
