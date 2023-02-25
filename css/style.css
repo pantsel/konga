@@ -2122,3 +2122,59 @@ text-transform: uppercase;
     margin: auto;
     display: block;
 }
+
+.top-banner {
+    height: 50px;
+    background-color: #fff;
+    font-size: 18px;
+    /* font-weight: bold; */
+    /* z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; */
+}
+
+.top-banner > .container > .row, .top-banner > span {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: inherit;
+}
+
+a.text-zuplo, a.text-zuplo:hover {
+    color: #ff00bd
+}
+
+.zuplo-button {
+    min-width: 150px;
+    padding: 0 10px;
+    background-color: white;
+    border-radius: 2px;
+    color: #ff00bd;
+    font-family: PTSans;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    /* text-transform: uppercase; */
+    line-height: 30px;
+    margin: 0 10px;
+    border: 2px solid white;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.zuplo-button.button-inverse {
+    color: #fff;
+    background: #ff00bd;
+    border: 2px solid #ff00bd;
+    margin: 0;
+}
+.zuplo-button.button-inverse:hover {
+    color: #ff00bd;
+    background: transparent;
+    border: 2px solid #ff00bd;
+}
