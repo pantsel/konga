@@ -74,8 +74,8 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
 
     // This service is Access Controlled by ACL plugin
 
-    let whiteListedGroups = serviceAclPlugin ? serviceAclPlugin.config.whitelist || [] : [];
-    let blackListedGroups = serviceAclPlugin ? serviceAclPlugin.config.blacklist || [] : [];
+    let whiteListedGroups = serviceAclPlugin ? serviceAclPlugin.config.allow || [] : [];
+    let blackListedGroups = serviceAclPlugin ? serviceAclPlugin.config.deny || [] : [];
 
     // ACL
     sails.log("whiteListedGroups",whiteListedGroups)
@@ -191,4 +191,3 @@ module.exports = _.merge(_.cloneDeep(require('../base/Controller')), {
   }
 
 });
-

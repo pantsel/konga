@@ -25,12 +25,12 @@
               $scope.items = response.data;
               $scope.loading = false;
 
-              if(response.data.acl && response.data.acl.config.whitelist && response.data.acl.config.whitelist.length) {
-                $scope.explanatoryMessage += `<br> - included in one of the groups: <strong>${response.data.acl.config.whitelist.join(", ")}</strong>, `
+              if(response.data.acl && response.data.acl.config.allow && response.data.acl.config.allow.length) {
+                $scope.explanatoryMessage += `<br> - included in one of the groups: <strong>${response.data.acl.config.allow.join(", ")}</strong>, `
               }
 
-              if(response.data.acl && response.data.acl.config.blacklist && response.data.acl.config.blacklist.length) {
-                $scope.explanatoryMessage += `<br> - excluded from any of the groups: <strong>${response.data.acl.config.blacklist.join(", ")}</strong>, `
+              if(response.data.acl && response.data.acl.config.deny && response.data.acl.config.deny.length) {
+                $scope.explanatoryMessage += `<br> - excluded from any of the groups: <strong>${response.data.acl.config.deny.join(", ")}</strong>, `
               }
 
               if(response.data.authenticationPlugins) {
