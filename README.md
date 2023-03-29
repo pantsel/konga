@@ -118,7 +118,8 @@ These are the general environment variables Konga uses.
 | BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | <string>                                     | -                                         |
 | KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | <string>                                     | -                                         |
 | KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/SEED_DEFAULT_DATA.md)                               | <string>                                     | -                                         |
-
+| KONGA_SEED_USER_DATA_FORCE_UPDATE           | Seed default users on every deployment. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | true/false                                     | -                                         |
+| KONGA_SEED_KONG_NODE_FORCE_UPDATE      | Seed default Kong Admin API connections on every deployment. [Docs](./docs/SEED_DEFAULT_DATA.md)                               | true/false                                     | -                                         |
 
 ### Databases Integration
 

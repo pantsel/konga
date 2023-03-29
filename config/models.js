@@ -68,7 +68,9 @@ module.exports.models = {
                     self.seedObject(callback);
                 }
             }else{
-                if(modelName === 'Emailtransport') {
+                if((modelName === 'Emailtransport') || 
+                (modelName === 'User' && process.env.KONGA_SEED_USER_DATA_FORCE_UPDATE == 'true') ||
+                (modelName === 'Kongnode' && process.env.KONGA_SEED_KONG_NODE_FORCE_UPDATE == 'true')) {
                     // Update records
                     self.updateRecords(callback);
                 }else{
@@ -95,10 +97,15 @@ module.exports.models = {
                 self.seedData.forEach(function (seed) {
 
                     const updateItem = _.find(results, (item) => {
-                        return item.name === seed.name;
+                        if (modelName === 'Kongnode') {
+                            return item.name;
+                        } else if (modelName === 'User')  {
+                            return item.username === seed.username;
+                        } else {
+                            return item.name === seed.name;
+                        }
                     })
-
-                    if(updateItem) data.push(_.merge(seed, updateItem));
+                    if(updateItem) data.push(_.merge(updateItem, seed));
                 })
 
                 var fns = [];
