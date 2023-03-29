@@ -49,3 +49,7 @@ data:
   KONGA_LDAP_ATTR_LASTNAME: {{ default "sn" .Values.ldap.attr_lastname }}
   KONGA_LDAP_ATTR_EMAIL: {{ default "mail" .Values.ldap.attr_email }}
   {{- end }}
+  
+  {{- range $k, $v := .Values.configMap }}
+  {{ $k }}: {{ $v | quote }}
+  {{- end }}
