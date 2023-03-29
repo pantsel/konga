@@ -48,7 +48,7 @@ module.exports = {
 
     console.log("Creating database `" + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ) + "` if not exists.");
 
-    connection.query('CREATE DATABASE IF NOT EXISTS ' + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ), function (error, results, fields) {
+    connection.query("CREATE DATABASE IF NOT EXISTS `" + ( parsedOpts ? parsedOpts.database : dbConf.connections.mysql.database ) + "`", function (error, results, fields) {
       if (error) {
         console.error(error);
         return next(error);
