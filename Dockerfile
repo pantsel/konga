@@ -1,4 +1,4 @@
-FROM node:12.16-alpine
+FROM node:18.12.1-alpine3.17
 
 COPY . /app
 
@@ -16,6 +16,7 @@ RUN apk upgrade --update \
     && adduser -H -S -g "Konga service owner" -D -u 1200 -s /sbin/nologin konga \
     && mkdir /app/kongadata /app/.tmp \
     && chown -R 1200:1200 /app/views /app/kongadata /app/.tmp
+
 
 EXPOSE 1337
 
