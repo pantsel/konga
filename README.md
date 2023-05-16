@@ -1,3 +1,7 @@
+Sponsored by [Zuplo](https://zuplo.link/konga-github) - looking for easy-to-use API Management with a great UI? [Try Zuplo for free](https://zuplo.link/konga-github)
+
+----
+
 ## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
 
 
@@ -17,7 +21,7 @@ or becoming a [Patron](https://www.patreon.com/kongaui). Cheers!
 
 Special thanks to our supporters that help us keep the project going and the motivation alive.
 
-<a href="https://www.greenbird.com" target="_blank"><img src="screenshots/greenbird.png" width="250"></a>
+<a href="https://zuplo.link/konga-github" target="_blank"><img src="screenshots/zuplo-logo.svg" width="250"></a>
 
 ## Summary
 
