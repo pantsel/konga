@@ -23,7 +23,7 @@ var AuthController = {
         invalidAttributes: {
           username: [{
             rule: 'required',
-            message: 'An adming user is already registered!'
+            message: 'An admin user is already registered!'
           }]
         },
         old_data: data
