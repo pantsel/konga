@@ -21,4 +21,4 @@ EXPOSE 1337
 
 VOLUME /app/kongadata
 
-ENTRYPOINT ["/app/start.sh"]
+ENTRYPOINT ["/bin/sh","/app/start.sh"]

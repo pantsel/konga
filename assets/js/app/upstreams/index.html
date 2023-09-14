@@ -53,7 +53,13 @@
                     <td>
                         <raw-view data-item="item"></raw-view>
                     </td>
-                    <td>{{item.name || "-"}}</td>
+                    <td>
+                        <p class="no-margin">
+                            <a class="clickable"
+                               data-ui-sref="upstreams.read({id:item.id})"><strong>{{item.name || "-"}}</strong></a>
+                        </p>
+                    </td>
+<!--                    <td>{{item.name || "-"}}</td>-->
                     <td>
                         <span class="badge badge-tag badge-success badge-inverse" ng-repeat="tag in item.tags">
                             <i class="mdi mdi-tag"></i>&nbsp;
@@ -62,8 +68,8 @@
                     </td>
                     <td>{{item.slots || "-"}}</td>
                     <td>{{moment(item.created_at * 1000).format("MMM DD YYYY @HH:mm")}}</td>
-                    <td ng-if="user.hasPermission('upstreams','edit')">
-                        <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})">
+                    <td>
+                        <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.read({id:item.id})">
                             <i class="mdi mdi-information-outline"></i>
                             details
                         </a>

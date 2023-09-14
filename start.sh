@@ -9,8 +9,7 @@ if [ $# -eq 0 ]
   else
     while getopts "c:a:u:" option
     do
-        case "${option}"
-            in
+        case "${option}" in
             c) COMMAND=${OPTARG};;
             a) ADAPTER=${OPTARG};;
             u) URI=${OPTARG};;

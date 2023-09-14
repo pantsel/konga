@@ -15,6 +15,7 @@
 
 
         $scope.context = 'update';
+        $scope.partial = 'js/app/upstreams/partials/upstream-form.html?r=' + Date.now();
 
         $scope.onTagInputKeyPress = function ($event) {
           if($event.keyCode === 13) {
