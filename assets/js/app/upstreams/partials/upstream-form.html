@@ -617,4 +617,12 @@
     </div>
     <!-- END PASSIVE HEALTHCHECKS -->
 
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-8">
+            <button type="button" class="btn btn-primary btn-block" ng-click="submit()">
+                <i class="mdi mdi-check"></i>
+                {{context === 'update' ? 'Submit Changes' : 'Submit Upstream'}}
+            </button>
+        </div>
+    </div>
 </form>
