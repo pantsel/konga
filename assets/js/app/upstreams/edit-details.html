@@ -1,14 +1,18 @@
-<div class="panel panel-default">
-    <div class="panel-heading primary">
-        <div class="panel-title">
-            Details
-        </div>
-    </div>
-    <div class="panel-body">
-        <div class="alert alert-danger" data-ng-show="errors.message">
-            {{errors.message}}
-        </div>
-        <div ng-include="'js/app/upstreams/partials/upstream-form.html?r=' + Date.now()"
-             class=""></div>
-    </div>
+<div class="bg-light-grey padding margin-bottom">
+    <h4 class="clearfix">
+        <i class="mdi mdi-information-outline"></i>
+        Upstream details
+    </h4>
 </div>
+
+<div ng-if="!user.hasPermission('upstreams','edit')">
+    <div json-human="upstream" class="table-responsive"></div>
+</div>
+
+<form class="form-horizontal" (keydown.enter)="$event.preventDefault()" ng-if="user.hasPermission('upstreams','edit')">
+    <div class="alert alert-danger" data-ng-show="errors.message">
+        {{errors.message}}
+    </div>
+    <div data-ng-include="partial"></div>
+</form>
+
