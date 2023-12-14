@@ -46,7 +46,7 @@
                 <tr
                         dir-paginate="service in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage as filteredItems">
                     <td>
-                        <raw-view data-item="service"></raw-view>
+                        <raw-view data-enabled="service.enabled" data-item="service"></raw-view>
                     </td>
                     <td>
                         <p class="no-margin">

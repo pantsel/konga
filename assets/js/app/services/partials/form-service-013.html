@@ -6,7 +6,19 @@
         <p class="help-block">The service name.</p>
     </div>
 </div>
-
+<div class="form-group" ng-class="{'has-error' : errors.name}">
+    <label class="col-sm-4 control-label">Enabled <br><em><small class="help-block">optional</small></em></label>
+    <div class="col-sm-7">
+        <input bs-switch
+        ng-model="service.enabled"
+        switch-size="small"
+        type="checkbox"
+        switch-on-text="YES"
+        switch-off-text="NO" class="form-control">
+        <div class="text-danger" ng-if="errors.name" data-ng-bind="errors.name"></div>
+        <p class="help-block">Whether the service is active. If set to false, the proxy behavior will be as if any routes attached to it do not exist (404).</p>
+    </div>
+</div>
 <!-- EXTRAS -->
 <div class="form-group">
     <label class="col-sm-4 control-label">Description <br><em><small class="help-block">optional</small></em></label>

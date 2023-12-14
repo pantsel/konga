@@ -8,10 +8,11 @@
         restrict: 'E',
         scope: {
           item: '=',
-          text: '='
+          text: '=',
+          enabled: '=',
         },
         replace: true,
-        template : '<span class="text-nowrap clickable" data-ng-click="openRawView(item)"><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i>{{text ? "&nbsp;&nbsp;" + text : ""}}</span>',
+        templateUrl: 'js/app/core/directives/partials/RawView.html',
         controller: [
           '$scope','$uibModal',
           function controller($scope,$uibModal) {
