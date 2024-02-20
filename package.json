@@ -49,7 +49,7 @@
     "sails-disk": "^0.10.10",
     "sails-mongo": "^0.12.3",
     "sails-mysql": "^0.11.5",
-    "sails-postgresql": "^0.11.4",
+    "sails-postgresql-super": "^0.12.3",
     "sails-sqlserver": "^0.10.8",
     "sendmail": "^1.6.1",
     "socket.io-redis": "~1.0.0",
