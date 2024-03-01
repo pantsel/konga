@@ -9,7 +9,7 @@
     "GUI"
   ],
   "dependencies": {
-    "@slack/client": "^3.16.0",
+    "@slack/client": "^4.0.0",
     "async": "1.5.0",
     "barrels": "^1.6.5",
     "bcryptjs": "2.3.0",
@@ -41,7 +41,7 @@
     "node-sass": "^4.13.1",
     "nodemailer": "^4.7.0",
     "nodemailer-mailgun-transport": "^1.4.0",
-    "passport": "0.3.0",
+    "passport": "0.6.0",
     "passport-ldapauth": "^2.1.4",
     "passport-local": "1.0.0",
     "rc": "^1.2.8",
