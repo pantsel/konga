@@ -1,14 +1,17 @@
-<div class="panel panel-default">
-    <div class="panel-heading primary">
-        <div class="panel-title pull-left">
+<div class="col-md-12 bg-light-grey padding margin-bottom">
+    <div class="col-md-6 text-left">
+        <h4>
             Targets
-        </div>
-        <button class="btn btn-sm btn-primary btn-link pull-right" data-ng-click="onAddTarget()">
+        </h4>
+    </div>
+    <div class="col-md-6 text-right" ng-if="user.hasPermission('upstreams','edit')">
+        <button class="btn btn-primary btn-flat" style="margin-top: 5px" ng-click="onAddTarget()">
             <i class="mdi mdi-plus"></i>
             Add target
         </button>
-        <div class="clearfix"></div>
     </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-body">
         <p class="help-block">A target is an ip address/hostname with a port that identifies an instance of a backend service. Every upstream can have many targets, and the targets can be dynamically added and removed. So changes are effectuated on the fly.</p>
 
@@ -95,7 +98,7 @@
                         </button>
                     </td>
                     <td>
-                        <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                        <button ng-if="user.hasPermission('upstreams','delete')" type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
                             <i class="mdi mdi-delete"></i>
                             Delete
                         </button>

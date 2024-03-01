@@ -28,7 +28,7 @@
                             }
                         }
                     })
-                    .state('upstreams.edit', {
+                    .state('upstreams.read', {
                         url: '/:id',
                         data : {
                             pageName : "Edit Upstream",
@@ -41,15 +41,15 @@
                                 templateUrl : 'js/app/upstreams/edit.html',
                                 controller: 'EditUpstreamController',
                             },
-                            'details@upstreams.edit': {
+                            'details@upstreams.read': {
                                 templateUrl: 'js/app/upstreams/edit-details.html',
                                 controller:'EditUpstreamDetailsController',
                             },
-                            'targets@upstreams.edit': {
+                            'targets@upstreams.read': {
                                 templateUrl: 'js/app/upstreams/targets/targets.html',
                                 controller: 'EditUpstreamTargetsController',
                             },
-                            'alerts@upstreams.edit': {
+                            'alerts@upstreams.read': {
                                 templateUrl: 'js/app/upstreams/alerts/alerts.html',
                                 controller: 'EditUpstreamAlertsController',
                             },
