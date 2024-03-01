@@ -45,7 +45,7 @@
     "passport-ldapauth": "^2.1.4",
     "passport-local": "1.0.0",
     "rc": "^1.2.8",
-    "sails": "~0.12.14",
+    "sails": "~1.5.3",
     "sails-disk": "^0.10.10",
     "sails-mongo": "^0.12.3",
     "sails-mysql": "^0.11.5",
