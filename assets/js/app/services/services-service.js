@@ -20,6 +20,7 @@
         var properties = {
           '013': {
             name: '',
+            enabled: true,
             host: '',
             protocol: '',
             port: null,
