@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN apk upgrade --update \
     && apk add bash git ca-certificates \
-    && npm install -g bower \
+    && npm install -g bower patch-package\
     && npm --unsafe-perm --production install \
     && apk del git \
     && rm -rf /var/cache/apk/* \
