@@ -39,7 +39,7 @@ module.exports = function authenticated(request, response, next) {
       return response.json(401, {message: 'Given authorization token is not valid', logout: true});
     } else {
       // Store user id to request object
-      request.token = token;
+      request.token = token.id.toString();
 
       // We delete the token from query and body to not mess with blueprints
       request.query && delete request.query.token;
