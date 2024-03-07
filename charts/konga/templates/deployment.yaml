@@ -19,8 +19,8 @@ spec:
         app.kubernetes.io/name: {{ include "konga.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      volumes:
 {{- if .Values.extraVolumes }}
+      volumes:
 {{ toYaml .Values.extraVolumes | indent 8 }}
 {{- end }}
       containers:
@@ -42,10 +42,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "konga.fullname" . }}-config
+          {{- if .Values.resources }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
+          {{- end }}
 {{- if .Values.extraVolumeMounts }}
+          volumeMounts:
 {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
 {{- end }}
       {{- with .Values.nodeSelector }}
