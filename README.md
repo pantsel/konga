@@ -1,281 +1,218 @@
-## More than just another GUI to [KONG Admin API](http://getkong.org)    [![Build Status](https://travis-ci.org/pantsel/konga.svg?branch=master)](https://travis-ci.org/pantsel/konga)    [![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
+[![konga-build](https://github.com/glauciocampos/konga/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/glauciocampos/konga/actions/workflows/build.yml)
 
 
-[![Dashboard](screenshots/bc3.png)](https://raw.githubusercontent.com/pantsel/konga/master/screenshots/bc2.png)
+## ⚠️ This is not the oficial Konga admin repository.
+### All credits to owners and contributors
 
-_Konga is not an official app. No affiliation with [Kong](https://www.konghq.com/)._
+[KONGA OFICIAL README](./README-konga.md)
 
-## Summary
+### ⚠️ Updated base image from alpine:3.11.6 to alpine:3.19.1 and NodeJS from 12.16.3 to v12.22.12
 
-- [**Discussions & Support**](#discussions--support)
-- [**Features**](#features)
-- [**Compatibility**](#compatibility)
-- [**Prerequisites**](#prerequisites)
-- [**Used libraries**](#used-libraries)
-- [**Installation**](#installation)
-- [**Configuration**](#configuration)
-- [**Environment variables**](#environment-variables)
-- [**Running Konga**](#running-konga)
-- [**Upgrading**](#upgrading)
-- [**FAQ**](#faq)
-- [**More Kong related stuff**](#more-kong-related-stuff)
-- [**License**](#license)
+This repository aims to solve the compatibility issue with PostgreSQL-12+ and provide updates to the base image system, solving some vulnerabilities.
 
-## Discussions & Support
-If you need to discuss anything Konga related, we have a chatroom on Gitter:
+Main references:
+- [Issue regarding compatibility with PostgreSQL-12+](https://github.com/pantsel/konga/issues/487#issuecomment-1442292331)
+- [Related Pull Request](https://github.com/pantsel/konga/pull/740)
 
-[![Gitter chat](https://badges.gitter.im/pantsel-konga/Lobby.png)](https://gitter.im/pantsel-konga/Lobby)
+## Using the Image
 
-## Features
-* Manage all Kong Admin API Objects.
-* Import Consumers from remote sources (Databases, files, APIs etc.).
-* Manage multiple Kong Nodes.
-* Backup, restore and migrate Kong Nodes using Snapshots.
-* Monitor Node and API states using health checks.
-* Email & Slack notifications.
-* Multiple users.
-* Easy database integration (MySQL, postgresSQL, MongoDB).
-
-## Compatibility
-**From 0.14.0 onwards, Konga is ONLY compatible with Kong 1.x**
-
-If you're on an older Kong version , use [this](https://github.com/pantsel/konga/tree/legacy) branch 
-or `konga:legacy` from docker hub instead.
-
-## Prerequisites
-- A running [Kong installation](https://getkong.org/) 
-- Nodejs >= 8, <= 12.x (12.16 LTS is recommended)
-- Npm
-
-## Used libraries
-* Sails.js, http://sailsjs.org/
-* AngularJS, https://angularjs.org/
-
-## Installation
-
-Install `npm` and `node.js`. Instructions can be found [here](http://sailsjs.org/#/getStarted?q=what-os-do-i-need).
-
-Install `bower`, ad `gulp` packages.
-```
-$ git clone https://github.com/pantsel/konga.git
-$ cd konga
-$ npm i
-```
-
-## Configuration
-You can configure your  application to use your environment specified
-settings.
-
-There is an example configuration file on the root folder.
+To get all things working, it's necessary to add the environment variable `DB_IS_PG12_OR_NEWER` with the value `true` or `false`. This ensures compatibility with PostgreSQL-12+.
 
 ```
-.env_example
+DB_IS_PG12_OR_NEWER=true
 ```
 
-Just copy this to `.env` and make necessary changes to it. Note that this
-`.env` file is in .gitignore so it won't go to VCS at any point.
+## About the update and installation of NodeJS v12.22.12 and Alpine Base Image 3.19.1
 
-## Environment variables
-These are the general environment variables Konga uses.
+Node has been updated from version 12.16.3 to 12.22.12.
 
-| VAR                | DESCRIPTION                                                                                                                | VALUES                                 | DEFAULT                                      |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------------|
-| HOST               | The IP address that will be bind by Konga's server                                                                               | -                                      | '0.0.0.0'                                         |
-| PORT               | The port that will be used by Konga's server                                                                               | -                                      | 1337                                         |
-| NODE_ENV           | The environment                                                                                                            | `production`,`development`             | `development`                                |
-| SSL_KEY_PATH       | If you want to use SSL, this will be the absolute path to the .key file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
-| SSL_CRT_PATH       | If you want to use SSL, this will be the absolute path to the .crt file. Both `SSL_KEY_PATH` & `SSL_CRT_PATH` must be set. | -                                      | null                                         |
-| KONGA_HOOK_TIMEOUT | The time in ms that Konga will wait for startup tasks to finish before exiting the process.                                | -                                      | 60000                                        |
-| DB_ADAPTER         | The database that Konga will use. If not set, the localDisk db will be used.              | `mongo`,`mysql`,`postgres`     | -                                            |
-| DB_URI             | The full db connection string. Depends on `DB_ADAPTER`. If this is set, no other DB related var is needed.                 | -                                      | -                                            |
-| DB_HOST            | If `DB_URI` is not specified, this is the database host. Depends on `DB_ADAPTER`.                                          | -                                      | localhost                                    |
-| DB_PORT            | If `DB_URI` is not specified, this is the database port.  Depends on `DB_ADAPTER`.                                         | -                                      | DB default.                                  |
-| DB_USER            | If `DB_URI` is not specified, this is the database user. Depends on `DB_ADAPTER`.                                          | -                                      | -                                            |
-| DB_PASSWORD        | If `DB_URI` is not specified, this is the database user's password. Depends on `DB_ADAPTER`.                               | -                                      | -                                            |
-| DB_DATABASE        | If `DB_URI` is not specified, this is the name of Konga's db.  Depends on `DB_ADAPTER`.                                    | -                                      | `konga_database`                             |
-| DB_PG_SCHEMA       | If using postgres as a database, this is the schema that will be used.                                                     | -                                      | `public`                                     |
-| KONGA_LOG_LEVEL    | The logging level                                                                                                          | `silly`,`debug`,`info`,`warn`,`error`  | `debug` on dev environment & `warn` on prod. |
-| TOKEN_SECRET       | The secret that will be used to sign JWT tokens issued by Konga | - | - |
-| NO_AUTH            | Run Konga without Authentication                                                                                           | true/false                             | -                                         |
-| BASE_URL           | Define a base URL or relative path that Konga will be loaded from. Ex: www.example.com/konga                               | <string>                                     | -                                         |
-| KONGA_SEED_USER_DATA_SOURCE_FILE           | Seed default users on first run. [Docs](./docs/SEED_DEFAULT_DATA.md).                               | <string>                                     | -                                         |
-| KONGA_SEED_KONG_NODE_DATA_SOURCE_FILE      | Seed default Kong Admin API connections on first run [Docs](./docs/SEED_DEFAULT_DATA.md)                               | <string>                                     | -                                         |
+To use a newer version of the base image in this node version, the first `FROM` line in the [Dockerfile](https://github.com/nodejs/docker-node/blob/ee74eb16cf7dd67d284030f30890fbf4e91da2b1/12/alpine3.15/Dockerfile) was changed to `alpine:3.19`.
 
+Node was installed manually following the [official Docker Node repository on GitHub](https://github.com/nodejs/docker-node/blob/ee74eb16cf7dd67d284030f30890fbf4e91da2b1/12/alpine3.15/Dockerfile).
 
-### Databases Integration
+Additionally, the [docker-entrypoint](https://github.com/nodejs/docker-node/blob/ee74eb16cf7dd67d284030f30890fbf4e91da2b1/12/alpine3.15/docker-entrypoint.sh) was merged into the current Dockerfile.
 
-Konga is bundled with It's own persistence mechanism for storing users and configuration.
+```dockerfile
+###### NODE ######
+FROM alpine:3.19.1 as node12
 
-A local persistent object store is used by default, which works great as a bundled, starter database (with the strict caveat that it is for non-production use only).
+ENV NODE_VERSION 12.22.12
 
-The application also supports some of the most popular databases out of the box:
+RUN addgroup -g 1000 node \
+    && adduser -u 1000 -G node -s /bin/sh -D node \
+    && apk add --no-cache \
+        libstdc++ \
+    && apk add --no-cache --virtual .build-deps \
+        curl \
+    && ARCH= && alpineArch="$(apk --print-arch)" \
+      && case "${alpineArch##*-}" in \
+        x86_64) \
+          ARCH='x64' \
+          CHECKSUM="e5eb941bd3d5b7ab197e27c353049e6e8fd03d39c4949ea393f5af4ba8ef020a" \
+          ;; \
+        *) ;; \
+      esac \
+  && if [ -n "${CHECKSUM}" ]; then \
+    set -eu; \
+    curl -fsSLO --compressed "https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz"; \
+    echo "$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" | sha256sum -c - \
+      && tar -xJf "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+      && ln -s /usr/local/bin/node /usr/local/bin/nodejs; \
+  else \
+    echo "Building from source" \
+    # backup build
+    && apk add --no-cache --virtual .build-deps-full \
+        binutils-gold \
+        g++ \
+        gcc \
+        gnupg \
+        libgcc \
+        linux-headers \
+        make \
+        python2 \
+    # gpg keys listed at https://github.com/nodejs/node#release-keys
+    && for key in \
+      4ED778F539E3634C779C87C6D7062848A1AB005C \
+      141F07595B7B3FFE74309A937405533BE57C7D57 \
+      94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
+      74F12602B6F1C4E913FAA37AD3A89613643B6201 \
+      71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
+      8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 \
+      C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
+      C82FA3AE1CBEDC6BE46B9360C43CEC45C17AB93C \
+      DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
+      A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
+      108F52B48DB57BB0CC439B2997B01419BD92F80A \
+      B9E2F5981AA6E0CD28160D9FF13993A75599653C \
+    ; do \
+      gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
+      gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" ; \
+    done \
+    && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz" \
+    && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+    && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+    && grep " node-v$NODE_VERSION.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+    && tar -xf "node-v$NODE_VERSION.tar.xz" \
+    && cd "node-v$NODE_VERSION" \
+    && ./configure \
+    && make -j$(getconf _NPROCESSORS_ONLN) V= \
+    && make install \
+    && apk del .build-deps-full \
+    && cd .. \
+    && rm -Rf "node-v$NODE_VERSION" \
+    && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt; \
+  fi \
+  && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
+  && apk del .build-deps \
+  # smoke tests
+  && node --version \
+  && npm --version
 
-1. MySQL
-2. MongoDB
-3. PostgresSQL
+ENV YARN_VERSION 1.22.18
 
-In order to use them, set the appropriate env vars in your `.env` file.
- 
+RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
+  && for key in \
+    6A010C5166006599AA17F08146C2130DFD2497F5 \
+  ; do \
+    gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
+    gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" ; \
+  done \
+  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
+  && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+  && mkdir -p /opt \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
+  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
+  && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
+  && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+  && apk del .build-deps-yarn \
+  # smoke test
+  && yarn --version
 
-## Running Konga
+RUN addgroup -S app && adduser -S app -G app
 
-### Development
-```
-$ npm start
-```
-Konga GUI will be available at `http://localhost:1337`
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.19/main" > /etc/apk/repositories && \
+    apk -U update --no-cache
 
-### Production
+RUN apk add --no-cache apk-tools=2.14.0-r5
+RUN apk add --no-cache musl=1.2.4_git20230717-r4
+RUN apk add --no-cache libssl3=3.1.4-r5	
+RUN apk add --no-cache libcrypto3=3.1.4-r5	
+RUN apk add --no-cache busybox=1.36.1-r15	
+RUN apk add --no-cache ssl_client=1.36.1-r15	
+RUN apk add --no-cache curl=8.5.0-r0	
+RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache bash 
+RUN apk add --no-cache git
+RUN apk add --no-cache tar
 
-***************************************************************************************** 
-In case of `MySQL` or `PostgresSQL` adapters, Konga will not perform db migrations when running in production mode.
+HEALTHCHECK NONE
 
-You can manually perform the migrations by calling ```$ node ./bin/konga.js  prepare``` 
-, passing the args needed for the database connectivity.
+RUN mkdir /app
+RUN mkdir /config
 
-For example: 
+RUN chmod 777 -R /app
+RUN chmod 777 -R /config
+RUN chmod 777 -R /home/app
 
-```
-$ node ./bin/konga.js  prepare --adapter postgres --uri postgresql://localhost:5432/konga
-```
-The process will exit after all migrations are completed. 
+RUN echo '#!/bin/sh' > /usr/local/bin/docker-entrypoint.sh && \
+    echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '# Run command with node if the first argument contains a "-" or is not a system command.' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '# The last part inside the "{}" is a workaround for the following bug in ash/dash:' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=874264' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ] || { [ -f "${1}" ] && ! [ -x "${1}" ]; }; then' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '  set -- node "$@"' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'fi' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo '' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'exec "$@"' >> /usr/local/bin/docker-entrypoint.sh
 
-*****************************************************************************************
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-Finally:
-```
-$ npm run production
-```
-Konga GUI will be available at `http://localhost:1337`
+ENV HOME /home/app
 
+USER app
+WORKDIR /app
 
-### Production Docker Image
+ENTRYPOINT ["docker-entrypoint.sh"]
 
-The following instructions assume that you have a running Kong instance following the
-instructions from [Kong's docker hub](https://hub.docker.com/_/kong/)
-```
-$ docker pull pantsel/konga
-$ docker run -p 1337:1337 \
-             --network {{kong-network}} \ // optional
-             --name konga \
-             -e "NODE_ENV=production" \ // or "development" | defaults to 'development'
-             -e "TOKEN_SECRET={{somerandomstring}}" \
-             pantsel/konga
-```
-
-#### To use one of the supported databases
-
-1. ##### Prepare the database
-> **Note**: You can skip this step if using the `mongo` adapter.
-
-You can prepare the database using an ephemeral container that runs the prepare command.
-
-**Args**
-
-argument  | description | default
-----------|-------------|--------
--c      | command | -
--a      | adapter (can be `postgres` or `mysql`) | -
--u     | full database connection url | -
-
-```
-$ docker run --rm pantsel/konga:latest -c prepare -a {{adapter}} -u {{connection-uri}}
-```
-
-
-2. ##### Start Konga
-```
-$ docker run -p 1337:1337 
-             --network {{kong-network}} \ // optional
-             -e "TOKEN_SECRET={{somerandomstring}}" \
-             -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
-             -e "DB_HOST=your-db-hostname" \
-             -e "DB_PORT=your-db-port" \ // Defaults to the default db port
-             -e "DB_USER=your-db-user" \ // Omit if not relevant
-             -e "DB_PASSWORD=your-db-password" \ // Omit if not relevant
-             -e "DB_DATABASE=your-db-name" \ // Defaults to 'konga_database'
-             -e "DB_PG_SCHEMA=my-schema"\ // Optionally define a schema when integrating with prostgres
-             -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
-             --name konga \
-             pantsel/konga
-             
-             
- // Alternatively you can use the full connection string to connect to a database
- $ docker run -p 1337:1337 
-              --network {{kong-network}} \ // optional
-              -e "TOKEN_SECRET={{somerandomstring}}" \
-              -e "DB_ADAPTER=the-name-of-the-adapter" \ // 'mongo','postgres','sqlserver'  or 'mysql'
-              -e "DB_URI=full-connection-uri" \
-              -e "NODE_ENV=production" \ // or 'development' | defaults to 'development'
-              --name konga \
-              pantsel/konga
-```
-
-
-The GUI will be available at `http://{your server's public ip}:1337`
-
-
-[It is possible to seed default users on first install.](./docs/SEED_DEFAULT_DATA.md)
-
-You may also configure Konga to authenticate via [LDAP](./docs/LDAP.md).
-
-
-## Upgrading
-In some cases a newer version of Konga may introduce changes in database schemas.
-The only thing you need to do is to start Konga in dev mode once so that the migrations will be applied.
-Then stop the app and run it again in production mode.
-
-if you're using docker, you can lift an ephemeral container, as stated before:
-```
-$ docker run --rm pantsel/konga:latest -c prepare -a {{adapter}} -u {{connection-uri}}
-```
-
-## FAQ
-
-##### 1. Getting blank page with `Uncaught ReferenceError: angular is not defined`
-
-In some cases when running `npm install`, the bower dependencies are not installed properly.
-You will need to cd into your project's root directory and install them manually by typing
-```
-$ npm run bower-deps
+CMD [ "node" ]
 ```
 
-##### 2. Can't add/edit some plugin properties.
-When a plugin property is an array, the input is handled by a chip component.
-You will need to press `enter` after every value you type in
-so that the component assigns it to an array index.
-See issue [#48](https://github.com/pantsel/konga/issues/48) for reference.
+### Konga Project's Dockerfile
 
-##### 3. EACCES permission denied, mkdir '/kongadata/'.
-If you see this error while trying to run Konga, it means that konga has no write permissions to
-it's default data dir `/kongadata`.  You will just have to define the storage path yourself to 
-a directory Konga will have access permissions via the env var `STORAGE_PATH`.
+The **Dockerfile of the Konga project** was adapted to incorporate a solution for compatibility issues with PostgreSQL-12 or newer. This was done by downloading the [master branch of a PR in the official Konga repository](https://github.com/vichaos/konga/tree/add-support-to-postgres12-or-newer), which contains the solution made by @vichaos.
 
-##### 4. The hook `grunt` is taking too long to load
-The default timeout for the sails hooks to load is 60000. In some cases, depending on
-the memory the host machine has available, startup tasks like code minification and uglyfication
-may take longer to complete. You can fix that by setting then env var `KONGA_HOOK_TIMEOUT` to something
-greater than 60000, like 120000.
+It was merged into the one above, with the installation of the older package patch-package@6.5.1 from the [@matejd's post](https://github.com/pantsel/konga/pull/740#issuecomment-1712467128)
 
 
-## More Kong related stuff
-- [**Kong Admin proxy**](https://github.com/pantsel/kong-admin-proxy)
-- [**Kong Middleman plugin**](https://github.com/pantsel/kong-middleman-plugin)
+```dockerfile
+###### KONGA ######
+FROM node12
 
-## Author
+USER root
+WORKDIR /app
 
-Panagis Tselentis
+COPY . /app
 
-## License
-```
-The MIT License (MIT)
-=====================
+RUN apk upgrade --update --no-cache
+RUN apk add bash git ca-certificates python3 make --no-cache
+RUN npm install -g bower
+RUN npm install -g patch-package@6.5.1 #NEWLINE
+RUN npm --unsafe-perm --production install
+RUN apk del git
+RUN rm -rf /var/cache/apk/* \
+        /app/.git \
+        /app/screenshots \
+        /app/test
+RUN adduser -H -S -g "Konga service owner" -D -u 1200 -s /sbin/nologin konga
+RUN mkdir -p /app/kongadata /app/.tmp
+RUN chown -R 1200:1200 /app/kongadata /app/.tmp
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+
+EXPOSE 1337
+
+VOLUME /app/kongadata
+
+ENTRYPOINT ["/app/start.sh"]
 ```

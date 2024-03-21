@@ -1,0 +1,89 @@
+name: konga-build
+
+on:
+  push:
+    branches:
+      - master
+      - 'test/**'
+      - 'releases/**'
+  workflow_dispatch:
+
+jobs:
+  docker_build_and_push:
+    name: get docker image info
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Setup jq'
+        uses: dcarbone/install-jq-action@v2
+        with:
+          version: '1.7'
+          force: 'false'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Docker Image Details
+        run: |
+          app_name=$(jq -r '.name' package.json)
+          app_version=$(jq -r '.version' package.json)
+
+          echo "app_ame: $app_name"
+          echo "app_version: $app_version"
+          echo "app_version=$app_version" >> $GITHUB_ENV
+
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          load: true
+          context: .
+          file: ./Dockerfile
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/konga:${{ env.app_version }}
+
+  tag_release:
+    name: create tag and release
+    needs: [docker_build_and_push]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Docker Image Details
+        run: |
+          app_name=$(jq -r '.name' package-lock.json)
+          app_version=$(jq -r '.version' package-lock.json)
+
+          echo "app_ame: $app_name"
+          echo "app_version: $app_version"
+          echo "app_version=$app_version" >> $GITHUB_ENV
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          tag_name: v${{ env.app_version }}
+          body: |
+            This is a fork of [konga 0.14.9 version](https://github.com/pantsel/konga/releases/tag/0.14.9), all credits to the [project owner and contributors](https://github.com/pantsel/konga).
+            There's no app updates in this release, only docker base image is changed from node:12.16-alpine to alpine 3.19.1.
+            This is supposed to work with >= postgres12, using an environment variable **DB_IS_PG12_OR_NEWER** set to true
+
+            Changes in this Release
+            - Updated docker base image to alpine 3.19.1;
+            - Updated node to latest 12 version(node@12.22.12)
+            - Thanks to @vichaos [patches](https://github.com/vichaos/konga/tree/add-support-to-postgres12-or-newer).
+            - Thanks to [@RodrigoRodriguesX10 for the steps to fix](https://github.com/balderdashy/sails/issues/6957).
