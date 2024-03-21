@@ -70,9 +70,6 @@ var defaultModel = _.merge(_.cloneDeep(require('../base/Model')), {
 
   afterDestroy: function (values, cb) {
 
-    sails.log("User:afterDestroy:called => ", values);
-
-
     var fns = [];
 
     values.forEach(function (user) {
